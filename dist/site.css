@@ -1,0 +1,15 @@
+:root{font:16px/1.55 system-ui,-apple-system,"Microsoft YaHei",sans-serif;color:#202b34;background:#fff}
+*{box-sizing:border-box}body{margin:0}a{color:inherit}header,footer{border-bottom:1px solid #b5c1cc;padding:14px max(14px,calc((100% - 1140px)/2));display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between}
+footer{border-top:1px solid #b5c1cc;border-bottom:0;font-size:.82rem;color:#555}main{max-width:1140px;margin:auto;padding:14px}
+h1{font-size:1.6rem}h2{font-size:1.12rem}.sub{color:#52606d;font-size:.88rem}.mono,td.time{font-family:ui-monospace,Consolas,monospace;font-variant-numeric:tabular-nums}
+.controls{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin:16px 0;padding:12px;border:1px solid #aeb8c3}
+.controls label{display:flex;flex-direction:column;gap:4px}button,select{font:inherit;padding:5px 8px;border:1px solid #9eabb5;background:#fff;color:#212b34;min-height:38px}
+button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #207ca0}button:hover{background:#edf4f7}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:18px 0}.card{display:block;border:1px solid #aab6c0;padding:14px;text-decoration:none}.card:hover{background:#eff7fa}
+.panel{border:1px solid #aeb8c3;padding:14px;margin:12px 0}.china-next{border-left:4px solid #168eae}
+.date-box{margin:20px 0}.scroll{overflow-x:auto;border:1px solid #b1bac4;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:890px}th,td{text-align:left;vertical-align:top;padding:9px;border-bottom:1px solid #d6dce3;font-size:.9rem}th{background:#f2f5f7}
+.china-row{background:#e1f6fc;border-left:4px solid #0b91bd}.china-label{border:1px solid #0b91bd;padding:1px 5px;font-size:.76rem;color:#006b8c}
+.session-row td{background:#e9eef2;font-weight:700}.a-final{font-weight:700}.tiny{font-size:.78rem}.muted{color:#586777}
+@media(max-width:620px){main{padding:10px}h1{font-size:1.35rem}th,td{padding:8px}}
+@media print{header,footer,.controls{display:none!important}html,body{color:#000;background:white}main{max-width:none}.scroll{overflow:visible}table{min-width:0;font-size:10pt}th,td{border-color:#999;padding:4px}.china-row{background:white;border-left:3px solid #000}.date-box{break-inside:auto}tr{break-inside:avoid}}
