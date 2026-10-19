@@ -1,0 +1,48 @@
+name: Build and safely sync ISU schedule
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "dist/**"
+  schedule:
+    - cron: "9,39 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ssts-wb-build
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install parser
+        run: python -m pip install "beautifulsoup4>=4.12,<5" tzdata
+      - name: Check official schedule, preserve known-good data on failure
+        continue-on-error: true
+        run: python tools/sync_schedule.py && touch .sync_ok
+      - name: Compile static site
+        run: python tools/build.py
+      - name: Test
+        run: |
+          python -m unittest discover -s tests -v
+          node --check web/app.js
+      - name: Commit built site and accepted official updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist
+          if [ -f .sync_ok ]; then
+            git add data/vancouver.csv data/sync_meta.json
+          else
+            echo "::warning::ISU programme verification failed; retaining prior verified data."
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m "build: publish verified static schedule"
+            git push
+          fi
