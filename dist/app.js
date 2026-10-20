@@ -22,6 +22,13 @@
   const session={qualifying:'资格赛',repechage:'复活赛',main:'决赛阶段（含淘汰赛）'};
   const eventName = r => gender[r.gender] + ' ' + r.distance_m + 'm' + (r.format==='relay'?' 接力':'');
   const roundName = r => r.round==='final' ? r.group+'组决赛' : round[r.round];
+  // Labels follow the selected timezone; mobile/tablet cards reuse the same
+  // semantic table, so no duplicate rows or out-of-sync time values.
+  const cell = (tr, value, className, label) => {
+    const td = put(tr, 'td', value, className);
+    if (label) td.dataset.label = label;
+    return td;
+  };
 
   function choose(label, options, change) {
     const wrap=tag('label');put(wrap,'span',label);
@@ -90,7 +97,9 @@
         const section=put(container,'section',undefined,'date-box');
         put(section,'h2',day+'（温哥华当地日期）');
         const scroller=put(section,'div',undefined,'scroll');
-        scroller.tabIndex=0;scroller.setAttribute('role','region');scroller.setAttribute('aria-label','时间表，可横向滚动');
+        scroller.tabIndex=0;
+        scroller.setAttribute('role','region');
+        scroller.setAttribute('aria-label',day+'赛程');
         const table=put(scroller,'table');
         const thead=put(table,'thead');const htr=put(thead,'tr');
         const labels=state.zone==='beijing'
@@ -104,18 +113,20 @@
             const cell=put(h,'td',session[r.session]);cell.colSpan=7;
             lastStage=r.session;
           }
-          const tr=put(body,'tr');
+          const tr=put(body,'tr',undefined,'match-row');
           if(r.china.status==='confirmed')tr.classList.add('china-row');
           if(r.group==='A')tr.classList.add('a-final');
-          put(tr,'td',r.local_date,'mono');
+          if(r.group)tr.classList.add('has-group');
+          cell(tr,r.local_date,'date-cell mono',labels[0]);
           const beijing=r.beijing_date+' '+r.beijing_time;
           const times=state.zone==='beijing'?[beijing,r.local_time]:[r.local_time,beijing];
-          times.forEach(x=>put(tr,'td',x,'time'));
-          const name=put(tr,'td',eventName(r));
+          cell(tr,times[0],'time primary-time',labels[1]);
+          cell(tr,times[1],'time secondary-time',labels[2]);
+          const name=cell(tr,eventName(r),'event-cell',labels[3]);
           if(r.china.status==='confirmed') put(name,'strong',' CHN 中国队','china-label');
-          put(tr,'td',roundName(r));
-          put(tr,'td',r.group||'—');
-          const note=put(tr,'td',undefined,'tiny');
+          cell(tr,roundName(r),'round-cell',labels[4]);
+          cell(tr,r.group||'—','group-cell'+(r.group?'':' is-empty'),labels[5]);
+          const note=cell(tr,undefined,'notes-cell tiny'+(r.china.status==='confirmed'?'':' is-empty'),labels[6]);
           if(r.china.status==='confirmed') {
             for(const h of r.china.heats) {
               const a=h.estimate,lo=state.zone==='beijing'?a.earliest_beijing:a.earliest_local;
