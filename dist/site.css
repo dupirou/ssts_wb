@@ -340,7 +340,7 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 .st-nav-list a[aria-current="page"] { color: var(--on-accent); background: var(--accent); border-color: var(--accent); font-weight: 700; }
 .st-nav-list a[aria-current="page"] small { color: rgb(var(--on-accent-rgb) / .7); }
 
-.station-hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr); gap: 28px; align-items: stretch; margin-bottom: 22px; }
+.station-hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr); gap: 24px; align-items: stretch; margin-bottom: 20px; }
 .hero-copy { min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; animation: rise .5s ease both; }
 .hero-copy h1 { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; font-size: clamp(2.2rem, 4.6vw, 3rem); font-weight: 900; line-height: 1.1; }
 .hero-copy h1 small { font: 700 1.1rem var(--num); color: var(--muted); letter-spacing: .06em; }
@@ -385,6 +385,19 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 .empty-state a { color: var(--accent); }
 
 /* Overview: race-day ribbon + medal board */
+.section-tabs { display: flex; gap: 6px; margin-bottom: 16px; padding: 5px; width: fit-content; max-width: 100%; border: 1px solid var(--border-soft); border-radius: 14px; background: var(--well-soft); }
+.section-tabs button { border: 0; border-radius: 10px; min-height: 44px; padding: 8px 24px; background: transparent; color: var(--muted); cursor: pointer; font-weight: 600; white-space: nowrap; }
+.section-tabs button[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
+.section-tabs button:hover { color: var(--text); }
+.section-tabs button[aria-selected="true"]:hover { color: var(--on-accent); }
+[role="tabpanel"] { min-width: 0; }
+.schedule-overview { margin-bottom: 14px; border: 1px solid var(--border-soft); border-radius: 14px; }
+.schedule-overview > summary { display: flex; align-items: center; gap: 16px; min-height: 48px; padding: 10px 16px; list-style: none; cursor: pointer; font-size: .9rem; font-weight: 600; }
+.schedule-overview > summary::-webkit-details-marker { display: none; }
+.schedule-overview > summary::after { content: '+'; margin-left: auto; color: var(--accent); }
+.schedule-overview[open] > summary::after { content: '−'; }
+.schedule-overview .overview { margin: 0; padding: 0 12px 12px; animation: none; }
+.competition-status:not([hidden]) { margin-bottom: 12px; }
 .overview { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 16px; align-items: start; margin-bottom: 20px; animation: rise .6s .12s ease both; }
 .rb-body { display: grid; gap: 12px; }
 .rb-lane, .rb-axis-row { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; align-items: center; transition: opacity .2s; }
@@ -748,6 +761,11 @@ td.time { white-space: nowrap; }
   .back { font-size: 0; gap: 0; }
   .back .ico { width: 22px; height: 22px; }
   .hero-copy h1 { font-size: 2.1rem; }
+  .station-hero { gap: 14px; margin-bottom: 16px; }
+  .hero-copy { gap: 10px; }
+  .section-tabs { width: 100%; }
+  .section-tabs button { flex: 1; padding: 8px 10px; font-size: .9rem; }
+  .schedule-overview > summary { gap: 10px; padding-inline: 12px; }
   .meta-inline { gap: 6px 14px; font-size: .86rem; }
   .stat { padding: 0 14px; }
   .stat dd { font-size: 1.7rem; }
@@ -794,7 +812,10 @@ td.time { white-space: nowrap; }
 }
 @media (max-width: 350px) {
   .clock:nth-child(2) { display: none; }
-  .fb-zone { display: none; }
+  .fbar { flex-wrap: wrap; }
+  .fb-days { flex-basis: 100%; }
+  .fb-right { width: 100%; justify-content: space-between; }
+  .fb-btn-text { display: inline; }
   .stat { padding: 0 10px; }
   .stat dd { font-size: 1.45rem; }
   .finals-list li { flex-basis: 120px; }
@@ -847,4 +868,6 @@ td.time { white-space: nowrap; }
   .day { break-before: auto; animation: none; }
   .china-row td:nth-child(2) { border-left: 3px solid #000 !important; }
   .china-label, .grp { border: 1px solid #000; }
+  .section-tabs, .schedule-overview, .competition-status { display: none !important; }
+  #section-schedule[hidden] { display: block !important; }
 }
