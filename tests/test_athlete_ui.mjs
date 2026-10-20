@@ -114,7 +114,11 @@ test('official heat opens participant results and penalties without HTML injecti
 });
 
 test('prediction waits for distance seeds, exposes rules and leaves official highlights untouched', async t => {
-  const dom=await page({view:'predictions'});t.after(()=>dom.window.close());
+  const data=structuredClone(snapshot);
+  data.predictions=structuredClone(predictions);
+  data.predictions.items.forEach(p=>Object.assign(p,{status:'waiting_for_data',missing:['distance_seeding_list'],
+    source_urls:[],entry_count:0,seeded_count:0,observed_entries:[],groups:[],prequalified:[]}));
+  const dom=await page({data,view:'predictions'});t.after(()=>dom.window.close());
   const d=dom.window.document;
   const panel=d.querySelector('.prediction-panel');
   assert.ok(panel);
@@ -125,8 +129,27 @@ test('prediction waits for distance seeds, exposes rules and leaves official hig
   assert.equal(panel.querySelectorAll('.prediction-group').length,0);
   const select=panel.querySelector('select');
   change(dom,select,'men-1500');
-  assert.match(panel.textContent,/整站报名不等于单项参赛名单/);
+  assert.match(panel.textContent,/待单项报名、种子顺序与直通名单/);
   assert.equal(d.querySelectorAll('.match-row.is-chn').length,0);
+});
+
+test('partial official entries display evidence without publishing groups', async t => {
+  const data=structuredClone(snapshot);
+  data.predictions=structuredClone(predictions);
+  Object.assign(data.predictions.items[0],{status:'waiting_for_data',
+    missing:['awaiting_complete_entries','unranked_draw'], entry_count:17,seeded_count:1,
+    observed_entries:[{seed_rank:1,world_rank:4,name:'TEST Person',country:'CHN'}],
+    prequalified:[],groups:[],source_urls:[
+      'https://isu-skating.com/en/short-track/events/example/?tab=entries',
+      'https://isu-skating.com/en/short-track/world-standings/607/',
+      'https://isu-skating.com/en/short-track/world-standings/615/']});
+  const dom=await page({data,view:'predictions'});t.after(()=>dom.window.close());
+  const panel=dom.window.document.querySelector('.prediction-panel');
+  assert.match(panel.textContent,/官方单项报项核验中/);
+  assert.match(panel.textContent,/17 人/);
+  assert.match(panel.textContent,/无世界排名选手的顺序待官方确认/);
+  assert.equal(panel.querySelectorAll('.prediction-group').length,0);
+  assert.equal(panel.querySelectorAll('a').length,6);
 });
 
 test('projection renders seeds, filters CHN groups and yields to official groups', async t => {
