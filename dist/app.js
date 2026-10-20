@@ -208,6 +208,18 @@
     return svg;
   }
 
+  // Olympic-style pictogram: crouched skater leaning into the turn, with speed lines.
+  function skaterArt(cls) {
+    const limb = d => s('path', {d});
+    return s('svg', {viewBox: '0 0 120 90', class: 'skater-art ' + (cls || ''), 'aria-hidden': 'true'},
+      s('g', {class: 'speed'}, ['M84 30H110', 'M90 40H118', 'M96 70H120', 'M74 80H104'].map((d, i) => s('path', {d, style: '--i:' + i}))),
+      s('g', {transform: 'rotate(6 60 50)'},
+        s('g', {class: 'body'}, limb('M30 42L62 36'), limb('M62 36L44 52L52 70'), limb('M62 36L82 50L102 56'),
+          limb('M34 43L30 56L24 66'), limb('M38 40L56 33')),
+        s('circle', {cx: 22, cy: 38, r: 6.5, class: 'head'}),
+        s('g', {class: 'blade'}, limb('M42 75H64'), limb('M98 61L116 57'))));
+  }
+
   /* ---------- data ---------- */
   const fetchData = async file => {
     const response = await fetch('./data/' + file, {cache: 'no-cache'});
@@ -241,15 +253,16 @@
     const first = stations[0], last = stations[stations.length - 1];
 
     const hero = h('section', {class: 'hero season-hero'},
+      h('span', {class: 'watermark', 'aria-hidden': 'true', text: 'SHORT TRACK'}),
       h('div', {class: 'hero-copy'},
         h('p', {class: 'eyebrow', text: 'ISU SHORT TRACK WORLD TOUR · ' + cal.season}),
-        h('h1', {}, h('span', {text: cal.season + ' 赛季'}), h('span', {class: 'grad', text: '短道速滑世界巡回赛'})),
+        h('h1', {}, h('span', {class: 'h1-season', text: cal.season + ' SEASON'}), h('span', {text: '短道速滑'}), h('span', {class: 'grad', text: '世界巡回赛'})),
         h('p', {class: 'lead'},
           h('b', {text: stations.length}), ' 站 · ',
           h('span', {class: 'mono', text: first.date_start.slice(0, 7).replace('-', '.') + ' — ' + last.date_end.slice(0, 7).replace('-', '.')}),
           ' · 所有比赛时间均换算为北京时间'),
         focus ? focusCard(focus) : h('div', {class: 'focus-card done'}, h('p', {text: '本赛季全部分站已结束'}))),
-      h('div', {class: 'hero-art'}, trackArt('hero-track')));
+      h('div', {class: 'hero-art'}, trackArt('hero-track'), skaterArt('hero-skater')));
 
     root.replaceChildren(hero, seasonLine(stations, focus), stationGrid(stations, focus),
       h('p', {class: 'source-line'}, '赛历来源：', external(cal.source_url, 'ISU 官方赛历')));
@@ -261,7 +274,7 @@
     const nextLine = h('p', {class: 'focus-next'});
     const card = h('a', {class: 'focus-card' + (live ? ' is-live' : ''), href: '?station=' + encodeURIComponent(st.id)},
       h('div', {class: 'focus-head'},
-        h('span', {class: 'pill ' + (live ? 'pill-live' : 'pill-accent')}, live ? h('i', {class: 'pulse'}) : null, live ? '正在进行' : '下一站'),
+        h('span', {class: 'tag ' + (live ? 'tag-live' : 'tag-accent')}, live ? h('i', {class: 'pulse'}) : null, live ? 'LIVE · 正在进行' : 'NEXT STOP · 下一站'),
         h('span', {class: 'mono muted', text: 'STAGE ' + pad(st.n)})),
       h('div', {class: 'focus-city'}, h('b', {text: st.city}), h('span', {text: st.city_en})),
       h('p', {class: 'focus-label', text: st.win.exact ? (live ? '下一项开赛还有' : '距首项开赛') : '距开幕（当地时间）'}),
@@ -322,6 +335,7 @@
       grid.append(h('a', {class: 'st-card is-' + ph + (st === focus ? ' is-focus' : '') + (st.detail ? ' has-detail' : ''),
         href: '?station=' + encodeURIComponent(st.id), style: {'--d': (st.n * 60) + 'ms'}},
         cornerArc(),
+        h('span', {class: 'st-num', 'aria-hidden': 'true', text: pad(st.n)}),
         h('div', {class: 'st-top'}, h('span', {class: 'mono stage', text: 'STAGE ' + pad(st.n)}), pill),
         h('h3', {}, h('span', {text: st.city}), h('small', {text: st.city_en + (st.country ? ' · ' + st.country : '')}),
           st.country === 'CHN' ? h('em', {class: 'home-tag'}, icon('star', 'ico ico-xs'), '中国站') : null),
@@ -379,7 +393,9 @@
         kpi(chinaCount || '—', '中国队已确认', chinaCount ? 'kpi-china' : 'kpi-dim')));
       copy.append(syncLine(data));
     }
-    const hero = h('section', {class: 'hero station-hero'}, copy, data ? liveCard(data, station) : pendingCard(station, win));
+    const hero = h('section', {class: 'hero station-hero'},
+      h('span', {class: 'watermark', 'aria-hidden': 'true', text: station.city_en.toUpperCase()}),
+      copy, data ? liveCard(data, station) : pendingCard(station, win));
     root.replaceChildren(stationNav(cal, station), hero);
 
     if (!data) {
@@ -410,7 +426,8 @@
     const cd = countdown('cd-lg');
     const ph = phase(win);
     tick(() => cd.set(win.start - now()));
-    return h('aside', {class: 'live-card'},
+    return h('aside', {class: 'live-card'}, skaterArt('card-skater'),
+      h('p', {class: 'live-kicker'}, h('span', {class: 'tag tag-accent', text: 'OPENING'})),
       h('p', {class: 'live-label', text: ph === 'upcoming' ? '距开幕（当地时间 0 点）' : ph === 'live' ? '本站正在进行' : '本站已结束'}),
       ph === 'upcoming' ? cd : null,
       h('p', {class: 'live-sub muted', text: '开幕日北京时间 ' + (() => { const p = parts(BJ, win.start); return md(p.date) + ' ' + wk(p.date) + ' ' + p.hm; })()}));
@@ -424,7 +441,8 @@
     const times = h('p', {class: 'live-times mono'});
     const jump = h('button', {type: 'button', class: 'btn btn-ghost', onclick: () => scrollToRow(e[liveIndex(e)])}, icon('down'), '定位到赛程');
     const china = chinaLine(e);
-    const card = h('aside', {class: 'live-card', 'aria-label': '下一项'}, label, cd, title, times, jump, china);
+    const card = h('aside', {class: 'live-card', 'aria-label': '下一项'}, skaterArt('card-skater'),
+      h('p', {class: 'live-kicker'}, h('span', {class: 'tag tag-accent', text: 'NEXT RACE'})), label, cd, title, times, jump, china);
     let last = -1;
     tick(() => {
       const i = liveIndex(e);
@@ -573,9 +591,12 @@
           ? [md(bjDays[0]) + ' ' + wk(bjDays[0]) + (bjDays.length > 1 ? ' – ' + md(bjDays[bjDays.length - 1]) : ''), '北京', station.city + ' ' + md(day) + ' ' + wk(day)]
           : [md(day) + ' ' + wk(day), station.city, '北京 ' + bjDays.map(d => md(d) + ' ' + wk(d)).join(' – ')];
         const first = items[0], lastR = items[items.length - 1];
+        // Compact cards drop a date that merely repeats the day heading.
+        const refDates = bjFirst ? [first.beijing_date, first.local_date] : [first.local_date, first.beijing_date];
         const span = bjFirst ? first.beijing_time + ' – ' + lastR.beijing_time : first.local_time + ' – ' + lastR.local_time;
         const sectionEl = h('section', {class: 'day', 'aria-label': head[0]},
           h('header', {class: 'day-head'},
+            h('span', {class: 'day-no', text: 'DAY ' + (days.indexOf(day) + 1)}),
             h('h2', {}, h('span', {class: 'mono', text: head[0]}), h('small', {text: head[1]})),
             h('p', {class: 'muted'}, head[2], h('span', {class: 'mono', text: ' · ' + span}), ' · ' + items.length + ' 项')));
         const scroller = h('div', {class: 'scroll', tabindex: 0, role: 'region', 'aria-label': head[0] + '赛程'});
@@ -599,7 +620,7 @@
             body.append(h('tr', {class: 'now-row'}, h('td', {colspan: 7},
               h('span', {}, h('i', {class: 'pulse'}), '现在 · ' + (bjFirst ? '北京 ' : station.city + ' ') + p.hm))));
           }
-          body.append(row(r, labels, bjFirst, nextI));
+          body.append(row(r, labels, bjFirst, nextI, refDates));
         }
       }
       if (!rows.length) {
@@ -616,19 +637,21 @@
   }
 
   // Keep cell order/classes stable: the tablet/phone card CSS and print table rely on them.
-  function row(r, labels, bjFirst, nextI) {
+  function row(r, labels, bjFirst, nextI, refDates) {
     const china = isChina(r);
     const state = r.i < nextI - 1 ? 'is-past' : r.i === nextI - 1 ? (now() - r.t < 90 * 60000 ? 'is-started' : 'is-past') : r.i === nextI ? 'is-next' : '';
     const tr = h('tr', {id: 'r-' + r.id, class: ['match-row', 's-' + r.session, china && 'china-row', r.group === 'A' && 'a-final',
       r.group === 'B' && 'b-final', r.group && 'has-group', state].filter(Boolean).join(' ')});
     const cell = (label, cls, ...kids) => tr.appendChild(h('td', {class: cls, dataset: label ? {label} : null}, ...kids));
-    const bj = [r.beijing_time, md(r.beijing_date) + ' ' + wk(r.beijing_date)];
-    const lo = [r.local_time, md(r.local_date) + ' ' + wk(r.local_date)];
+    const bj = [r.beijing_time, md(r.beijing_date) + ' ' + wk(r.beijing_date), r.beijing_date];
+    const lo = [r.local_time, md(r.local_date) + ' ' + wk(r.local_date), r.local_date];
     const [a, b] = bjFirst ? [bj, lo] : [lo, bj];
+    const dt = (x, ref) => h('span', {class: 'dt' + (x[2] === ref ? ' dt-same' : ''), text: ' ' + x[1]});
     cell(labels[0], 'date-cell mono', r.local_date);
-    cell(labels[1], 'time primary-time', h('span', {class: 'tm', text: a[0]}), h('span', {class: 'dt', text: ' ' + a[1]}),
+    cell(labels[1], 'time primary-time', h('span', {class: 'tm', text: a[0]}), dt(a, refDates[0]),
       state === 'is-next' ? h('em', {class: 'state state-next', text: '下一项'}) : state === 'is-started' ? h('em', {class: 'state state-started', text: '已开赛'}) : null);
-    cell(labels[2], 'time secondary-time', h('span', {class: 'tm', text: b[0]}), h('span', {class: 'dt', text: ' ' + b[1]}));
+    cell(labels[2], 'time secondary-time', h('span', {class: 'tm', text: b[0]}), dt(b, refDates[1]))
+      .dataset.short = bjFirst ? '当地' : '北京';
     cell(labels[3], 'event-cell',
       h('span', {class: 'g g-' + r.gender, text: gender[r.gender]}), ' ',
       h('b', {class: 'dist mono', text: r.distance_m + 'm'}),
@@ -675,7 +698,9 @@
       for (const r of items) {
         const tip = (bjFirst ? r.beijing_time : r.local_time) + ' ' + eventName(r) + ' ' + roundName(r);
         track.append(h('button', {type: 'button', tabindex: -1, class: ['rb-tick', 's-' + r.session, r.group === 'A' && 'is-a',
-          isChina(r) && 'is-chn', r.i < nextI && 'is-past', r.i === nextI && 'is-next'].filter(Boolean).join(' '),
+          isChina(r) && 'is-chn', r.i < nextI && 'is-past', r.i === nextI && 'is-next',
+          // Tooltips near either end open inward so the panel edge never clips them.
+          (mins(r) - lo) / (hi - lo) < .25 && 'tip-l', (mins(r) - lo) / (hi - lo) > .75 && 'tip-r'].filter(Boolean).join(' '),
         style: {left: x(mins(r))}, dataset: {tip}, onclick: () => scrollToRow(r)}));
       }
       const t = now();
@@ -693,7 +718,7 @@
         track);
     });
     return h('div', {class: 'panel ribbon'},
-      h('div', {class: 'panel-head'}, h('h2', {text: '赛程总览'}),
+      h('div', {class: 'panel-head'}, h('h2', {}, h('span', {class: 'kick', text: 'RACE DAYS'}), '赛程速览'),
         h('p', {class: 'muted', text: (bjFirst ? '北京时间' : station.city + '时间') + ' · 点击刻度定位'})),
       h('div', {class: 'rb-body', 'aria-hidden': 'true'}, lanes, h('div', {class: 'rb-axis-row'}, h('span'), axis)));
   }
@@ -702,15 +727,15 @@
     const bjFirst = state.zone === 'beijing';
     const t = now();
     return h('div', {class: 'panel finals'},
-      h('div', {class: 'panel-head'}, h('h2', {}, icon('medal', 'ico gold'), '奖牌赛'),
+      h('div', {class: 'panel-head'}, h('h2', {}, h('span', {class: 'kick kick-gold', text: 'MEDAL RACES'}), '奖牌赛'),
         h('p', {class: 'muted', text: 'A 组决赛 · ' + finals.length + ' 场'})),
       h('ol', {class: 'finals-list'}, finals.map(r => {
         const d = bjFirst ? r.beijing_date : r.local_date;
         return h('li', {class: (r.t < t ? 'is-past' : '') + (isChina(r) ? ' is-chn' : '')},
-          h('button', {type: 'button', onclick: () => scrollToRow(r)},
-            h('span', {class: 'f-ev'}, h('span', {class: 'g g-' + r.gender, text: gender[r.gender]}),
-              h('b', {class: 'mono', text: r.distance_m + 'm'}), r.format === 'relay' ? h('small', {text: '接力'}) : null),
-            h('span', {class: 'f-time mono'}, h('small', {text: md(d) + ' ' + wk(d)}), bjFirst ? r.beijing_time : r.local_time)));
+          h('button', {type: 'button', title: eventName(r) + ' A组决赛 · ' + md(d) + ' ' + wk(d), onclick: () => scrollToRow(r)},
+            h('span', {class: 'f-ev'}, h('span', {class: 'g g-' + r.gender, text: gender[r.gender].slice(0, 1)}),
+              h('b', {class: 'mono', text: r.distance_m + 'm'}), r.format === 'relay' ? icon('relay', 'ico ico-sm') : null),
+            h('span', {class: 'f-time mono'}, h('small', {text: md(d)}), bjFirst ? r.beijing_time : r.local_time)));
       })));
   }
 
