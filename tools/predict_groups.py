@@ -117,6 +117,14 @@ def project(event_id, schedule, snapshot, inputs=None):
     if inputs.get('schema_version') != 1 or inputs.get('event_id') != event_id:
         raise ValueError('Prediction input schema/event mismatch')
     seed_lists = {}
+    observations = {}
+    for observed in inputs.get('observed_lists', []):
+        key = (observed.get('gender'), observed.get('distance_m'))
+        if key not in {(g, d) for g in ('women', 'men') for d in (500, 1000, 1500)} or key in observations:
+            raise ValueError('Invalid or duplicate observed distance')
+        if not observed.get('source_urls') or not all(official_url(u) for u in observed['source_urls']):
+            raise ValueError('Observed distance needs official sources')
+        observations[key] = observed
     for item in inputs['seed_lists']:
         validate_seed_list(item, event_id)
         key = (item['gender'], item['distance_m'])
@@ -136,6 +144,11 @@ def project(event_id, schedule, snapshot, inputs=None):
             official = [h for h in snapshot['rounds']['items'] if target and h.get('round_key') == target['round_key']
                         and h.get('evidence') in ('official_start_list', 'official_results')]
             seed = seed_lists.get((gender, distance))
+            observed = observations.get((gender, distance))
+            if observed:
+                item.update(entry_count=len(observed['participants']),
+                    seeded_count=sum(p.get('seed_rank') is not None for p in observed['participants']),
+                    observed_entries=observed['participants'])
             if official:
                 item.update(status='official_available', missing=[], source_urls=sorted({h['source_url'] for h in official}))
             elif not target:
@@ -157,10 +170,17 @@ def project(event_id, schedule, snapshot, inputs=None):
                     item.update(status='predicted', missing=[], groups=groups,
                         prequalified=[p for p in people if p['prequalified']],
                         country_adjustments=changes, country_conflicts=conflicts)
+            elif observed:
+                item.update(missing=observed.get('missing') or ['distance_seeding_list'],
+                    source_urls=observed['source_urls'], updated_at=observed.get('verified_at'))
+                if 'prequalification_list' not in item['missing'] and 'prequalification_tie' not in item['missing']:
+                    item['prequalified'] = [p for p in observed['participants'] if p.get('prequalified')]
             output.append(item)
     return dict(schema_version=1, event_id=event_id, resource='predictions',
         status='available' if any(i['status'] == 'predicted' for i in output) else 'waiting_for_data',
         evidence='model_prediction_not_official', model_version='isu-2026-first-round-v1',
+        update_status=inputs.get('update_status', 'not_checked'),
+        stale=inputs.get('update_status') == 'error',
         rules=[dict(label='ISU 规则 293', url=RULES_URL), dict(label='世巡赛通告 2806 §7', url=TOUR_URL),
                dict(label='2026/27 晋级表', url=TABLES['source_url'])],
         limitations=['country_discretion', 'no_lane_prediction', 'first_qualifying_round_only'],

@@ -32,6 +32,9 @@ jobs:
       - name: Sync entries, official groups, results and penalties
         continue-on-error: true
         run: python tools/sync_competitions.py
+      - name: Sync confirmed distance entries and historical seed sources
+        continue-on-error: true
+        run: python tools/sync_predictions.py
       - name: Compile static site
         run: python tools/build.py
       - name: Test
@@ -46,7 +49,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add dist
-          git add data/competitions
+          git add data/competitions data/prediction_inputs
           if [ -f .china_sync_ok ]; then git add data/china_auto.json; fi
           if [ -f .sync_ok ]; then
             git add data/vancouver.csv data/sync_meta.json

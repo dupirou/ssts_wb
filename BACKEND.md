@@ -35,13 +35,15 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 
 规则依据：[ISU 2026 Sports Rules](https://isudam.blob.core.windows.net/isudamcontainer/2026-Short-Track-Sport-Rules-20260513-FINAL-as-of-1-June-2026-1780065543-3994.pdf) Rule 293.3–5；[Communication 2806](https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Corporate-Site/Governance/Transparency/ISU-Communications/2806-ISU-Short-Track-World-Tour-2026-27-1782891715-3107.pdf) §7；2026/27 晋级表第 1–4 页（来源保存在 `data/prediction_tables.json`）。种子蛇形分配；除四分之一决赛/半决赛外，尝试同一排内移位及交换以回避同国选手。裁判可决定调整前排、无法回避时保留原组等，这些裁量不作唯一答案预测，残留冲突会标明。预测不生成出发道次，也不预测胜负、后续晋级者或接力分组。
 
-第一版需要人工核对并导入已发布的**完整单项种子名单**至 `data/prediction_inputs/{event}.json`，目前未提供未经验证的通用 PDF 自动导入。整站报名及单项世界排名各自都不足以确认单项参赛、直通资格和抽签后的顺序，不能直接转换。当前温哥华输入为空，接口和前端如实显示 `waiting_for_data`。
+现从 ISU 温哥华站 **Entries** 标签逐个读取六项的官方 `event_result_id` 与该项目的选手列表。此前的整站报名 PDF 仅作为发现官网上传不完整的保守检查，不据此添加任何单项参赛者。同期分页取得官网历史单项分类和世界排名，通过官方 `skaters_id` 匹配；完整性、项目身份及每一页数量必须通过校验。官网接口只返回当前已上传的部分名单时，展示已读取的名单与历史排名，并保持预测等待态。
+
+每个项目名单须至少连续两次核验稳定（相隔约 30 分钟），并满足官方晋级表人数及当前轮次一致，才能发布模型分组。若有直通第 20 名并列、世界排名并列、或无世界排名选手的报名成绩及抽签顺序无法核实，该项目保持等待态，不以 API 返回顺序或整站名单补齐。已公布的正式分组始终优先。
 
 温哥华首站的排名依据应分开核对：通告 2806 §7(a) 按 **2025/26 World Tour Distance Classification（单项世巡赛最终排名）**确定已报名选手中的前 20 名直通者；§7(b–d)、§14 按 **World Ranking（单项世界排名）**确定分组种子顺序，赛季初取 2025/26 四站中的最好三站成绩及对应世界排名积分。两者均按距离区分，不采用三项合计的 Overall 总排名。§14 表下注明，世锦赛成绩从 **2027/28** 才计入该 World Ranking，因此温哥华不能直接以上赛季世锦赛名次作种子。普通首轮无世界排名者按该单项最终报名成绩排在有排名者之后；同分与无成绩的未决抽签顺序仍需核对。单项报名确认后，可以据这些历史排名推导种子，无需以官方已经分好组为前提。
 
-输入文件结构为 `schema_version: 1`、`event_id`、`seed_lists: []`。每份名单包含 `event_id`、`gender`、`distance_m`、`complete: true`、`source_urls`（官方名单及必要排名来源）、`verified_at`（带时区）、`participants`。每位选手必须有 `athlete_id`、`name`、`country`、从 1 连续排列且无并列的 `seed_rank`、明确的 `prequalified` 布尔值。只有核实所有参赛者、非种子选手报名成绩及抽签顺序后才可标记完整。`seed_rank` 表示按当前世界排名及非排名选手报名成绩确定的种子顺序，**不是世巡赛积分排名或头盔号**；直通名单需按通告 §7 单独核对。
+自动同步结果保存在 `data/prediction_inputs/{event}.json`。其 `observed_lists` 保存各单项实际报项、排名、未解决原因与官方来源；只有满足完整性及顺序检查的项目才写入 `seed_lists`。每份可预测名单包含项目、`complete: true`、官方来源、核验时刻以及连续 `seed_rank` 和明确的 `prequalified`。报名接口中的 `entry_index` 为空时不得当作无排名选手的抽签次序。
 
-构建时校验官方来源、项目、名单完整性、直通人数和实际首轮赛程，再根据晋级表选择组数。当前支持表内 26–95 人的标准首轮；未覆盖人数保留等待态。500/1000m 超过 40 人、1500m 超过 63 人时，20 名直通者单列，不放入前置轮次。未来有新的官方种子名单时更新输入文件并构建即可；官方调整应重新核对导入。接口仅支持 `gender`、`distance_m`、`round_key` 筛选。
+构建时校验官方来源、项目、名单完整性、直通人数和实际首轮赛程，再根据晋级表选择组数。当前支持表内 26–95 人的标准首轮；未覆盖人数保留等待态。500/1000m 超过 40 人、1500m 超过 63 人时，20 名直通者单列，不放入前置轮次。未来官网更正单项报项或排名后自动重算；抓取失败保留上次快照并标记同步错误。接口仅支持 `gender`、`distance_m`、`round_key` 筛选。
 其他六站的源尚未配置，保持 `not_published / not_checked`。
 
 `rounds` 中 `evidence=official_start_list` 或 `official_results`；
@@ -63,7 +65,7 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 - `tools/sync_competitions.py` 每次从 Documents 重新发现最新报名 PDF/排名文件，避免写死替换后的 PDF URL。
 - `tools/isu_results.py` 读取新官网公开 `eventResultsData` 元数据，再调用官网使用的 `front-api.isu.org` 轮次及逐组接口。
 - `data/competitions/<event>.json` 为最近成功快照；`tools/build.py` 输出 `dist/data/competitions/`。
-- 已并入现有每 30 分钟 Actions 更新；只有数据变化或每天发布一次核对时间才产生提交。不是秒级比分服务。
+- 已并入现有每 30 分钟 Actions 更新；`tools/sync_predictions.py` 同步逐项报项、历史单项分类与世界排名，只有数据变化或每天发布一次核对时间才产生提交。不是秒级比分服务。
 - 网络/格式/赛事身份校验失败时保留既有记录，标记 `update_status=error`、`stale=true`。
   已有数据超过 36 小时未成功核对也会标为 stale。
 - 成功解析的完整报名表替换旧名单；成功解析的同一轮次替换其全部小组，允许官方撤销报名、更正分组或撤销 PEN。
