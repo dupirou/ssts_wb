@@ -27,7 +27,7 @@ ISU HTML 自动核对是 best-effort，能否正常采集应看 Actions 日志�
 
 ## 中国队自动采集
 
-同步脚本：\`python tools/sync_china.py\`。项目会从 ISU 官方结果索引自动发现具体赛事、项目和轮次；公布前不会创建 CHN 行。每次更新都需对应的官方页面证据。具体逻辑见 [BACKEND.md](BACKEND.md)。
+同步脚本：`python tools/sync_china.py`。项目会从 ISU 官方结果索引自动发现具体赛事、项目和轮次；公布前不会创建 CHN 行。每次更新都需对应的官方页面证据。具体逻辑见 [BACKEND.md](BACKEND.md)。
 
 ## 中国队数据结构
 
