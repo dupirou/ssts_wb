@@ -460,7 +460,7 @@
               text: '#' + p.seed_rank + ' ' + p.name + ' · ' + p.country + (p.world_rank ? ' · 世界排名 ' + p.world_rank : '')})))));
           if (item.prequalified.length) body.append(h('details', {class: 'prediction-byes'},
             h('summary', {text: '按当前排名计算的直通名单 · ' + item.prequalified.length + ' 人'}),
-            h('ul', {}, item.prequalified.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'), text: p.name + ' · ' + p.country}))));
+            h('ul', {}, item.prequalified.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'), text: p.name + ' · ' + p.country})))));
         }
       } else {
         body.append(h('p', {class: 'faint tiny prediction-note', text: '首轮分组推演 · 以官方抽签及调整为准，不含出发道次。'}));
