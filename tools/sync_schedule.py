@@ -95,9 +95,18 @@ def main():
             html=content.decode("utf-8")
     changes=compare_and_update(parse_html(html),not args.dry_run)
     if not args.dry_run:
-        meta={"last_successful_schedule_check_utc":datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
-              "source":"official_isu_schedule_html","notes":"Full 62-round identity verification passed"}
-        (ROOT/"data/sync_meta.json").write_text(json.dumps(meta,indent=2)+"\n",encoding="utf-8")
+        # Avoid deploying an identical static site 48 times each day.
+        # GitHub Actions still checks every 30 minutes, but we only publish a
+        # new verification timestamp once per UTC day or on changed times.
+        meta_path=ROOT/"data/sync_meta.json"
+        existing=json.loads(meta_path.read_text(encoding="utf-8"))
+        now=datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+        last=existing.get("last_successful_schedule_check_utc") or ""
+        if changes or not last or last[:10] != now[:10]:
+            meta={"last_successful_schedule_check_utc":now,
+                  "source":"official_isu_schedule_html",
+                  "notes":"Full 62-round identity verification passed; published verification updated daily or when the timetable changes."}
+            meta_path.write_text(json.dumps(meta,indent=2)+"\n",encoding="utf-8")
     print("Official schedule accepted; time changes:",changes)
 
 if __name__=="__main__":

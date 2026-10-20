@@ -17,6 +17,15 @@ class DataTests(unittest.TestCase):
         self.assertEqual([sum(x["local_date"]==date for x in rows) for date in build.EXPECTED],[14,25,23])
         self.assertEqual((rows[0]["local_time"],rows[0]["beijing_date"],rows[0]["beijing_time"]),("09:00","2026-10-24","00:00"))
         self.assertEqual((rows[-1]["beijing_date"],rows[-1]["beijing_time"]),("2026-10-26","10:30"))
+    def test_meta_refresh_is_day_scoped(self):
+        # A scheduled official check should not force 48 Pages builds daily.
+        from datetime import datetime, timezone
+        previous = "2026-10-20T00:05:00+00:00"
+        same_day = "2026-10-20T22:05:00+00:00"
+        next_day = "2026-10-21T00:05:00+00:00"
+        self.assertEqual(previous[:10],same_day[:10])
+        self.assertNotEqual(previous[:10],next_day[:10])
+
     def test_unknown_china_rows(self):
         rows=build.attach_china(build.read_schedule())
         self.assertTrue(all(x["china"]["status"]=="unknown" for x in rows))

@@ -1,12 +1,12 @@
 # SSTS-WB · 短道速滑世巡赛赛程
 
-非官方短道速滑赛程查询站，目标托管：帽子云，Cloudflare DNS。前端仅有可替换的线框布局。
+非官方短道速滑赛程查询站，目标托管：Cloudflare Pages（Cloudflare DNS）。前端仅有可替换的线框布局。
 
 ## 已实现
 - 2026/27 赛季七站入口；温哥华站共 62 个官方暂定的**轮次开始时间**（14／25／23），转换成北京时间。
 - 日期、项目、轮次和时区筛选。
 - 默认高亮有**官方具体轮次分组证据**的中国队场次；显示参赛名字、Heat 编号及**非官方估算区间**。
-- GitHub Actions 每 30 分钟尝试核对 ISU 公开赛程，只有官方网页完整 62 条、项目和轮次顺序严格匹配时才接纳时间修改；否则保留已有的可信数据并提示失败。
+- GitHub Actions 每 30 分钟尝试核对 ISU 公开赛程；为避免超出 Cloudflare Pages 免费构建额度，仅在官方赛程变化或每日成功核验记录更新时提交部署，只有官方网页完整 62 条、项目和轮次顺序严格匹配时才接纳时间修改；否则保留已有的可信数据并提示失败。
 - Python 构建静态 JSON 和页面，没用数据库、CDN、外部字体。
 
 ## 尚未打通的数据源
@@ -31,9 +31,9 @@ data/china.json 的 heats 数组每条为一个经过官方证据核对的**具�
 
 Heat 估算是默认工程参数，不是 ISU 官方逐组时间，也未经过历史数据统计回测；应以区间和“非官方”标注。**不要写入虚构选手、组别，不能用官方首页代替实际分组表。**
 
-## 帽子云部署
+## Cloudflare Pages 部署
 
-在仓库 Actions 首次成功运行后，dist/ 应自动生成并提交。帽子云静态应用关联本仓库，输出目录填写 dist；若平台要求构建命令，使用 python tools/build.py。先测试平台域名，再按帽子云实际控制台 CNAME 提示在 Cloudflare 增加子域名，使用 DNS Only（灰云）并完成 HTTPS 验证。大陆可达性要做实际测试，不作保证。
+请按 [DEPLOY_CLOUDFLARE.md](DEPLOY_CLOUDFLARE.md) 操作：连接 GitHub 仓库、main 分支、无框架、构建命令留空、根目录留空、输出目录 dist。首次部署完成后可使用 Pages 自动分配的 pages.dev 测试域名；若需要自定义域名，务必先在 Pages > Custom domains 添加，再由 Cloudflare 自动建立 DNS 记录。大陆可达性要在实际运营商网络验证，不作保证。
 
 官方来源：
 - https://www.isu-skating.com/ja/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=schedule_16230
