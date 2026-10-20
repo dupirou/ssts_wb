@@ -12,7 +12,7 @@ import sync_china as china
 
 BASE="https://www.isu-skating.com/en/short-track/results/isu-short-track-world-tour-1/"
 EVENT=BASE+"8765432/"
-MEN=BASE+"8765432/"
+MEN=BASE+"8765433/"
 PRELIM=MEN+"?round=111"
 
 class ChinaSyncTests(unittest.TestCase):

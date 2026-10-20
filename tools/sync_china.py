@@ -144,6 +144,9 @@ def names_from_heat(chunk,relay=False):
         elif line == "CHN" and i:
             # Official result tables often put nationality on the next line.
             prior=next((s for s in reversed(lines[max(0,i-3):i]) if s and not s.isdigit()),"")
+            # ISU pages can show "ATHLETE CHN" followed by a separate
+            # country column "CHN". Both refer to the same competitor.
+            prior=re.sub(r"\s*CHN$", "", prior).strip()
             if prior and re.fullmatch(r"[A-Za-z][A-Za-z .'\-’]{2,85}",prior):
                 names.add(prior)
             elif relay:
