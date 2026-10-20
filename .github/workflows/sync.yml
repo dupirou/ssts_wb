@@ -1,7 +1,7 @@
 name: Build and safely sync ISU schedule
 on:
   push:
-    branches: [main]
+    branches: [main, feature/isu-distance-entries-prediction-20261021]
     paths-ignore:
       - "dist/**"
   schedule:
