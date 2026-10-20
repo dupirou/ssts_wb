@@ -1,6 +1,6 @@
 :root{font:16px/1.55 system-ui,-apple-system,"Microsoft YaHei",sans-serif;color:#202b34;background:#fff}
-*{box-sizing:border-box}body{margin:0}a{color:inherit}header,footer{border-bottom:1px solid #b5c1cc;padding:14px max(14px,calc((100% - 1140px)/2));display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between}
-footer{border-top:1px solid #b5c1cc;border-bottom:0;font-size:.82rem;color:#555}main{max-width:1140px;margin:auto;padding:14px}
+*{box-sizing:border-box}body{margin:0}a{color:inherit}header{border-bottom:1px solid #b5c1cc;padding:14px max(14px,calc((100% - 1140px)/2));display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between}
+main{max-width:1140px;margin:auto;padding:14px}
 h1{font-size:1.6rem}h2{font-size:1.12rem}.sub{color:#52606d;font-size:.88rem}.mono,td.time{font-family:ui-monospace,Consolas,monospace;font-variant-numeric:tabular-nums}
 .controls{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin:16px 0;padding:12px;border:1px solid #aeb8c3}
 .controls label{display:flex;flex-direction:column;gap:4px}button,select{font:inherit;padding:5px 8px;border:1px solid #9eabb5;background:#fff;color:#212b34;min-height:38px}
