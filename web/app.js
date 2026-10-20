@@ -431,14 +431,17 @@
     const box = h('details', {class: 'panel athlete-panel prediction-panel'},
       h('summary', {class: 'athlete-summary'}, h('b', {text: '分组预测'}),
         h('span', {class: 'prediction-label', text: '非官方'}),
-        h('span', {class: 'faint tiny', text: ready ? ready + ' 个项目可查看' : '待单项种子名单'})));
+        h('span', {class: 'faint tiny', text: ready ? ready + ' 个项目可查看' : dataset.items.some(p => p.entry_count) ? '官方单项报项核验中' : '待单项报项'}),
+        dataset.stale ? h('small', {class: 'pill', text: '数据待更新'}) : null));
     const select = h('select', {'aria-label': '预测项目'}, dataset.items.map(p =>
       h('option', {value: p.id, text: (gender[p.gender] || '') + ' ' + p.distance_m + 'm'})));
     const chinaOnly = h('button', {type: 'button', class: 'chip', 'aria-pressed': 'false', text: '只看含 CHN 的组'});
     const body = h('div', {class: 'prediction-body', 'aria-live': 'polite'});
-    const reasons = {distance_seeding_list: '待单项报名、种子顺序与直通名单', schedule: '待官方轮次赛程',
-      qualifying_table: '待核实该人数对应的晋级表', matching_schedule: '种子名单与当前赛程不一致，待核对',
-      prequalification_list: '待核实直通名单'};
+    const reasons = {distance_seeding_list: '单项报名、种子和直通待公布', schedule: '待官方轮次赛程',
+      qualifying_table: '晋级表待核实', matching_schedule: '名单与赛程待核对',
+      prequalification_list: '直通名单待核实', awaiting_complete_entries: '官网报项更新中',
+      ranking_tie: '排名并列，待抽签', unranked_draw: '无排名选手顺序待确认',
+      prequalification_tie: '直通边界待核实'};
     let onlyChina = false;
     const draw = () => {
       const item = dataset.items.find(p => p.id === select.value);
@@ -448,10 +451,20 @@
       if (item.status === 'official_available') {
         body.append(h('p', {class: 'faint athlete-empty', text: '官方分组已公布，请在赛程中查看。'}));
       } else if (item.status !== 'predicted') {
-        body.append(h('p', {class: 'faint athlete-empty', text: [...new Set(item.missing.map(k => reasons[k] || '待数据核实'))].join(' · ')}),
-          h('p', {class: 'faint tiny', text: '整站报名不等于单项参赛名单，数据齐全后生成首轮预测。'}));
+        body.append(h('p', {class: 'faint athlete-empty', text: [...new Set(item.missing.map(k => reasons[k] || '待数据核实'))].join(' · ')}));
+        if (item.entry_count) {
+          body.append(h('p', {class: 'faint tiny', text: '单项报项 ' + item.entry_count + ' 人 · 排名匹配 ' + item.seeded_count + ' 人'}));
+          const ranked = item.observed_entries.filter(p => p.seed_rank != null);
+          if (ranked.length) body.append(h('details', {class: 'prediction-byes'},
+            h('summary', {text: '当前排名（暂定） · ' + ranked.length + ' 人'}),
+            h('ul', {}, ranked.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'),
+              text: '#' + p.seed_rank + ' ' + p.name + ' · ' + p.country + (p.world_rank ? ' · 世界排名 ' + p.world_rank : '')})))));
+          if (item.prequalified.length) body.append(h('details', {class: 'prediction-byes'},
+            h('summary', {text: '按当前排名计算的直通名单 · ' + item.prequalified.length + ' 人'}),
+            h('ul', {}, item.prequalified.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'), text: p.name + ' · ' + p.country})))));
+        }
       } else {
-        body.append(h('p', {class: 'faint tiny prediction-note', text: '首轮分组推演 · 以官方抽签及调整为准，不含出发道次。'}));
+        body.append(h('p', {class: 'faint tiny prediction-note', text: '首轮预测 · 不含出发道次，以官方分组为准'}));
         if (item.country_conflicts.length) body.append(h('p', {class: 'faint tiny', text: '部分同国选手回避需要官方调整。'}));
         const groups = item.groups.filter(g => !onlyChina || g.has_china);
         const grid = h('div', {class: 'prediction-grid'});
@@ -466,14 +479,17 @@
           h('summary', {text: '直通下一轮 · ' + item.prequalified.length + ' 人'}),
           h('ul', {}, item.prequalified.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'), text: p.name + ' · ' + p.country})))));
       }
-      body.append(h('div', {class: 'athlete-source source-line'},
-        item.updated_at ? h('span', {text: '数据核对于 ' + new Date(item.updated_at).toLocaleString('zh-CN', {timeZone: BJ, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false})}) : null,
-        item.source_urls?.[0] ? external(item.source_urls[0], '名单来源') : null));
+      body.append(h('details', {class: 'source-disclosure'},
+        h('summary', {}, '来源与规则', item.updated_at ? h('time', {dateTime: item.updated_at,
+          text: new Date(item.updated_at).toLocaleString('zh-CN', {timeZone: BJ, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false})}) : null),
+        h('div', {class: 'source-links'},
+          ...(item.source_urls || []).map((url, i) => external(url, ['单项报项', '世巡赛排名', '世界排名'][i] || 'ISU 来源')),
+          ...(dataset.rules || []).map(r => external(r.url, r.label))),
+        dataset.stale ? h('p', {class: 'faint tiny', text: '显示上次核对的数据'}) : null));
     };
     chinaOnly.addEventListener('click', () => {onlyChina = !onlyChina; chinaOnly.setAttribute('aria-pressed', String(onlyChina)); draw();});
     select.addEventListener('change', draw);
-    box.append(h('div', {class: 'athlete-tools'}, select, chinaOnly), body,
-      h('div', {class: 'athlete-source source-line'}, (dataset.rules || []).map(r => external(r.url, r.label))));
+    box.append(h('div', {class: 'athlete-tools'}, select, chinaOnly), body);
     draw();
     return box;
   }
@@ -1039,7 +1055,7 @@
           h('span', {class: 'athletes', text: heat.athletes.join('、')}), ' ',
           h('span', {class: 'est'}, '预计 ', h('span', {class: 'num', text: from.slice(11, 16) + '–' + to.slice(11, 16)}), h('em', {class: 'est-tag', text: '估算'}))));
       }
-      note.append(external(r.china.source_url, '查看分组来源'));
+      note.append(external(r.china.source_url, '来源'));
     }
     updateHeatButton(note, r);
     return tr;
