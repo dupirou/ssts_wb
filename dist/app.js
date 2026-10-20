@@ -156,20 +156,29 @@
     return el;
   }
 
-  /* Light/dark switch. index.html applies the stored theme before first paint. */
+  /* Light/dark switch. index.html picks the first-paint theme; by default it follows the OS setting. */
   function themeToggle() {
     const html = document.documentElement;
     const meta = document.querySelector('meta[name="theme-color"]');
-    const btn = h('button', {type: 'button', class: 'theme-btn', onclick: () => apply(html.dataset.theme === 'light' ? 'dark' : 'light', true)},
-      icon('sun', 'ico ico-sun'), icon('moon', 'ico ico-moon'));
-    function apply(theme, save) {
+    const mq = matchMedia('(prefers-color-scheme: light)');
+    const system = () => mq.matches ? 'light' : 'dark';
+    const store = (area, value) => { try { value ? area.setItem('ssts.theme', value) : area.removeItem('ssts.theme'); } catch (_) { /* private mode */ } };
+    const override = () => { try { return sessionStorage.getItem('ssts.theme') || localStorage.getItem('ssts.theme'); } catch (_) { return null; } };
+    const btn = h('button', {type: 'button', class: 'theme-btn', onclick: () => {
+      const next = html.dataset.theme === 'light' ? 'dark' : 'light';
+      // Choosing what the phone already uses means "follow the phone" again.
+      store(sessionStorage, null);
+      store(localStorage, next === system() ? null : next);
+      apply(next);
+    }}, icon('sun', 'ico ico-sun'), icon('moon', 'ico ico-moon'));
+    function apply(theme) {
       html.dataset.theme = theme;
       if (meta) meta.content = theme === 'light' ? '#F3F8FC' : '#0B1F33';
       btn.setAttribute('aria-label', theme === 'light' ? '切换为深色主题' : '切换为浅色主题');
       btn.title = btn.getAttribute('aria-label');
-      if (save) { try { localStorage.setItem('ssts.theme', theme); } catch (_) { /* private mode */ } }
     }
-    apply(html.dataset.theme === 'light' ? 'light' : 'dark', false);
+    mq.addEventListener('change', () => { if (!override()) apply(system()); });
+    apply(html.dataset.theme === 'light' ? 'light' : 'dark');
     return btn;
   }
   clocks.after(themeToggle());
