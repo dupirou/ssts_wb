@@ -44,7 +44,7 @@ test('real roster defaults to CHN; country and gender filters compose', async t 
   const roster = d.querySelector('.athlete-panel');
   const china = snapshot.entries.items.filter(p=>p.country==='CHN');
   assert.ok(roster.querySelector('summary').textContent.includes(snapshot.entries.items.length+' 人'));
-  assert.ok(roster.querySelector('summary').textContent.includes('中国队 '+china.length+' 人'));
+  assert.ok(roster.querySelector('summary').textContent.includes('CHN '+china.length+' 人'));
   assert.equal(roster.open,false);
   assert.equal(roster.querySelectorAll('.athlete-card').length,china.length);
   const country = roster.querySelector('select[aria-label="报名名单国家或地区"]');

@@ -337,7 +337,7 @@
         h('span', {class: 'faint tiny', text: ready ? ready + ' 个项目可查看' : '待单项种子名单'})));
     const select = h('select', {'aria-label': '预测项目'}, dataset.items.map(p =>
       h('option', {value: p.id, text: (gender[p.gender] || '') + ' ' + p.distance_m + 'm'})));
-    const chinaOnly = h('button', {type: 'button', class: 'chip', 'aria-pressed': 'false', text: '只看含中国队的组'});
+    const chinaOnly = h('button', {type: 'button', class: 'chip', 'aria-pressed': 'false', text: '只看含 CHN 的组'});
     const body = h('div', {class: 'prediction-body', 'aria-live': 'polite'});
     const reasons = {distance_seeding_list: '待单项报名、种子顺序与直通名单', schedule: '待官方轮次赛程',
       qualifying_table: '待核实该人数对应的晋级表', matching_schedule: '种子名单与当前赛程不一致，待核对',
@@ -364,7 +364,7 @@
             h('span', {class: 'faint num', text: '#' + p.seed_rank, title: '种子序号，非出发道次'}),
             h('b', {text: p.name}), h('small', {text: p.country}))))));
         body.append(grid);
-        if (!groups.length) body.append(h('p', {class: 'faint athlete-empty', text: '预测分组中暂无中国队选手'}));
+        if (!groups.length) body.append(h('p', {class: 'faint athlete-empty', text: '预测分组中暂无 CHN 选手'}));
         if (item.prequalified.length) body.append(h('details', {class: 'prediction-byes'},
           h('summary', {text: '直通下一轮 · ' + item.prequalified.length + ' 人'}),
           h('ul', {}, item.prequalified.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'), text: p.name + ' · ' + p.country})))));
@@ -386,7 +386,7 @@
     const china = people.filter(p => p.country === 'CHN').length;
     const summary = h('summary', {class: 'athlete-summary'},
       h('b', {text: title}), h('span', {class: 'faint num', text: people.length ? people.length + (ranking ? ' 条' : ' 人') : '待公布'}),
-      china ? h('span', {class: 'athlete-china num', text: '中国队 ' + china + (ranking ? ' 条' : ' 人')}) : null,
+      china ? h('span', {class: 'athlete-china num', text: 'CHN ' + china + (ranking ? ' 条' : ' 人')}) : null,
       dataset.stale ? h('small', {class: 'pill', text: '待更新'}) : null);
     const box = h('details', {class: 'panel athlete-panel'}, summary);
     if (!people.length) {
@@ -394,10 +394,9 @@
       return box;
     }
     const countries = [...new Set(people.map(p => p.country))].sort((a, b) => a === 'CHN' ? -1 : b === 'CHN' ? 1 : a.localeCompare(b));
-    const countryNames = {CHN: '中国队 CHN', HKG: '中国香港 HKG', TPE: '中华台北 TPE'};
     const country = h('select', {'aria-label': title + '国家或地区'},
       h('option', {value: 'all', text: '全部国家 / 地区'}),
-      countries.map(c => h('option', {value: c, text: countryNames[c] || c})));
+      countries.map(c => h('option', {value: c, text: c})));
     country.value = china ? 'CHN' : 'all';
     const sex = h('select', {'aria-label': title + '性别'},
       [['all', '全部'], ['women', '女子'], ['men', '男子'], ...(ranking ? [['mixed', '混合']] : [])]
@@ -618,7 +617,7 @@
         stat(Object.keys(data.day_counts).length, '比赛日'),
         stat(entries.length, '个轮次'),
         stat(entries.filter(isMedal).length, '场奖牌赛', 'stat-gold'),
-        stat(chinaCount || '—', '中国队已确认', chinaCount ? 'stat-red' : 'stat-dim')));
+        stat(chinaCount || '—', 'CHN 已确认', chinaCount ? 'stat-red' : 'stat-dim')));
       copy.append(syncLine(data));
     }
     root.replaceChildren(stationNav(cal, station),
@@ -684,7 +683,7 @@
           label.textContent = i === 0 ? '距首项开赛还有' : '距下一项开赛还有';
           fill(title, h('b', {text: eventName(r)}), ' ' + roundName(r),
             isMedal(r) ? h('span', {class: 'pill pill-gold'}, icon('medal', 'ico ico-xs'), '奖牌赛') : null,
-            isChina(r) ? h('span', {class: 'chn-tag'}, icon('star', 'ico ico-xs'), '中国队') : null);
+            isChina(r) ? h('span', {class: 'chn-tag'}, icon('star', 'ico ico-xs'), 'CHN') : null);
           fill(times,
             h('span', {class: 'bj'}, '北京 ' + md(r.beijing_date) + ' ' + wk(r.beijing_date) + ' ' + dayPart(r.beijing_time) + ' ', h('b', {class: 'num', text: r.beijing_time})),
             h('span', {}, station.city + ' ' + md(r.local_date) + ' ' + wk(r.local_date) + ' ', h('span', {class: 'num', text: r.local_time})));
@@ -704,12 +703,12 @@
       if (box.dataset.key === key) return;
       box.dataset.key = key;
       if (!r) {
-        fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: '中国队'}),
+        fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: 'CHN'}),
           entries.some(isChina) ? ' 已确认的场次均已开赛' : ' 官方分组公布后，这里和赛程中会自动标出'));
         return;
       }
       const hs = r.china.heats;
-      fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: '中国队下一场 '}),
+      fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: 'CHN 下一场 '}),
         eventName(r) + ' ' + roundName(r) + ' 第' + hs.map(x => x.number).join('、') + '组 · 北京 ' + bjWhen(r),
         h('small', {}, ' · 预计出场 ' + hs[0].estimate.earliest_beijing.slice(11, 16) + ' 起', h('em', {class: 'est-tag', text: '估算'}))));
     });
@@ -759,7 +758,7 @@
     const genderSeg = h('div', {class: 'chips-row', role: 'group', 'aria-label': '项目'});
     const stageSeg = h('div', {class: 'chips-row', role: 'group', 'aria-label': '轮次'});
     const chinaBtn = h('button', {type: 'button', class: 'toggle-chn', disabled: chinaCount ? null : true,
-      onclick: () => set({china: !state.china})}, icon('star', 'ico ico-sm'), '只看中国队',
+      onclick: () => set({china: !state.china})}, icon('star', 'ico ico-sm'), '只看 CHN',
       h('small', {text: chinaCount ? chinaCount + ' 轮' : '分组公布后可用'}));
     const panel = h('div', {class: 'fpanel', id: panelId, role: 'dialog', 'aria-label': '筛选赛程', hidden: true},
       h('div', {class: 'fpanel-head'}, h('b', {text: '筛选赛程'}),
@@ -838,8 +837,8 @@
         h('span', {}, '共 ', h('b', {class: 'num', text: rows.length}), ' 个轮次', rows.length < entries.length ? h('span', {class: 'faint', text: ' / ' + entries.length}) : null),
         state.gender !== 'all' ? clear(genderOpts.find(o => o[0] === state.gender)[1], {gender: 'all'}) : null,
         state.stage !== 'all' ? clear(stageOpts.find(o => o[0] === state.stage)[1], {stage: 'all'}) : null,
-        state.china ? clear('只看中国队', {china: false}) : null,
-        h('span', {class: 'legend'}, h('span', {class: 'lg lg-gold', text: '奖牌赛'}), h('span', {class: 'lg lg-red', text: '中国队'})));
+        state.china ? clear('只看 CHN', {china: false}) : null,
+        h('span', {class: 'legend'}, h('span', {class: 'lg lg-gold', text: '奖牌赛'}), h('span', {class: 'lg lg-red', text: 'CHN'})));
 
       container.replaceChildren();
       for (const d of days) {
@@ -910,7 +909,7 @@
       h('span', {class: 'g g-' + r.gender, text: gender[r.gender]}), ' ',
       h('b', {class: 'dist num', text: r.distance_m + 'm'}),
       r.format === 'relay' ? [' ', h('span', {class: 'relay', text: '接力'})] : null,
-      china ? h('strong', {class: 'china-label'}, icon('star', 'ico ico-xs'), ' CHN 中国队') : null);
+      china ? h('strong', {class: 'china-label'}, icon('star', 'ico ico-xs'), ' CHN') : null);
     cell(labels[4], 'round-cell', h('span', {class: 'round-name', text: roundName(r)}), ' ', stageMeter(r));
     cell(labels[5], 'group-cell' + (r.group ? '' : ' is-empty'),
       r.group ? h('span', {class: 'grp grp-' + r.group}, r.group === 'A' ? icon('medal', 'ico ico-xs') : null, r.group + ' 组',
@@ -990,7 +989,7 @@
         h('p', {text: (bjFirst ? '北京时间' : station.city + '时间') + ' · 点击刻度跳到对应比赛'})),
       h('div', {class: 'rb-body', 'aria-hidden': 'true'}, lanes, h('div', {class: 'rb-axis-row'}, h('span'), axis)),
       h('p', {class: 'rb-legend'}, h('span', {class: 'lg lg-gold', text: 'A 组决赛'}),
-        h('span', {class: 'lg lg-plain', text: '其他轮次'}), h('span', {class: 'lg lg-red', text: '中国队 / 现在'})));
+        h('span', {class: 'lg lg-plain', text: '其他轮次'}), h('span', {class: 'lg lg-red', text: 'CHN / 现在'})));
   }
 
   function finalsBoard(finals, state) {
