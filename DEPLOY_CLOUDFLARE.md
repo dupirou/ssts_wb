@@ -1,5 +1,20 @@
 # Cloudflare Pages 部署指南（SSTS-WB）
 
+## 新增 Worker API 部署
+
+现有域名使用 Cloudflare Workers 时，新增接口由根目录 `wrangler.jsonc` 指定：
+入口 `src/worker.mjs`，静态目录 `dist`，资产绑定 `ASSETS`，只对 `/api/*` 先运行 Worker。
+保留现有 Workers Git 集成，部署命令使用 `npx wrangler@4.151.2 deploy`，从仓库根目录执行。
+同步工作流已生成并提交 `dist`，Cloudflare 的构建命令可继续留空。
+配置中 Worker 名称为 `stsswb`，应与现有项目名称一致；不在此文件配置或更改 DNS。
+
+先检查打包：`npx wrangler@4.151.2 deploy --dry-run`。
+部署后检查 `/api/v1/events`、`/api/v1/events/vancouver/entries?country=CHN`，以及原首页。
+若继续使用纯静态 Pages，`/data/competitions/*.json` 可用，但无后缀的 `/api/v1/` 路由需要 Worker；
+不能把新增接口的 Python 抓取脚本当作长驻服务器运行。
+
+以下为原有纯静态 Pages 操作参考。
+
 ## 1. 现状
 
 - GitHub 源码仓库：https://github.com/dupirou/ssts_wb

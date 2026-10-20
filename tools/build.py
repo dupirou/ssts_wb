@@ -3,6 +3,7 @@
 import csv
 import json
 import shutil
+import competition_data
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -92,6 +93,8 @@ def attach_china(rows):
     for obj in (data, auto):
         if obj.get("schema_version") != 1 or not isinstance(obj.get("heats"),list):
             raise ValueError("Invalid China provenance schema")
+    new_evidence, covered = competition_data.china_evidence(competition_data.load_snapshot('vancouver'))
+    auto['heats'] = new_evidence + [item for item in auto['heats'] if item['round_key'] not in covered]
     lookup = {r["round_key"]:r for r in rows}
     seen = set()
     for item in data["heats"] + auto["heats"]:
@@ -157,6 +160,7 @@ def export():
     shutil.copyfile(ROOT/"web/index.html",OUT/"index.html")
     shutil.copyfile(ROOT/"web/app.js",OUT/"app.js")
     shutil.copyfile(ROOT/"web/site.css",OUT/"site.css")
+    competition_data.export(OUT, VENUES)
     print("Validated and built",len(rows),"ISU round start times; verified CHN:",sum(r["china"]["status"]=="confirmed" for r in rows))
 
 if __name__ == "__main__":

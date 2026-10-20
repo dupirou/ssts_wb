@@ -3,6 +3,7 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -26,9 +27,16 @@ class DataTests(unittest.TestCase):
         self.assertEqual(previous[:10],same_day[:10])
         self.assertNotEqual(previous[:10],next_day[:10])
 
-    def test_unknown_china_rows(self):
+    def test_china_rows_keep_evidence_when_official_data_arrives(self):
         rows=build.attach_china(build.read_schedule())
-        self.assertTrue(all(x["china"]["status"]=="unknown" for x in rows))
+        for row in rows:
+            china=row['china']
+            self.assertIn(china['status'],('unknown','confirmed'))
+            if china['status']=='confirmed':
+                self.assertTrue(build.valid_evidence(china['source_url']))
+                self.assertTrue(china['heats'])
+            else:
+                self.assertEqual(china['heats'],[])
     def test_verified_heat_provenance_and_prediction(self):
         row=build.read_schedule()[0]
         example={"schema_version":1,"heats":[{
@@ -38,7 +46,8 @@ class DataTests(unittest.TestCase):
             "heats":[{"number":6,"athletes":["FAKE_TEST_ATHLETE"]}]
         }]}
         original=build.CHINA
-        with tempfile.TemporaryDirectory() as temp:
+        with tempfile.TemporaryDirectory() as temp, patch.object(build.competition_data, 'load_snapshot',
+                return_value=build.competition_data.empty_snapshot('vancouver')):
             file=Path(temp)/"china.json"
             file.write_text(json.dumps(example),encoding="utf-8")
             build.CHINA=file

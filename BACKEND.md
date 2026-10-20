@@ -1,5 +1,75 @@
 # ISU 数据同步与中国队自动高亮
 
+## 运动员与比赛查询接口（2026-10-20 新增）
+
+Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口不会触发上游抓取。
+现有页面和 `/data/vancouver.json` 保持兼容；新分组会自动供给现有中国队高亮，页面暂未接入新增完整名单/成绩列表。
+
+| GET 接口 | 内容 |
+|---|---|
+| `/api/v1/events` | 七站的数据可用状态 |
+| `/api/v1/events/vancouver` | 该站接口列表 |
+| `/api/v1/events/vancouver/entries` | 全站报名，含 active/substitute |
+| `/api/v1/events/vancouver/rounds` | 正式出场分组及参赛者，含 `has_china` |
+| `/api/v1/events/vancouver/results` | 已发布的逐组选手成绩、名次与晋级代码 |
+| `/api/v1/events/vancouver/penalties` | 官方明确给出 PEN/YC/RC 的记录 |
+| `/api/v1/events/vancouver/rankings` | 已取得官方文件中的单站/世巡赛/世界排名 |
+
+支持 GET 和 HEAD；其他方法返回 405。未知赛事返回 404，未知/无效/重复筛选参数返回 400。
+`country=CHN`、`gender=women`、`distance_m=500`、`round_key=...`、
+`athlete_id=...`、`ranking_type=event|world_tour|world` 可组合，使用 URLSearchParams 编码。
+例如 `/api/v1/events/vancouver/results?country=CHN&gender=women&distance_m=500`。
+报名数据无距离/轮次字段，不能按报名表推断某个项目参赛；不存在的字段筛选得到空列表。
+按国家筛选 `rounds` 会选出包含该国的比赛，并保留同组对手；`results` 和 `penalties` 只返回匹配运动员。
+
+统一响应：`schema_version`、`event_id`、`resource`、`status`、`update_status`、
+`checked_at`、`updated_at`、`source_urls`、`stale`、`total`、`items`。
+`checked_at` 是上次公开发布的成功核对时间（每天或数据变化时刷新）；
+`updated_at` 是内容变化时间。`status=not_published` 和空数组表示尚无可用官方数据，不能视为无人参赛。
+当前温哥华报名 189 人、CHN 12 人；分组、成绩、排名暂未发布。
+其他六站的源尚未配置，保持 `not_published / not_checked`。
+
+`rounds` 中 `evidence=official_start_list` 或 `official_results`；
+`result_status` 原样保留官方 provisional/official 状态。只有明确的 A/B 决赛标签才关联对应赛程。
+`source_start` 原样保留 ISU 返回值，不以它推算精确开赛时间；使用已核对赛程的 `round_key` 关联页面。
+队伍由官方 `started_for_nf_code` 判断，CHN、HKG、TPE 严格区分。
+接力成绩属于参赛队，`athlete_id` 为队伍 ID，不能归到报名表中全部队员名下。
+运动员在报名 PDF 中没有官方 ID，因此本地 ID 使用国家、性别、姓名词元生成；
+官方成绩同时保留 `official_skater_id`，不能用本地 ID 充当 ISU 永久人物编号。
+
+判罚记录只复制官方判罚结果，`penalty={code:"PEN",infringement_code:null}`。
+当前公开成绩接口未提供具体动作原因时不补推断；DNS、DNF、ADV 不计为判罚。
+排名来自官方 PDF 列，不自行按积分规则重算；未提供的 `points` 为 null，
+`official_details` 保留其他官方表格字段。排名来源未发布时接口保持空态。
+
+### 抓取、更新及回退
+
+- `data/competition_sources.json` 为逐站官方来源配置。
+- `tools/sync_competitions.py` 每次从 Documents 重新发现最新报名 PDF/排名文件，避免写死替换后的 PDF URL。
+- `tools/isu_results.py` 读取新官网公开 `eventResultsData` 元数据，再调用官网使用的 `front-api.isu.org` 轮次及逐组接口。
+- `data/competitions/<event>.json` 为最近成功快照；`tools/build.py` 输出 `dist/data/competitions/`。
+- 已并入现有每 30 分钟 Actions 更新；只有数据变化或每天发布一次核对时间才产生提交。不是秒级比分服务。
+- 网络/格式/赛事身份校验失败时保留既有记录，标记 `update_status=error`、`stale=true`。
+  已有数据超过 36 小时未成功核对也会标为 stale。
+- 成功解析的完整报名表替换旧名单；成功解析的同一轮次替换其全部小组，允许官方撤销报名、更正分组或撤销 PEN。
+- PDF 只解析公开报名和排名表；热次成绩使用已验证 JSON 适配器。解析失败不会发布猜测结果。
+
+本地操作：
+
+```sh
+python -m pip install -r requirements.txt
+python tools/sync_competitions.py --event vancouver
+python tools/build.py
+python -m unittest discover -s tests -v
+node --test tests/test_api.mjs
+npx wrangler@4.151.2 dev --local
+```
+
+`wrangler.jsonc` 增加 `/api/*` Worker 路由及 `ASSETS` 绑定，普通页面继续按静态文件托管。
+部署见 [Cloudflare 部署说明](DEPLOY_CLOUDFLARE.md)。不需要额外数据库、密钥或管理员写接口。
+
+以下章节描述旧版中国队静态高亮兼容流程；新接口不依赖旧版结果页发现器。
+
 ## 模块职责
 
 | 文件 | 职责 |
