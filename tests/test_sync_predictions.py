@@ -22,7 +22,7 @@ CONFIG = {
 
 def entrants(count):
     return [dict(athlete_id=f'a-{n}', official_skater_id=n,
-                 name=f'TEST {n}', country=f'A{n // 26:02d}' if n > 26 else 'CHN')
+                 name=f'TEST {n}', country='USA' if n > 26 else 'CHN')
             for n in range(1, count + 1)]
 
 
