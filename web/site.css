@@ -210,7 +210,7 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 .btn-ghost:hover { background: rgb(var(--cyan-rgb) / .1); color: var(--text); }
 .btn-ghost:hover .ico { transform: none; }
 .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 10px; background: rgb(var(--ice-rgb) / .08); color: var(--text-2); cursor: pointer; }
-.source-line { margin: 28px 0 0; font-size: .84rem; color: var(--muted); }
+.source-line { margin: 10px 0 0; font-size: .76rem; line-height: 1.4; color: var(--muted); }
 .source-line a { color: var(--accent-2); text-underline-offset: 3px; }
 .source-line a:hover { color: var(--accent); }
 
@@ -623,7 +623,14 @@ td.time { white-space: nowrap; }
 .athlete-card.is-china .athlete-nation { color: var(--red-text); }
 .athlete-caption { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .76rem; color: var(--muted); }
 .athlete-caption .pill { font-size: .68rem; padding: 0 7px; }
-.athlete-source { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; }
+.athlete-source { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px; }
+.source-disclosure { margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border-soft); color: var(--muted); font-size: .76rem; }
+.source-disclosure summary { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; width: fit-content; min-height: 36px; cursor: pointer; color: var(--accent-2); }
+.source-disclosure summary time { font-size: .72rem; color: var(--muted); }
+.source-links { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 5px 0 3px; }
+.source-links a { color: var(--accent-2); text-underline-offset: 3px; }
+.source-links a:hover { color: var(--accent); }
+.source-disclosure > p { margin: 4px 0 0; }
 .athlete-empty { padding: 16px 0 4px; font-size: .86rem; }
 .athlete-load-error { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .84rem; color: var(--muted); }
 .prediction-label { color: var(--gold-text); font-size: .76rem; font-weight: 600; }

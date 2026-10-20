@@ -124,12 +124,16 @@ test('prediction waits for distance seeds, exposes rules and leaves official hig
   assert.ok(panel);
   assert.equal(panel.open,true);
   assert.match(panel.textContent,/非官方/);
-  assert.match(panel.textContent,/单项报名、种子顺序与直通名单/);
+  assert.match(panel.textContent,/单项报名、种子和直通待公布/);
   assert.equal(panel.querySelectorAll('a').length,3);
+  assert.equal(panel.querySelectorAll('.source-disclosure').length,1);
+  assert.equal(panel.querySelector('.source-disclosure').open,false);
+  panel.querySelector('.source-disclosure').open=true;
+  assert.match(panel.querySelector('.source-disclosure').textContent,/来源与规则/);
   assert.equal(panel.querySelectorAll('.prediction-group').length,0);
   const select=panel.querySelector('select');
   change(dom,select,'men-1500');
-  assert.match(panel.textContent,/待单项报名、种子顺序与直通名单/);
+  assert.match(panel.textContent,/单项报名、种子和直通待公布/);
   assert.equal(d.querySelectorAll('.match-row.is-chn').length,0);
 });
 
@@ -147,9 +151,12 @@ test('partial official entries display evidence without publishing groups', asyn
   const panel=dom.window.document.querySelector('.prediction-panel');
   assert.match(panel.textContent,/官方单项报项核验中/);
   assert.match(panel.textContent,/17 人/);
-  assert.match(panel.textContent,/无世界排名选手的顺序待官方确认/);
+  assert.match(panel.textContent,/无排名选手顺序待确认/);
   assert.equal(panel.querySelectorAll('.prediction-group').length,0);
   assert.equal(panel.querySelectorAll('a').length,6);
+  assert.equal(panel.querySelector('.source-disclosure').open,false);
+  panel.querySelector('.source-disclosure').open=true;
+  assert.equal(panel.querySelectorAll('.source-disclosure a').length,6);
 });
 
 test('projection renders seeds, filters CHN groups and yields to official groups', async t => {
