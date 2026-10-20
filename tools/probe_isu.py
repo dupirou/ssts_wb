@@ -1,44 +1,39 @@
-"""Temporary inspection of the public ISU JavaScript pagination endpoints."""
+"""Temporary read-only source probe for ISU distance entry and ranking APIs."""
 import json
 import re
-from urllib.parse import urljoin
+from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
-def fetch(url):
-    with urlopen(Request(url, headers={"User-Agent":"Mozilla/5.0"}), timeout=25) as r:
-        return r.read(5_000_000).decode("utf-8")
-
-urls = [
-    "https://isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=entries_16230",
-    "https://isu-skating.com/en/short-track/world-standings/",
-    "https://isu-skating.com/en/short-track/world-standings/615/",
-]
-paths = set()
-for url in urls:
-    html=fetch(url)
-    paths.update(urljoin(url, p) for p in re.findall(r'<script[^>]+src="([^"]+)', html))
-    frames=[json.JSONDecoder().raw_decode(html[m.end():])[0] for m in re.finditer(r'self\.__next_f\.push\(', html)]
-    text="\n".join(frame[1] for frame in frames if len(frame)>1 and isinstance(frame[1],str))
-    if "world-standings/" in url:
-        for term in ('"initialData":','"itemLists":','"totalCount":','"total":','"page":','"pagination":','"selectedResult":'):
-            i=text.find(term)
-            if i>=0:
-                value,end=json.JSONDecoder().raw_decode(text[i+len(term):])
-                print("RSC",url.split("world-standings/")[-1][:25],term,
-                      "shape",len(value) if isinstance(value,(list,dict)) else value,
-                      "example",json.dumps(value[0] if isinstance(value,list) and value else value,ensure_ascii=False)[:500])
-print("SCRIPTS",len(paths))
-patterns=[r'get-event-result-competitors',r'get-event.*competitor',r'get-world-standings',r'get-world-standing',
-          r'world_standings_list_fsk',r'initialPlayers',r'initialData',r'front-api.isu.org']
-for path in sorted(paths):
-    if "polyfills" in path or "webpack" in path:continue
-    try: js=fetch(path)
-    except Exception as exc:
-        print("FETCH_ERR",path,repr(exc));continue
-    found=[]
-    for pat in patterns:
-        match=re.search(pat,js,re.I)
-        if match:found.append((pat,repr(js[max(0,match.start()-250):match.start()+500])))
-    if found:
-        print("SCRIPT",path,len(js))
-        for k,context in found:print("HIT",k,context)
+BASE="https://front-api.isu.org"
+ENTRY_PAGE="https://isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=entries_16230"
+def fetch(url, data=None, content_type="application/x-www-form-urlencoded"):
+    raw=None if data is None else (json.dumps(data).encode() if content_type=="application/json" else urlencode(data).encode())
+    req=Request(url,data=raw,headers={"User-Agent":"Mozilla/5.0","Content-Type":content_type,"Accept":"application/json"})
+    with urlopen(req,timeout=25) as r:return r.read(10_000_000)
+def rsc(html, key):
+    text="\n".join(frame[1] for m in re.finditer(r'self\.__next_f\.push\(',html) if
+       (frame:=json.JSONDecoder().raw_decode(html[m.end():])[0]) and len(frame)>1 and isinstance(frame[1],str))
+    marker='"'+key+'":'
+    pos=text.find(marker)
+    if pos<0:raise ValueError("missing "+key)
+    return json.JSONDecoder().raw_decode(text[pos+len(marker):])[0]
+def summarize(label,body):
+    obj=json.loads(body)
+    print(label, "keys",list(obj) if isinstance(obj,dict) else type(obj).__name__)
+    val=obj.get("data") if isinstance(obj,dict) else obj
+    print(label,"data shape",len(val) if isinstance(val,(list,dict)) else type(val).__name__,
+          "example",json.dumps(val[0] if isinstance(val,list) and val else {k:(len(v) if isinstance(v,list) else v) for k,v in val.items()} if isinstance(val,dict) else val,ensure_ascii=False)[:1500])
+    return obj
+events=rsc(fetch(ENTRY_PAGE).decode(),"eventResults")
+events=[x for x in events if x["discipline_type"]=="Singles"]
+print("EVENTS",[(x["name"],x["event_result_id"],x["event_id"]) for x in events])
+for event in events[:2]:
+    id=event["event_result_id"]
+    summarize("ENTRY_"+event["name"],fetch(BASE+"/events/get-event-result-entrylist-single",
+                        {"event_result_id":id,"event_id":16230,"country_code":""}))
+for typ,data in [
+    ("LIST",{"discipline_id":3,"season_id":1,"pagesize":300,"page":1}),
+    ("DETAIL",{"world_standings_list_fsk_id":615,"page":1}),
+    ("DETAIL_NEXT",{"world_standings_list_fsk_id":615,"page":2})]:
+    end="/events/get-world-standings-list" if typ=="LIST" else "/events/get-world-standings-fsk-detail-skater-single"
+    summarize(typ,fetch(BASE+end,data,"application/json"))
