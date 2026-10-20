@@ -1,4 +1,4 @@
-/* SSTS-WB presentation layer. Reads data/*.json only; never alters official times.
+/* SSTS-WB presentation layer. Reads schedule JSON and read-only athlete APIs; never alters official times.
    All data reaches the DOM through textContent / attributes (no innerHTML). */
 (async function () {
   'use strict';
@@ -121,7 +121,9 @@
 
   /* One shared 1s heartbeat drives clocks, countdowns and the live row state. */
   const tickers = new Set();
-  setInterval(() => tickers.forEach(fn => fn()), 1000);
+  const heartbeat = () => { if (!document.hidden) tickers.forEach(fn => fn()); };
+  setInterval(heartbeat, 1000);
+  document.addEventListener('visibilitychange', heartbeat);
   function tick(fn) { tickers.add(fn); fn(); }
 
   function setClocks(zones) {
@@ -151,7 +153,10 @@
     el.set = ms => {
       const p = split(ms);
       el.classList.toggle('no-days', p.d === 0);
-      for (const [k, v] of cells) v.textContent = k === 'd' ? String(p.d) : pad(p[k]);
+      for (const [k, v] of cells) {
+        const value = k === 'd' ? String(p.d) : pad(p[k]);
+        if (v.textContent !== value) v.textContent = value;
+      }
     };
     return el;
   }
@@ -244,9 +249,13 @@
 
   /* ---------- data ---------- */
   const fetchData = async file => {
-    const response = await fetch('./data/' + file, {cache: 'no-cache'});
-    if (!response.ok) throw new Error('数据请求失败: ' + response.status);
-    return response.json();
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const response = await fetch('./data/' + file, {cache: file === 'calendar.json' ? 'default' : 'no-cache', signal: controller.signal});
+      if (!response.ok) throw new Error('数据请求失败: ' + response.status);
+      return await response.json();
+    } finally { clearTimeout(timeout); }
   };
   function prepare(data) {
     data.entries.forEach((r, i) => { r.t = Date.parse(r.utc_start); r.i = i; });
@@ -282,6 +291,275 @@
     return days;
   }
   const stationHref = (id, day) => '?station=' + encodeURIComponent(id) + (day ? '&day=' + encodeURIComponent(day) : '');
+
+  /* ---------- athlete entries and official competition details ---------- */
+  const officialHeats = new Map();
+  function competitionPanel(station) {
+    const athletes = h('div', {class: 'athlete-data'});
+    const predictions = h('div', {class: 'athlete-data'});
+    const status = h('div', {class: 'competition-status', hidden: true});
+    const slots = new Map(), pending = new Map(), loaded = new Map(), requested = new Set();
+    const labels = {entries: '报名名单', rankings: '排名', predictions: '分组预测', rounds: '分组与成绩'};
+    const containers = {entries: athletes, rankings: athletes, predictions, rounds: status};
+    // Independent slots preserve successful data and filter choices when a sibling request fails.
+    for (const resource of Object.keys(labels)) {
+      const slot = h('div', {dataset: {resource}});
+      containers[resource].append(slot);
+      slots.set(resource, slot);
+    }
+    async function load(resource) {
+      if (pending.has(resource)) return pending.get(resource);
+      if (loaded.has(resource) && Date.now() - loaded.get(resource) < 60000) return;
+      requested.add(resource);
+      const slot = slots.get(resource);
+      slot.setAttribute('aria-busy', 'true');
+      if (!loaded.has(resource) && resource !== 'rounds') fill(slot,
+        h('p', {class: 'athlete-loading', role: 'status', text: '正在读取' + labels[resource] + '…'}));
+      slot.querySelector('.athlete-load-error')?.remove();
+      const task = (async () => {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+        try {
+          const response = await fetch('/api/v1/events/' + encodeURIComponent(station.id) + '/' + resource,
+            {signal: controller.signal});
+          if (!response.ok) throw new Error('请求失败');
+          const value = await response.json();
+          if (value.schema_version !== 1 || value.event_id !== station.id || value.resource !== resource || !Array.isArray(value.items)) {
+            throw new Error('数据格式异常');
+          }
+          if (resource === 'rounds') {
+            officialHeats.clear();
+            for (const heat of value.items) {
+              if (!heat.round_key) continue;
+              if (!officialHeats.has(heat.round_key)) officialHeats.set(heat.round_key, []);
+              officialHeats.get(heat.round_key).push(heat);
+            }
+            fill(slot, value.stale ? h('p', {class: 'faint tiny', text: '分组与成绩待更新'}) : null);
+            status.hidden = !value.stale;
+            view.refreshHeats?.();
+          } else {
+            const previous = slot.querySelector('details');
+            const panel = resource === 'predictions' ? predictionList(value) : athleteList(value, labels[resource], resource === 'rankings');
+            panel.open = previous ? previous.open : resource !== 'rankings';
+            for (const select of panel.querySelectorAll('select')) {
+              const old = [...(previous?.querySelectorAll('select') || [])].find(el => el.getAttribute('aria-label') === select.getAttribute('aria-label'));
+              if (old && [...select.options].some(option => option.value === old.value)) {
+                select.value = old.value;
+                select.dispatchEvent(new Event('change'));
+              }
+            }
+            if (resource === 'predictions' && previous?.querySelector('button[aria-pressed="true"]')) panel.querySelector('button[aria-pressed]')?.click();
+            fill(slot, panel);
+          }
+          loaded.set(resource, Date.now());
+        } catch (_) {
+          slot.querySelector('.athlete-loading')?.remove();
+          slot.append(h('p', {class: 'athlete-load-error', role: 'status'}, labels[resource] + '暂时无法加载',
+            h('button', {type: 'button', class: 'chip', onclick: () => load(resource)}, '重试')));
+          if (resource === 'rounds') status.hidden = false;
+        } finally {
+          clearTimeout(timeout);
+          pending.delete(resource);
+          slot.removeAttribute('aria-busy');
+        }
+      })();
+      pending.set(resource, task);
+      return task;
+    }
+    return {athletes, predictions, status, load,
+      startRounds: () => { if (!requested.has('rounds')) load('rounds'); },
+      show: name => {
+        if (name === 'athletes') { load('entries'); load('rankings'); }
+        else if (name === 'predictions') load('predictions');
+        else load('rounds');
+      }};
+  }
+
+  function stationTabs(schedule, competition) {
+    const sections = {schedule, athletes: competition.athletes, predictions: competition.predictions};
+    const labels = {schedule: '赛程', athletes: '运动员', predictions: '分组预测'};
+    const nav = h('div', {class: 'section-tabs', role: 'tablist', 'aria-label': '本站内容'});
+    const buttons = new Map();
+    let selected = 'schedule';
+    let interacted = false;
+    function activate(name, updateUrl = true) {
+      if (!sections[name]) name = 'schedule';
+      selected = name;
+      view.closeFilters?.();
+      for (const [key, section] of Object.entries(sections)) {
+        const active = key === name;
+        section.hidden = !active;
+        buttons.get(key).setAttribute('aria-selected', String(active));
+        buttons.get(key).tabIndex = active ? 0 : -1;
+      }
+      if (updateUrl) {
+        interacted = true;
+        const url = new URL(location.href);
+        if (name === 'schedule') url.searchParams.delete('view');
+        else url.searchParams.set('view', name);
+        history.replaceState(null, '', url);
+        competition.show(name);
+      }
+    }
+    for (const [key, section] of Object.entries(sections)) {
+      section.id = 'section-' + key;
+      section.setAttribute('role', 'tabpanel');
+      section.setAttribute('aria-labelledby', 'tab-' + key);
+      section.tabIndex = 0;
+      const btn = h('button', {type: 'button', id: 'tab-' + key, role: 'tab', 'aria-controls': section.id,
+        onclick: () => activate(key)}, labels[key]);
+      btn.addEventListener('keydown', ev => {
+        const keys = Object.keys(sections), i = keys.indexOf(key);
+        const next = {ArrowRight: keys[(i + 1) % keys.length], ArrowLeft: keys[(i + keys.length - 1) % keys.length], Home: keys[0], End: keys.at(-1)}[ev.key];
+        if (next) { ev.preventDefault(); activate(next); buttons.get(next).focus(); }
+      });
+      buttons.set(key, btn);
+      nav.append(btn);
+    }
+    view.showSchedule = () => activate('schedule');
+    activate(params.get('view') || 'schedule', false);
+    // Let the schedule paint before starting secondary API work.
+    requestAnimationFrame(() => setTimeout(() => {
+      if (!interacted) competition.show(selected);
+      competition.startRounds();
+    }, 0));
+    return [nav, ...Object.values(sections)];
+  }
+
+  function predictionList(dataset) {
+    const ready = dataset.items.filter(p => p.status === 'predicted').length;
+    const box = h('details', {class: 'panel athlete-panel prediction-panel'},
+      h('summary', {class: 'athlete-summary'}, h('b', {text: '分组预测'}),
+        h('span', {class: 'prediction-label', text: '非官方'}),
+        h('span', {class: 'faint tiny', text: ready ? ready + ' 个项目可查看' : '待单项种子名单'})));
+    const select = h('select', {'aria-label': '预测项目'}, dataset.items.map(p =>
+      h('option', {value: p.id, text: (gender[p.gender] || '') + ' ' + p.distance_m + 'm'})));
+    const chinaOnly = h('button', {type: 'button', class: 'chip', 'aria-pressed': 'false', text: '只看含 CHN 的组'});
+    const body = h('div', {class: 'prediction-body', 'aria-live': 'polite'});
+    const reasons = {distance_seeding_list: '待单项报名、种子顺序与直通名单', schedule: '待官方轮次赛程',
+      qualifying_table: '待核实该人数对应的晋级表', matching_schedule: '种子名单与当前赛程不一致，待核对',
+      prequalification_list: '待核实直通名单'};
+    let onlyChina = false;
+    const draw = () => {
+      const item = dataset.items.find(p => p.id === select.value);
+      if (!item) return;
+      fill(body);
+      chinaOnly.hidden = item.status !== 'predicted';
+      if (item.status === 'official_available') {
+        body.append(h('p', {class: 'faint athlete-empty', text: '官方分组已公布，请在赛程中查看。'}));
+      } else if (item.status !== 'predicted') {
+        body.append(h('p', {class: 'faint athlete-empty', text: [...new Set(item.missing.map(k => reasons[k] || '待数据核实'))].join(' · ')}),
+          h('p', {class: 'faint tiny', text: '整站报名不等于单项参赛名单，数据齐全后生成首轮预测。'}));
+      } else {
+        body.append(h('p', {class: 'faint tiny prediction-note', text: '首轮分组推演 · 以官方抽签及调整为准，不含出发道次。'}));
+        if (item.country_conflicts.length) body.append(h('p', {class: 'faint tiny', text: '部分同国选手回避需要官方调整。'}));
+        const groups = item.groups.filter(g => !onlyChina || g.has_china);
+        const grid = h('div', {class: 'prediction-grid'});
+        for (const group of groups) grid.append(h('section', {class: cls('prediction-group', group.has_china && 'has-china')},
+          h('h3', {text: '预测第 ' + group.heat_number + ' 组'}),
+          h('ul', {}, group.participants.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china')},
+            h('span', {class: 'faint num', text: '#' + p.seed_rank, title: '种子序号，非出发道次'}),
+            h('b', {text: p.name}), h('small', {text: p.country}))))));
+        body.append(grid);
+        if (!groups.length) body.append(h('p', {class: 'faint athlete-empty', text: '预测分组中暂无 CHN 选手'}));
+        if (item.prequalified.length) body.append(h('details', {class: 'prediction-byes'},
+          h('summary', {text: '直通下一轮 · ' + item.prequalified.length + ' 人'}),
+          h('ul', {}, item.prequalified.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'), text: p.name + ' · ' + p.country})))));
+      }
+      body.append(h('div', {class: 'athlete-source source-line'},
+        item.updated_at ? h('span', {text: '数据核对于 ' + new Date(item.updated_at).toLocaleString('zh-CN', {timeZone: BJ, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false})}) : null,
+        item.source_urls?.[0] ? external(item.source_urls[0], '名单来源') : null));
+    };
+    chinaOnly.addEventListener('click', () => {onlyChina = !onlyChina; chinaOnly.setAttribute('aria-pressed', String(onlyChina)); draw();});
+    select.addEventListener('change', draw);
+    box.append(h('div', {class: 'athlete-tools'}, select, chinaOnly), body,
+      h('div', {class: 'athlete-source source-line'}, (dataset.rules || []).map(r => external(r.url, r.label))));
+    draw();
+    return box;
+  }
+
+  function athleteList(dataset, title, ranking = false) {
+    const people = dataset.items;
+    const china = people.filter(p => p.country === 'CHN').length;
+    const summary = h('summary', {class: 'athlete-summary'},
+      h('b', {text: title}), h('span', {class: 'faint num', text: people.length ? people.length + (ranking ? ' 条' : ' 人') : '待公布'}),
+      china ? h('span', {class: 'athlete-china num', text: 'CHN ' + china + (ranking ? ' 条' : ' 人')}) : null,
+      dataset.stale ? h('small', {class: 'pill', text: '待更新'}) : null);
+    const box = h('details', {class: 'panel athlete-panel'}, summary);
+    if (!people.length) {
+      box.append(h('p', {class: 'faint athlete-empty', text: title + '待公布'}));
+      return box;
+    }
+    const countries = [...new Set(people.map(p => p.country))].sort((a, b) => a === 'CHN' ? -1 : b === 'CHN' ? 1 : a.localeCompare(b));
+    const country = h('select', {'aria-label': title + '国家或地区'},
+      h('option', {value: 'all', text: '全部国家 / 地区'}),
+      countries.map(c => h('option', {value: c, text: c})));
+    country.value = china ? 'CHN' : 'all';
+    const sex = h('select', {'aria-label': title + '性别'},
+      [['all', '全部'], ['women', '女子'], ['men', '男子'], ...(ranking ? [['mixed', '混合']] : [])]
+        .map(([value, text]) => h('option', {value, text})));
+    const count = h('p', {class: 'faint tiny', role: 'status'});
+    const list = h('ul', {class: 'athlete-grid', 'aria-label': title + '列表'});
+    const update = () => {
+      const selected = people.filter(p => (country.value === 'all' || p.country === country.value) && (sex.value === 'all' || p.gender === sex.value));
+      if (ranking) selected.sort((a, b) => a.ranking_type.localeCompare(b.ranking_type) || a.distance_m - b.distance_m || a.rank - b.rank);
+      count.textContent = '显示 ' + selected.length + (ranking ? ' 条' : ' 人');
+      fill(list, selected.map(p => h('li', {class: cls('athlete-card', p.country === 'CHN' && 'is-china'), dataset: {country: p.country}},
+        h('span', {class: 'athlete-nation', text: p.country}),
+        h('b', {class: 'athlete-name', text: p.name}),
+        h('span', {class: 'athlete-caption'}, ranking ?
+          [({'event': '单站排名', world_tour: '世巡赛积分', world: '世界排名'})[p.ranking_type] || p.ranking_type,
+            ' · ' + (gender[p.gender] || '') + ' ' + p.distance_m + 'm · 第 ' + p.rank + ' 名',
+            p.points != null ? ' · ' + p.points + ' 分' : null] :
+          [gender[p.gender] || '', p.participation === 'substitute' ? h('span', {class: 'pill', text: '替补'}) : null]))));
+      if (!selected.length) list.append(h('li', {class: 'faint athlete-empty', text: '当前筛选下没有运动员'}));
+    };
+    country.addEventListener('change', update);
+    sex.addEventListener('change', update);
+    box.append(h('div', {class: 'athlete-tools'}, country, sex, count), list,
+      h('div', {class: 'athlete-source source-line'},
+        dataset.updated_at ? h('span', {text: '更新于 ' + new Date(dataset.updated_at).toLocaleString('zh-CN', {timeZone: BJ, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false})}) : null,
+        dataset.source_urls?.[0] ? external(dataset.source_urls[0], '官方来源') : null));
+    if (ranking) box.addEventListener('toggle', () => { if (box.open && !list.childElementCount) update(); });
+    else update();
+    return box;
+  }
+
+  function showCompetition(r, heats) {
+    const titleId = 'competition-title';
+    const close = h('button', {type: 'button', class: 'icon-btn', 'aria-label': '关闭比赛详情'}, icon('close'));
+    const dialog = h('dialog', {class: 'competition-dialog', 'aria-labelledby': titleId},
+      h('header', {class: 'competition-head'}, h('h2', {id: titleId, text: eventName(r) + ' · ' + roundName(r)}), close));
+    for (const heat of [...heats].sort((a, b) => (a.heat_number ?? 0) - (b.heat_number ?? 0))) {
+      const results = heat.evidence === 'official_results';
+      const status = !results ? '分组' : heat.result_status?.toLowerCase() === 'official' ? '正式成绩' : '暂定成绩';
+      const heading = heat.group ? heat.group + ' 组决赛' : heat.heat_number ? '第 ' + heat.heat_number + ' 组' : heat.heat_label;
+      const people = h('ol', {class: 'result-people'});
+      for (const p of heat.participants) {
+        const result = p.penalty ? p.penalty.code + ' 判罚' : p.result || '—';
+        people.append(h('li', {class: cls('result-person', p.country === 'CHN' && 'is-china')},
+          h('span', {class: 'result-rank num', text: results ? p.rank ?? '—' : p.starting_position ?? '—',
+            title: results ? '名次' : '出发位'}),
+          h('div', {class: 'result-identity'}, h('b', {text: p.name}),
+            h('span', {class: 'faint tiny', text: p.country + (p.helmet_number != null ? ' · #' + p.helmet_number : '')})),
+          results ? h('div', {class: cls('result-value num', p.penalty && 'penalty-value')},
+            h('b', {text: result}), p.qualification ? h('small', {text: ({Q: '晋级', q: '按成绩晋级', ADV: '判进'})[p.qualification] || p.qualification}) : null) :
+            h('span', {class: 'faint tiny', text: p.starting_position != null ? '出发位 ' + p.starting_position : '已列入分组'})));
+      }
+      dialog.append(h('section', {class: 'competition-heat'},
+        h('div', {class: 'competition-heat-head'}, h('h3', {text: heading}), h('span', {class: 'pill', text: status})), people));
+    }
+    if (heats[0]?.source_url) dialog.append(h('p', {class: 'source-line'}, external(heats[0].source_url, '官方来源')));
+    close.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => dialog.remove());
+    dialog.addEventListener('click', e => {
+      if (e.target !== dialog) return;
+      const b = dialog.getBoundingClientRect();
+      if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) dialog.close();
+    });
+    document.body.append(dialog);
+    dialog.showModal();
+  }
 
   /* ---------- season page ---------- */
   function renderSeason(cal, details) {
@@ -437,21 +715,24 @@
         stat(Object.keys(data.day_counts).length, '比赛日'),
         stat(entries.length, '个轮次'),
         stat(entries.filter(isMedal).length, '场奖牌赛', 'stat-gold'),
-        stat(chinaCount || '—', '中国队已确认', chinaCount ? 'stat-red' : 'stat-dim')));
+        stat(chinaCount || '—', 'CHN 已确认', chinaCount ? 'stat-red' : 'stat-dim')));
       copy.append(syncLine(data));
     }
     root.replaceChildren(stationNav(cal, station),
       h('section', {class: 'station-hero'}, copy, data ? liveCard(data, station) : pendingCard(win)));
+    const competition = competitionPanel(station);
+    const schedule = h('section', {class: 'schedule-content'});
 
     if (!data) {
-      root.append(h('section', {class: 'panel empty-state'},
+      schedule.append(competition.status, h('section', {class: 'panel empty-state'},
         trackArt('empty-track', 2),
         h('h2', {text: '详细赛程尚未录入'}),
         h('p', {text: '详情待更新'}),
         h('p', {}, external(cal.source_url, 'ISU 官方赛历'))));
-      return;
+    } else {
+      scheduleView(data, station, schedule, competition.status);
     }
-    scheduleView(data, station);
+    root.append(...stationTabs(schedule, competition));
   }
 
   const stat = (v, label, className) => h('div', {class: cls('stat', className)}, h('dd', {class: 'num', text: v}), h('dt', {text: label}));
@@ -502,7 +783,7 @@
           label.textContent = i === 0 ? '距首项开赛还有' : '距下一项开赛还有';
           fill(title, h('b', {text: eventName(r)}), ' ' + roundName(r),
             isMedal(r) ? h('span', {class: 'pill pill-gold'}, icon('medal', 'ico ico-xs'), '奖牌赛') : null,
-            isChina(r) ? h('span', {class: 'chn-tag'}, icon('star', 'ico ico-xs'), '中国队') : null);
+            isChina(r) ? h('span', {class: 'chn-tag'}, icon('star', 'ico ico-xs'), 'CHN') : null);
           fill(times,
             h('span', {class: 'bj'}, '北京 ' + md(r.beijing_date) + ' ' + wk(r.beijing_date) + ' ' + dayPart(r.beijing_time) + ' ', h('b', {class: 'num', text: r.beijing_time})),
             h('span', {}, station.city + ' ' + md(r.local_date) + ' ' + wk(r.local_date) + ' ', h('span', {class: 'num', text: r.local_time})));
@@ -522,12 +803,12 @@
       if (box.dataset.key === key) return;
       box.dataset.key = key;
       if (!r) {
-        fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: '中国队'}),
+        fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: 'CHN'}),
           entries.some(isChina) ? ' 已确认的场次均已开赛' : ' 官方分组公布后，这里和赛程中会自动标出'));
         return;
       }
       const hs = r.china.heats;
-      fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: '中国队下一场 '}),
+      fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: 'CHN 下一场 '}),
         eventName(r) + ' ' + roundName(r) + ' 第' + hs.map(x => x.number).join('、') + '组 · 北京 ' + bjWhen(r),
         h('small', {}, ' · 预计出场 ' + hs[0].estimate.earliest_beijing.slice(11, 16) + ' 起', h('em', {class: 'est-tag', text: '估算'}))));
     });
@@ -537,6 +818,7 @@
   const view = {};
   function scrollToRow(r) {
     if (!r) return;
+    view.showSchedule?.();
     let row = document.getElementById('r-' + r.id);
     if (!row && view.reset) { view.reset(); row = document.getElementById('r-' + r.id); }
     if (!row) return;
@@ -550,7 +832,7 @@
     try { return localStorage.getItem('ssts.zone') === 'local' ? 'local' : 'beijing'; } catch (_) { return 'beijing'; }
   }
 
-  function scheduleView(data, station) {
+  function scheduleView(data, station, host, competitionStatus) {
     const entries = data.entries;
     const days = raceDays(entries);
     const blank = {day: 'all', gender: 'all', stage: 'all', china: false};
@@ -561,10 +843,22 @@
     const stageOpts = [['all', '全部'], ['qualifying', '资格赛'], ['repechage', '复活赛'], ['main', '决赛阶段'], ['final', 'A/B组决赛']];
 
     const overview = h('section', {class: 'overview'});
+    const overviewBox = h('details', {class: 'schedule-overview'},
+      h('summary', {}, '赛程概览', h('span', {class: 'faint tiny', text: '比赛时段 · 奖牌赛'})), overview);
+    const drawOverview = () => {
+      if (overviewBox.open) fill(overview, ribbon(entries, days, state, station, liveIndex(entries)), finalsBoard(entries.filter(isMedal), state));
+    };
+    overviewBox.addEventListener('toggle', drawOverview);
     const counter = h('div', {class: 'counter', 'aria-live': 'polite'});
     const container = h('div', {class: 'days'});
     const set = patch => { Object.assign(state, patch); redraw(); };
     view.reset = () => { Object.assign(state, blank); redraw(); };
+    view.refreshHeats = () => {
+      for (const r of entries) {
+        const note = document.getElementById('r-' + r.id)?.querySelector('.notes-cell');
+        if (note) updateHeatButton(note, r);
+      }
+    };
 
     /* Sticky bar: day tabs, a filter button with a panel, and the time-zone switch. */
     const dayTabs = h('div', {class: 'fb-days', role: 'group', 'aria-label': '比赛日'});
@@ -576,7 +870,7 @@
     const genderSeg = h('div', {class: 'chips-row', role: 'group', 'aria-label': '项目'});
     const stageSeg = h('div', {class: 'chips-row', role: 'group', 'aria-label': '轮次'});
     const chinaBtn = h('button', {type: 'button', class: 'toggle-chn', disabled: chinaCount ? null : true,
-      onclick: () => set({china: !state.china})}, icon('star', 'ico ico-sm'), '只看中国队',
+      onclick: () => set({china: !state.china})}, icon('star', 'ico ico-sm'), '只看 CHN',
       h('small', {text: chinaCount ? chinaCount + ' 轮' : '分组公布后可用'}));
     const panel = h('div', {class: 'fpanel', id: panelId, role: 'dialog', 'aria-label': '筛选赛程', hidden: true},
       h('div', {class: 'fpanel-head'}, h('b', {text: '筛选赛程'}),
@@ -598,6 +892,7 @@
       document.body.classList.toggle('sheet-open', open);
       if (open) panel.querySelector('button[aria-pressed="true"], button').focus({preventScroll: true});
     }
+    view.closeFilters = () => { if (!panel.hidden) toggle(false); };
     addEventListener('keydown', ev => { if (ev.key === 'Escape' && !panel.hidden) { toggle(false); filterBtn.focus(); } });
     // composedPath() is captured at dispatch, so chips re-rendered by the click still count as inside.
     document.addEventListener('click', ev => {
@@ -610,7 +905,7 @@
         onclick: () => set({[key]: v})}, text)));
     }
 
-    root.append(overview, bar, counter, container,
+    host.append(overviewBox, bar, counter, competitionStatus, container,
       h('p', {class: 'source-line'}, external(data.source_url, 'ISU 官方赛程')));
 
     let lastLive = -1;
@@ -642,7 +937,7 @@
       badge.textContent = active || '';
       badge.hidden = !active;
 
-      fill(overview, ribbon(entries, days, state, station, nextI), finalsBoard(entries.filter(isMedal), state));
+      drawOverview();
 
       const rows = entries.filter(r =>
         (state.day === 'all' || r.local_date === state.day) &&
@@ -655,8 +950,8 @@
         h('span', {}, '共 ', h('b', {class: 'num', text: rows.length}), ' 个轮次', rows.length < entries.length ? h('span', {class: 'faint', text: ' / ' + entries.length}) : null),
         state.gender !== 'all' ? clear(genderOpts.find(o => o[0] === state.gender)[1], {gender: 'all'}) : null,
         state.stage !== 'all' ? clear(stageOpts.find(o => o[0] === state.stage)[1], {stage: 'all'}) : null,
-        state.china ? clear('只看中国队', {china: false}) : null,
-        h('span', {class: 'legend'}, h('span', {class: 'lg lg-gold', text: '奖牌赛'}), h('span', {class: 'lg lg-red', text: '中国队'})));
+        state.china ? clear('只看 CHN', {china: false}) : null,
+        h('span', {class: 'legend'}, h('span', {class: 'lg lg-gold', text: '奖牌赛'}), h('span', {class: 'lg lg-red', text: 'CHN'})));
 
       container.replaceChildren();
       for (const d of days) {
@@ -727,12 +1022,13 @@
       h('span', {class: 'g g-' + r.gender, text: gender[r.gender]}), ' ',
       h('b', {class: 'dist num', text: r.distance_m + 'm'}),
       r.format === 'relay' ? [' ', h('span', {class: 'relay', text: '接力'})] : null,
-      china ? h('strong', {class: 'china-label'}, icon('star', 'ico ico-xs'), ' CHN 中国队') : null);
+      china ? h('strong', {class: 'china-label'}, icon('star', 'ico ico-xs'), ' CHN') : null);
     cell(labels[4], 'round-cell', h('span', {class: 'round-name', text: roundName(r)}), ' ', stageMeter(r));
     cell(labels[5], 'group-cell' + (r.group ? '' : ' is-empty'),
       r.group ? h('span', {class: 'grp grp-' + r.group}, r.group === 'A' ? icon('medal', 'ico ico-xs') : null, r.group + ' 组',
         h('small', {text: r.group === 'A' ? '奖牌' : '排位'})) : '—');
-    const note = cell(labels[6], 'notes-cell tiny' + (china ? '' : ' is-empty'));
+    const heats = officialHeats.get(r.round_key) || [];
+    const note = cell(labels[6], 'notes-cell tiny' + (china || heats.length ? '' : ' is-empty'));
     if (china) {
       for (const heat of r.china.heats) {
         const e = heat.estimate;
@@ -745,7 +1041,17 @@
       }
       note.append(external(r.china.source_url, '查看分组来源'));
     }
+    updateHeatButton(note, r);
     return tr;
+  }
+
+  function updateHeatButton(note, r) {
+    note.querySelector('.competition-open')?.remove();
+    const heats = officialHeats.get(r.round_key) || [];
+    note.classList.toggle('is-empty', !isChina(r) && !heats.length);
+    if (heats.length) note.append(h('button', {type: 'button', class: 'competition-open',
+      'aria-label': '查看' + eventName(r) + roundName(r) + '分组与成绩', onclick: () => showCompetition(r, heats)},
+      heats.some(x => x.evidence === 'official_results') ? '查看成绩' : '查看分组', icon('arrow', 'ico ico-xs')));
   }
 
   /* Race-day ribbon: every round start on a shared hour axis; medal races stand out. */
@@ -803,7 +1109,7 @@
         h('p', {text: (bjFirst ? '北京时间' : station.city + '时间') + ' · 点击刻度跳到对应比赛'})),
       h('div', {class: 'rb-body', 'aria-hidden': 'true'}, lanes, h('div', {class: 'rb-axis-row'}, h('span'), axis)),
       h('p', {class: 'rb-legend'}, h('span', {class: 'lg lg-gold', text: 'A 组决赛'}),
-        h('span', {class: 'lg lg-plain', text: '其他轮次'}), h('span', {class: 'lg lg-red', text: '中国队 / 现在'})));
+        h('span', {class: 'lg lg-plain', text: '其他轮次'}), h('span', {class: 'lg lg-red', text: 'CHN / 现在'})));
   }
 
   function finalsBoard(finals, state) {
@@ -850,7 +1156,8 @@
     addEventListener('scroll', () => top.classList.toggle('show', scrollY > innerHeight * 1.2), {passive: true});
   } catch (e) {
     root.replaceChildren(h('div', {class: 'panel error'}, icon('alert'),
-      h('p', {text: '无法加载赛程：' + e.message + '。请检查静态站点部署目录和数据文件。'}),
+      h('p', {text: '赛程暂时无法加载，请重试。'}),
+      h('button', {type: 'button', class: 'btn', onclick: () => location.reload()}, '重新加载'),
       h('a', {class: 'btn', href: './'}, '返回首页')));
   } finally {
     root.removeAttribute('aria-busy');

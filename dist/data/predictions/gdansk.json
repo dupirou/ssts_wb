@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "event_id": "gdansk",
+  "resource": "predictions",
+  "status": "waiting_for_data",
+  "evidence": "model_prediction_not_official",
+  "model_version": "isu-2026-first-round-v1",
+  "rules": [
+    {
+      "label": "ISU 规则 293",
+      "url": "https://isudam.blob.core.windows.net/isudamcontainer/2026-Short-Track-Sport-Rules-20260513-FINAL-as-of-1-June-2026-1780065543-3994.pdf"
+    },
+    {
+      "label": "世巡赛通告 2806 §7",
+      "url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Corporate-Site/Governance/Transparency/ISU-Communications/2806-ISU-Short-Track-World-Tour-2026-27-1782891715-3107.pdf"
+    },
+    {
+      "label": "2026/27 晋级表",
+      "url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Corporate-Site/Sports-Rules/Short-Track-Rules/Constitution-and-General-Regulations-2025/Short-Track-Qualifying-Tables-2026-27-1784795532-8107.pdf"
+    }
+  ],
+  "limitations": [
+    "country_discretion",
+    "no_lane_prediction",
+    "first_qualifying_round_only"
+  ],
+  "total": 6,
+  "items": [
+    {
+      "id": "women-500",
+      "gender": "women",
+      "distance_m": 500,
+      "round_key": null,
+      "round": null,
+      "status": "waiting_for_data",
+      "missing": [
+        "schedule",
+        "distance_seeding_list"
+      ],
+      "groups": [],
+      "prequalified": [],
+      "source_urls": [],
+      "updated_at": null,
+      "country_adjustments": 0,
+      "country_conflicts": []
+    },
+    {
+      "id": "women-1000",
+      "gender": "women",
+      "distance_m": 1000,
+      "round_key": null,
+      "round": null,
+      "status": "waiting_for_data",
+      "missing": [
+        "schedule",
+        "distance_seeding_list"
+      ],
+      "groups": [],
+      "prequalified": [],
+      "source_urls": [],
+      "updated_at": null,
+      "country_adjustments": 0,
+      "country_conflicts": []
+    },
+    {
+      "id": "women-1500",
+      "gender": "women",
+      "distance_m": 1500,
+      "round_key": null,
+      "round": null,
+      "status": "waiting_for_data",
+      "missing": [
+        "schedule",
+        "distance_seeding_list"
+      ],
+      "groups": [],
+      "prequalified": [],
+      "source_urls": [],
+      "updated_at": null,
+      "country_adjustments": 0,
+      "country_conflicts": []
+    },
+    {
+      "id": "men-500",
+      "gender": "men",
+      "distance_m": 500,
+      "round_key": null,
+      "round": null,
+      "status": "waiting_for_data",
+      "missing": [
+        "schedule",
+        "distance_seeding_list"
+      ],
+      "groups": [],
+      "prequalified": [],
+      "source_urls": [],
+      "updated_at": null,
+      "country_adjustments": 0,
+      "country_conflicts": []
+    },
+    {
+      "id": "men-1000",
+      "gender": "men",
+      "distance_m": 1000,
+      "round_key": null,
+      "round": null,
+      "status": "waiting_for_data",
+      "missing": [
+        "schedule",
+        "distance_seeding_list"
+      ],
+      "groups": [],
+      "prequalified": [],
+      "source_urls": [],
+      "updated_at": null,
+      "country_adjustments": 0,
+      "country_conflicts": []
+    },
+    {
+      "id": "men-1500",
+      "gender": "men",
+      "distance_m": 1500,
+      "round_key": null,
+      "round": null,
+      "status": "waiting_for_data",
+      "missing": [
+        "schedule",
+        "distance_seeding_list"
+      ],
+      "groups": [],
+      "prequalified": [],
+      "source_urls": [],
+      "updated_at": null,
+      "country_adjustments": 0,
+      "country_conflicts": []
+    }
+  ]
+}

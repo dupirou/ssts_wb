@@ -340,7 +340,7 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 .st-nav-list a[aria-current="page"] { color: var(--on-accent); background: var(--accent); border-color: var(--accent); font-weight: 700; }
 .st-nav-list a[aria-current="page"] small { color: rgb(var(--on-accent-rgb) / .7); }
 
-.station-hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr); gap: 28px; align-items: stretch; margin-bottom: 22px; }
+.station-hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr); gap: 24px; align-items: stretch; margin-bottom: 20px; }
 .hero-copy { min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; animation: rise .5s ease both; }
 .hero-copy h1 { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; font-size: clamp(2.2rem, 4.6vw, 3rem); font-weight: 900; line-height: 1.1; }
 .hero-copy h1 small { font: 700 1.1rem var(--num); color: var(--muted); letter-spacing: .06em; }
@@ -385,6 +385,19 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 .empty-state a { color: var(--accent); }
 
 /* Overview: race-day ribbon + medal board */
+.section-tabs { display: flex; gap: 6px; margin-bottom: 16px; padding: 5px; width: fit-content; max-width: 100%; border: 1px solid var(--border-soft); border-radius: 14px; background: var(--well-soft); }
+.section-tabs button { border: 0; border-radius: 10px; min-height: 44px; padding: 8px 24px; background: transparent; color: var(--muted); cursor: pointer; font-weight: 600; white-space: nowrap; }
+.section-tabs button[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
+.section-tabs button:hover { color: var(--text); }
+.section-tabs button[aria-selected="true"]:hover { color: var(--on-accent); }
+[role="tabpanel"] { min-width: 0; }
+.schedule-overview { margin-bottom: 14px; border: 1px solid var(--border-soft); border-radius: 14px; }
+.schedule-overview > summary { display: flex; align-items: center; gap: 16px; min-height: 48px; padding: 10px 16px; list-style: none; cursor: pointer; font-size: .9rem; font-weight: 600; }
+.schedule-overview > summary::-webkit-details-marker { display: none; }
+.schedule-overview > summary::after { content: '+'; margin-left: auto; color: var(--accent); }
+.schedule-overview[open] > summary::after { content: '−'; }
+.schedule-overview .overview { margin: 0; padding: 0 12px 12px; animation: none; }
+.competition-status:not([hidden]) { margin-bottom: 12px; }
 .overview { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 16px; align-items: start; margin-bottom: 20px; animation: rise .6s .12s ease both; }
 .rb-body { display: grid; gap: 12px; }
 .rb-lane, .rb-axis-row { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; align-items: center; transition: opacity .2s; }
@@ -589,6 +602,71 @@ td.time { white-space: nowrap; }
 }
 .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
 
+/* ---------- athlete roster and official race details ---------- */
+.athlete-data { margin: 0 0 22px; min-width: 0; display: grid; gap: 10px; }
+.athlete-loading { padding: 12px 2px; font-size: .86rem; color: var(--muted); }
+.athlete-panel { min-width: 0; padding: 16px 20px; }
+.athlete-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; cursor: pointer; list-style: none; min-height: 28px; }
+.athlete-summary::-webkit-details-marker { display: none; }
+.athlete-summary::after { content: '+'; margin-left: auto; color: var(--accent); font-size: 1.3rem; line-height: 1; }
+.athlete-panel[open] > .athlete-summary::after { content: '−'; }
+.athlete-summary > .faint, .athlete-china { font-size: .84rem; }
+.athlete-china { color: var(--red-text); font-weight: 700; }
+.athlete-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 18px 0 12px; }
+.athlete-tools select { font: inherit; font-size: .84rem; min-height: 44px; max-width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 10px; padding: 6px 30px 6px 12px; color: var(--text); background: var(--panel); }
+.athlete-tools > p { margin-left: auto; }
+.athlete-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 8px; list-style: none; margin: 0; padding: 0; }
+.athlete-card { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; border: 1px solid var(--border-soft); background: var(--well-soft); border-radius: 12px; padding: 12px 14px; }
+.athlete-card.is-china { border-color: rgb(var(--red-rgb) / .3); background: rgb(var(--red-rgb) / .06); }
+.athlete-name { grid-column: 1; grid-row: 1; min-width: 0; overflow-wrap: anywhere; font-size: .9rem; }
+.athlete-nation { grid-column: 2; grid-row: 1; font: 700 .76rem var(--num); color: var(--muted); }
+.athlete-card.is-china .athlete-nation { color: var(--red-text); }
+.athlete-caption { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .76rem; color: var(--muted); }
+.athlete-caption .pill { font-size: .68rem; padding: 0 7px; }
+.athlete-source { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; }
+.athlete-empty { padding: 16px 0 4px; font-size: .86rem; }
+.athlete-load-error { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .84rem; color: var(--muted); }
+.prediction-label { color: var(--gold-text); font-size: .76rem; font-weight: 600; }
+.prediction-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 10px; }
+.prediction-group { min-width: 0; padding: 14px; border: 1px solid var(--border-soft); border-radius: 12px; background: var(--well-soft); }
+.prediction-group.has-china { border-color: rgb(var(--red-rgb) / .3); }
+.prediction-group h3 { font-size: .9rem; margin-bottom: 10px; }
+.prediction-group ul, .prediction-byes ul { list-style: none; padding: 0; margin: 0; }
+.prediction-group li { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 6px 0; font-size: .8rem; }
+.prediction-group li b { min-width: 0; overflow-wrap: anywhere; }
+.prediction-group small { font: 600 .72rem var(--num); }
+.prediction-note { margin-bottom: 12px; }
+.prediction-byes { margin-top: 14px; font-size: .84rem; }
+.prediction-byes summary { cursor: pointer; }
+.prediction-byes li { padding: 4px 0; overflow-wrap: anywhere; }
+.competition-open { display: inline-flex; gap: 6px; align-items: center; min-height: 38px; margin-top: 4px; padding: 5px 0; background: transparent; border: 0; color: var(--accent); cursor: pointer; font-size: .82rem; font-weight: 600; }
+.competition-dialog { width: min(640px, calc(100% - 24px)); max-height: calc(100dvh - 40px); margin: auto; padding: 20px; color: var(--text); background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 24px 80px rgb(0 0 0 / .3); overscroll-behavior: contain; }
+.competition-dialog::backdrop { background: var(--scrim); }
+.competition-head { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.competition-head h2 { font-size: 1.16rem; }
+.competition-head button { flex: 0 0 40px; }
+.competition-heat + .competition-heat { margin-top: 22px; }
+.competition-heat-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.competition-heat-head h3 { font-size: .95rem; }
+.result-people { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.result-person { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px; border-radius: 10px; background: var(--well-soft); }
+.result-person.is-china { box-shadow: inset 3px 0 0 var(--red); background: rgb(var(--red-rgb) / .08); }
+.result-rank { font-size: 1rem; font-weight: 700; text-align: center; }
+.result-identity { display: grid; gap: 1px; min-width: 0; overflow-wrap: anywhere; font-size: .86rem; }
+.result-value { display: grid; text-align: right; gap: 2px; font-size: .9rem; }
+.result-value small { font-size: .7rem; color: var(--ok); }
+.penalty-value { color: var(--red-text); }
+.competition-dialog > .source-line { margin-top: 18px; }
+@media (max-width: 680px) {
+  .athlete-panel { padding: 14px; }
+  .athlete-summary { gap: 6px 10px; }
+  .athlete-grid { grid-template-columns: minmax(0, 1fr); }
+  .athlete-tools select { flex: 1 1 120px; }
+  .competition-dialog { padding: 16px 12px; max-height: calc(100dvh - 24px); }
+  .result-person { gap: 7px; padding: 10px 8px; }
+}
+@media print { .athlete-data, .competition-open, .competition-dialog { display: none !important; } }
+
 /* ---------- tablet & phone: compact cards ----------
    | 00:00 凌晨 | 女子 500m      | A 组 |
    | 当地 09:00 | 初赛 ● ● ○ ○ ○ |      |   */
@@ -683,6 +761,11 @@ td.time { white-space: nowrap; }
   .back { font-size: 0; gap: 0; }
   .back .ico { width: 22px; height: 22px; }
   .hero-copy h1 { font-size: 2.1rem; }
+  .station-hero { gap: 14px; margin-bottom: 16px; }
+  .hero-copy { gap: 10px; }
+  .section-tabs { width: 100%; }
+  .section-tabs button { flex: 1; padding: 8px 10px; font-size: .9rem; }
+  .schedule-overview > summary { gap: 10px; padding-inline: 12px; }
   .meta-inline { gap: 6px 14px; font-size: .86rem; }
   .stat { padding: 0 14px; }
   .stat dd { font-size: 1.7rem; }
@@ -729,7 +812,10 @@ td.time { white-space: nowrap; }
 }
 @media (max-width: 350px) {
   .clock:nth-child(2) { display: none; }
-  .fb-zone { display: none; }
+  .fbar { flex-wrap: wrap; }
+  .fb-days { flex-basis: 100%; }
+  .fb-right { width: 100%; justify-content: space-between; }
+  .fb-btn-text { display: inline; }
   .stat { padding: 0 10px; }
   .stat dd { font-size: 1.45rem; }
   .finals-list li { flex-basis: 120px; }
@@ -782,4 +868,6 @@ td.time { white-space: nowrap; }
   .day { break-before: auto; animation: none; }
   .china-row td:nth-child(2) { border-left: 3px solid #000 !important; }
   .china-label, .grp { border: 1px solid #000; }
+  .section-tabs, .schedule-overview, .competition-status { display: none !important; }
+  #section-schedule[hidden] { display: block !important; }
 }
