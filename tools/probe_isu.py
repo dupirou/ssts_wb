@@ -19,7 +19,7 @@ def rsc(html, key):
     return json.JSONDecoder().raw_decode(text[pos+len(marker):])[0]
 def summarize(label,body):
     obj=json.loads(body)
-    print(label, "keys",list(obj) if isinstance(obj,dict) else type(obj).__name__)
+    print(label, "meta", {k:obj.get(k) for k in ("status","total_page","current_page","is_next_page","total_items")} if isinstance(obj,dict) else {})
     val=obj.get("data") if isinstance(obj,dict) else obj
     print(label,"data shape",len(val) if isinstance(val,(list,dict)) else type(val).__name__,
           "example",json.dumps(val[0] if isinstance(val,list) and val else {k:(len(v) if isinstance(v,list) else v) for k,v in val.items()} if isinstance(val,dict) else val,ensure_ascii=False)[:1500])
@@ -27,13 +27,17 @@ def summarize(label,body):
 events=rsc(fetch(ENTRY_PAGE).decode(),"eventResults")
 events=[x for x in events if x["discipline_type"]=="Singles"]
 print("EVENTS",[(x["name"],x["event_result_id"],x["event_id"]) for x in events])
-for event in events[:2]:
+for event in events:
     id=event["event_result_id"]
-    summarize("ENTRY_"+event["name"],fetch(BASE+"/events/get-event-result-entrylist-single",
+    obj=summarize("ENTRY_"+event["name"],fetch(BASE+"/events/get-event-result-entrylist-single",
                         {"event_result_id":id,"event_id":16230,"country_code":""}))
+    print("ENTRY_COUNTRIES",event["name"],sorted({x["started_for_nf_code"] for x in obj["data"]}))
 for typ,data in [
     ("LIST",{"discipline_id":3,"season_id":1,"pagesize":300,"page":1}),
     ("DETAIL",{"world_standings_list_fsk_id":615,"page":1}),
     ("DETAIL_NEXT",{"world_standings_list_fsk_id":615,"page":2})]:
     end="/events/get-world-standings-list" if typ=="LIST" else "/events/get-world-standings-fsk-detail-skater-single"
-    summarize(typ,fetch(BASE+end,data,"application/json"))
+    obj=summarize(typ,fetch(BASE+end,data,"application/json"))
+    if typ=="LIST":
+        print("RANK_INDEX",[(r["world_standings_list_fsk_id"],r["name"],r.get("level_name"),r.get("discipline_distance"),r.get("gender"),r.get("type"),r.get("season_name")) for r in obj["data"] if r.get("level_name")=="Senior" and r.get("type") in ("WCD","WR")])
+    if typ=="DETAIL":print("RANK_DETAIL",str(obj.get("detail"))[:1000])
