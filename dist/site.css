@@ -589,6 +589,58 @@ td.time { white-space: nowrap; }
 }
 .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
 
+/* ---------- athlete roster and official race details ---------- */
+.athlete-data { margin: 0 0 22px; min-width: 0; display: grid; gap: 10px; }
+.athlete-loading { padding: 12px 2px; font-size: .86rem; color: var(--muted); }
+.athlete-panel { min-width: 0; padding: 16px 20px; }
+.athlete-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; cursor: pointer; list-style: none; min-height: 28px; }
+.athlete-summary::-webkit-details-marker { display: none; }
+.athlete-summary::after { content: '+'; margin-left: auto; color: var(--accent); font-size: 1.3rem; line-height: 1; }
+.athlete-panel[open] > .athlete-summary::after { content: '−'; }
+.athlete-summary > .faint, .athlete-china { font-size: .84rem; }
+.athlete-china { color: var(--red-text); font-weight: 700; }
+.athlete-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 18px 0 12px; }
+.athlete-tools select { font: inherit; font-size: .84rem; min-height: 44px; max-width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 10px; padding: 6px 30px 6px 12px; color: var(--text); background: var(--panel); }
+.athlete-tools > p { margin-left: auto; }
+.athlete-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 8px; list-style: none; margin: 0; padding: 0; }
+.athlete-card { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; border: 1px solid var(--border-soft); background: var(--well-soft); border-radius: 12px; padding: 12px 14px; }
+.athlete-card.is-china { border-color: rgb(var(--red-rgb) / .3); background: rgb(var(--red-rgb) / .06); }
+.athlete-name { grid-column: 1; grid-row: 1; min-width: 0; overflow-wrap: anywhere; font-size: .9rem; }
+.athlete-nation { grid-column: 2; grid-row: 1; font: 700 .76rem var(--num); color: var(--muted); }
+.athlete-card.is-china .athlete-nation { color: var(--red-text); }
+.athlete-caption { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .76rem; color: var(--muted); }
+.athlete-caption .pill { font-size: .68rem; padding: 0 7px; }
+.athlete-source { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; }
+.athlete-empty { padding: 16px 0 4px; font-size: .86rem; }
+.athlete-load-error { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .84rem; color: var(--muted); }
+.competition-open { display: inline-flex; gap: 6px; align-items: center; min-height: 38px; margin-top: 4px; padding: 5px 0; background: transparent; border: 0; color: var(--accent); cursor: pointer; font-size: .82rem; font-weight: 600; }
+.competition-dialog { width: min(640px, calc(100% - 24px)); max-height: calc(100dvh - 40px); margin: auto; padding: 20px; color: var(--text); background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 24px 80px rgb(0 0 0 / .3); overscroll-behavior: contain; }
+.competition-dialog::backdrop { background: var(--scrim); }
+.competition-head { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.competition-head h2 { font-size: 1.16rem; }
+.competition-head button { flex: 0 0 40px; }
+.competition-heat + .competition-heat { margin-top: 22px; }
+.competition-heat-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.competition-heat-head h3 { font-size: .95rem; }
+.result-people { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.result-person { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px; border-radius: 10px; background: var(--well-soft); }
+.result-person.is-china { box-shadow: inset 3px 0 0 var(--red); background: rgb(var(--red-rgb) / .08); }
+.result-rank { font-size: 1rem; font-weight: 700; text-align: center; }
+.result-identity { display: grid; gap: 1px; min-width: 0; overflow-wrap: anywhere; font-size: .86rem; }
+.result-value { display: grid; text-align: right; gap: 2px; font-size: .9rem; }
+.result-value small { font-size: .7rem; color: var(--ok); }
+.penalty-value { color: var(--red-text); }
+.competition-dialog > .source-line { margin-top: 18px; }
+@media (max-width: 680px) {
+  .athlete-panel { padding: 14px; }
+  .athlete-summary { gap: 6px 10px; }
+  .athlete-grid { grid-template-columns: minmax(0, 1fr); }
+  .athlete-tools select { flex: 1 1 120px; }
+  .competition-dialog { padding: 16px 12px; max-height: calc(100dvh - 24px); }
+  .result-person { gap: 7px; padding: 10px 8px; }
+}
+@media print { .athlete-data, .competition-open, .competition-dialog { display: none !important; } }
+
 /* ---------- tablet & phone: compact cards ----------
    | 00:00 凌晨 | 女子 500m      | A 组 |
    | 当地 09:00 | 初赛 ● ● ○ ○ ○ |      |   */

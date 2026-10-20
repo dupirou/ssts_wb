@@ -5,7 +5,7 @@
 ## 已实现
 - 新增运动员后端 API：报名、正式分组、成绩、排名、判罚；按国家/性别/距离/轮次筛选。
   已接温哥华官方报名 PDF；分组/成绩适配 ISU 新官网公开 JSON 接口，等待本赛季公布。
-  API 及 Cloudflare Worker 部署见 [BACKEND.md](BACKEND.md)。前端暂未接入新增列表。
+  分站页可展开报名名单，默认查看中国队，支持国家和性别筛选；对应赛程可查看已发布的分组、成绩与判罚，排名发布后显示。API 及 Cloudflare Worker 部署见 [BACKEND.md](BACKEND.md)。
 - 2026/27 赛季七站入口；温哥华站共 62 个官方暂定的**轮次开始时间**（14／25／23），转换成北京时间。
 - 日期、项目、轮次和时区筛选。
 - 默认高亮有**官方具体轮次分组证据**的中国队场次；显示参赛名字、Heat 编号及**非官方估算区间**。
@@ -22,7 +22,7 @@ ISU HTML 自动核对是 best-effort，能否正常采集应看 Actions 日志�
 
 本地：Python 3.11+（需系统时区数据库）；执行 python tools/build.py，然后 python -m http.server 8000 --directory dist 。访问 http://127.0.0.1:8000 。
 
-测试：python -m unittest discover -s tests -v 。
+测试：`python -m unittest discover -s tests -v`；`npm ci --ignore-scripts && node --test tests/test_api.mjs tests/test_athlete_ui.mjs`。
 
 检查官网：先 pip install beautifulsoup4；然后 python tools/sync_schedule.py --dry-run。仅实际全量验证后才可以写入 CSV。
 

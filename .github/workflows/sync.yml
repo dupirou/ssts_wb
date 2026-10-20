@@ -36,9 +36,11 @@ jobs:
         run: python tools/build.py
       - name: Test
         run: |
+          npm ci --ignore-scripts
           python -m unittest discover -s tests -v
           node --check web/app.js
           node --test tests/test_api.mjs
+          node --test tests/test_athlete_ui.mjs
       - name: Commit built site and accepted official updates
         run: |
           git config user.name "github-actions[bot]"

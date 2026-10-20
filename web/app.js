@@ -1,4 +1,4 @@
-/* SSTS-WB presentation layer. Reads data/*.json only; never alters official times.
+/* SSTS-WB presentation layer. Reads schedule JSON and read-only athlete APIs; never alters official times.
    All data reaches the DOM through textContent / attributes (no innerHTML). */
 (async function () {
   'use strict';
@@ -283,6 +283,134 @@
   }
   const stationHref = (id, day) => '?station=' + encodeURIComponent(id) + (day ? '&day=' + encodeURIComponent(day) : '');
 
+  /* ---------- athlete entries and official competition details ---------- */
+  const officialHeats = new Map();
+  function competitionPanel(station) {
+    const section = h('section', {class: 'athlete-data', 'aria-label': '运动员数据'},
+      h('p', {class: 'athlete-loading', role: 'status', text: '正在读取报名名单…'}));
+    const cached = {};
+    let loading = false;
+    async function load() {
+      if (loading) return;
+      loading = true;
+      const resources = ['entries', 'rounds', 'rankings'];
+      const results = await Promise.allSettled(resources.map(async resource => {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+        try {
+          const response = await fetch('/api/v1/events/' + encodeURIComponent(station.id) + '/' + resource,
+            {cache: 'no-cache', signal: controller.signal});
+          if (!response.ok) throw new Error('请求失败');
+          const value = await response.json();
+          if (value.schema_version !== 1 || value.event_id !== station.id || value.resource !== resource || !Array.isArray(value.items)) {
+            throw new Error('数据格式异常');
+          }
+          cached[resource] = value;
+        } finally { clearTimeout(timeout); }
+      }));
+      loading = false;
+      const failed = results.some(r => r.status === 'rejected');
+      fill(section, cached.entries ? athleteList(cached.entries, '报名名单') :
+        h('p', {class: 'faint', text: '报名名单暂时无法加载'}));
+      if (cached.rankings && cached.rankings.items.length) section.append(athleteList(cached.rankings, '排名', true));
+      if (failed) section.append(h('p', {class: 'athlete-load-error', role: 'status'}, '部分数据暂时无法加载',
+        h('button', {type: 'button', class: 'chip', onclick: load}, '重试')));
+      officialHeats.clear();
+      for (const heat of cached.rounds?.items || []) {
+        if (!heat.round_key) continue;
+        if (!officialHeats.has(heat.round_key)) officialHeats.set(heat.round_key, []);
+        officialHeats.get(heat.round_key).push(heat);
+      }
+      if (cached.rounds?.stale) section.append(h('p', {class: 'faint tiny', text: '分组与成绩待更新'}));
+      if (view.refresh) view.refresh();
+    }
+    load();
+    return section;
+  }
+
+  function athleteList(dataset, title, ranking = false) {
+    const people = dataset.items;
+    const china = people.filter(p => p.country === 'CHN').length;
+    const summary = h('summary', {class: 'athlete-summary'},
+      h('b', {text: title}), h('span', {class: 'faint num', text: people.length ? people.length + (ranking ? ' 条' : ' 人') : '待公布'}),
+      china ? h('span', {class: 'athlete-china num', text: '中国队 ' + china + (ranking ? ' 条' : ' 人')}) : null,
+      dataset.stale ? h('small', {class: 'pill', text: '待更新'}) : null);
+    const box = h('details', {class: 'panel athlete-panel'}, summary);
+    if (!people.length) {
+      box.append(h('p', {class: 'faint athlete-empty', text: '报名名单待公布'}));
+      return box;
+    }
+    const countries = [...new Set(people.map(p => p.country))].sort((a, b) => a === 'CHN' ? -1 : b === 'CHN' ? 1 : a.localeCompare(b));
+    const countryNames = {CHN: '中国队 CHN', HKG: '中国香港 HKG', TPE: '中华台北 TPE'};
+    const country = h('select', {'aria-label': title + '国家或地区'},
+      h('option', {value: 'all', text: '全部国家 / 地区'}),
+      countries.map(c => h('option', {value: c, text: countryNames[c] || c})));
+    country.value = china ? 'CHN' : 'all';
+    const sex = h('select', {'aria-label': title + '性别'},
+      [['all', '全部'], ['women', '女子'], ['men', '男子'], ...(ranking ? [['mixed', '混合']] : [])]
+        .map(([value, text]) => h('option', {value, text})));
+    const count = h('p', {class: 'faint tiny', role: 'status'});
+    const list = h('ul', {class: 'athlete-grid', 'aria-label': title + '列表'});
+    const update = () => {
+      const selected = people.filter(p => (country.value === 'all' || p.country === country.value) && (sex.value === 'all' || p.gender === sex.value));
+      if (ranking) selected.sort((a, b) => a.ranking_type.localeCompare(b.ranking_type) || a.distance_m - b.distance_m || a.rank - b.rank);
+      count.textContent = '显示 ' + selected.length + (ranking ? ' 条' : ' 人');
+      fill(list, selected.map(p => h('li', {class: cls('athlete-card', p.country === 'CHN' && 'is-china'), dataset: {country: p.country}},
+        h('span', {class: 'athlete-nation', text: p.country}),
+        h('b', {class: 'athlete-name', text: p.name}),
+        h('span', {class: 'athlete-caption'}, ranking ?
+          [({'event': '单站排名', world_tour: '世巡赛积分', world: '世界排名'})[p.ranking_type] || p.ranking_type,
+            ' · ' + (gender[p.gender] || '') + ' ' + p.distance_m + 'm · 第 ' + p.rank + ' 名',
+            p.points != null ? ' · ' + p.points + ' 分' : null] :
+          [gender[p.gender] || '', p.participation === 'substitute' ? h('span', {class: 'pill', text: '替补'}) : null]))));
+      if (!selected.length) list.append(h('li', {class: 'faint athlete-empty', text: '当前筛选下没有运动员'}));
+    };
+    country.addEventListener('change', update);
+    sex.addEventListener('change', update);
+    box.append(h('div', {class: 'athlete-tools'}, country, sex, count), list,
+      h('div', {class: 'athlete-source source-line'},
+        dataset.updated_at ? h('span', {text: '更新于 ' + new Date(dataset.updated_at).toLocaleString('zh-CN', {timeZone: BJ, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false})}) : null,
+        dataset.source_urls?.[0] ? external(dataset.source_urls[0], '官方来源') : null));
+    update();
+    return box;
+  }
+
+  function showCompetition(r, heats) {
+    const titleId = 'competition-title';
+    const close = h('button', {type: 'button', class: 'icon-btn', 'aria-label': '关闭比赛详情'}, icon('close'));
+    const dialog = h('dialog', {class: 'competition-dialog', 'aria-labelledby': titleId},
+      h('header', {class: 'competition-head'}, h('h2', {id: titleId, text: eventName(r) + ' · ' + roundName(r)}), close));
+    for (const heat of [...heats].sort((a, b) => (a.heat_number ?? 0) - (b.heat_number ?? 0))) {
+      const results = heat.evidence === 'official_results';
+      const status = !results ? '分组' : heat.result_status?.toLowerCase() === 'official' ? '正式成绩' : '暂定成绩';
+      const heading = heat.group ? heat.group + ' 组决赛' : heat.heat_number ? '第 ' + heat.heat_number + ' 组' : heat.heat_label;
+      const people = h('ol', {class: 'result-people'});
+      for (const p of heat.participants) {
+        const result = p.penalty ? p.penalty.code + ' 判罚' : p.result || '—';
+        people.append(h('li', {class: cls('result-person', p.country === 'CHN' && 'is-china')},
+          h('span', {class: 'result-rank num', text: results ? p.rank ?? '—' : p.starting_position ?? '—',
+            title: results ? '名次' : '出发位'}),
+          h('div', {class: 'result-identity'}, h('b', {text: p.name}),
+            h('span', {class: 'faint tiny', text: p.country + (p.helmet_number != null ? ' · #' + p.helmet_number : '')})),
+          results ? h('div', {class: cls('result-value num', p.penalty && 'penalty-value')},
+            h('b', {text: result}), p.qualification ? h('small', {text: ({Q: '晋级', q: '按成绩晋级', ADV: '判进'})[p.qualification] || p.qualification}) : null) :
+            h('span', {class: 'faint tiny', text: p.starting_position != null ? '出发位 ' + p.starting_position : '已列入分组'})));
+      }
+      dialog.append(h('section', {class: 'competition-heat'},
+        h('div', {class: 'competition-heat-head'}, h('h3', {text: heading}), h('span', {class: 'pill', text: status})), people));
+    }
+    if (heats[0]?.source_url) dialog.append(h('p', {class: 'source-line'}, external(heats[0].source_url, '官方来源')));
+    close.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => dialog.remove());
+    dialog.addEventListener('click', e => {
+      if (e.target !== dialog) return;
+      const b = dialog.getBoundingClientRect();
+      if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) dialog.close();
+    });
+    document.body.append(dialog);
+    dialog.showModal();
+  }
+
   /* ---------- season page ---------- */
   function renderSeason(cal, details) {
     setClocks([['北京时间', BJ]]);
@@ -442,6 +570,7 @@
     }
     root.replaceChildren(stationNav(cal, station),
       h('section', {class: 'station-hero'}, copy, data ? liveCard(data, station) : pendingCard(win)));
+    root.append(competitionPanel(station));
 
     if (!data) {
       root.append(h('section', {class: 'panel empty-state'},
@@ -565,6 +694,7 @@
     const container = h('div', {class: 'days'});
     const set = patch => { Object.assign(state, patch); redraw(); };
     view.reset = () => { Object.assign(state, blank); redraw(); };
+    view.refresh = redraw;
 
     /* Sticky bar: day tabs, a filter button with a panel, and the time-zone switch. */
     const dayTabs = h('div', {class: 'fb-days', role: 'group', 'aria-label': '比赛日'});
@@ -732,7 +862,8 @@
     cell(labels[5], 'group-cell' + (r.group ? '' : ' is-empty'),
       r.group ? h('span', {class: 'grp grp-' + r.group}, r.group === 'A' ? icon('medal', 'ico ico-xs') : null, r.group + ' 组',
         h('small', {text: r.group === 'A' ? '奖牌' : '排位'})) : '—');
-    const note = cell(labels[6], 'notes-cell tiny' + (china ? '' : ' is-empty'));
+    const heats = officialHeats.get(r.round_key) || [];
+    const note = cell(labels[6], 'notes-cell tiny' + (china || heats.length ? '' : ' is-empty'));
     if (china) {
       for (const heat of r.china.heats) {
         const e = heat.estimate;
@@ -745,6 +876,9 @@
       }
       note.append(external(r.china.source_url, '查看分组来源'));
     }
+    if (heats.length) note.append(h('button', {type: 'button', class: 'competition-open',
+      'aria-label': '查看' + eventName(r) + roundName(r) + '分组与成绩', onclick: () => showCompetition(r, heats)},
+      heats.some(x => x.evidence === 'official_results') ? '查看成绩' : '查看分组', icon('arrow', 'ico ico-xs')));
     return tr;
   }
 
