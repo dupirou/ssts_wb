@@ -1,5 +1,5 @@
 /** Read-only API over the last validated official snapshot. No upstream scraping per visit. */
-const resources = new Set(['entries', 'rounds', 'results', 'rankings', 'penalties']);
+const resources = new Set(['entries', 'rounds', 'results', 'rankings', 'penalties', 'predictions']);
 const filters = new Set(['country', 'gender', 'distance_m', 'round_key', 'athlete_id', 'ranking_type']);
 const json = (data, status = 200, head = false, extra = {}) => new Response(head ? null : JSON.stringify(data), {
   status, headers: {'Content-Type': 'application/json; charset=utf-8',
@@ -24,7 +24,7 @@ export default {
     if (!['GET', 'HEAD'].includes(request.method)) {
       return json({error: 'method_not_allowed'}, 405, head, {Allow: 'GET, HEAD'});
     }
-    const route = url.pathname.match(/^\/api\/v1\/events(?:\/([a-z]+)(?:\/(entries|rounds|results|rankings|penalties))?)?\/?$/);
+    const route = url.pathname.match(/^\/api\/v1\/events(?:\/([a-z]+)(?:\/(entries|rounds|results|rankings|penalties|predictions))?)?\/?$/);
     if (!route) return json({error: 'not_found'}, 404, head);
     for (const [key, value] of url.searchParams) {
       if (!filters.has(key) || !value || url.searchParams.getAll(key).length !== 1 || value.length > 160) {
@@ -51,6 +51,19 @@ export default {
         if (url.search) return json({error: 'filters_require_resource'}, 400, head);
         return json({schema_version: 1, event_id: eventId,
           endpoints: [...resources].map(r => `/api/v1/events/${eventId}/${r}`)}, 200, head);
+      }
+      if (resource === 'predictions') {
+        if ([...url.searchParams].some(([k]) => !['gender', 'distance_m', 'round_key'].includes(k))) {
+          return json({error: 'unsupported_prediction_filter'}, 400, head);
+        }
+        const stored = await env.ASSETS.fetch(new URL(`/data/predictions/${eventId}.json`, url));
+        if (!stored.ok) return json({error: 'data_unavailable'}, 503, head);
+        const prediction = await stored.json();
+        if (prediction.schema_version !== 1 || prediction.event_id !== eventId || prediction.evidence !== 'model_prediction_not_official') {
+          throw new Error('Invalid prediction snapshot');
+        }
+        const items = prediction.items.filter(item => matches(item, url.searchParams));
+        return json({...prediction, total: items.length, items}, 200, head);
       }
       const stored = await env.ASSETS.fetch(new URL(`/data/competitions/${eventId}.json`, url));
       if (!stored.ok) return json({error: 'data_unavailable'}, 503, head);

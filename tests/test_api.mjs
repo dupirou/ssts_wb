@@ -79,4 +79,13 @@ test('built real snapshot and unconfigured event empty states are served', async
   assert.equal(result.total,source.entries.items.filter(p=>p.country==='CHN').length);
   assert.equal(result.status,'available');
   assert.equal((await (await request('/api/v1/events/seoul/rounds',realEnv)).json()).status,'not_published');
+  const projected=await (await request('/api/v1/events/vancouver/predictions?gender=women&distance_m=500',realEnv)).json();
+  assert.equal(projected.evidence,'model_prediction_not_official');
+  assert.equal(projected.total,1);
+  assert.equal(projected.items[0].status,'waiting_for_data');
+  assert.deepEqual(projected.items[0].groups,[]);
+  assert.equal((await request('/api/v1/events/vancouver/predictions?country=CHN',realEnv)).status,400);
+  assert.equal(await (await request('/api/v1/events/vancouver/predictions',realEnv,'HEAD')).text(),'');
+  const seoul=await (await request('/api/v1/events/seoul/predictions',realEnv)).json();
+  assert.ok(seoul.items.every(p=>p.missing.includes('schedule')));
 });

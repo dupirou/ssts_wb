@@ -11,6 +11,7 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 | `/api/v1/events/vancouver` | 该站接口列表 |
 | `/api/v1/events/vancouver/entries` | 全站报名，含 active/substitute |
 | `/api/v1/events/vancouver/rounds` | 正式出场分组及参赛者，含 `has_china` |
+| `/api/v1/events/vancouver/predictions` | 首轮非官方分组推演；单项种子名单不全时返回等待原因 |
 | `/api/v1/events/vancouver/results` | 已发布的逐组选手成绩、名次与晋级代码 |
 | `/api/v1/events/vancouver/penalties` | 官方明确给出 PEN/YC/RC 的记录 |
 | `/api/v1/events/vancouver/rankings` | 已取得官方文件中的单站/世巡赛/世界排名 |
@@ -27,6 +28,18 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 `checked_at` 是上次公开发布的成功核对时间（每天或数据变化时刷新）；
 `updated_at` 是内容变化时间。`status=not_published` 和空数组表示尚无可用官方数据，不能视为无人参赛。
 当前温哥华报名 189 人、CHN 12 人；分组、成绩、排名暂未发布。
+
+### 首轮分组预测
+
+分站页提供独立的“分组预测”折叠面板，切换男女及 500/1000/1500m，可只看含中国队的预测组。预测不会写入 `rounds`、`results`、中国队确认高亮或官方赛程时间；某项目的官方分组出现后，该项目优先展示官方入口。
+
+规则依据：[ISU 2026 Sports Rules](https://isudam.blob.core.windows.net/isudamcontainer/2026-Short-Track-Sport-Rules-20260513-FINAL-as-of-1-June-2026-1780065543-3994.pdf) Rule 293.3–5；[Communication 2806](https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Corporate-Site/Governance/Transparency/ISU-Communications/2806-ISU-Short-Track-World-Tour-2026-27-1782891715-3107.pdf) §7；2026/27 晋级表第 1–4 页（来源保存在 `data/prediction_tables.json`）。种子蛇形分配；除四分之一决赛/半决赛外，尝试同一排内移位及交换以回避同国选手。裁判可决定调整前排、无法回避时保留原组等，这些裁量不作唯一答案预测，残留冲突会标明。预测不生成出发道次，也不预测胜负、后续晋级者或接力分组。
+
+第一版需要人工核对并导入已发布的**完整单项种子名单**至 `data/prediction_inputs/{event}.json`，目前未提供未经验证的通用 PDF 自动导入。整站报名及单项世界排名各自都不足以确认单项参赛、直通资格和抽签后的顺序，不能直接转换。当前温哥华输入为空，接口和前端如实显示 `waiting_for_data`。
+
+输入文件结构为 `schema_version: 1`、`event_id`、`seed_lists: []`。每份名单包含 `event_id`、`gender`、`distance_m`、`complete: true`、`source_urls`（官方名单及必要排名来源）、`verified_at`（带时区）、`participants`。每位选手必须有 `athlete_id`、`name`、`country`、从 1 连续排列且无并列的 `seed_rank`、明确的 `prequalified` 布尔值。只有核实所有参赛者、非种子选手报名成绩及抽签顺序后才可标记完整。`seed_rank` 表示按当前世界排名及非排名选手报名成绩确定的种子顺序，**不是世巡赛积分排名或头盔号**；直通名单需按通告 §7 单独核对。
+
+构建时校验官方来源、项目、名单完整性、直通人数和实际首轮赛程，再根据晋级表选择组数。当前支持表内 26–95 人的标准首轮；未覆盖人数保留等待态。500/1000m 超过 40 人、1500m 超过 63 人时，20 名直通者单列，不放入前置轮次。未来有新的官方种子名单时更新输入文件并构建即可；官方调整应重新核对导入。接口仅支持 `gender`、`distance_m`、`round_key` 筛选。
 其他六站的源尚未配置，保持 `not_published / not_checked`。
 
 `rounds` 中 `evidence=official_start_list` 或 `official_results`；

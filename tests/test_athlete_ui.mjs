@@ -4,9 +4,10 @@ import {readFile} from 'node:fs/promises';
 import {JSDOM} from 'jsdom';
 
 const file = async name => readFile(new URL('../' + name, import.meta.url), 'utf8');
-const [html, script, snapshot, schedule] = await Promise.all([
+const [html, script, snapshot, schedule, predictions] = await Promise.all([
   file('web/index.html'), file('web/app.js'), file('data/competitions/vancouver.json').then(JSON.parse),
   file('dist/data/vancouver.json').then(JSON.parse),
+  file('dist/data/predictions/vancouver.json').then(JSON.parse),
 ]);
 async function settle(dom, predicate) {
   for (let i = 0; i < 100; i++) {
@@ -24,6 +25,7 @@ async function page({data = snapshot, fails = () => false} = {}) {
     if (url.pathname.startsWith('/api/')) {
       const resource = url.pathname.split('/').at(-1);
       if (fails(resource)) return new Response('unavailable',{status:503});
+      if (resource === 'predictions') return Response.json(data.predictions || predictions);
       return Response.json({schema_version:1,event_id:'vancouver',resource,total:data[resource].items.length,...data[resource]});
     }
     return new Response(await file('dist' + url.pathname));
@@ -95,7 +97,43 @@ test('official heat opens participant results and penalties without HTML injecti
   assert.match(dialog.textContent,/PEN 判罚/);
   assert.match(dialog.textContent,/晋级/);
   assert.equal(dialog.querySelector('img'),null);
-  assert.match(d.querySelectorAll('.athlete-panel')[1].textContent,/单站排名/);
+  assert.ok([...d.querySelectorAll('.athlete-panel')].some(p=>p.textContent.includes('单站排名')));
   dialog.querySelector('[aria-label="关闭比赛详情"]').click();
   assert.equal(d.querySelector('dialog'),null);
+});
+
+test('prediction waits for distance seeds, exposes rules and leaves official highlights untouched', async t => {
+  const dom=await page();t.after(()=>dom.window.close());
+  const d=dom.window.document;
+  const panel=d.querySelector('.prediction-panel');
+  assert.ok(panel);
+  assert.equal(panel.open,false);
+  assert.match(panel.textContent,/非官方/);
+  assert.match(panel.textContent,/单项报名、种子顺序与直通名单/);
+  assert.equal(panel.querySelectorAll('a').length,3);
+  assert.equal(panel.querySelectorAll('.prediction-group').length,0);
+  const select=panel.querySelector('select');
+  change(dom,select,'men-1500');
+  assert.match(panel.textContent,/整站报名不等于单项参赛名单/);
+  assert.equal(d.querySelectorAll('.match-row.is-chn').length,0);
+});
+
+test('projection renders seeds, filters CHN groups and yields to official groups', async t => {
+  const data=structuredClone(snapshot);
+  data.predictions=structuredClone(predictions);
+  Object.assign(data.predictions.items[0],{status:'predicted',missing:[],prequalified:[{name:'TEST BYE',country:'CHN'}],
+    groups:[{heat_number:1,has_china:true,participants:[{seed_rank:21,name:'TEST CHN',country:'CHN'}]},
+      {heat_number:2,has_china:false,participants:[{seed_rank:22,name:'TEST KOR',country:'KOR'}]}]});
+  data.predictions.items[1].status='official_available';
+  const dom=await page({data});t.after(()=>dom.window.close());
+  const d=dom.window.document,panel=d.querySelector('.prediction-panel');
+  assert.equal(panel.querySelectorAll('.prediction-group').length,2);
+  assert.match(panel.textContent,/直通下一轮/);
+  panel.querySelector('button').click();
+  assert.equal(panel.querySelectorAll('.prediction-group').length,1);
+  assert.equal(panel.querySelectorAll('.prediction-group .athlete-china').length,1);
+  assert.equal(d.querySelectorAll('.competition-open,.match-row.is-chn').length,0);
+  change(dom,panel.querySelector('select'),'women-1000');
+  assert.equal(panel.querySelectorAll('.prediction-group').length,0);
+  assert.match(panel.textContent,/官方分组已公布/);
 });

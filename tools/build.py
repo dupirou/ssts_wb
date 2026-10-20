@@ -161,6 +161,8 @@ def export():
     shutil.copyfile(ROOT/"web/app.js",OUT/"app.js")
     shutil.copyfile(ROOT/"web/site.css",OUT/"site.css")
     competition_data.export(OUT, VENUES)
+    import predict_groups
+    predict_groups.export(OUT, VENUES, rows)
     print("Validated and built",len(rows),"ISU round start times; verified CHN:",sum(r["china"]["status"]=="confirmed" for r in rows))
 
 if __name__ == "__main__":

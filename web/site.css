@@ -613,6 +613,19 @@ td.time { white-space: nowrap; }
 .athlete-source { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; }
 .athlete-empty { padding: 16px 0 4px; font-size: .86rem; }
 .athlete-load-error { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .84rem; color: var(--muted); }
+.prediction-label { color: var(--gold-text); font-size: .76rem; font-weight: 600; }
+.prediction-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 10px; }
+.prediction-group { min-width: 0; padding: 14px; border: 1px solid var(--border-soft); border-radius: 12px; background: var(--well-soft); }
+.prediction-group.has-china { border-color: rgb(var(--red-rgb) / .3); }
+.prediction-group h3 { font-size: .9rem; margin-bottom: 10px; }
+.prediction-group ul, .prediction-byes ul { list-style: none; padding: 0; margin: 0; }
+.prediction-group li { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 6px 0; font-size: .8rem; }
+.prediction-group li b { min-width: 0; overflow-wrap: anywhere; }
+.prediction-group small { font: 600 .72rem var(--num); }
+.prediction-note { margin-bottom: 12px; }
+.prediction-byes { margin-top: 14px; font-size: .84rem; }
+.prediction-byes summary { cursor: pointer; }
+.prediction-byes li { padding: 4px 0; overflow-wrap: anywhere; }
 .competition-open { display: inline-flex; gap: 6px; align-items: center; min-height: 38px; margin-top: 4px; padding: 5px 0; background: transparent; border: 0; color: var(--accent); cursor: pointer; font-size: .82rem; font-weight: 600; }
 .competition-dialog { width: min(640px, calc(100% - 24px)); max-height: calc(100dvh - 40px); margin: auto; padding: 20px; color: var(--text); background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 24px 80px rgb(0 0 0 / .3); overscroll-behavior: contain; }
 .competition-dialog::backdrop { background: var(--scrim); }
