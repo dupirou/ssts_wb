@@ -299,7 +299,7 @@
     root.replaceChildren(head,
       focus ? nextCard(focus) : h('section', {class: 'next-card is-done'}, h('h2', {text: '本赛季全部分站已结束'})),
       seasonLine(stations, focus), stationGrid(stations, focus),
-      h('p', {class: 'source-line'}, '赛历来源：', external(cal.source_url, 'ISU 官方赛历')));
+      h('p', {class: 'source-line'}, external(cal.source_url, 'ISU 官方赛历')));
   }
 
   // The centrepiece: where and when the next racing happens, in Beijing time.
@@ -340,7 +340,7 @@
         }
       } else {
         label.textContent = '距开幕还有';
-        item.textContent = '按当地时间 ' + dot(st.date_start) + ' 0 点计算 · 逐项赛程待官方公布';
+        item.textContent = '详细赛程待公布 · 倒计时按当地 00:00 计算';
       }
       cd.hidden = target < now();
       cd.set(target - now());
@@ -399,7 +399,7 @@
           h('li', {}, icon('pin'), st.venue || '场馆待公布')),
         h('p', {class: 'st-foot'}, st.detail
           ? [h('span', {class: 'ok-text'}, icon('check'), '已录入 ' + st.detail.entries.length + ' 个轮次'), icon('arrow')]
-          : h('span', {text: '逐项赛程待官方公布'}))));
+          : h('span', {text: '详细赛程待公布'}))));
     }
     return h('section', {'aria-label': '七站赛历'}, h('h2', {class: 'section-title', text: '全部分站'}), grid);
   }
@@ -447,7 +447,7 @@
       root.append(h('section', {class: 'panel empty-state'},
         trackArt('empty-track', 2),
         h('h2', {text: '详细赛程尚未录入'}),
-        h('p', {text: 'ISU 公布' + station.city + '站逐项赛程并完成核对后，这里会显示全部轮次与北京时间。'}),
+        h('p', {text: '详情待更新'}),
         h('p', {}, external(cal.source_url, 'ISU 官方赛历'))));
       return;
     }
@@ -611,8 +611,7 @@
     }
 
     root.append(overview, bar, counter, container,
-      h('p', {class: 'source-line'}, '来源：', external(data.source_url, 'ISU 逐项赛程原始页面'), ' · ',
-        external('https://www.isu-skating.com/en/short-track/results/', 'ISU 成绩索引')));
+      h('p', {class: 'source-line'}, external(data.source_url, 'ISU 官方赛程')));
 
     let lastLive = -1;
     tick(() => {
@@ -803,7 +802,7 @@
       h('div', {class: 'panel-head'}, h('h2', {text: '三天赛程一览'}),
         h('p', {text: (bjFirst ? '北京时间' : station.city + '时间') + ' · 点击刻度跳到对应比赛'})),
       h('div', {class: 'rb-body', 'aria-hidden': 'true'}, lanes, h('div', {class: 'rb-axis-row'}, h('span'), axis)),
-      h('p', {class: 'rb-legend'}, h('span', {class: 'lg lg-gold', text: 'A 组决赛（产生奖牌）'}),
+      h('p', {class: 'rb-legend'}, h('span', {class: 'lg lg-gold', text: 'A 组决赛'}),
         h('span', {class: 'lg lg-plain', text: '其他轮次'}), h('span', {class: 'lg lg-red', text: '中国队 / 现在'})));
   }
 
