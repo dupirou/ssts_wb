@@ -11,7 +11,7 @@
 
 ## 尚未打通的数据源
 
-2026 温哥华站的官方 Start List/晋级结果自动采集接口**尚未核实**。因此 data/china.json 默认为空，此时不高亮任何场次，**未知不代表中国队没有参赛**。这一层的数据模型、来源校验、估时和前端显示已经具备；要启用自动识别中国队，还需要接通已验证的官方分组数据源。赛事成绩不是实时比分源。
+中国队官方结果页面发现及 Heat 自动采集已接入 GitHub Actions，但赛事分组/结果尚未在可核实的公开入口中发布。详见 [后端数据同步说明](BACKEND.md)。因此 data/china.json 与 data/china_auto.json 目前均为空，此时不高亮任何场次，**未知不代表中国队没有参赛**。这一层的数据模型、来源校验、估时和前端显示已经具备；要启用自动识别中国队，还需要接通已验证的官方分组数据源。赛事成绩不是实时比分源。
 
 ISU HTML 自动核对是 best-effort，能否正常采集应看 Actions 日志。ISU 若改变页面结构或比赛项目数量，将停止更新并等待人工检查，不能把无数据理解为无比赛。
 
@@ -24,6 +24,10 @@ ISU HTML 自动核对是 best-effort，能否正常采集应看 Actions 日志�
 检查官网：先 pip install beautifulsoup4；然后 python tools/sync_schedule.py --dry-run。仅实际全量验证后才可以写入 CSV。
 
 产物 dist/data/calendar.json 和 dist/data/vancouver.json。源文件 data/vancouver.csv 禁止前端自行改动。
+
+## 中国队自动采集
+
+同步脚本：\`python tools/sync_china.py\`。项目会从 ISU 官方结果索引自动发现具体赛事、项目和轮次；公布前不会创建 CHN 行。每次更新都需对应的官方页面证据。具体逻辑见 [BACKEND.md](BACKEND.md)。
 
 ## 中国队数据结构
 
