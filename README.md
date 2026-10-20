@@ -1,6 +1,6 @@
 # SSTS-WB · 短道速滑世巡赛赛程
 
-非官方短道速滑赛程查询站，目标托管：Cloudflare Pages（Cloudflare DNS）。前端为零依赖原生 JS + CSS（内联 SVG 赛道动画、实时倒计时、赛程总览刻度条），适配电脑／平板／手机与打印，说明见 [DESIGN_HANDOFF.md](DESIGN_HANDOFF.md)。
+非官方短道速滑赛程查询站，目标托管：Cloudflare Pages（Cloudflare DNS）。前端为零依赖原生 JS + CSS（内联 SVG 赛道动画、实时倒计时、赛程总览刻度条），适配电脑／平板／手机与打印，提供深色与白蓝浅色两套主题，说明见 [DESIGN_HANDOFF.md](DESIGN_HANDOFF.md)。
 
 ## 已实现
 - 2026/27 赛季七站入口；温哥华站共 62 个官方暂定的**轮次开始时间**（14／25／23），转换成北京时间。

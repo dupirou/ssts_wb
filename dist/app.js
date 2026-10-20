@@ -64,7 +64,9 @@
     check: [['path', {d: 'M5 12.5l4.2 4.2L19 7'}]],
     alert: [['path', {d: 'M12 4l9 16H3z'}], ['path', {d: 'M12 10v4.5M12 17.2v.3'}]],
     filter: [['path', {d: 'M4 6.5h16M7 12h10M10 17.5h4'}]],
-    close: [['path', {d: 'M6 6l12 12M18 6L6 18'}]]
+    close: [['path', {d: 'M6 6l12 12M18 6L6 18'}]],
+    sun: [['circle', {cx: 12, cy: 12, r: 4}], ['path', {d: 'M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6'}]],
+    moon: [['path', {d: 'M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z'}]]
   };
   function icon(name, className) {
     return s('svg', {viewBox: '0 0 24 24', class: className || 'ico', 'aria-hidden': 'true', focusable: 'false'},
@@ -125,15 +127,16 @@
   function setClocks(zones) {
     clocks.replaceChildren();
     const items = zones.map(([label, tz]) => {
-      const t = h('b', {class: 'num'});
-      clocks.append(h('span', {class: 'clock'}, h('small', {text: label}), t));
-      return [t, tz];
+      const hm = h('span'), sec = h('span', {class: 'sec'});
+      clocks.append(h('span', {class: 'clock'}, h('small', {text: label}), h('b', {class: 'num'}, hm, sec)));
+      return [hm, sec, tz];
     });
     tick(() => {
       const t = now();
-      for (const [el, tz] of items) {
+      for (const [hm, sec, tz] of items) {
         const p = parts(tz, t);
-        el.textContent = p.hm + ':' + p.sec;
+        hm.textContent = p.hm;
+        sec.textContent = ':' + p.sec;
       }
     });
   }
@@ -152,6 +155,33 @@
     };
     return el;
   }
+
+  /* Light/dark switch. index.html picks the first-paint theme; by default it follows the OS setting. */
+  function themeToggle() {
+    const html = document.documentElement;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const mq = matchMedia('(prefers-color-scheme: light)');
+    const system = () => mq.matches ? 'light' : 'dark';
+    const store = (area, value) => { try { value ? area.setItem('ssts.theme', value) : area.removeItem('ssts.theme'); } catch (_) { /* private mode */ } };
+    const override = () => { try { return sessionStorage.getItem('ssts.theme') || localStorage.getItem('ssts.theme'); } catch (_) { return null; } };
+    const btn = h('button', {type: 'button', class: 'theme-btn', onclick: () => {
+      const next = html.dataset.theme === 'light' ? 'dark' : 'light';
+      // Choosing what the phone already uses means "follow the phone" again.
+      store(sessionStorage, null);
+      store(localStorage, next === system() ? null : next);
+      apply(next);
+    }}, icon('sun', 'ico ico-sun'), icon('moon', 'ico ico-moon'));
+    function apply(theme) {
+      html.dataset.theme = theme;
+      if (meta) meta.content = theme === 'light' ? '#F3F8FC' : '#0B1F33';
+      btn.setAttribute('aria-label', theme === 'light' ? '切换为深色主题' : '切换为浅色主题');
+      btn.title = btn.getAttribute('aria-label');
+    }
+    mq.addEventListener('change', () => { if (!override()) apply(system()); });
+    apply(html.dataset.theme === 'light' ? 'light' : 'dark');
+    return btn;
+  }
+  clocks.after(themeToggle());
 
   /* ---------- naming ---------- */
   const gender = {women: '女子', men: '男子', mixed: '混合'};
@@ -179,16 +209,17 @@
     const svg = s('svg', {viewBox: '0 0 400 200', class: 'track-art ' + (className || ''), 'aria-hidden': 'true'},
       s('defs', {},
         s('linearGradient', {id: id + 'ice', x1: 0, y1: 0, x2: 1, y2: 1},
-          s('stop', {offset: '0', 'stop-color': '#1D4A70'}), s('stop', {offset: '1', 'stop-color': '#0F2D49'})),
+          s('stop', {offset: '0', class: 'rk-a'}), s('stop', {offset: '1', class: 'rk-b'})),
         s('radialGradient', {id: id + 'glow'},
-          s('stop', {offset: '0', 'stop-color': '#55D6FF', 'stop-opacity': '.9'}), s('stop', {offset: '1', 'stop-color': '#55D6FF', 'stop-opacity': '0'})),
+          s('stop', {offset: '0', class: 'rk-glow', 'stop-opacity': '.9'}), s('stop', {offset: '1', class: 'rk-glow', 'stop-opacity': '0'})),
         s('path', {id: id + 'lap', d: lap})),
-      s('rect', {x: 18, y: 8, width: 364, height: 184, rx: 92, fill: 'url(#' + id + 'ice)', stroke: 'rgba(191,232,245,.4)', 'stroke-width': 1.5}),
-      s('path', {d: 'M200 8V192', stroke: 'rgba(230,57,70,.4)', 'stroke-width': 1.2}),
-      s('circle', {cx: 200, cy: 100, r: 20, fill: 'none', stroke: 'rgba(230,57,70,.4)', 'stroke-width': 1.2}),
+      // Colours come from CSS classes so the rink follows the light/dark theme.
+      s('rect', {x: 18, y: 8, width: 364, height: 184, rx: 92, fill: 'url(#' + id + 'ice)', class: 'rk-edge', 'stroke-width': 1.5}),
+      s('path', {d: 'M200 8V192', class: 'rk-red', 'stroke-width': 1.2}),
+      s('circle', {cx: 200, cy: 100, r: 20, fill: 'none', class: 'rk-red', 'stroke-width': 1.2}),
       [62, 72].map(r => s('path', {d: `M270 ${100 - r}H130A${r} ${r} 0 0 0 130 ${100 + r}H270A${r} ${r} 0 0 0 270 ${100 - r}Z`,
-        fill: 'none', stroke: 'rgba(191,232,245,.14)', 'stroke-width': 1, 'stroke-dasharray': '3 5'})),
-      s('use', {href: '#' + id + 'lap', fill: 'none', stroke: 'rgba(85,214,255,.5)', 'stroke-width': 1.6}),
+        fill: 'none', class: 'rk-lane', 'stroke-width': 1, 'stroke-dasharray': '3 5'})),
+      s('use', {href: '#' + id + 'lap', fill: 'none', class: 'rk-lap', 'stroke-width': 1.6}),
       // Seven blocks on each curve, as on a real short track rink.
       [-90, -60, -30, 0, 30, 60, 90].flatMap(a => {
         const rad = a * Math.PI / 180;
@@ -199,12 +230,12 @@
         const begin = (-i * 0.6 - 0.2).toFixed(2) + 's';
         const dur = '8s';
         return s('g', {},
-          s('use', {href: '#' + id + 'lap', fill: 'none', stroke: i ? '#BFE8F5' : '#55D6FF', 'stroke-width': 3, 'stroke-linecap': 'round',
+          s('use', {href: '#' + id + 'lap', fill: 'none', class: i ? 'rk-trail' : 'rk-trail rk-lead', 'stroke-width': 3, 'stroke-linecap': 'round',
             pathLength: 100, 'stroke-dasharray': '7 93', opacity: .5},
             s('animate', {attributeName: 'stroke-dashoffset', from: 7, to: -93, dur, begin, repeatCount: 'indefinite'})),
           s('circle', {r: 9, fill: 'url(#' + id + 'glow)'},
             s('animateMotion', {dur, begin, repeatCount: 'indefinite'}, s('mpath', {href: '#' + id + 'lap'}))),
-          s('circle', {r: 3.4, fill: i ? '#F7FBFF' : '#55D6FF'},
+          s('circle', {r: 3.4, class: i ? 'rk-dot' : 'rk-dot rk-lead'},
             s('animateMotion', {dur, begin, repeatCount: 'indefinite'}, s('mpath', {href: '#' + id + 'lap'}))));
       }));
     if (reduceMotion) queueMicrotask(() => svg.pauseAnimations && svg.pauseAnimations());

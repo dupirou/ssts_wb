@@ -2,11 +2,24 @@
 <html lang="zh-CN"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0B1F33">
 <meta name="description" content="2026/27 ISU 短道速滑世界巡回赛七站赛历与逐项赛程，北京时间换算，中国队官方分组自动标记。">
 <title>2026/27 短道速滑世界巡回赛｜赛程</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1F33'/%3E%3Crect x='8' y='18' width='48' height='28' rx='14' fill='none' stroke='%2355D6FF' stroke-width='4'/%3E%3Ccircle cx='22' cy='18' r='5' fill='%23F7FBFF'/%3E%3C/svg%3E">
+<script>
+/* Apply the theme before first paint. Order: ?theme= link (this visit only) > manual toggle > phone/OS setting. */
+(function () {
+  var q = new URLSearchParams(location.search).get('theme'), t = null;
+  try {
+    if (q === 'light' || q === 'dark') sessionStorage.setItem('ssts.theme', q);
+    t = sessionStorage.getItem('ssts.theme') || localStorage.getItem('ssts.theme');
+  } catch (e) { t = q; }
+  if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  document.documentElement.dataset.theme = t;
+  document.querySelector('meta[name="theme-color"]').content = t === 'light' ? '#F3F8FC' : '#0B1F33';
+})();
+</script>
 <link rel="stylesheet" href="./site.css">
 <script defer src="./app.js"></script>
 </head><body>
