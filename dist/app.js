@@ -34,7 +34,6 @@
   }
   function renderCalendar(data) {
     put(root,'h1','2026/27 短道速滑世界巡回赛');
-    put(root,'p','七站赛事。未录入的分站不会生成猜测的比赛时间。','sub');
     const cards=put(root,'div',undefined,'cards');
     for(const [i,s] of data.stations.entries()) {
       const a=put(cards,'a',undefined,'card');
@@ -52,10 +51,12 @@
     put(root,'h1',station.city+'站 / '+station.city_en);
     put(root,'p',station.date_start+' — '+station.date_end+' · '+(station.venue||'场馆暂未录入')+' · '+station.timezone,'sub');
     if (!data) {
-      put(root,'div','逐项赛程尚未录入；以 ISU 最新公告为准。','panel');
+      put(root,'div','详细赛程待更新','panel');
       return;
     }
-    put(root,'p',data.notice+' 最近成功核对：'+(data.sync.last_successful_schedule_check_utc||'尚未自动核对成功'),'panel');
+    if (data.sync?.last_successful_schedule_check_utc) {
+      put(root,'p','赛程核对：'+new Date(data.sync.last_successful_schedule_check_utc).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})+'（北京时间）','sub');
+    }
     const link=put(root,'a','ISU 逐项赛程原始页面');link.href=data.source_url;link.rel='noopener noreferrer';link.target='_blank';
     const info=put(root,'div',undefined,'panel china-next');
     const filters=put(root,'div',undefined,'controls');
@@ -74,8 +75,8 @@
     const now=Date.now();
     const nextChina=data.entries.find(r=>r.china.status==='confirmed'&&Date.parse(r.utc_start)>now);
     info.textContent=nextChina
-      ? '下一场已确认中国队参赛的轮次：'+eventName(nextChina)+' '+roundName(nextChina)+' 北京时间 '+nextChina.beijing_date+' '+nextChina.beijing_time+'（官方轮次开始，非该组选手精确出场）'
-      : '中国队下一场：尚无可确认的未来官方分组；未知不代表中国队缺席。';
+      ? '下一场中国队：'+eventName(nextChina)+' '+roundName(nextChina)+' 北京时间 '+nextChina.beijing_date+' '+nextChina.beijing_time
+      : '中国队下一场：暂无已确认分组';
     function redraw() {
       container.replaceChildren();
       const rows=data.entries.filter(r=>
@@ -119,12 +120,10 @@
             for(const h of r.china.heats) {
               const a=h.estimate,lo=state.zone==='beijing'?a.earliest_beijing:a.earliest_local;
               const hi=state.zone==='beijing'?a.latest_beijing:a.latest_local;
-              put(note,'p','第'+h.number+'组 '+h.athletes.join('、')+'，预计 '+lo.slice(11,16)+'–'+hi.slice(11,16)+'（模型估算，非官方）');
+              put(note,'p','第'+h.number+'组 '+h.athletes.join('、')+' · 预计 '+lo.slice(11,16)+'–'+hi.slice(11,16)+'（估算）');
             }
             const provenance=put(note,'a','查看分组来源');
             provenance.href=r.china.source_url;provenance.target='_blank';provenance.rel='noopener noreferrer';
-          } else {
-            put(note,'span','未核实中国队分组','muted');
           }
         }
       }
