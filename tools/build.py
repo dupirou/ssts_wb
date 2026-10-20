@@ -84,17 +84,26 @@ def valid_evidence(url):
     } and not parsed.username and not parsed.password
 
 def attach_china(rows):
+    # The human-reviewed file wins any disagreement with the automatic
+    # result importer. Both files are source-validated before acceptance.
     data = json.loads(CHINA.read_text(encoding="utf-8"))
-    if data.get("schema_version") != 1 or not isinstance(data.get("heats"),list):
-        raise ValueError("Invalid China provenance schema")
+    auto_path = ROOT / "data/china_auto.json"
+    auto = json.loads(auto_path.read_text(encoding="utf-8")) if auto_path.exists() else {"schema_version":1,"heats":[]}
+    for obj in (data, auto):
+        if obj.get("schema_version") != 1 or not isinstance(obj.get("heats"),list):
+            raise ValueError("Invalid China provenance schema")
     lookup = {r["round_key"]:r for r in rows}
     seen = set()
-    for item in data["heats"]:
+    for item in data["heats"] + auto["heats"]:
+        # Explicitly reviewed overrides remain authoritative; the auto file
+        # may still carry the previous official result after a correction.
+        if item.get("round_key") in seen:
+            continue
         key = item.get("round_key")
-        if key not in lookup or key in seen:
-            raise ValueError("China record unknown or duplicated round_key")
+        if key not in lookup:
+            raise ValueError("China record references unknown round_key")
         seen.add(key)
-        if item.get("country") != "CHN" or item.get("evidence") != "official_start_list" or not valid_evidence(item.get("source_url","")):
+        if item.get("country") != "CHN" or item.get("evidence") not in ("official_start_list","official_round_results") or not valid_evidence(item.get("source_url","")):
             raise ValueError("CHN highlight needs an official exact-round start-list URL")
         verified_at = datetime.fromisoformat(item["verified_at"].replace("Z","+00:00"))
         if not verified_at.tzinfo:

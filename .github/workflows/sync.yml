@@ -26,6 +26,9 @@ jobs:
       - name: Check official schedule, preserve known-good data on failure
         continue-on-error: true
         run: python tools/sync_schedule.py && touch .sync_ok
+      - name: Collect confirmed China heats from published ISU results
+        continue-on-error: true
+        run: python tools/sync_china.py && touch .china_sync_ok
       - name: Compile static site
         run: python tools/build.py
       - name: Test
@@ -37,6 +40,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add dist
+          if [ -f .china_sync_ok ]; then git add data/china_auto.json; fi
           if [ -f .sync_ok ]; then
             git add data/vancouver.csv data/sync_meta.json
           else
