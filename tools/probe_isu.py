@@ -17,7 +17,8 @@ paths = set()
 for url in urls:
     html=fetch(url)
     paths.update(urljoin(url, p) for p in re.findall(r'<script[^>]+src="([^"]+)', html))
-    text="\n".join(json.JSONDecoder().raw_decode(html[m.end():])[0][1] for m in re.finditer(r'self\.__next_f\.push\(', html) if html[m.end():].lstrip().startswith("["))
+    frames=[json.JSONDecoder().raw_decode(html[m.end():])[0] for m in re.finditer(r'self\.__next_f\.push\(', html)]
+    text="\n".join(frame[1] for frame in frames if len(frame)>1 and isinstance(frame[1],str))
     if "world-standings/" in url:
         for term in ('"initialData":','"itemLists":','"totalCount":','"total":','"page":','"pagination":','"selectedResult":'):
             i=text.find(term)
