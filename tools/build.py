@@ -26,13 +26,13 @@ HEAT_DURATIONS = {("I",500):(2.5,4.0), ("I",1000):(3.0,5.0),
                   ("I",1500):(4.0,7.0), ("R",2000):(6.0,10.0),
                   ("R",3000):(7.0,12.0), ("R",5000):(8.0,15.0)}
 VENUES = [
- ("vancouver","温哥华","Vancouver","2026-10-23","2026-10-25","America/Vancouver","Pacific Coliseum"),
- ("montreal","蒙特利尔","Montreal","2026-10-30","2026-11-01","America/Toronto",None),
- ("seoul","首尔","Seoul","2026-11-20","2026-11-22","Asia/Seoul",None),
- ("shanghai","上海","Shanghai","2026-11-27","2026-11-29","Asia/Shanghai",None),
- ("beijing","北京","Beijing","2026-12-04","2026-12-06","Asia/Shanghai",None),
- ("gdansk","格但斯克","Gdansk","2027-02-05","2027-02-07","Europe/Warsaw",None),
- ("tilburg","蒂尔堡","Tilburg","2027-02-12","2027-02-14","Europe/Amsterdam",None),
+ ("vancouver","温哥华","Vancouver","2026-10-23","2026-10-25","America/Vancouver","Pacific Coliseum","CAN"),
+ ("montreal","蒙特利尔","Montreal","2026-10-30","2026-11-01","America/Toronto",None,"CAN"),
+ ("seoul","首尔","Seoul","2026-11-20","2026-11-22","Asia/Seoul",None,"KOR"),
+ ("shanghai","上海","Shanghai","2026-11-27","2026-11-29","Asia/Shanghai",None,"CHN"),
+ ("beijing","北京","Beijing","2026-12-04","2026-12-06","Asia/Shanghai",None,"CHN"),
+ ("gdansk","格但斯克","Gdansk","2027-02-05","2027-02-07","Europe/Warsaw",None,"POL"),
+ ("tilburg","蒂尔堡","Tilburg","2027-02-12","2027-02-14","Europe/Amsterdam",None,"NED"),
 ]
 
 def read_schedule():
@@ -141,9 +141,9 @@ def attach_china(rows):
 def export():
     rows=attach_china(read_schedule())
     meta=json.loads((ROOT/"data/sync_meta.json").read_text(encoding="utf-8"))
-    stations=[dict(id=a,city=b,city_en=c,date_start=d,date_end=e,timezone=f,venue=g,
+    stations=[dict(id=a,city=b,city_en=c,date_start=d,date_end=e,timezone=f,venue=g,country=k,
                    detail_status="verified" if a=="vancouver" else "not_entered")
-              for a,b,c,d,e,f,g in VENUES]
+              for a,b,c,d,e,f,g,k in VENUES]
     season={"schema_version":1,"season":"2026/27","source_url":CALENDAR_URL,
             "stations":stations,"notice":"其他分站的详细赛程尚未录入。"}
     schedule={"schema_version":1,"event_id":"vancouver","source_url":SCHEDULE_URL,
