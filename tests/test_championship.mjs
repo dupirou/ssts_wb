@@ -38,7 +38,7 @@ test('homepage keeps seven World Tour cards and offers a distinct World Champion
   const world = d.querySelector('.championship-card');
   assert.ok(world);
   assert.match(world.textContent, /短道速滑世锦赛/);
-  assert.match(world.textContent, /03\/12 — 03\/14/);
+  assert.match(world.textContent, /03\.12 — 03\.14/);
   assert.match(world.textContent, /首尔/);
   assert.equal(world.querySelector('.btn').getAttribute('href'), '?station=worlds-2027');
   assert.match(d.querySelector('.season-head .lead').textContent, /7 站世巡赛 · 1 场世锦赛/);
@@ -50,7 +50,7 @@ test('Worlds detail uses schedule and roster waiting states without World Tour f
   const d = dom.window.document;
   assert.match(d.title, /世锦赛/);
   assert.match(d.querySelector('.hero-copy h1').textContent, /短道速滑世锦赛/);
-  assert.match(d.querySelector('.hero-copy').textContent, /03\/12.*03\/14/);
+  assert.match(d.querySelector('.hero-copy').textContent, /03\.12.*03\.14/);
   assert.match(d.querySelector('.hero-copy').textContent, /首尔/);
   assert.ok(d.querySelector('.section-tabs'));
   assert.equal(d.querySelectorAll('.section-tabs button').length, 2);
