@@ -52,3 +52,7 @@ Heat 估算是默认工程参数，不是 ISU 官方逐组时间，也未经过�
 `tools/sync_predictions.py` 从 ISU 温哥华 Entries 标签的六个单项独立 result ID 读取实际报项，并分页读取 2025/26 单项 World Tour Classification（用于直通）及单项 World Ranking（用于种子）。匹配使用 ISU 选手 ID；整站报名 PDF 只作名单更新是否齐全的保守检查，不产生任何单项参赛记录。同步由 Cloudflare Cron 触发的 Actions 执行，另有每天两次的 GitHub 定时兜底；结果写入 `data/prediction_inputs/vancouver.json`，构建后由预测接口提供。
 
 官网目前可能逐国上传报项。只有名单两次核对稳定、单项人数匹配官方赛程和晋级表、世界排名顺序与直通边界可以确定，才发布模型分组。无排名选手的报名成绩或抽签顺序未公开、官方排名并列未分出顺序时，只展示已验证的单项报项与历史排名，预测继续等待。详见 [BACKEND.md](BACKEND.md)。
+
+## 首尔站售票链接
+
+`data/tickets.json` 保存经过人工核对的首尔站票务信息，`tools/build.py` 将其写入 `dist/data/calendar.json` 的 `stations[].ticketing`，供赛季首页及首尔站详情共用。包含 ISU 中文售票公告、Ticketlink 国际版入口和 2026-10-23 14:00 KST 开售时间（北京时间 13:00）。票务链接是静态信息，不参与报名、成绩、分组预测和定时抓取。

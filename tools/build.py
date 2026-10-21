@@ -29,7 +29,7 @@ HEAT_DURATIONS = {("I",500):(2.5,4.0), ("I",1000):(3.0,5.0),
 VENUES = [
  ("vancouver","温哥华","Vancouver","2026-10-23","2026-10-25","America/Vancouver","Pacific Coliseum","CAN"),
  ("montreal","蒙特利尔","Montreal","2026-10-30","2026-11-01","America/Toronto",None,"CAN"),
- ("seoul","首尔","Seoul","2026-11-20","2026-11-22","Asia/Seoul",None,"KOR"),
+ ("seoul","首尔","Seoul","2026-11-20","2026-11-22","Asia/Seoul","木洞冰场","KOR"),
  ("shanghai","上海","Shanghai","2026-11-27","2026-11-29","Asia/Shanghai",None,"CHN"),
  ("beijing","北京","Beijing","2026-12-04","2026-12-06","Asia/Shanghai",None,"CHN"),
  ("gdansk","格但斯克","Gdansk","2027-02-05","2027-02-07","Europe/Warsaw",None,"POL"),
@@ -141,10 +141,35 @@ def attach_china(rows):
                       "source_url":item["source_url"],"verified_at":item["verified_at"]}
     return rows
 
+def load_ticketing():
+    """Validate curated ticket links before publishing them to the calendar."""
+    from urllib.parse import urlsplit
+    path = ROOT / "data/tickets.json"
+    cfg = json.loads(path.read_text(encoding="utf-8"))
+    if cfg.get("schema_version") != 1 or not isinstance(cfg.get("stations"), dict):
+        raise ValueError("Invalid ticket information schema")
+    allowed = {row[0] for row in VENUES}
+    result = {}
+    for station, item in cfg["stations"].items():
+        if station not in allowed or not isinstance(item, dict):
+            raise ValueError("Unknown ticket event")
+        for field, host in (("isu_url", "isu-skating.com"), ("booking_url", "m.ticketlink.co.kr")):
+            u = urlsplit(item.get(field, ""))
+            if u.scheme != "https" or u.hostname != host or u.username or u.password:
+                raise ValueError("Invalid ticket source: " + field)
+        start = datetime.fromisoformat(item["sale_start"])
+        if start.tzinfo is None or start.utcoffset().total_seconds() != 9 * 3600:
+            raise ValueError("Ticket opening must include Korea timezone")
+        result[station] = {"sale_start": item["sale_start"], "isu_url": item["isu_url"],
+                           "booking_url": item["booking_url"]}
+    return result
+
 def export():
     rows=attach_china(read_schedule())
     meta=json.loads((ROOT/"data/sync_meta.json").read_text(encoding="utf-8"))
+    ticketing=load_ticketing()
     stations=[dict(id=a,city=b,city_en=c,date_start=d,date_end=e,timezone=f,venue=g,country=k,
+                   ticketing=ticketing.get(a),
                    detail_status="verified" if a=="vancouver" else "not_entered")
               for a,b,c,d,e,f,g,k in VENUES]
     season={"schema_version":1,"season":"2026/27","source_url":CALENDAR_URL,

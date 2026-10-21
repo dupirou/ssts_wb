@@ -583,6 +583,22 @@
     dialog.showModal();
   }
 
+  function ticketPanel(st) {
+    if (!st.ticketing) return null;
+    const open = Date.parse(st.ticketing.sale_start);
+    const bj = parts(BJ, open), kr = parts(st.timezone, open);
+    return h('section', {class: 'panel ticket-panel', 'aria-label': st.city + '站售票'},
+      h('div', {class: 'ticket-copy'},
+        h('p', {class: 'eyebrow', text: st.city + '站 · 门票'}),
+        h('h2', {text: '售票信息'}),
+        h('p', {class: 'ticket-time'},
+          md(bj.date) + ' ' + bj.hm + ' 北京时间开售',
+          h('small', {text: ' · 韩国时间 ' + kr.hm}))),
+      h('div', {class: 'ticket-actions'},
+        external(st.ticketing.isu_url, 'ISU 售票说明'),
+        external(st.ticketing.booking_url, 'Ticketlink 订票')));
+  }
+
   /* ---------- season page ---------- */
   function renderSeason(cal, details) {
     setClocks([['北京时间', BJ]]);
@@ -598,6 +614,7 @@
 
     root.replaceChildren(head,
       focus ? nextCard(focus) : h('section', {class: 'next-card is-done'}, h('h2', {text: '本赛季全部分站已结束'})),
+      ...stations.map(ticketPanel).filter(Boolean),
       seasonLine(stations, focus), stationGrid(stations, focus),
       h('p', {class: 'source-line'}, external(cal.source_url, 'ISU 官方赛历')));
   }
@@ -741,7 +758,8 @@
       copy.append(syncLine(data));
     }
     root.replaceChildren(stationNav(cal, station),
-      h('section', {class: 'station-hero'}, copy, data ? liveCard(data, station) : pendingCard(win)));
+      h('section', {class: 'station-hero'}, copy, data ? liveCard(data, station) : pendingCard(win)),
+      ...(station.ticketing ? [ticketPanel(station)] : []));
     const competition = competitionPanel(station);
     const schedule = h('section', {class: 'schedule-content'});
 
