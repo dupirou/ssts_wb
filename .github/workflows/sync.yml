@@ -42,10 +42,7 @@ jobs:
           npm ci --ignore-scripts
           python -m unittest discover -s tests -v
           node --check web/app.js
-          node --test tests/test_api.mjs
-          node --test tests/test_athlete_ui.mjs
-          node --test tests/test_tickets.mjs
-          node --test tests/test_championship.mjs
+          node --test tests/*.mjs
       - name: Commit built site and accepted official updates
         run: |
           git config user.name "github-actions[bot]"
