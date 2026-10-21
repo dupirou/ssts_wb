@@ -67,4 +67,14 @@ Cloudflare 官方帮助：
 - 中国队的官方分组自动采集当前尚未接通。无官方证明的 CHN 行保持未知，不可擅自高亮。
 - 数据时间戳表示“上次公开发布的完整官方核对记录”，非秒级实时比分。
 
+## 5. 比赛期间的准时同步（Cloudflare Cron Trigger）
+
+GitHub 的定时任务经常延迟数小时。`wrangler.jsonc` 为 Worker `stsswb` 配置了每 10 分钟一次的 Cron Trigger；`src/worker.mjs` 的 `scheduled()` 只在比赛窗口内（各站开赛前 2 天至结束后 3 天，按 `data/calendar.json`）调用 GitHub API 手动运行 `sync.yml`，其余时间直接跳过。GitHub 自身的定时任务保留为兜底；同步工作流有并发组，不会重复写入。
+
+一次性设置（未设置时 Worker 只记录日志并跳过，不影响网站）：
+
+1. GitHub → Settings → Developer settings → **Fine-grained personal access tokens** → 新建：仅授权仓库 `dupirou/ssts_wb`，权限 **Actions: Read and write**（其余保持无权限），有效期覆盖赛季。
+2. Cloudflare 控制台 → Workers & Pages → `stsswb` → Settings → **Variables and Secrets** → 添加类型为 Secret 的 `GITHUB_DISPATCH_TOKEN`，值为上面的 token。
+3. 部署后可在 `stsswb` → Settings → Trigger events 看到 `*/10 * * * *`；比赛窗口内的 GitHub Actions 运行记录事件类型为 `workflow_dispatch`。
+
 注意：没有你的 Cloudflare 账户连接权限，本指南**不会**创建 Pages 项目、授权 GitHub App 或改变 DNS。完成控制台步骤后可将系统实际提供的 pages.dev URL 发来进行公开访问校验。

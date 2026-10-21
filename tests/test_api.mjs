@@ -89,3 +89,31 @@ test('built real snapshot and unconfigured event empty states are served', async
   const seoul=await (await request('/api/v1/events/seoul/predictions',realEnv)).json();
   assert.ok(seoul.items.every(p=>p.missing.includes('schedule')));
 });
+
+test('race-window cron dispatches the sync workflow only during race windows', async () => {
+  const {inRaceWindow} = await import('../src/worker.mjs');
+  const stations = [{date_start:'2026-10-23', date_end:'2026-10-25'}];
+  assert.equal(inRaceWindow(stations, Date.parse('2026-10-20T12:00:00Z')), false);
+  assert.equal(inRaceWindow(stations, Date.parse('2026-10-21T00:00:00Z')), true);
+  assert.equal(inRaceWindow(stations, Date.parse('2026-10-27T23:59:00Z')), true);
+  assert.equal(inRaceWindow(stations, Date.parse('2026-10-28T00:00:00Z')), false);
+
+  const calls = [];
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async (url, init) => { calls.push({url, init}); return new Response(null, {status:204}); };
+  const env = token => ({GITHUB_DISPATCH_TOKEN:token, ASSETS:{fetch:async () => Response.json({stations})}});
+  const run = async (env, time) => {
+    const pending = [];
+    await worker.scheduled({scheduledTime:Date.parse(time)}, env, {waitUntil:p => pending.push(p)});
+    await Promise.all(pending);
+  };
+  try {
+    await run(env('t0k'), '2026-10-24T18:00:00Z');
+    await run(env('t0k'), '2026-11-10T18:00:00Z');
+    await run(env(undefined), '2026-10-24T18:00:00Z');
+  } finally { globalThis.fetch = realFetch; }
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].url, 'https://api.github.com/repos/dupirou/ssts_wb/actions/workflows/sync.yml/dispatches');
+  assert.equal(calls[0].init.headers.Authorization, 'Bearer t0k');
+  assert.deepEqual(JSON.parse(calls[0].init.body), {ref:'main'});
+});

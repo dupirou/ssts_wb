@@ -633,7 +633,7 @@ td.time { white-space: nowrap; }
 .source-disclosure > p { margin: 4px 0 0; }
 .athlete-empty { padding: 16px 0 4px; font-size: .86rem; }
 .athlete-load-error { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .84rem; color: var(--muted); }
-.prediction-label { color: var(--gold-text); font-size: .76rem; font-weight: 600; }
+.prediction-label { color: var(--text-2); background: rgb(var(--ice-rgb) / .1); border-radius: 999px; padding: 1px 8px; font-size: .74rem; font-weight: 600; }
 .prediction-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 10px; }
 .prediction-group { min-width: 0; padding: 14px; border: 1px solid var(--border-soft); border-radius: 12px; background: var(--well-soft); }
 .prediction-group.has-china { border-color: rgb(var(--red-rgb) / .3); }

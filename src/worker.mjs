@@ -16,7 +16,41 @@ function matches(item, query, participant = item) {
   return true;
 }
 
+/* Race-window sync: GitHub's own cron is often hours late, so a Cloudflare Cron Trigger
+   asks GitHub Actions to run the existing sync workflow. Outside race windows it does nothing. */
+const SYNC_REPO = 'dupirou/ssts_wb';
+const SYNC_WORKFLOW = 'sync.yml';
+const DAY_MS = 86400_000;
+
+export function inRaceWindow(stations, now) {
+  // Two days either side of the local dates covers every station timezone plus entry/result publication.
+  return stations.some(s => now >= Date.parse(s.date_start + 'T00:00:00Z') - 2 * DAY_MS &&
+    now < Date.parse(s.date_end + 'T00:00:00Z') + 3 * DAY_MS);
+}
+
+async function dispatchSync(env, now) {
+  if (!env.GITHUB_DISPATCH_TOKEN) {
+    console.warn('Race-window sync skipped: GITHUB_DISPATCH_TOKEN secret is not set');
+    return 'no_token';
+  }
+  const calendar = await env.ASSETS.fetch(new Request('https://assets.local/data/calendar.json'));
+  if (!calendar.ok) throw new Error('calendar.json unavailable: ' + calendar.status);
+  if (!inRaceWindow((await calendar.json()).stations, now)) return 'outside_window';
+  const response = await fetch(`https://api.github.com/repos/${SYNC_REPO}/actions/workflows/${SYNC_WORKFLOW}/dispatches`, {
+    method: 'POST',
+    headers: {Authorization: 'Bearer ' + env.GITHUB_DISPATCH_TOKEN, Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'stsswb-cron', 'Content-Type': 'application/json'},
+    body: JSON.stringify({ref: 'main'}),
+  });
+  if (response.status !== 204) throw new Error('GitHub dispatch failed: ' + response.status + ' ' + (await response.text()).slice(0, 200));
+  return 'dispatched';
+}
+
 export default {
+  async scheduled(controller, env, ctx) {
+    ctx.waitUntil(dispatchSync(env, controller.scheduledTime).then(result => console.log('Race-window sync:', result)));
+  },
+
   async fetch(request, env) {
     const url = new URL(request.url);
     if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
