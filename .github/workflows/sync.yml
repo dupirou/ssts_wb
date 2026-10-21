@@ -5,7 +5,7 @@ on:
     paths-ignore:
       - "dist/**"
   schedule:
-    - cron: "9,39 * * * *"
+    - cron: "17 0,12 * * *"
   workflow_dispatch:
 permissions:
   contents: write
