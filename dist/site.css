@@ -214,6 +214,33 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 .source-line a { color: var(--accent-2); text-underline-offset: 3px; }
 .source-line a:hover { color: var(--accent); }
 
+/* Short ticket notice, linked from both the season page and Seoul details. */
+.ticket-panel {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: 12px 22px; padding: 16px 20px; margin: 0 0 20px;
+  border-color: rgb(var(--cyan-rgb) / .3);
+}
+.ticket-copy { min-width: 0; display: grid; gap: 3px; }
+.ticket-copy .eyebrow { font-size: .76rem; }
+.ticket-copy h2 { font-size: 1.08rem; }
+.ticket-time { color: var(--text-2); font-size: .9rem; }
+.ticket-time small { color: var(--muted); font-size: .82rem; }
+.ticket-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.ticket-actions a {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 44px; padding: 9px 14px; border-radius: 11px;
+  border: 1px solid var(--border); text-decoration: none;
+  color: var(--accent); font-size: .88rem; font-weight: 700;
+}
+.ticket-actions a:last-child { color: var(--on-accent); border-color: var(--accent); background: var(--accent); }
+.ticket-actions a:hover { border-color: var(--accent); }
+.ticket-actions .ico { width: 14px; height: 14px; }
+@media (max-width: 680px) {
+  .ticket-panel { padding: 14px 16px; }
+  .ticket-actions { width: 100%; }
+  .ticket-actions a { flex: 1; min-width: min(100%, 125px); }
+}
+
 /* ---------- what's new: official milestones since the last visit; closable ---------- */
 .updates {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; margin: 0 0 20px; border-radius: 14px;

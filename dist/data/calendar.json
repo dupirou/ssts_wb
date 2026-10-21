@@ -12,6 +12,7 @@
       "timezone": "America/Vancouver",
       "venue": "Pacific Coliseum",
       "country": "CAN",
+      "ticketing": null,
       "detail_status": "verified"
     },
     {
@@ -23,6 +24,7 @@
       "timezone": "America/Toronto",
       "venue": null,
       "country": "CAN",
+      "ticketing": null,
       "detail_status": "not_entered"
     },
     {
@@ -32,8 +34,13 @@
       "date_start": "2026-11-20",
       "date_end": "2026-11-22",
       "timezone": "Asia/Seoul",
-      "venue": null,
+      "venue": "木洞冰场",
       "country": "KOR",
+      "ticketing": {
+        "sale_start": "2026-10-23T14:00:00+09:00",
+        "isu_url": "https://isu-skating.com/zh-CN/short-track/news/short-track-world-tour-seoul-2026-tickets/",
+        "booking_url": "https://m.ticketlink.co.kr/global/zh/product/66349?null"
+      },
       "detail_status": "not_entered"
     },
     {
@@ -45,6 +52,7 @@
       "timezone": "Asia/Shanghai",
       "venue": null,
       "country": "CHN",
+      "ticketing": null,
       "detail_status": "not_entered"
     },
     {
@@ -56,6 +64,7 @@
       "timezone": "Asia/Shanghai",
       "venue": null,
       "country": "CHN",
+      "ticketing": null,
       "detail_status": "not_entered"
     },
     {
@@ -67,6 +76,7 @@
       "timezone": "Europe/Warsaw",
       "venue": null,
       "country": "POL",
+      "ticketing": null,
       "detail_status": "not_entered"
     },
     {
@@ -78,6 +88,7 @@
       "timezone": "Europe/Amsterdam",
       "venue": null,
       "country": "NED",
+      "ticketing": null,
       "detail_status": "not_entered"
     }
   ],
