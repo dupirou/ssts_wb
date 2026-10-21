@@ -305,10 +305,15 @@ def main():
         if not station.get('isu') or (not args.event and
                 not stations.within(station, now, WINDOW_BEFORE_DAYS)):
             continue
-        snapshot, errors = sync_event(station['id'], stations.sources(station))
-        print(station['id'], {k: len(snapshot[k]['items']) for k in data.KINDS})
+        try:
+            snapshot, errors = sync_event(station['id'], stations.sources(station))
+        except Exception as exc:
+            # One station's unexpected failure keeps its last snapshot and never stops the others.
+            snapshot, errors = None, ['unexpected: ' + str(exc)]
+        if snapshot:
+            print(station['id'], {k: len(snapshot[k]['items']) for k in data.KINDS})
         for message in errors:
-            print(message, file=sys.stderr)
+            print(f"::warning::{station['id']} entries/results sync: {message}", file=sys.stderr)
         failed |= bool(errors)
     return int(failed)
 

@@ -108,6 +108,34 @@ class ScheduleSyncTests(unittest.TestCase):
         self.assertEqual(found, {'slug': 'isu-short-track-world-tour-2-montreal', 'event_id': 16272})
 
 
+class FailureIsolationTests(unittest.TestCase):
+    def test_one_station_raising_does_not_stop_the_others(self):
+        import sync_competitions
+        import sync_predictions
+        from unittest.mock import patch
+        seen = []
+
+        def flaky(event_id, config, *args, **kwargs):
+            seen.append(event_id)
+            if event_id == 'vancouver':
+                raise ValueError('Too many official report documents')
+            return build.competition_data.empty_snapshot(event_id), []
+
+        racing = datetime(2026, 10, 31, tzinfo=timezone.utc)
+        with patch.object(sync_competitions, 'sync_event', flaky), \
+                patch.object(sync_competitions.stations, 'utc_now', lambda: racing), \
+                patch.object(sys, 'argv', ['sync_competitions.py']):
+            self.assertEqual(sync_competitions.main(), 1)
+        self.assertEqual(seen, ['vancouver', 'montreal'])
+
+        def raising(event_id, config, *args, **kwargs):
+            raise ValueError('Prediction snapshot identity mismatch')
+
+        with patch.object(sync_predictions, 'sync_event', raising), \
+                patch.object(sys, 'argv', ['sync_predictions.py']):
+            self.assertEqual(sync_predictions.main(), 1)
+
+
 class StationConfigTests(unittest.TestCase):
     def test_every_station_has_a_valid_isu_reference_and_window(self):
         config = stations.load()

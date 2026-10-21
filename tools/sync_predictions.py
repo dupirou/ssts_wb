@@ -393,11 +393,15 @@ def main():
         cfg = stations.sources(station)
         if (args.event and station['id'] != args.event) or 'prediction' not in cfg:
             continue
-        item, errors = sync_event(station['id'], cfg)
+        try:
+            item, errors = sync_event(station['id'], cfg)
+        except Exception as exc:
+            # One station's unexpected failure keeps its last inputs and never stops the others.
+            item, errors = None, ['unexpected: ' + str(exc)]
         print(station['id'], [(x['gender'], x['distance_m'], len(x['participants']),
-                               x['missing']) for x in item['observed_lists']] if item else 'not configured')
+                               x['missing']) for x in item['observed_lists']] if item else 'not updated')
         for error in errors:
-            print(error, file=sys.stderr)
+            print(f"::warning::{station['id']} prediction sync: {error}", file=sys.stderr)
         failed |= bool(errors)
     return int(failed)
 
