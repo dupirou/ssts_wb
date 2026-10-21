@@ -36,6 +36,18 @@ VENUES = [
  ("tilburg","蒂尔堡","Tilburg","2027-02-12","2027-02-14","Europe/Amsterdam",None,"NED"),
 ]
 
+# Championships are independent events, never counted as World Tour stages.
+CHAMPIONSHIPS = [
+    dict(
+        id="worlds-2027", kind="world_championships",
+        title="短道速滑世锦赛", title_en="ISU Short Track World Championships",
+        city="首尔", city_en="Seoul", country="KOR",
+        date_start="2027-03-12", date_end="2027-03-14", timezone="Asia/Seoul",
+        venue=None, detail_status="not_entered",
+        source_url=CALENDAR_URL,
+    ),
+]
+
 def read_schedule():
     with SOURCE.open(encoding="utf-8", newline="") as f:
         data = list(csv.DictReader(f))
@@ -173,7 +185,8 @@ def export():
                    detail_status="verified" if a=="vancouver" else "not_entered")
               for a,b,c,d,e,f,g,k in VENUES]
     season={"schema_version":1,"season":"2026/27","source_url":CALENDAR_URL,
-            "stations":stations,"notice":"其他分站的详细赛程尚未录入。"}
+            "stations":stations,"championships":CHAMPIONSHIPS,
+            "notice":"其他分站的详细赛程尚未录入。"}
     schedule={"schema_version":1,"event_id":"vancouver","source_url":SCHEDULE_URL,
               "source_timezone":"America/Vancouver","status":"provisional",
               "source_checked_at":"2026-10-20","sync":meta,

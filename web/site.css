@@ -407,6 +407,27 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 .st-card:hover .st-foot > .ico { transform: translateX(4px); }
 
 /* ---------- station page ---------- */
+/* Championship is a separate event, not World Tour stage #8. */
+.championship-section { margin-top: 24px; }
+.championship-card {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+  gap: 16px 24px; padding: 22px 24px;
+  background: linear-gradient(120deg, rgb(var(--gold-rgb) / .10), var(--surface-lo) 65%);
+  border-color: rgb(var(--gold-rgb) / .32);
+}
+.championship-main { display: grid; gap: 8px; min-width: 0; }
+.championship-kicker { color: var(--gold-text); font-size: .78rem; font-weight: 800; letter-spacing: .045em; }
+.championship-main h3 { display: flex; gap: 7px 15px; flex-wrap: wrap; align-items: baseline; font-size: clamp(1.26rem, 3vw, 1.6rem); }
+.championship-main h3 small { color: var(--muted); font: 600 .82rem var(--num); }
+.championship-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 7px 14px; color: var(--text-2); font-size: .9rem; }
+.championship-meta .ico { width: 16px; height: 16px; color: var(--gold-text); }
+.championship-card .btn { flex: none; }
+.st-nav-list .championship-nav { border-color: rgb(var(--gold-rgb) / .45); }
+@media (max-width: 680px) {
+  .championship-card { padding: 18px 16px; }
+  .championship-card .btn { width: 100%; justify-content: center; }
+}
+
 .st-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; min-width: 0; }
 .back { display: inline-flex; align-items: center; gap: 4px; text-decoration: none; color: var(--text-2); font-size: .9rem; white-space: nowrap; min-height: 40px; }
 .back:hover { color: var(--accent); }
