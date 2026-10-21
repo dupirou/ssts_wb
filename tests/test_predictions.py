@@ -67,13 +67,16 @@ class PredictionTests(unittest.TestCase):
         self.assertEqual(sum(len(g['participants']) for g in groups),8)
 
     def test_first_round_separates_prequalified_and_keeps_projection_unconfirmed(self):
-        result=model.project('vancouver',build.read_schedule(),data.empty_snapshot('vancouver'),input_for())
+        inputs = input_for()
+        inputs['checked_at'] = '2026-10-23T01:00:00+00:00'
+        result=model.project('vancouver',build.read_schedule(),data.empty_snapshot('vancouver'),inputs)
         item=result['items'][0]
         self.assertEqual(item['status'],'predicted')
         self.assertEqual(len(item['prequalified']),20)
         self.assertEqual(sum(len(g['participants']) for g in item['groups']),21)
         self.assertEqual(len(item['groups']),5)
         self.assertEqual(result['evidence'],'model_prediction_not_official')
+        self.assertEqual(result['checked_at'], inputs['checked_at'])
         self.assertEqual(data.china_evidence(data.empty_snapshot('vancouver'))[0],[])
 
     def test_roster_alone_does_not_become_distance_entries(self):
