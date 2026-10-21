@@ -170,6 +170,10 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
 /* ---------- shared atoms ---------- */
+/* No one-character orphans in notes; headings break evenly. */
+p, li, dt, dd, small, summary { text-wrap: pretty; }
+h1, h2, h3 { text-wrap: balance; }
+.nowrap { white-space: nowrap; }
 .ico { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; vertical-align: -3px; }
 .ico .fill { fill: currentColor; stroke: none; }
 .ico-sm { width: 15px; height: 15px; }
