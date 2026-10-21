@@ -44,7 +44,7 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 自动同步结果保存在 `data/prediction_inputs/{event}.json`。其 `observed_lists` 保存各单项实际报项、排名、未解决原因与官方来源；只有满足完整性及顺序检查的项目才写入 `seed_lists`。每份可预测名单包含项目、`complete: true`、官方来源、核验时刻以及连续 `seed_rank` 和明确的 `prequalified`。报名接口中的 `entry_index` 为空时不得当作无排名选手的抽签次序。
 
 构建时校验官方来源、项目、名单完整性、直通人数和实际首轮赛程，再根据晋级表选择组数。当前支持表内 26–95 人的标准首轮；未覆盖人数保留等待态。500/1000m 超过 40 人、1500m 超过 63 人时，20 名直通者单列，不放入前置轮次。未来官网更正单项报项或排名后自动重算；抓取失败保留上次快照并标记同步错误。接口仅支持 `gender`、`distance_m`、`round_key` 筛选。
-其他六站的源尚未配置，保持 `not_published / not_checked`。
+其他站的报名、分组与成绩按同一流程自动同步（见“多站自动更新”）；预测模型只用于温哥华。
 
 `rounds` 中 `evidence=official_start_list` 或 `official_results`；
 `result_status` 原样保留官方 provisional/official 状态。只有明确的 A/B 决赛标签才关联对应赛程。
@@ -59,9 +59,28 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 排名来自官方 PDF 列，不自行按积分规则重算；未提供的 `points` 为 null，
 `official_details` 保留其他官方表格字段。排名来源未发布时接口保持空态。
 
+### 多站自动更新（每站同一条流程）
+
+`data/stations.json` 是唯一的分站配置：城市、日期、时区、场馆，以及该站在 ISU 官网的赛事页（`isu.slug` 与 `isu.event_id`）。其余来源地址都由它推出：`?tab=schedule_<id>`、`documents_<id>`、`results_<id>`、`entries_<id>`。新赛季只需更新这一个文件；`isu` 留空时，赛程同步会在 ISU 赛事列表里按“城市 / 国家代码 + 日期”自动找到赛事页并写回。
+
+| 环节 | 何时检查 | 接受条件 | 写入 |
+|---|---|---|---|
+| 官方赛程 `sync_schedule.py` | 开赛前 45 天至最后一个比赛日 | 赛事页城市与日期相符；九个世巡赛项目都排到 A 组决赛；全部在本站日期内、按时间顺序、无重复 | `data/schedules/<id>.csv`、`data/sync_meta.json` |
+| 报名、分组、成绩、排名 `sync_competitions.py` | 开赛前 14 天起持续核对（已是正式成绩的轮次不再请求） | 文件与页面标注本站城市和年份 | `data/competitions/<id>.json` |
+| 中国队小组 `sync_china.py` | 开赛前 1 天至赛后 3 天，且已有赛程 | 结果页标注本站城市和年份 | `data/china_auto.json`（各站共用，按 `round_key` 日期区分） |
+| 首轮预测 `sync_predictions.py` | 只对 `competition_sources.json` 配了 `prediction` 的站（目前仅温哥华，因直通规则只适用世巡赛第一站） | 见上文 | `data/prediction_inputs/<id>.json` |
+
+赛程规则：
+- 某站第一次出现完整赛程时直接录入，页面随即出现该站详细赛程，“新动态”提示“详细赛程已公布”。
+- ISU 在开赛前仍可能整体调整暂定赛程，此时以新的完整赛程整体替换。
+- 开赛后只接受时间变动；一次超过 10 处，或轮次结构改变，都拒绝并保留原数据，等待人工处理。
+- 赛事页已有 Schedule 标签却读不到任何轮次（例如改为浏览器端加载），视为失败并在日志中警告，不当作“未公布”。
+
+各同步脚本都是逐站处理，某站失败只影响该站，其他站照常写入；Actions 日志中以 `::warning::` 标出。
+
 ### 抓取、更新及回退
 
-- `data/competition_sources.json` 为逐站官方来源配置。
+- `data/competition_sources.json` 只保存逐站的额外来源（目前是温哥华的预测配置）；通用地址由 `data/stations.json` 推出。
 - `tools/sync_competitions.py` 每次从 Documents 重新发现最新报名 PDF/排名文件，避免写死替换后的 PDF URL。
 - `tools/isu_results.py` 读取新官网公开 `eventResultsData` 元数据，再调用官网使用的 `front-api.isu.org` 轮次及逐组接口。
 - `data/competitions/<event>.json` 为最近成功快照；`tools/build.py` 输出 `dist/data/competitions/`。
@@ -75,7 +94,8 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 
 ```sh
 python -m pip install -r requirements.txt
-python tools/sync_competitions.py --event vancouver
+python tools/sync_schedule.py --station montreal
+python tools/sync_competitions.py --event montreal
 python tools/build.py
 python -m unittest discover -s tests -v
 node --test tests/test_api.mjs
@@ -91,12 +111,15 @@ npx wrangler@4.151.2 dev --local
 
 | 文件 | 职责 |
 |---|---|
-| `tools/sync_schedule.py` | 核对温哥华站 62 个官方轮次时间，完整且一致才接受变化 |
-| `tools/sync_china.py` | 从 ISU 官方结果索引发现 2026 Vancouver，依次读取项目、轮次、Heat |
-| `data/china_sources.json` | 自动发现失败时可指定经过核验的 ISU 单站结果主页 |
+| `data/stations.json` | 分站与世锦赛配置：日期、时区、ISU 赛事页 |
+| `tools/stations.py` | 读取分站配置，推出各站官方地址、同步时间窗与赛程文件路径 |
+| `tools/sync_schedule.py` | 自动发现各站 ISU 赛事页，录入并核对官方赛程，完整且一致才接受变化 |
+| `data/schedules/<id>.csv` | 各站已核验的官方赛程（当地日期、时间、项目、轮次） |
+| `tools/sync_china.py` | 从 ISU 官方结果索引发现各站结果页，依次读取项目、轮次、Heat |
+| `data/china_sources.json` | 自动发现失败时可按站指定经过核验的 ISU 结果主页（`event_results_urls`） |
 | `data/china_auto.json` | 自动导入的已核验中国队小组证据 |
 | `data/china.json` | 人工核查后的备选/覆盖记录（优先级高） |
-| `tools/build.py` | 验证所有证据、关联赛程、估算非官方小组时间，生成 dist/data/vancouver.json |
+| `tools/build.py` | 验证所有证据、关联赛程、估算非官方小组时间，为每个已有赛程的分站生成 `dist/data/<id>.json` |
 | `tools/updates.py` | 构建时生成“新动态”：对比 `data/updates.json` 已记录的里程碑，把新出现的名单、正式分组、正式成绩、赛程时间调整与排名写成通知 |
 | `.github/workflows/sync.yml` | Cloudflare 按比赛窗口触发；GitHub 每 12 小时定时兜底；数据变化或每日核对记录更新时重新部署 |
 
@@ -106,9 +129,9 @@ ISU 官网已经公布温哥华站**轮次**时间；ISU 2026 年温哥华站的
 
 自动发现算法：官方结果索引 → 2026 Vancouver 结果赛事首页 → 各距离/接力项目页 → Preliminaries / Heats / Rep. / Quarterfinals / Semifinals / Finals → 官方 Heat 数据中 CHN 国别 → 稳定 `round_key`。
 
-若赛事开始后官方尚未将结果添加到索引，可以将官方赛事**结果页面**（不是赛事宣传页）填进 `data/china_sources.json` 的 `event_results_url`，后续由定时任务自动更新；但地址必须能够明确验证属于 **2026 温哥华站**。也可以本地运行：
+若赛事开始后官方尚未将结果添加到索引，可以将官方赛事**结果页面**（不是赛事宣传页）按站填进 `data/china_sources.json` 的 `event_results_urls`（如 `"montreal": "https://…"`），后续由定时任务自动更新；但页面必须能够明确验证属于该站的城市和年份。也可以本地运行：
 
-`python tools/sync_china.py --event-url https://www.isu-skating.com/en/short-track/results/实际结果赛事链接/ --dry-run`
+`python tools/sync_china.py --station montreal --event-url https://www.isu-skating.com/en/short-track/results/实际结果赛事链接/ --dry-run`
 
 上面的 URL 仅表示格式，不能照抄为实际地址。
 
@@ -126,7 +149,7 @@ ISU 官网已经公布温哥华站**轮次**时间；ISU 2026 年温哥华站的
 ## GitHub Actions
 
 推送和手动触发的工作流会执行：
-1. 官网赛程核对，失败则不更新赛程 CSV。
+1. 各站官网赛程核对；某站失败则该站不更新赛程 CSV。
 2. 中国队小组核对，未公布则无修改；解析异常时记录失败而保留上一版。
 3. 本地数据构建、Python 单测、JS 语法检测。
 4. 有内容变化才提交 `dist/` 与已确认的数据文件到 main，Cloudflare Workers/Pages GitHub 集成随后部署。
@@ -145,6 +168,7 @@ ISU 官网已经公布温哥华站**轮次**时间；ISU 2026 年温哥华站的
 
 | 类型 `kind` | 何时产生 | 时间 `at` |
 |---|---|---|
+| `schedule` | 某站详细赛程首次录入（`count` 轮，`local_date` 为首个比赛日）；已有赛程的站不补发 | 赛程核对时间 |
 | `entries` | 报名名单首次公布，或名单成员变化（`changed: true`） | 名单数据的 `updated_at` |
 | `groups` | 某轮次首次出现官方分组或成绩（含中国队名单 `china`） | 分组数据的 `updated_at` |
 | `results` | 某轮次所有 Heat 均为 Official 成绩；A 组决赛附前三名 `podium` | 同上 |

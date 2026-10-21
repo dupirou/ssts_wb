@@ -7,11 +7,11 @@
       "id": "vancouver",
       "city": "温哥华",
       "city_en": "Vancouver",
+      "country": "CAN",
       "date_start": "2026-10-23",
       "date_end": "2026-10-25",
       "timezone": "America/Vancouver",
       "venue": "Pacific Coliseum",
-      "country": "CAN",
       "ticketing": null,
       "detail_status": "verified"
     },
@@ -19,11 +19,11 @@
       "id": "montreal",
       "city": "蒙特利尔",
       "city_en": "Montreal",
+      "country": "CAN",
       "date_start": "2026-10-30",
       "date_end": "2026-11-01",
       "timezone": "America/Toronto",
       "venue": null,
-      "country": "CAN",
       "ticketing": null,
       "detail_status": "not_entered"
     },
@@ -31,11 +31,11 @@
       "id": "seoul",
       "city": "首尔",
       "city_en": "Seoul",
+      "country": "KOR",
       "date_start": "2026-11-20",
       "date_end": "2026-11-22",
       "timezone": "Asia/Seoul",
       "venue": "木洞冰场",
-      "country": "KOR",
       "ticketing": {
         "sale_start": "2026-10-23T14:00:00+09:00",
         "isu_url": "https://isu-skating.com/zh-CN/short-track/news/short-track-world-tour-seoul-2026-tickets/",
@@ -47,11 +47,11 @@
       "id": "shanghai",
       "city": "上海",
       "city_en": "Shanghai",
+      "country": "CHN",
       "date_start": "2026-11-27",
       "date_end": "2026-11-29",
       "timezone": "Asia/Shanghai",
       "venue": null,
-      "country": "CHN",
       "ticketing": null,
       "detail_status": "not_entered"
     },
@@ -59,11 +59,11 @@
       "id": "beijing",
       "city": "北京",
       "city_en": "Beijing",
+      "country": "CHN",
       "date_start": "2026-12-04",
       "date_end": "2026-12-06",
       "timezone": "Asia/Shanghai",
       "venue": null,
-      "country": "CHN",
       "ticketing": null,
       "detail_status": "not_entered"
     },
@@ -71,11 +71,11 @@
       "id": "gdansk",
       "city": "格但斯克",
       "city_en": "Gdansk",
+      "country": "POL",
       "date_start": "2027-02-05",
       "date_end": "2027-02-07",
       "timezone": "Europe/Warsaw",
       "venue": null,
-      "country": "POL",
       "ticketing": null,
       "detail_status": "not_entered"
     },
@@ -83,11 +83,11 @@
       "id": "tilburg",
       "city": "蒂尔堡",
       "city_en": "Tilburg",
+      "country": "NED",
       "date_start": "2027-02-12",
       "date_end": "2027-02-14",
       "timezone": "Europe/Amsterdam",
       "venue": null,
-      "country": "NED",
       "ticketing": null,
       "detail_status": "not_entered"
     }
@@ -109,5 +109,5 @@
       "source_url": "https://www.isu-skating.com/en/short-track/news/isu-short-track-event-calendar-202627/"
     }
   ],
-  "notice": "其他分站的详细赛程尚未录入。"
+  "notice": "各分站详细赛程在 ISU 公布后自动录入。"
 }

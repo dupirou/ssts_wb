@@ -15,10 +15,10 @@ from urllib.request import Request, build_opener
 from bs4 import BeautifulSoup
 
 import competition_data as data
+import stations
 import predict_groups
 import sync_competitions as sync
 
-CONFIG = data.ROOT / 'data/competition_sources.json'
 INPUTS = data.ROOT / 'data/prediction_inputs'
 API = 'https://front-api.isu.org'
 STANDINGS = 'https://isu-skating.com/en/short-track/world-standings/'
@@ -262,7 +262,7 @@ def stable_since(previous, entrants, now):
 
 
 def make_observation(key, entrants, world, tour, previous, timestamp, schedule,
-                     feed_consistent=True):
+                     feed_consistent=True, event_id='vancouver'):
     now = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
     if now.utcoffset() is None:
         raise ValueError('Naive sync time')
@@ -291,7 +291,7 @@ def make_observation(key, entrants, world, tour, previous, timestamp, schedule,
                       tour_rank=tour.get(p['official_skater_id'], {}).get('rank'),
                       prequalified=(p['official_skater_id'] in byes) if verified_byes else None)
                  for p in entrants]
-    return dict(event_id='vancouver', gender=gender, distance_m=distance,
+    return dict(event_id=event_id, gender=gender, distance_m=distance,
                 first_seen_at=first.isoformat(), verified_at=timestamp,
                 complete=not missing, missing=missing,
                 participants=sorted(decorated, key=lambda p: (p['seed_rank'] is None,
@@ -325,7 +325,7 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
         catalog = discover_rankings(raw, cfg['prediction']['historical_season'],
                                     cfg['prediction']['standings_season_id'])
         import build
-        schedule = build.read_schedule() if event_id == 'vancouver' else []
+        schedule = build.read_schedule(event_id)
         # A whole-event roster is used only as a completeness alarm. No roster
         # athlete is inserted into any distance or assigned a seed.
         roster = data.load_snapshot(event_id)['entries']['items']
@@ -344,8 +344,7 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
             tour, world = ranked[key, 'WCD'], ranked[key, 'WRD']
             observed = make_observation(key, entries[key], world, tour,
                                         previous.get(key), now, schedule,
-                                        feed_consistent=coverage[key[0]])
-            observed['event_id'] = event_id
+                                        feed_consistent=coverage[key[0]], event_id=event_id)
             observed['source_urls'] = [
                 cfg['prediction']['entries_url'] + '&type=' + str(events[key]['event_result_id']),
                 STANDINGS + str(tour_meta['world_standings_list_fsk_id']) + '/',
@@ -384,16 +383,22 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
 
 
 def main():
+    """Only stations configured with a prediction source (World Tour #1's seeding rule) are modelled."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--event', default='vancouver')
+    parser.add_argument('--event', help='Station ID; default: every station with a prediction source')
     args = parser.parse_args()
-    config = json.loads(CONFIG.read_text(encoding='utf-8'))['events']
-    item, errors = sync_event(args.event, config[args.event])
-    print(args.event, [(x['gender'], x['distance_m'], len(x['participants']),
-                         x['missing']) for x in item['observed_lists']] if item else 'not configured')
-    for error in errors:
-        print(error, file=sys.stderr)
-    return bool(errors)
+    failed = False
+    for station in stations.stations():
+        cfg = stations.sources(station)
+        if (args.event and station['id'] != args.event) or 'prediction' not in cfg:
+            continue
+        item, errors = sync_event(station['id'], cfg)
+        print(station['id'], [(x['gender'], x['distance_m'], len(x['participants']),
+                               x['missing']) for x in item['observed_lists']] if item else 'not configured')
+        for error in errors:
+            print(error, file=sys.stderr)
+        failed |= bool(errors)
+    return int(failed)
 
 
 if __name__ == '__main__':

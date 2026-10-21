@@ -1,8 +1,8 @@
 """Audience-facing "what's new" feed, derived only from data the sync already accepted.
 
 data/updates.json remembers every milestone it has announced, so each one is announced once:
-an entry list appears or changes, a round's official groups or results are published, a
-scheduled start moves, final rankings appear. Event times come from the data's own timestamps,
+a station's detailed programme is published, an entry list appears or changes, a round's
+official groups or results are published, a scheduled start moves, final rankings appear. Event times come from the data's own timestamps,
 so rebuilding the same data reproduces the same feed.
 """
 import hashlib
@@ -59,10 +59,18 @@ def round_facts(event_id, rounds):
 
 
 def collect(venues, schedule, schedule_checked_at, load=competition_data.load_snapshot):
-    """Current milestone facts: key -> (value, announcement or None for a silent baseline)."""
+    """Current milestone facts: key -> (value, announcement or None for a silent baseline).
+
+    schedule_checked_at is one timestamp, or a mapping of station id to its last schedule check."""
     facts = {}
     for venue in venues:
         event_id = venue[0]
+        checked = (schedule_checked_at.get(event_id) if isinstance(schedule_checked_at, dict)
+                   else schedule_checked_at)
+        rows = schedule.get(event_id, [])
+        if rows:
+            facts[f'{event_id}/schedule'] = ('published', dict(kind='schedule', at=checked,
+                local_date=rows[0]['local_date'], count=len(rows)))
         snapshot = load(event_id)
         entries = snapshot['entries']
         if entries['status'] == 'available' and entries['items']:
@@ -73,9 +81,9 @@ def collect(venues, schedule, schedule_checked_at, load=competition_data.load_sn
         if rankings['status'] == 'available' and rankings['items']:
             facts[f'{event_id}/rankings'] = (digest(*sorted(i['id'] for i in rankings['items'])),
                 dict(kind='rankings', at=rankings['updated_at']))
-        for e in schedule.get(event_id, []):
+        for e in rows:
             facts[f'{event_id}/time/{e["round_key"]}'] = (e['beijing_date'] + ' ' + e['beijing_time'],
-                dict(kind='time', at=schedule_checked_at, local_date=e['local_date'], round=e['round'],
+                dict(kind='time', at=checked, local_date=e['local_date'], round=e['round'],
                      group=e['group'], repechage=e['session'] == 'repechage', **discipline(e)))
     return facts
 
@@ -83,11 +91,16 @@ def collect(venues, schedule, schedule_checked_at, load=competition_data.load_sn
 def update(log, facts):
     """Append an announcement for each new or changed fact; known facts are never forgotten."""
     known = dict(log.get('facts', {}))
+    fresh = not known  # a brand-new log records what is already published without announcing it
     events = list(log.get('events', []))
     for key, (value, event) in sorted(facts.items()):
         old = known.get(key)
         if old == value or not event.get('at'):
             continue  # an undated fact waits until the data carries its own timestamp
+        station = key.split('/', 1)[0]
+        if event['kind'] == 'schedule' and old is None and (fresh or any(k.startswith(station + '/time/') for k in known)):
+            known[key] = value
+            continue  # a programme already on the site before this notice existed is not news
         known[key] = value
         if event['kind'] == 'time':
             if old is None:
@@ -95,7 +108,7 @@ def update(log, facts):
             event = dict(event, kind='time_change', previous=old, current=value)
         elif event['kind'] in ('entries', 'rankings') and old is not None:
             event = dict(event, changed=True)
-        events.append(dict(id=digest(key, value), station=key.split('/', 1)[0], **event))
+        events.append(dict(id=digest(key, value), station=station, **event))
     events.sort(key=lambda e: (parse(e['at']), e['id']))
     if events:
         horizon = parse(events[-1]['at']) - timedelta(days=KEEP_DAYS)

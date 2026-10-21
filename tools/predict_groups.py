@@ -188,7 +188,7 @@ def project(event_id, schedule, snapshot, inputs=None):
         total=len(output), items=output)
 
 
-def export(out, venues, vancouver_schedule):
+def export(out, venues, schedules):
     import competition_data
     directory = out / 'data/predictions'
     directory.mkdir(parents=True, exist_ok=True)
@@ -196,6 +196,6 @@ def export(out, venues, vancouver_schedule):
         event_id = event[0]
         path = ROOT / 'data/prediction_inputs' / f'{event_id}.json'
         inputs = json.loads(path.read_text()) if path.exists() else None
-        result = project(event_id, vancouver_schedule if event_id == 'vancouver' else [],
+        result = project(event_id, schedules.get(event_id, []),
                          competition_data.load_snapshot(event_id), inputs)
         (directory / f'{event_id}.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')

@@ -51,17 +51,30 @@ class ChinaSyncTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             china.AUTO=Path(directory)/"auto.json"
             china.CONFIG=Path(directory)/"sources.json"
-            china.AUTO.write_text('{"schema_version":1,"heats":[]}',encoding="utf-8")
-            china.CONFIG.write_text('{"schema_version":1,"event_results_url":null}',encoding="utf-8")
+            # Another station's confirmed round shares the file and must survive this station's sync.
+            other={"round_key":"2026-10-30/main/women/500/final/A","country":"CHN","evidence":"official_round_results",
+                   "source_url":"https://www.isu-skating.com/en/short-track/results/x/1/","verified_at":"2026-10-31T00:00:00+00:00",
+                   "heats":[{"number":1,"athletes":["TEST"]}]}
+            china.AUTO.write_text(json.dumps({"schema_version":1,"heats":[other]}),encoding="utf-8")
+            china.CONFIG.write_text('{"schema_version":2,"event_results_urls":{}}',encoding="utf-8")
             try:
                 result=china.sync(fetcher=lambda url:pages[url],now="2026-10-21T00:00:00+00:00")
                 self.assertEqual(result,1)
                 loaded=json.loads(china.AUTO.read_text(encoding="utf-8"))
-                self.assertEqual(loaded["heats"][0]["heats"][0]["athletes"],["ZHANG Bohao"])
-                self.assertEqual(loaded["heats"][0]["evidence"],"official_round_results")
+                mine=[x for x in loaded["heats"] if x["round_key"].startswith("2026-10-23")]
+                self.assertEqual(mine[0]["heats"][0]["athletes"],["ZHANG Bohao"])
+                self.assertEqual(mine[0]["evidence"],"official_round_results")
+                self.assertIn(other,loaded["heats"])
                 self.assertEqual(china.sync(fetcher=lambda url:pages[url]),0)
             finally:
                 china.AUTO,china.CONFIG=orig_auto,orig_config
+    def test_station_identity_ignores_accents_but_not_city_or_year(self):
+        montreal=china.stations.get("montreal")
+        self.assertTrue(china.is_station("World Tour Montréal 2026",montreal))
+        self.assertFalse(china.is_station("World Tour Montréal 2025",montreal))
+        self.assertFalse(china.is_station("World Tour Vancouver 2026",montreal))
+        index=china.BeautifulSoup(f'<article>Vancouver 23 Oct 2026<a href="{EVENT}">Results</a></article>',"html.parser")
+        self.assertIsNone(china.discover_event(index,station=montreal))
     def test_final_round_requires_group_evidence(self):
         doc=china.BeautifulSoup('<main>Vancouver 2026<h2>Heat 1</h2><a>LI Kun CHN</a></main>',"html.parser")
         final=china.collect_one(doc,PRELIM,("men",500,"individual"),("final",False),build.read_schedule(),"2026-10-21T00:00:00+00:00")

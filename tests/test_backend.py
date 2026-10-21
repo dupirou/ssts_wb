@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime, timezone
 import json
 import sys
 import tempfile
@@ -15,7 +16,7 @@ class DataTests(unittest.TestCase):
     def test_schedule_and_timezones(self):
         rows=build.read_schedule()
         self.assertEqual(len(rows),62)
-        self.assertEqual([sum(x["local_date"]==date for x in rows) for date in build.EXPECTED],[14,25,23])
+        self.assertEqual([sum(x["local_date"]==date for x in rows) for date in ("2026-10-23","2026-10-24","2026-10-25")],[14,25,23])
         self.assertEqual((rows[0]["local_time"],rows[0]["beijing_date"],rows[0]["beijing_time"]),("09:00","2026-10-24","00:00"))
         self.assertEqual((rows[-1]["beijing_date"],rows[-1]["beijing_time"]),("2026-10-26","10:30"))
     def test_meta_refresh_is_day_scoped(self):
@@ -71,17 +72,24 @@ class DataTests(unittest.TestCase):
         fragments=[]
         old_day=old_session=None
         for r in raw:
-            if r["day"]!=old_day:
-                old_day=r["day"];old_session=None;fragments.append(old_day+".10.2026")
+            if r["date"]!=old_day:
+                old_day=r["date"];old_session=None;fragments.append(".".join(reversed(old_day.split("-"))))
             if r["session"]!=old_session:
                 old_session=r["session"];fragments.append("Day - "+sess[old_session]+" Session")
             label=gender[r["gender"]]+" "+r["distance"]+"m "+("Relay " if r["kind"]=="R" else "")+rnd[r["round"]]
             if r["group"]!="-":label+=" "+r["group"]
             fragments += [r["time"],label]
         official=sync_schedule.parse_text("\n".join(fragments))
-        self.assertEqual(sync_schedule.compare_and_update(official,write=False),[])
-        official[3]["gender"]="W"
-        with self.assertRaises(ValueError):sync_schedule.compare_and_update(official,write=False)
-        with self.assertRaises(ValueError):sync_schedule.parse_text("\n".join(fragments[:20]))
+        racing=datetime(2026,10,23,12,tzinfo=timezone.utc)
+        self.assertEqual(sync_schedule.compare_and_update(official,write_file=False,now=racing),("unchanged",[]))
+        moved=[dict(r) for r in official];moved[0]["time"]="08:55"
+        self.assertEqual(sync_schedule.compare_and_update(moved,write_file=False,now=racing),("times",[(1,"09:00","08:55")]))
+        # Once racing has begun a restructured programme needs a person; before, ISU may still revise it.
+        official[3]["session"]="R"
+        with self.assertRaises(ValueError):sync_schedule.compare_and_update(official,write_file=False,now=racing)
+        before=datetime(2026,10,21,tzinfo=timezone.utc)
+        self.assertEqual(sync_schedule.compare_and_update(official,write_file=False,now=before)[0],"replaced")
+        # A page cut off before the last finals is partial, never a new programme.
+        with self.assertRaises(ValueError):sync_schedule.validate(sync_schedule.parse_text("\n".join(fragments[:-40])),build.stations.get("vancouver"))
 
 if __name__=="__main__":unittest.main()

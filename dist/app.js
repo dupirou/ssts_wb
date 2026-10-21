@@ -1237,6 +1237,7 @@
     const china = (e.china || []).length;
     const chinaNote = !china ? '' : e.format === 'relay' ? ' · 中国队在列' : ' · 中国队 ' + china + ' 人';
     switch (e.kind) {
+      case 'schedule': return {text: '详细赛程已公布 · 共 ' + e.count + ' 轮'};
       case 'entries': return {text: (e.changed ? '报名名单已更新' : '报名名单已公布') + ' · 共 ' + e.count + ' 人'};
       case 'rankings': return {text: e.changed ? '分站排名已更新' : '分站最终排名已公布'};
       case 'groups': return {text: roundOf(e) + ' 分组已公布' + chinaNote, chn: china > 0,
