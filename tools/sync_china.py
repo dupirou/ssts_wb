@@ -230,11 +230,20 @@ def sync(event_url=None, dry_run=False, fetcher=fetch_page, now=None):
         return 0
     proposed={}
     requests=0
+    existing=json.loads(AUTO.read_text(encoding="utf-8"))
+    if existing.get("schema_version")!=1 or not isinstance(existing.get("heats"),list):
+        raise ValueError("Invalid stored results")
+    # Rounds the official results feed already covers take precedence in build, and
+    # rounds already confirmed here do not change: neither page is requested again.
+    import competition_data
+    _, covered=competition_data.china_evidence(competition_data.load_snapshot("vancouver"))
+    settled=covered | {x["round_key"] for x in existing["heats"]}
     for disc, disc_url in categories.items():
         disc_page=fetcher(disc_url)
         requests+=1
         for round_info, round_url in round_links(disc_page,disc_url).items():
-            if not round_matches(rows,disc,round_info):
+            candidates=round_matches(rows,disc,round_info)
+            if not candidates or all(r["round_key"] in settled for r in candidates):
                 continue
             round_page=fetcher(round_url)
             requests+=1
@@ -245,9 +254,6 @@ def sync(event_url=None, dry_run=False, fetcher=fetch_page, now=None):
                 proposed[key]=item
             if requests>=90:
                 raise ValueError("Exceeded source traversal cap")
-    existing=json.loads(AUTO.read_text(encoding="utf-8"))
-    if existing.get("schema_version")!=1 or not isinstance(existing.get("heats"),list):
-        raise ValueError("Invalid stored results")
     # Source can temporarily be incomplete. Never clear confirmed rounds.
     merged={x["round_key"]:x for x in existing["heats"]}
     changed=0

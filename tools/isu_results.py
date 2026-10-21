@@ -115,8 +115,20 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
     return output
 
 
-def collect(body, config, api_fetch, schedule=()):
+def is_final(items):
+    """A round whose every heat already carries official (not provisional) results."""
+    return bool(items) and all(i.get('evidence') == 'official_results' and
+                               (i.get('result_status') or '').lower() == 'official' for i in items)
+
+
+def collect(body, config, api_fetch, schedule=(), known=()):
+    """Read official rounds. Rounds already stored with official results are reused, not
+    re-requested; a discipline whose official Final A is stored and whose every stored round is
+    official is complete, so even its round list is not requested again."""
     events = embedded_results(body)
+    stored = {}
+    for item in known:
+        stored.setdefault(item.get('source_url'), []).append(item)
     rounds = []
     requests = 0
     seen = set()
@@ -124,13 +136,25 @@ def collect(body, config, api_fetch, schedule=()):
         if event.get('discipline_id') != 3 or not re.match(str(config['year']) + '-', event.get('start_date', '')):
             raise ValueError('ISU discipline/season mismatch')
         eid = event['event_result_id']
+        prefix = config['results_url'] + '&type=' + str(eid) + '&round='
+        mine = {url: items for url, items in stored.items() if (url or '').startswith(prefix)}
+        if (mine and all(is_final(items) for items in mine.values()) and
+                any(i.get('round') == 'final' and i.get('group') == 'A' for items in mine.values() for i in items)):
+            reused = [i for items in mine.values() for i in items]
+            seen.update(i['id'] for i in reused)
+            rounds.extend(reused)
+            continue
         metas = api_data(api_fetch('/events/get-event-result-round', {'event_result_id': str(eid)}))
         requests += 1
         for meta in metas:
             if meta['event_result_id'] != eid or meta['event_id'] != event['event_id']:
                 raise ValueError('Official round belongs to another event')
             rid = meta['event_result_round_id']
-            disc = config['results_url'] + '&type=' + str(eid) + '&round=' + str(rid)
+            disc = prefix + str(rid)
+            if is_final(stored.get(disc)):
+                seen.update(i['id'] for i in stored[disc])
+                rounds.extend(stored[disc])
+                continue
             team = event.get('discipline_type') == 'Teams' or 'relay' in event['name'].lower()
             endpoint = '/events/get-event-result-round-heats-stk-' + ('team' if team else 'single')
             heats = api_data(api_fetch(endpoint, dict(event_result_id=str(eid),

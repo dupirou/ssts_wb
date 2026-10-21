@@ -216,7 +216,11 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
         errors.append('documents: ' + str(exc))
     entry_docs = sorted([d for d in docs if d['kind'] == 'entries'],
                         key=lambda d: d.get('published_at') or '', reverse=True)
-    if entry_docs:
+    entries = snapshot['entries']
+    if entry_docs and entries['items'] and entries['source_urls'] == [entry_docs[0]['url']] and entries['update_status'] == 'ok':
+        # Same official PDF already parsed: ISU publishes revisions under new URLs.
+        update_dataset(entries, entries['items'], entries['source_urls'], now, entries.get('published_at'))
+    elif entry_docs:
         doc = entry_docs[0]
         try:
             items = parse_entries(fetcher(doc['url']), config)
@@ -228,7 +232,16 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
     if len(report_docs) > 20:
         raise ValueError('Too many official report documents')
     proposed_rounds, proposed_rankings = [], []
+    parsed_reports = set()
+    for kind in ('rounds', 'rankings'):
+        if snapshot[kind]['update_status'] == 'ok':
+            parsed_reports |= {i['source_url'] for i in snapshot[kind]['items']}
     for url in report_docs:
+        if url in parsed_reports:
+            # A report PDF is immutable once parsed; reuse its rows instead of downloading again.
+            proposed_rounds += [i for i in snapshot['rounds']['items'] if i['source_url'] == url]
+            proposed_rankings += [i for i in snapshot['rankings']['items'] if i['source_url'] == url]
+            continue
         try:
             rounds, rankings = parse_reports(fetcher(url), config, url)
             proposed_rounds += rounds
@@ -242,7 +255,8 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
         assert_identity(BeautifulSoup(body, 'html.parser').get_text(' ', strip=True), config)
         api_fetcher = api_fetcher or (lambda endpoint, form: fetch(isu_results.API + endpoint, form))
         schedule = build.read_schedule() if event_id == 'vancouver' else []
-        proposed_rounds += isu_results.collect(body, config, api_fetcher, schedule)
+        known = [i for i in snapshot['rounds']['items'] if i.get('evidence') in ('official_results', 'official_start_list')]
+        proposed_rounds += isu_results.collect(body, config, api_fetcher, schedule, known)
     except Exception as exc:
         errors.append('results: ' + str(exc))
     for kind, proposed in [('rounds', proposed_rounds), ('rankings', proposed_rankings)]:

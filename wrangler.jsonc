@@ -3,7 +3,7 @@
   "main": "src/worker.mjs",
   "compatibility_date": "2026-10-20",
   "previews": {},
-  // Every 10 minutes; the Worker only dispatches the GitHub sync during race windows.
+  // Every 10 minutes; the Worker decides: 10-min syncs around racing sessions, hourly otherwise in race windows.
   "triggers": {"crons": ["*/10 * * * *"]},
   "assets": {
     "directory": "./dist",
