@@ -23,12 +23,13 @@ jobs:
           python-version: "3.11"
       - name: Install parser
         run: python -m pip install -r requirements.txt
-      - name: Check official schedule, preserve known-good data on failure
+      # Each sync writes only data it has fully validated; a rejected station keeps its last verified data.
+      - name: Find stations' ISU pages and check their official programmes
         continue-on-error: true
-        run: python tools/sync_schedule.py && touch .sync_ok
+        run: python tools/sync_schedule.py
       - name: Collect confirmed China heats from published ISU results
         continue-on-error: true
-        run: python tools/sync_china.py && touch .china_sync_ok
+        run: python tools/sync_china.py
       - name: Sync entries, official groups, results and penalties
         continue-on-error: true
         run: python tools/sync_competitions.py
@@ -49,12 +50,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add dist
           git add data/competitions data/prediction_inputs data/updates.json
-          if [ -f .china_sync_ok ]; then git add data/china_auto.json; fi
-          if [ -f .sync_ok ]; then
-            git add data/vancouver.csv data/sync_meta.json
-          else
-            echo "::warning::ISU programme verification failed; retaining prior verified data."
-          fi
+          git add data/stations.json data/schedules data/sync_meta.json data/china_auto.json
           if ! git diff --cached --quiet; then
             git commit -m "build: publish verified static schedule"
             git push

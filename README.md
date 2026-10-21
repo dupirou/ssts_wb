@@ -7,10 +7,10 @@
   已接温哥华官方报名 PDF；分组/成绩适配 ISU 新官网公开 JSON 接口，等待本赛季公布。
   分站页可展开报名名单，默认查看中国队，支持国家和性别筛选；对应赛程可查看已发布的分组、成绩与判罚，排名发布后显示。API 及 Cloudflare Worker 部署见 [BACKEND.md](BACKEND.md)。
 - 新增首轮分组预测面板与只读 `predictions` 接口，依据 ISU 2026 Rule 293、世巡赛通告 2806 与晋级表。单项报项与历史单项排名通过 ISU 官方公开接口自动同步；官网名单未齐、排名并列或无排名选手抽签未定时显示等待态，预测不参与官方中国队高亮，细节见 [BACKEND.md](BACKEND.md)。
-- 2026/27 赛季七站世巡赛入口，外加独立的 2027 年首尔短道速滑世锦赛页面（3 月 12–14 日，详情以 ISU 官方赛历为准）；温哥华站共 62 个官方暂定的**轮次开始时间**（14／25／23），转换成北京时间。
+- 2026/27 赛季七站世巡赛入口，外加独立的 2027 年首尔短道速滑世锦赛页面（3 月 12–14 日，详情以 ISU 官方赛历为准）；各站官方暂定的**轮次开始时间**在 ISU 公布后自动录入并转换成北京时间（温哥华站 62 轮已录入）。
 - 日期、项目、轮次和时区筛选。
 - 默认高亮有**官方具体轮次分组证据**的中国队场次；显示参赛名字、Heat 编号及**非官方估算区间**。
-- Cloudflare Cron 在比赛时段每 10 分钟、比赛窗口其他时间每小时触发同步；GitHub Actions 自身每天 00:17、12:17 UTC 尝试兜底，窗口外也会运行。GitHub 定时任务可能延迟或跳过；仅在数据变化或每日成功核验记录更新时提交。只有官方网页完整 62 条、项目和轮次顺序严格匹配时才接纳时间修改，否则保留已有的可信数据并提示失败。
+- Cloudflare Cron 在比赛时段每 10 分钟、比赛窗口其他时间每小时触发同步；GitHub Actions 自身每天 00:17、12:17 UTC 尝试兜底，窗口外也会运行。GitHub 定时任务可能延迟或跳过；仅在数据变化或每日成功核验记录更新时提交。赛程须完整（九个项目都排到 A 组决赛、日期与赛事页相符）才录入；开赛后只接纳时间修改，否则保留已有的可信数据并提示失败。分站配置集中在 `data/stations.json`，见 [BACKEND.md](BACKEND.md) 的“多站自动更新”。
 - Python 构建静态 JSON 和页面，没用数据库、CDN、外部字体。
 
 ## 数据源的当前状态
@@ -23,11 +23,11 @@ ISU HTML 自动核对是 best-effort，能否正常采集应看 Actions 日志�
 
 本地：Python 3.11+（需系统时区数据库）；执行 python tools/build.py，然后 python -m http.server 8000 --directory dist 。访问 http://127.0.0.1:8000 。
 
-测试：`python -m unittest discover -s tests -v`；`npm ci --ignore-scripts && node --test tests/test_api.mjs tests/test_athlete_ui.mjs`。
+测试：`python -m unittest discover -s tests -v`；`npm ci --ignore-scripts && node --test tests/*.mjs`。
 
-检查官网：先 pip install beautifulsoup4；然后 python tools/sync_schedule.py --dry-run。仅实际全量验证后才可以写入 CSV。
+检查官网：先 pip install -r requirements.txt；然后 `python tools/sync_schedule.py --station montreal`（不带参数则检查所有临近的分站）。仅完整验证后才写入 CSV。
 
-产物 dist/data/calendar.json 和 dist/data/vancouver.json。源文件 data/vancouver.csv 禁止前端自行改动。
+产物 dist/data/calendar.json 和每个已有赛程的分站 dist/data/<id>.json。源文件 data/schedules/<id>.csv 只由同步脚本写入。
 
 ## 中国队自动采集
 
@@ -44,7 +44,7 @@ Heat 估算是默认工程参数，不是 ISU 官方逐组时间，也未经过�
 请按 [DEPLOY_CLOUDFLARE.md](DEPLOY_CLOUDFLARE.md) 操作：连接 GitHub 仓库、main 分支、无框架、构建命令留空、根目录留空、输出目录 dist。首次部署完成后可使用 Pages 自动分配的 pages.dev 测试域名；若需要自定义域名，务必先在 Pages > Custom domains 添加，再由 Cloudflare 自动建立 DNS 记录。大陆可达性要在实际运营商网络验证，不作保证。
 
 官方来源：
-- https://www.isu-skating.com/ja/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=schedule_16230
+- 各站 ISU 赛事页见 data/stations.json（如温哥华 https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=schedule_16230 ）
 - https://www.isu-skating.com/en/short-track/news/isu-short-track-event-calendar-202627/
 
 ## 单项报项与分组预测自动同步

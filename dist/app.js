@@ -182,7 +182,7 @@
     }}, icon('sun', 'ico ico-sun'), icon('moon', 'ico ico-moon'));
     function apply(theme) {
       html.dataset.theme = theme;
-      if (meta) meta.content = theme === 'light' ? '#F3F8FC' : '#0B1F33';
+      if (meta) meta.content = theme === 'light' ? '#F3F8FC' : '#070B12';
       btn.setAttribute('aria-label', theme === 'light' ? '切换为深色主题' : '切换为浅色主题');
       btn.title = btn.getAttribute('aria-label');
     }
@@ -359,7 +359,7 @@
         } catch (_) {
           slot.querySelector('.athlete-loading')?.remove();
           slot.append(h('p', {class: 'athlete-load-error', role: 'status'}, labels[resource] + '暂时无法加载',
-            h('button', {type: 'button', class: 'chip', onclick: () => load(resource)}, '重试')));
+            h('button', {type: 'button', class: 'btn btn-ghost btn-sm', onclick: () => load(resource)}, '重试')));
           if (resource === 'rounds') status.hidden = false;
         } finally {
           clearTimeout(timeout);
@@ -803,7 +803,7 @@
         h('li', {}, icon('calendar'), dot(station.date_start) + ' ' + wk(station.date_start) + ' — ' + dot(station.date_end) + ' ' + wk(station.date_end)),
         h('li', {}, icon('pin'), station.venue || '场馆待公布'),
         h('li', {}, icon('globe'), utcLabel(station.timezone, win.start) + ' · ' + bjDiff(station.timezone, win.start)),
-        data && data.status === 'provisional' ? h('li', {class: 'pill', text: 'ISU 暂定赛程'}) : null));
+        data && data.status === 'provisional' ? h('li', {class: 'meta-note'}, icon('alert'), 'ISU 暂定赛程') : null));
     if (data) {
       copy.append(h('dl', {class: 'stats'},
         stat(Object.keys(data.day_counts).length, '比赛日'),
@@ -1237,6 +1237,7 @@
     const china = (e.china || []).length;
     const chinaNote = !china ? '' : e.format === 'relay' ? ' · 中国队在列' : ' · 中国队 ' + china + ' 人';
     switch (e.kind) {
+      case 'schedule': return {text: '详细赛程已公布 · 共 ' + e.count + ' 轮'};
       case 'entries': return {text: (e.changed ? '报名名单已更新' : '报名名单已公布') + ' · 共 ' + e.count + ' 人'};
       case 'rankings': return {text: e.changed ? '分站排名已更新' : '分站最终排名已公布'};
       case 'groups': return {text: roundOf(e) + ' 分组已公布' + chinaNote, chn: china > 0,

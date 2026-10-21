@@ -11,13 +11,14 @@ import re
 import sys
 from datetime import datetime, timezone
 from urllib.parse import urljoin, urlsplit, urlencode
-from urllib.request import Request, HTTPRedirectHandler, build_opener
+from urllib.request import Request, HTTPRedirectHandler, HTTPSHandler, build_opener
 
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
 import competition_data as data
+import stations
+import tls
 
-CONFIG = data.ROOT / 'data/competition_sources.json'
 HOSTS = {'isu-skating.com', 'www.isu-skating.com',
          'isu-d8g8b4b7ece7aphs.a03.azurefd.net', 'front-api.isu.org'}
 GENDERS = {'M': 'men', 'F': 'women', 'X': 'mixed'}
@@ -44,15 +45,21 @@ def fetch(url, form=None):
     if form is not None:
         headers['Content-Type'] = 'application/x-www-form-urlencoded'
     request = Request(url, data=urlencode(form).encode() if form is not None else None, headers=headers)
-    with build_opener(OfficialRedirect()).open(request, timeout=25) as response:
+    with build_opener(HTTPSHandler(context=tls.CONTEXT), OfficialRedirect()).open(request, timeout=25) as response:
         body = response.read(MAX_BYTES + 1)
         if len(body) > MAX_BYTES:
             raise ValueError('Official document exceeds size limit')
         return body
 
 
+# Entries appear about two weeks before a station. Checks then continue for good, as before, so
+# late corrections are picked up and the API never reports a finished station as stale; official
+# results already stored are reused rather than requested again.
+WINDOW_BEFORE_DAYS = 14
+
+
 def assert_identity(text, config):
-    if config['city'].casefold() not in text.casefold() or not re.search(r'\b' + str(config['year']) + r'\b', text):
+    if stations.plain(config['city']) not in stations.plain(text) or not re.search(r'\b' + str(config['year']) + r'\b', text):
         raise ValueError('Source is not labelled with the expected city and year')
 
 
@@ -254,7 +261,7 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
         body = fetcher(config['results_url'])
         assert_identity(BeautifulSoup(body, 'html.parser').get_text(' ', strip=True), config)
         api_fetcher = api_fetcher or (lambda endpoint, form: fetch(isu_results.API + endpoint, form))
-        schedule = build.read_schedule() if event_id == 'vancouver' else []
+        schedule = build.read_schedule(event_id)
         known = [i for i in snapshot['rounds']['items'] if i.get('evidence') in ('official_results', 'official_start_list')]
         proposed_rounds += isu_results.collect(body, config, api_fetcher, schedule, known)
     except Exception as exc:
@@ -288,20 +295,25 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--event', help='Configured event ID; default: all configured events')
+    parser.add_argument('--event', help='Station ID; default: every station inside its sync window')
     args = parser.parse_args()
-    config = json.loads(CONFIG.read_text(encoding='utf-8'))
-    if config.get('schema_version') != 1:
-        raise ValueError('Unsupported source configuration')
-    events = config['events']
-    if args.event:
-        events = {args.event: events[args.event]}
+    now = stations.utc_now()
     failed = False
-    for event_id, sources in events.items():
-        snapshot, errors = sync_event(event_id, sources)
-        print(event_id, {k: len(snapshot[k]['items']) for k in data.KINDS})
+    for station in stations.stations():
+        if args.event and station['id'] != args.event:
+            continue
+        if not station.get('isu') or (not args.event and
+                not stations.within(station, now, WINDOW_BEFORE_DAYS)):
+            continue
+        try:
+            snapshot, errors = sync_event(station['id'], stations.sources(station))
+        except Exception as exc:
+            # One station's unexpected failure keeps its last snapshot and never stops the others.
+            snapshot, errors = None, ['unexpected: ' + str(exc)]
+        if snapshot:
+            print(station['id'], {k: len(snapshot[k]['items']) for k in data.KINDS})
         for message in errors:
-            print(message, file=sys.stderr)
+            print(f"::warning::{station['id']} entries/results sync: {message}", file=sys.stderr)
         failed |= bool(errors)
     return int(failed)
 

@@ -1,25 +1,22 @@
 #!/usr/bin/env python3
 """Compile strictly verified provisional ISU timetable and China start-list evidence."""
-import csv
 import hashlib
 import json
 import shutil
 import competition_data
-from collections import Counter
+import stations
+import sync_schedule
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "data/vancouver.csv"
 CHINA = ROOT / "data/china.json"
 OUT = ROOT / "dist"
-VAN = ZoneInfo("America/Vancouver")
 BJ = ZoneInfo("Asia/Shanghai")
-SCHEDULE_URL = "https://www.isu-skating.com/ja/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=schedule_16230"
-CALENDAR_URL = "https://www.isu-skating.com/en/short-track/news/isu-short-track-event-calendar-202627/"
-EXPECTED = {"2026-10-23": 14, "2026-10-24": 25, "2026-10-25": 23}
+CONFIG = stations.load()
+CALENDAR_URL = CONFIG["calendar_url"]
 STAGES = {"Q": "qualifying", "R": "repechage", "F": "main"}
 GENDERS = {"W": "women", "M": "men", "X": "mixed"}
 ROUNDS = {"P": "preliminaries", "H": "heats", "Q": "quarterfinal", "S": "semifinal", "F": "final"}
@@ -27,53 +24,38 @@ ROUNDS = {"P": "preliminaries", "H": "heats", "Q": "quarterfinal", "S": "semifin
 HEAT_DURATIONS = {("I",500):(2.5,4.0), ("I",1000):(3.0,5.0),
                   ("I",1500):(4.0,7.0), ("R",2000):(6.0,10.0),
                   ("R",3000):(7.0,12.0), ("R",5000):(8.0,15.0)}
-VENUES = [
- ("vancouver","温哥华","Vancouver","2026-10-23","2026-10-25","America/Vancouver","Pacific Coliseum","CAN"),
- ("montreal","蒙特利尔","Montreal","2026-10-30","2026-11-01","America/Toronto",None,"CAN"),
- ("seoul","首尔","Seoul","2026-11-20","2026-11-22","Asia/Seoul","木洞冰场","KOR"),
- ("shanghai","上海","Shanghai","2026-11-27","2026-11-29","Asia/Shanghai",None,"CHN"),
- ("beijing","北京","Beijing","2026-12-04","2026-12-06","Asia/Shanghai",None,"CHN"),
- ("gdansk","格但斯克","Gdansk","2027-02-05","2027-02-07","Europe/Warsaw",None,"POL"),
- ("tilburg","蒂尔堡","Tilburg","2027-02-12","2027-02-14","Europe/Amsterdam",None,"NED"),
-]
+VENUES = stations.venues()
+SOURCE = stations.schedule_path("vancouver")
 
 # Championships are independent events, never counted as World Tour stages.
 CHAMPIONSHIPS = [
-    dict(
-        id="worlds-2027", kind="world_championships",
-        title="短道速滑世锦赛", title_en="ISU Short Track World Championships",
-        city="首尔", city_en="Seoul", country="KOR",
-        date_start="2027-03-12", date_end="2027-03-14", timezone="Asia/Seoul",
-        venue=None, detail_status="not_entered",
-        source_url=CALENDAR_URL,
-    ),
+    dict({k: v for k, v in c.items() if k != "isu"}, detail_status="not_entered", source_url=CALENDAR_URL)
+    for c in CONFIG["championships"]
 ]
 
-def read_schedule():
-    with SOURCE.open(encoding="utf-8", newline="") as f:
-        data = list(csv.DictReader(f))
-    if len(data) != 62:
-        raise ValueError("Unexpected number of ISU rounds; manual identity review required")
+def read_schedule(station_id="vancouver", directory=stations.SCHEDULES):
+    """A station's stored official programme as Beijing-time rows; [] until ISU publishes one."""
+    station = stations.get(station_id)
+    data = sync_schedule.read(stations.schedule_path(station_id, directory))
+    if data is None:
+        return []
+    sync_schedule.validate(data, station)
+    tz = ZoneInfo(station["timezone"])
     result = []
-    for n, row in enumerate(data, 1):
-        d, t = row["day"], row["time"]
+    for row in data:
+        d, t = row["date"], row["time"]
         st, sex, typ, rnd = row["session"], row["gender"], row["kind"], row["round"]
         dist, group = int(row["distance"]), row["group"]
-        if d not in ("23","24","25") or st not in STAGES or sex not in GENDERS or typ not in ("I","R") or rnd not in ROUNDS:
-            raise ValueError("Invalid event fields on row " + str(n))
-        if (rnd == "F") != (group in ("A","B")) or (rnd != "F" and group != "-"):
-            raise ValueError("Invalid final group on row " + str(n))
-        if (typ, dist) not in HEAT_DURATIONS or (sex == "X" and (typ,dist) != ("R",2000)):
-            raise ValueError("Invalid distance/format on row " + str(n))
-        local = datetime.strptime(f"2026-10-{d} {t}", "%Y-%m-%d %H:%M").replace(tzinfo=VAN)
-        if local.utcoffset().total_seconds() != -25200:
-            raise ValueError("Unexpected timezone / daylight saving")
+        naive = datetime.strptime(f"{d} {t}", "%Y-%m-%d %H:%M")
+        local = naive.replace(tzinfo=tz)
+        if local.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) != naive:
+            raise ValueError("Start time does not exist in the station's timezone: " + d + " " + t)
         utc = local.astimezone(timezone.utc)
         bj = utc.astimezone(BJ)
-        key = "/".join((f"2026-10-{d}",STAGES[st],GENDERS[sex],str(dist),ROUNDS[rnd],group))
+        key = "/".join((d,STAGES[st],GENDERS[sex],str(dist),ROUNDS[rnd],group))
         result.append({
             "id":key.replace("/","-"),"round_key":key,
-            "local_date":f"2026-10-{d}","local_time":t,
+            "local_date":d,"local_time":t,
             "local_start":local.isoformat(),"utc_start":utc.isoformat().replace("+00:00","Z"),
             "beijing_date":bj.strftime("%Y-%m-%d"),"beijing_time":bj.strftime("%H:%M"),
             "session":STAGES[st],"gender":GENDERS[sex],"distance_m":dist,
@@ -81,13 +63,8 @@ def read_schedule():
             "group":None if group=="-" else group,"status":"scheduled",
             "china":{"status":"unknown","heats":[]}
         })
-    if Counter(r["local_date"] for r in result) != EXPECTED:
-        raise ValueError("Per-day programme count mismatch")
     if len({r["round_key"] for r in result}) != len(result):
         raise ValueError("Ambiguous duplicated official round")
-    times = [r["utc_start"] for r in result]
-    if times != sorted(times):
-        raise ValueError("Programme times are not chronological")
     return result
 
 def valid_evidence(url):
@@ -97,20 +74,24 @@ def valid_evidence(url):
         "shorttrack.sportresult.com"
     } and not parsed.username and not parsed.password
 
-def attach_china(rows):
+def attach_china(rows, station_id="vancouver"):
     # The human-reviewed file wins any disagreement with the automatic
     # result importer. Both files are source-validated before acceptance.
+    # Both files cover every station; a round key's date says which station it belongs to.
     data = json.loads(CHINA.read_text(encoding="utf-8"))
     auto_path = ROOT / "data/china_auto.json"
     auto = json.loads(auto_path.read_text(encoding="utf-8")) if auto_path.exists() else {"schema_version":1,"heats":[]}
     for obj in (data, auto):
         if obj.get("schema_version") != 1 or not isinstance(obj.get("heats"),list):
             raise ValueError("Invalid China provenance schema")
-    new_evidence, covered = competition_data.china_evidence(competition_data.load_snapshot('vancouver'))
+    new_evidence, covered = competition_data.china_evidence(competition_data.load_snapshot(station_id))
     auto['heats'] = new_evidence + [item for item in auto['heats'] if item['round_key'] not in covered]
     lookup = {r["round_key"]:r for r in rows}
+    days = {d.isoformat() for d in stations.dates(stations.get(station_id))}
     seen = set()
     for item in data["heats"] + auto["heats"]:
+        if str(item.get("round_key"))[:10] not in days:
+            continue
         # Explicitly reviewed overrides remain authoritative; the auto file
         # may still carry the previous official result after a correction.
         if item.get("round_key") in seen:
@@ -161,7 +142,7 @@ def load_ticketing():
     cfg = json.loads(path.read_text(encoding="utf-8"))
     if cfg.get("schema_version") != 1 or not isinstance(cfg.get("stations"), dict):
         raise ValueError("Invalid ticket information schema")
-    allowed = {row[0] for row in VENUES}
+    allowed = {st["id"] for st in CONFIG["stations"]}
     result = {}
     for station, item in cfg["stations"].items():
         if station not in allowed or not isinstance(item, dict):
@@ -178,24 +159,35 @@ def load_ticketing():
     return result
 
 def export():
-    rows=attach_china(read_schedule())
-    meta=json.loads((ROOT/"data/sync_meta.json").read_text(encoding="utf-8"))
+    meta=stations.load_meta()
     ticketing=load_ticketing()
-    stations=[dict(id=a,city=b,city_en=c,date_start=d,date_end=e,timezone=f,venue=g,country=k,
-                   ticketing=ticketing.get(a),
-                   detail_status="verified" if a=="vancouver" else "not_entered")
-              for a,b,c,d,e,f,g,k in VENUES]
-    season={"schema_version":1,"season":"2026/27","source_url":CALENDAR_URL,
-            "stations":stations,"championships":CHAMPIONSHIPS,
-            "notice":"其他分站的详细赛程尚未录入。"}
-    schedule={"schema_version":1,"event_id":"vancouver","source_url":SCHEDULE_URL,
-              "source_timezone":"America/Vancouver","status":"provisional",
-              "source_checked_at":"2026-10-20","sync":meta,
-              "notice":"ISU暂定轮次时间；中国队单组时间仅是非官方模型估算。",
-              "day_counts":EXPECTED,"total_items":len(rows),"entries":rows}
+    schedules={}
+    for st in CONFIG["stations"]:
+        rows=read_schedule(st["id"])
+        if rows:
+            schedules[st["id"]]=attach_china(rows,st["id"])
+    season={"schema_version":1,"season":CONFIG["season"],"source_url":CALENDAR_URL,
+            "stations":[dict({k:st[k] for k in stations.FIELDS},ticketing=ticketing.get(st["id"]),
+                             detail_status="verified" if st["id"] in schedules else "not_entered")
+                        for st in CONFIG["stations"]],
+            "championships":CHAMPIONSHIPS,
+            "notice":"各分站详细赛程在 ISU 公布后自动录入。"}
     (OUT/"data").mkdir(parents=True,exist_ok=True)
-    for path,obj in (("calendar.json",season),("vancouver.json",schedule)):
-        (OUT/"data"/path).write_text(json.dumps(obj,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    (OUT/"data/calendar.json").write_text(json.dumps(season,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    for st in CONFIG["stations"]:
+        rows=schedules.get(st["id"])
+        if not rows:
+            continue
+        sync=meta.get(st["id"],{})
+        days={}
+        for r in rows:
+            days[r["local_date"]]=days.get(r["local_date"],0)+1
+        schedule={"schema_version":1,"event_id":st["id"],"source_url":sync.get("source_url") or stations.page_url(st,"schedule"),
+                  "source_timezone":st["timezone"],"status":"provisional",
+                  "source_checked_at":(sync.get("last_successful_schedule_check_utc") or "")[:10] or None,"sync":sync,
+                  "notice":"ISU暂定轮次时间；中国队单组时间仅是非官方模型估算。",
+                  "day_counts":days,"total_items":len(rows),"entries":rows}
+        (OUT/"data"/(st["id"]+".json")).write_text(json.dumps(schedule,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     shutil.copyfile(ROOT/"web/index.html",OUT/"index.html")
     shutil.copyfile(ROOT/"web/app.js",OUT/"app.js")
     shutil.copyfile(ROOT/"web/site.css",OUT/"site.css")
@@ -207,11 +199,14 @@ def export():
         "__BUILD_VERSION__",hashlib.sha256(shell).hexdigest()[:12]),encoding="utf-8")
     competition_data.export(OUT, VENUES)
     import predict_groups
-    predict_groups.export(OUT, VENUES, rows)
+    predict_groups.export(OUT, VENUES, schedules)
     import updates
-    feed = updates.export(OUT, VENUES, {"vancouver": rows}, meta.get("last_successful_schedule_check_utc"))
-    print("Validated and built",len(rows),"ISU round start times; verified CHN:",sum(r["china"]["status"]=="confirmed" for r in rows),
-          "; update notices:",len(feed["events"]))
+    feed = updates.export(OUT, VENUES, schedules,
+                          {k: v.get("last_successful_schedule_check_utc") for k, v in meta.items()})
+    for station_id, rows in schedules.items():
+        print("Validated and built",station_id,len(rows),"ISU round start times; verified CHN:",
+              sum(r["china"]["status"]=="confirmed" for r in rows))
+    print("Update notices:",len(feed["events"]))
 
 if __name__ == "__main__":
     export()

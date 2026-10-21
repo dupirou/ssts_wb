@@ -133,7 +133,13 @@ def collect(body, config, api_fetch, schedule=(), known=()):
     requests = 0
     seen = set()
     for event in events:
-        if event.get('discipline_id') != 3 or not re.match(str(config['year']) + '-', event.get('start_date', '')):
+        # Before racing ISU publishes each discipline with start_date null; the event id
+        # (when configured) pins the station, and any published date must be in its year.
+        start = event.get('start_date')
+        if (event.get('discipline_id') != 3
+                or ('isu_event_id' in config and event.get('event_id') != config['isu_event_id'])
+                or (start is not None and not re.match(str(config['year']) + '-', str(start)))
+                or (start is None and 'isu_event_id' not in config)):
             raise ValueError('ISU discipline/season mismatch')
         eid = event['event_result_id']
         prefix = config['results_url'] + '&type=' + str(eid) + '&round='

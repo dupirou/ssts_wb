@@ -1,6 +1,5 @@
 {
-  "schema_version": 1,
-  "event_id": "vancouver",
-  "event_results_url": null,
-  "comment": "ISU 2026 Vancouver result URLs are not yet published. Program auto-discovers from ISU official results index after publication."
+  "schema_version": 2,
+  "event_results_urls": {},
+  "comment": "Optional per-station override (station id -> verified ISU results landing page). Without one, each station's results page is discovered from ISU's official results index once published."
 }

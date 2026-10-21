@@ -1,5 +1,11 @@
 {
-  "last_successful_schedule_check_utc": "2026-10-21T00:07:35+00:00",
-  "source": "official_isu_schedule_html",
-  "notes": "Full 62-round identity verification passed; published verification updated daily or when the timetable changes."
+  "schema_version": 2,
+  "stations": {
+    "vancouver": {
+      "last_successful_schedule_check_utc": "2026-10-21T00:07:35+00:00",
+      "source": "official_isu_schedule_html",
+      "notes": "Full 62-round identity verification passed; published verification updated daily or when the timetable changes.",
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=schedule_16230"
+    }
+  }
 }

@@ -339,3 +339,15 @@ test('what\'s new bar stays hidden when everything was already seen', async t =>
   await new Promise(resolve => setTimeout(resolve, 30));
   assert.equal(dom.window.document.querySelector('.updates'), null);
 });
+
+test('what\'s new bar announces another station\'s newly published programme with a link to its first day', async t => {
+  const dom = await page({view:'schedule', url:'https://example.test/?station=vancouver&now=2026-10-24T18:00:00Z',
+    files:{'/data/updates.json':{schema_version:1, events:[
+      {id:'s', station:'montreal', kind:'schedule', at:'2026-10-24T17:00:00+00:00', local_date:'2026-10-30', count:62}]}}});
+  t.after(()=>dom.window.close());
+  const d = dom.window.document;
+  await settle(dom, () => d.querySelector('.updates'));
+  const item = d.querySelector('.upd-list li');
+  assert.match(item.textContent, /^蒙特利尔站 详细赛程已公布 · 共 62 轮/);
+  assert.equal(item.querySelector('a').getAttribute('href'), '?station=montreal&day=2026-10-30');
+});

@@ -56,6 +56,19 @@ class ReuseTests(unittest.TestCase):
         self.assertEqual([c[1] for c in fetch.calls], [None, '2', '3', '4'])
         self.assertEqual([r['id'] for r in rounds], ['isu-heat-1'])
 
+    def test_disciplines_listed_before_racing_have_no_start_date(self):
+        # ISU's Vancouver results tab on 2026-10-21: nine disciplines, start_date null, no rounds yet.
+        waiting = dict(EVENT, start_date=None, event_id=16230)
+        fetch = Recorder()
+        config = dict(CONFIG, isu_event_id=16230)
+        self.assertEqual(api.collect(results_page([waiting]), config, fetch), [])
+        self.assertEqual(fetch.calls, [('/events/get-event-result-round', None)])
+        for wrong in (dict(waiting, event_id=16272), dict(waiting, start_date='2025-10-23')):
+            with self.assertRaisesRegex(ValueError, 'mismatch'):
+                api.collect(results_page([wrong]), config, Recorder())
+        with self.assertRaisesRegex(ValueError, 'mismatch'):
+            api.collect(results_page([waiting]), CONFIG, Recorder())
+
     def test_parsed_entry_pdf_is_not_downloaded_again(self):
         with tempfile.TemporaryDirectory() as temp:
             snapshot = data.empty_snapshot('vancouver')

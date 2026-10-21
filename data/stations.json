@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "season": "2026/27",
+  "calendar_url": "https://www.isu-skating.com/en/short-track/news/isu-short-track-event-calendar-202627/",
+  "stations": [
+    {
+      "id": "vancouver",
+      "city": "温哥华",
+      "city_en": "Vancouver",
+      "country": "CAN",
+      "date_start": "2026-10-23",
+      "date_end": "2026-10-25",
+      "timezone": "America/Vancouver",
+      "venue": "Pacific Coliseum",
+      "isu": {
+        "slug": "isu-short-track-world-tour-1",
+        "event_id": 16230
+      }
+    },
+    {
+      "id": "montreal",
+      "city": "蒙特利尔",
+      "city_en": "Montreal",
+      "country": "CAN",
+      "date_start": "2026-10-30",
+      "date_end": "2026-11-01",
+      "timezone": "America/Toronto",
+      "venue": null,
+      "isu": {
+        "slug": "isu-short-track-world-tour-2-montreal",
+        "event_id": 16272
+      }
+    },
+    {
+      "id": "seoul",
+      "city": "首尔",
+      "city_en": "Seoul",
+      "country": "KOR",
+      "date_start": "2026-11-20",
+      "date_end": "2026-11-22",
+      "timezone": "Asia/Seoul",
+      "venue": "木洞冰场",
+      "isu": {
+        "slug": "isu-short-track-world-tour-3-seoul",
+        "event_id": 16216
+      }
+    },
+    {
+      "id": "shanghai",
+      "city": "上海",
+      "city_en": "Shanghai",
+      "country": "CHN",
+      "date_start": "2026-11-27",
+      "date_end": "2026-11-29",
+      "timezone": "Asia/Shanghai",
+      "venue": null,
+      "isu": {
+        "slug": "isu-short-track-world-tour-4-shanghai",
+        "event_id": 16265
+      }
+    },
+    {
+      "id": "beijing",
+      "city": "北京",
+      "city_en": "Beijing",
+      "country": "CHN",
+      "date_start": "2026-12-04",
+      "date_end": "2026-12-06",
+      "timezone": "Asia/Shanghai",
+      "venue": null,
+      "isu": {
+        "slug": "isu-short-track-world-tour-5-beijing",
+        "event_id": 16202
+      }
+    },
+    {
+      "id": "gdansk",
+      "city": "格但斯克",
+      "city_en": "Gdansk",
+      "country": "POL",
+      "date_start": "2027-02-05",
+      "date_end": "2027-02-07",
+      "timezone": "Europe/Warsaw",
+      "venue": null,
+      "isu": {
+        "slug": "isu-short-track-world-tour-6-gdansk",
+        "event_id": 16293
+      }
+    },
+    {
+      "id": "tilburg",
+      "city": "蒂尔堡",
+      "city_en": "Tilburg",
+      "country": "NED",
+      "date_start": "2027-02-12",
+      "date_end": "2027-02-14",
+      "timezone": "Europe/Amsterdam",
+      "venue": null,
+      "isu": {
+        "slug": "isu-short-track-world-tour-7-tilburg",
+        "event_id": 16160
+      }
+    }
+  ],
+  "championships": [
+    {
+      "id": "worlds-2027",
+      "kind": "world_championships",
+      "title": "短道速滑世锦赛",
+      "title_en": "ISU Short Track World Championships",
+      "city": "首尔",
+      "city_en": "Seoul",
+      "country": "KOR",
+      "date_start": "2027-03-12",
+      "date_end": "2027-03-14",
+      "timezone": "Asia/Seoul",
+      "venue": null,
+      "isu": {
+        "slug": "isu-short-track-world-championships",
+        "event_id": 16153
+      }
+    }
+  ]
+}

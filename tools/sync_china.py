@@ -15,6 +15,8 @@ from urllib.request import Request, urlopen
 
 from bs4 import BeautifulSoup
 import build
+import tls
+import stations
 
 ROOT = Path(__file__).resolve().parents[1]
 AUTO = ROOT / "data/china_auto.json"
@@ -24,7 +26,8 @@ ALLOWED = {"isu-skating.com", "www.isu-skating.com"}
 RESULT_PATH = re.compile(r"^/(?:en/)?short-track/results/[^/?#]+/[^/?#]+/?$")
 HEAT = re.compile(r"(?m)^Heat\s+(\d+)(?:\s*[-–]\s*Final\s*([AB]))?\s*$", re.I)
 CHN_NAME = re.compile(r"^([A-Za-z][A-Za-z .'\-’]{2,85}?)\s*CHN$", re.I)
-DATES = ("2026", "Vancouver")
+# Results appear from the first race day; late corrections for a few days after.
+WINDOW_BEFORE_DAYS, WINDOW_AFTER_DAYS = 1, 3
 MAX_BYTES = 2_500_000
 
 def allowed(url):
@@ -35,7 +38,7 @@ def fetch_page(url):
     if not allowed(url):
         raise ValueError("Non-official or insecure source URL: " + url)
     request = Request(url, headers={"User-Agent":"SSTS-WB-ChinaHeats/1.0 (+https://github.com/dupirou/ssts_wb)", "Accept":"text/html"})
-    with urlopen(request, timeout=22) as response:
+    with urlopen(request, timeout=22, context=tls.CONTEXT) as response:
         if not allowed(response.geturl()):
             raise ValueError("Unexpected external redirect")
         size = response.read(MAX_BYTES + 1)
@@ -43,16 +46,18 @@ def fetch_page(url):
             raise ValueError("ISU page exceeds size bound")
         return BeautifulSoup(size.decode("utf-8"), "html.parser")
 
-def is_vancouver_2026(text):
-    return "Vancouver" in text and "2026" in text
+def is_station(text, station=None):
+    """A page names the station's city and year (accents ignored: Montréal is Montreal)."""
+    station = station or stations.get("vancouver")
+    return stations.plain(station["city_en"]) in stations.plain(text) and station["date_start"][:4] in text
 
 def page_text(soup):
     for node in soup.select("script,style,nav,footer,header"):
         node.decompose()
     return soup.get_text("\n", strip=True)
 
-def discover_event(index_soup, base=INDEX):
-    """Only accept an explicit 2026 Vancouver results listing, not a 2025 event."""
+def discover_event(index_soup, base=INDEX, station=None):
+    """Only accept an explicit results listing for this station and year, not last season's."""
     for a in index_soup.find_all("a", href=True):
         href = urljoin(base, a["href"])
         if not allowed(href):
@@ -62,7 +67,7 @@ def discover_event(index_soup, base=INDEX):
         parent = a.find_parent(["article","li","section"]) or a.parent
         context = parent.get_text(" ", strip=True) if parent else ""
         context = (a.get_text(" ", strip=True) + " " + context)[:600]
-        if is_vancouver_2026(context):
+        if is_station(context, station):
             return href
     return None
 
@@ -184,10 +189,10 @@ def round_matches(rows, discipline, round_info):
     regular=[r for r in matches if r["session"]!="repechage"]
     return regular or matches
 
-def collect_one(soup, url, discipline, round_info, rows, now):
+def collect_one(soup, url, discipline, round_info, rows, now, station=None):
     text=page_text(BeautifulSoup(str(soup),"html.parser"))
-    if not is_vancouver_2026(text[:1400]):
-        raise ValueError("Result page is not labelled Vancouver 2026")
+    if not is_station(text[:1400], station):
+        raise ValueError("Result page is not labelled with the station's city and year")
     candidates=round_matches(rows,discipline,round_info)
     found=heats_from_page(BeautifulSoup(str(soup),"html.parser"),discipline[2]=="relay")
     result=[]
@@ -205,28 +210,32 @@ def collect_one(soup, url, discipline, round_info, rows, now):
                        "verified_at":now,"heats":heats})
     return result
 
-def sync(event_url=None, dry_run=False, fetcher=fetch_page, now=None):
+def sync(station_id="vancouver", event_url=None, dry_run=False, fetcher=fetch_page, now=None):
     timestamp=now or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-    rows=build.read_schedule()
+    station=stations.get(station_id)
+    rows=build.read_schedule(station_id)
+    if not rows:
+        print(station_id,"has no official programme yet")
+        return 0
     config=json.loads(CONFIG.read_text(encoding="utf-8"))
-    if config.get("schema_version")!=1:
+    if config.get("schema_version")!=2:
         raise ValueError("Invalid results source configuration")
     if event_url is None:
-        event_url=config.get("event_results_url")
+        event_url=config["event_results_urls"].get(station_id)
     if not event_url:
-        event_url=discover_event(fetcher(INDEX))
+        event_url=discover_event(fetcher(INDEX), station=station)
     if not event_url:
-        print("Vancouver 2026 official results not published in ISU results index")
+        print(station_id,"official results not published in ISU results index")
         return 0
     if not allowed(event_url) or not RESULT_PATH.match(urlsplit(event_url).path):
         raise ValueError("Invalid event results URL")
     start=fetcher(event_url)
-    if not is_vancouver_2026(page_text(BeautifulSoup(str(start),"html.parser"))[:1500]):
+    if not is_station(page_text(BeautifulSoup(str(start),"html.parser"))[:1500], station):
         raise ValueError("Refusing results from another event or year")
     categories=official_links(start,event_url)
     # Strict source identity: all links must remain inside the event's results path.
     if not categories:
-        print("No official discipline pages yet")
+        print(station_id,"no official discipline pages yet")
         return 0
     proposed={}
     requests=0
@@ -236,7 +245,7 @@ def sync(event_url=None, dry_run=False, fetcher=fetch_page, now=None):
     # Rounds the official results feed already covers take precedence in build, and
     # rounds already confirmed here do not change: neither page is requested again.
     import competition_data
-    _, covered=competition_data.china_evidence(competition_data.load_snapshot("vancouver"))
+    _, covered=competition_data.china_evidence(competition_data.load_snapshot(station_id))
     settled=covered | {x["round_key"] for x in existing["heats"]}
     for disc, disc_url in categories.items():
         disc_page=fetcher(disc_url)
@@ -247,14 +256,15 @@ def sync(event_url=None, dry_run=False, fetcher=fetch_page, now=None):
                 continue
             round_page=fetcher(round_url)
             requests+=1
-            for item in collect_one(round_page,round_url,disc,round_info,rows,timestamp):
+            for item in collect_one(round_page,round_url,disc,round_info,rows,timestamp,station):
                 key=item["round_key"]
                 if key in proposed and proposed[key]["heats"]!=item["heats"]:
                     raise ValueError("Conflicting heat lists for "+key)
                 proposed[key]=item
             if requests>=90:
                 raise ValueError("Exceeded source traversal cap")
-    # Source can temporarily be incomplete. Never clear confirmed rounds.
+    # Source can temporarily be incomplete. Never clear confirmed rounds. The file holds every
+    # station's rounds; round keys start with the race date, so stations never collide.
     merged={x["round_key"]:x for x in existing["heats"]}
     changed=0
     for key,item in proposed.items():
@@ -262,8 +272,7 @@ def sync(event_url=None, dry_run=False, fetcher=fetch_page, now=None):
         if prev is None or prev["heats"]!=item["heats"] or prev["source_url"]!=item["source_url"]:
             merged[key]=item
             changed+=1
-    result={"schema_version":1,"event_id":"vancouver",
-            "heats":sorted(merged.values(),key=lambda x:x["round_key"])}
+    result={"schema_version":1,"heats":sorted(merged.values(),key=lambda x:x["round_key"])}
     if changed and not dry_run:
         # Validate whole candidate against existing schedule before committing.
         original=build.CHINA
@@ -273,22 +282,34 @@ def sync(event_url=None, dry_run=False, fetcher=fetch_page, now=None):
             temp=AUTO.with_suffix(".candidate.json")
             temp.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
             build.CHINA=temp
-            build.attach_china(build.read_schedule())
+            build.attach_china(build.read_schedule(station_id),station_id)
             temp.replace(AUTO)
         finally:
             build.CHINA=original
             temp=AUTO.with_suffix(".candidate.json")
             if temp.exists():temp.unlink()
-    print("ISU China heat evidence found:",len(proposed),"updated:",changed)
+    print(station_id,"ISU China heat evidence found:",len(proposed),"updated:",changed)
     return changed
 
-if __name__=="__main__":
+def main():
     p=argparse.ArgumentParser()
-    p.add_argument("--event-url",help="Verified official Vancouver results landing page")
+    p.add_argument("--station",help="Station ID; default: every station racing now or just finished")
+    p.add_argument("--event-url",help="Verified official results landing page for --station")
     p.add_argument("--dry-run",action="store_true")
     a=p.parse_args()
-    try:
-        sync(event_url=a.event_url,dry_run=a.dry_run)
-    except Exception as exc:
-        print("China results sync rejected; retaining previously verified evidence:",str(exc),file=sys.stderr)
-        sys.exit(1)
+    now=datetime.now(timezone.utc)
+    failed=False
+    for station in stations.stations():
+        if a.station and station["id"]!=a.station:
+            continue
+        if not a.station and not stations.within(station,now,WINDOW_BEFORE_DAYS,WINDOW_AFTER_DAYS):
+            continue
+        try:
+            sync(station["id"],event_url=a.event_url if a.station else None,dry_run=a.dry_run)
+        except Exception as exc:
+            failed=True
+            print(station["id"],"China results sync rejected; retaining previously verified evidence:",str(exc),file=sys.stderr)
+    return int(failed)
+
+if __name__=="__main__":
+    sys.exit(main())
