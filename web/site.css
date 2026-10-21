@@ -220,6 +220,7 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
   gap: 12px 22px; padding: 16px 20px; margin: 0 0 20px;
   border-color: rgb(var(--cyan-rgb) / .3);
 }
+.next-card + .ticket-panel { margin-top: 20px; }
 .ticket-copy { min-width: 0; display: grid; gap: 3px; }
 .ticket-copy .eyebrow { font-size: .76rem; }
 .ticket-copy h2 { font-size: 1.08rem; }
@@ -240,6 +241,13 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
   .ticket-actions { width: 100%; }
   .ticket-actions a { flex: 1; min-width: min(100%, 125px); }
 }
+
+.offline-note {
+  display: flex; align-items: center; gap: 10px; margin: 0 0 14px; padding: 9px 14px; border-radius: 12px;
+  font-size: .86rem; color: var(--text-2); background: rgb(var(--ice-rgb) / .08); border: 1px dashed var(--border);
+}
+.offline-note[hidden] { display: none; }
+.offline-note .upd-dot { background: var(--muted); box-shadow: none; }
 
 /* ---------- what's new: official milestones since the last visit; closable ---------- */
 .updates {
@@ -412,17 +420,15 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 .championship-card {
   display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
   gap: 16px 24px; padding: 22px 24px;
-  background: linear-gradient(120deg, rgb(var(--gold-rgb) / .10), var(--surface-lo) 65%);
-  border-color: rgb(var(--gold-rgb) / .32);
+  background: linear-gradient(120deg, rgb(var(--cyan-rgb) / .1), var(--surface-lo) 65%);
 }
 .championship-main { display: grid; gap: 8px; min-width: 0; }
-.championship-kicker { color: var(--gold-text); font-size: .78rem; font-weight: 800; letter-spacing: .045em; }
+.championship-kicker { color: var(--accent); font-size: .78rem; font-weight: 800; letter-spacing: .045em; }
 .championship-main h3 { display: flex; gap: 7px 15px; flex-wrap: wrap; align-items: baseline; font-size: clamp(1.26rem, 3vw, 1.6rem); }
 .championship-main h3 small { color: var(--muted); font: 600 .82rem var(--num); }
 .championship-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 7px 14px; color: var(--text-2); font-size: .9rem; }
-.championship-meta .ico { width: 16px; height: 16px; color: var(--gold-text); }
+.championship-meta .ico { width: 16px; height: 16px; color: var(--accent); }
 .championship-card .btn { flex: none; }
-.st-nav-list .championship-nav { border-color: rgb(var(--gold-rgb) / .45); }
 @media (max-width: 680px) {
   .championship-card { padding: 18px 16px; }
   .championship-card .btn { width: 100%; justify-content: center; }
@@ -945,7 +951,7 @@ td.time { white-space: nowrap; }
 @page { margin: 12mm; }
 @media print {
   :root, body { color: #000; background: #fff; }
-  .backdrop, .topbar, .updates, .st-nav, .fbar, .fscrim, .overview, .live-card, .next-art, .to-top, .legend, .st-num,
+  .backdrop, .topbar, .updates, .offline-note, .st-nav, .fbar, .fscrim, .overview, .live-card, .next-art, .to-top, .legend, .st-num,
   .track-art, .meter, .stats, .dot-ok, .day-no, .counter .chip { display: none !important; }
   main { width: 100%; max-width: none; padding: 0; }
   main, main * { color: #000 !important; }

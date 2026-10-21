@@ -586,15 +586,17 @@
   }
 
   function ticketPanel(st) {
-    if (!st.ticketing) return null;
+    if (!st.ticketing || phase(st.win || stationWindow(st, null)) === 'done') return null;
     const open = Date.parse(st.ticketing.sale_start);
     const bj = parts(BJ, open), kr = parts(st.timezone, open);
+    const when = '北京时间 ' + md(bj.date) + ' ' + wk(bj.date) + ' ' + dayPart(bj.hm) + ' ' + bj.hm;
+    const onSale = now() >= open;
     return h('section', {class: 'panel ticket-panel', 'aria-label': st.city + '站售票'},
       h('div', {class: 'ticket-copy'},
         h('p', {class: 'eyebrow', text: st.city + '站 · 门票'}),
-        h('h2', {text: '售票信息'}),
+        h('h2', {text: onSale ? '门票已开售' : '售票信息'}),
         h('p', {class: 'ticket-time'},
-          md(bj.date) + ' ' + bj.hm + ' 北京时间开售',
+          onSale ? '已于' + when + ' 开售' : when + ' 开售',
           h('small', {text: ' · 韩国时间 ' + kr.hm}))),
       h('div', {class: 'ticket-actions'},
         external(st.ticketing.isu_url, 'ISU 售票说明'),
@@ -643,7 +645,7 @@
     const win = stationWindow(event, null);
     const copy = h('div', {class: 'hero-copy'},
       h('p', {class: 'eyebrow', text: cal.season + ' · ISU 短道速滑世界锦标赛'}),
-      h('h1', {}, event.title, h('small', {text: event.title_en})),
+      h('h1', {}, event.title, h('small', {text: event.city_en})),
       h('ul', {class: 'meta-list meta-inline'},
         h('li', {}, icon('calendar'),
           dot(event.date_start) + ' ' + wk(event.date_start) + ' — ' +
@@ -776,7 +778,7 @@
       h('small', {class: 'num', text: i + 1}), st.city)));
     for (const event of cal.championships || []) {
       list.append(h('a', {class: 'championship-nav', href: stationHref(event.id),
-        'aria-current': event.id === current.id ? 'page' : null}, event.title));
+        'aria-current': event.id === current.id ? 'page' : null, title: event.title}, '世锦赛'));
     }
     // Keep the current stage visible in the horizontally scrolling list.
     requestAnimationFrame(() => {
@@ -1324,7 +1326,15 @@
         renderStation(calendar, station, details);
       }
     }
-    updates.then(feed => { const bar = feed && updatesBar(feed, calendar.stations, requested); if (bar) root.prepend(bar); });
+    // Offline, the service worker serves the last saved copy; say so instead of looking live.
+    const offline = h('p', {class: 'offline-note', role: 'status', hidden: navigator.onLine !== false},
+      h('span', {class: 'upd-dot', 'aria-hidden': 'true'}), '当前离线，显示的是上次联网时保存的赛程');
+    root.prepend(offline);
+    addEventListener('online', () => { offline.hidden = true; });
+    addEventListener('offline', () => { offline.hidden = false; });
+    // Installable app with offline fallback; jsdom and plain-http previews skip it.
+    if ('serviceWorker' in navigator && isSecureContext) navigator.serviceWorker.register('./sw.js').catch(() => {});
+    updates.then(feed => { const bar = feed && updatesBar(feed, calendar.stations, requested); if (bar) offline.after(bar); });
     // Back-to-top for long phone lists.
     const top = h('button', {type: 'button', class: 'to-top', 'aria-label': '回到顶部',
       onclick: () => scrollTo({top: 0, behavior: reduceMotion ? 'auto' : 'smooth'})}, icon('up'));
