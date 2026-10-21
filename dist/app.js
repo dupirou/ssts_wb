@@ -377,8 +377,10 @@
       }};
   }
 
-  function stationTabs(schedule, competition) {
-    const sections = {schedule, athletes: competition.athletes, predictions: competition.predictions};
+  function stationTabs(schedule, competition, championship = false) {
+    const sections = championship
+      ? {schedule, athletes: competition.athletes}
+      : {schedule, athletes: competition.athletes, predictions: competition.predictions};
     const labels = {schedule: '赛程', athletes: '运动员', predictions: '分组预测'};
     const nav = h('div', {class: 'section-tabs', role: 'tablist', 'aria-label': '本站内容'});
     const buttons = new Map();
@@ -605,18 +607,64 @@
     const stations = cal.stations.map((st, i) => ({...st, n: i + 1, win: stationWindow(st, details[st.id]), detail: details[st.id]}));
     const focus = stations.find(st => phase(st.win) === 'live') || stations.find(st => phase(st.win) === 'upcoming');
     const first = stations[0], last = stations[stations.length - 1];
+    const lastEvent = cal.championships?.at(-1) || last;
 
     const head = h('section', {class: 'season-head'},
-      h('p', {class: 'eyebrow', text: 'ISU 短道速滑世界巡回赛'}),
+      h('p', {class: 'eyebrow', text: 'ISU 短道速滑赛事'}),
       h('h1', {}, cal.season + ' 赛季赛程'),
-      h('p', {class: 'lead'}, stations.length + ' 站 · ' + first.date_start.slice(0, 7).replace('-', '.') + ' — ' +
-        last.date_end.slice(0, 7).replace('-', '.') + ' · 全部时间已换算为北京时间'));
+      h('p', {class: 'lead'}, stations.length + ' 站世巡赛 · ' + (cal.championships?.length || 0) + ' 场世锦赛 · ' +
+        first.date_start.slice(0, 7).replace('-', '.') + ' — ' +
+        lastEvent.date_end.slice(0, 7).replace('-', '.') + ' · 北京时间'));
 
     root.replaceChildren(head,
       focus ? nextCard(focus) : h('section', {class: 'next-card is-done'}, h('h2', {text: '本赛季全部分站已结束'})),
       ...stations.map(ticketPanel).filter(Boolean),
       seasonLine(stations, focus), stationGrid(stations, focus),
+      championshipsCard(cal),
       h('p', {class: 'source-line'}, external(cal.source_url, 'ISU 官方赛历')));
+  }
+
+  function championshipsCard(cal) {
+    if (!cal.championships?.length) return null;
+    return h('section', {class: 'championship-section', 'aria-label': '世界锦标赛'},
+      h('h2', {class: 'section-title', text: '世界锦标赛'}),
+      cal.championships.map(st => h('article', {class: 'panel championship-card'},
+        h('div', {class: 'championship-main'},
+          h('p', {class: 'championship-kicker', text: '2027 · ISU WORLD CHAMPIONSHIPS'}),
+          h('h3', {}, st.title, h('small', {text: st.title_en})),
+          h('p', {class: 'championship-meta'}, icon('calendar'),
+            dot(st.date_start) + ' — ' + dot(st.date_end),
+            h('span', {text: st.city + ' · ' + st.city_en}))),
+        h('a', {class: 'btn', href: stationHref(st.id)}, '查看世锦赛', icon('arrow')))));
+  }
+
+  function renderChampionship(cal, event) {
+    setClocks([['北京时间', BJ], [event.city, event.timezone]]);
+    const win = stationWindow(event, null);
+    const copy = h('div', {class: 'hero-copy'},
+      h('p', {class: 'eyebrow', text: cal.season + ' · ISU 短道速滑世界锦标赛'}),
+      h('h1', {}, event.title, h('small', {text: event.title_en})),
+      h('ul', {class: 'meta-list meta-inline'},
+        h('li', {}, icon('calendar'),
+          dot(event.date_start) + ' ' + wk(event.date_start) + ' — ' +
+          dot(event.date_end) + ' ' + wk(event.date_end)),
+        h('li', {}, icon('pin'), event.city + ' · ' + (event.venue || '场馆待公布')),
+        h('li', {}, icon('globe'),
+          utcLabel(event.timezone, win.start) + ' · ' + bjDiff(event.timezone, win.start))));
+    const official = () => external(event.source_url, 'ISU 官方赛历');
+    const schedule = h('section', {class: 'schedule-content'},
+      h('section', {class: 'panel empty-state'},
+        trackArt('empty-track', 2),
+        h('h2', {text: '逐项赛程待公布'}),
+        official()));
+    const athletes = h('section', {class: 'schedule-content'},
+      h('section', {class: 'panel empty-state'},
+        h('h2', {text: '报名名单待公布'}),
+        official()));
+    const competition = {athletes, show: () => {}, startRounds: () => {}};
+    root.replaceChildren(stationNav(cal, event),
+      h('section', {class: 'station-hero'}, copy, pendingCard(win)));
+    root.append(...stationTabs(schedule, competition, true));
   }
 
   // The centrepiece: where and when the next racing happens, in Beijing time.
@@ -726,12 +774,16 @@
     const list = h('div', {class: 'st-nav-list'}, cal.stations.map((st, i) => h('a', {href: stationHref(st.id),
       'aria-current': st.id === current.id ? 'page' : null},
       h('small', {class: 'num', text: i + 1}), st.city)));
+    for (const event of cal.championships || []) {
+      list.append(h('a', {class: 'championship-nav', href: stationHref(event.id),
+        'aria-current': event.id === current.id ? 'page' : null}, event.title));
+    }
     // Keep the current stage visible in the horizontally scrolling list.
     requestAnimationFrame(() => {
       const a = list.querySelector('[aria-current]');
       if (a) list.scrollLeft += a.getBoundingClientRect().left - list.getBoundingClientRect().left - (list.clientWidth - a.offsetWidth) / 2;
     });
-    return h('nav', {class: 'st-nav', 'aria-label': '分站切换'}, h('a', {class: 'back', href: './'}, icon('back'), '全部分站'), list);
+    return h('nav', {class: 'st-nav', 'aria-label': '赛事切换'}, h('a', {class: 'back', href: './'}, icon('back'), '全部赛事'), list);
   }
 
   function renderStation(cal, station, data) {
@@ -1260,11 +1312,17 @@
       calendar.stations.forEach((st, i) => { if (loaded[i]) details[st.id] = loaded[i]; });
       renderSeason(calendar, details);
     } else {
-      const station = calendar.stations.find(st => st.id === requested);
-      if (!station) throw new Error('未知分站');
-      document.title = station.city + '站赛程｜2026/27 短道速滑世界巡回赛';
-      const details = station.detail_status === 'verified' ? prepare(await fetchData(station.id + '.json')) : null;
-      renderStation(calendar, station, details);
+      const championship = (calendar.championships || []).find(st => st.id === requested);
+      if (championship) {
+        document.title = championship.title + '｜2027 短道速滑赛程';
+        renderChampionship(calendar, championship);
+      } else {
+        const station = calendar.stations.find(st => st.id === requested);
+        if (!station) throw new Error('未知赛事');
+        document.title = station.city + '站赛程｜2026/27 短道速滑世界巡回赛';
+        const details = station.detail_status === 'verified' ? prepare(await fetchData(station.id + '.json')) : null;
+        renderStation(calendar, station, details);
+      }
     }
     updates.then(feed => { const bar = feed && updatesBar(feed, calendar.stations, requested); if (bar) root.prepend(bar); });
     // Back-to-top for long phone lists.
