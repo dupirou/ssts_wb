@@ -11,12 +11,13 @@ import re
 import sys
 from datetime import datetime, timezone
 from urllib.parse import urljoin, urlsplit, urlencode
-from urllib.request import Request, HTTPRedirectHandler, build_opener
+from urllib.request import Request, HTTPRedirectHandler, HTTPSHandler, build_opener
 
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
 import competition_data as data
 import stations
+import tls
 
 HOSTS = {'isu-skating.com', 'www.isu-skating.com',
          'isu-d8g8b4b7ece7aphs.a03.azurefd.net', 'front-api.isu.org'}
@@ -44,7 +45,7 @@ def fetch(url, form=None):
     if form is not None:
         headers['Content-Type'] = 'application/x-www-form-urlencoded'
     request = Request(url, data=urlencode(form).encode() if form is not None else None, headers=headers)
-    with build_opener(OfficialRedirect()).open(request, timeout=25) as response:
+    with build_opener(HTTPSHandler(context=tls.CONTEXT), OfficialRedirect()).open(request, timeout=25) as response:
         body = response.read(MAX_BYTES + 1)
         if len(body) > MAX_BYTES:
             raise ValueError('Official document exceeds size limit')

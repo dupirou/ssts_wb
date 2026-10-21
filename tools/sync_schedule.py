@@ -12,6 +12,7 @@ from pathlib import Path
 from urllib.parse import urljoin,urlsplit
 from urllib.request import Request,urlopen
 import stations
+import tls
 
 ROOT=Path(__file__).resolve().parents[1]
 EVENTS="https://www.isu-skating.com/en/short-track/events/"
@@ -149,7 +150,7 @@ def fetch(url):
     p=urlsplit(url)
     if p.scheme!="https" or p.hostname not in HOSTS or p.username or p.password:raise ValueError("Non-official source refused")
     req=Request(url,headers={"User-Agent":"SSTS-WB-ScheduleChecker/1.0 (+https://github.com/dupirou/ssts_wb)","Accept":"text/html"})
-    with urlopen(req,timeout=25) as response:
+    with urlopen(req,timeout=25,context=tls.CONTEXT) as response:
         if urlsplit(response.geturl()).hostname not in HOSTS:raise ValueError("Unexpected external redirect")
         content=response.read(3_000_001)
         if len(content)>3_000_000:raise ValueError("Official page too large")

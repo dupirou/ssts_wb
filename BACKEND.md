@@ -138,6 +138,7 @@ ISU 官网已经公布温哥华站**轮次**时间；ISU 2026 年温哥华站的
 ## 安全边界
 
 - 不接收第三方转载作为自动确认，只有 ISU 官方域名下的具体赛事/轮次数据才生效。
+- 所有抓取统一使用 certifi 的根证书列表（`tools/tls.py`），不依赖 Actions 运行环境里可能过时的系统列表；浏览器撤销信任的证书机构（如 2026 年 10 月 eMudhra 的 emSign ECC Root CA – G3）随 certifi 更新一并失效。
 - 每条记录包含赛事轮次 `round_key`、Heat 序号、CHN 选手/接力队、官方原始 URL 和核验时间。
 - 不会把 HKG、TPE 当作 CHN。
 - A/B 组决赛须能在原始内容中明确识别 Final A 或 Final B；否则**不自动猜测**。

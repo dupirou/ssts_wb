@@ -15,6 +15,7 @@ from urllib.request import Request, urlopen
 
 from bs4 import BeautifulSoup
 import build
+import tls
 import stations
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,7 +38,7 @@ def fetch_page(url):
     if not allowed(url):
         raise ValueError("Non-official or insecure source URL: " + url)
     request = Request(url, headers={"User-Agent":"SSTS-WB-ChinaHeats/1.0 (+https://github.com/dupirou/ssts_wb)", "Accept":"text/html"})
-    with urlopen(request, timeout=22) as response:
+    with urlopen(request, timeout=22, context=tls.CONTEXT) as response:
         if not allowed(response.geturl()):
             raise ValueError("Unexpected external redirect")
         size = response.read(MAX_BYTES + 1)

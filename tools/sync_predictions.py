@@ -10,12 +10,13 @@ import json
 import re
 import sys
 from datetime import datetime, timedelta, timezone
-from urllib.request import Request, build_opener
+from urllib.request import Request, HTTPSHandler, build_opener
 
 from bs4 import BeautifulSoup
 
 import competition_data as data
 import stations
+import tls
 import predict_groups
 import sync_competitions as sync
 
@@ -35,7 +36,7 @@ def post_json(url, payload):
     req = Request(url, data=json.dumps(payload).encode('utf-8'),
                   headers={'User-Agent': 'SSTS-WB/1.0 (+https://github.com/dupirou/ssts_wb)',
                            'Content-Type': 'application/json', 'Accept': 'application/json'})
-    with build_opener(sync.OfficialRedirect()).open(req, timeout=25) as response:
+    with build_opener(HTTPSHandler(context=tls.CONTEXT), sync.OfficialRedirect()).open(req, timeout=25) as response:
         body = response.read(sync.MAX_BYTES + 1)
     if len(body) > sync.MAX_BYTES:
         raise ValueError('ISU response exceeds size limit')
