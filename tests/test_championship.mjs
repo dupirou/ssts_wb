@@ -31,7 +31,7 @@ async function page(path) {
   throw new Error('Championship UI not rendered');
 }
 test('homepage keeps seven World Tour cards and offers a distinct World Championships page', async t => {
-  const dom = await page('');
+  const dom = await page('?now=2026-10-21T09:00:00Z');
   t.after(() => dom.window.close());
   const d = dom.window.document;
   assert.equal(d.querySelectorAll('.st-card').length, 7);
@@ -41,7 +41,8 @@ test('homepage keeps seven World Tour cards and offers a distinct World Champion
   assert.match(world.textContent, /03\.12 — 03\.14/);
   assert.match(world.textContent, /首尔/);
   assert.equal(world.querySelector('.btn').getAttribute('href'), '?station=worlds-2027');
-  assert.match(d.querySelector('.season-head .lead').textContent, /7 站世巡赛 · 1 场世锦赛/);
+  // Separators use a no-break space so they stay at line ends; compare words, not space kinds.
+  assert.match(d.querySelector('.season-head .lead').textContent.replace(/\s+/g, ' '), /7 站世巡赛 · 1 场世锦赛/);
   assert.equal(d.querySelectorAll('.ticket-panel').length, 1);
 });
 test('Worlds detail uses schedule and roster waiting states without World Tour forecasts or API calls', async t => {
