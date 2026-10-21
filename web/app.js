@@ -48,6 +48,8 @@
   const fill = (el, ...kids) => { el.replaceChildren(); append(el, kids); return el; };
   const external = (href, ...kids) => h('a', {href, target: '_blank', rel: 'noopener noreferrer'}, ...kids, icon('external', 'ico ico-xs'));
   const cls = (...names) => names.filter(Boolean).join(' ');
+  // " · "-separated facts that wrap between facts, never inside one.
+  const phrases = (...items) => items.filter(Boolean).flatMap((x, i) => [i ? '\u00a0· ' : null, h('span', {class: 'nowrap'}, x)]);
 
   const ICONS = {
     calendar: [['rect', {x: 3.5, y: 5, width: 17, height: 15.5, rx: 2.5}], ['path', {d: 'M3.5 10h17M8 3v4M16 3v4'}]],
@@ -437,16 +439,16 @@
     const box = h('details', {class: 'panel athlete-panel prediction-panel'},
       h('summary', {class: 'athlete-summary'}, h('b', {text: '分组预测'}),
         h('span', {class: 'prediction-label', text: '非官方'}),
-        h('span', {class: 'faint tiny', text: ready ? ready + ' 个项目可查看' : dataset.items.some(p => p.entry_count) ? '官方单项报项核验中' : '待单项报项'}),
-        dataset.stale ? h('small', {class: 'pill', text: '数据待更新'}) : null));
+        h('span', {class: 'faint tiny', text: ready ? ready + ' 个项目可查看' : dataset.items.some(p => p.entry_count) ? '报项核验中' : '待单项报项'}),
+        dataset.stale ? h('small', {class: 'pill', text: '待更新'}) : null));
     const select = h('select', {'aria-label': '预测项目'}, dataset.items.map(p =>
       h('option', {value: p.id, text: (gender[p.gender] || '') + ' ' + p.distance_m + 'm'})));
     const chinaOnly = h('button', {type: 'button', class: 'chip', 'aria-pressed': 'false', text: '只看含 CHN 的组'});
     const body = h('div', {class: 'prediction-body', 'aria-live': 'polite'});
     const reasons = {distance_seeding_list: '单项报名、种子和直通待公布', schedule: '待官方轮次赛程',
       qualifying_table: '晋级表待核实', matching_schedule: '名单与赛程待核对',
-      prequalification_list: '直通名单待核实', awaiting_complete_entries: '官网报项更新中',
-      ranking_tie: '排名并列，待抽签', unranked_draw: '无排名选手顺序待确认',
+      prequalification_list: '直通名单待核实', awaiting_complete_entries: '报项更新中',
+      ranking_tie: '排名并列待抽签', unranked_draw: '无排名选手顺序待定',
       prequalification_tie: '直通边界待核实'};
     let onlyChina = false;
     const draw = () => {
@@ -455,11 +457,11 @@
       fill(body);
       chinaOnly.hidden = item.status !== 'predicted';
       if (item.status === 'official_available') {
-        body.append(h('p', {class: 'faint athlete-empty', text: '官方分组已公布，请在赛程中查看。'}));
+        body.append(h('p', {class: 'faint athlete-empty', text: '官方分组已公布，请在赛程中查看'}));
       } else if (item.status !== 'predicted') {
         body.append(h('p', {class: 'faint athlete-empty', text: [...new Set(item.missing.map(k => reasons[k] || '待数据核实'))].join(' · ')}));
         if (item.entry_count) {
-          body.append(h('p', {class: 'faint tiny', text: '单项报项 ' + item.entry_count + ' 人 · 排名匹配 ' + item.seeded_count + ' 人'}));
+          body.append(h('p', {class: 'faint tiny', text: '已报 ' + item.entry_count + ' 人 · ' + item.seeded_count + ' 人有排名'}));
           const ranked = item.observed_entries.filter(p => p.seed_rank != null);
           if (ranked.length) body.append(h('details', {class: 'prediction-byes'},
             h('summary', {text: '当前排名（暂定） · ' + ranked.length + ' 人'}),
@@ -471,7 +473,7 @@
         }
       } else {
         body.append(h('p', {class: 'faint tiny prediction-note', text: '首轮预测 · 不含出发道次，以官方分组为准'}));
-        if (item.country_conflicts.length) body.append(h('p', {class: 'faint tiny', text: '部分同国选手回避需要官方调整。'}));
+        if (item.country_conflicts.length) body.append(h('p', {class: 'faint tiny', text: '同国选手回避以官方调整为准'}));
         const groups = item.groups.filter(g => !onlyChina || g.has_china);
         const grid = h('div', {class: 'prediction-grid'});
         for (const group of groups) grid.append(h('section', {class: cls('prediction-group', group.has_china && 'has-china')},
@@ -487,11 +489,11 @@
       }
       body.append(h('details', {class: 'source-disclosure'},
         h('summary', {}, '来源与规则', dataset.checked_at ? h('time', {datetime: dataset.checked_at,
-          text: '最近公开核对 ' + sourceTime(dataset.checked_at)}) : null),
+          text: '核对于 ' + sourceTime(dataset.checked_at)}) : null),
         h('div', {class: 'source-links'},
           ...(item.source_urls || []).map((url, i) => external(url, ['单项报项', '世巡赛排名', '世界排名'][i] || 'ISU 来源')),
           ...(dataset.rules || []).map(r => external(r.url, r.label))),
-        item.updated_at ? h('p', {class: 'faint tiny', text: '内容变化 ' + sourceTime(item.updated_at)}) : null,
+        item.updated_at ? h('p', {class: 'faint tiny', text: '更新于 ' + sourceTime(item.updated_at)}) : null,
         dataset.stale ? h('p', {class: 'faint tiny', text: '显示上次核对的数据'}) : null));
     };
     chinaOnly.addEventListener('click', () => {onlyChina = !onlyChina; chinaOnly.setAttribute('aria-pressed', String(onlyChina)); draw();});
@@ -507,7 +509,7 @@
     const summary = h('summary', {class: 'athlete-summary'},
       h('b', {text: title}), h('span', {class: 'faint num', text: people.length ? people.length + (ranking ? ' 条' : ' 人') : '待公布'}),
       china ? h('span', {class: 'athlete-china num', text: 'CHN ' + china + (ranking ? ' 条' : ' 人')}) : null,
-      dataset.stale ? h('small', {class: 'pill', text: '待更新'}) : null);
+      dataset.stale && people.length ? h('small', {class: 'pill', text: '待更新'}) : null);
     const box = h('details', {class: 'panel athlete-panel'}, summary);
     if (!people.length) {
       box.append(h('p', {class: 'faint athlete-empty', text: title + '待公布'}));
@@ -541,8 +543,8 @@
     sex.addEventListener('change', update);
     box.append(h('div', {class: 'athlete-tools'}, country, sex, count), list,
       h('div', {class: 'athlete-source source-line'},
-        dataset.checked_at ? h('span', {text: '最近公开核对 ' + sourceTime(dataset.checked_at)}) : null,
-        dataset.updated_at ? h('span', {text: '名单变化 ' + sourceTime(dataset.updated_at)}) : null,
+        dataset.updated_at ? h('span', {text: '更新于 ' + sourceTime(dataset.updated_at)}) : null,
+        dataset.checked_at ? h('span', {text: '核对于 ' + sourceTime(dataset.checked_at)}) : null,
         dataset.source_urls?.[0] ? external(dataset.source_urls[0], '官方来源') : null));
     if (ranking) box.addEventListener('toggle', () => { if (box.open && !list.childElementCount) update(); });
     else update();
@@ -586,16 +588,18 @@
   }
 
   function ticketPanel(st) {
-    if (!st.ticketing) return null;
+    if (!st.ticketing || phase(st.win || stationWindow(st, null)) === 'done') return null;
     const open = Date.parse(st.ticketing.sale_start);
     const bj = parts(BJ, open), kr = parts(st.timezone, open);
+    const when = '北京时间 ' + md(bj.date) + ' ' + wk(bj.date) + ' ' + dayPart(bj.hm) + ' ' + bj.hm;
+    const onSale = now() >= open;
     return h('section', {class: 'panel ticket-panel', 'aria-label': st.city + '站售票'},
       h('div', {class: 'ticket-copy'},
         h('p', {class: 'eyebrow', text: st.city + '站 · 门票'}),
-        h('h2', {text: '售票信息'}),
+        h('h2', {text: onSale ? '门票已开售' : '售票信息'}),
         h('p', {class: 'ticket-time'},
-          md(bj.date) + ' ' + bj.hm + ' 北京时间开售',
-          h('small', {text: ' · 韩国时间 ' + kr.hm}))),
+          onSale ? '已于' + when + ' 开售' : when + ' 开售',
+          '\u00a0· ', h('small', {class: 'nowrap', text: '韩国时间 ' + kr.hm}))),
       h('div', {class: 'ticket-actions'},
         external(st.ticketing.isu_url, 'ISU 售票说明'),
         external(st.ticketing.booking_url, 'Ticketlink 订票')));
@@ -612,9 +616,8 @@
     const head = h('section', {class: 'season-head'},
       h('p', {class: 'eyebrow', text: 'ISU 短道速滑赛事'}),
       h('h1', {}, cal.season + ' 赛季赛程'),
-      h('p', {class: 'lead'}, stations.length + ' 站世巡赛 · ' + (cal.championships?.length || 0) + ' 场世锦赛 · ' +
-        first.date_start.slice(0, 7).replace('-', '.') + ' — ' +
-        lastEvent.date_end.slice(0, 7).replace('-', '.') + ' · 北京时间'));
+      h('p', {class: 'lead'}, phrases(stations.length + ' 站世巡赛', (cal.championships?.length || 0) + ' 场世锦赛',
+        first.date_start.slice(0, 7).replace('-', '.') + ' — ' + lastEvent.date_end.slice(0, 7).replace('-', '.'), '北京时间')));
 
     root.replaceChildren(head,
       focus ? nextCard(focus) : h('section', {class: 'next-card is-done'}, h('h2', {text: '本赛季全部分站已结束'})),
@@ -631,7 +634,7 @@
       cal.championships.map(st => h('article', {class: 'panel championship-card'},
         h('div', {class: 'championship-main'},
           h('p', {class: 'championship-kicker', text: '2027 · ISU WORLD CHAMPIONSHIPS'}),
-          h('h3', {}, st.title, h('small', {text: st.title_en})),
+          h('h3', {text: st.title}),
           h('p', {class: 'championship-meta'}, icon('calendar'),
             dot(st.date_start) + ' — ' + dot(st.date_end),
             h('span', {text: st.city + ' · ' + st.city_en}))),
@@ -643,7 +646,7 @@
     const win = stationWindow(event, null);
     const copy = h('div', {class: 'hero-copy'},
       h('p', {class: 'eyebrow', text: cal.season + ' · ISU 短道速滑世界锦标赛'}),
-      h('h1', {}, event.title, h('small', {text: event.title_en})),
+      h('h1', {}, event.title, h('small', {text: event.city_en})),
       h('ul', {class: 'meta-list meta-inline'},
         h('li', {}, icon('calendar'),
           dot(event.date_start) + ' ' + wk(event.date_start) + ' — ' +
@@ -698,14 +701,14 @@
         if (i < e.length) {
           target = e[i].t;
           label.textContent = i === 0 ? '距首项开赛还有' : '距下一项开赛还有';
-          item.textContent = eventName(e[i]) + ' ' + roundName(e[i]) + ' · 北京时间 ' + bjWhen(e[i]);
+          fill(item, phrases(eventName(e[i]) + ' ' + roundName(e[i]), '北京时间 ' + bjWhen(e[i])));
         } else {
           label.textContent = '全部轮次已按计划开赛';
           item.textContent = '';
         }
       } else {
         label.textContent = '距开幕还有';
-        item.textContent = '详细赛程待公布 · 倒计时按当地 00:00 计算';
+        item.textContent = '详细赛程待公布 · 按当地 0 点倒计时';
       }
       cd.hidden = target < now();
       cd.set(target - now());
@@ -761,7 +764,7 @@
           h('small', {text: wk(st.date_start) + '至' + wk(st.date_end).slice(1)})),
         h('ul', {class: 'meta-list'},
           h('li', {}, icon('globe'), utcLabel(st.timezone, st.win.start) + ' · ' + bjDiff(st.timezone, st.win.start)),
-          h('li', {}, icon('pin'), st.venue || '场馆待公布')),
+          st.venue ? h('li', {}, icon('pin'), st.venue) : null),
         h('p', {class: 'st-foot'}, st.detail
           ? [h('span', {class: 'ok-text'}, icon('check'), '已录入 ' + st.detail.entries.length + ' 个轮次'), icon('arrow')]
           : h('span', {text: '详细赛程待公布'}))));
@@ -776,7 +779,7 @@
       h('small', {class: 'num', text: i + 1}), st.city)));
     for (const event of cal.championships || []) {
       list.append(h('a', {class: 'championship-nav', href: stationHref(event.id),
-        'aria-current': event.id === current.id ? 'page' : null}, event.title));
+        'aria-current': event.id === current.id ? 'page' : null, title: event.title}, '世锦赛'));
     }
     // Keep the current stage visible in the horizontally scrolling list.
     requestAnimationFrame(() => {
@@ -819,7 +822,6 @@
       schedule.append(competition.status, h('section', {class: 'panel empty-state'},
         trackArt('empty-track', 2),
         h('h2', {text: '详细赛程尚未录入'}),
-        h('p', {text: '详情待更新'}),
         h('p', {}, external(cal.source_url, 'ISU 官方赛历'))));
     } else {
       scheduleView(data, station, schedule, competition.status);
@@ -836,8 +838,7 @@
     const rel = h('span');
     const p = parts(BJ, t);
     tick(() => { rel.textContent = ago(t); });
-    return h('p', {class: 'sync'}, h('i', {class: 'dot-ok'}), '已与 ISU 官方赛程核对 · ', rel,
-      h('span', {class: 'faint', text: '（' + md(p.date) + ' ' + p.hm + '）'}));
+    return h('p', {class: 'sync', title: '北京时间 ' + md(p.date) + ' ' + p.hm}, h('i', {class: 'dot-ok'}), '已与 ISU 官方赛程核对 · ', rel);
   }
 
   function pendingCard(win) {
@@ -848,7 +849,7 @@
     return h('aside', {class: 'live-card'},
       h('p', {class: 'live-label', text: ph === 'upcoming' ? '距开幕还有' : ph === 'live' ? '本站正在进行' : '本站已结束'}),
       ph === 'upcoming' ? cd : null,
-      h('p', {class: 'live-sub', text: '按当地 0 点计算 · 北京时间 ' + md(p.date) + ' ' + wk(p.date) + ' ' + dayPart(p.hm) + ' ' + p.hm}));
+      h('p', {class: 'live-sub'}, phrases('北京时间 ' + md(p.date) + ' ' + wk(p.date) + ' ' + dayPart(p.hm) + ' ' + p.hm + ' 开幕', '按当地 0 点')));
   }
 
   function liveCard(data, station) {
@@ -896,7 +897,7 @@
       box.dataset.key = key;
       if (!r) {
         fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: 'CHN'}),
-          entries.some(isChina) ? ' 已确认的场次均已开赛' : ' 官方分组公布后，这里和赛程中会自动标出'));
+          entries.some(isChina) ? ' 已确认的场次均已开赛' : ' 官方分组公布后自动标出'));
         return;
       }
       const hs = r.china.heats;
@@ -1052,7 +1053,7 @@
         container.append(daySection(d, items, bjFirst, nextI, station, entries));
       }
       if (!rows.length) {
-        container.append(h('div', {class: 'panel empty-filter'}, h('p', {text: '当前筛选条件下没有比赛。'}),
+        container.append(h('div', {class: 'panel empty-filter'}, h('p', {text: '当前筛选条件下没有比赛'}),
           h('button', {type: 'button', class: 'btn', onclick: view.reset}, '查看全部赛程')));
       }
     }
@@ -1324,7 +1325,15 @@
         renderStation(calendar, station, details);
       }
     }
-    updates.then(feed => { const bar = feed && updatesBar(feed, calendar.stations, requested); if (bar) root.prepend(bar); });
+    // Offline, the service worker serves the last saved copy; say so instead of looking live.
+    const offline = h('p', {class: 'offline-note', role: 'status', hidden: navigator.onLine !== false},
+      h('span', {class: 'upd-dot', 'aria-hidden': 'true'}), '当前离线，显示的是上次联网时保存的赛程');
+    root.prepend(offline);
+    addEventListener('online', () => { offline.hidden = true; });
+    addEventListener('offline', () => { offline.hidden = false; });
+    // Installable app with offline fallback; jsdom and plain-http previews skip it.
+    if ('serviceWorker' in navigator && isSecureContext) navigator.serviceWorker.register('./sw.js').catch(() => {});
+    updates.then(feed => { const bar = feed && updatesBar(feed, calendar.stations, requested); if (bar) offline.after(bar); });
     // Back-to-top for long phone lists.
     const top = h('button', {type: 'button', class: 'to-top', 'aria-label': '回到顶部',
       onclick: () => scrollTo({top: 0, behavior: reduceMotion ? 'auto' : 'smooth'})}, icon('up'));

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Compile strictly verified provisional ISU timetable and China start-list evidence."""
 import csv
+import hashlib
 import json
 import shutil
 import competition_data
@@ -198,6 +199,12 @@ def export():
     shutil.copyfile(ROOT/"web/index.html",OUT/"index.html")
     shutil.copyfile(ROOT/"web/app.js",OUT/"app.js")
     shutil.copyfile(ROOT/"web/site.css",OUT/"site.css")
+    shutil.copyfile(ROOT/"web/manifest.webmanifest",OUT/"manifest.webmanifest")
+    shutil.copytree(ROOT/"web/icons",OUT/"icons",dirs_exist_ok=True)
+    # The service worker cache name follows the app shell, so a new release replaces the old cache.
+    shell=b"".join((ROOT/"web"/name).read_bytes() for name in ("index.html","app.js","site.css","manifest.webmanifest","sw.js"))
+    (OUT/"sw.js").write_text((ROOT/"web/sw.js").read_text(encoding="utf-8").replace(
+        "__BUILD_VERSION__",hashlib.sha256(shell).hexdigest()[:12]),encoding="utf-8")
     competition_data.export(OUT, VENUES)
     import predict_groups
     predict_groups.export(OUT, VENUES, rows)

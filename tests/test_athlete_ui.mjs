@@ -58,8 +58,8 @@ test('real roster defaults to CHN; country and gender filters compose', async t 
   assert.ok(roster.querySelector('summary').textContent.includes('CHN '+china.length+' 人'));
   assert.equal(roster.open,true);
   assert.equal(roster.querySelectorAll('.athlete-card').length,china.length);
-  assert.match(roster.querySelector('.athlete-source').textContent,/最近公开核对/);
-  assert.match(roster.querySelector('.athlete-source').textContent,/名单变化/);
+  assert.match(roster.querySelector('.athlete-source').textContent,/核对于/);
+  assert.match(roster.querySelector('.athlete-source').textContent,/更新于/);
   const country = roster.querySelector('select[aria-label="报名名单国家或地区"]');
   const sex = roster.querySelector('select[aria-label="报名名单性别"]');
   change(dom,country,'all');
@@ -154,15 +154,15 @@ test('partial official entries display evidence without publishing groups', asyn
       'https://isu-skating.com/en/short-track/world-standings/615/']});
   const dom=await page({data,view:'predictions'});t.after(()=>dom.window.close());
   const panel=dom.window.document.querySelector('.prediction-panel');
-  assert.match(panel.textContent,/官方单项报项核验中/);
+  assert.match(panel.textContent,/报项核验中/);
   assert.match(panel.textContent,/17 人/);
-  assert.match(panel.textContent,/无排名选手顺序待确认/);
+  assert.match(panel.textContent,/无排名选手顺序待定/);
   assert.equal(panel.querySelectorAll('.prediction-group').length,0);
   assert.equal(panel.querySelectorAll('a').length,6);
   assert.equal(panel.querySelector('.source-disclosure').open,false);
-  assert.match(panel.querySelector('.source-disclosure summary').textContent,/最近公开核对/);
+  assert.match(panel.querySelector('.source-disclosure summary').textContent,/核对于/);
   panel.querySelector('.source-disclosure').open=true;
-  assert.match(panel.querySelector('.source-disclosure').textContent,/内容变化/);
+  assert.match(panel.querySelector('.source-disclosure').textContent,/更新于/);
   assert.equal(panel.querySelectorAll('.source-disclosure a').length,6);
 });
 
