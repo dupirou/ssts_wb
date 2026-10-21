@@ -67,4 +67,22 @@ Cloudflare 官方帮助：
 - 中国队的官方分组自动采集当前尚未接通。无官方证明的 CHN 行保持未知，不可擅自高亮。
 - 数据时间戳表示“上次公开发布的完整官方核对记录”，非秒级实时比分。
 
+## 5. 比赛期间的准时同步（Cloudflare Cron Trigger）
+
+GitHub 的定时任务经常延迟数小时。`wrangler.jsonc` 为 Worker `stsswb` 配置了每 10 分钟唤醒一次的 Cron Trigger，由 `src/worker.mjs` 的 `scheduled()` 决定是否调用 GitHub API 运行 `sync.yml`：
+
+- **比赛进行时段**（按逐项赛程，每个比赛日首项开赛前 2 小时至末项开赛后 2 小时）：每 10 分钟一次；
+- **比赛窗口内其他时间**（各站开赛前 2 天至结束后 3 天）：每小时一次；
+- **窗口外**：不触发，只保留 GitHub 自身的定时任务作为兜底。同步工作流有并发组，不会重复写入。
+
+以温哥华站为例，窗口内共约 375 次（比赛日约 85 次/天，其他日 24 次/天），固定每 10 分钟则为 1008 次。
+
+为减轻对 ISU 官网的访问，同步脚本不再重复请求已确定的数据：已为正式（Official）成绩的轮次、Final A 已正式且全部轮次已正式的项目、已解析过的同一 URL 报名/报告 PDF、上赛季（已冻结）的历史排名（缓存在 `data/prediction_inputs/historic_rankings.json`），以及所有距离都已有官方分组后的分组预测；旧的中国队页面爬取也会跳过已由官方成绩接口覆盖或已确认的轮次。
+
+一次性设置（未设置时 Worker 只记录日志并跳过，不影响网站）：
+
+1. GitHub → Settings → Developer settings → **Fine-grained personal access tokens** → 新建：仅授权仓库 `dupirou/ssts_wb`，权限 **Actions: Read and write**（其余保持无权限），有效期覆盖赛季。
+2. Cloudflare 控制台 → Workers & Pages → `stsswb` → Settings → **Variables and Secrets** → 添加类型为 Secret 的 `GITHUB_DISPATCH_TOKEN`，值为上面的 token。
+3. 部署后可在 `stsswb` → Settings → Trigger events 看到 `*/10 * * * *`；比赛窗口内的 GitHub Actions 运行记录事件类型为 `workflow_dispatch`。
+
 注意：没有你的 Cloudflare 账户连接权限，本指南**不会**创建 Pages 项目、授权 GitHub App 或改变 DNS。完成控制台步骤后可将系统实际提供的 pages.dev URL 发来进行公开访问校验。

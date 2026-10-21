@@ -24,6 +24,8 @@ API = 'https://front-api.isu.org'
 STANDINGS = 'https://isu-skating.com/en/short-track/world-standings/'
 DISTANCES = {(g, d) for g in ('women', 'men') for d in (500, 1000, 1500)}
 MIN_STABLE = timedelta(minutes=29)
+# Historic (previous-season) standings are frozen, so each list is fetched once and kept here.
+RANKING_CACHE = INPUTS / 'historic_rankings.json'
 MAX_PAGES = 20
 
 
@@ -184,6 +186,34 @@ def ranking_rows(meta, sender=post_json):
     raise ValueError('Ranking request budget exceeded')
 
 
+def cached_rankings(catalog, sender, season, path=RANKING_CACHE):
+    """Rows for each historic list, requesting ISU only for lists not cached yet."""
+    cache = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
+    if cache and (cache.get('schema_version') != 1 or cache.get('season') != season):
+        cache = {}
+    lists = cache.get('lists', {})
+    rows, added = {}, False
+    for key, meta in catalog.items():
+        rid = str(meta['world_standings_list_fsk_id'])
+        if rid not in lists:
+            lists[rid] = {str(sid): row for sid, row in ranking_rows(meta, sender).items()}
+            added = True
+        rows[key] = {int(sid): row for sid, row in lists[rid].items()}
+    if added:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(dict(schema_version=1, season=season, lists=lists),
+                                   ensure_ascii=False, sort_keys=True) + '\n', encoding='utf-8')
+    return rows
+
+
+def predictions_settled(event_id):
+    """Every distance has an official start list or results: predictions no longer matter."""
+    rounds = data.load_snapshot(event_id)['rounds']['items']
+    official = {(r.get('gender'), r.get('distance_m')) for r in rounds
+                if r.get('evidence') in ('official_start_list', 'official_results') and r.get('format') != 'relay'}
+    return DISTANCES <= official
+
+
 def select_byes(people, tour, world, count):
     """Select entered WCD point earners, then fill from entered WRD skaters."""
     if count == 0:
@@ -278,6 +308,8 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
     if old and (old.get('schema_version') != 1 or old.get('event_id') != event_id):
         raise ValueError('Prediction snapshot identity mismatch')
     previous = {(r['gender'], r['distance_m']): r for r in old.get('observed_lists', [])}
+    if old and predictions_settled(event_id):
+        return old, []
     try:
         page = get(cfg['prediction']['entries_url'])
         events = discover_events(page, cfg)
@@ -305,9 +337,11 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
                          for p in entries[key]}
             coverage[gender] = not active or len(published & active) / len(active) >= 0.55
         observations = []
+        ranked = cached_rankings(catalog, sender, cfg['prediction']['historical_season'],
+                                 directory / 'historic_rankings.json')
         for key in sorted(DISTANCES):
             tour_meta, world_meta = catalog[key, 'WCD'], catalog[key, 'WRD']
-            tour, world = ranking_rows(tour_meta, sender), ranking_rows(world_meta, sender)
+            tour, world = ranked[key, 'WCD'], ranked[key, 'WRD']
             observed = make_observation(key, entries[key], world, tour,
                                         previous.get(key), now, schedule,
                                         feed_consistent=coverage[key[0]])

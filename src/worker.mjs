@@ -16,7 +16,65 @@ function matches(item, query, participant = item) {
   return true;
 }
 
+/* Race-window sync: GitHub's own cron is often hours late, so a Cloudflare Cron Trigger (every 10 min)
+   asks GitHub Actions to run the existing sync workflow. To keep load on ISU's site modest it syncs
+   every 10 min only around each racing session, hourly during the rest of a race window, never outside. */
+const SYNC_REPO = 'dupirou/ssts_wb';
+const SYNC_WORKFLOW = 'sync.yml';
+const HOUR_MS = 3600_000, DAY_MS = 24 * HOUR_MS, TICK_MS = 10 * 60_000;
+
+export function inRaceWindow(stations, now) {
+  // Two days either side of the local dates covers every station timezone plus entry/result publication.
+  return stations.filter(s => now >= Date.parse(s.date_start + 'T00:00:00Z') - 2 * DAY_MS &&
+    now < Date.parse(s.date_end + 'T00:00:00Z') + 3 * DAY_MS);
+}
+
+// From 2h before a competition day's first round start until 2h after its last one.
+export function inRacingSession(entries, now) {
+  const days = new Map();
+  for (const e of entries) {
+    const t = Date.parse(e.utc_start), d = days.get(e.local_date);
+    days.set(e.local_date, d ? [Math.min(d[0], t), Math.max(d[1], t)] : [t, t]);
+  }
+  return [...days.values()].some(([first, last]) => now >= first - 2 * HOUR_MS && now <= last + 2 * HOUR_MS);
+}
+
+export async function syncDecision(env, now) {
+  const asset = path => env.ASSETS.fetch(new Request('https://assets.local' + path));
+  const calendar = await asset('/data/calendar.json');
+  if (!calendar.ok) throw new Error('calendar.json unavailable: ' + calendar.status);
+  const active = inRaceWindow((await calendar.json()).stations, now);
+  if (!active.length) return 'outside_window';
+  for (const station of active) {
+    const detail = await asset('/data/' + station.id + '.json');
+    if (detail.ok && inRacingSession((await detail.json()).entries || [], now)) return 'session';
+  }
+  // Ticks land on :00, :10, …; only the top-of-hour tick runs between sessions.
+  return Math.floor(now / TICK_MS) % 6 === 0 ? 'hourly' : 'skip';
+}
+
+async function dispatchSync(env, now) {
+  const decision = await syncDecision(env, now);
+  if (decision === 'outside_window' || decision === 'skip') return decision;
+  if (!env.GITHUB_DISPATCH_TOKEN) {
+    console.warn('Race-window sync skipped: GITHUB_DISPATCH_TOKEN secret is not set');
+    return 'no_token';
+  }
+  const response = await fetch(`https://api.github.com/repos/${SYNC_REPO}/actions/workflows/${SYNC_WORKFLOW}/dispatches`, {
+    method: 'POST',
+    headers: {Authorization: 'Bearer ' + env.GITHUB_DISPATCH_TOKEN, Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'stsswb-cron', 'Content-Type': 'application/json'},
+    body: JSON.stringify({ref: 'main'}),
+  });
+  if (response.status !== 204) throw new Error('GitHub dispatch failed: ' + response.status + ' ' + (await response.text()).slice(0, 200));
+  return 'dispatched:' + decision;
+}
+
 export default {
+  async scheduled(controller, env, ctx) {
+    ctx.waitUntil(dispatchSync(env, controller.scheduledTime).then(result => console.log('Race-window sync:', result)));
+  },
+
   async fetch(request, env) {
     const url = new URL(request.url);
     if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
