@@ -69,6 +69,21 @@ class ReuseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'mismatch'):
             api.collect(results_page([waiting]), CONFIG, Recorder())
 
+    def test_recovered_check_clears_the_old_error(self):
+        # Production on 2026-10-21: rounds/rankings kept "results: expected string ..." after the fix.
+        with tempfile.TemporaryDirectory() as temp:
+            snapshot = data.empty_snapshot('vancouver')
+            for kind in ('entries', 'rounds', 'rankings'):
+                snapshot[kind].update(update_status='error', error='results: expected string or bytes-like object')
+            data.write_snapshot(snapshot, Path(temp))
+            page = b'<h1>Vancouver 2026</h1>'
+            result, errors = sync.sync_event('vancouver', CONFIG, lambda url, form=None: page,
+                                             '2026-10-21T15:00:00+00:00', Path(temp), api_fetcher=Recorder())
+        self.assertEqual(errors, [])
+        for kind in ('entries', 'rounds', 'rankings'):
+            self.assertEqual(result[kind]['update_status'], 'ok')
+            self.assertNotIn('error', result[kind])
+
     def test_parsed_entry_pdf_is_not_downloaded_again(self):
         with tempfile.TemporaryDirectory() as temp:
             snapshot = data.empty_snapshot('vancouver')

@@ -279,6 +279,7 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
             snapshot[kind].update(update_status='error', error='Previously published data absent; retained last snapshot')
         elif not errors:
             snapshot[kind].update(update_status='ok')
+            snapshot[kind].pop('error', None)  # a recovered check must not keep reporting the old failure
             if not snapshot[kind]['checked_at'] or snapshot[kind]['checked_at'][:10] != now[:10]:
                 snapshot[kind]['checked_at'] = now
     if errors:
@@ -287,6 +288,8 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
                 snapshot[kind].update(update_status='error', error='; '.join(errors)[:500])
     elif not entry_docs:
         snapshot['entries'].update(update_status='error' if snapshot['entries']['items'] else 'ok')
+        if snapshot['entries']['update_status'] == 'ok':
+            snapshot['entries'].pop('error', None)
         if not snapshot['entries']['checked_at'] or snapshot['entries']['checked_at'][:10] != now[:10]:
             snapshot['entries']['checked_at'] = now
     data.write_snapshot(snapshot, directory)
