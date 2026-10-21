@@ -4,52 +4,58 @@
    Structural classes (match-row, session-row, primary-time, secondary-time, event-cell,
    round-cell, group-cell, notes-cell, china-row) are part of the handoff contract. */
 :root {
-  /* Dark (default) theme. Channel triples feed rgb(var(--x-rgb) / alpha) tints. */
-  --bg: #0B1F33;
-  --bg-deep: #081829;
-  --panel: #102A43;
-  --surface-hi: rgba(21, 54, 90, .88);
-  --surface-lo: rgba(16, 42, 67, .88);
-  --hero-a: #1D4C78;
-  --hero-b: #153858;
-  --popover: #12324F;
-  --bar: rgba(13, 35, 58, .97);
-  --well: rgba(6, 20, 36, .55);
-  --well-soft: rgba(6, 20, 36, .35);
-  --scrim: rgba(3, 10, 20, .6);
-  --cyan-rgb: 91 200 234;
-  --ice-rgb: 191 232 245;
+  /* Dark (default) theme, "Arctic Sky": near-black slate with a sky-blue accent, calm for
+     watching at night. Channel triples feed rgb(var(--x-rgb) / alpha) tints. */
+  --bg: #070B12;
+  --bg-deep: #05080E;
+  --panel: #0E1522;
+  --surface-hi: #111A29;
+  --surface-lo: #0E1522;
+  --hero-a: #111E32;
+  --hero-b: #0A121E;
+  --hero-border: rgb(var(--cyan-rgb) / .22);
+  --popover: #111A29;
+  --bar: rgba(7, 11, 18, .97);
+  --well: #05080E;
+  --well-soft: rgba(5, 8, 14, .55);
+  --scrim: rgba(0, 0, 0, .6);
+  --cyan-rgb: 56 189 248;
+  --ice-rgb: 226 232 240;
   --gold-rgb: 244 201 93;
   --red-rgb: 230 57 70;
   --shadow-rgb: 0 0 0;
   --shadow-k: 1;
   --border: rgb(var(--cyan-rgb) / .2);
-  --border-soft: rgb(var(--ice-rgb) / .1);
-  --accent: #5BC8EA;
-  --accent-text: #5BC8EA;
-  --accent-hover: #86D9F2;
-  --accent-2: #BFE8F5;
-  --accent-2-fill: rgb(var(--ice-rgb) / .17);
-  --on-accent: #0B1F33;
-  --on-accent-rgb: 11 31 51;
-  --on-accent-2: #F2F7FB;
+  --border-soft: rgba(255, 255, 255, .08);
+  --accent: #38BDF8;
+  --accent-text: #7DD3FC;
+  --accent-hover: #7DD3FC;
+  --accent-2: #BAE6FD;
+  --accent-2-fill: #1E293B;
+  --on-accent: #070B12;
+  --on-accent-rgb: 7 11 18;
+  --on-accent-2: #F8FAFC;
   /* One visual grammar per role (see DESIGN_HANDOFF.md):
      where you are = solid accent (station list only); view tabs = underline;
      filters and settings = segmented, selected segment a lighter solid fill (--seg-*);
      actions = buttons (primary solid --cta-*, secondary accent outline);
      small status tags and counts = tint (--sel-*); static facts carry no container. */
-  --seg-bg: rgb(var(--ice-rgb) / .17);
-  --seg-fg: #F2F7FB;
-  --seg-fg-rgb: 242 247 251;
-  --sel-bg: rgb(var(--cyan-rgb) / .16);
-  --sel-fg: #A9E3F5;
-  --sel-border: rgb(var(--cyan-rgb) / .42);
-  --cta-bg: #1D7AA2;
-  --cta-hover: #2285AF;
-  --cta-fg: #F2FAFD;
-  --text: #E6EDF4;
-  --text-2: #C8D5E1;
-  --muted: #A3B5C6;
+  --seg-bg: #1E293B;
+  --seg-fg: #F8FAFC;
+  --seg-fg-rgb: 248 250 252;
+  --sel-bg: rgb(var(--cyan-rgb) / .15);
+  --sel-fg: #7DD3FC;
+  --sel-border: rgb(var(--cyan-rgb) / .45);
+  --ghost-bg: var(--sel-bg);
+  --cd-s-bg: rgb(var(--cyan-rgb) / .12);
+  --cd-s-border: rgb(var(--cyan-rgb) / .22);
+  --cta-bg: #0369A1;
+  --cta-hover: #0477B5;
+  --cta-fg: #F8FAFC;
+  --text: #F8FAFC;
+  --text-2: #94A3B8;
+  /* Slate #64748B is too faint for small text on these surfaces (3.5:1); this keeps its hue at 4.8:1+. */
+  --muted: #7C8BA1;
   --gold: #F4C95D;
   --gold-text: #F4C95D;
   --gold-ink: #2B1E00;
@@ -60,8 +66,8 @@
   --g-w: #EFCCD9; --g-w-bg: rgba(239, 204, 217, .12);
   --g-m: #C4DDF0; --g-m-bg: rgba(196, 221, 240, .12);
   --g-x: #D6D0EC; --g-x-bg: rgba(214, 208, 236, .12);
-  --rink-a: #1D4A70; --rink-b: #0F2D49; --rink-edge: rgba(191, 232, 245, .4); --rink-lane: rgba(191, 232, 245, .14);
-  --rink-lap: rgba(91, 200, 234, .45); --rink-red: rgba(230, 57, 70, .4); --rink-dot: #E6EDF4;
+  --rink-a: #111E32; --rink-b: #0A121E; --rink-edge: rgba(226, 232, 240, .3); --rink-lane: rgba(226, 232, 240, .1);
+  --rink-lap: rgba(56, 189, 248, .45); --rink-red: rgba(230, 57, 70, .4); --rink-dot: #F8FAFC;
   --radius: 18px;
   /* Local faces only (no web fonts): DIN on Apple, Bahnschrift on Windows, system fallback elsewhere. */
   --num: "DIN Alternate", Bahnschrift, "Roboto Condensed", system-ui, sans-serif;
@@ -102,6 +108,8 @@
   --on-accent: #FFFFFF;
   --on-accent-rgb: 255 255 255;
   --on-accent-2: #0B4F80;
+  --hero-border: rgb(var(--ice-rgb) / .14);
+  --ghost-bg: transparent;
   --seg-bg: var(--accent);
   --seg-fg: var(--on-accent);
   --seg-fg-rgb: var(--on-accent-rgb);
@@ -238,7 +246,7 @@ h1, h2, h3 { text-wrap: balance; }
 .btn .ico { transition: transform .2s; }
 .btn:hover .ico { transform: translateX(3px); }
 .btn { box-shadow: inset 0 1px 0 rgb(255 255 255 / .1); }
-.btn-ghost { background: transparent; color: var(--accent-text); border: 1.5px solid rgb(var(--cyan-rgb) / .6); font-weight: 700; box-shadow: none; }
+.btn-ghost { background: var(--ghost-bg); color: var(--accent-text); border: 1.5px solid rgb(var(--cyan-rgb) / .6); font-weight: 700; box-shadow: none; }
 .btn-ghost:hover { background: rgb(var(--cyan-rgb) / .12); color: var(--accent-hover); }
 .btn-sm { min-height: 36px; padding: 6px 14px; font-size: .86rem; border-radius: 10px; }
 .btn-ghost:hover .ico { transform: none; }
@@ -355,7 +363,7 @@ h1, h2, h3 { text-wrap: balance; }
 
 .next-card {
   position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); align-items: center; gap: 24px;
-  padding: 30px 32px; border-radius: 26px; border: 1px solid rgb(var(--ice-rgb) / .14);
+  padding: 30px 32px; border-radius: 26px; border: 1px solid var(--hero-border);
   background:
     radial-gradient(700px 360px at 0% 0%, rgb(var(--cyan-rgb) / .12), transparent 60%),
     radial-gradient(500px 300px at 100% 100%, rgb(var(--gold-rgb) / .1), transparent 60%),
@@ -497,7 +505,7 @@ h1, h2, h3 { text-wrap: balance; }
 
 .live-card {
   position: relative; min-width: 0; display: flex; flex-direction: column; gap: 10px; justify-content: center; padding: 24px 26px;
-  border-radius: 22px; border: 1px solid rgb(var(--ice-rgb) / .14);
+  border-radius: 22px; border: 1px solid var(--hero-border);
   background: radial-gradient(420px 220px at 100% 0%, rgb(var(--cyan-rgb) / .1), transparent 70%), linear-gradient(160deg, var(--hero-a), var(--hero-b) 75%);
   box-shadow: 0 26px 50px -30px rgb(var(--shadow-rgb) / calc(.95 * var(--shadow-k))), inset 0 1px 0 rgb(255 255 255 / .07); animation: rise .6s .08s ease both;
 }

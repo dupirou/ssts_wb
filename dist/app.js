@@ -182,7 +182,7 @@
     }}, icon('sun', 'ico ico-sun'), icon('moon', 'ico ico-moon'));
     function apply(theme) {
       html.dataset.theme = theme;
-      if (meta) meta.content = theme === 'light' ? '#F3F8FC' : '#0B1F33';
+      if (meta) meta.content = theme === 'light' ? '#F3F8FC' : '#070B12';
       btn.setAttribute('aria-label', theme === 'light' ? '切换为深色主题' : '切换为浅色主题');
       btn.title = btn.getAttribute('aria-label');
     }
