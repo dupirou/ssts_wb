@@ -65,7 +65,7 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 - `tools/sync_competitions.py` 每次从 Documents 重新发现最新报名 PDF/排名文件，避免写死替换后的 PDF URL。
 - `tools/isu_results.py` 读取新官网公开 `eventResultsData` 元数据，再调用官网使用的 `front-api.isu.org` 轮次及逐组接口。
 - `data/competitions/<event>.json` 为最近成功快照；`tools/build.py` 输出 `dist/data/competitions/`。
-- 已并入现有每 30 分钟 Actions 更新；`tools/sync_predictions.py` 同步逐项报项、历史单项分类与世界排名，只有数据变化或每天发布一次核对时间才产生提交。不是秒级比分服务。
+- 已并入现有每 30 分钟 Actions 定时触发；GitHub 可能延迟或跳过触发。`tools/sync_predictions.py` 在每次实际启动时同步逐项报项、历史单项分类与世界排名，只有数据变化或每天发布一次核对时间才产生提交。预测接口的 `checked_at` 是最近**公开发布**的核对时间，项目的 `updated_at` 是内容变化时间；两者不同，不是秒级比分服务。
 - 网络/格式/赛事身份校验失败时保留既有记录，标记 `update_status=error`、`stale=true`。
   已有数据超过 36 小时未成功核对也会标为 stale。
 - 成功解析的完整报名表替换旧名单；成功解析的同一轮次替换其全部小组，允许官方撤销报名、更正分组或撤销 PEN。
@@ -97,7 +97,7 @@ npx wrangler@4.151.2 dev --local
 | `data/china_auto.json` | 自动导入的已核验中国队小组证据 |
 | `data/china.json` | 人工核查后的备选/覆盖记录（优先级高） |
 | `tools/build.py` | 验证所有证据、关联赛程、估算非官方小组时间，生成 dist/data/vancouver.json |
-| `.github/workflows/sync.yml` | 每30分钟尝试同步，只有内容改变才重新部署 |
+| `.github/workflows/sync.yml` | 每 30 分钟尝试触发；数据变化或每日核对记录更新时重新部署 |
 
 ## 当前数据状态（2026-10-20）
 

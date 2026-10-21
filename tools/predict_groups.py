@@ -180,6 +180,7 @@ def project(event_id, schedule, snapshot, inputs=None):
         status='available' if any(i['status'] == 'predicted' for i in output) else 'waiting_for_data',
         evidence='model_prediction_not_official', model_version='isu-2026-first-round-v1',
         update_status=inputs.get('update_status', 'not_checked'),
+        checked_at=inputs.get('checked_at'),
         stale=inputs.get('update_status') == 'error',
         rules=[dict(label='ISU 规则 293', url=RULES_URL), dict(label='世巡赛通告 2806 §7', url=TOUR_URL),
                dict(label='2026/27 晋级表', url=TABLES['source_url'])],

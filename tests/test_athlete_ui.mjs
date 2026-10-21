@@ -56,6 +56,8 @@ test('real roster defaults to CHN; country and gender filters compose', async t 
   assert.ok(roster.querySelector('summary').textContent.includes('CHN '+china.length+' 人'));
   assert.equal(roster.open,true);
   assert.equal(roster.querySelectorAll('.athlete-card').length,china.length);
+  assert.match(roster.querySelector('.athlete-source').textContent,/最近公开核对/);
+  assert.match(roster.querySelector('.athlete-source').textContent,/名单变化/);
   const country = roster.querySelector('select[aria-label="报名名单国家或地区"]');
   const sex = roster.querySelector('select[aria-label="报名名单性别"]');
   change(dom,country,'all');
@@ -140,6 +142,7 @@ test('prediction waits for distance seeds, exposes rules and leaves official hig
 test('partial official entries display evidence without publishing groups', async t => {
   const data=structuredClone(snapshot);
   data.predictions=structuredClone(predictions);
+  data.predictions.checked_at='2026-10-21T00:07:40+00:00';
   Object.assign(data.predictions.items[0],{status:'waiting_for_data',
     missing:['awaiting_complete_entries','unranked_draw'], entry_count:17,seeded_count:1,
     observed_entries:[{seed_rank:1,world_rank:4,name:'TEST Person',country:'CHN'}],
@@ -155,7 +158,9 @@ test('partial official entries display evidence without publishing groups', asyn
   assert.equal(panel.querySelectorAll('.prediction-group').length,0);
   assert.equal(panel.querySelectorAll('a').length,6);
   assert.equal(panel.querySelector('.source-disclosure').open,false);
+  assert.match(panel.querySelector('.source-disclosure summary').textContent,/最近公开核对/);
   panel.querySelector('.source-disclosure').open=true;
+  assert.match(panel.querySelector('.source-disclosure').textContent,/内容变化/);
   assert.equal(panel.querySelectorAll('.source-disclosure a').length,6);
 });
 

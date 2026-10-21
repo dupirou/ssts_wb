@@ -426,6 +426,8 @@
     return [nav, ...Object.values(sections)];
   }
 
+  const sourceTime = iso => new Date(iso).toLocaleString('zh-CN', {timeZone: BJ, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false});
+
   function predictionList(dataset) {
     const ready = dataset.items.filter(p => p.status === 'predicted').length;
     const box = h('details', {class: 'panel athlete-panel prediction-panel'},
@@ -480,11 +482,12 @@
           h('ul', {}, item.prequalified.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'), text: p.name + ' · ' + p.country})))));
       }
       body.append(h('details', {class: 'source-disclosure'},
-        h('summary', {}, '来源与规则', item.updated_at ? h('time', {dateTime: item.updated_at,
-          text: new Date(item.updated_at).toLocaleString('zh-CN', {timeZone: BJ, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false})}) : null),
+        h('summary', {}, '来源与规则', dataset.checked_at ? h('time', {datetime: dataset.checked_at,
+          text: '最近公开核对 ' + sourceTime(dataset.checked_at)}) : null),
         h('div', {class: 'source-links'},
           ...(item.source_urls || []).map((url, i) => external(url, ['单项报项', '世巡赛排名', '世界排名'][i] || 'ISU 来源')),
           ...(dataset.rules || []).map(r => external(r.url, r.label))),
+        item.updated_at ? h('p', {class: 'faint tiny', text: '内容变化 ' + sourceTime(item.updated_at)}) : null,
         dataset.stale ? h('p', {class: 'faint tiny', text: '显示上次核对的数据'}) : null));
     };
     chinaOnly.addEventListener('click', () => {onlyChina = !onlyChina; chinaOnly.setAttribute('aria-pressed', String(onlyChina)); draw();});
@@ -534,7 +537,8 @@
     sex.addEventListener('change', update);
     box.append(h('div', {class: 'athlete-tools'}, country, sex, count), list,
       h('div', {class: 'athlete-source source-line'},
-        dataset.updated_at ? h('span', {text: '更新于 ' + new Date(dataset.updated_at).toLocaleString('zh-CN', {timeZone: BJ, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false})}) : null,
+        dataset.checked_at ? h('span', {text: '最近公开核对 ' + sourceTime(dataset.checked_at)}) : null,
+        dataset.updated_at ? h('span', {text: '名单变化 ' + sourceTime(dataset.updated_at)}) : null,
         dataset.source_urls?.[0] ? external(dataset.source_urls[0], '官方来源') : null));
     if (ranking) box.addEventListener('toggle', () => { if (box.open && !list.childElementCount) update(); });
     else update();
