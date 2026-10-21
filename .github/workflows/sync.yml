@@ -21,6 +21,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      # Tests below run on the latest Node 22.x rather than the runner image's preinstalled Node.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          check-latest: true
       - name: Install parser
         run: python -m pip install -r requirements.txt
       # Each sync writes only data it has fully validated; a rejected station keeps its last verified data.
