@@ -214,6 +214,58 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 .source-line a { color: var(--accent-2); text-underline-offset: 3px; }
 .source-line a:hover { color: var(--accent); }
 
+/* ---------- what's new: official milestones since the last visit; closable ---------- */
+.updates {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; margin: 0 0 20px; border-radius: 14px;
+  background: rgb(var(--cyan-rgb) / .07); border: 1px solid var(--border); animation: rise .35s ease-out both;
+}
+.upd-head {
+  display: flex; align-items: center; gap: 10px; min-width: 0; min-height: 44px; padding: 8px 4px 8px 14px;
+  border: 0; border-radius: 14px 0 0 14px; background: none; color: var(--text); font: inherit; text-align: left; cursor: pointer;
+}
+.upd-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--accent); box-shadow: 0 0 0 3px rgb(var(--cyan-rgb) / .2); }
+.upd-dot.is-chn { background: var(--red); box-shadow: 0 0 0 3px rgb(var(--red-rgb) / .2); }
+.upd-dot.is-a { background: var(--gold); box-shadow: 0 0 0 3px rgb(var(--gold-rgb) / .22); }
+.upd-title { display: inline-flex; align-items: center; gap: 5px; flex: none; font-size: .84rem; font-weight: 800; color: var(--accent); }
+.upd-count {
+  min-width: 18px; padding: 0 5px; border-radius: 999px; font-size: .72rem; line-height: 18px; text-align: center;
+  color: var(--on-accent); background: var(--accent);
+}
+.upd-latest { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .9rem; color: var(--text-2); }
+.upd-when { flex: none; font-size: .74rem; color: var(--muted); white-space: nowrap; }
+.upd-chev { color: var(--muted); transition: transform .2s; }
+.upd-head[aria-expanded="true"] .upd-chev { transform: rotate(180deg); }
+.upd-close {
+  width: 44px; display: grid; place-items: center; border: 0; border-radius: 0 14px 14px 0;
+  background: none; color: var(--muted); cursor: pointer;
+}
+.upd-close:hover { color: var(--text); background: rgb(var(--ice-rgb) / .08); }
+.upd-list { grid-column: 1 / -1; list-style: none; margin: 0; padding: 4px 6px 6px; border-top: 1px solid var(--border-soft); }
+.upd-list a {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 8px 8px 8px 22px;
+  border-radius: 10px; color: var(--text); text-decoration: none;
+}
+.upd-list a:hover { background: rgb(var(--cyan-rgb) / .08); }
+.upd-list a::before { content: ""; position: absolute; left: 9px; top: 16px; width: 6px; height: 6px; border-radius: 50%; background: rgb(var(--ice-rgb) / .45); }
+.upd-list .is-chn a::before { background: var(--red); }
+.upd-list .is-a a::before { background: var(--gold); }
+.upd-list .is-alert a::before { background: var(--accent); }
+.upd-text { font-size: .9rem; overflow-wrap: anywhere; }
+.upd-text b { font-weight: 700; color: var(--accent-2); }
+.upd-sub { grid-column: 1; font-size: .8rem; color: var(--muted); overflow-wrap: anywhere; }
+.upd-sub .is-chn { color: var(--red-text); }
+.upd-medal { display: inline-block; white-space: nowrap; }
+.upd-medal:not(:last-child) { margin-right: 12px; }
+.upd-list .upd-when { grid-column: 2; grid-row: 1; padding-top: 2px; }
+@media (max-width: 680px) {
+  .updates { margin-bottom: 16px; }
+  .upd-head { gap: 8px; padding-left: 12px; }
+  .upd-head > .upd-when { display: none; }
+  .upd-latest { font-size: .84rem; }
+  .upd-list a { grid-template-columns: minmax(0, 1fr); }
+  .upd-list .upd-when { grid-column: 1; grid-row: auto; padding-top: 0; }
+}
+
 /* Countdown: rounded number tiles, seconds in the accent colour. */
 .countdown { display: flex; align-items: stretch; gap: 8px; }
 .countdown span {
@@ -845,7 +897,7 @@ td.time { white-space: nowrap; }
 @page { margin: 12mm; }
 @media print {
   :root, body { color: #000; background: #fff; }
-  .backdrop, .topbar, .st-nav, .fbar, .fscrim, .overview, .live-card, .next-art, .to-top, .legend, .st-num,
+  .backdrop, .topbar, .updates, .st-nav, .fbar, .fscrim, .overview, .live-card, .next-art, .to-top, .legend, .st-num,
   .track-art, .meter, .stats, .dot-ok, .day-no, .counter .chip { display: none !important; }
   main { width: 100%; max-width: none; padding: 0; }
   main, main * { color: #000 !important; }

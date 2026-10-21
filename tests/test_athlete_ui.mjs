@@ -16,7 +16,7 @@ async function settle(dom, predicate) {
   }
   throw new Error('UI did not reach expected state: ' + dom.window.document.body.textContent.slice(-700));
 }
-async function page({data = snapshot, fails = () => false, view = 'athletes', delay = async () => {}, url = 'https://example.test/?station=vancouver'} = {}) {
+async function page({data = snapshot, fails = () => false, view = 'athletes', delay = async () => {}, url = 'https://example.test/?station=vancouver', files = {}, before = () => {}} = {}) {
   const dom = new JSDOM(html, {url, runScripts:'outside-only', pretendToBeVisual:true});
   const w = dom.window;
   w.matchMedia = () => ({matches:false, addEventListener(){}});
@@ -32,10 +32,12 @@ async function page({data = snapshot, fails = () => false, view = 'athletes', de
       if (resource === 'predictions') return Response.json(data.predictions || predictions);
       return Response.json({schema_version:1,event_id:'vancouver',resource,total:data[resource].items.length,...data[resource]});
     }
+    if (files[url.pathname]) return Response.json(files[url.pathname]);
     return new Response(await file('dist' + url.pathname));
   };
   w.HTMLDialogElement.prototype.showModal = function() {this.setAttribute('open','');};
   w.HTMLDialogElement.prototype.close = function() {this.removeAttribute('open');this.dispatchEvent(new w.Event('close'));};
+  before(w);
   w.eval(script);
   await settle(dom, () => w.document.querySelector('#tab-schedule'));
   if (view !== 'schedule') {
@@ -188,7 +190,7 @@ test('schedule first: one API, no roster/prediction or overview work until reque
   const dom=await page({view:'schedule'});t.after(()=>dom.window.close());
   const d=dom.window.document;
   assert.deepEqual(dom.requests.filter(p=>p.startsWith('/api/')),['/api/v1/events/vancouver/rounds']);
-  assert.equal(dom.requests.filter(p=>p.startsWith('/data/')).length,2);
+  assert.deepEqual(dom.requests.filter(p=>p.startsWith('/data/')).sort(),['/data/calendar.json','/data/updates.json','/data/vancouver.json']);
   assert.equal(d.querySelectorAll('.athlete-card,.prediction-panel,.rb-body').length,0);
   assert.equal(d.querySelectorAll('.match-row').length,62);
   const first=d.querySelector('.match-row');
@@ -293,4 +295,47 @@ test('expired data refreshes while retaining country and gender selections', asy
   assert.equal(d.querySelector('[aria-label="报名名单国家或地区"]').value,'HKG');
   assert.equal(d.querySelector('[aria-label="报名名单性别"]').value,'women');
   assert.match(d.querySelector('[data-resource=entries]').textContent,/UPDATED ATHLETE/);
+});
+
+test('what\'s new bar: newest first, results supersede groups, closing remembers the newest notice', async t => {
+  const base = {station:'vancouver', local_date:'2026-10-24', repechage:false, gender:'women', distance_m:500, format:'individual'};
+  const events = [
+    {...base, id:'r', kind:'results', at:'2026-10-24T17:40:00+00:00', round:'final', group:'A', china:['<img src=x onerror=alert(1)>'],
+     podium:[{rank:1, name:'<img src=x onerror=alert(1)>', country:'CHN'}, {rank:2, name:'Kim BOUTIN', country:'CAN'}]},
+    {...base, id:'g', kind:'groups', at:'2026-10-24T14:00:00+00:00', round:'final', group:'A', heats:1, china:[]},
+    {...base, id:'t', kind:'time_change', at:'2026-10-24T12:00:00+00:00', round:'semifinal', group:null,
+     previous:'2026-10-25 01:40', current:'2026-10-25 02:05'},
+    {id:'e', station:'vancouver', kind:'entries', at:'2026-10-10T00:00:00+00:00', count:189},
+    {id:'future', station:'vancouver', kind:'rankings', at:'2026-10-26T00:00:00+00:00'},
+  ];
+  const dom = await page({view:'schedule', url:'https://example.test/?station=vancouver&now=2026-10-24T18:00:00Z',
+    files:{'/data/updates.json':{schema_version:1, events}}});
+  t.after(()=>dom.window.close());
+  const d = dom.window.document;
+  await settle(dom, () => d.querySelector('.updates'));
+  const items = [...d.querySelectorAll('.upd-list li')];
+  assert.equal(items.length, 2);
+  assert.match(items[0].textContent, /女子 500m A组决赛 成绩已公布 · 冠军 <img/);
+  assert.ok(items[0].classList.contains('is-chn'));
+  assert.equal(d.querySelector('.upd-list img'), null);
+  assert.match(items[1].textContent, /半决赛 时间调整北京时间 01:40 → 10\/25 周日 凌晨 02:05/);
+  assert.equal(items[0].querySelector('a').getAttribute('href'), '?station=vancouver&day=2026-10-24');
+  assert.ok(!d.querySelector('.upd-text b'), 'station name is not repeated on its own page');
+  const head = d.querySelector('.upd-head');
+  assert.equal(d.querySelector('.upd-list').hidden, true);
+  head.click();
+  assert.equal(head.getAttribute('aria-expanded'), 'true');
+  assert.equal(d.querySelector('.upd-list').hidden, false);
+  d.querySelector('.upd-close').click();
+  assert.equal(d.querySelector('.updates'), null);
+  assert.equal(Number(dom.window.localStorage.getItem('ssts.updates.seen')), Date.parse(events[0].at));
+});
+
+test('what\'s new bar stays hidden when everything was already seen', async t => {
+  const dom = await page({view:'schedule', url:'https://example.test/?station=vancouver&now=2026-10-24T18:00:00Z',
+    before: w => w.localStorage.setItem('ssts.updates.seen', String(Date.parse('2026-10-24T17:00:00Z'))),
+    files:{'/data/updates.json':{schema_version:1, events:[{id:'a', station:'vancouver', kind:'rankings', at:'2026-10-24T16:00:00+00:00'}]}}});
+  t.after(()=>dom.window.close());
+  await new Promise(resolve => setTimeout(resolve, 30));
+  assert.equal(dom.window.document.querySelector('.updates'), null);
 });

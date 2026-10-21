@@ -97,6 +97,7 @@ npx wrangler@4.151.2 dev --local
 | `data/china_auto.json` | 自动导入的已核验中国队小组证据 |
 | `data/china.json` | 人工核查后的备选/覆盖记录（优先级高） |
 | `tools/build.py` | 验证所有证据、关联赛程、估算非官方小组时间，生成 dist/data/vancouver.json |
+| `tools/updates.py` | 构建时生成“新动态”：对比 `data/updates.json` 已记录的里程碑，把新出现的名单、正式分组、正式成绩、赛程时间调整与排名写成通知 |
 | `.github/workflows/sync.yml` | Cloudflare 按比赛窗口触发；GitHub 每 12 小时定时兜底；数据变化或每日核对记录更新时重新部署 |
 
 ## 当前数据状态（2026-10-20）
@@ -138,10 +139,24 @@ ISU 官网已经公布温哥华站**轮次**时间；ISU 2026 年温哥华站的
 - [ISU 温哥华站赛程](https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=schedule_16230)
 - [ISU 短道赛果索引](https://www.isu-skating.com/en/short-track/results/)
 
+## 新动态通知
+
+`tools/updates.py` 在每次构建时运行，只读取同步已经接受的数据，不额外访问 ISU。`data/updates.json` 的 `facts` 记录已经通知过的里程碑，`events` 是通知列表；工作流随构建结果一并提交，前端读取 `dist/data/updates.json`（只含 `events`，新的在前）。
+
+| 类型 `kind` | 何时产生 | 时间 `at` |
+|---|---|---|
+| `entries` | 报名名单首次公布，或名单成员变化（`changed: true`） | 名单数据的 `updated_at` |
+| `groups` | 某轮次首次出现官方分组或成绩（含中国队名单 `china`） | 分组数据的 `updated_at` |
+| `results` | 某轮次所有 Heat 均为 Official 成绩；A 组决赛附前三名 `podium` | 同上 |
+| `time_change` | 官方轮次开始时间变化（`previous` / `current` 为北京时间）；首次运行只建立基线，不通知 | 赛程核对时间 |
+| `rankings` | 分站排名首次公布或变化 | 排名数据的 `updated_at` |
+
+每个里程碑只通知一次，暂时消失再出现也不会重复；暂定（Unofficial）成绩只算分组公布。通知时间全部取自数据本身，同一份数据重复构建得到相同结果。保留最近 30 天、最多 150 条。
+
 ## 页面结构与加载
 
 分站页使用“赛程 / 运动员 / 分组预测”三个标签，默认赛程；`?view=athletes` 或 `?view=predictions` 可直达对应内容。切换不会重建赛程，日期、时区与名单筛选保留。赛程概览默认收起，展开后才绘制比赛时段和奖牌赛；排名明细同样在展开时渲染。窄于 350px 时筛选栏换行，保留时区切换。
 
-默认进入已录入的分站仅请求 calendar、该站 schedule 和 rounds 三项数据（原先六项）。正式分组在首屏绘制后独立加载，只补充赛程详情按钮；报名及排名在进入运动员标签后独立加载，预测在进入预测标签后加载。请求去重，成功数据在当前页面复用 60 秒，过期后再次进入标签时刷新并保留筛选；API 使用已有的 60 秒 HTTP 缓存。每项请求超时 8 秒，失败可单独重试；赛程不依赖运动员接口成功。后台标签暂停每秒时钟更新，回到前台立即校时。
+默认进入已录入的分站仅请求 calendar、该站 schedule、updates 和 rounds 四项数据（原先六项；updates 很小且不阻塞首屏）。正式分组在首屏绘制后独立加载，只补充赛程详情按钮；报名及排名在进入运动员标签后独立加载，预测在进入预测标签后加载。请求去重，成功数据在当前页面复用 60 秒，过期后再次进入标签时刷新并保留筛选；API 使用已有的 60 秒 HTTP 缓存。每项请求超时 8 秒，失败可单独重试；赛程不依赖运动员接口成功。后台标签暂停每秒时钟更新，回到前台立即校时。
 
 验收包括慢排名接口不阻塞名单、并发去重、单项重试、缓存过期刷新、标签键盘导航及日期/时区/赛程定位回归。请求数量是自动化验证的加载策略指标，不等同于真实网络环境下的 LCP 提升比例。

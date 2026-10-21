@@ -163,7 +163,10 @@ def export():
     competition_data.export(OUT, VENUES)
     import predict_groups
     predict_groups.export(OUT, VENUES, rows)
-    print("Validated and built",len(rows),"ISU round start times; verified CHN:",sum(r["china"]["status"]=="confirmed" for r in rows))
+    import updates
+    feed = updates.export(OUT, VENUES, {"vancouver": rows}, meta.get("last_successful_schedule_check_utc"))
+    print("Validated and built",len(rows),"ISU round start times; verified CHN:",sum(r["china"]["status"]=="confirmed" for r in rows),
+          "; update notices:",len(feed["events"]))
 
 if __name__ == "__main__":
     export()

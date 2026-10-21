@@ -66,7 +66,9 @@
     filter: [['path', {d: 'M4 6.5h16M7 12h10M10 17.5h4'}]],
     close: [['path', {d: 'M6 6l12 12M18 6L6 18'}]],
     sun: [['circle', {cx: 12, cy: 12, r: 4}], ['path', {d: 'M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6'}]],
-    moon: [['path', {d: 'M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z'}]]
+    moon: [['path', {d: 'M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z'}]],
+    bell: [['path', {d: 'M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z'}], ['path', {d: 'M10 20.5a2.2 2.2 0 0 0 4 0'}]],
+    chev: [['path', {d: 'M7 10l5 5 5-5'}]]
   };
   function icon(name, className) {
     return s('svg', {viewBox: '0 0 24 24', class: className || 'ico', 'aria-hidden': 'true', focusable: 'false'},
@@ -1151,8 +1153,85 @@
       })));
   }
 
+  /* ---------- what's new ---------- */
+  // Official milestones since this viewer last closed the bar; a first visit sees the last 3 days.
+  const SEEN_KEY = 'ssts.updates.seen';
+  const MEDAL = {1: '金', 2: '银', 3: '铜'};
+  function seenAt() {
+    try { return Number(localStorage.getItem(SEEN_KEY)) || 0; } catch (_) { return 0; }
+  }
+  const roundOf = e => eventName(e) + ' ' + (e.repechage ? '复活赛' : '') + roundName(e);
+  const roundIdent = e => [e.station, e.local_date, e.gender, e.distance_m, e.format, e.round, e.group, e.repechage].join('|');
+  function notice(e) {
+    const china = (e.china || []).length;
+    const chinaNote = !china ? '' : e.format === 'relay' ? ' · 中国队在列' : ' · 中国队 ' + china + ' 人';
+    switch (e.kind) {
+      case 'entries': return {text: (e.changed ? '报名名单已更新' : '报名名单已公布') + ' · 共 ' + e.count + ' 人'};
+      case 'rankings': return {text: e.changed ? '分站排名已更新' : '分站最终排名已公布'};
+      case 'groups': return {text: roundOf(e) + ' 分组已公布' + chinaNote, chn: china > 0,
+        sub: china && e.format !== 'relay' ? h('span', {class: 'is-chn', text: '中国队：' + e.china.join('、')}) : null};
+      case 'results': {
+        const podium = e.podium || [];
+        const champ = podium.find(p => p.rank === 1);
+        return {text: roundOf(e) + ' 成绩已公布' + (champ ? ' · 冠军 ' + champ.name : chinaNote),
+          gold: podium.length > 0, chn: podium.some(p => p.country === 'CHN') || (!podium.length && china > 0),
+          sub: podium.map(p => h('span', {class: cls('upd-medal', p.country === 'CHN' && 'is-chn'), text: MEDAL[p.rank] + ' ' + p.name + ' ' + p.country}))};
+      }
+      case 'time_change': {
+        const [pd, pt] = e.previous.split(' '), [cd, ct] = e.current.split(' ');
+        return {text: roundOf(e) + ' 时间调整', alert: true,
+          sub: '北京时间 ' + (pd === cd ? '' : md(pd) + ' ') + pt + ' → ' + md(cd) + ' ' + wk(cd) + ' ' + dayPart(ct) + ' ' + ct};
+      }
+      default: return null;
+    }
+  }
+  function updatesBar(feed, stations, current) {
+    const seen = seenAt();
+    const since = Math.max(seen, now() - (seen ? 7 : 3) * DAY);
+    const byId = new Map(stations.map(st => [st.id, st]));
+    const fresh = (feed.events || []).filter(e => byId.has(e.station) && Date.parse(e.at) > since && Date.parse(e.at) <= now());
+    // A round's results supersede its "groups published" line.
+    const resulted = new Set(fresh.filter(e => e.kind === 'results').map(roundIdent));
+    const items = fresh.filter(e => !(e.kind === 'groups' && resulted.has(roundIdent(e))))
+      .map(e => ({e, n: notice(e)})).filter(x => x.n);
+    if (!items.length) return null;
+    const newest = Math.max(...fresh.map(e => Date.parse(e.at)));
+    const listId = 'updates-list';
+    // On a station's own page its name would only repeat the page title.
+    const where = e => e.station === current ? '' : byId.get(e.station).city + '站';
+    const toneOf = n => n.chn ? 'is-chn' : n.gold ? 'is-a' : n.alert ? 'is-alert' : '';
+    const list = h('ol', {class: 'upd-list', id: listId, hidden: true}, items.map(({e, n}) =>
+      h('li', {class: toneOf(n)},
+        h('a', {href: stationHref(e.station, e.local_date)},
+          h('span', {class: 'upd-text'}, where(e) ? h('b', {text: where(e) + ' '}) : null, n.text),
+          n.sub && (!Array.isArray(n.sub) || n.sub.length) ? h('span', {class: 'upd-sub'}, n.sub) : null,
+          h('time', {class: 'upd-when', datetime: e.at, text: ago(Date.parse(e.at))})))));
+    const lead = items[0];
+    const head = h('button', {type: 'button', class: 'upd-head', 'aria-expanded': 'false', 'aria-controls': listId},
+      h('span', {class: cls('upd-dot', toneOf(lead.n)), 'aria-hidden': 'true'}),
+      h('span', {class: 'upd-title'}, icon('bell', 'ico ico-sm'), '新动态',
+        items.length > 1 ? h('span', {class: 'upd-count num', text: String(items.length)}) : null),
+      h('span', {class: 'upd-latest', text: (where(lead.e) ? where(lead.e) + ' · ' : '') + lead.n.text}),
+      h('span', {class: 'upd-when', text: ago(Date.parse(lead.e.at))}),
+      icon('chev', 'ico ico-sm upd-chev'));
+    const bar = h('section', {class: 'updates', 'aria-label': '最新动态'}, head,
+      h('button', {type: 'button', class: 'upd-close', 'aria-label': '关闭，这些动态不再提醒',
+        onclick: () => {
+          try { localStorage.setItem(SEEN_KEY, String(newest)); } catch (_) { /* private mode */ }
+          bar.remove();
+        }}, icon('close', 'ico ico-sm')),
+      list);
+    head.addEventListener('click', () => {
+      const open = head.getAttribute('aria-expanded') !== 'true';
+      head.setAttribute('aria-expanded', String(open));
+      list.hidden = !open;
+    });
+    return bar;
+  }
+
   /* ---------- boot ---------- */
   try {
+    const updates = fetchData('updates.json').catch(() => null);
     const calendar = await fetchData('calendar.json');
     const requested = params.get('station');
     const detailFor = st => st.detail_status === 'verified'
@@ -1169,6 +1248,7 @@
       const details = station.detail_status === 'verified' ? prepare(await fetchData(station.id + '.json')) : null;
       renderStation(calendar, station, details);
     }
+    updates.then(feed => { const bar = feed && updatesBar(feed, calendar.stations, requested); if (bar) root.prepend(bar); });
     // Back-to-top for long phone lists.
     const top = h('button', {type: 'button', class: 'to-top', 'aria-label': '回到顶部',
       onclick: () => scrollTo({top: 0, behavior: reduceMotion ? 'auto' : 'smooth'})}, icon('up'));
