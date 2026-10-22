@@ -49,6 +49,8 @@ Heat 估算是默认工程参数，不是 ISU 官方逐组时间，也未经过�
 
 ## 单项报项与分组预测自动同步
 
+规则参考：[2026/27 世巡赛直通、种子与分组规则](references/isu-seeding-2026-27.md)，含官方条款、PDF 页码及程序暂估边界。
+
 `tools/sync_predictions.py` 从 ISU Entries 标签的六个单项独立 result ID 读取实际报项，并分页读取 2025/26 单项 World Tour Classification（用于直通）及单项 World Ranking（用于种子）。匹配使用 ISU 选手 ID，不根据整站名单推断报项。同步由 Cloudflare Cron 触发的 Actions 执行，另有每天两次的 GitHub 定时兜底；结果写入 `data/prediction_inputs/vancouver.json`，构建后由预测接口提供。
 
 报项与官方赛程、晋级表对应后立即计算预测。排序为有世界排名者在前、无排名者按最终报名提交的单项成绩从快到慢、未公开报名成绩者在队尾暂估；相同成绩的未决顺序采用可复现模拟。报名成绩尚未公开不等于没有提交成绩。2026-10-22 核查的六项公开报项接口没有提供成绩，Entries PDF 也只有整站名单。
