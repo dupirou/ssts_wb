@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "event_id": "vancouver",
-  "update_status": "ok",
+  "update_status": "error",
   "checked_at": "2026-10-22T00:01:33+00:00",
   "observed_lists": [
     {
@@ -1515,5 +1515,6 @@
       ]
     }
   ],
-  "seed_lists": []
+  "seed_lists": [],
+  "error": "ISU distance/event identity mismatch"
 }
