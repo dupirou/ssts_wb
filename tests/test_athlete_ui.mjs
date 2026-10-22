@@ -71,6 +71,15 @@ test('real roster defaults to CHN; country and gender filters compose', async t 
   assert.equal(roster.querySelectorAll('.athlete-card').length,china.filter(p=>p.gender==='women').length);
   assert.equal(d.querySelectorAll('.match-row').length,62);
 });
+test('roster cards list the distances each athlete entered', async t => {
+  const data=structuredClone(snapshot);
+  const chn=data.entries.items.find(p=>p.country==='CHN');
+  chn.distances=[500,1000];
+  const dom=await page({data});t.after(()=>dom.window.close());
+  const card=[...dom.window.document.querySelectorAll('.athlete-card')].find(c=>c.textContent.includes(chn.name));
+  assert.equal(card.querySelector('.athlete-name .athlete-events').textContent,(chn.gender==='men'?'男子':'女子')+' · 500/1000m');
+});
+
 test('not-published data stays empty and never fabricates heat buttons', async t => {
   const data=structuredClone(snapshot);
   for (const kind of ['entries','rounds','rankings']) data[kind]={...data[kind],items:[],status:'not_published'};
@@ -117,81 +126,61 @@ test('official heat opens participant results and penalties without HTML injecti
   assert.equal(d.querySelector('dialog'),null);
 });
 
-test('prediction waits for distance seeds, exposes rules and leaves official highlights untouched', async t => {
+test('prediction waits for distance entries, exposes rules and leaves official highlights untouched', async t => {
   const data=structuredClone(snapshot);
   data.predictions=structuredClone(predictions);
-  data.predictions.items.forEach(p=>Object.assign(p,{status:'waiting_for_data',missing:['distance_seeding_list'],
-    source_urls:[],entry_count:0,seeded_count:0,observed_entries:[],groups:[],prequalified:[]}));
+  data.predictions.items.forEach(p=>Object.assign(p,{status:'waiting_for_data',missing:['distance_entries'],
+    source_urls:[],groups:[],unseeded:[],prequalified:[]}));
   const dom=await page({data,view:'predictions'});t.after(()=>dom.window.close());
   const d=dom.window.document;
   const panel=d.querySelector('.prediction-panel');
   assert.ok(panel);
   assert.equal(panel.open,true);
   assert.match(panel.textContent,/非官方/);
-  assert.match(panel.textContent,/单项报名、种子和直通待公布/);
+  assert.match(panel.textContent,/单项报名待公布/);
+  assert.equal(panel.querySelector('button[aria-pressed]').hidden,true);
   assert.equal(panel.querySelectorAll('a').length,3);
-  assert.equal(panel.querySelectorAll('.source-disclosure').length,1);
   assert.equal(panel.querySelector('.source-disclosure').open,false);
-  panel.querySelector('.source-disclosure').open=true;
-  assert.match(panel.querySelector('.source-disclosure').textContent,/来源与规则/);
+  assert.match(panel.querySelector('.source-disclosure summary').textContent,/来源与规则/);
   assert.equal(panel.querySelectorAll('.prediction-group').length,0);
-  const select=panel.querySelector('select');
-  change(dom,select,'men-1500');
-  assert.match(panel.textContent,/单项报名、种子和直通待公布/);
+  change(dom,panel.querySelector('select'),'men-1500');
+  assert.match(panel.textContent,/单项报名待公布/);
   assert.equal(d.querySelectorAll('.match-row.is-chn').length,0);
 });
 
-test('partial official entries display evidence without publishing groups', async t => {
-  const data=structuredClone(snapshot);
-  data.predictions=structuredClone(predictions);
-  data.predictions.items.forEach(p=>Object.assign(p,{status:'waiting_for_data',groups:[],prequalified:[]}));
-  data.predictions.checked_at='2026-10-21T00:07:40+00:00';
-  Object.assign(data.predictions.items[0],{status:'waiting_for_data',
-    missing:['awaiting_complete_entries','unranked_draw'], entry_count:17,seeded_count:1,
-    observed_entries:[{seed_rank:1,world_rank:4,name:'TEST Person',country:'CHN'},
-      ...Array.from({length:16}, (_, i) => ({seed_rank:null,name:'DRAW Person '+i,country:i===0?'CHN':'USA'}))],
-    prequalified:[],groups:[],source_urls:[
-      'https://isu-skating.com/en/short-track/events/example/?tab=entries',
-      'https://isu-skating.com/en/short-track/world-standings/607/',
-      'https://isu-skating.com/en/short-track/world-standings/615/']});
-  const dom=await page({data,view:'predictions'});t.after(()=>dom.window.close());
-  const panel=dom.window.document.querySelector('.prediction-panel');
-  assert.match(panel.textContent,/报项核验中/);
-  assert.match(panel.textContent,/17 人/);
-  assert.match(panel.textContent,/无排名选手顺序待定/);
-  const pending=panel.querySelector('.prediction-pending');
-  assert.match(pending.querySelector('summary').textContent,/待抽签 · 16 人/);
-  assert.equal(pending.querySelectorAll('li').length,16);
-  assert.equal(pending.querySelectorAll('.athlete-china').length,1);
-  assert.doesNotMatch(pending.textContent,/#/);
-  assert.equal(pending.open,false);
-  assert.equal(panel.querySelectorAll('.prediction-group').length,0);
-  assert.equal(panel.querySelectorAll('a').length,6);
-  assert.equal(panel.querySelector('.source-disclosure').open,false);
-  assert.match(panel.querySelector('.source-disclosure summary').textContent,/核对于/);
-  panel.querySelector('.source-disclosure').open=true;
-  assert.match(panel.querySelector('.source-disclosure').textContent,/更新于/);
-  assert.equal(panel.querySelectorAll('.source-disclosure a').length,6);
+test('stations without distance entries have no prediction tab', async t => {
+  const dom=await page({url:'https://example.test/?station=montreal&view=predictions',view:'schedule'});t.after(()=>dom.window.close());
+  const d=dom.window.document;
+  assert.deepEqual([...d.querySelectorAll('[role="tab"]')].map(b=>b.textContent),['赛程','运动员']);
+  assert.equal(d.querySelector('#tab-schedule').getAttribute('aria-selected'),'true');
 });
 
-test('projection renders seeds, filters CHN groups and yields to official groups', async t => {
+test('projection places known seeds, counts the rest, filters CHN and yields to official groups', async t => {
   const data=structuredClone(snapshot);
   data.predictions=structuredClone(predictions);
   Object.assign(data.predictions.items[0],{status:'predicted',missing:[],prequalified:[{name:'TEST BYE',country:'CHN'}],
-    draw_method:'sha256-event-skater-v1',
-    groups:[{heat_number:1,has_china:true,participants:[{seed_rank:21,name:'TEST CHN',country:'CHN',simulated_draw:true,seeding_basis:'entry_time_unavailable'}]},
-      {heat_number:2,has_china:false,participants:[{seed_rank:22,name:'TEST KOR',country:'KOR',seeding_basis:'entry_time',entry_time:'1:23.456'}]}]});
+    groups:[{heat_number:1,size:3,has_china:true,participants:[{seed_rank:1,name:'TEST CHN',country:'CHN'}]},
+      {heat_number:2,size:2,has_china:false,participants:[{seed_rank:2,name:'TEST KOR',country:'KOR'},{seed_rank:3,name:'TEST NED',country:'NED'}]}],
+    unseeded:[{name:'NEW CHN',country:'CHN'},{name:'NEW USA',country:'USA'}]});
   data.predictions.items[1].status='official_available';
   const dom=await page({data,view:'predictions'});t.after(()=>dom.window.close());
   const d=dom.window.document,panel=d.querySelector('.prediction-panel');
-  assert.equal(panel.querySelectorAll('.prediction-group').length,2);
-  assert.match(panel.querySelector('.prediction-note').textContent,/报名成绩排序/);
-  assert.match(panel.querySelector('.prediction-group').textContent,/CHN · 顺序暂估/);
-  assert.match(panel.querySelectorAll('.prediction-group')[1].textContent,/报名 1:23.456/);
+  const groups=panel.querySelectorAll('.prediction-group');
+  assert.equal(groups.length,2);
+  assert.match(groups[0].querySelector('h3').textContent,/第 1 组3 人/);
+  assert.match(groups[0].textContent,/另 2 人待定/);
+  assert.doesNotMatch(groups[1].textContent,/待定/);
+  const rest=panel.querySelector('.prediction-byes');
+  assert.match(rest.querySelector('summary').textContent,/其余 2 人待定\u00a0· CHN 1 人/);
+  assert.equal(rest.open,false);
+  assert.doesNotMatch(panel.textContent,/暂估|模拟抽签|首轮预测|个项目可查看/);
   assert.match(panel.textContent,/直通下一轮/);
   panel.querySelector('button').click();
   assert.equal(panel.querySelectorAll('.prediction-group').length,1);
   assert.equal(panel.querySelectorAll('.prediction-group .athlete-china').length,1);
+  const filtered=panel.querySelector('.prediction-byes');
+  assert.equal(filtered.open,true);
+  assert.equal(filtered.querySelectorAll('li').length,1);
   assert.equal(d.querySelectorAll('.competition-open,.match-row.is-chn').length,0);
   change(dom,panel.querySelector('select'),'women-1000');
   assert.equal(panel.querySelectorAll('.prediction-group').length,0);

@@ -4,7 +4,6 @@
   "resource": "predictions",
   "status": "waiting_for_data",
   "evidence": "model_prediction_not_official",
-  "model_version": "isu-2026-first-round-v3",
   "update_status": "not_checked",
   "checked_at": null,
   "stale": false,
@@ -22,11 +21,6 @@
       "url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Corporate-Site/Sports-Rules/Short-Track-Rules/Constitution-and-General-Regulations-2025/Short-Track-Qualifying-Tables-2026-27-1784795532-8107.pdf"
     }
   ],
-  "limitations": [
-    "country_discretion",
-    "no_lane_prediction",
-    "first_qualifying_round_only"
-  ],
   "total": 6,
   "items": [
     {
@@ -37,14 +31,13 @@
       "round": null,
       "status": "waiting_for_data",
       "missing": [
-        "schedule",
-        "distance_seeding_list"
+        "schedule"
       ],
       "groups": [],
+      "unseeded": [],
       "prequalified": [],
       "source_urls": [],
       "updated_at": null,
-      "country_adjustments": 0,
       "country_conflicts": []
     },
     {
@@ -55,14 +48,13 @@
       "round": null,
       "status": "waiting_for_data",
       "missing": [
-        "schedule",
-        "distance_seeding_list"
+        "schedule"
       ],
       "groups": [],
+      "unseeded": [],
       "prequalified": [],
       "source_urls": [],
       "updated_at": null,
-      "country_adjustments": 0,
       "country_conflicts": []
     },
     {
@@ -73,14 +65,13 @@
       "round": null,
       "status": "waiting_for_data",
       "missing": [
-        "schedule",
-        "distance_seeding_list"
+        "schedule"
       ],
       "groups": [],
+      "unseeded": [],
       "prequalified": [],
       "source_urls": [],
       "updated_at": null,
-      "country_adjustments": 0,
       "country_conflicts": []
     },
     {
@@ -91,14 +82,13 @@
       "round": null,
       "status": "waiting_for_data",
       "missing": [
-        "schedule",
-        "distance_seeding_list"
+        "schedule"
       ],
       "groups": [],
+      "unseeded": [],
       "prequalified": [],
       "source_urls": [],
       "updated_at": null,
-      "country_adjustments": 0,
       "country_conflicts": []
     },
     {
@@ -109,14 +99,13 @@
       "round": null,
       "status": "waiting_for_data",
       "missing": [
-        "schedule",
-        "distance_seeding_list"
+        "schedule"
       ],
       "groups": [],
+      "unseeded": [],
       "prequalified": [],
       "source_urls": [],
       "updated_at": null,
-      "country_adjustments": 0,
       "country_conflicts": []
     },
     {
@@ -127,14 +116,13 @@
       "round": null,
       "status": "waiting_for_data",
       "missing": [
-        "schedule",
-        "distance_seeding_list"
+        "schedule"
       ],
       "groups": [],
+      "unseeded": [],
       "prequalified": [],
       "source_urls": [],
       "updated_at": null,
-      "country_adjustments": 0,
       "country_conflicts": []
     }
   ]

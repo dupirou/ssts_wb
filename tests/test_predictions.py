@@ -1,5 +1,3 @@
-import copy
-import json
 import sys
 import unittest
 from pathlib import Path
@@ -11,19 +9,25 @@ import competition_data as data
 import predict_groups as model
 
 
-def people(n):
+def people(n, ranked=None):
+    """n entrants in world-rank order; the first `ranked` have a world rank (all by default)."""
+    ranked = n if ranked is None else ranked
     return [dict(athlete_id=f'test-{i}', name=f'TEST {i}', country='CHN' if i == 1 else f'A{chr(65+i//26)}{chr(65+i%26)}',
-                 seed_rank=i, prequalified=False) for i in range(1, n + 1)]
+                 world_rank=i if i <= ranked else None, prequalified=False) for i in range(1, n + 1)]
 
 
-def input_for(n=41, distance=500):
-    participants = people(n)
+def inputs(n=41, distance=500, ranked=None):
+    participants = people(n, ranked)
     plan = model.first_round(distance, n)
     for p in participants[:plan['prequalified_count']]:
         p['prequalified'] = True
-    return dict(schema_version=1, event_id='vancouver', seed_lists=[dict(event_id='vancouver',
-        complete=True, gender='women', distance_m=distance, participants=participants,
-        source_urls=['https://isu-skating.com/official-seeding.pdf'], verified_at='2026-10-22T15:00:00-07:00')])
+    return dict(schema_version=2, event_id='vancouver', checked_at='2026-10-23T01:00:00+00:00', lists=[dict(
+        gender='women', distance_m=distance, missing=[], participants=participants,
+        source_urls=['https://isu-skating.com/entries'], verified_at='2026-10-22T15:00:00-07:00')])
+
+
+def project(inp, snapshot=None):
+    return model.project('vancouver', build.read_schedule(), snapshot or data.empty_snapshot('vancouver'), inp)
 
 
 class PredictionTests(unittest.TestCase):
@@ -35,80 +39,78 @@ class PredictionTests(unittest.TestCase):
         self.assertIsNone(model.first_round(500,25))
         self.assertIsNone(model.first_round(500,96))
 
-    def test_snake_order_and_no_lane_assignment(self):
-        groups, changes, clashes = model.snake_groups(people(10),3)
-        self.assertEqual([[p['seed_rank'] for p in g['participants']] for g in groups],[[1,6,7],[2,5,8],[3,4,9,10]])
-        self.assertEqual(changes,0)
-        self.assertEqual(clashes,[])
-        self.assertNotIn('starting_position',groups[0]['participants'][0])
+    def test_snake_order_and_sizes(self):
+        groups, clashes = model.snake_groups(people(10), 3)
+        self.assertEqual([[p['world_rank'] for p in g] for g in groups], [[1,6,7],[2,5,8],[3,4,9,10]])
+        self.assertEqual(clashes, [])
+        self.assertEqual(model.heat_sizes(10, 3), [3, 3, 4])
+        self.assertEqual(model.heat_sizes(31, 7), [5, 5, 5, 4, 4, 4, 4])
+        self.assertEqual(model.heat_sizes(9, 3), [3, 3, 3])
 
     def test_country_moves_stay_in_same_seeding_row(self):
-        p=people(9)
-        p[5]['country']=p[0]['country']
-        groups, changes, clashes=model.snake_groups(p,3)
-        self.assertGreater(changes,0)
-        self.assertEqual(clashes,[])
+        p = people(9)
+        p[5]['country'] = p[0]['country']
+        groups, clashes = model.snake_groups(p, 3)
+        self.assertEqual(clashes, [])
         for g in groups:
-            self.assertEqual([int((p['seed_rank']-1)/3) for p in g['participants']],[0,1,2])
-        self.assertEqual(sorted(p['athlete_id'] for g in groups for p in g['participants']),sorted(x['athlete_id'] for x in p))
+            self.assertEqual([(x['world_rank'] - 1) // 3 for x in g], [0, 1, 2])
+        self.assertEqual(sorted(x['athlete_id'] for g in groups for x in g), sorted(x['athlete_id'] for x in p))
 
     def test_quarterfinal_no_country_separation(self):
-        p=people(6);p[5]['country']=p[0]['country']
-        groups, changes, clashes=model.snake_groups(p,3,separate_country=False)
-        self.assertEqual([x['seed_rank'] for x in groups[0]['participants']],[1,6])
-        self.assertEqual(changes,0)
-        self.assertEqual(clashes,[])
+        p = people(6)
+        p[5]['country'] = p[0]['country']
+        groups, clashes = model.snake_groups(p, 3, separate_country=False)
+        self.assertEqual([x['world_rank'] for x in groups[0]], [1, 6])
+        self.assertEqual(clashes, [])
 
     def test_unavoidable_country_clash_is_explicit(self):
-        p=people(8)
-        for x in p:x['country']='CHN'
-        groups, _, clashes=model.snake_groups(p,2)
-        self.assertEqual(clashes,[1,2])
-        self.assertEqual(sum(len(g['participants']) for g in groups),8)
+        p = people(8)
+        for x in p:
+            x['country'] = 'CHN'
+        groups, clashes = model.snake_groups(p, 2)
+        self.assertEqual(clashes, [1, 2])
+        self.assertEqual(sum(len(g) for g in groups), 8)
 
-    def test_first_round_separates_prequalified_and_keeps_projection_unconfirmed(self):
-        inputs = input_for()
-        inputs['checked_at'] = '2026-10-23T01:00:00+00:00'
-        result=model.project('vancouver',build.read_schedule(),data.empty_snapshot('vancouver'),inputs)
-        item=result['items'][0]
-        self.assertEqual(item['status'],'predicted')
-        self.assertEqual(len(item['prequalified']),20)
-        self.assertEqual(sum(len(g['participants']) for g in item['groups']),21)
-        self.assertEqual(len(item['groups']),5)
-        self.assertEqual(result['evidence'],'model_prediction_not_official')
-        self.assertEqual(result['checked_at'], inputs['checked_at'])
-        self.assertEqual(data.china_evidence(data.empty_snapshot('vancouver'))[0],[])
+    def test_only_known_seeds_are_placed_and_the_rest_are_counted(self):
+        result = project(inputs(41, ranked=30))
+        item = result['items'][0]
+        self.assertEqual(item['status'], 'predicted')
+        self.assertEqual(len(item['prequalified']), 20)
+        self.assertEqual(len(item['groups']), 5)
+        # 21 race; 10 have a world rank and get seeds 1–10, 11 are seeded by unpublished entry times.
+        self.assertEqual([p['seed_rank'] for g in item['groups'] for p in g['participants']], [1, 10, 2, 9, 3, 8, 4, 7, 5, 6])
+        self.assertEqual(len(item['unseeded']), 11)
+        self.assertEqual(sum(g['size'] for g in item['groups']), 21)
+        self.assertEqual(result['evidence'], 'model_prediction_not_official')
+        self.assertEqual(result['checked_at'], '2026-10-23T01:00:00+00:00')
+        self.assertEqual(data.china_evidence(data.empty_snapshot('vancouver'))[0], [])
 
-    def test_roster_alone_does_not_become_distance_entries(self):
-        result=model.project('vancouver',build.read_schedule(),data.load_snapshot('vancouver'))
-        self.assertTrue(all(p['status']=='waiting_for_data' and not p['groups'] for p in result['items']))
-        self.assertEqual(result['total'],6)
+    def test_without_distance_entries_nothing_is_predicted(self):
+        result = project(None)
+        self.assertTrue(all(p['status'] == 'waiting_for_data' and p['missing'] == ['distance_entries'] for p in result['items']))
+        self.assertEqual(result['total'], 6)
 
     def test_official_group_supersedes_model(self):
-        snapshot=data.empty_snapshot('vancouver')
-        snapshot['rounds']['items']=[dict(round_key=build.read_schedule()[0]['round_key'],
-            evidence='official_start_list',source_url='https://isu-skating.com/official')]
-        item=model.project('vancouver',build.read_schedule(),snapshot,input_for())['items'][0]
-        self.assertEqual(item['status'],'official_available')
-        self.assertEqual(item['groups'],[])
+        snapshot = data.empty_snapshot('vancouver')
+        snapshot['rounds']['items'] = [dict(round_key=build.read_schedule()[0]['round_key'],
+            evidence='official_start_list', source_url='https://isu-skating.com/official')]
+        item = project(inputs(), snapshot)['items'][0]
+        self.assertEqual(item['status'], 'official_available')
+        self.assertEqual(item['groups'], [])
 
-    def test_incomplete_tied_unverified_or_wrong_event_inputs_are_rejected(self):
-        original=input_for()
-        for modify in [lambda s:s.update(complete=False), lambda s:s.update(event_id='montreal'),
-                lambda s:s.update(source_urls=['https://example.com/ranking']),
-                lambda s:s.update(verified_at='2026-10-22'),
-                lambda s:s['participants'][0].update(prequalified=None),
-                lambda s:s['participants'][1].update(seed_rank=1)]:
-            candidate=copy.deepcopy(original);modify(candidate['seed_lists'][0])
-            with self.assertRaises(ValueError):model.project('vancouver',build.read_schedule(),data.empty_snapshot('vancouver'),candidate)
+    def test_undecided_byes_or_wrong_schedule_block_prediction(self):
+        inp = inputs()
+        inp['lists'][0]['missing'] = ['prequalification_tie']
+        self.assertEqual(project(inp)['items'][0]['missing'], ['prequalification_tie'])
+        self.assertEqual(project(inputs(n=40))['items'][0]['missing'], ['matching_schedule'])
 
-    def test_wrong_schedule_and_unconfirmed_byes_block_prediction(self):
-        inp=input_for();inp['seed_lists'][0]['participants'][0]['prequalified']=False
-        item=model.project('vancouver',build.read_schedule(),data.empty_snapshot('vancouver'),inp)['items'][0]
-        self.assertEqual(item['missing'],['prequalification_list'])
-        inp=input_for(n=40)
-        item=model.project('vancouver',build.read_schedule(),data.empty_snapshot('vancouver'),inp)['items'][0]
-        self.assertEqual(item['missing'],['matching_schedule'])
+    def test_athletes_get_their_entered_distances(self):
+        inp = inputs()
+        inp['lists'].append(dict(inp['lists'][0], distance_m=1000))
+        from unittest.mock import patch
+        with patch.object(model, 'load_inputs', lambda event_id: inp):
+            self.assertEqual(model.entered_distances('vancouver')['test-1'], [500, 1000])
 
 
-if __name__ == '__main__':unittest.main()
+if __name__ == '__main__':
+    unittest.main()

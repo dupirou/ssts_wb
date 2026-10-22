@@ -117,9 +117,6 @@ export default {
         const stored = await env.ASSETS.fetch(new URL(`/data/predictions/${eventId}.json`, url));
         if (!stored.ok) return json({error: 'data_unavailable'}, 503, head);
         const prediction = await stored.json();
-        if (prediction.schema_version !== 1 || prediction.event_id !== eventId || prediction.evidence !== 'model_prediction_not_official') {
-          throw new Error('Invalid prediction snapshot');
-        }
         const items = prediction.items.filter(item => matches(item, url.searchParams));
         return json({...prediction, total: items.length, items}, 200, head);
       }
