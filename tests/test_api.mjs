@@ -82,8 +82,8 @@ test('built real snapshot and unconfigured event empty states are served', async
   const projected=await (await request('/api/v1/events/vancouver/predictions?gender=women&distance_m=500',realEnv)).json();
   assert.equal(projected.evidence,'model_prediction_not_official');
   assert.equal(projected.total,1);
-  assert.equal(projected.items[0].status,'waiting_for_data');
-  assert.deepEqual(projected.items[0].groups,[]);
+  const stored=JSON.parse(await readFile(new URL('../dist/data/predictions/vancouver.json',import.meta.url),'utf8'));
+  assert.deepEqual(projected.items,[stored.items.find(p=>p.gender==='women'&&p.distance_m===500)]);
   assert.equal((await request('/api/v1/events/vancouver/predictions?country=CHN',realEnv)).status,400);
   assert.equal(await (await request('/api/v1/events/vancouver/predictions',realEnv,'HEAD')).text(),'');
   const seoul=await (await request('/api/v1/events/seoul/predictions',realEnv)).json();

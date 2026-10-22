@@ -26,7 +26,39 @@ def entrants(count):
             for n in range(1, count + 1)]
 
 
+def event_page(events):
+    frame = [1, '1:["$",null,{"eventResults":' + json.dumps(events) + '}]']
+    return ('<h1>Vancouver 2026</h1><script>self.__next_f.push(' +
+            json.dumps(frame) + ')</script>').encode()
+
+
 class PredictionSourceTests(unittest.TestCase):
+    def test_published_entries_replace_retained_drafts_without_id_or_order_assumptions(self):
+        drafts = [dict(name=g.title() + f' {d} m', gender=g.title(),
+                       discipline_distance=str(d), discipline_type='Singles',
+                       event_id=16230, discipline_id=3, event_result_id=900 + n,
+                       display_order=None)
+                  for n, (g, d) in enumerate(sorted(source.DISTANCES))]
+        published = [dict(row, event_result_id=100 + n, display_order=n + 1)
+                     for n, row in enumerate(drafts)]
+        for rows in (drafts + published, list(reversed(published + drafts))):
+            found = source.discover_events(event_page(rows), CONFIG)
+            self.assertEqual({item['event_result_id'] for item in found.values()},
+                             {item['event_result_id'] for item in published})
+        # A second published candidate, two drafts, a reused ID, or a wrong
+        # event must not be resolved by picking the biggest ID/last row.
+        bad_sets = [
+            drafts + [dict(drafts[0], event_result_id=8000)],
+            published + [dict(published[0], event_result_id=8000)],
+            published + [copy.deepcopy(published[0])],
+            drafts + [dict(published[0], event_id=999)],
+            drafts + [dict(published[0], display_order=True)],
+        ]
+        for rows in bad_sets:
+            with self.subTest(rows=rows):
+                with self.assertRaises(ValueError):
+                    source.discover_events(event_page(rows), CONFIG)
+
     def test_distance_events_are_distinct_from_roster(self):
         events = []
         for n, (gender, distance) in enumerate(sorted(source.DISTANCES), 1):
@@ -96,8 +128,8 @@ class PredictionSourceTests(unittest.TestCase):
         self.assertEqual(byes, set(range(22, 42)))
         first = source.make_observation(('women', 500), people, world, tour,
             None, '2026-10-20T10:00:00+00:00', build.read_schedule())
-        self.assertIn('awaiting_complete_entries', first['missing'])
-        self.assertTrue(all(p['prequalified'] is None for p in first['participants']))
+        self.assertTrue(first['complete'], first['missing'])
+        self.assertEqual(sum(p['prequalified'] for p in first['participants']), 20)
         second = source.make_observation(('women', 500), people, world, tour,
             first, '2026-10-20T10:30:00+00:00', build.read_schedule())
         self.assertTrue(second['complete'], second['missing'])
@@ -111,19 +143,39 @@ class PredictionSourceTests(unittest.TestCase):
         self.assertEqual(len(result['items'][0]['prequalified']), 20)
         self.assertEqual(sum(len(x['participants']) for x in result['items'][0]['groups']), 21)
 
-    def test_tied_bye_and_unranked_draw_do_not_produce_groups(self):
+    def test_ties_and_unranked_entries_produce_reproducible_forecasts(self):
         people = entrants(41)
         world = {n: dict(rank=n, points=100 - n) for n in range(1, 40)}
         tour = {n: dict(rank=n, points=100 - n) for n in range(1, 42)}
         tour[21]['rank'] = 20
         self.assertEqual(source.select_byes(people, tour, world, 20)[1], 'prequalification_tie')
-        tour[21]['rank'] = 21
         obs = source.make_observation(('women', 500), people, world, tour,
-            None, '2026-10-20T10:00:00+00:00', build.read_schedule(),
-            feed_consistent=False)
-        self.assertIn('unranked_draw', obs['missing'])
-        self.assertIn('awaiting_complete_entries', obs['missing'])
-        self.assertFalse(obs['complete'])
+            None, '2026-10-20T10:00:00+00:00', build.read_schedule())
+        self.assertTrue(obs['complete'], obs['missing'])
+        self.assertEqual(sum(p['prequalified'] for p in obs['participants']), 20)
+        self.assertEqual({p['seed_rank'] for p in obs['participants']}, set(range(1, 42)))
+        self.assertTrue(all(p['simulated_draw'] for p in obs['participants'] if p['world_rank'] is None))
+        self.assertTrue(all(p['seed_rank'] >= 40 for p in obs['participants'] if p['world_rank'] is None))
+        again = source.make_observation(('women', 500), list(reversed(people)), world, tour,
+            None, '2026-10-20T10:00:00+00:00', build.read_schedule())
+        self.assertEqual(obs, again)
+        obs['source_urls'] = ['https://isu-skating.com/official-entries']
+        projected = predict_groups.project('vancouver', build.read_schedule(),
+            competition_data.empty_snapshot('vancouver'),
+            dict(schema_version=1, event_id='vancouver', observed_lists=[obs], seed_lists=[obs]))['items'][0]
+        self.assertEqual(projected['status'], 'predicted')
+        self.assertEqual(sum(len(g['participants']) for g in projected['groups']), 21)
+        self.assertEqual(projected['draw_method'], 'sha256-event-skater-v1')
+
+    def test_draw_changes_by_event_and_preserves_ranked_order(self):
+        people = entrants(41)
+        world = {1: dict(rank=1, points=100), 2: dict(rank=2, points=90)}
+        first, simulated = source.simulated_ranking(people, world, 'vancouver:women:500')
+        second, _ = source.simulated_ranking(people, world, 'montreal:women:500')
+        self.assertEqual(first[1]['rank'], 1)
+        self.assertEqual(first[2]['rank'], 2)
+        self.assertEqual(simulated, set(range(3, 42)))
+        self.assertNotEqual(first, second)
 
     def test_sync_failure_preserves_known_data(self):
         old = dict(schema_version=1, event_id='vancouver', seed_lists=[],

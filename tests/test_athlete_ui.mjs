@@ -144,10 +144,12 @@ test('prediction waits for distance seeds, exposes rules and leaves official hig
 test('partial official entries display evidence without publishing groups', async t => {
   const data=structuredClone(snapshot);
   data.predictions=structuredClone(predictions);
+  data.predictions.items.forEach(p=>Object.assign(p,{status:'waiting_for_data',groups:[],prequalified:[]}));
   data.predictions.checked_at='2026-10-21T00:07:40+00:00';
   Object.assign(data.predictions.items[0],{status:'waiting_for_data',
     missing:['awaiting_complete_entries','unranked_draw'], entry_count:17,seeded_count:1,
-    observed_entries:[{seed_rank:1,world_rank:4,name:'TEST Person',country:'CHN'}],
+    observed_entries:[{seed_rank:1,world_rank:4,name:'TEST Person',country:'CHN'},
+      ...Array.from({length:16}, (_, i) => ({seed_rank:null,name:'DRAW Person '+i,country:i===0?'CHN':'USA'}))],
     prequalified:[],groups:[],source_urls:[
       'https://isu-skating.com/en/short-track/events/example/?tab=entries',
       'https://isu-skating.com/en/short-track/world-standings/607/',
@@ -157,6 +159,12 @@ test('partial official entries display evidence without publishing groups', asyn
   assert.match(panel.textContent,/报项核验中/);
   assert.match(panel.textContent,/17 人/);
   assert.match(panel.textContent,/无排名选手顺序待定/);
+  const pending=panel.querySelector('.prediction-pending');
+  assert.match(pending.querySelector('summary').textContent,/待抽签 · 16 人/);
+  assert.equal(pending.querySelectorAll('li').length,16);
+  assert.equal(pending.querySelectorAll('.athlete-china').length,1);
+  assert.doesNotMatch(pending.textContent,/#/);
+  assert.equal(pending.open,false);
   assert.equal(panel.querySelectorAll('.prediction-group').length,0);
   assert.equal(panel.querySelectorAll('a').length,6);
   assert.equal(panel.querySelector('.source-disclosure').open,false);
@@ -170,12 +178,15 @@ test('projection renders seeds, filters CHN groups and yields to official groups
   const data=structuredClone(snapshot);
   data.predictions=structuredClone(predictions);
   Object.assign(data.predictions.items[0],{status:'predicted',missing:[],prequalified:[{name:'TEST BYE',country:'CHN'}],
-    groups:[{heat_number:1,has_china:true,participants:[{seed_rank:21,name:'TEST CHN',country:'CHN'}]},
+    draw_method:'sha256-event-skater-v1',
+    groups:[{heat_number:1,has_china:true,participants:[{seed_rank:21,name:'TEST CHN',country:'CHN',simulated_draw:true}]},
       {heat_number:2,has_china:false,participants:[{seed_rank:22,name:'TEST KOR',country:'KOR'}]}]});
   data.predictions.items[1].status='official_available';
   const dom=await page({data,view:'predictions'});t.after(()=>dom.window.close());
   const d=dom.window.document,panel=d.querySelector('.prediction-panel');
   assert.equal(panel.querySelectorAll('.prediction-group').length,2);
+  assert.match(panel.querySelector('.prediction-note').textContent,/模拟抽签/);
+  assert.match(panel.querySelector('.prediction-group').textContent,/CHN · 模拟抽签/);
   assert.match(panel.textContent,/直通下一轮/);
   panel.querySelector('button').click();
   assert.equal(panel.querySelectorAll('.prediction-group').length,1);

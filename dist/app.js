@@ -467,12 +467,19 @@
             h('summary', {text: '当前排名（暂定） · ' + ranked.length + ' 人'}),
             h('ul', {}, ranked.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'),
               text: '#' + p.seed_rank + ' ' + p.name + ' · ' + p.country + (p.world_rank ? ' · 世界排名 ' + p.world_rank : '')})))));
+          const unranked = item.observed_entries.filter(p => p.seed_rank == null);
+          if (unranked.length) body.append(h('details', {class: 'prediction-byes prediction-pending'},
+            h('summary', {text: '待抽签 · ' + unranked.length + ' 人'}),
+            h('ul', {}, unranked.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'),
+              text: p.name + ' · ' + p.country})))));
           if (item.prequalified.length) body.append(h('details', {class: 'prediction-byes'},
             h('summary', {text: '按当前排名计算的直通名单 · ' + item.prequalified.length + ' 人'}),
             h('ul', {}, item.prequalified.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china'), text: p.name + ' · ' + p.country})))));
         }
       } else {
-        body.append(h('p', {class: 'faint tiny prediction-note', text: '首轮预测 · 不含出发道次，以官方分组为准'}));
+        body.append(h('p', {class: 'faint tiny prediction-note', text: item.draw_method
+          ? '首轮预测 · 无排名或并列采用模拟抽签 · 不含出发道次'
+          : '首轮预测 · 不含出发道次，以官方分组为准'}));
         if (item.country_conflicts.length) body.append(h('p', {class: 'faint tiny', text: '同国选手回避以官方调整为准'}));
         const groups = item.groups.filter(g => !onlyChina || g.has_china);
         const grid = h('div', {class: 'prediction-grid'});
@@ -480,7 +487,7 @@
           h('h3', {text: '预测第 ' + group.heat_number + ' 组'}),
           h('ul', {}, group.participants.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china')},
             h('span', {class: 'faint num', text: '#' + p.seed_rank, title: '种子序号，非出发道次'}),
-            h('b', {text: p.name}), h('small', {text: p.country}))))));
+            h('b', {text: p.name}), h('small', {text: p.country + (p.simulated_draw ? ' · 模拟抽签' : '')}))))));
         body.append(grid);
         if (!groups.length) body.append(h('p', {class: 'faint athlete-empty', text: '预测分组中暂无 CHN 选手'}));
         if (item.prequalified.length) body.append(h('details', {class: 'prediction-byes'},

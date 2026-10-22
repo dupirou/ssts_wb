@@ -147,7 +147,7 @@ def project(event_id, schedule, snapshot, inputs=None):
             observed = observations.get((gender, distance))
             if observed:
                 item.update(entry_count=len(observed['participants']),
-                    seeded_count=sum(p.get('seed_rank') is not None for p in observed['participants']),
+                    seeded_count=sum(p.get('world_rank') is not None for p in observed['participants']),
                     observed_entries=observed['participants'])
             if official:
                 item.update(status='official_available', missing=[], source_urls=sorted({h['source_url'] for h in official}))
@@ -157,6 +157,8 @@ def project(event_id, schedule, snapshot, inputs=None):
                 people = sorted(seed['participants'], key=lambda p: p['seed_rank'])
                 plan = first_round(distance, len(people))
                 item.update(source_urls=seed['source_urls'], updated_at=seed['verified_at'])
+                if seed.get('draw_method'):
+                    item['draw_method'] = seed['draw_method']
                 if not plan:
                     item['missing'] = ['qualifying_table']
                 elif plan['round'] != target['round']:
@@ -178,7 +180,7 @@ def project(event_id, schedule, snapshot, inputs=None):
             output.append(item)
     return dict(schema_version=1, event_id=event_id, resource='predictions',
         status='available' if any(i['status'] == 'predicted' for i in output) else 'waiting_for_data',
-        evidence='model_prediction_not_official', model_version='isu-2026-first-round-v1',
+        evidence='model_prediction_not_official', model_version='isu-2026-first-round-v2',
         update_status=inputs.get('update_status', 'not_checked'),
         checked_at=inputs.get('checked_at'),
         stale=inputs.get('update_status') == 'error',
