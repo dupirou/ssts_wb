@@ -518,13 +518,12 @@
       count.textContent = '显示 ' + selected.length + (ranking ? ' 条' : ' 人');
       fill(list, selected.map(p => h('li', {class: cls('athlete-card', p.country === 'CHN' && 'is-china'), dataset: {country: p.country}},
         h('span', {class: 'athlete-nation', text: p.country}),
-        h('b', {class: 'athlete-name', text: p.name}),
+        h('b', {class: 'athlete-name'}, p.name, p.distances ? h('small', {class: 'athlete-events num', text: p.distances.join('/') + 'm'}) : null),
         h('span', {class: 'athlete-caption'}, ranking ?
           [({'event': '单站排名', world_tour: '世巡赛积分', world: '世界排名'})[p.ranking_type] || p.ranking_type,
             ' · ' + (gender[p.gender] || '') + ' ' + p.distance_m + 'm · 第 ' + p.rank + ' 名',
             p.points != null ? ' · ' + p.points + ' 分' : null] :
-          [gender[p.gender] || '', p.distances ? ' · ' + p.distances.join(' / ') + 'm' : null,
-            p.participation === 'substitute' ? h('span', {class: 'pill', text: '替补'}) : null]))));
+          [gender[p.gender] || '', p.participation === 'substitute' ? h('span', {class: 'pill', text: '替补'}) : null]))));
       if (!selected.length) list.append(h('li', {class: 'faint athlete-empty', text: '当前筛选下没有运动员'}));
     };
     country.addEventListener('change', update);
