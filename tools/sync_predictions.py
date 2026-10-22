@@ -144,6 +144,34 @@ def parse_entries(body, event, key, cfg):
     return sorted(output, key=lambda r: (r['country'], r['official_skater_id']))
 
 
+def entry_time_ms(value):
+    """Parse a submitted distance time, never a profile PB or a display index."""
+    match = re.fullmatch(r'(?:(\d{1,2}):)?(\d{1,3})[.,](\d{1,3})', str(value).strip())
+    if not match or (match[1] is not None and int(match[2]) >= 60):
+        raise ValueError('Invalid submitted entry time')
+    result = (int(match[1] or 0) * 60 + int(match[2])) * 1000 + int(match[3].ljust(3, '0'))
+    if result <= 0:
+        raise ValueError('Invalid submitted entry time')
+    return result
+
+
+def with_entry_times(people, key, event_id, directory):
+    """Read reviewed official entry/seed sheets when public entry JSON omits times."""
+    path = directory / f'{event_id}_entry_times.json'
+    supplied = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
+    if supplied and (supplied.get('schema_version') != 1 or supplied.get('event_id') != event_id):
+        raise ValueError('Submitted entry-time event mismatch')
+    times = {}
+    for row in supplied.get('items', []):
+        identity = (row.get('gender'), row.get('distance_m'), row.get('official_skater_id'))
+        if (identity in times or identity[:2] not in DISTANCES or type(identity[2]) is not int
+                or not predict_groups.official_url(row.get('source_url'))):
+            raise ValueError('Invalid or duplicate submitted entry-time source')
+        times[identity] = dict(entry_time=row['time'], entry_time_ms=entry_time_ms(row['time']),
+                               entry_time_source_url=row['source_url'])
+    return [dict(p, **times.get((*key, p['official_skater_id']), {})) for p in people]
+
+
 def discover_rankings(body, season, season_id):
     obj = response(body, 'ranking catalogue', 1)
     if obj['total_page'] != 1 or len(obj['data']) != obj['total_items']:
@@ -266,19 +294,25 @@ def seed_order(people, world):
     return ranked, None
 
 
-def simulated_ranking(people, ranking, salt):
-    """Keep ranked order; simulate draws within ties and after ranked skaters."""
+def simulated_ranking(people, ranking, salt, *, use_entry_times=False):
+    """WRD first, then submitted times; estimate only the unresolved tail/ties."""
+    def priority(person):
+        row = ranking.get(person['official_skater_id'])
+        time = person.get('entry_time_ms') if use_entry_times and row is None else None
+        return (row is None, row['rank'] if row else 0, time is None, time or 0)
     frequencies = {}
     for person in people:
-        row = ranking.get(person['official_skater_id'])
-        if row:
-            frequencies[row['rank']] = frequencies.get(row['rank'], 0) + 1
+        group = priority(person)
+        frequencies[group] = frequencies.get(group, 0) + 1
     draw_ids = {p['official_skater_id'] for p in people
-                if p['official_skater_id'] not in ranking or
-                frequencies[ranking[p['official_skater_id']]['rank']] > 1}
+                if frequencies[priority(p)] > 1}
+    # Missing public times leave the unranked tail uncertain even for one skater;
+    # that is an estimate of unpublished data, not proof no time was submitted.
+    if use_entry_times:
+        draw_ids |= {p['official_skater_id'] for p in people
+                     if p['official_skater_id'] not in ranking and p.get('entry_time_ms') is None}
     ordered = sorted(people, key=lambda p: (
-        p['official_skater_id'] not in ranking,
-        ranking.get(p['official_skater_id'], {}).get('rank', 0),
+        *priority(p),
         hashlib.sha256(f"{salt}:{p['official_skater_id']}".encode()).hexdigest()))
     return {p['official_skater_id']: dict(rank=i, points=ranking.get(
                 p['official_skater_id'], {}).get('points', 0))
@@ -308,7 +342,7 @@ def make_observation(key, entrants, world, tour, previous, timestamp, schedule,
                      r['distance_m'] == distance and r['format'] == 'individual' and
                      r['session'] == 'qualifying'), None)
     salt = f'{event_id}:{gender}:{distance}:draw-v1'
-    modeled_world, world_draw = simulated_ranking(entrants, world, salt)
+    modeled_world, world_draw = simulated_ranking(entrants, world, salt, use_entry_times=True)
     modeled_tour, tour_draw = simulated_ranking(entrants, tour, salt)
     byes, bye_issue = select_byes(entrants, modeled_tour, modeled_world,
                                 plan['prequalified_count']) if plan else (set(), None)
@@ -324,6 +358,11 @@ def make_observation(key, entrants, world, tour, previous, timestamp, schedule,
     decorated = [dict(p, seed_rank=order.get(p['official_skater_id']),
                       world_rank=world.get(p['official_skater_id'], {}).get('rank'),
                       tour_rank=tour.get(p['official_skater_id'], {}).get('rank'),
+                      entry_time=p.get('entry_time'), entry_time_ms=p.get('entry_time_ms'),
+                      entry_time_source_url=p.get('entry_time_source_url'),
+                      seeding_basis=('world_ranking' if p['official_skater_id'] in world
+                                     else 'entry_time' if p.get('entry_time_ms') is not None
+                                     else 'entry_time_unavailable'),
                       simulated_draw=p['official_skater_id'] in draw_ids,
                       prequalified=(p['official_skater_id'] in byes) if verified_byes else None)
                  for p in entrants]
@@ -355,7 +394,8 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
             body = form(API + '/events/get-event-result-entrylist-single',
                         dict(event_result_id=event['event_result_id'],
                              event_id=cfg['prediction']['event_id'], country_code=''))
-            entries[key] = parse_entries(body, event, key, cfg)
+            entries[key] = with_entry_times(parse_entries(body, event, key, cfg), key,
+                                            event_id, directory)
         raw = sender(API + '/events/get-world-standings-list',
                      dict(discipline_id=3, season_id=cfg['prediction']['standings_season_id'],
                           pagesize=300, page=1))
@@ -376,6 +416,8 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
                 cfg['prediction']['entries_url'] + '&type=' + str(events[key]['event_result_id']),
                 STANDINGS + str(tour_meta['world_standings_list_fsk_id']) + '/',
                 STANDINGS + str(world_meta['world_standings_list_fsk_id']) + '/']
+            observed['source_urls'] += sorted({p['entry_time_source_url'] for p in
+                                               observed['participants'] if p['entry_time_source_url']})
             earlier = previous.get(key)
             if earlier and all(earlier.get(field) == observed.get(field) for field in
                                ('participants', 'missing', 'source_urls', 'first_seen_at')):
@@ -385,7 +427,8 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
                       update_status='ok', checked_at=now, observed_lists=observations,
                       seed_lists=[dict(item, participants=[
                           {k: p[k] for k in ('athlete_id', 'name', 'country', 'seed_rank',
-                                            'prequalified', 'world_rank', 'tour_rank', 'simulated_draw')}
+                                            'prequalified', 'world_rank', 'tour_rank', 'simulated_draw',
+                                            'entry_time', 'entry_time_ms', 'entry_time_source_url', 'seeding_basis')}
                           for p in item['participants']])
                           for item in observations if item['complete']])
         # Only daily check timestamps or material changes are published.

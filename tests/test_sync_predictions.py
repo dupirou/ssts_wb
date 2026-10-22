@@ -177,6 +177,47 @@ class PredictionSourceTests(unittest.TestCase):
         self.assertEqual(simulated, set(range(3, 42)))
         self.assertNotEqual(first, second)
 
+    def test_unranked_follow_submitted_distance_times_before_unknown_tail(self):
+        people = entrants(5)
+        people[1]['entry_time_ms'] = 90000
+        people[2]['entry_time_ms'] = 41000
+        people[3]['entry_time_ms'] = 41000
+        world = {1: dict(rank=99, points=1)}
+        ranks, draws = source.simulated_ranking(people, world, 'test', use_entry_times=True)
+        self.assertEqual(ranks[1]['rank'], 1)
+        self.assertEqual({ranks[3]['rank'], ranks[4]['rank']}, {2, 3})
+        self.assertEqual(ranks[2]['rank'], 4)
+        self.assertEqual(ranks[5]['rank'], 5)
+        self.assertEqual(draws, {3, 4, 5})
+        self.assertNotIn(2, draws)
+        reverse, _ = source.simulated_ranking(list(reversed(people)), world, 'test', use_entry_times=True)
+        self.assertEqual(ranks, reverse)
+
+    def test_submitted_times_require_exact_distance_and_official_provenance(self):
+        self.assertEqual(source.entry_time_ms('1:23.456'), 83456)
+        self.assertEqual(source.entry_time_ms('40,12'), 40120)
+        for bad in ('PB 40.123', '1:99.123', '0.000', '-40.123', 'DNS'):
+            with self.assertRaises(ValueError):
+                source.entry_time_ms(bad)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'vancouver_entry_times.json'
+            row = dict(gender='men', distance_m=500, official_skater_id=1,
+                       time='40.123', source_url='https://isu-skating.com/official-entry-times.pdf')
+            obj = dict(schema_version=1, event_id='vancouver', items=[row])
+            path.write_text(json.dumps(obj))
+            found = source.with_entry_times(entrants(1), ('men', 500), 'vancouver', Path(tmp))
+            self.assertEqual(found[0]['entry_time_ms'], 40123)
+            self.assertNotIn('entry_time_ms', source.with_entry_times(
+                entrants(1), ('men', 1000), 'vancouver', Path(tmp))[0])
+            obj['items'].append(copy.deepcopy(row))
+            path.write_text(json.dumps(obj))
+            with self.assertRaises(ValueError):
+                source.with_entry_times(entrants(1), ('men', 500), 'vancouver', Path(tmp))
+            obj['items'] = [dict(row, source_url='https://example.com/profile-pb')]
+            path.write_text(json.dumps(obj))
+            with self.assertRaises(ValueError):
+                source.with_entry_times(entrants(1), ('men', 500), 'vancouver', Path(tmp))
+
     def test_sync_failure_preserves_known_data(self):
         old = dict(schema_version=1, event_id='vancouver', seed_lists=[],
                    observed_lists=[dict(gender='women', distance_m=500,

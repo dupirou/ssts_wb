@@ -180,7 +180,7 @@ def project(event_id, schedule, snapshot, inputs=None):
             output.append(item)
     return dict(schema_version=1, event_id=event_id, resource='predictions',
         status='available' if any(i['status'] == 'predicted' for i in output) else 'waiting_for_data',
-        evidence='model_prediction_not_official', model_version='isu-2026-first-round-v2',
+        evidence='model_prediction_not_official', model_version='isu-2026-first-round-v3',
         update_status=inputs.get('update_status', 'not_checked'),
         checked_at=inputs.get('checked_at'),
         stale=inputs.get('update_status') == 'error',
