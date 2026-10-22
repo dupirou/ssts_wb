@@ -3,13 +3,14 @@
 
 The public Entries tab identifies skaters per distance. Historical WCD decides
 the first 20 byes at World Tour #1; WRD orders the first qualifying round.
-An incomplete upload, tied draw or missing ranking leaves the model waiting.
+Unranked skaters and tied ranks use a reproducible simulated draw for forecasts.
 """
 import argparse
+import hashlib
 import json
 import re
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from urllib.request import Request, HTTPSHandler, build_opener
 
 from bs4 import BeautifulSoup
@@ -24,7 +25,6 @@ INPUTS = data.ROOT / 'data/prediction_inputs'
 API = 'https://front-api.isu.org'
 STANDINGS = 'https://isu-skating.com/en/short-track/world-standings/'
 DISTANCES = {(g, d) for g in ('women', 'men') for d in (500, 1000, 1500)}
-MIN_STABLE = timedelta(minutes=29)
 # Historic (previous-season) standings are frozen, so each list is fetched once and kept here.
 RANKING_CACHE = INPUTS / 'historic_rankings.json'
 MAX_PAGES = 20
@@ -266,6 +266,25 @@ def seed_order(people, world):
     return ranked, None
 
 
+def simulated_ranking(people, ranking, salt):
+    """Keep ranked order; simulate draws within ties and after ranked skaters."""
+    frequencies = {}
+    for person in people:
+        row = ranking.get(person['official_skater_id'])
+        if row:
+            frequencies[row['rank']] = frequencies.get(row['rank'], 0) + 1
+    draw_ids = {p['official_skater_id'] for p in people
+                if p['official_skater_id'] not in ranking or
+                frequencies[ranking[p['official_skater_id']]['rank']] > 1}
+    ordered = sorted(people, key=lambda p: (
+        p['official_skater_id'] not in ranking,
+        ranking.get(p['official_skater_id'], {}).get('rank', 0),
+        hashlib.sha256(f"{salt}:{p['official_skater_id']}".encode()).hexdigest()))
+    return {p['official_skater_id']: dict(rank=i, points=ranking.get(
+                p['official_skater_id'], {}).get('points', 0))
+            for i, p in enumerate(ordered, 1)}, draw_ids
+
+
 def stable_since(previous, entrants, now):
     keys = ('athlete_id', 'official_skater_id', 'name', 'country')
     old_ids = sorted(tuple(p.get(k) for k in keys) for p in (previous or {}).get('participants', []))
@@ -278,7 +297,7 @@ def stable_since(previous, entrants, now):
 
 
 def make_observation(key, entrants, world, tour, previous, timestamp, schedule,
-                     feed_consistent=True, event_id='vancouver'):
+                     event_id='vancouver'):
     now = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
     if now.utcoffset() is None:
         raise ValueError('Naive sync time')
@@ -288,28 +307,30 @@ def make_observation(key, entrants, world, tour, previous, timestamp, schedule,
     expected = next((r['round'] for r in schedule if r['gender'] == gender and
                      r['distance_m'] == distance and r['format'] == 'individual' and
                      r['session'] == 'qualifying'), None)
-    byes, bye_issue = select_byes(entrants, tour, world, plan['prequalified_count']) if plan else (set(), None)
-    ordered, seed_issue = seed_order(entrants, world)
+    salt = f'{event_id}:{gender}:{distance}:draw-v1'
+    modeled_world, world_draw = simulated_ranking(entrants, world, salt)
+    modeled_tour, tour_draw = simulated_ranking(entrants, tour, salt)
+    byes, bye_issue = select_byes(entrants, modeled_tour, modeled_world,
+                                plan['prequalified_count']) if plan else (set(), None)
+    ordered, _ = seed_order(entrants, modeled_world)
     order = {p['official_skater_id']: n for n, p in enumerate(ordered, 1)}
     missing = []
     if not plan or plan['round'] != expected:
         missing.append('matching_schedule' if plan else 'qualifying_table')
-    if now - first < MIN_STABLE or not feed_consistent:
-        missing.append('awaiting_complete_entries')
     if bye_issue:
         missing.append(bye_issue)
-    if seed_issue:
-        missing.append(seed_issue)
-    verified_byes = (not bye_issue and plan is not None and plan['round'] == expected
-                     and 'awaiting_complete_entries' not in missing)
+    verified_byes = not bye_issue and plan is not None and plan['round'] == expected
+    draw_ids = world_draw | {sid for sid in tour_draw if tour.get(sid, {}).get('points', 0) > 0}
     decorated = [dict(p, seed_rank=order.get(p['official_skater_id']),
                       world_rank=world.get(p['official_skater_id'], {}).get('rank'),
                       tour_rank=tour.get(p['official_skater_id'], {}).get('rank'),
+                      simulated_draw=p['official_skater_id'] in draw_ids,
                       prequalified=(p['official_skater_id'] in byes) if verified_byes else None)
                  for p in entrants]
     return dict(event_id=event_id, gender=gender, distance_m=distance,
                 first_seen_at=first.isoformat(), verified_at=timestamp,
                 complete=not missing, missing=missing,
+                draw_method='sha256-event-skater-v1' if draw_ids else None,
                 participants=sorted(decorated, key=lambda p: (p['seed_rank'] is None,
                                      p['seed_rank'] or 999, p['name'])))
 
@@ -342,16 +363,6 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
                                     cfg['prediction']['standings_season_id'])
         import build
         schedule = build.read_schedule(event_id)
-        # A whole-event roster is used only as a completeness alarm. No roster
-        # athlete is inserted into any distance or assigned a seed.
-        roster = data.load_snapshot(event_id)['entries']['items']
-        coverage = {}
-        for gender in ('women', 'men'):
-            active = {p['athlete_id'] for p in roster if p['gender'] == gender
-                      and p['participation'] == 'active'}
-            published = {p['athlete_id'] for key in DISTANCES if key[0] == gender
-                         for p in entries[key]}
-            coverage[gender] = not active or len(published & active) / len(active) >= 0.55
         observations = []
         ranked = cached_rankings(catalog, sender, cfg['prediction']['historical_season'],
                                  directory / 'historic_rankings.json')
@@ -360,7 +371,7 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
             tour, world = ranked[key, 'WCD'], ranked[key, 'WRD']
             observed = make_observation(key, entries[key], world, tour,
                                         previous.get(key), now, schedule,
-                                        feed_consistent=coverage[key[0]], event_id=event_id)
+                                        event_id=event_id)
             observed['source_urls'] = [
                 cfg['prediction']['entries_url'] + '&type=' + str(events[key]['event_result_id']),
                 STANDINGS + str(tour_meta['world_standings_list_fsk_id']) + '/',
@@ -374,7 +385,7 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
                       update_status='ok', checked_at=now, observed_lists=observations,
                       seed_lists=[dict(item, participants=[
                           {k: p[k] for k in ('athlete_id', 'name', 'country', 'seed_rank',
-                                            'prequalified', 'world_rank', 'tour_rank')}
+                                            'prequalified', 'world_rank', 'tour_rank', 'simulated_draw')}
                           for p in item['participants']])
                           for item in observations if item['complete']])
         # Only daily check timestamps or material changes are published.
