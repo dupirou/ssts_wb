@@ -77,7 +77,7 @@ test('roster cards list the distances each athlete entered', async t => {
   chn.distances=[500,1000];
   const dom=await page({data});t.after(()=>dom.window.close());
   const card=[...dom.window.document.querySelectorAll('.athlete-card')].find(c=>c.textContent.includes(chn.name));
-  assert.equal(card.querySelector('.athlete-name .athlete-events').textContent,'500/1000m');
+  assert.equal(card.querySelector('.athlete-name .athlete-events').textContent,(chn.gender==='men'?'男子':'女子')+' · 500/1000m');
 });
 
 test('not-published data stays empty and never fabricates heat buttons', async t => {

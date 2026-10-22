@@ -785,10 +785,11 @@ td.time { white-space: nowrap; }
 .athlete-tools > p { margin-left: auto; }
 .athlete-tools .chip { min-height: 44px; padding: 0 12px; border-color: var(--border); border-radius: 10px; font-size: .84rem; flex: none; }
 .athlete-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 8px; list-style: none; margin: 0; padding: 0; }
-.athlete-card { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; border: 1px solid var(--border-soft); background: var(--well-soft); border-radius: 12px; padding: 12px 14px; }
+.athlete-card { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 3px 10px; border: 1px solid var(--border-soft); background: var(--well-soft); border-radius: 12px; padding: 12px 14px; }
 .athlete-card.is-china { border-color: rgb(var(--red-rgb) / .3); background: rgb(var(--red-rgb) / .06); }
 .athlete-name { grid-column: 1; grid-row: 1; min-width: 0; overflow-wrap: anywhere; font-size: .9rem; }
 .athlete-events { margin-left: 6px; font-size: .72rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.athlete-name .pill { margin-left: 6px; font-size: .68rem; padding: 0 7px; vertical-align: 1px; }
 .athlete-nation { grid-column: 2; grid-row: 1; font: 700 .76rem var(--num); color: var(--muted); }
 .athlete-card.is-china .athlete-nation { color: var(--red-text); }
 .athlete-caption { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .76rem; color: var(--muted); }
