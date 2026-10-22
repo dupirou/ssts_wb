@@ -26,7 +26,39 @@ def entrants(count):
             for n in range(1, count + 1)]
 
 
+def event_page(events):
+    frame = [1, '1:["$",null,{"eventResults":' + json.dumps(events) + '}]']
+    return ('<h1>Vancouver 2026</h1><script>self.__next_f.push(' +
+            json.dumps(frame) + ')</script>').encode()
+
+
 class PredictionSourceTests(unittest.TestCase):
+    def test_published_entries_replace_retained_drafts_without_id_or_order_assumptions(self):
+        drafts = [dict(name=g.title() + f' {d} m', gender=g.title(),
+                       discipline_distance=str(d), discipline_type='Singles',
+                       event_id=16230, discipline_id=3, event_result_id=900 + n,
+                       display_order=None)
+                  for n, (g, d) in enumerate(sorted(source.DISTANCES))]
+        published = [dict(row, event_result_id=100 + n, display_order=n + 1)
+                     for n, row in enumerate(drafts)]
+        for rows in (drafts + published, list(reversed(published + drafts))):
+            found = source.discover_events(event_page(rows), CONFIG)
+            self.assertEqual({item['event_result_id'] for item in found.values()},
+                             {item['event_result_id'] for item in published})
+        # A second published candidate, two drafts, a reused ID, or a wrong
+        # event must not be resolved by picking the biggest ID/last row.
+        bad_sets = [
+            drafts + [dict(drafts[0], event_result_id=8000)],
+            published + [dict(published[0], event_result_id=8000)],
+            published + [copy.deepcopy(published[0])],
+            drafts + [dict(published[0], event_id=999)],
+            drafts + [dict(published[0], display_order=True)],
+        ]
+        for rows in bad_sets:
+            with self.subTest(rows=rows):
+                with self.assertRaises(ValueError):
+                    source.discover_events(event_page(rows), CONFIG)
+
     def test_distance_events_are_distinct_from_roster(self):
         events = []
         for n, (gender, distance) in enumerate(sorted(source.DISTANCES), 1):

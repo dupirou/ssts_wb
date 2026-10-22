@@ -84,7 +84,8 @@ def discover_events(body, cfg):
     events = property_from_page(body, 'eventResults')
     if not isinstance(events, list):
         raise ValueError('Invalid eventResults shape')
-    found = {}
+    candidates = {}
+    result_ids = set()
     for item in events:
         if item.get('discipline_type') != 'Singles':
             continue
@@ -96,11 +97,25 @@ def discover_events(body, cfg):
         if (item.get('event_id') != cfg['prediction']['event_id']
                 or item.get('discipline_id') != 3
                 or item.get('name') != f'{item["gender"]} {distance} m'
-                or type(item.get('event_result_id')) is not int or key in found):
+                or type(item.get('event_result_id')) is not int
+                or item['event_result_id'] <= 0 or item['event_result_id'] in result_ids):
             raise ValueError('ISU distance/event identity mismatch')
-        found[key] = item
-    if set(found) != DISTANCES:
+        result_ids.add(item['event_result_id'])
+        candidates.setdefault(key, []).append(item)
+    if set(candidates) != DISTANCES:
         raise ValueError('Six individual ISU distance results required')
+    found = {}
+    for key, items in candidates.items():
+        if len(items) == 1:
+            found[key] = items[0]
+            continue
+        # ISU can retain its draft rows (null display_order) alongside the
+        # published entries. Only a unique explicitly ordered row is usable.
+        published = [item for item in items if type(item.get('display_order')) is int
+                     and item['display_order'] > 0]
+        if len(published) != 1:
+            raise ValueError('Ambiguous published ISU distance entries')
+        found[key] = published[0]
     return found
 
 
