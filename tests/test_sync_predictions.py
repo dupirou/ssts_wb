@@ -7,9 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-import build
 import competition_data
-import predict_groups
 import sync_predictions as source
 
 CONFIG = {
@@ -126,111 +124,41 @@ class PredictionSourceTests(unittest.TestCase):
         byes, error = source.select_byes(people, tour, world, 20)
         self.assertIsNone(error)
         self.assertEqual(byes, set(range(22, 42)))
-        first = source.make_observation(('women', 500), people, world, tour,
-            None, '2026-10-20T10:00:00+00:00', build.read_schedule())
-        self.assertTrue(first['complete'], first['missing'])
-        self.assertEqual(sum(p['prequalified'] for p in first['participants']), 20)
-        second = source.make_observation(('women', 500), people, world, tour,
-            first, '2026-10-20T10:30:00+00:00', build.read_schedule())
-        self.assertTrue(second['complete'], second['missing'])
-        self.assertEqual(sum(p['prequalified'] for p in second['participants']), 20)
-        result = predict_groups.project('vancouver', build.read_schedule(),
-            competition_data.empty_snapshot('vancouver'),
-            dict(schema_version=1, event_id='vancouver',
-                 seed_lists=[dict(second, source_urls=[
-                     'https://isu-skating.com/en/short-track/world-standings/615/'])]))
-        self.assertEqual(result['items'][0]['status'], 'predicted')
-        self.assertEqual(len(result['items'][0]['prequalified']), 20)
-        self.assertEqual(sum(len(x['participants']) for x in result['items'][0]['groups']), 21)
+        entered = source.observe(('women', 500), people, world, tour)
+        self.assertEqual(entered['missing'], [])
+        self.assertEqual(sum(p['prequalified'] for p in entered['participants']), 20)
+        self.assertEqual([p['world_rank'] for p in entered['participants']], list(range(1, 42)))
 
-    def test_ties_and_unranked_entries_produce_reproducible_forecasts(self):
+    def test_byes_top_up_from_world_ranking_and_leave_ties_to_isu(self):
         people = entrants(41)
         world = {n: dict(rank=n, points=100 - n) for n in range(1, 40)}
-        tour = {n: dict(rank=n, points=100 - n) for n in range(1, 42)}
-        tour[21]['rank'] = 20
-        self.assertEqual(source.select_byes(people, tour, world, 20)[1], 'prequalification_tie')
-        obs = source.make_observation(('women', 500), people, world, tour,
-            None, '2026-10-20T10:00:00+00:00', build.read_schedule())
-        self.assertTrue(obs['complete'], obs['missing'])
-        self.assertEqual(sum(p['prequalified'] for p in obs['participants']), 20)
-        self.assertEqual({p['seed_rank'] for p in obs['participants']}, set(range(1, 42)))
-        self.assertTrue(all(p['simulated_draw'] for p in obs['participants'] if p['world_rank'] is None))
-        self.assertTrue(all(p['seed_rank'] >= 40 for p in obs['participants'] if p['world_rank'] is None))
-        again = source.make_observation(('women', 500), list(reversed(people)), world, tour,
-            None, '2026-10-20T10:00:00+00:00', build.read_schedule())
-        self.assertEqual(obs, again)
-        obs['source_urls'] = ['https://isu-skating.com/official-entries']
-        projected = predict_groups.project('vancouver', build.read_schedule(),
-            competition_data.empty_snapshot('vancouver'),
-            dict(schema_version=1, event_id='vancouver', observed_lists=[obs], seed_lists=[obs]))['items'][0]
-        self.assertEqual(projected['status'], 'predicted')
-        self.assertEqual(sum(len(g['participants']) for g in projected['groups']), 21)
-        self.assertEqual(projected['draw_method'], 'sha256-event-skater-v1')
+        tour = {n: dict(rank=n, points=10) for n in range(30, 40)}
+        byes, error = source.select_byes(people, tour, world, 20)
+        self.assertIsNone(error)
+        self.assertEqual(byes, set(range(30, 40)) | set(range(1, 11)))
+        tour[31]['rank'] = 30
+        self.assertEqual(source.select_byes(people, tour, world, 1), (set(), 'prequalification_tie'))
+        self.assertEqual(source.select_byes(entrants(15), {}, world, 20), (set(), 'prequalification_list'))
+        self.assertEqual(source.select_byes(people, tour, world, 0), (set(), None))
 
-    def test_draw_changes_by_event_and_preserves_ranked_order(self):
-        people = entrants(41)
-        world = {1: dict(rank=1, points=100), 2: dict(rank=2, points=90)}
-        first, simulated = source.simulated_ranking(people, world, 'vancouver:women:500')
-        second, _ = source.simulated_ranking(people, world, 'montreal:women:500')
-        self.assertEqual(first[1]['rank'], 1)
-        self.assertEqual(first[2]['rank'], 2)
-        self.assertEqual(simulated, set(range(3, 42)))
-        self.assertNotEqual(first, second)
-
-    def test_unranked_follow_submitted_distance_times_before_unknown_tail(self):
+    def test_unranked_entrants_follow_ranked_ones_without_a_seed(self):
         people = entrants(5)
-        people[1]['entry_time_ms'] = 90000
-        people[2]['entry_time_ms'] = 41000
-        people[3]['entry_time_ms'] = 41000
-        world = {1: dict(rank=99, points=1)}
-        ranks, draws = source.simulated_ranking(people, world, 'test', use_entry_times=True)
-        self.assertEqual(ranks[1]['rank'], 1)
-        self.assertEqual({ranks[3]['rank'], ranks[4]['rank']}, {2, 3})
-        self.assertEqual(ranks[2]['rank'], 4)
-        self.assertEqual(ranks[5]['rank'], 5)
-        self.assertEqual(draws, {3, 4, 5})
-        self.assertNotIn(2, draws)
-        reverse, _ = source.simulated_ranking(list(reversed(people)), world, 'test', use_entry_times=True)
-        self.assertEqual(ranks, reverse)
-
-    def test_submitted_times_require_exact_distance_and_official_provenance(self):
-        self.assertEqual(source.entry_time_ms('1:23.456'), 83456)
-        self.assertEqual(source.entry_time_ms('40,12'), 40120)
-        for bad in ('PB 40.123', '1:99.123', '0.000', '-40.123', 'DNS'):
-            with self.assertRaises(ValueError):
-                source.entry_time_ms(bad)
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / 'vancouver_entry_times.json'
-            row = dict(gender='men', distance_m=500, official_skater_id=1,
-                       time='40.123', source_url='https://isu-skating.com/official-entry-times.pdf')
-            obj = dict(schema_version=1, event_id='vancouver', items=[row])
-            path.write_text(json.dumps(obj))
-            found = source.with_entry_times(entrants(1), ('men', 500), 'vancouver', Path(tmp))
-            self.assertEqual(found[0]['entry_time_ms'], 40123)
-            self.assertNotIn('entry_time_ms', source.with_entry_times(
-                entrants(1), ('men', 1000), 'vancouver', Path(tmp))[0])
-            obj['items'].append(copy.deepcopy(row))
-            path.write_text(json.dumps(obj))
-            with self.assertRaises(ValueError):
-                source.with_entry_times(entrants(1), ('men', 500), 'vancouver', Path(tmp))
-            obj['items'] = [dict(row, source_url='https://example.com/profile-pb')]
-            path.write_text(json.dumps(obj))
-            with self.assertRaises(ValueError):
-                source.with_entry_times(entrants(1), ('men', 500), 'vancouver', Path(tmp))
+        entered = source.observe(('women', 500), list(reversed(people)), {4: dict(rank=7, points=5), 2: dict(rank=9, points=1)}, {})
+        self.assertEqual([p['official_skater_id'] for p in entered['participants']], [4, 2, 1, 3, 5])
+        self.assertEqual([p['world_rank'] for p in entered['participants']], [7, 9, None, None, None])
 
     def test_sync_failure_preserves_known_data(self):
-        old = dict(schema_version=1, event_id='vancouver', seed_lists=[],
-                   observed_lists=[dict(gender='women', distance_m=500,
-                       participants=[dict(name='TEST')])])
+        old = dict(schema_version=2, event_id='vancouver', lists=[dict(gender='women', distance_m=500,
+                   participants=[dict(name='TEST')])])
         with tempfile.TemporaryDirectory() as tmp:
             file = Path(tmp) / 'vancouver.json'
             file.write_text(json.dumps(old))
             obj, errors = source.sync_event('vancouver', CONFIG, directory=Path(tmp),
                 get=lambda url: (_ for _ in ()).throw(TimeoutError('official timeout')))
             self.assertTrue(errors)
-            self.assertEqual(obj['observed_lists'], old['observed_lists'])
+            self.assertEqual(obj['lists'], old['lists'])
             self.assertEqual(obj['update_status'], 'error')
-
+            self.assertEqual(json.loads(file.read_text())['update_status'], 'error')
 
 if __name__ == '__main__':
     unittest.main()

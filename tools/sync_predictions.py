@@ -2,11 +2,10 @@
 """Synchronize official ISU distance entries and historic distance standings.
 
 The public Entries tab identifies skaters per distance. Historical WCD decides
-the first 20 byes at World Tour #1; WRD orders the first qualifying round.
-Unranked skaters and tied ranks use a reproducible simulated draw for forecasts.
+the 20 byes at World Tour #1; WRD orders the first qualifying round
+(references/isu-seeding-2026-27.md).
 """
 import argparse
-import hashlib
 import json
 import re
 import sys
@@ -16,9 +15,9 @@ from urllib.request import Request, HTTPSHandler, build_opener
 from bs4 import BeautifulSoup
 
 import competition_data as data
+import predict_groups
 import stations
 import tls
-import predict_groups
 import sync_competitions as sync
 
 INPUTS = data.ROOT / 'data/prediction_inputs'
@@ -31,8 +30,6 @@ MAX_PAGES = 20
 
 
 def post_json(url, payload):
-    if not sync.allowed(url):
-        raise ValueError('Non-official ranking endpoint')
     req = Request(url, data=json.dumps(payload).encode('utf-8'),
                   headers={'User-Agent': 'SSTS-WB/1.0 (+https://github.com/dupirou/ssts_wb)',
                            'Content-Type': 'application/json', 'Accept': 'application/json'})
@@ -67,15 +64,8 @@ def response(body, endpoint, page=None):
     obj = json.loads(body)
     if not isinstance(obj, dict) or obj.get('status') != 200 or not isinstance(obj.get('data'), list):
         raise ValueError('Unsupported ISU response: ' + endpoint)
-    if page is not None:
-        if type(obj.get('current_page')) is not int or obj['current_page'] != page:
-            raise ValueError('Unexpected ranking page')
-        if type(obj.get('total_page')) is not int or not 1 <= obj['total_page'] <= MAX_PAGES:
-            raise ValueError('Unexpected ranking page count')
-        if type(obj.get('total_items')) is not int or not 1 <= obj['total_items'] <= 300:
-            raise ValueError('Unexpected ranking item count')
-        if obj.get('is_next_page') != ('Y' if page < obj['total_page'] else 'N'):
-            raise ValueError('Inconsistent ranking pagination')
+    if page is not None and (obj.get('current_page') != page or type(obj.get('total_page')) is not int):
+        raise ValueError('Unexpected ranking page')
     return obj
 
 
@@ -144,34 +134,6 @@ def parse_entries(body, event, key, cfg):
     return sorted(output, key=lambda r: (r['country'], r['official_skater_id']))
 
 
-def entry_time_ms(value):
-    """Parse a submitted distance time, never a profile PB or a display index."""
-    match = re.fullmatch(r'(?:(\d{1,2}):)?(\d{1,3})[.,](\d{1,3})', str(value).strip())
-    if not match or (match[1] is not None and int(match[2]) >= 60):
-        raise ValueError('Invalid submitted entry time')
-    result = (int(match[1] or 0) * 60 + int(match[2])) * 1000 + int(match[3].ljust(3, '0'))
-    if result <= 0:
-        raise ValueError('Invalid submitted entry time')
-    return result
-
-
-def with_entry_times(people, key, event_id, directory):
-    """Read reviewed official entry/seed sheets when public entry JSON omits times."""
-    path = directory / f'{event_id}_entry_times.json'
-    supplied = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
-    if supplied and (supplied.get('schema_version') != 1 or supplied.get('event_id') != event_id):
-        raise ValueError('Submitted entry-time event mismatch')
-    times = {}
-    for row in supplied.get('items', []):
-        identity = (row.get('gender'), row.get('distance_m'), row.get('official_skater_id'))
-        if (identity in times or identity[:2] not in DISTANCES or type(identity[2]) is not int
-                or not predict_groups.official_url(row.get('source_url'))):
-            raise ValueError('Invalid or duplicate submitted entry-time source')
-        times[identity] = dict(entry_time=row['time'], entry_time_ms=entry_time_ms(row['time']),
-                               entry_time_source_url=row['source_url'])
-    return [dict(p, **times.get((*key, p['official_skater_id']), {})) for p in people]
-
-
 def discover_rankings(body, season, season_id):
     obj = response(body, 'ranking catalogue', 1)
     if obj['total_page'] != 1 or len(obj['data']) != obj['total_items']:
@@ -199,7 +161,7 @@ def discover_rankings(body, season, season_id):
 def ranking_rows(meta, sender=post_json):
     rid = meta['world_standings_list_fsk_id']
     url = API + '/events/get-world-standings-fsk-detail-skater-single'
-    output, total = {}, None
+    output = {}
     for page in range(1, MAX_PAGES + 1):
         obj = response(sender(url, {'world_standings_list_fsk_id': rid, 'page': page}),
                        'ranking detail', page)
@@ -208,19 +170,9 @@ def ranking_rows(meta, sender=post_json):
                ('world_standings_list_fsk_id', 'season_name', 'gender',
                 'discipline_distance', 'type', 'level_name')):
             raise ValueError('Ranking page belongs to another list')
-        if total is None:
-            total = (obj['total_items'], obj['total_page'])
-        elif total != (obj['total_items'], obj['total_page']):
-            raise ValueError('Ranking pagination changed during fetch')
         for row in obj['data']:
             sid = row.get('skaters_id')
-            skater = row.get('skaters') or {}
-            if (row.get('world_standings_list_fsk_id') != rid or
-                    type(sid) is not int or sid <= 0 or sid in output or
-                    skater.get('id') != sid or
-                    type(row.get('rank')) is not int or row['rank'] <= 0 or
-                    type(row.get('points')) is not int or row['points'] < 0 or
-                    not re.fullmatch(r'[A-Z]{3}', row.get('nf_for_country_code') or '')):
+            if type(sid) is not int or sid in output or type(row.get('rank')) is not int or type(row.get('points')) is not int:
                 raise ValueError('Unsupported or duplicate ranking row')
             output[sid] = dict(rank=row['rank'], points=row['points'])
         if page == obj['total_page']:
@@ -259,119 +211,32 @@ def predictions_settled(event_id):
 
 
 def select_byes(people, tour, world, count):
-    """Select entered WCD point earners, then fill from entered WRD skaters."""
-    if count == 0:
-        return set(), None
-    scored = [p for p in people if (r := tour.get(p['official_skater_id'])) and r['points'] > 0]
-    scored.sort(key=lambda p: (tour[p['official_skater_id']]['rank'], p['official_skater_id']))
-    if (len(scored) > count and
-            tour[scored[count - 1]['official_skater_id']]['rank'] ==
-            tour[scored[count]['official_skater_id']]['rank']):
-        return set(), 'prequalification_tie'
-    selected = scored[:count]
-    if len(selected) < count:
-        remaining = [p for p in people if p not in selected and p['official_skater_id'] in world]
-        remaining.sort(key=lambda p: (world[p['official_skater_id']]['rank'], p['official_skater_id']))
-        missing = count - len(selected)
-        if len(remaining) < missing:
-            return set(), 'prequalification_list'
-        if (len(remaining) > missing and
-                world[remaining[missing-1]['official_skater_id']]['rank'] ==
-                world[remaining[missing]['official_skater_id']]['rank']):
+    """§7(a): entered WCD point earners by rank, topped up from WRD. A tie on the cut is
+    broken by results ISU does not publish here, so it leaves the byes undecided."""
+    chosen = []
+    for ranking in (tour, world):
+        rank = lambda p: ranking[p['official_skater_id']]['rank']
+        pool = sorted((p for p in people if p not in chosen
+                       and ranking.get(p['official_skater_id'], {}).get('points', 0) > 0), key=rank)
+        need = count - len(chosen)
+        if len(pool) > need > 0 and rank(pool[need - 1]) == rank(pool[need]):
             return set(), 'prequalification_tie'
-        selected += remaining[:missing]
-    return {p['official_skater_id'] for p in selected}, None
+        chosen += pool[:need]
+    if len(chosen) < count:
+        return set(), 'prequalification_list'
+    return {p['official_skater_id'] for p in chosen}, None
 
 
-def seed_order(people, world):
-    ranked = [p for p in people if p['official_skater_id'] in world]
-    ranked.sort(key=lambda p: (world[p['official_skater_id']]['rank'], p['official_skater_id']))
-    ranks = [world[p['official_skater_id']]['rank'] for p in ranked]
-    if len(ranks) != len(set(ranks)):
-        return ranked, 'ranking_tie'
-    if len(ranked) != len(people):
-        return ranked, 'unranked_draw'
-    return ranked, None
-
-
-def simulated_ranking(people, ranking, salt, *, use_entry_times=False):
-    """WRD first, then submitted times; estimate only the unresolved tail/ties."""
-    def priority(person):
-        row = ranking.get(person['official_skater_id'])
-        time = person.get('entry_time_ms') if use_entry_times and row is None else None
-        return (row is None, row['rank'] if row else 0, time is None, time or 0)
-    frequencies = {}
-    for person in people:
-        group = priority(person)
-        frequencies[group] = frequencies.get(group, 0) + 1
-    draw_ids = {p['official_skater_id'] for p in people
-                if frequencies[priority(p)] > 1}
-    # Missing public times leave the unranked tail uncertain even for one skater;
-    # that is an estimate of unpublished data, not proof no time was submitted.
-    if use_entry_times:
-        draw_ids |= {p['official_skater_id'] for p in people
-                     if p['official_skater_id'] not in ranking and p.get('entry_time_ms') is None}
-    ordered = sorted(people, key=lambda p: (
-        *priority(p),
-        hashlib.sha256(f"{salt}:{p['official_skater_id']}".encode()).hexdigest()))
-    return {p['official_skater_id']: dict(rank=i, points=ranking.get(
-                p['official_skater_id'], {}).get('points', 0))
-            for i, p in enumerate(ordered, 1)}, draw_ids
-
-
-def stable_since(previous, entrants, now):
-    keys = ('athlete_id', 'official_skater_id', 'name', 'country')
-    old_ids = sorted(tuple(p.get(k) for k in keys) for p in (previous or {}).get('participants', []))
-    new_ids = sorted(tuple(p.get(k) for k in keys) for p in entrants)
-    if previous and old_ids == new_ids and previous.get('first_seen_at'):
-        first = datetime.fromisoformat(previous['first_seen_at'].replace('Z', '+00:00'))
-        if first.utcoffset() is not None and first <= now:
-            return first
-    return now
-
-
-def make_observation(key, entrants, world, tour, previous, timestamp, schedule,
-                     event_id='vancouver'):
-    now = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
-    if now.utcoffset() is None:
-        raise ValueError('Naive sync time')
+def observe(key, entrants, world, tour):
+    """One distance: who entered, by WRD rank (ISU breaks equal ranks by recent results, which
+    is not modelled), and the byes when the first round has them."""
     gender, distance = key
-    first = stable_since(previous, entrants, now)
     plan = predict_groups.first_round(distance, len(entrants))
-    expected = next((r['round'] for r in schedule if r['gender'] == gender and
-                     r['distance_m'] == distance and r['format'] == 'individual' and
-                     r['session'] == 'qualifying'), None)
-    salt = f'{event_id}:{gender}:{distance}:draw-v1'
-    modeled_world, world_draw = simulated_ranking(entrants, world, salt, use_entry_times=True)
-    modeled_tour, tour_draw = simulated_ranking(entrants, tour, salt)
-    byes, bye_issue = select_byes(entrants, modeled_tour, modeled_world,
-                                plan['prequalified_count']) if plan else (set(), None)
-    ordered, _ = seed_order(entrants, modeled_world)
-    order = {p['official_skater_id']: n for n, p in enumerate(ordered, 1)}
-    missing = []
-    if not plan or plan['round'] != expected:
-        missing.append('matching_schedule' if plan else 'qualifying_table')
-    if bye_issue:
-        missing.append(bye_issue)
-    verified_byes = not bye_issue and plan is not None and plan['round'] == expected
-    draw_ids = world_draw | {sid for sid in tour_draw if tour.get(sid, {}).get('points', 0) > 0}
-    decorated = [dict(p, seed_rank=order.get(p['official_skater_id']),
-                      world_rank=world.get(p['official_skater_id'], {}).get('rank'),
-                      tour_rank=tour.get(p['official_skater_id'], {}).get('rank'),
-                      entry_time=p.get('entry_time'), entry_time_ms=p.get('entry_time_ms'),
-                      entry_time_source_url=p.get('entry_time_source_url'),
-                      seeding_basis=('world_ranking' if p['official_skater_id'] in world
-                                     else 'entry_time' if p.get('entry_time_ms') is not None
-                                     else 'entry_time_unavailable'),
-                      simulated_draw=p['official_skater_id'] in draw_ids,
-                      prequalified=(p['official_skater_id'] in byes) if verified_byes else None)
-                 for p in entrants]
-    return dict(event_id=event_id, gender=gender, distance_m=distance,
-                first_seen_at=first.isoformat(), verified_at=timestamp,
-                complete=not missing, missing=missing,
-                draw_method='sha256-event-skater-v1' if draw_ids else None,
-                participants=sorted(decorated, key=lambda p: (p['seed_rank'] is None,
-                                     p['seed_rank'] or 999, p['name'])))
+    byes, issue = select_byes(entrants, tour, world, plan['prequalified_count'] if plan else 0)
+    people = [dict(p, world_rank=world.get(p['official_skater_id'], {}).get('rank'),
+                   prequalified=p['official_skater_id'] in byes) for p in entrants]
+    people.sort(key=lambda p: (p['world_rank'] is None, p['world_rank'] or 0, p['official_skater_id']))
+    return dict(gender=gender, distance_m=distance, missing=[issue] if issue else [], participants=people)
 
 
 def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
@@ -381,74 +246,48 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch,
     now = now or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     path = directory / (event_id + '.json')
     old = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
-    if old and (old.get('schema_version') != 1 or old.get('event_id') != event_id):
-        raise ValueError('Prediction snapshot identity mismatch')
-    previous = {(r['gender'], r['distance_m']): r for r in old.get('observed_lists', [])}
+    previous = {(r['gender'], r['distance_m']): r for r in old.get('lists', [])}
     if old and predictions_settled(event_id):
         return old, []
     try:
         page = get(cfg['prediction']['entries_url'])
         events = discover_events(page, cfg)
-        entries = {}
-        for key, event in events.items():
-            body = form(API + '/events/get-event-result-entrylist-single',
-                        dict(event_result_id=event['event_result_id'],
-                             event_id=cfg['prediction']['event_id'], country_code=''))
-            entries[key] = with_entry_times(parse_entries(body, event, key, cfg), key,
-                                            event_id, directory)
         raw = sender(API + '/events/get-world-standings-list',
                      dict(discipline_id=3, season_id=cfg['prediction']['standings_season_id'],
                           pagesize=300, page=1))
         catalog = discover_rankings(raw, cfg['prediction']['historical_season'],
                                     cfg['prediction']['standings_season_id'])
-        import build
-        schedule = build.read_schedule(event_id)
-        observations = []
         ranked = cached_rankings(catalog, sender, cfg['prediction']['historical_season'],
                                  directory / 'historic_rankings.json')
+        lists = []
         for key in sorted(DISTANCES):
-            tour_meta, world_meta = catalog[key, 'WCD'], catalog[key, 'WRD']
-            tour, world = ranked[key, 'WCD'], ranked[key, 'WRD']
-            observed = make_observation(key, entries[key], world, tour,
-                                        previous.get(key), now, schedule,
-                                        event_id=event_id)
-            observed['source_urls'] = [
+            body = form(API + '/events/get-event-result-entrylist-single',
+                        dict(event_result_id=events[key]['event_result_id'],
+                             event_id=cfg['prediction']['event_id'], country_code=''))
+            entered = observe(key, parse_entries(body, events[key], key, cfg),
+                              ranked[key, 'WRD'], ranked[key, 'WCD'])
+            entered['source_urls'] = [
                 cfg['prediction']['entries_url'] + '&type=' + str(events[key]['event_result_id']),
-                STANDINGS + str(tour_meta['world_standings_list_fsk_id']) + '/',
-                STANDINGS + str(world_meta['world_standings_list_fsk_id']) + '/']
-            observed['source_urls'] += sorted({p['entry_time_source_url'] for p in
-                                               observed['participants'] if p['entry_time_source_url']})
-            earlier = previous.get(key)
-            if earlier and all(earlier.get(field) == observed.get(field) for field in
-                               ('participants', 'missing', 'source_urls', 'first_seen_at')):
-                observed['verified_at'] = earlier.get('verified_at', now)
-            observations.append(observed)
-        result = dict(schema_version=1, event_id=event_id,
-                      update_status='ok', checked_at=now, observed_lists=observations,
-                      seed_lists=[dict(item, participants=[
-                          {k: p[k] for k in ('athlete_id', 'name', 'country', 'seed_rank',
-                                            'prequalified', 'world_rank', 'tour_rank', 'simulated_draw',
-                                            'entry_time', 'entry_time_ms', 'entry_time_source_url', 'seeding_basis')}
-                          for p in item['participants']])
-                          for item in observations if item['complete']])
+                STANDINGS + str(catalog[key, 'WCD']['world_standings_list_fsk_id']) + '/',
+                STANDINGS + str(catalog[key, 'WRD']['world_standings_list_fsk_id']) + '/']
+            earlier = previous.get(key, {})
+            unchanged = all(earlier.get(f) == entered[f] for f in ('participants', 'missing', 'source_urls'))
+            entered['verified_at'] = earlier['verified_at'] if unchanged else now
+            lists.append(entered)
+        result = dict(schema_version=2, event_id=event_id, update_status='ok', checked_at=now, lists=lists)
         # Only daily check timestamps or material changes are published.
         material = {k: v for k, v in result.items() if k != 'checked_at'}
         old_material = {k: v for k, v in old.items() if k != 'checked_at'}
         if material == old_material and old.get('checked_at', '')[:10] == now[:10]:
             return old, []
     except Exception as exc:
-        if not old:
-            old = dict(schema_version=1, event_id=event_id, seed_lists=[], observed_lists=[])
-        result = dict(old, update_status='error', error=str(exc)[:300])
-        if result == old:
-            return old, [str(exc)]
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        # Keep the last lists; the API reports them as stale.
+        result = dict(old or dict(schema_version=2, event_id=event_id, lists=[]),
+                      update_status='error', error=str(exc)[:300])
+        if result != old:
+            path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         return result, [str(exc)]
-    path.parent.mkdir(parents=True, exist_ok=True)
-    candidate = path.with_suffix('.tmp')
-    candidate.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    candidate.replace(path)
+    path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     return result, []
 
 
@@ -468,7 +307,7 @@ def main():
             # One station's unexpected failure keeps its last inputs and never stops the others.
             item, errors = None, ['unexpected: ' + str(exc)]
         print(station['id'], [(x['gender'], x['distance_m'], len(x['participants']),
-                               x['missing']) for x in item['observed_lists']] if item else 'not updated')
+                               x['missing']) for x in item['lists']] if item else 'not updated')
         for error in errors:
             print(f"::warning::{station['id']} prediction sync: {error}", file=sys.stderr)
         failed |= bool(errors)

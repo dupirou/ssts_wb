@@ -11,7 +11,7 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 | `/api/v1/events/vancouver` | 该站接口列表 |
 | `/api/v1/events/vancouver/entries` | 全站报名，含 active/substitute |
 | `/api/v1/events/vancouver/rounds` | 正式出场分组及参赛者，含 `has_china` |
-| `/api/v1/events/vancouver/predictions` | 首轮非官方分组推演；单项种子名单不全时返回等待原因 |
+| `/api/v1/events/vancouver/predictions` | 首轮非官方分组推演（只放已知种子）；无单项报项时返回等待原因 |
 | `/api/v1/events/vancouver/results` | 已发布的逐组选手成绩、名次与晋级代码 |
 | `/api/v1/events/vancouver/penalties` | 官方明确给出 PEN/YC/RC 的记录 |
 | `/api/v1/events/vancouver/rankings` | 已取得官方文件中的单站/世巡赛/世界排名 |
@@ -33,19 +33,11 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 
 完整规则摘要、来源与实现边界见[参考资料：2026/27 世巡赛直通、种子与分组](references/isu-seeding-2026-27.md)。
 
-分站页提供独立的“分组预测”折叠面板，切换男女及 500/1000/1500m，可只看含中国队的预测组。预测不会写入 `rounds`、`results`、中国队确认高亮或官方赛程时间；某项目的官方分组出现后，该项目优先展示官方入口。
+分站页的“分组预测”标签只在有单项报项数据的站出现（目前温哥华），切换男女及 500/1000/1500m，可只看 CHN。预测不会写入 `rounds`、`results`、中国队确认高亮或官方赛程时间；某项目的官方分组出现后，该项目优先展示官方入口。
 
-规则依据：[ISU 2026 Sports Rules](https://isudam.blob.core.windows.net/isudamcontainer/2026-Short-Track-Sport-Rules-20260513-FINAL-as-of-1-June-2026-1780065543-3994.pdf) Rule 293.3–5；[Communication 2806](https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Corporate-Site/Governance/Transparency/ISU-Communications/2806-ISU-Short-Track-World-Tour-2026-27-1782891715-3107.pdf) §7；2026/27 晋级表第 1–4 页（来源保存在 `data/prediction_tables.json`）。种子蛇形分配；除四分之一决赛/半决赛外，尝试同一排内移位及交换以回避同国选手。裁判可决定调整前排、无法回避时保留原组等，这些裁量不作唯一答案预测，残留冲突会标明。预测不生成出发道次，也不预测胜负、后续晋级者或接力分组。
+**只放已知种子。** 有单项世界排名（WRD）的选手按排名蛇形分组（Rule 293.4），首轮不是四分之一决赛时在同一排内移位或交换以回避同国（293.5(a)）。无世界排名者按 ISU 不公开的报名成绩排序，程序不猜他们的位置：每组显示总人数和“另 N 人待定”，这些人统一列在“其余 N 人待定”里。前 20 名直通者按 2025/26 单项世巡赛排名（WCD）从实际报名者中选出，不足时以 WRD 递补（2806 §7(a)）；第 20 名处出现并列时该项目不出预测，等官方名单。世界排名并列应按最近成绩拆分，程序未实现，暂按 ISU 选手 ID 排序（2026-10-22 温哥华六项均无并列）。预测不生成出发道次、胜负、后续晋级者或接力分组。
 
-从 ISU 温哥华站 **Entries** 标签逐个读取六项的官方 `event_result_id` 与该项目的选手列表，不根据整站 PDF 推断单项报项。同期分页取得官网历史单项分类和世界排名，通过官方 `skaters_id` 匹配；项目身份及每一页数量须通过校验，按当前已公布报项计算非官方预测。
-
-项目名单与官方晋级表、当前轮次对应后立即计算预测。无世界排名者排在有排名者之后，并优先按最终报名提交的该单项成绩从快到慢排序；无公开报名成绩者的队尾顺序暂估，不把“未公开”标为“未提交”。报名成绩与来源补充到 `data/prediction_inputs/{event}_entry_times.json`，格式见 README。并列和缺失资料的未决顺序保留可复现预测，`simulated_draw` 与 `seeding_basis` 标明依据；正式分组公布后优先采用正式分组。
-
-温哥华首站的排名依据应分开核对：通告 2806 §7(a) 按 **2025/26 World Tour Distance Classification（单项世巡赛最终排名）**确定已报名选手中的前 20 名直通者；§7(b–d)、§14 按 **World Ranking（单项世界排名）**确定分组种子顺序，赛季初取 2025/26 四站中的最好三站成绩及对应世界排名积分。两者均按距离区分，不采用三项合计的 Overall 总排名。§14 表下注明，世锦赛成绩从 **2027/28** 才计入该 World Ranking，因此温哥华不能直接以上赛季世锦赛名次作种子。普通首轮无世界排名者按该单项最终报名成绩排在有排名者之后；同分与无成绩的未决抽签顺序仍需核对。单项报名确认后，可以据这些历史排名推导种子，无需以官方已经分好组为前提。
-
-自动同步结果保存在 `data/prediction_inputs/{event}.json`。其 `observed_lists` 保存各单项实际报项、排名、未解决原因与官方来源；只有满足完整性及顺序检查的项目才写入 `seed_lists`。每份可预测名单包含项目、`complete: true`、官方来源、核验时刻以及连续 `seed_rank` 和明确的 `prequalified`。报名接口中的 `entry_index` 为空时不得当作无排名选手的抽签次序。
-
-构建时校验官方来源、项目、名单完整性、直通人数和实际首轮赛程，再根据晋级表选择组数。当前支持表内 26–95 人的标准首轮；未覆盖人数保留等待态。500/1000m 超过 40 人、1500m 超过 63 人时，20 名直通者单列，不放入前置轮次。未来官网更正单项报项或排名后自动重算；抓取失败保留上次快照并标记同步错误。接口仅支持 `gender`、`distance_m`、`round_key` 筛选。
+`tools/sync_predictions.py` 从温哥华 **Entries** 标签读取六项各自的官方 `event_result_id` 与选手列表，不根据整站 PDF 推断单项报项；历史 WCD / WRD 按官方 `skaters_id` 匹配，上赛季榜单抓取一次后缓存在 `data/prediction_inputs/historic_rankings.json`。结果写入 `data/prediction_inputs/{event}.json`：每项 `lists[]` 含报名者（`world_rank`、`prequalified`）、未决原因 `missing`、官方来源和内容变化时间 `verified_at`。构建时 `tools/predict_groups.py` 按人数查晋级表（表内 26–95 人），并核对首轮是否与官方赛程一致；500/1000m 超过 40 人、1500m 超过 63 人时 20 名直通者单列。抓取失败保留上次数据并标记 `stale`。同一份报项也给运动员名单加上每人报的单项（`entries` 的 `distances`）。接口仅支持 `gender`、`distance_m`、`round_key` 筛选。
 其他站的报名、分组与成绩按同一流程自动同步（见“多站自动更新”）；预测模型只用于温哥华。
 
 `rounds` 中 `evidence=official_start_list` 或 `official_results`；

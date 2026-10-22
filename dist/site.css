@@ -291,7 +291,7 @@ h1, h2, h3 { text-wrap: balance; }
   display: inline-flex; align-items: center; justify-content: center; gap: 7px;
   min-height: 44px; padding: 9px 14px; border-radius: 11px;
   border: 1px solid var(--border); text-decoration: none;
-  color: var(--accent-text); font-size: .88rem; font-weight: 700;
+  color: var(--accent-text); font-size: .88rem; font-weight: 700; white-space: nowrap;
 }
 .ticket-actions a:last-child { color: var(--cta-fg); border-color: var(--cta-bg); background: var(--cta-bg); }
 .ticket-actions a:hover { border-color: var(--accent); }
@@ -299,7 +299,7 @@ h1, h2, h3 { text-wrap: balance; }
 @media (max-width: 680px) {
   .ticket-panel { padding: 14px 16px; }
   .ticket-actions { width: 100%; }
-  .ticket-actions a { flex: 1; min-width: min(100%, 125px); }
+  .ticket-actions a { flex: 1 1 auto; }
 }
 
 .offline-note {
@@ -783,6 +783,7 @@ td.time { white-space: nowrap; }
 .athlete-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 18px 0 12px; }
 .athlete-tools select { font: inherit; font-size: .84rem; min-height: 44px; max-width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 10px; padding: 6px 30px 6px 12px; color: var(--text); background: var(--panel); }
 .athlete-tools > p { margin-left: auto; }
+.athlete-tools .chip { min-height: 44px; padding: 0 12px; border-color: var(--border); border-radius: 10px; font-size: .84rem; flex: none; }
 .athlete-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 8px; list-style: none; margin: 0; padding: 0; }
 .athlete-card { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; border: 1px solid var(--border-soft); background: var(--well-soft); border-radius: 12px; padding: 12px 14px; }
 .athlete-card.is-china { border-color: rgb(var(--red-rgb) / .3); background: rgb(var(--red-rgb) / .06); }
@@ -805,15 +806,17 @@ td.time { white-space: nowrap; }
 .prediction-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 10px; }
 .prediction-group { min-width: 0; padding: 14px; border: 1px solid var(--border-soft); border-radius: 12px; background: var(--well-soft); }
 .prediction-group.has-china { border-color: rgb(var(--red-rgb) / .3); }
-.prediction-group h3 { font-size: .9rem; margin-bottom: 10px; }
+.prediction-group h3 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: .9rem; margin-bottom: 10px; }
+.prediction-group h3 span { font-size: .74rem; font-weight: 600; }
+.prediction-group > p { margin-top: 4px; }
 .prediction-group ul, .prediction-byes ul { list-style: none; padding: 0; margin: 0; }
 .prediction-group li { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 6px 0; font-size: .8rem; }
 .prediction-group li b { min-width: 0; overflow-wrap: anywhere; }
 .prediction-group small { font: 600 .72rem var(--num); }
-.prediction-note { margin-bottom: 12px; }
 .prediction-byes { margin-top: 14px; font-size: .84rem; }
 .prediction-byes summary { cursor: pointer; }
 .prediction-byes li { padding: 4px 0; overflow-wrap: anywhere; }
+.prediction-byes > p { margin: 6px 0 2px; }
 .competition-open { display: inline-flex; gap: 6px; align-items: center; min-height: 38px; margin-top: 4px; padding: 5px 0; background: transparent; border: 0; color: var(--accent-text); cursor: pointer; font-size: .82rem; font-weight: 600; }
 .competition-dialog { width: min(640px, calc(100% - 24px)); max-height: calc(100dvh - 40px); margin: auto; padding: 20px; color: var(--text); background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 24px 80px rgb(0 0 0 / .3); overscroll-behavior: contain; }
 .competition-dialog::backdrop { background: var(--scrim); }
@@ -976,7 +979,7 @@ td.time { white-space: nowrap; }
     border-radius: 22px 22px 0 0; padding: 18px 18px calc(18px + env(safe-area-inset-bottom)); animation: sheet .22s ease both;
   }
   @keyframes sheet { from { transform: translateY(40px); opacity: 0; } }
-  .chip { min-height: 44px; font-size: 1rem; }
+  .fpanel .chip { min-height: 44px; font-size: 1rem; }
   .fpanel-foot .btn { flex: 1; min-height: 46px; }
   body.sheet-open { overflow: hidden; }
   .counter .legend { margin-left: 0; flex-basis: 100%; }

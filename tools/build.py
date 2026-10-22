@@ -159,6 +159,7 @@ def load_ticketing():
     return result
 
 def export():
+    import predict_groups
     meta=stations.load_meta()
     ticketing=load_ticketing()
     schedules={}
@@ -168,7 +169,8 @@ def export():
             schedules[st["id"]]=attach_china(rows,st["id"])
     season={"schema_version":1,"season":CONFIG["season"],"source_url":CALENDAR_URL,
             "stations":[dict({k:st[k] for k in stations.FIELDS},ticketing=ticketing.get(st["id"]),
-                             detail_status="verified" if st["id"] in schedules else "not_entered")
+                             detail_status="verified" if st["id"] in schedules else "not_entered",
+                             predictions=predict_groups.load_inputs(st["id"]) is not None)
                         for st in CONFIG["stations"]],
             "championships":CHAMPIONSHIPS,
             "notice":"各分站详细赛程在 ISU 公布后自动录入。"}
@@ -197,8 +199,7 @@ def export():
     shell=b"".join((ROOT/"web"/name).read_bytes() for name in ("index.html","app.js","site.css","manifest.webmanifest","sw.js"))
     (OUT/"sw.js").write_text((ROOT/"web/sw.js").read_text(encoding="utf-8").replace(
         "__BUILD_VERSION__",hashlib.sha256(shell).hexdigest()[:12]),encoding="utf-8")
-    competition_data.export(OUT, VENUES)
-    import predict_groups
+    competition_data.export(OUT, VENUES, predict_groups.entered_distances)
     predict_groups.export(OUT, VENUES, schedules)
     import updates
     feed = updates.export(OUT, VENUES, schedules,

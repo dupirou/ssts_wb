@@ -90,13 +90,18 @@ def china_evidence(snapshot):
     return records, set(grouped)
 
 
-def export(out, venues):
+def export(out, venues, distances=lambda event_id: {}):
+    """`distances(event_id)` maps athlete_id to the individual distances entered there."""
     directory = out / 'data/competitions'
     directory.mkdir(parents=True, exist_ok=True)
     events = []
     for event in venues:
         event_id, city, city_en = event[:3]
         snapshot = load_snapshot(event_id)
+        entered = distances(event_id)
+        for person in snapshot['entries']['items']:
+            if person['athlete_id'] in entered:
+                person['distances'] = entered[person['athlete_id']]
         events.append(dict(id=event_id, city=city, city_en=city_en,
                            **{kind: snapshot[kind]['status'] for kind in KINDS}))
         (directory / f'{event_id}.json').write_text(
