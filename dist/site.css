@@ -200,6 +200,25 @@ main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-wi
 .loading { display: grid; place-items: center; gap: 14px; min-height: 50vh; color: var(--muted); }
 .loading-ring { width: 54px; height: 32px; border-radius: 16px; border: 3px solid var(--border-soft); border-top-color: var(--accent); animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* Home-screen launch screen: picks up the Android splash (same icon art on #070B12), then fades
+   into the app. Fixed colours on purpose: the system splash is always dark. */
+.launch { display: none; }
+.launching .launch {
+  position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px; padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
+  background: radial-gradient(120vmax 80vmax at 50% 45%, #0A1626 0%, #070B12 55%); color: #F8FAFC;
+  transition: opacity .4s ease, visibility 0s linear .4s;
+}
+.launched .launch { opacity: 0; visibility: hidden; pointer-events: none; }
+.launch-mark { width: min(62vw, 280px); height: auto; margin-bottom: -6%; }
+.launch-copy { display: flex; flex-direction: column; align-items: center; gap: 6px; animation: rise .6s .15s both; }
+.launch-copy b { font-size: 1.35rem; font-weight: 800; letter-spacing: .32em; margin-right: -.32em; }
+.launch-copy span { font-size: .8rem; color: #94A3B8; letter-spacing: .14em; }
+.launch-foot {
+  position: absolute; bottom: calc(28px + env(safe-area-inset-bottom)); margin: 0;
+  font-size: .72rem; color: #7C8BA1; letter-spacing: .2em; animation: rise .6s .3s both;
+}
 @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
 /* ---------- shared atoms ---------- */

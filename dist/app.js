@@ -1347,5 +1347,11 @@
       h('a', {class: 'btn', href: './'}, '返回首页')));
   } finally {
     root.removeAttribute('aria-busy');
+    // Let the launch lap show for a moment, then fade it and restore the theme's status bar colour.
+    if (document.documentElement.classList.contains('launching')) setTimeout(() => {
+      document.documentElement.classList.add('launched');
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.content = document.documentElement.dataset.theme === 'light' ? '#F3F8FC' : '#070B12';
+    }, Math.max(0, 700 - performance.now()));
   }
 })();
