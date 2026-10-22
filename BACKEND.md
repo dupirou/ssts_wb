@@ -31,6 +31,8 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 
 ### 首轮分组预测
 
+完整规则摘要、来源与实现边界见[参考资料：2026/27 世巡赛直通、种子与分组](references/isu-seeding-2026-27.md)。
+
 分站页提供独立的“分组预测”折叠面板，切换男女及 500/1000/1500m，可只看含中国队的预测组。预测不会写入 `rounds`、`results`、中国队确认高亮或官方赛程时间；某项目的官方分组出现后，该项目优先展示官方入口。
 
 规则依据：[ISU 2026 Sports Rules](https://isudam.blob.core.windows.net/isudamcontainer/2026-Short-Track-Sport-Rules-20260513-FINAL-as-of-1-June-2026-1780065543-3994.pdf) Rule 293.3–5；[Communication 2806](https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Corporate-Site/Governance/Transparency/ISU-Communications/2806-ISU-Short-Track-World-Tour-2026-27-1782891715-3107.pdf) §7；2026/27 晋级表第 1–4 页（来源保存在 `data/prediction_tables.json`）。种子蛇形分配；除四分之一决赛/半决赛外，尝试同一排内移位及交换以回避同国选手。裁判可决定调整前排、无法回避时保留原组等，这些裁量不作唯一答案预测，残留冲突会标明。预测不生成出发道次，也不预测胜负、后续晋级者或接力分组。
