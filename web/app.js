@@ -478,7 +478,7 @@
         }
       } else {
         body.append(h('p', {class: 'faint tiny prediction-note', text: item.draw_method
-          ? '首轮预测 · 无排名或并列采用模拟抽签 · 不含出发道次'
+          ? '首轮预测 · 按排名和报名成绩排序 · 未公开的队尾顺序暂估'
           : '首轮预测 · 不含出发道次，以官方分组为准'}));
         if (item.country_conflicts.length) body.append(h('p', {class: 'faint tiny', text: '同国选手回避以官方调整为准'}));
         const groups = item.groups.filter(g => !onlyChina || g.has_china);
@@ -487,7 +487,9 @@
           h('h3', {text: '预测第 ' + group.heat_number + ' 组'}),
           h('ul', {}, group.participants.map(p => h('li', {class: cls(p.country === 'CHN' && 'athlete-china')},
             h('span', {class: 'faint num', text: '#' + p.seed_rank, title: '种子序号，非出发道次'}),
-            h('b', {text: p.name}), h('small', {text: p.country + (p.simulated_draw ? ' · 模拟抽签' : '')}))))));
+            h('b', {text: p.name}), h('small', {text: p.country +
+              (p.seeding_basis === 'entry_time' && p.entry_time ? ' · 报名 ' + p.entry_time : '') +
+              (p.simulated_draw ? p.seeding_basis === 'entry_time_unavailable' ? ' · 顺序暂估' : ' · 模拟抽签' : '')}))))));
         body.append(grid);
         if (!groups.length) body.append(h('p', {class: 'faint athlete-empty', text: '预测分组中暂无 CHN 选手'}));
         if (item.prequalified.length) body.append(h('details', {class: 'prediction-byes'},

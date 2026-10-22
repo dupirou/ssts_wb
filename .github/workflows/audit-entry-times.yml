@@ -35,11 +35,16 @@ jobs:
               print('CHN',[x for x in items if x['country']=='CHN'],flush=True)
           Path('entry-time-audit.json').write_text(json.dumps(output,ensure_ascii=False,indent=2)+'\n')
           PY
+      - name: Refresh and validate corrected forecasts
+        run: |
+          python tools/sync_predictions.py --event vancouver
+          python tools/build.py
+          python -m unittest discover -s tests -v
       - name: Save source audit for review
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add entry-time-audit.json
+          git add entry-time-audit.json data/prediction_inputs dist
           if ! git diff --cached --quiet; then
             git commit -m 'test: capture public official entry-time fields'
             git push origin HEAD:fix/entry-time-seeding-20261022

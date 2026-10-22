@@ -6,7 +6,7 @@
 - 新增运动员后端 API：报名、正式分组、成绩、排名、判罚；按国家/性别/距离/轮次筛选。
   已接温哥华官方报名 PDF；分组/成绩适配 ISU 新官网公开 JSON 接口，等待本赛季公布。
   分站页可展开报名名单，默认查看中国队，支持国家和性别筛选；对应赛程可查看已发布的分组、成绩与判罚，排名发布后显示。API 及 Cloudflare Worker 部署见 [BACKEND.md](BACKEND.md)。
-- 新增首轮分组预测面板与只读 `predictions` 接口，依据 ISU 2026 Rule 293、世巡赛通告 2806 与晋级表。单项报项与历史单项排名通过 ISU 官方公开接口自动同步；官网名单未齐、排名并列或无排名选手抽签未定时显示等待态，预测不参与官方中国队高亮，细节见 [BACKEND.md](BACKEND.md)。
+- 首轮分组预测面板与只读 `predictions` 接口依据 ISU 2026 Rule 293、世巡赛通告 2806 与晋级表。实际单项报项与历史排名自动同步；无世界排名者先按已核实的单项报名成绩排序，未公开的队尾顺序作可复现的暂估。预测不参与官方中国队高亮，细节见 [BACKEND.md](BACKEND.md)。
 - 2026/27 赛季七站世巡赛入口，外加独立的 2027 年首尔短道速滑世锦赛页面（3 月 12–14 日，详情以 ISU 官方赛历为准）；各站官方暂定的**轮次开始时间**在 ISU 公布后自动录入并转换成北京时间（温哥华站 62 轮已录入）。
 - 日期、项目、轮次和时区筛选。
 - 默认高亮有**官方具体轮次分组证据**的中国队场次；显示参赛名字、Heat 编号及**非官方估算区间**。
@@ -49,9 +49,11 @@ Heat 估算是默认工程参数，不是 ISU 官方逐组时间，也未经过�
 
 ## 单项报项与分组预测自动同步
 
-`tools/sync_predictions.py` 从 ISU 温哥华 Entries 标签的六个单项独立 result ID 读取实际报项，并分页读取 2025/26 单项 World Tour Classification（用于直通）及单项 World Ranking（用于种子）。匹配使用 ISU 选手 ID；整站报名 PDF 只作名单更新是否齐全的保守检查，不产生任何单项参赛记录。同步由 Cloudflare Cron 触发的 Actions 执行，另有每天两次的 GitHub 定时兜底；结果写入 `data/prediction_inputs/vancouver.json`，构建后由预测接口提供。
+`tools/sync_predictions.py` 从 ISU Entries 标签的六个单项独立 result ID 读取实际报项，并分页读取 2025/26 单项 World Tour Classification（用于直通）及单项 World Ranking（用于种子）。匹配使用 ISU 选手 ID，不根据整站名单推断报项。同步由 Cloudflare Cron 触发的 Actions 执行，另有每天两次的 GitHub 定时兜底；结果写入 `data/prediction_inputs/vancouver.json`，构建后由预测接口提供。
 
-官网目前可能逐国上传报项。只有名单两次核对稳定、单项人数匹配官方赛程和晋级表、世界排名顺序与直通边界可以确定，才发布模型分组。无排名选手的报名成绩或抽签顺序未公开、官方排名并列未分出顺序时，只展示已验证的单项报项与历史排名，预测继续等待。详见 [BACKEND.md](BACKEND.md)。
+报项与官方赛程、晋级表对应后立即计算预测。排序为有世界排名者在前、无排名者按最终报名提交的单项成绩从快到慢、未公开报名成绩者在队尾暂估；相同成绩的未决顺序采用可复现模拟。报名成绩尚未公开不等于没有提交成绩。2026-10-22 核查的六项公开报项接口没有提供成绩，Entries PDF 也只有整站名单。
+
+公开官方报名成绩或种子表经人工核对后，写入 `data/prediction_inputs/{event}_entry_times.json` 的 `items`，每条包含 `gender`、`distance_m`、`official_skater_id`、`time`（如 `1:23.456`）和实际官方文件的 `source_url`。根对象包含 `schema_version: 1` 与 `event_id`。下次同步自动按赛事、单项和选手 ID 应用；个人资料 PB、显示顺序和其他距离成绩不能代替报名成绩。当前温哥华补充文件为空。详见 [BACKEND.md](BACKEND.md)。
 
 ## 首尔站售票链接
 

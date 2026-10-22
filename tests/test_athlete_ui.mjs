@@ -179,14 +179,15 @@ test('projection renders seeds, filters CHN groups and yields to official groups
   data.predictions=structuredClone(predictions);
   Object.assign(data.predictions.items[0],{status:'predicted',missing:[],prequalified:[{name:'TEST BYE',country:'CHN'}],
     draw_method:'sha256-event-skater-v1',
-    groups:[{heat_number:1,has_china:true,participants:[{seed_rank:21,name:'TEST CHN',country:'CHN',simulated_draw:true}]},
-      {heat_number:2,has_china:false,participants:[{seed_rank:22,name:'TEST KOR',country:'KOR'}]}]});
+    groups:[{heat_number:1,has_china:true,participants:[{seed_rank:21,name:'TEST CHN',country:'CHN',simulated_draw:true,seeding_basis:'entry_time_unavailable'}]},
+      {heat_number:2,has_china:false,participants:[{seed_rank:22,name:'TEST KOR',country:'KOR',seeding_basis:'entry_time',entry_time:'1:23.456'}]}]});
   data.predictions.items[1].status='official_available';
   const dom=await page({data,view:'predictions'});t.after(()=>dom.window.close());
   const d=dom.window.document,panel=d.querySelector('.prediction-panel');
   assert.equal(panel.querySelectorAll('.prediction-group').length,2);
-  assert.match(panel.querySelector('.prediction-note').textContent,/模拟抽签/);
-  assert.match(panel.querySelector('.prediction-group').textContent,/CHN · 模拟抽签/);
+  assert.match(panel.querySelector('.prediction-note').textContent,/报名成绩排序/);
+  assert.match(panel.querySelector('.prediction-group').textContent,/CHN · 顺序暂估/);
+  assert.match(panel.querySelectorAll('.prediction-group')[1].textContent,/报名 1:23.456/);
   assert.match(panel.textContent,/直通下一轮/);
   panel.querySelector('button').click();
   assert.equal(panel.querySelectorAll('.prediction-group').length,1);
