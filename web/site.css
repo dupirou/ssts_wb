@@ -449,7 +449,11 @@ h1, h2, h3 { text-wrap: balance; }
 .sl-node.is-worlds .sl-dot { border-color: var(--gold); color: var(--gold-text); }
 .sl-node.is-worlds .sl-dot .ico { width: 14px; height: 14px; }
 
-.st-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.st-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+/* A short last row stretches its last card, so seven stages never leave an orphan or a hole. */
+.st-grid > :last-child:nth-child(4n + 3) { grid-column: span 2; }
+.st-grid > :last-child:nth-child(4n + 2) { grid-column: span 3; }
+.st-grid > :last-child:nth-child(4n + 1) { grid-column: 1 / -1; }
 .st-card {
   position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; gap: 10px; min-width: 0;
   padding: 18px 20px; border-radius: var(--radius); text-decoration: none; color: var(--text);
@@ -851,6 +855,8 @@ td.time { white-space: nowrap; }
    | 当地 09:00 | 初赛 ● ● ○ ○ ○ |      |   */
 @media (max-width: 1179px) {
   .st-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .st-grid > :last-child:nth-child(n) { grid-column: auto; }
+  .st-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
   .station-hero { grid-template-columns: minmax(0, 1fr); }
   .overview { grid-template-columns: minmax(0, 1fr); }
   .finals-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -941,6 +947,7 @@ td.time { white-space: nowrap; }
   .sl-label small { font-size: .66rem; }
   .sl-label b { font-size: .74rem; }
   .st-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .st-grid > :last-child:nth-child(n) { grid-column: auto; }
   .panel { padding: 16px; }
 
   .st-nav { gap: 6px; }
