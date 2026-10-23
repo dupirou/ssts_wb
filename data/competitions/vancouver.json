@@ -1527,7 +1527,7 @@
   },
   "rounds": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-10-23T19:11:21+00:00",
     "updated_at": "2026-10-23T19:11:21+00:00",
     "source_urls": [
@@ -10021,14 +10021,16 @@
           }
         ]
       }
-    ]
+    ],
+    "error": "results: HTTP Error 503: Service Unavailable"
   },
   "rankings": {
     "status": "not_published",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-10-23T00:01:35+00:00",
     "updated_at": null,
     "source_urls": [],
-    "items": []
+    "items": [],
+    "error": "results: HTTP Error 503: Service Unavailable"
   }
 }
