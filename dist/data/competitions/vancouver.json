@@ -3,7 +3,7 @@
   "event_id": "vancouver",
   "entries": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-10-23T00:01:35+00:00",
     "updated_at": "2026-10-20T08:52:40+00:00",
     "source_urls": [
@@ -2180,7 +2180,7 @@
   },
   "rounds": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-10-23T17:11:22+00:00",
     "updated_at": "2026-10-23T17:11:22+00:00",
     "source_urls": [
@@ -8842,7 +8842,8 @@
           }
         ]
       }
-    ]
+    ],
+    "error": "Previously published data absent; retained last snapshot"
   },
   "rankings": {
     "status": "not_published",
