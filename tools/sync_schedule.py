@@ -47,8 +47,7 @@ def event(label,session):
     else:raise ValueError("Unrecognized round: "+label)
     return {"session":session,"gender":sex,"distance":str(distance),"kind":fmt,"round":round_,"group":group}
 
-def parse_text(text,station=None):
-    station=station or stations.get("vancouver")
+def parse_text(text,station):
     allowed={d.isoformat() for d in stations.dates(station)}
     lines=[re.sub(r"\s+"," ",line).strip() for line in text.splitlines()]
     lines=[line for line in lines if line]
@@ -125,8 +124,7 @@ def write(rows,path):
     candidate.write_text(buffer.getvalue(),encoding="utf-8")
     candidate.replace(path)
 
-def compare_and_update(found,write_file=True,path=None,station=None,now=None):
-    station=station or stations.get("vancouver")
+def compare_and_update(found,station,write_file=True,path=None,now=None):
     path=path or stations.schedule_path(station["id"])
     action,rows,changes=merge(validate(found,station),read(path),station,now or stations.utc_now())
     if rows is not None and write_file:write(rows,path)

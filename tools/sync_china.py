@@ -46,9 +46,8 @@ def fetch_page(url):
             raise ValueError("ISU page exceeds size bound")
         return BeautifulSoup(size.decode("utf-8"), "html.parser")
 
-def is_station(text, station=None):
+def is_station(text, station):
     """A page names the station's city and year (accents ignored: Montréal is Montreal)."""
-    station = station or stations.get("vancouver")
     return stations.plain(station["city_en"]) in stations.plain(text) and station["date_start"][:4] in text
 
 def page_text(soup):
@@ -56,7 +55,7 @@ def page_text(soup):
         node.decompose()
     return soup.get_text("\n", strip=True)
 
-def discover_event(index_soup, base=INDEX, station=None):
+def discover_event(index_soup, station, base=INDEX):
     """Only accept an explicit results listing for this station and year, not last season's."""
     for a in index_soup.find_all("a", href=True):
         href = urljoin(base, a["href"])
@@ -189,7 +188,7 @@ def round_matches(rows, discipline, round_info):
     regular=[r for r in matches if r["session"]!="repechage"]
     return regular or matches
 
-def collect_one(soup, url, discipline, round_info, rows, now, station=None):
+def collect_one(soup, url, discipline, round_info, rows, now, station):
     text=page_text(BeautifulSoup(str(soup),"html.parser"))
     if not is_station(text[:1400], station):
         raise ValueError("Result page is not labelled with the station's city and year")
@@ -210,7 +209,7 @@ def collect_one(soup, url, discipline, round_info, rows, now, station=None):
                        "verified_at":now,"heats":heats})
     return result
 
-def sync(station_id="vancouver", event_url=None, dry_run=False, fetcher=fetch_page, now=None):
+def sync(station_id, event_url=None, dry_run=False, fetcher=fetch_page, now=None):
     timestamp=now or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     station=stations.get(station_id)
     rows=build.read_schedule(station_id)

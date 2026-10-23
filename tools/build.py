@@ -25,7 +25,6 @@ HEAT_DURATIONS = {("I",500):(2.5,4.0), ("I",1000):(3.0,5.0),
                   ("I",1500):(4.0,7.0), ("R",2000):(6.0,10.0),
                   ("R",3000):(7.0,12.0), ("R",5000):(8.0,15.0)}
 VENUES = stations.venues()
-SOURCE = stations.schedule_path("vancouver")
 
 # Championships are independent events, never counted as World Tour stages.
 CHAMPIONSHIPS = [
@@ -33,7 +32,7 @@ CHAMPIONSHIPS = [
     for c in CONFIG["championships"]
 ]
 
-def read_schedule(station_id="vancouver", directory=stations.SCHEDULES):
+def read_schedule(station_id, directory=stations.SCHEDULES):
     """A station's stored official programme as Beijing-time rows; [] until ISU publishes one."""
     station = stations.get(station_id)
     data = sync_schedule.read(stations.schedule_path(station_id, directory))
@@ -74,7 +73,7 @@ def valid_evidence(url):
         "shorttrack.sportresult.com"
     } and not parsed.username and not parsed.password
 
-def attach_china(rows, station_id="vancouver"):
+def attach_china(rows, station_id):
     # The human-reviewed file wins any disagreement with the automatic
     # result importer. Both files are source-validated before acceptance.
     # Both files cover every station; a round key's date says which station it belongs to.

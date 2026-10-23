@@ -23,7 +23,7 @@ ROUNDS = {'P': 'Preliminaries', 'H': 'Heats', 'Q': 'Quarter Finals', 'S': 'Semi 
 
 
 def programme_page(header='Montreal / CAN', span='30.10-01.11, 2026', cut=None):
-    with build.SOURCE.open(encoding='utf-8', newline='') as f:
+    with build.stations.schedule_path('vancouver').open(encoding='utf-8', newline='') as f:
         rows = list(csv.DictReader(f))[:cut]
     lines = ['ISU Short Track World Tour #2', header, span, 'Practice', '29.10.2026', '10:00 Official practice']
     day = session = None
@@ -91,7 +91,7 @@ class ScheduleSyncTests(unittest.TestCase):
         self.assertTrue(sync_schedule.identity(text, vancouver))
         self.assertFalse(sync_schedule.identity(text, MONTREAL))
         found = sync_schedule.validate(sync_schedule.parse_text(text, vancouver), vancouver)
-        stored = sync_schedule.read(build.SOURCE)
+        stored = sync_schedule.read(build.stations.schedule_path('vancouver'))
         self.assertEqual(found, stored)
 
     def test_discovery_matches_dates_city_and_country(self):
@@ -163,8 +163,8 @@ class StationConfigTests(unittest.TestCase):
             montreal = build.read_schedule('montreal', Path(temp))
         venues = [('vancouver',), ('montreal',)]
         load = lambda event_id: build.competition_data.empty_snapshot(event_id)
-        log = updates.update({}, updates.collect(venues, {'vancouver': build.read_schedule()}, '2026-10-21T00:00:00+00:00', load))
-        log = updates.update(log, updates.collect(venues, {'vancouver': build.read_schedule(), 'montreal': montreal},
+        log = updates.update({}, updates.collect(venues, {'vancouver': build.read_schedule('vancouver')}, '2026-10-21T00:00:00+00:00', load))
+        log = updates.update(log, updates.collect(venues, {'vancouver': build.read_schedule('vancouver'), 'montreal': montreal},
                                                   {'vancouver': '2026-10-21T00:00:00+00:00', 'montreal': '2026-10-22T00:10:00+00:00'}, load))
         self.assertEqual([(e['station'], e['kind'], e['count'], e['local_date']) for e in log['events']],
                          [('montreal', 'schedule', 62, '2026-10-30')])

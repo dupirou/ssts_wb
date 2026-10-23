@@ -27,7 +27,7 @@ def inputs(n=41, distance=500, ranked=None):
 
 
 def project(inp, snapshot=None):
-    return model.project('vancouver', build.read_schedule(), snapshot or data.empty_snapshot('vancouver'), inp)
+    return model.project('vancouver', build.read_schedule('vancouver'), snapshot or data.empty_snapshot('vancouver'), inp)
 
 
 class PredictionTests(unittest.TestCase):
@@ -92,7 +92,7 @@ class PredictionTests(unittest.TestCase):
 
     def test_official_group_supersedes_model(self):
         snapshot = data.empty_snapshot('vancouver')
-        snapshot['rounds']['items'] = [dict(round_key=build.read_schedule()[0]['round_key'],
+        snapshot['rounds']['items'] = [dict(round_key=build.read_schedule('vancouver')[0]['round_key'],
             evidence='official_start_list', source_url='https://isu-skating.com/official')]
         item = project(inputs(), snapshot)['items'][0]
         self.assertEqual(item['status'], 'official_available')

@@ -113,8 +113,8 @@ class CompetitionTests(unittest.TestCase):
                     {'started_for_nf_code': 'CHN', 'skaters': {'full_name': 'TEST Competitor'},
                      'bib_number': 1, 'final_rank': None, 'final_result': None}]}
         parsed = api.heat_items([heat], {'event_result_id': 3, 'name': 'Women 500 m'},
-            {'event_result_round_id': 2, 'name': 'Preliminaries'}, SOURCE, build.read_schedule())
-        self.assertEqual(parsed[0]['round_key'], build.read_schedule()[0]['round_key'])
+            {'event_result_round_id': 2, 'name': 'Preliminaries'}, SOURCE, build.read_schedule('vancouver'))
+        self.assertEqual(parsed[0]['round_key'], build.read_schedule('vancouver')[0]['round_key'])
         self.assertEqual(parsed[0]['evidence'], 'official_start_list')
         self.assertTrue(parsed[0]['has_china'])
         self.assertEqual(parsed[0]['heat_number'], 2)
@@ -138,7 +138,7 @@ class CompetitionTests(unittest.TestCase):
     def test_new_heat_feed_supplies_existing_highlights_and_corrections(self):
         obj = data.empty_snapshot('vancouver')
         obj['rounds']['updated_at'] = '2026-10-23T10:00:00+00:00'
-        obj['rounds']['items'] = [dict(id='one', round_key=build.read_schedule()[0]['round_key'],
+        obj['rounds']['items'] = [dict(id='one', round_key=build.read_schedule('vancouver')[0]['round_key'],
             evidence='official_start_list', heat_number=2, source_url=SOURCE,
             participants=[dict(name='TEST Person',country='CHN')])]
         records, covered = data.china_evidence(obj)

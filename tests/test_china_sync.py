@@ -10,6 +10,7 @@ sys.path.insert(0,str(ROOT/"tools"))
 import build
 import sync_china as china
 import competition_data
+VANCOUVER=build.stations.get("vancouver")
 
 BASE="https://www.isu-skating.com/en/short-track/results/isu-short-track-world-tour-1/"
 EVENT=BASE+"8765432/"
@@ -28,18 +29,18 @@ class ChinaSyncTests(unittest.TestCase):
                          [(1,["ZHANG Bohao"]),(2,["LI Kun"])])
     def test_sources_not_yet_published(self):
         index=china.BeautifulSoup('<a href="/en/short-track/results/2025-other/12/">World Tour Montreal 2025</a>',"html.parser")
-        self.assertIsNone(china.discover_event(index))
+        self.assertIsNone(china.discover_event(index,VANCOUVER))
     def test_discovery_requires_year_and_host(self):
         source=f'<article><p>23 Oct 2026 Vancouver</p><a href="{EVENT}">World Tour 1</a></article>'
-        self.assertEqual(china.discover_event(china.BeautifulSoup(source,"html.parser")),EVENT)
+        self.assertEqual(china.discover_event(china.BeautifulSoup(source,"html.parser"),VANCOUVER),EVENT)
         bad='<article>Vancouver 2026<a href="https://evil.example/short-track/results/xx/123/">Results</a></article>'
-        self.assertIsNone(china.discover_event(china.BeautifulSoup(bad,"html.parser")))
+        self.assertIsNone(china.discover_event(china.BeautifulSoup(bad,"html.parser"),VANCOUVER))
     def test_round_link_mapping_requires_exact_match(self):
         category=china.BeautifulSoup('<a href="?round=111">Preliminaries</a><a href="?round=112">Rep. Heats</a>',"html.parser")
         found=china.round_links(category,MEN)
         self.assertEqual(found[("preliminaries",False)],PRELIM)
         self.assertEqual(len(found),2)
-        matches=china.round_matches(build.read_schedule(),("men",500,"individual"),("preliminaries",False))
+        matches=china.round_matches(build.read_schedule('vancouver'),("men",500,"individual"),("preliminaries",False))
         self.assertEqual(len(matches),1)
         self.assertEqual(matches[0]["round_key"],"2026-10-23/qualifying/men/500/preliminaries/-")
     def test_full_discovery_flow_and_persistent_cache(self):
@@ -59,14 +60,14 @@ class ChinaSyncTests(unittest.TestCase):
             china.AUTO.write_text(json.dumps({"schema_version":1,"heats":[other]}),encoding="utf-8")
             china.CONFIG.write_text('{"schema_version":2,"event_results_urls":{}}',encoding="utf-8")
             try:
-                result=china.sync(fetcher=lambda url:pages[url],now="2026-10-21T00:00:00+00:00")
+                result=china.sync("vancouver",fetcher=lambda url:pages[url],now="2026-10-21T00:00:00+00:00")
                 self.assertEqual(result,1)
                 loaded=json.loads(china.AUTO.read_text(encoding="utf-8"))
                 mine=[x for x in loaded["heats"] if x["round_key"].startswith("2026-10-23")]
                 self.assertEqual(mine[0]["heats"][0]["athletes"],["ZHANG Bohao"])
                 self.assertEqual(mine[0]["evidence"],"official_round_results")
                 self.assertIn(other,loaded["heats"])
-                self.assertEqual(china.sync(fetcher=lambda url:pages[url]),0)
+                self.assertEqual(china.sync("vancouver",fetcher=lambda url:pages[url]),0)
             finally:
                 china.AUTO,china.CONFIG=orig_auto,orig_config
     def test_station_identity_ignores_accents_but_not_city_or_year(self):
@@ -78,10 +79,10 @@ class ChinaSyncTests(unittest.TestCase):
         self.assertIsNone(china.discover_event(index,station=montreal))
     def test_final_round_requires_group_evidence(self):
         doc=china.BeautifulSoup('<main>Vancouver 2026<h2>Heat 1</h2><a>LI Kun CHN</a></main>',"html.parser")
-        final=china.collect_one(doc,PRELIM,("men",500,"individual"),("final",False),build.read_schedule(),"2026-10-21T00:00:00+00:00")
+        final=china.collect_one(doc,PRELIM,("men",500,"individual"),("final",False),build.read_schedule('vancouver'),"2026-10-21T00:00:00+00:00",VANCOUVER)
         self.assertEqual(final,[])
         doc=china.BeautifulSoup('<main>Vancouver 2026<h2>Heat 1 - Final A</h2><a>LI Kun CHN</a></main>',"html.parser")
-        final=china.collect_one(doc,PRELIM,("men",500,"individual"),("final",False),build.read_schedule(),"2026-10-21T00:00:00+00:00")
+        final=china.collect_one(doc,PRELIM,("men",500,"individual"),("final",False),build.read_schedule('vancouver'),"2026-10-21T00:00:00+00:00",VANCOUVER)
         self.assertEqual(len(final),1)
         self.assertTrue(final[0]["round_key"].endswith("/A"))
 

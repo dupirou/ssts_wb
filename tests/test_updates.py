@@ -39,7 +39,7 @@ class Snapshots:
 
 class UpdateFeedTests(unittest.TestCase):
     def setUp(self):
-        self.schedule = {'vancouver': build.read_schedule()}
+        self.schedule = {'vancouver': build.read_schedule('vancouver')}
         self.load = Snapshots()
 
     def run_once(self, log, checked=CHECKED):
