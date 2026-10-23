@@ -61,7 +61,7 @@ class UpdateFeedTests(unittest.TestCase):
         self.assertEqual(
             [(e['kind'], e['at'], e['count']) for e in log['events']], [('entries', '2026-10-20T08:52:40+00:00', 2)]
         )
-        self.assertEqual(sum(k.startswith('vancouver/time/') for k in log['facts']), 62)
+        self.assertEqual(sum(k.startswith('vancouver/time/') for k in log['facts']), 61)
         self.assertEqual(self.run_once(log), log)
 
     def test_groups_then_results_each_announced_once(self):

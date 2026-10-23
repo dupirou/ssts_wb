@@ -65,7 +65,7 @@ class ScheduleSyncTests(unittest.TestCase):
         self.assertEqual(action, 'created')
         self.assertEqual(meta['montreal']['source_url'], stations.page_url(MONTREAL, 'schedule'))
         rows = build.read_schedule('montreal', self.dir)
-        self.assertEqual(len(rows), 62)
+        self.assertEqual(len(rows), 61)
         self.assertEqual({r['local_date'] for r in rows}, {'2026-10-30', '2026-10-31', '2026-11-01'})
         # 09:00 is EDT (UTC-4) on Saturday and EST (UTC-5) after the clocks go back on Sunday.
         saturday = next(r for r in rows if r['local_date'] == '2026-10-31')
@@ -87,6 +87,16 @@ class ScheduleSyncTests(unittest.TestCase):
         loading = overview + '<a href="?tab=schedule_16272">Schedule</a><p>loading_schedule</p>'
         with self.assertRaisesRegex(ValueError, 'no programme rows'):
             sync_schedule.sync_station(MONTREAL, lambda url: loading, self.before, self.dir, {})
+        # During racing the tab only loads in the browser: a stored programme stands, unchanged.
+        sync_schedule.write(
+            sync_schedule.read(build.stations.schedule_path('vancouver')), stations.schedule_path('montreal', self.dir)
+        )
+        stored = stations.schedule_path('montreal', self.dir).read_text(encoding='utf-8')
+        self.assertEqual(
+            sync_schedule.sync_station(MONTREAL, lambda url: loading, self.before, self.dir, {}), ('live', [])
+        )
+        self.assertEqual(stations.schedule_path('montreal', self.dir).read_text(encoding='utf-8'), stored)
+        stations.schedule_path('montreal', self.dir).unlink()
         with self.assertRaisesRegex(ValueError, 'Partial'):
             sync_schedule.sync_station(MONTREAL, lambda url: programme_page(cut=-30), self.before, self.dir, {})
         with self.assertRaisesRegex(ValueError, 'not labelled'):
@@ -103,7 +113,17 @@ class ScheduleSyncTests(unittest.TestCase):
         self.assertFalse(sync_schedule.identity(text, MONTREAL))
         found = sync_schedule.validate(sync_schedule.parse_text(text, vancouver), vancouver)
         stored = sync_schedule.read(build.stations.schedule_path('vancouver'))
-        self.assertEqual(found, stored)
+        # On race day ISU dropped the women's relay quarter-finals and moved the other two relay
+        # quarter-finals forward (official heat times; docs/log.md, 2026-10-23). Nothing else changed.
+        moved = {('M', '5000'): '17:12', ('X', '2000'): '18:12'}
+        corrected = [
+            dict(r, time=moved.get((r['gender'], r['distance']), r['time']))
+            if (r['kind'], r['round']) == ('R', 'Q')
+            else r
+            for r in found
+            if (r['gender'], r['distance'], r['kind'], r['round']) != ('W', '3000', 'R', 'Q')
+        ]
+        self.assertEqual(corrected, stored)
 
     def test_discovery_matches_dates_city_and_country(self):
         pages = {
@@ -198,7 +218,7 @@ class StationConfigTests(unittest.TestCase):
         )
         self.assertEqual(
             [(e['station'], e['kind'], e['count'], e['local_date']) for e in log['events']],
-            [('montreal', 'schedule', 62, '2026-10-30')],
+            [('montreal', 'schedule', 61, '2026-10-30')],
         )
 
 

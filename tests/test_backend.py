@@ -16,10 +16,11 @@ import sync_schedule
 class DataTests(unittest.TestCase):
     def test_schedule_and_timezones(self):
         rows = build.read_schedule('vancouver')
-        self.assertEqual(len(rows), 62)
+        # 61 since ISU dropped the women's relay quarter-finals on race day (docs/log.md, 2026-10-23).
+        self.assertEqual(len(rows), 61)
         self.assertEqual(
             [sum(x['local_date'] == date for x in rows) for date in ('2026-10-23', '2026-10-24', '2026-10-25')],
-            [14, 25, 23],
+            [13, 25, 23],
         )
         self.assertEqual(
             (rows[0]['local_time'], rows[0]['beijing_date'], rows[0]['beijing_time']), ('09:00', '2026-10-24', '00:00')

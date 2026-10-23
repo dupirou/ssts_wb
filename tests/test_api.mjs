@@ -105,9 +105,9 @@ test('race-window cron: 10-min syncs around sessions, hourly between them, none 
     return new Response('missing', {status:404});
   }};
   const decide = time => syncDecision({ASSETS:assets}, Date.parse(time));
-  // Day 1 first round 16:00Z, last 01:42Z next day (Vancouver 09:00–18:42 local).
+  // Day 1 first round 16:00Z, last 01:12Z next day (Vancouver 09:00–18:12 local).
   assert.equal(await decide('2026-10-23T14:10:00Z'), 'session');   // 1h50 before first round
-  assert.equal(await decide('2026-10-24T03:40:00Z'), 'session');   // 1h58 after last round
+  assert.equal(await decide('2026-10-24T03:10:00Z'), 'session');   // 1h58 after last round
   assert.equal(await decide('2026-10-23T12:00:00Z'), 'hourly');
   assert.equal(await decide('2026-10-23T12:10:00Z'), 'skip');
   assert.equal(await decide('2026-10-21T09:00:00Z'), 'hourly');    // pre-event day, no sessions
