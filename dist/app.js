@@ -608,7 +608,7 @@
     root.replaceChildren(head,
       focus ? nextCard(focus) : h('section', {class: 'next-card is-done'}, h('h2', {text: '本赛季全部分站已结束'})),
       ...stations.map(ticketPanel).filter(Boolean),
-      seasonLine(stations, focus), stationGrid(stations, focus),
+      seasonLine(stations, focus, cal.championships || []), stationGrid(stations, focus),
       championshipsCard(cal),
       h('p', {class: 'source-line'}, external(cal.source_url, 'ISU 官方赛历')));
   }
@@ -707,9 +707,11 @@
       main, h('div', {class: 'next-art', 'aria-hidden': 'true'}, trackArt('next-track')));
   }
 
-  function seasonLine(stations, focus) {
+  function seasonLine(stations, focus, championships) {
+    // Championships close the season, so the axis runs to the last of them.
+    const worlds = championships.map(c => ({...c, win: stationWindow(c, null)}));
     const from = Date.parse(stations[0].date_start.slice(0, 8) + '01T00:00:00Z');
-    const endD = new Date(stations[stations.length - 1].date_end + 'T00:00:00Z');
+    const endD = new Date([...stations, ...worlds].map(e => e.date_end).sort().at(-1) + 'T00:00:00Z');
     const to = Date.UTC(endD.getUTCFullYear(), endD.getUTCMonth() + 1, 1);
     const pos = t => Math.min(100, Math.max(0, (t - from) / (to - from) * 100));
     const today = parts(BJ, now()).date;
@@ -727,13 +729,20 @@
         h('span', {class: 'sl-dot num', text: st.n}),
         h('span', {class: 'sl-label'}, h('b', {text: st.city}), h('small', {class: 'num', text: md(st.date_start)}))));
     }
+    worlds.forEach((c, i) => line.append(h('a', {class: cls('sl-node is-worlds', (stations.length + i) % 2 ? 'down' : 'up', 'is-' + phase(c.win)),
+      href: stationHref(c.id), style: {left: pos(Date.parse(c.date_start + 'T12:00:00Z')) + '%'}, 'aria-label': c.title + ' ' + c.date_start},
+      h('span', {class: 'sl-dot'}, icon('medal', 'ico ico-xs')),
+      h('span', {class: 'sl-label'}, h('b', {text: '世锦赛'}), h('small', {class: 'num', text: md(c.date_start)})))));
+    // Phones scroll the axis sideways; start with today in view.
+    const scroller = h('div', {class: 'sl-scroll'}, line);
+    requestAnimationFrame(() => { scroller.scrollLeft = line.offsetWidth * todayPct / 100 - scroller.clientWidth / 4; });
     const nextDays = focus && phase(focus.win) === 'upcoming' ? Math.ceil((focus.win.start - now()) / DAY) : null;
     return h('section', {class: 'panel season-line', 'aria-label': '赛季时间轴'},
       h('div', {class: 'panel-head'},
         h('h2', {text: '赛季时间轴'}),
         h('p', {}, h('i', {class: 'legend-today'}), '今天 ' + md(today) + ' ' + wk(today),
           nextDays != null ? ' · 距' + focus.city + '站还有 ' + nextDays + ' 天' : focus ? ' · ' + focus.city + '站进行中' : '')),
-      line);
+      scroller);
   }
 
   function stationGrid(stations, focus) {

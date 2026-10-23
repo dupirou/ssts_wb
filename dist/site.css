@@ -446,6 +446,8 @@ h1, h2, h3 { text-wrap: balance; }
 .sl-node.is-focus .sl-dot { background: var(--accent); border-color: var(--accent); color: var(--on-accent); box-shadow: 0 0 0 5px rgb(var(--cyan-rgb) / .22); }
 .sl-node.is-live .sl-dot { background: var(--red); border-color: var(--red); }
 .sl-node:hover .sl-dot { transform: scale(1.12); }
+.sl-node.is-worlds .sl-dot { border-color: var(--gold); color: var(--gold-text); }
+.sl-node.is-worlds .sl-dot .ico { width: 14px; height: 14px; }
 
 .st-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .st-card {
@@ -924,16 +926,19 @@ td.time { white-space: nowrap; }
   .countdown:not(.no-days) span { flex: 1 1 0; padding-inline: 6px; }
   .countdown.long-days { font-size: 1.35rem; }
 
-  .sl { margin: 0 12px; height: 112px; }
+  /* The season is too long for a phone's width: the axis keeps a readable scale and scrolls. */
+  .sl-scroll { overflow-x: auto; margin: 0 -16px; padding: 0 16px; scrollbar-width: none; mask-image: linear-gradient(90deg, #000 88%, transparent); }
+  .sl-scroll::-webkit-scrollbar { display: none; }
+  .sl { margin: 0 12px; height: 128px; min-width: 620px; }
   .sl-node { width: 44px; }
   .sl-rail { top: 52px; }
   .sl-dot { top: 44px; width: 20px; height: 20px; font-size: .66rem; border-width: 1.5px; }
   .sl-today { top: 48px; width: 10px; height: 10px; margin-left: -5px; }
   .sl-month { top: 48px; }
-  .sl-month span { top: 44px; font-size: .66rem; }
-  .sl-node.up .sl-label { bottom: 72px; }
+  .sl-month span { top: 62px; font-size: .66rem; }
+  .sl-node.up .sl-label { bottom: 88px; }
   .sl-node.down .sl-label { top: 70px; }
-  .sl-label small { display: none; }
+  .sl-label small { font-size: .66rem; }
   .sl-label b { font-size: .74rem; }
   .st-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
   .panel { padding: 16px; }
