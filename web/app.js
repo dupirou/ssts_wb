@@ -204,10 +204,11 @@
   const isChina = r => r.china && r.china.status === 'confirmed';
   const isMedal = r => r.round === 'final' && r.group === 'A';
 
+  // One dot per round this event actually races (1500m has no preliminaries, women's 1500m may start at the quarter-finals).
   function stageMeter(r) {
-    const at = ROUND_ORDER.indexOf(r.round);
+    const rounds = r.stages || ROUND_ORDER, at = rounds.indexOf(r.round);
     return h('span', {class: 'meter', 'aria-hidden': 'true'},
-      ROUND_ORDER.map((_, i) => h('i', {class: i < at ? 'done' : i === at ? 'on' : ''})));
+      rounds.map((_, i) => h('i', {class: i < at ? 'done' : i === at ? 'on' : ''})));
   }
 
   /* ---------- decorative rink ---------- */
@@ -263,7 +264,16 @@
     } finally { clearTimeout(timeout); }
   };
   function prepare(data) {
-    data.entries.forEach((r, i) => { r.t = Date.parse(r.utc_start); r.i = i; });
+    const stages = new Map();
+    for (const r of data.entries) {
+      const key = r.gender + '|' + r.distance_m + '|' + r.format;
+      if (!stages.has(key)) stages.set(key, new Set());
+      stages.get(key).add(r.round);
+    }
+    data.entries.forEach((r, i) => {
+      r.t = Date.parse(r.utc_start); r.i = i;
+      r.stages = ROUND_ORDER.filter(x => stages.get(r.gender + '|' + r.distance_m + '|' + r.format).has(x));
+    });
     return data;
   }
   function stationWindow(st, detail) {
