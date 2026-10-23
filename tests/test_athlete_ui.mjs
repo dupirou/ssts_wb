@@ -50,9 +50,14 @@ async function page({data = snapshot, fails = () => false, view = 'athletes', de
 const change = (dom, el, value) => {el.value=value;el.dispatchEvent(new dom.window.Event('change'));};
 
 test('reviewed image groups show partial coverage and source without invented lanes', async t => {
-  const published = JSON.parse(await file('dist/data/competitions/vancouver.json'));
+  const reviewed = JSON.parse(await file('data/reviewed_groups/vancouver.json'));
+  const report = reviewed.reports[0];
+  const row = schedule.entries.find(r => r.gender === report.gender && r.distance_m === report.distance_m && r.round === report.round);
   const data = structuredClone(snapshot);
-  data.rounds = published.rounds;
+  data.rounds = {status:'available', update_status:'ok', items:report.groups.map(g => ({
+    ...row, id:'reviewed-test-'+g.heat_number, heat_number:g.heat_number, evidence:'reviewed_seeding_image',
+    partial_round:true, source_url:report.source_url, participants:g.participants.map(p=>({...p, starting_position:null})),
+  }))};
   const dom = await page({data});t.after(()=>dom.window.close());
   const d = dom.window.document;
   const button = [...d.querySelectorAll('.competition-open')].find(b=>b.closest('.match-row')?.textContent.includes('男子'));
@@ -74,7 +79,7 @@ test('real roster defaults to CHN; country and gender filters compose', async t 
   assert.ok(roster.querySelector('summary').textContent.includes('CHN '+china.length+' 人'));
   assert.equal(roster.open,true);
   assert.equal(roster.querySelectorAll('.athlete-card').length,china.length);
-  assert.match(roster.querySelector('.athlete-source').textContent,/核对于/);
+  assert.doesNotMatch(roster.querySelector('.athlete-source').textContent,/核对于/);
   assert.match(roster.querySelector('.athlete-source').textContent,/更新于/);
   const country = roster.querySelector('select[aria-label="报名名单国家或地区"]');
   const sex = roster.querySelector('select[aria-label="报名名单性别"]');

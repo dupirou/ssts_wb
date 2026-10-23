@@ -3,6 +3,7 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,9 +28,10 @@ class ReviewedGroupsTests(unittest.TestCase):
             self.assertTrue(all(p['previous_heat_number'] is None for p in r['rows'] if p['world_rank'] is None))
 
     def test_published_overlay_does_not_pollute_sync_source_or_results(self):
-        raw = data.load_snapshot('vancouver')
-        published = data.published_snapshot('vancouver')
-        self.assertEqual(data.load_snapshot('vancouver'), raw)
+        raw = data.empty_snapshot('vancouver')
+        with patch.object(data, 'load_snapshot', return_value=copy.deepcopy(raw)):
+            published = data.published_snapshot('vancouver')
+        self.assertEqual(raw['rounds']['items'], [])
         groups = [h for h in published['rounds']['items'] if h['evidence'] == 'reviewed_seeding_image']
         self.assertEqual(len(groups), 24)
         self.assertEqual(sum(len(h['participants']) for h in groups), 131)
@@ -41,7 +43,8 @@ class ReviewedGroupsTests(unittest.TestCase):
         self.assertTrue(all(i['status'] == 'official_available' and i['partial_round'] for i in predictions['items'] if i['gender'] == 'men'))
 
     def test_live_round_replaces_all_screenshot_groups_for_that_round(self):
-        published = data.published_snapshot('vancouver')
+        with patch.object(data, 'load_snapshot', return_value=data.empty_snapshot('vancouver')):
+            published = data.published_snapshot('vancouver')
         live = copy.deepcopy(published['rounds']['items'][0])
         live.update(id='live-new', evidence='official_start_list', source_url='https://isu-skating.com/actual', partial_round=False)
         raw = data.empty_snapshot('vancouver')

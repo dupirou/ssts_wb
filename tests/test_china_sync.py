@@ -3,12 +3,14 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"tools"))
 import build
 import sync_china as china
+import competition_data
 
 BASE="https://www.isu-skating.com/en/short-track/results/isu-short-track-world-tour-1/"
 EVENT=BASE+"8765432/"
@@ -48,7 +50,7 @@ class ChinaSyncTests(unittest.TestCase):
         heats=china.BeautifulSoup('<main>World Tour Vancouver 2026<h2>Heat 1</h2><a>ZHANG Bohao CHN</a><span>CHN</span><h2>Heat 2</h2><a>James TEST USA</a></main>',"html.parser")
         pages={china.INDEX:index,EVENT:landing,MEN:category,PRELIM:heats}
         orig_auto, orig_config=china.AUTO,china.CONFIG
-        with tempfile.TemporaryDirectory() as directory:
+        with tempfile.TemporaryDirectory() as directory, patch.object(competition_data, 'load_snapshot', return_value=competition_data.empty_snapshot('vancouver')):
             china.AUTO=Path(directory)/"auto.json"
             china.CONFIG=Path(directory)/"sources.json"
             # Another station's confirmed round shares the file and must survive this station's sync.

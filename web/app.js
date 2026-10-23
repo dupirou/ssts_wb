@@ -452,7 +452,7 @@
       fill(body);
       chinaOnly.hidden = item.status !== 'predicted';
       if (item.status === 'official_available') {
-        body.append(h('p', {class: 'faint athlete-empty', text: item.partial_round ? '截图分组已录入（仅第 1 页），请在赛程中查看' : '官方分组已公布，请在赛程中查看'}));
+        body.append(h('p', {class: 'faint athlete-empty', text: item.partial_round ? '部分分组已公布，请在赛程中查看' : '官方分组已公布，请在赛程中查看'}));
       } else if (item.status !== 'predicted') {
         body.append(h('p', {class: 'faint athlete-empty', text: reasons[item.missing[0]] || '暂无法预测'}));
       } else {
@@ -477,8 +477,7 @@
           h('ul', {}, item.prequalified.map(person))));
       }
       body.append(h('details', {class: 'source-disclosure'},
-        h('summary', {}, '来源与规则', dataset.checked_at ? h('time', {datetime: dataset.checked_at,
-          text: '核对于 ' + sourceTime(dataset.checked_at)}) : null),
+        h('summary', {}, '来源与规则'),
         h('div', {class: 'source-links'},
           ...(item.source_urls || []).map((url, i) => external(url, ['单项报项', '世巡赛排名', '世界排名'][i] || 'ISU 来源')),
           ...(dataset.rules || []).map(r => external(r.url, r.label)))));
@@ -532,7 +531,6 @@
     box.append(h('div', {class: 'athlete-tools'}, country, sex, count), list,
       h('div', {class: 'athlete-source source-line'},
         dataset.updated_at ? h('span', {text: '更新于 ' + sourceTime(dataset.updated_at)}) : null,
-        dataset.checked_at ? h('span', {text: '核对于 ' + sourceTime(dataset.checked_at)}) : null,
         dataset.source_urls?.[0] ? external(dataset.source_urls[0], '官方来源') : null));
     if (ranking) box.addEventListener('toggle', () => { if (box.open && !list.childElementCount) update(); });
     else update();
@@ -544,7 +542,7 @@
     const close = h('button', {type: 'button', class: 'icon-btn', 'aria-label': '关闭比赛详情'}, icon('close'));
     const dialog = h('dialog', {class: 'competition-dialog', 'aria-labelledby': titleId},
       h('header', {class: 'competition-head'}, h('h2', {id: titleId, text: eventName(r) + ' · ' + roundName(r)}), close));
-    if (heats.some(h => h.partial_round)) dialog.append(h('p', {class: 'faint tiny', text: '按用户提供的种子分析截图录入 · 仅第 1 页；未显示部分待补充'}));
+    if (heats.some(h => h.partial_round)) dialog.append(h('p', {class: 'faint tiny', text: '部分分组 · 仅第 1 页'}));
     for (const heat of [...heats].sort((a, b) => (a.heat_number ?? 0) - (b.heat_number ?? 0))) {
       const results = heat.evidence === 'official_results';
       const status = !results ? '分组' : heat.result_status?.toLowerCase() === 'official' ? '正式成绩' : '暂定成绩';
