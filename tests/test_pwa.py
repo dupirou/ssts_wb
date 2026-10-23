@@ -4,10 +4,14 @@ import hashlib
 import json
 import re
 import struct
+import sys
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'tools'))
+import build
 
 
 def png_size(path):
@@ -31,6 +35,18 @@ class PwaTests(unittest.TestCase):
         self.assertLessEqual({192, 512}, sizes['any'])
         self.assertIn(512, sizes['maskable'])
         self.assertEqual(png_size(ROOT / 'web/icons/apple-touch-icon.png'), (180, 180))
+
+    def test_shortcut_follows_the_next_event(self):
+        utc = lambda iso: datetime.fromisoformat(iso).replace(tzinfo=timezone.utc)
+        source = (ROOT / 'web/manifest.webmanifest').read_text(encoding='utf-8')
+        shortcut = lambda iso: json.loads(build.manifest_text(source, utc(iso)))['shortcuts']
+        self.assertEqual(shortcut('2026-10-20T00:00:00')[0]['url'], './?station=vancouver')
+        # Vancouver's last local day ends 2026-10-26 07:00 UTC; the shortcut then moves to Montréal.
+        self.assertEqual(shortcut('2026-10-26T06:59:00')[0]['url'], './?station=vancouver')
+        self.assertEqual(shortcut('2026-10-26T07:00:00')[0]['name'], '蒙特利尔站赛程')
+        self.assertEqual(shortcut('2027-02-20T00:00:00')[0]['short_name'], '世锦赛')
+        self.assertEqual(shortcut('2027-04-01T00:00:00'), [])
+        self.assertNotIn('{{', build.manifest_text(source, utc('2026-10-20T00:00:00')))
 
     def test_page_links_manifest_and_registers_worker(self):
         html = (ROOT / 'web/index.html').read_text(encoding='utf-8')

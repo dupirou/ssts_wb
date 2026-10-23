@@ -223,8 +223,38 @@ def season_text(text):
     return text.replace('{{SEASON}}', CONFIG['season']).replace('{{DESCRIPTION}}', description)
 
 
-def export():
+def next_event(now):
+    """The stage, then championship, whose last local day has not ended yet; None after the season."""
+    for event in CONFIG['stations'] + CONFIG['championships']:
+        end = datetime.fromisoformat(event['date_end']).replace(tzinfo=ZoneInfo(event['timezone'])) + timedelta(days=1)
+        if now < end:
+            return event
+    return None
+
+
+def manifest_text(text, now):
+    """The web manifest with its home-screen shortcut on the next event; the twice-daily build moves it on."""
+    manifest = json.loads(season_text(text))
+    event = next_event(now)
+    manifest['shortcuts'] = (
+        [
+            {
+                'name': event['title'] if event in CONFIG['championships'] else event['city'] + '站赛程',
+                'short_name': '世锦赛' if event in CONFIG['championships'] else event['city'],
+                'url': './?station=' + event['id'],
+                'icons': [{'src': 'icons/icon-192.png', 'sizes': '192x192'}],
+            }
+        ]
+        if event
+        else []
+    )
+    return json.dumps(manifest, ensure_ascii=False, indent=2) + '\n'
+
+
+def export(now=None):
     import predict_groups
+
+    now = now or stations.utc_now()
 
     meta = stations.load_meta()
     ticketing = load_ticketing()
@@ -277,8 +307,12 @@ def export():
         (OUT / 'data' / (st['id'] + '.json')).write_text(
             json.dumps(schedule, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
         )
-    for name in ('index.html', 'manifest.webmanifest'):
-        (OUT / name).write_text(season_text((ROOT / 'web' / name).read_text(encoding='utf-8')), encoding='utf-8')
+    (OUT / 'index.html').write_text(
+        season_text((ROOT / 'web/index.html').read_text(encoding='utf-8')), encoding='utf-8'
+    )
+    (OUT / 'manifest.webmanifest').write_text(
+        manifest_text((ROOT / 'web/manifest.webmanifest').read_text(encoding='utf-8'), now), encoding='utf-8'
+    )
     shutil.copyfile(ROOT / 'web/app.js', OUT / 'app.js')
     shutil.copyfile(ROOT / 'web/site.css', OUT / 'site.css')
     shutil.copytree(ROOT / 'web/icons', OUT / 'icons', dirs_exist_ok=True)
