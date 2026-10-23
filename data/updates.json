@@ -22,6 +22,7 @@
     "vancouver/round/2026-10-24/main/women/3000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/men/500/heats/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/women/1000/heats/-/groups": "published",
+    "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
     "vancouver/schedule": "published",
     "vancouver/time/2026-10-23/qualifying/men/1000/heats/-": "2026-10-24 05:50",
@@ -491,6 +492,23 @@
       "kind": "groups",
       "heats": 2,
       "china": []
+    },
+    {
+      "id": "7a661a4b6716d55a",
+      "station": "vancouver",
+      "at": "2026-10-23T18:41:23+00:00",
+      "local_date": "2026-10-25",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": [
+        "Yiding ZHU"
+      ]
     }
   ]
 }
