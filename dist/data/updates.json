@@ -2,6 +2,39 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "e6c9ef07678cc774",
+      "station": "vancouver",
+      "at": "2026-10-23T18:31:21+00:00",
+      "local_date": "2026-10-24",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
+      "id": "0f8acc747b3f5acc",
+      "station": "vancouver",
+      "at": "2026-10-23T18:31:21+00:00",
+      "local_date": "2026-10-23",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "Kun LI",
+        "Long SUN"
+      ]
+    },
+    {
       "id": "9030982b4e860712",
       "station": "vancouver",
       "at": "2026-10-23T18:21:20+00:00",
