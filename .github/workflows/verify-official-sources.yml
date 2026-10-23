@@ -1,0 +1,35 @@
+name: Verify official entry and draw sources
+on:
+  push:
+    branches: [fix/official-entries-draw-20261023]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements.txt
+      - name: Read public official sources
+        run: |
+          python - <<'PY'
+          import sys, json, zlib, base64, urllib.request
+          sys.path.insert(0, 'tools')
+          import sync_competitions as sync, stations
+          from bs4 import BeautifulSoup
+          from pathlib import Path
+          cfg=stations.sources(stations.get('montreal'))
+          snap, errors=sync.sync_event('montreal',cfg,directory=Path('/tmp/audit-competitions'))
+          print('MONTREAL_ERRORS',errors)
+          print('MONTREAL_SNAPSHOT',base64.b64encode(zlib.compress(json.dumps(snap).encode())).decode())
+          for url in ['https://www.shorttrack.swisstiming.com/', 'https://shorttrack.sportresult.com/']:
+           try:
+            raw=urllib.request.urlopen(url,timeout=25).read()
+            soup=BeautifulSoup(raw,'html.parser')
+            print('TIMING_SOURCE',url,soup.get_text(' ',strip=True)[:5000])
+            print('TIMING_LINKS',[(a.get_text(' ',strip=True),a.get('href')) for a in soup.select('a[href]')])
+           except Exception as e: print('TIMING_ERROR',url,repr(e))
+          PY
