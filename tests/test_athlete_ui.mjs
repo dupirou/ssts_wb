@@ -202,7 +202,8 @@ test('projection places known seeds, counts the rest, filters CHN and yields to 
   const filtered=panel.querySelector('.prediction-byes');
   assert.equal(filtered.open,true);
   assert.equal(filtered.querySelectorAll('li').length,1);
-  assert.equal(d.querySelectorAll('.competition-open,.match-row.is-chn').length,0);
+  const officialKeys = new Set(data.rounds.items.map(h => h.round_key));
+  assert.equal(d.querySelectorAll('.competition-open').length, schedule.entries.filter(r => officialKeys.has(r.round_key)).length);
   change(dom,panel.querySelector('select'),'women-1000');
   assert.equal(panel.querySelectorAll('.prediction-group').length,0);
   assert.match(panel.textContent,/官方分组已公布/);
