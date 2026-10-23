@@ -39,10 +39,13 @@ def load_snapshot(event_id, directory=DATA):
 
 
 def surname_last(name):
-    """'LI Kun' -> 'Kun LI'. Entry PDFs lead with the upper-case surname; None if the
-    capitals do not mark one (all upper case, or none)."""
+    """'LI Kun' -> 'Kun LI'. Entry PDFs lead with the upper-case surname. An all-capitals
+    two-part name is still 'SURNAME Given' ('SONG KERUI' -> 'Kerui SONG'); None when the
+    capitals cannot mark the surname (no capitals, or three or more all-capital parts)."""
     tokens = name.split()
     n = next((i for i, t in enumerate(tokens) if not t.isupper()), len(tokens))
+    if n == len(tokens) == 2:
+        return '-'.join(part.capitalize() for part in tokens[1].split('-')) + ' ' + tokens[0]
     return ' '.join(tokens[n:] + tokens[:n]) if 0 < n < len(tokens) else None
 
 

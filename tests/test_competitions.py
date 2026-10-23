@@ -203,6 +203,10 @@ class CompetitionTests(unittest.TestCase):
         self.assertEqual(names[person('SONG KERUI')['athlete_id']], 'Kerui SONG')
         self.assertEqual(names[person("Jens VAN 'T WOUT")['athlete_id']], "Jens VAN 'T WOUT")
         self.assertIsNone(data.surname_last('Margherita Betti'))
+        # Without a results feed to compare, a two-part all-capitals entry still reads surname first.
+        self.assertEqual(data.surname_last('SONG KERUI'), 'Kerui SONG')
+        self.assertEqual(data.surname_last('KIM GIL-LI'), 'Gil-Li KIM')
+        self.assertIsNone(data.surname_last('KUHNT TORZEWSKI PAULA'))
         self.assertTrue(data.given_first('Ching Shun Nicole LAW'))
         self.assertFalse(data.given_first('SONG KERUI'))
 

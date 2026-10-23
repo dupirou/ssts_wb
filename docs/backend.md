@@ -23,7 +23,7 @@
 
 **报名**：每次从 Documents 重新发现最新的报名 PDF（ISU 更新时会换 URL）；整站名单只说明谁报了这一站，不能据此推断单项。
 
-**姓名写法**：官方来源写法不一（报名 PDF 为 `LI Kun`，结果接口为 `Kun LI`，也有 `Margherita Betti`、`SONG KERUI`）。`data/` 保留原文；构建时按 `athlete_id` 统一成“名 姓（姓大写）”，以报名 PDF 的大写部分判断姓，判断不了时用已是该形式的其他来源（`competition_data.display_names`）。
+**姓名写法**：官方来源写法不一（报名 PDF 为 `LI Kun`，结果接口为 `Kun LI`，也有 `Margherita Betti`、`SONG KERUI`）。`data/` 保留原文；构建时按 `athlete_id` 统一成“名 姓（姓大写）”，以报名 PDF 的大写部分判断姓（全大写的两段名如 `SONG KERUI` 按 PDF 姓在前写成 `Kerui SONG`），判断不了时用已是该形式的其他来源（`competition_data.display_names`）。
 
 **分组与成绩**：`tools/isu_results.py` 读取官网的 `eventResultsData` 与 `front-api.isu.org` 轮次、逐组接口。成功解析的同一轮次整体替换，允许官方更正分组或撤销判罚。已是正式成绩的轮次不再请求。
 
