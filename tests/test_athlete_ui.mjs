@@ -69,6 +69,19 @@ test('CHN rows list each heat once with an approximate time and open the officia
   assert.equal(dialog.querySelectorAll('.source-line a').length, 1);
 });
 
+test('round meter has one dot per round the event actually races', async t => {
+  const dom = await page({view:'schedule'});t.after(()=>dom.window.close());
+  const d = dom.window.document;
+  const meter = id => [...d.getElementById('r-' + id).querySelectorAll('.meter i')].map(i => i.className || '-').join(' ');
+  const rows = [...d.querySelectorAll('.match-row')];
+  const find = (text, round) => rows.find(r => r.querySelector('.event-cell').textContent.includes(text) && r.querySelector('.round-name').textContent === round).id.slice(2);
+  // Women's 1500m starts at the quarter-finals: three dots, the first one lit.
+  assert.equal(meter(find('女子 1500m', '1/4决赛')), 'on - -');
+  // Men's 1500m has no preliminaries: heats are the first of four.
+  assert.equal(meter(find('男子 1500m', '预赛')), 'on - - -');
+  assert.equal(meter(find('男子 500m', '初赛')), 'on - - - -');
+});
+
 test('real roster defaults to CHN; country and gender filters compose', async t => {
   const dom = await page();t.after(()=>dom.window.close());
   const d = dom.window.document;

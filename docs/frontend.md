@@ -1,6 +1,6 @@
 # 前端
 
-`web/index.html`、`web/site.css`、`web/app.js` 是全部前端源码：零依赖原生 JS，不用外部字体、图片或 CDN。`tools/build.py` 复制到 `dist/`，不要直接改 `dist/`。
+`web/index.html`、`web/site.css`、`web/app.js` 是全部前端源码：零依赖原生 JS，不用外部字体、图片或 CDN。`tools/build.py` 复制到 `dist/`，不要直接改 `dist/`。`index.html` 与 `manifest.webmanifest` 中的 `{{SEASON}}`、`{{DESCRIPTION}}` 在构建时按 `data/stations.json` 填入，页面脚本里的赛季文字也都取自 `calendar.json`，换赛季不必改前端。
 
 ## 页面
 
@@ -15,7 +15,7 @@
 
 ## 视觉规则
 
-所有颜色都是 `site.css` 顶部的变量：`:root` 为夜间“极光冰蓝”，`:root[data-theme="light"]` 为白蓝浅色。主题默认跟随系统，页眉按钮手动切换并记住；`?theme=` 只影响本次访问。
+所有颜色都是 `site.css` 顶部的变量：`:root` 为夜间“极光冰蓝”（CSS 注释中的 Arctic Sky），`:root[data-theme="light"]` 为白蓝浅色。主题默认跟随系统，页眉按钮手动切换并记住；`?theme=` 只影响本次访问。
 
 每种用途一种外观：
 
@@ -43,13 +43,13 @@
 
 页面读取 `data/calendar.json`、`data/<id>.json`（赛程）、`data/updates.json` 和 `/api/v1/events/<id>/<resource>`。
 
-- `calendar.json`：`stations[]`（`id`、`city`、`city_en`、`country`、`date_start`、`date_end`、`timezone`、`venue`、`detail_status`、`ticketing`、`predictions`）与 `championships[]`。
+- `calendar.json`：`stations[]`（`id`、`city`、`city_en`、`country`、`date_start`、`date_end`、`timezone`、`venue`、`detail_status`、`ticketing`、`predictions`、`source_url`）与 `championships[]`。`source_url` 是该站自己的 ISU 赛事页（尚未找到时为赛季赛历），未出赛程的分站与世锦赛页链接到它。
 - `<id>.json` 的 `entries[]`：`round_key`（稳定）、当地与北京的日期时间、`session`（qualifying / repechage / main）、`gender`、`format`、`distance_m`、`round`、`group`（A / B）、`china`。
 - `china.status` 为 `confirmed` 才高亮 CHN；`china.heats[]` 含 `number`、`athletes`、`estimate`（非官方估算区间）。
 - `sync.last_successful_schedule_check_utc` 为空表示尚未成功核对，不能伪造时间。
 
 ## PWA
 
-`web/manifest.webmanifest`、`web/icons/`、`web/sw.js`：先走网络，失败或 4 秒无响应才用缓存，离线时顶部显示“当前离线”。缓存版本按页面外壳文件计算，发布后旧缓存自动清除。
+`web/manifest.webmanifest`、`web/icons/`、`web/sw.js`：先走网络，失败或 4 秒无响应才用缓存，离线时顶部显示“当前离线”。所有页面地址共用一份页面外壳缓存，带查询参数的接口请求不缓存，缓存只包含固定的一组文件。主屏幕图标的快捷入口由构建生成，指向最后一个比赛日尚未结束的分站（之后是世锦赛），每天两次的构建会把它切到下一站；已安装的应用要等浏览器重新读取清单后才会更新。缓存版本按页面外壳文件计算，发布后旧缓存自动清除。
 
 图标源文件 `web/icons/icon.svg`（发光赛道 + 选手点，边缘渐变到 `#070B12`，与启动屏背景无缝），改完运行 `python3 tools/render_icons.py`。从主屏幕打开时先显示同款深色启动页，选手点逆时针滑行，首屏就绪后至少约 0.7 秒淡出。

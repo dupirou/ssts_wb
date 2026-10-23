@@ -1,4 +1,4 @@
-/* SSTS-WB · audience-facing event schedule on the Ice palette.
+/* SSTS-WB · audience-facing event schedule. Palette: 极光冰蓝 "Arctic Sky" (dark) and white-blue (light).
    Only two strong highlights: China (red) and A finals / medal races (gold). Everything else is ice-neutral.
    Desktop ≥1180 table · Tablet 681–1179 two compact cards/row · Phone ≤680 one compact card/row · ≤350 tighter controls.
    Structural classes (match-row, session-row, primary-time, secondary-time, event-cell,
@@ -35,7 +35,7 @@
   --on-accent: #070B12;
   --on-accent-rgb: 7 11 18;
   --on-accent-2: #F8FAFC;
-  /* One visual grammar per role (see DESIGN_HANDOFF.md):
+  /* One visual grammar per role (see docs/frontend.md, 视觉规则):
      where you are = solid accent (station list only); view tabs = underline;
      filters and settings = segmented, selected segment a lighter solid fill (--seg-*);
      actions = buttons (primary solid --cta-*, secondary accent outline);
@@ -446,8 +446,14 @@ h1, h2, h3 { text-wrap: balance; }
 .sl-node.is-focus .sl-dot { background: var(--accent); border-color: var(--accent); color: var(--on-accent); box-shadow: 0 0 0 5px rgb(var(--cyan-rgb) / .22); }
 .sl-node.is-live .sl-dot { background: var(--red); border-color: var(--red); }
 .sl-node:hover .sl-dot { transform: scale(1.12); }
+.sl-node.is-worlds .sl-dot { border-color: var(--gold); color: var(--gold-text); }
+.sl-node.is-worlds .sl-dot .ico { width: 14px; height: 14px; }
 
-.st-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.st-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+/* A short last row stretches its last card, so seven stages never leave an orphan or a hole. */
+.st-grid > :last-child:nth-child(4n + 3) { grid-column: span 2; }
+.st-grid > :last-child:nth-child(4n + 2) { grid-column: span 3; }
+.st-grid > :last-child:nth-child(4n + 1) { grid-column: 1 / -1; }
 .st-card {
   position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; gap: 10px; min-width: 0;
   padding: 18px 20px; border-radius: var(--radius); text-decoration: none; color: var(--text);
@@ -586,7 +592,7 @@ h1, h2, h3 { text-wrap: balance; }
 .rb-tick.is-next { background: var(--text); animation: tick-glow 1.6s ease-in-out infinite; z-index: 2; }
 @keyframes tick-glow { 50% { box-shadow: 0 0 12px var(--accent); } }
 .rb-tick:hover { background: var(--text); z-index: 3; }
-.rb-now { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--red); border-radius: 1px; z-index: 2; }
+.rb-now { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--text); border-radius: 1px; z-index: 2; box-shadow: 0 0 0 2px rgb(var(--cyan-rgb) / .35); }
 .rb-axis { position: relative; height: 16px; font-size: .72rem; color: var(--muted); }
 .rb-axis span { position: absolute; transform: translateX(-50%); }
 .rb-axis span:first-child { transform: none; }
@@ -604,8 +610,8 @@ h1, h2, h3 { text-wrap: balance; }
 .rb-legend { margin-top: 14px; }
 .lg { display: inline-flex; align-items: center; gap: 6px; }
 .lg::before { content: ""; width: 4px; height: 12px; border-radius: 2px; background: var(--c); }
-.lg-gold { --c: var(--gold); } .lg-red { --c: var(--red); } .lg-plain { --c: rgb(var(--ice-rgb) / .5); }
-.lg-gold::before { width: 6px; }
+.lg-gold { --c: var(--gold); } .lg-red { --c: var(--red); } .lg-plain { --c: rgb(var(--ice-rgb) / .5); } .lg-now { --c: var(--text); }
+.lg-gold::before { width: 6px; } .lg-now::before { width: 2px; }
 
 .finals-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .finals-list button {
@@ -826,7 +832,9 @@ td.time { white-space: nowrap; }
 .competition-heat-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .competition-heat-head h3 { font-size: .95rem; }
 .result-people { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-.result-person { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 10px; background: var(--well-soft); }
+.result-person, .result-cols { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 10px; background: var(--well-soft); }
+.result-cols { padding-block: 0 4px; background: none; font-size: .68rem; color: var(--muted); }
+.result-cols span:first-child { text-align: center; }
 .result-person.is-china { box-shadow: inset 3px 0 0 var(--red); background: rgb(var(--red-rgb) / .08); }
 .result-rank { font-size: 1rem; font-weight: 700; text-align: center; }
 .result-identity { display: grid; gap: 0; min-width: 0; overflow-wrap: anywhere; font-size: .86rem; line-height: 1.35; }
@@ -840,7 +848,7 @@ td.time { white-space: nowrap; }
   .athlete-grid { grid-template-columns: minmax(0, 1fr); }
   .athlete-tools select { flex: 1 1 120px; }
   .competition-dialog { padding: 16px 12px; max-height: calc(100dvh - 24px); }
-  .result-person { gap: 7px; padding: 7px 8px; }
+  .result-person, .result-cols { gap: 7px; padding-inline: 8px; }
 }
 @media print { .athlete-data, .competition-open, .competition-dialog { display: none !important; } }
 
@@ -849,6 +857,8 @@ td.time { white-space: nowrap; }
    | 当地 09:00 | 初赛 ● ● ○ ○ ○ |      |   */
 @media (max-width: 1179px) {
   .st-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .st-grid > :last-child:nth-child(n) { grid-column: auto; }
+  .st-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
   .station-hero { grid-template-columns: minmax(0, 1fr); }
   .overview { grid-template-columns: minmax(0, 1fr); }
   .finals-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -918,20 +928,28 @@ td.time { white-space: nowrap; }
   .next-main > .btn { width: 100%; }
   .cd-xl { font-size: 2rem; }
   .countdown { gap: 6px; }
-  .countdown span { padding: 7px 10px; border-radius: 12px; }
+  /* Tiles share the card width so four of them (days shown) never run past its edge. */
+  .countdown span { flex: 0 1 auto; min-width: 0; justify-content: center; padding: 7px 10px; border-radius: 12px; }
+  .countdown:not(.no-days) { font-size: 1.6rem; }
+  .countdown:not(.no-days) span { flex: 1 1 0; padding-inline: 6px; }
+  .countdown.long-days { font-size: 1.35rem; }
 
-  .sl { margin: 0 12px; height: 112px; }
+  /* The season is too long for a phone's width: the axis keeps a readable scale and scrolls. */
+  .sl-scroll { overflow-x: auto; margin: 0 -16px; padding: 0 16px; scrollbar-width: none; mask-image: linear-gradient(90deg, #000 88%, transparent); }
+  .sl-scroll::-webkit-scrollbar { display: none; }
+  .sl { margin: 0 12px; height: 128px; min-width: 620px; }
   .sl-node { width: 44px; }
   .sl-rail { top: 52px; }
   .sl-dot { top: 44px; width: 20px; height: 20px; font-size: .66rem; border-width: 1.5px; }
   .sl-today { top: 48px; width: 10px; height: 10px; margin-left: -5px; }
   .sl-month { top: 48px; }
-  .sl-month span { top: 44px; font-size: .66rem; }
-  .sl-node.up .sl-label { bottom: 72px; }
+  .sl-month span { top: 62px; font-size: .66rem; }
+  .sl-node.up .sl-label { bottom: 88px; }
   .sl-node.down .sl-label { top: 70px; }
-  .sl-label small { display: none; }
+  .sl-label small { font-size: .66rem; }
   .sl-label b { font-size: .74rem; }
   .st-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .st-grid > :last-child:nth-child(n) { grid-column: auto; }
   .panel { padding: 16px; }
 
   .st-nav { gap: 6px; }
@@ -983,7 +1001,18 @@ td.time { white-space: nowrap; }
   body.sheet-open { overflow: hidden; }
   .counter .legend { margin-left: 0; flex-basis: 100%; }
 
-  tbody { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  tbody { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+  /* Denser cards: a three-day list is long on a phone, so each round takes two tight lines. */
+  .match-row { grid-template-columns: 4.9rem minmax(0, 1fr) auto; gap: 0 10px; padding: 6px 12px; border-radius: 12px; }
+  .match-row:has(.state) { padding-top: 24px; }
+  .state { top: 5px; left: 12px; }
+  .match-row td.primary-time .tm { font-size: 1.2rem; line-height: 1.2; }
+  .match-row td.secondary-time { font-size: .72rem; line-height: 1.3; }
+  .match-row td.secondary-time .tm { font-size: .78rem; }
+  .match-row td.event-cell { line-height: 1.25; }
+  .match-row td.round-cell { font-size: .8rem; line-height: 1.3; }
+  .match-row td.notes-cell { margin-top: 5px; padding-top: 5px; }
+  .grp { padding: 3px 8px; }
   .day-head h2 { font-size: 1.25rem; }
   .day-head p { font-size: .84rem; }
 }
@@ -999,7 +1028,8 @@ td.time { white-space: nowrap; }
   .match-row { grid-template-columns: 5.1rem minmax(0, 1fr) auto; gap: 2px 9px; padding: 9px 11px; }
   .match-row td.primary-time .tm { font-size: 1.2rem; }
   .countdown span { padding: 6px 8px; }
-  .cd-xl, .cd-lg { font-size: 1.45rem; }
+  .cd-xl, .cd-lg, .countdown:not(.no-days) { font-size: 1.4rem; }
+  .countdown.long-days { font-size: 1.2rem; }
   .countdown { gap: 4px; }
 }
 

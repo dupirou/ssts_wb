@@ -39,9 +39,11 @@ Worker stsswb：静态文件 + 只读 /api/v1（src/worker.mjs）
 ```sh
 python -m pip install -r requirements.txt   # Python 3.11+
 python tools/build.py
-python -m http.server 8000 --directory dist  # 打开 http://127.0.0.1:8000
+python -m http.server 8000 --directory dist  # 打开 http://127.0.0.1:8000（只有静态页面）
+npx wrangler@4.151.2 dev --local            # 含 /api：运动员、分组、成绩与预测
 python -m unittest discover -s tests
 npm ci --ignore-scripts && node --test tests/*.mjs
+ruff format tools tests && ruff check tools tests   # Python 格式与检查（pyproject.toml）
 ```
 
 同步脚本需要能访问 ISU 官网，一般只在 Actions 里运行；单站检查可用 `python tools/sync_schedule.py --station montreal`。

@@ -1,0 +1,11 @@
+# Formatter settings only; the project has no Python package to install.
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint]
+# Real mistakes only (syntax errors, undefined or unused names); layout is the formatter's job.
+select = ["E9", "F"]

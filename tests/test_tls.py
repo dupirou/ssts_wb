@@ -1,4 +1,5 @@
 """Official fetches trust certifi's current Mozilla roots, not the runner's possibly stale system store."""
+
 import sys
 import unittest
 from pathlib import Path
@@ -33,12 +34,18 @@ class TrustStoreTests(unittest.TestCase):
             seen.append(context)
             raise Stop
 
-        with patch.object(sync_schedule, 'urlopen', urlopen), patch.object(sync_china, 'urlopen', urlopen), \
-                patch.object(sync_competitions, 'build_opener', opener), patch.object(sync_predictions, 'build_opener', opener):
-            for call in (lambda: sync_schedule.fetch('https://www.isu-skating.com/'),
-                         lambda: sync_china.fetch_page('https://www.isu-skating.com/'),
-                         lambda: sync_competitions.fetch('https://www.isu-skating.com/'),
-                         lambda: sync_predictions.post_json('https://front-api.isu.org/x', {})):
+        with (
+            patch.object(sync_schedule, 'urlopen', urlopen),
+            patch.object(sync_china, 'urlopen', urlopen),
+            patch.object(sync_competitions, 'build_opener', opener),
+            patch.object(sync_predictions, 'build_opener', opener),
+        ):
+            for call in (
+                lambda: sync_schedule.fetch('https://www.isu-skating.com/'),
+                lambda: sync_china.fetch_page('https://www.isu-skating.com/'),
+                lambda: sync_competitions.fetch('https://www.isu-skating.com/'),
+                lambda: sync_predictions.post_json('https://front-api.isu.org/x', {}),
+            ):
                 with self.assertRaises(Stop):
                     call()
         self.assertEqual(seen, [tls.CONTEXT] * 4)

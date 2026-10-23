@@ -1,4 +1,5 @@
 """Every station follows the same path: find its ISU page, record its programme, keep it current."""
+
 import csv
 import sys
 import tempfile
@@ -23,7 +24,7 @@ ROUNDS = {'P': 'Preliminaries', 'H': 'Heats', 'Q': 'Quarter Finals', 'S': 'Semi 
 
 
 def programme_page(header='Montreal / CAN', span='30.10-01.11, 2026', cut=None):
-    with build.SOURCE.open(encoding='utf-8', newline='') as f:
+    with build.stations.schedule_path('vancouver').open(encoding='utf-8', newline='') as f:
         rows = list(csv.DictReader(f))[:cut]
     lines = ['ISU Short Track World Tour #2', header, span, 'Practice', '29.10.2026', '10:00 Official practice']
     day = session = None
@@ -34,7 +35,13 @@ def programme_page(header='Montreal / CAN', span='30.10-01.11, 2026', cut=None):
         if r['session'] != session:
             session = r['session']
             lines.append('Day - ' + SESSIONS[session] + ' Session')
-        label = GENDERS[r['gender']] + ' ' + r['distance'] + (' m Relay ' if r['kind'] == 'R' else ' meter ') + ROUNDS[r['round']]
+        label = (
+            GENDERS[r['gender']]
+            + ' '
+            + r['distance']
+            + (' m Relay ' if r['kind'] == 'R' else ' meter ')
+            + ROUNDS[r['round']]
+        )
         if r['group'] == 'B':
             label += ' B'
         lines.append(r['time'] + ' ' + label)
@@ -67,21 +74,25 @@ class ScheduleSyncTests(unittest.TestCase):
         self.assertEqual(sunday['local_start'][-6:], '-05:00')
         stamp = meta['montreal']['last_successful_schedule_check_utc']
         later = self.before.replace(hour=12)
-        self.assertEqual(sync_schedule.sync_station(MONTREAL, lambda url: page, later, self.dir, meta), ('unchanged', []))
+        self.assertEqual(
+            sync_schedule.sync_station(MONTREAL, lambda url: page, later, self.dir, meta), ('unchanged', [])
+        )
         self.assertEqual(meta['montreal']['last_successful_schedule_check_utc'], stamp)
 
     def test_unpublished_partial_or_foreign_pages_are_refused(self):
         overview = '<p>Montreal / CAN</p><p>30.10-01.11, 2026</p><a href="?tab=overview_16272">Overview</a>'
-        self.assertEqual(sync_schedule.sync_station(MONTREAL, lambda url: overview, self.before, self.dir, {}),
-                         ('not_published', []))
+        self.assertEqual(
+            sync_schedule.sync_station(MONTREAL, lambda url: overview, self.before, self.dir, {}), ('not_published', [])
+        )
         loading = overview + '<a href="?tab=schedule_16272">Schedule</a><p>loading_schedule</p>'
         with self.assertRaisesRegex(ValueError, 'no programme rows'):
             sync_schedule.sync_station(MONTREAL, lambda url: loading, self.before, self.dir, {})
         with self.assertRaisesRegex(ValueError, 'Partial'):
             sync_schedule.sync_station(MONTREAL, lambda url: programme_page(cut=-30), self.before, self.dir, {})
         with self.assertRaisesRegex(ValueError, 'not labelled'):
-            sync_schedule.sync_station(MONTREAL, lambda url: programme_page('Vancouver / CAN', '23.10-25.10, 2026'),
-                                       self.before, self.dir, {})
+            sync_schedule.sync_station(
+                MONTREAL, lambda url: programme_page('Vancouver / CAN', '23.10-25.10, 2026'), self.before, self.dir, {}
+            )
         self.assertFalse(stations.has_schedule('montreal', self.dir))
 
     def test_real_isu_page_text_matches_the_stored_programme(self):
@@ -91,17 +102,18 @@ class ScheduleSyncTests(unittest.TestCase):
         self.assertTrue(sync_schedule.identity(text, vancouver))
         self.assertFalse(sync_schedule.identity(text, MONTREAL))
         found = sync_schedule.validate(sync_schedule.parse_text(text, vancouver), vancouver)
-        stored = sync_schedule.read(build.SOURCE)
+        stored = sync_schedule.read(build.stations.schedule_path('vancouver'))
         self.assertEqual(found, stored)
 
     def test_discovery_matches_dates_city_and_country(self):
         pages = {
             sync_schedule.EVENTS: '<a href="/en/short-track/events/eventdetail/isu-short-track-world-tour-1/">1</a>'
-                                  '<a href="/en/short-track/events/eventdetail/isu-short-track-world-tour-5/">old</a>'
-                                  '<a href="/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/">2</a>',
-            stations.EVENT_PAGE + 'isu-short-track-world-tour-5/': '<p>Montréal / CAN</p><p>01.11-03.11, 2024</p><a href="?tab=results_1923">R</a>',
-            stations.EVENT_PAGE + 'isu-short-track-world-tour-2-montreal/':
-                '<p>Montreal / CAN</p><p>30.10-01.11, 2026</p><a href="?tab=documents_16272">D</a><a href="?tab=tickets_2">T</a>',
+            '<a href="/en/short-track/events/eventdetail/isu-short-track-world-tour-5/">old</a>'
+            '<a href="/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/">2</a>',
+            stations.EVENT_PAGE
+            + 'isu-short-track-world-tour-5/': '<p>Montréal / CAN</p><p>01.11-03.11, 2024</p><a href="?tab=results_1923">R</a>',
+            stations.EVENT_PAGE
+            + 'isu-short-track-world-tour-2-montreal/': '<p>Montreal / CAN</p><p>30.10-01.11, 2026</p><a href="?tab=documents_16272">D</a><a href="?tab=tickets_2">T</a>',
         }
         found = sync_schedule.discover(MONTREAL, {'isu-short-track-world-tour-1'}, pages.__getitem__)
         self.assertEqual(found, {'slug': 'isu-short-track-world-tour-2-montreal', 'event_id': 16272})
@@ -112,6 +124,7 @@ class FailureIsolationTests(unittest.TestCase):
         import sync_competitions
         import sync_predictions
         from unittest.mock import patch
+
         seen = []
 
         def flaky(event_id, config, *args, **kwargs):
@@ -121,29 +134,34 @@ class FailureIsolationTests(unittest.TestCase):
             return build.competition_data.empty_snapshot(event_id), []
 
         racing = datetime(2026, 10, 31, tzinfo=timezone.utc)
-        with patch.object(sync_competitions, 'sync_event', flaky), \
-                patch.object(sync_competitions.stations, 'utc_now', lambda: racing), \
-                patch.object(sys, 'argv', ['sync_competitions.py']):
+        with (
+            patch.object(sync_competitions, 'sync_event', flaky),
+            patch.object(sync_competitions.stations, 'utc_now', lambda: racing),
+            patch.object(sys, 'argv', ['sync_competitions.py']),
+        ):
             self.assertEqual(sync_competitions.main(), 1)
         self.assertEqual(seen, ['vancouver', 'montreal'])
 
         def raising(event_id, config, *args, **kwargs):
             raise ValueError('Prediction snapshot identity mismatch')
 
-        with patch.object(sync_predictions, 'sync_event', raising), \
-                patch.object(sys, 'argv', ['sync_predictions.py']):
+        with patch.object(sync_predictions, 'sync_event', raising), patch.object(sys, 'argv', ['sync_predictions.py']):
             self.assertEqual(sync_predictions.main(), 1)
 
 
 class StationConfigTests(unittest.TestCase):
     def test_every_station_has_a_valid_isu_reference_and_window(self):
         config = stations.load()
-        self.assertEqual([s['id'] for s in config['stations']],
-                         ['vancouver', 'montreal', 'seoul', 'shanghai', 'beijing', 'gdansk', 'tilburg'])
+        self.assertEqual(
+            [s['id'] for s in config['stations']],
+            ['vancouver', 'montreal', 'seoul', 'shanghai', 'beijing', 'gdansk', 'tilburg'],
+        )
         slugs = [s['isu']['slug'] for s in config['stations'] + config['championships']]
         self.assertEqual(len(slugs), len(set(slugs)))
-        self.assertEqual(stations.page_url(MONTREAL, 'results'),
-                         'https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272')
+        self.assertEqual(
+            stations.page_url(MONTREAL, 'results'),
+            'https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272',
+        )
         self.assertTrue(stations.within(MONTREAL, datetime(2026, 10, 17, tzinfo=timezone.utc), 14, 3))
         self.assertFalse(stations.within(MONTREAL, datetime(2026, 11, 6, tzinfo=timezone.utc), 14, 3))
         self.assertTrue(stations.within(MONTREAL, datetime(2027, 1, 6, tzinfo=timezone.utc), 14))
@@ -159,15 +177,29 @@ class StationConfigTests(unittest.TestCase):
 
     def test_new_station_programme_is_announced_once(self):
         with tempfile.TemporaryDirectory() as temp:
-            sync_schedule.sync_station(MONTREAL, lambda url: programme_page(), datetime(2026, 10, 21, tzinfo=timezone.utc), Path(temp), {})
+            sync_schedule.sync_station(
+                MONTREAL, lambda url: programme_page(), datetime(2026, 10, 21, tzinfo=timezone.utc), Path(temp), {}
+            )
             montreal = build.read_schedule('montreal', Path(temp))
         venues = [('vancouver',), ('montreal',)]
         load = lambda event_id: build.competition_data.empty_snapshot(event_id)
-        log = updates.update({}, updates.collect(venues, {'vancouver': build.read_schedule()}, '2026-10-21T00:00:00+00:00', load))
-        log = updates.update(log, updates.collect(venues, {'vancouver': build.read_schedule(), 'montreal': montreal},
-                                                  {'vancouver': '2026-10-21T00:00:00+00:00', 'montreal': '2026-10-22T00:10:00+00:00'}, load))
-        self.assertEqual([(e['station'], e['kind'], e['count'], e['local_date']) for e in log['events']],
-                         [('montreal', 'schedule', 62, '2026-10-30')])
+        log = updates.update(
+            {},
+            updates.collect(venues, {'vancouver': build.read_schedule('vancouver')}, '2026-10-21T00:00:00+00:00', load),
+        )
+        log = updates.update(
+            log,
+            updates.collect(
+                venues,
+                {'vancouver': build.read_schedule('vancouver'), 'montreal': montreal},
+                {'vancouver': '2026-10-21T00:00:00+00:00', 'montreal': '2026-10-22T00:10:00+00:00'},
+                load,
+            ),
+        )
+        self.assertEqual(
+            [(e['station'], e['kind'], e['count'], e['local_date']) for e in log['events']],
+            [('montreal', 'schedule', 62, '2026-10-30')],
+        )
 
 
 if __name__ == '__main__':

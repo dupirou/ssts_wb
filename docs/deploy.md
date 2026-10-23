@@ -8,6 +8,8 @@
 2. Cloudflare Workers Builds（Git 集成）检测到 `main` 的新提交后部署，部署命令 `npx wrangler@4.151.2 deploy`，构建命令留空（`dist/` 已提交）。
 3. 分支推送同样会生成预览部署（PR 上的 “Workers Builds: stsswb” 检查）。
 
+同步推送遇到 `main` 更新时，先 rebase，再按最新依赖重新构建并通过测试后重试；rebase、构建或测试失败即停止推送。
+
 没有新提交就不会有新部署；只手动跑 Actions 而数据没变化时，Cloudflare 不会重新部署。
 
 部署后检查：首页、`/?station=vancouver`、`/api/v1/events`、`/api/v1/events/vancouver/entries?country=CHN`。本地预览 Worker：`npx wrangler@4.151.2 dev --local`。

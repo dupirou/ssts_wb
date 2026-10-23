@@ -157,6 +157,7 @@
     el.set = ms => {
       const p = split(ms);
       el.classList.toggle('no-days', p.d === 0);
+      el.classList.toggle('long-days', p.d >= 100);
       for (const [k, v] of cells) {
         const value = k === 'd' ? String(p.d) : pad(p[k]);
         if (v.textContent !== value) v.textContent = value;
@@ -203,10 +204,11 @@
   const isChina = r => r.china && r.china.status === 'confirmed';
   const isMedal = r => r.round === 'final' && r.group === 'A';
 
+  // One dot per round this event actually races (1500m has no preliminaries, women's 1500m may start at the quarter-finals).
   function stageMeter(r) {
-    const at = ROUND_ORDER.indexOf(r.round);
+    const rounds = r.stages || ROUND_ORDER, at = rounds.indexOf(r.round);
     return h('span', {class: 'meter', 'aria-hidden': 'true'},
-      ROUND_ORDER.map((_, i) => h('i', {class: i < at ? 'done' : i === at ? 'on' : ''})));
+      rounds.map((_, i) => h('i', {class: i < at ? 'done' : i === at ? 'on' : ''})));
   }
 
   /* ---------- decorative rink ---------- */
@@ -262,7 +264,16 @@
     } finally { clearTimeout(timeout); }
   };
   function prepare(data) {
-    data.entries.forEach((r, i) => { r.t = Date.parse(r.utc_start); r.i = i; });
+    const stages = new Map();
+    for (const r of data.entries) {
+      const key = r.gender + '|' + r.distance_m + '|' + r.format;
+      if (!stages.has(key)) stages.set(key, new Set());
+      stages.get(key).add(r.round);
+    }
+    data.entries.forEach((r, i) => {
+      r.t = Date.parse(r.utc_start); r.i = i;
+      r.stages = ROUND_ORDER.filter(x => stages.get(r.gender + '|' + r.distance_m + '|' + r.format).has(x));
+    });
     return data;
   }
   function stationWindow(st, detail) {
@@ -557,8 +568,11 @@
           results ? h('div', {class: cls('result-value num', p.penalty && 'penalty-value')},
             h('b', {text: result}), p.qualification ? h('small', {text: ({Q: '晋级', q: '按成绩晋级', ADV: '判进'})[p.qualification] || p.qualification}) : null) : null));
       }
+      // Column names, since the leading number means a start position before results and a rank after.
+      const cols = h('div', {class: 'result-cols', 'aria-hidden': 'true'},
+        h('span', {text: results ? '名次' : '出发位'}), h('span', {text: '选手 · 国家 · 头盔号'}), results ? h('span', {text: '成绩'}) : null);
       dialog.append(h('section', {class: 'competition-heat'},
-        h('div', {class: 'competition-heat-head'}, h('h3', {text: heading}), status ? h('span', {class: 'pill', text: status}) : null), people));
+        h('div', {class: 'competition-heat-head'}, h('h3', {text: heading}), status ? h('span', {class: 'pill', text: status}) : null), cols, people));
     }
     if (heats[0]?.source_url) dialog.append(h('p', {class: 'source-line'}, external(heats[0].source_url, '官方来源')));
     close.addEventListener('click', () => dialog.close());
@@ -575,7 +589,7 @@
   function ticketPanel(st) {
     if (!st.ticketing || phase(st.win || stationWindow(st, null)) === 'done') return null;
     const open = Date.parse(st.ticketing.sale_start);
-    const bj = parts(BJ, open), kr = parts(st.timezone, open);
+    const bj = parts(BJ, open), local = parts(st.timezone, open);
     const when = md(bj.date) + ' ' + wk(bj.date) + ' ' + dayPart(bj.hm) + ' ' + bj.hm;
     const onSale = now() >= open;
     return h('section', {class: 'panel ticket-panel', 'aria-label': st.city + '站售票'},
@@ -584,10 +598,10 @@
         h('h2', {text: onSale ? '门票已开售' : '售票信息'}),
         h('p', {class: 'ticket-time'},
           onSale ? '已于北京时间 ' : '北京时间 ', h('span', {class: 'nowrap', text: when + ' 开售'}),
-          '\u00a0· ', h('small', {class: 'nowrap', text: '韩国时间 ' + kr.hm}))),
+          st.timezone === BJ ? null : ['\u00a0· ', h('small', {class: 'nowrap', text: st.city + '时间 ' + local.hm})])),
       h('div', {class: 'ticket-actions'},
         external(st.ticketing.isu_url, 'ISU 售票说明'),
-        external(st.ticketing.booking_url, 'Ticketlink 订票')));
+        external(st.ticketing.booking_url, st.ticketing.booking_name + ' 订票')));
   }
 
   /* ---------- season page ---------- */
@@ -607,10 +621,14 @@
     root.replaceChildren(head,
       focus ? nextCard(focus) : h('section', {class: 'next-card is-done'}, h('h2', {text: '本赛季全部分站已结束'})),
       ...stations.map(ticketPanel).filter(Boolean),
-      seasonLine(stations, focus), stationGrid(stations, focus),
+      seasonLine(stations, focus, cal.championships || []), stationGrid(stations, focus),
       championshipsCard(cal),
       h('p', {class: 'source-line'}, external(cal.source_url, 'ISU 官方赛历')));
   }
+
+  // A station's own ISU page when known, else the season calendar.
+  const officialPage = (cal, st) => st.source_url && st.source_url !== cal.source_url
+    ? external(st.source_url, 'ISU 赛事页') : external(cal.source_url, 'ISU 官方赛历');
 
   function championshipsCard(cal) {
     if (!cal.championships?.length) return null;
@@ -618,7 +636,7 @@
       h('h2', {class: 'section-title', text: '世界锦标赛'}),
       cal.championships.map(st => h('article', {class: 'panel championship-card'},
         h('div', {class: 'championship-main'},
-          h('p', {class: 'championship-kicker', text: '2027 · ISU WORLD CHAMPIONSHIPS'}),
+          h('p', {class: 'championship-kicker', text: st.date_start.slice(0, 4) + ' · ISU WORLD CHAMPIONSHIPS'}),
           h('h3', {text: st.title}),
           h('p', {class: 'championship-meta'}, icon('calendar'),
             dot(st.date_start) + ' — ' + dot(st.date_end),
@@ -639,20 +657,16 @@
         h('li', {}, icon('pin'), event.city + ' · ' + (event.venue || '场馆待公布')),
         h('li', {}, icon('globe'),
           utcLabel(event.timezone, win.start) + ' · ' + bjDiff(event.timezone, win.start))));
-    const official = () => external(event.source_url, 'ISU 官方赛历');
-    const schedule = h('section', {class: 'schedule-content'},
+    const official = () => officialPage(cal, event);
+    // Nothing is published for a championship yet, so there is one panel and no tabs to switch.
+    const schedule = h('section', {class: 'schedule-content', id: 'section-schedule'},
       h('section', {class: 'panel empty-state'},
         trackArt('empty-track', 2),
         h('h2', {text: '逐项赛程待公布'}),
+        h('p', {class: 'faint', text: '报名名单与分组也将在 ISU 公布后显示'}),
         official()));
-    const athletes = h('section', {class: 'schedule-content'},
-      h('section', {class: 'panel empty-state'},
-        h('h2', {text: '报名名单待公布'}),
-        official()));
-    const competition = {athletes, show: () => {}, startRounds: () => {}};
     root.replaceChildren(stationNav(cal, event),
-      h('section', {class: 'station-hero'}, copy, pendingCard(win)));
-    root.append(...stationTabs(schedule, competition));
+      h('section', {class: 'station-hero'}, copy, pendingCard(win)), schedule);
   }
 
   // The centrepiece: where and when the next racing happens, in Beijing time.
@@ -702,9 +716,11 @@
       main, h('div', {class: 'next-art', 'aria-hidden': 'true'}, trackArt('next-track')));
   }
 
-  function seasonLine(stations, focus) {
+  function seasonLine(stations, focus, championships) {
+    // Championships close the season, so the axis runs to the last of them.
+    const worlds = championships.map(c => ({...c, win: stationWindow(c, null)}));
     const from = Date.parse(stations[0].date_start.slice(0, 8) + '01T00:00:00Z');
-    const endD = new Date(stations[stations.length - 1].date_end + 'T00:00:00Z');
+    const endD = new Date([...stations, ...worlds].map(e => e.date_end).sort().at(-1) + 'T00:00:00Z');
     const to = Date.UTC(endD.getUTCFullYear(), endD.getUTCMonth() + 1, 1);
     const pos = t => Math.min(100, Math.max(0, (t - from) / (to - from) * 100));
     const today = parts(BJ, now()).date;
@@ -722,13 +738,20 @@
         h('span', {class: 'sl-dot num', text: st.n}),
         h('span', {class: 'sl-label'}, h('b', {text: st.city}), h('small', {class: 'num', text: md(st.date_start)}))));
     }
+    worlds.forEach((c, i) => line.append(h('a', {class: cls('sl-node is-worlds', (stations.length + i) % 2 ? 'down' : 'up', 'is-' + phase(c.win)),
+      href: stationHref(c.id), style: {left: pos(Date.parse(c.date_start + 'T12:00:00Z')) + '%'}, 'aria-label': c.title + ' ' + c.date_start},
+      h('span', {class: 'sl-dot'}, icon('medal', 'ico ico-xs')),
+      h('span', {class: 'sl-label'}, h('b', {text: '世锦赛'}), h('small', {class: 'num', text: md(c.date_start)})))));
+    // Phones scroll the axis sideways; start with today in view.
+    const scroller = h('div', {class: 'sl-scroll'}, line);
+    requestAnimationFrame(() => { scroller.scrollLeft = line.offsetWidth * todayPct / 100 - scroller.clientWidth / 4; });
     const nextDays = focus && phase(focus.win) === 'upcoming' ? Math.ceil((focus.win.start - now()) / DAY) : null;
     return h('section', {class: 'panel season-line', 'aria-label': '赛季时间轴'},
       h('div', {class: 'panel-head'},
         h('h2', {text: '赛季时间轴'}),
         h('p', {}, h('i', {class: 'legend-today'}), '今天 ' + md(today) + ' ' + wk(today),
           nextDays != null ? ' · 距' + focus.city + '站还有 ' + nextDays + ' 天' : focus ? ' · ' + focus.city + '站进行中' : '')),
-      line);
+      scroller);
   }
 
   function stationGrid(stations, focus) {
@@ -754,7 +777,7 @@
           ? [h('span', {class: 'ok-text'}, icon('check'), '已录入 ' + st.detail.entries.length + ' 个轮次'), icon('arrow')]
           : h('span', {text: '详细赛程待公布'}))));
     }
-    return h('section', {'aria-label': '七站赛历'}, h('h2', {class: 'section-title', text: '全部分站'}), grid);
+    return h('section', {'aria-label': stations.length + ' 站赛历'}, h('h2', {class: 'section-title', text: '全部分站'}), grid);
   }
 
   /* ---------- station page ---------- */
@@ -807,7 +830,7 @@
       schedule.append(competition.status, h('section', {class: 'panel empty-state'},
         trackArt('empty-track', 2),
         h('h2', {text: '详细赛程尚未录入'}),
-        h('p', {}, external(cal.source_url, 'ISU 官方赛历'))));
+        h('p', {}, officialPage(cal, station))));
     } else {
       scheduleView(data, station, schedule, competition.status);
     }
@@ -1149,6 +1172,7 @@
       const shown = ((m + (bjFirst ? shift : 0)) % 1440 + 1440) % 1440;
       axis.append(h('span', {style: {left: x(m)}, text: pad(Math.floor(shown / 60)) + ':00'}));
     }
+    let nowShown = false;
     const lanes = days.map(d => {
       const active = state.day === 'all' || state.day === d.local;
       const track = h('div', {class: 'rb-track'});
@@ -1176,7 +1200,7 @@
         const p = parts(station.timezone, t);
         if (p.date === d.local) {
           const m = Number(p.hm.slice(0, 2)) * 60 + Number(p.hm.slice(3, 5));
-          if (m >= lo && m <= hi) track.append(h('i', {class: 'rb-now', style: {left: x(m)}}));
+          if (m >= lo && m <= hi) { track.append(h('i', {class: 'rb-now', style: {left: x(m)}})); nowShown = true; }
         }
       }
       const date = bjFirst ? d.bj : d.local;
@@ -1186,11 +1210,12 @@
         track);
     });
     return h('div', {class: 'panel ribbon'},
-      h('div', {class: 'panel-head'}, h('h2', {text: '三天赛程一览'}),
+      h('div', {class: 'panel-head'}, h('h2', {text: (['一', '两', '三', '四', '五', '六', '七'][days.length - 1] || days.length) + '天赛程一览'}),
         h('p', {text: (bjFirst ? '北京时间' : station.city + '时间') + ' · 点击刻度跳到对应比赛'})),
       h('div', {class: 'rb-body', 'aria-hidden': 'true'}, lanes, h('div', {class: 'rb-axis-row'}, h('span'), axis)),
       h('p', {class: 'rb-legend'}, h('span', {class: 'lg lg-gold', text: 'A 组决赛'}),
-        h('span', {class: 'lg lg-plain', text: '其他轮次'}), h('span', {class: 'lg lg-red', text: 'CHN / 现在'})));
+        h('span', {class: 'lg lg-plain', text: '其他轮次'}), h('span', {class: 'lg lg-red', text: 'CHN'}),
+        nowShown ? h('span', {class: 'lg lg-now', text: '现在'}) : null));
   }
 
   function finalsBoard(finals, state) {
@@ -1304,12 +1329,12 @@
     } else {
       const championship = (calendar.championships || []).find(st => st.id === requested);
       if (championship) {
-        document.title = championship.title + '｜2027 短道速滑赛程';
+        document.title = championship.title + '｜' + championship.date_start.slice(0, 4) + ' 短道速滑赛程';
         renderChampionship(calendar, championship);
       } else {
         const station = calendar.stations.find(st => st.id === requested);
         if (!station) throw new Error('未知赛事');
-        document.title = station.city + '站赛程｜2026/27 短道速滑世界巡回赛';
+        document.title = station.city + '站赛程｜' + calendar.season + ' 短道速滑世界巡回赛';
         const details = station.detail_status === 'verified' ? prepare(await fetchData(station.id + '.json')) : null;
         renderStation(calendar, station, details);
       }
