@@ -1528,8 +1528,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-23T22:11:26+00:00",
-    "updated_at": "2026-10-23T22:11:26+00:00",
+    "checked_at": "2026-10-23T22:21:20+00:00",
+    "updated_at": "2026-10-23T22:21:20+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15936&round=22878",
@@ -7366,7 +7366,7 @@
             "starting_position": 4,
             "rank": 3,
             "result": "1:28.286",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -7446,7 +7446,7 @@
             "starting_position": 3,
             "rank": 3,
             "result": "1:27.478",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -7568,11 +7568,23 @@
         "heat_number": 5,
         "heat_label": "Heat 5",
         "source_start": "2026-10-23T15:09:21.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15940&round=22888",
         "participants": [
+          {
+            "athlete_id": "ath-a9ddcbdd069f5c0a1198",
+            "name": "Furkan AKAR",
+            "country": "TUR",
+            "official_skater_id": 226,
+            "helmet_number": 27,
+            "starting_position": 3,
+            "rank": 1,
+            "result": "1:29.320",
+            "qualification": "Q",
+            "penalty": null
+          },
           {
             "athlete_id": "ath-78a6ed2c7eac904f5ca0",
             "name": "Long SUN",
@@ -7580,9 +7592,9 @@
             "official_skater_id": 6784,
             "helmet_number": 4,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "1:29.362",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -7592,20 +7604,8 @@
             "official_skater_id": 1471,
             "helmet_number": 25,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-a9ddcbdd069f5c0a1198",
-            "name": "Furkan AKAR",
-            "country": "TUR",
-            "official_skater_id": 226,
-            "helmet_number": 27,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "1:29.365",
             "qualification": null,
             "penalty": null
           },
@@ -7616,8 +7616,8 @@
             "official_skater_id": 2986,
             "helmet_number": 81,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "1:29.488",
             "qualification": null,
             "penalty": null
           },
@@ -7628,8 +7628,8 @@
             "official_skater_id": 2980,
             "helmet_number": 107,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "1:31.115",
             "qualification": null,
             "penalty": null
           }
@@ -7647,24 +7647,12 @@
         "group": null,
         "heat_number": 6,
         "heat_label": "Heat 6",
-        "source_start": "2026-10-23T15:05:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-23T15:13:36.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15940&round=22888",
         "participants": [
-          {
-            "athlete_id": "ath-2f5775133539f6a7e0f7",
-            "name": "Felix ROUSSEL",
-            "country": "CAN",
-            "official_skater_id": 5998,
-            "helmet_number": 11,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-dae50584eb222f8f7725",
             "name": "Shogo MIYATA",
@@ -7672,9 +7660,21 @@
             "official_skater_id": 4847,
             "helmet_number": 9,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "1:26.509",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-2f5775133539f6a7e0f7",
+            "name": "Felix ROUSSEL",
+            "country": "CAN",
+            "official_skater_id": 5998,
+            "helmet_number": 11,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "1:26.688",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -7684,9 +7684,9 @@
             "official_skater_id": 18324,
             "helmet_number": 94,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "1:27.463",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -7696,8 +7696,8 @@
             "official_skater_id": 3494,
             "helmet_number": 99,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "1:27.951",
             "qualification": null,
             "penalty": null
           },
@@ -7708,8 +7708,8 @@
             "official_skater_id": 7625,
             "helmet_number": 50,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "1:29.207",
             "qualification": null,
             "penalty": null
           }
@@ -7727,9 +7727,9 @@
         "group": null,
         "heat_number": 7,
         "heat_label": "Heat 7",
-        "source_start": "2026-10-23T15:08:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-23T15:17:13.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15940&round=22888",
         "participants": [
@@ -7740,9 +7740,9 @@
             "official_skater_id": 7129,
             "helmet_number": 20,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "1:25.678",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -7752,9 +7752,9 @@
             "official_skater_id": 6644,
             "helmet_number": 24,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "1:25.820",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -7764,9 +7764,9 @@
             "official_skater_id": 22070,
             "helmet_number": 96,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "1:25.993",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -7776,8 +7776,8 @@
             "official_skater_id": 22908,
             "helmet_number": 88,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "1:26.069",
             "qualification": null,
             "penalty": null
           },
@@ -7788,8 +7788,8 @@
             "official_skater_id": 7327,
             "helmet_number": 57,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "1:26.754",
             "qualification": null,
             "penalty": null
           }
