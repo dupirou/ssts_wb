@@ -21,7 +21,6 @@ class DataTests(unittest.TestCase):
         self.assertEqual((rows[-1]["beijing_date"],rows[-1]["beijing_time"]),("2026-10-26","10:30"))
     def test_meta_refresh_is_day_scoped(self):
         # A scheduled official check should not force 48 Pages builds daily.
-        from datetime import datetime, timezone
         previous = "2026-10-20T00:05:00+00:00"
         same_day = "2026-10-20T22:05:00+00:00"
         next_day = "2026-10-21T00:05:00+00:00"
@@ -47,7 +46,7 @@ class DataTests(unittest.TestCase):
             "heats":[{"number":6,"athletes":["FAKE_TEST_ATHLETE"]}]
         }]}
         original=build.CHINA
-        with tempfile.TemporaryDirectory() as temp, patch.object(build.competition_data, 'published_snapshot',
+        with tempfile.TemporaryDirectory() as temp, patch.object(build.competition_data, 'load_snapshot',
                 return_value=build.competition_data.empty_snapshot('vancouver')):
             file=Path(temp)/"china.json"
             file.write_text(json.dumps(example),encoding="utf-8")

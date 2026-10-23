@@ -1,4 +1,4 @@
-"""Non-official first-round groups from ISU 2026 Rule 293 (see references/isu-seeding-2026-27.md).
+"""Non-official first-round groups from ISU 2026 Rule 293 (see docs/isu-seeding-2026-27.md).
 
 Only skaters with a distance World Ranking have a known seed, so only they are placed. Skaters
 without one are seeded by submitted entry times that ISU does not publish; they are listed apart,
@@ -81,11 +81,10 @@ def project(event_id, schedule, snapshot, inputs=None):
                         status='waiting_for_data', missing=[], groups=[], unseeded=[], prequalified=[],
                         source_urls=[], updated_at=None, country_conflicts=[])
             official = [h for h in snapshot['rounds']['items'] if target and h.get('round_key') == target['round_key']
-                        and h.get('evidence') in ('official_start_list', 'official_results', 'reviewed_seeding_image')]
+                        and h.get('evidence') in ('official_start_list', 'official_results')]
             entered = lists.get((gender, distance))
             if official:
                 item.update(status='official_available', source_urls=sorted({h['source_url'] for h in official}))
-                item['partial_round'] = any(h.get('partial_round') for h in official)
             elif not target:
                 item['missing'] = ['schedule']
             elif not entered:
@@ -127,6 +126,15 @@ def load_inputs(event_id):
     return json.loads(path.read_text(encoding='utf-8')) if path.exists() else None
 
 
+def has_open_items(event_id, schedule):
+    """Whether the station needs a prediction tab: distance entries exist and some first
+    round still has no official groups."""
+    import competition_data
+    inputs = load_inputs(event_id)
+    return bool(inputs) and any(i['status'] != 'official_available' for i in
+                                project(event_id, schedule, competition_data.load_snapshot(event_id), inputs)['items'])
+
+
 def entered_distances(event_id):
     """Individual distances each athlete entered, by athlete_id, from the synced distance entries."""
     found = {}
@@ -143,5 +151,5 @@ def export(out, venues, schedules):
     for event in venues:
         event_id = event[0]
         result = project(event_id, schedules.get(event_id, []),
-                         competition_data.published_snapshot(event_id), load_inputs(event_id))
+                         competition_data.load_snapshot(event_id), load_inputs(event_id))
         (directory / f'{event_id}.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')

@@ -195,7 +195,6 @@ button { font: inherit; color: inherit; }
 .clock:first-child b { color: var(--accent-text); }
 
 main { width: min(100%, 1192px); margin: 0 auto; padding: 26px 16px 52px; min-width: 0; }
-.site-foot { width: min(100%, 1192px); margin: 0 auto; padding: 18px 16px calc(28px + env(safe-area-inset-bottom)); color: var(--muted); font-size: .78rem; border-top: 1px solid var(--border-soft); }
 .noscript { padding: 16px; text-align: center; }
 .loading { display: grid; place-items: center; gap: 14px; min-height: 50vh; color: var(--muted); }
 .loading-ring { width: 54px; height: 32px; border-radius: 16px; border: 3px solid var(--border-soft); border-top-color: var(--accent); animation: spin 1s linear infinite; }
@@ -731,12 +730,10 @@ td.time { white-space: nowrap; }
 .grp-B { color: var(--text-2); background: rgb(var(--ice-rgb) / .1); }
 .group-cell.is-empty { color: rgb(var(--ice-rgb) / .3); }
 .notes-cell { overflow-wrap: anywhere; color: var(--text-2); }
-.heat { margin: 0 0 5px; line-height: 1.45; }
-.heat-no { font-weight: 700; color: var(--text); }
+.heat { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2px 10px; align-items: baseline; max-width: 26rem; margin: 0 0 4px; line-height: 1.45; }
+.heat-no { font-weight: 700; color: var(--text); white-space: nowrap; }
 .athletes { color: var(--text); font-weight: 600; }
-.est { white-space: nowrap; }
-.est-tag { font-style: normal; font-size: .68rem; margin-left: 5px; padding: 0 6px; border-radius: 5px; border: 1px solid var(--border-soft); color: var(--muted); }
-.notes-cell a { color: var(--accent-text); font-size: .78rem; text-underline-offset: 2px; }
+.est { white-space: nowrap; color: var(--muted); font-size: .78rem; }
 .tiny { font-size: .82rem; }
 
 .session-row td { padding: 9px 14px; background: var(--well-soft); }
@@ -825,14 +822,14 @@ td.time { white-space: nowrap; }
 .competition-head { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .competition-head h2 { font-size: 1.16rem; }
 .competition-head button { flex: 0 0 40px; }
-.competition-heat + .competition-heat { margin-top: 22px; }
+.competition-heat + .competition-heat { margin-top: 18px; }
 .competition-heat-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .competition-heat-head h3 { font-size: .95rem; }
 .result-people { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-.result-person { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px; border-radius: 10px; background: var(--well-soft); }
+.result-person { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 10px; background: var(--well-soft); }
 .result-person.is-china { box-shadow: inset 3px 0 0 var(--red); background: rgb(var(--red-rgb) / .08); }
 .result-rank { font-size: 1rem; font-weight: 700; text-align: center; }
-.result-identity { display: grid; gap: 1px; min-width: 0; overflow-wrap: anywhere; font-size: .86rem; }
+.result-identity { display: grid; gap: 0; min-width: 0; overflow-wrap: anywhere; font-size: .86rem; line-height: 1.35; }
 .result-value { display: grid; text-align: right; gap: 2px; font-size: .9rem; }
 .result-value small { font-size: .7rem; color: var(--ok); }
 .penalty-value { color: var(--red-text); }
@@ -843,7 +840,7 @@ td.time { white-space: nowrap; }
   .athlete-grid { grid-template-columns: minmax(0, 1fr); }
   .athlete-tools select { flex: 1 1 120px; }
   .competition-dialog { padding: 16px 12px; max-height: calc(100dvh - 24px); }
-  .result-person { gap: 7px; padding: 10px 8px; }
+  .result-person { gap: 7px; padding: 7px 8px; }
 }
 @media print { .athlete-data, .competition-open, .competition-dialog { display: none !important; } }
 

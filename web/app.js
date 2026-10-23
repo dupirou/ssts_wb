@@ -452,7 +452,7 @@
       fill(body);
       chinaOnly.hidden = item.status !== 'predicted';
       if (item.status === 'official_available') {
-        body.append(h('p', {class: 'faint athlete-empty', text: item.partial_round ? '部分分组已公布，请在赛程中查看' : '官方分组已公布，请在赛程中查看'}));
+        body.append(h('p', {class: 'faint athlete-empty', text: '官方分组已公布，请在赛程中查看'}));
       } else if (item.status !== 'predicted') {
         body.append(h('p', {class: 'faint athlete-empty', text: reasons[item.missing[0]] || '暂无法预测'}));
       } else {
@@ -542,10 +542,9 @@
     const close = h('button', {type: 'button', class: 'icon-btn', 'aria-label': '关闭比赛详情'}, icon('close'));
     const dialog = h('dialog', {class: 'competition-dialog', 'aria-labelledby': titleId},
       h('header', {class: 'competition-head'}, h('h2', {id: titleId, text: eventName(r) + ' · ' + roundName(r)}), close));
-    if (heats.some(h => h.partial_round)) dialog.append(h('p', {class: 'faint tiny', text: '部分分组 · 仅第 1 页'}));
     for (const heat of [...heats].sort((a, b) => (a.heat_number ?? 0) - (b.heat_number ?? 0))) {
       const results = heat.evidence === 'official_results';
-      const status = !results ? '分组' : heat.result_status?.toLowerCase() === 'official' ? '正式成绩' : '暂定成绩';
+      const status = !results ? null : heat.result_status?.toLowerCase() === 'official' ? '正式成绩' : '暂定成绩';
       const heading = heat.group ? heat.group + ' 组决赛' : heat.heat_number ? '第 ' + heat.heat_number + ' 组' : heat.heat_label;
       const people = h('ol', {class: 'result-people'});
       for (const p of heat.participants) {
@@ -556,13 +555,12 @@
           h('div', {class: 'result-identity'}, h('b', {text: p.name}),
             h('span', {class: 'faint tiny', text: p.country + (p.helmet_number != null ? ' · #' + p.helmet_number : '')})),
           results ? h('div', {class: cls('result-value num', p.penalty && 'penalty-value')},
-            h('b', {text: result}), p.qualification ? h('small', {text: ({Q: '晋级', q: '按成绩晋级', ADV: '判进'})[p.qualification] || p.qualification}) : null) :
-            h('span', {class: 'faint tiny', text: p.starting_position != null ? '出发位 ' + p.starting_position : '已列入分组'})));
+            h('b', {text: result}), p.qualification ? h('small', {text: ({Q: '晋级', q: '按成绩晋级', ADV: '判进'})[p.qualification] || p.qualification}) : null) : null));
       }
       dialog.append(h('section', {class: 'competition-heat'},
-        h('div', {class: 'competition-heat-head'}, h('h3', {text: heading}), h('span', {class: 'pill', text: status})), people));
+        h('div', {class: 'competition-heat-head'}, h('h3', {text: heading}), status ? h('span', {class: 'pill', text: status}) : null), people));
     }
-    if (heats[0]?.source_url) dialog.append(h('p', {class: 'source-line'}, external(heats[0].source_url, heats[0].evidence === 'reviewed_seeding_image' ? '分组原图' : '官方来源')));
+    if (heats[0]?.source_url) dialog.append(h('p', {class: 'source-line'}, external(heats[0].source_url, '官方来源')));
     close.addEventListener('click', () => dialog.close());
     dialog.addEventListener('close', () => dialog.remove());
     dialog.addEventListener('click', e => {
@@ -888,9 +886,11 @@
         return;
       }
       const hs = r.china.heats;
-      fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: 'CHN 下一场 '}),
-        eventName(r) + ' ' + roundName(r) + ' 第' + hs.map(x => x.number).join('、') + '组 · 北京 ' + bjWhen(r),
-        h('small', {}, ' · 预计出场 ' + hs[0].estimate.earliest_beijing.slice(11, 16) + ' 起', h('em', {class: 'est-tag', text: '估算'}))));
+      // The card above already names the next round; repeat it only when CHN races later.
+      const sameRound = r === entries.find(x => x.t > now());
+      fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: sameRound ? 'CHN ' : 'CHN 下一场 '}),
+        phrases(sameRound ? null : eventName(r) + ' ' + roundName(r), '第 ' + hs.map(x => x.number).join('、') + ' 组',
+          '约 ' + hs[0].estimate.earliest_beijing.slice(11, 16) + ' 出场')));
     });
     return box;
   }
@@ -1113,14 +1113,14 @@
     if (china) {
       for (const heat of r.china.heats) {
         const e = heat.estimate;
-        const from = bjFirst ? e.earliest_beijing : e.earliest_local;
-        const to = bjFirst ? e.latest_beijing : e.latest_local;
+        const from = (bjFirst ? e.earliest_beijing : e.earliest_local).slice(11, 16);
+        const to = (bjFirst ? e.latest_beijing : e.latest_local).slice(11, 16);
+        // "约" marks the model estimate; official start times carry no prefix.
         note.append(h('p', {class: 'heat'},
-          h('span', {class: 'heat-no', text: '第' + heat.number + '组'}), ' ',
-          h('span', {class: 'athletes', text: heat.athletes.join('、')}), ' ',
-          h('span', {class: 'est'}, '预计 ', h('span', {class: 'num', text: from.slice(11, 16) + '–' + to.slice(11, 16)}), h('em', {class: 'est-tag', text: '估算'}))));
+          h('span', {class: 'heat-no', text: '第 ' + heat.number + ' 组'}),
+          h('span', {class: 'athletes', text: r.format === 'relay' ? '' : heat.athletes.join('、')}),
+          h('span', {class: 'est num', title: '按组号估算的出场时间，非官方', text: '约 ' + (from === to ? from : from + '–' + to)})));
       }
-      note.append(external(r.china.source_url, '来源'));
     }
     updateHeatButton(note, r);
     return tr;

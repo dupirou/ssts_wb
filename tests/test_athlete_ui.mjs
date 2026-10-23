@@ -4,11 +4,14 @@ import {readFile} from 'node:fs/promises';
 import {JSDOM} from 'jsdom';
 
 const file = async name => readFile(new URL('../' + name, import.meta.url), 'utf8');
-const [html, script, snapshot, schedule, predictions] = await Promise.all([
+const [html, script, snapshot, schedule, predictions, calendar] = await Promise.all([
   file('web/index.html'), file('web/app.js'), file('data/competitions/vancouver.json').then(JSON.parse),
   file('dist/data/vancouver.json').then(JSON.parse),
   file('dist/data/predictions/vancouver.json').then(JSON.parse),
+  file('dist/data/calendar.json').then(JSON.parse),
 ]);
+// The prediction tab exists while a station still has first rounds without official groups.
+const withPredictions = {...calendar, stations: calendar.stations.map(s => ({...s, predictions: s.id === 'vancouver'}))};
 async function settle(dom, predicate) {
   for (let i = 0; i < 100; i++) {
     if (predicate()) return;
@@ -16,7 +19,7 @@ async function settle(dom, predicate) {
   }
   throw new Error('UI did not reach expected state: ' + dom.window.document.body.textContent.slice(-700));
 }
-async function page({data = snapshot, fails = () => false, view = 'athletes', delay = async () => {}, url = 'https://example.test/?station=vancouver', files = {}, before = () => {}} = {}) {
+async function page({data = snapshot, fails = () => false, view = 'athletes', delay = async () => {}, url = 'https://example.test/?station=vancouver', files = {'/data/calendar.json': withPredictions}, before = () => {}} = {}) {
   const dom = new JSDOM(html, {url, runScripts:'outside-only', pretendToBeVisual:true});
   const w = dom.window;
   w.matchMedia = () => ({matches:false, addEventListener(){}});
@@ -49,25 +52,21 @@ async function page({data = snapshot, fails = () => false, view = 'athletes', de
 }
 const change = (dom, el, value) => {el.value=value;el.dispatchEvent(new dom.window.Event('change'));};
 
-test('reviewed image groups show partial coverage and source without invented lanes', async t => {
-  const reviewed = JSON.parse(await file('data/reviewed_groups/vancouver.json'));
-  const report = reviewed.reports[0];
-  const row = schedule.entries.find(r => r.gender === report.gender && r.distance_m === report.distance_m && r.round === report.round);
-  const data = structuredClone(snapshot);
-  data.rounds = {status:'available', update_status:'ok', items:report.groups.map(g => ({
-    ...row, id:'reviewed-test-'+g.heat_number, heat_number:g.heat_number, evidence:'reviewed_seeding_image',
-    partial_round:true, source_url:report.source_url, participants:g.participants.map(p=>({...p, starting_position:null})),
-  }))};
-  const dom = await page({data});t.after(()=>dom.window.close());
+test('CHN rows list each heat once with an approximate time and open the official groups', async t => {
+  const dom = await page({view:'schedule'});t.after(()=>dom.window.close());
   const d = dom.window.document;
-  const button = [...d.querySelectorAll('.competition-open')].find(b=>b.closest('.match-row')?.textContent.includes('男子'));
-  assert.ok(button);
-  button.click();
-  const dialog=d.querySelector('dialog[open]');
-  assert.match(dialog.textContent,/仅第 1 页/);
-  assert.equal(dialog.querySelector('a').textContent.trim(),'分组原图');
-  assert.match(dialog.querySelector('a').getAttribute('href'),/^\/sources\//);
-  assert.ok([...dialog.querySelectorAll('.result-rank')].every(p=>p.textContent==='—'));
+  const row = d.querySelector('.match-row.china-row');
+  assert.ok(row);
+  const heat = row.querySelector('.notes-cell .heat');
+  assert.match(heat.querySelector('.heat-no').textContent, /^第 \d+ 组$/);
+  assert.match(heat.querySelector('.est').textContent, /^约 \d\d:\d\d/);
+  assert.equal(row.querySelectorAll('.notes-cell a').length, 0);
+  await settle(dom, () => row.querySelector('.competition-open'));
+  row.querySelector('.competition-open').click();
+  const dialog = d.querySelector('dialog[open]');
+  assert.doesNotMatch(dialog.textContent, /出发位 \d|已列入分组/);
+  assert.equal(dialog.querySelectorAll('.competition-heat-head .pill').length, 0);
+  assert.equal(dialog.querySelectorAll('.source-line a').length, 1);
 });
 
 test('real roster defaults to CHN; country and gender filters compose', async t => {

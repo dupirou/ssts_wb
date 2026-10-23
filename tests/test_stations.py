@@ -1,6 +1,5 @@
 """Every station follows the same path: find its ISU page, record its programme, keep it current."""
 import csv
-import json
 import sys
 import tempfile
 import unittest
