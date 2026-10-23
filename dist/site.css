@@ -1,4 +1,4 @@
-/* SSTS-WB · audience-facing event schedule on the Ice palette.
+/* SSTS-WB · audience-facing event schedule. Palette: 极光冰蓝 "Arctic Sky" (dark) and white-blue (light).
    Only two strong highlights: China (red) and A finals / medal races (gold). Everything else is ice-neutral.
    Desktop ≥1180 table · Tablet 681–1179 two compact cards/row · Phone ≤680 one compact card/row · ≤350 tighter controls.
    Structural classes (match-row, session-row, primary-time, secondary-time, event-cell,
@@ -35,7 +35,7 @@
   --on-accent: #070B12;
   --on-accent-rgb: 7 11 18;
   --on-accent-2: #F8FAFC;
-  /* One visual grammar per role (see DESIGN_HANDOFF.md):
+  /* One visual grammar per role (see docs/frontend.md, 视觉规则):
      where you are = solid accent (station list only); view tabs = underline;
      filters and settings = segmented, selected segment a lighter solid fill (--seg-*);
      actions = buttons (primary solid --cta-*, secondary accent outline);
