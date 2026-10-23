@@ -2181,8 +2181,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-23T18:11:21+00:00",
-    "updated_at": "2026-10-23T18:11:21+00:00",
+    "checked_at": "2026-10-23T18:21:20+00:00",
+    "updated_at": "2026-10-23T18:21:20+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15936&round=22878",
@@ -6557,7 +6557,7 @@
             "starting_position": 4,
             "rank": 2,
             "result": "1:29.756",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -6637,7 +6637,7 @@
             "starting_position": 4,
             "rank": 2,
             "result": "1:30.114",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -6717,7 +6717,7 @@
             "starting_position": 2,
             "rank": 2,
             "result": "1:28.861",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -6797,7 +6797,7 @@
             "starting_position": 4,
             "rank": 2,
             "result": "1:28.154",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -6877,7 +6877,7 @@
             "starting_position": 2,
             "rank": 2,
             "result": "1:30.609",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -6960,7 +6960,7 @@
             "starting_position": 1,
             "rank": 2,
             "result": "1:28.313",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -7043,7 +7043,7 @@
             "starting_position": 2,
             "rank": 2,
             "result": "1:28.554",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -7123,7 +7123,7 @@
             "starting_position": 2,
             "rank": 2,
             "result": "1:28.609",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -7177,8 +7177,8 @@
         "heat_number": 9,
         "heat_label": "Heat 9",
         "source_start": "2026-10-23T11:08:04.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15940&round=22886",
         "participants": [
@@ -7189,9 +7189,9 @@
             "official_skater_id": 3951,
             "helmet_number": 26,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "1:28.072",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -7201,9 +7201,9 @@
             "official_skater_id": 642,
             "helmet_number": 77,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "1:28.776",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -7213,8 +7213,8 @@
             "official_skater_id": 4443,
             "helmet_number": 101,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "1:29.017",
             "qualification": null,
             "penalty": null
           },
@@ -7225,8 +7225,8 @@
             "official_skater_id": 7563,
             "helmet_number": 90,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "1:29.038",
             "qualification": null,
             "penalty": null
           },
@@ -7237,8 +7237,8 @@
             "official_skater_id": 152,
             "helmet_number": 103,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "1:43.154",
             "qualification": null,
             "penalty": null
           }
@@ -7256,12 +7256,24 @@
         "group": null,
         "heat_number": 10,
         "heat_label": "Heat 10",
-        "source_start": "2026-10-23T11:01:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-23T11:11:30.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15940&round=22886",
         "participants": [
+          {
+            "athlete_id": "ath-ff0e797c67667f8c165e",
+            "name": "Musashi KAKINAMI",
+            "country": "JPN",
+            "official_skater_id": 22908,
+            "helmet_number": 88,
+            "starting_position": 3,
+            "rank": 1,
+            "result": "1:28.439",
+            "qualification": "Q",
+            "penalty": null
+          },
           {
             "athlete_id": "ath-e0867fdf3c14aab30440",
             "name": "Lucas WAREHAM",
@@ -7269,8 +7281,20 @@
             "official_skater_id": 7625,
             "helmet_number": 50,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "1:28.988",
+            "qualification": "q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-deb7324d5b25a9ec103c",
+            "name": "Marten TAUBERT",
+            "country": "GER",
+            "official_skater_id": 18224,
+            "helmet_number": 79,
+            "starting_position": 4,
+            "rank": 3,
+            "result": "1:29.372",
             "qualification": null,
             "penalty": null
           },
@@ -7281,32 +7305,8 @@
             "official_skater_id": 3613,
             "helmet_number": 106,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-ff0e797c67667f8c165e",
-            "name": "Musashi KAKINAMI",
-            "country": "JPN",
-            "official_skater_id": 22908,
-            "helmet_number": 88,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-deb7324d5b25a9ec103c",
-            "name": "Marten TAUBERT",
-            "country": "GER",
-            "official_skater_id": 18224,
-            "helmet_number": 79,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "1:32.586",
             "qualification": null,
             "penalty": null
           }
