@@ -576,7 +576,7 @@
   function ticketPanel(st) {
     if (!st.ticketing || phase(st.win || stationWindow(st, null)) === 'done') return null;
     const open = Date.parse(st.ticketing.sale_start);
-    const bj = parts(BJ, open), kr = parts(st.timezone, open);
+    const bj = parts(BJ, open), local = parts(st.timezone, open);
     const when = md(bj.date) + ' ' + wk(bj.date) + ' ' + dayPart(bj.hm) + ' ' + bj.hm;
     const onSale = now() >= open;
     return h('section', {class: 'panel ticket-panel', 'aria-label': st.city + '站售票'},
@@ -585,10 +585,10 @@
         h('h2', {text: onSale ? '门票已开售' : '售票信息'}),
         h('p', {class: 'ticket-time'},
           onSale ? '已于北京时间 ' : '北京时间 ', h('span', {class: 'nowrap', text: when + ' 开售'}),
-          '\u00a0· ', h('small', {class: 'nowrap', text: '韩国时间 ' + kr.hm}))),
+          st.timezone === BJ ? null : ['\u00a0· ', h('small', {class: 'nowrap', text: st.city + '时间 ' + local.hm})])),
       h('div', {class: 'ticket-actions'},
         external(st.ticketing.isu_url, 'ISU 售票说明'),
-        external(st.ticketing.booking_url, 'Ticketlink 订票')));
+        external(st.ticketing.booking_url, st.ticketing.booking_name + ' 订票')));
   }
 
   /* ---------- season page ---------- */

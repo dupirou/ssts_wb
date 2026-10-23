@@ -14,12 +14,14 @@ class TicketConfigTests(unittest.TestCase):
         self.assertEqual(set(tickets), {"seoul"})
         self.assertEqual(tickets["seoul"]["sale_start"], "2026-10-23T14:00:00+09:00")
         self.assertEqual(tickets["seoul"]["booking_url"], "https://m.ticketlink.co.kr/global/zh/product/66349?null")
+        self.assertEqual(tickets["seoul"]["booking_name"], "Ticketlink")
         self.assertEqual(tickets["seoul"]["isu_url"], "https://isu-skating.com/zh-CN/short-track/news/short-track-world-tour-seoul-2026-tickets/")
     def test_reject_non_official_and_insecure_links(self):
         original = build.ROOT
         for field, url in (
             ("booking_url", "https://m.ticketlink.co.kr.evil.example/global/zh/product/66349"),
             ("isu_url", "http://isu-skating.com/zh-CN/short-track/news/foo"),
+            ("sale_start", "2026-10-23T14:00:00+08:00"),
         ):
             with self.subTest(field=field), tempfile.TemporaryDirectory() as tmp:
                 path = Path(tmp) / "data"

@@ -35,7 +35,7 @@ test('Seoul ticket links appear on season home and station details', async t => 
       const panel = d.querySelector('.ticket-panel');
       assert.match(panel.textContent, /首尔站/);
       assert.match(panel.textContent, /北京时间 10\/23 周五 下午 13:00 开售/);
-      assert.match(panel.textContent, /韩国时间 14:00/);
+      assert.match(panel.textContent, /首尔时间 14:00/);
       const links = [...panel.querySelectorAll('.ticket-actions a')];
       assert.equal(links.length, 2);
       assert.deepEqual(links.map(a => a.getAttribute('href')), [

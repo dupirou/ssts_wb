@@ -31,6 +31,10 @@
 
 **单项报项**：从 Entries 标签读取六个单项各自的选手名单，按 ISU 选手 ID 匹配上赛季单项世巡赛排名（WCD）与世界排名（WRD）；上赛季榜单只抓一次，缓存在 `historic_rankings.json`。同一份报项也给运动员名单加上每人报的单项（`entries[].distances`）。
 
+## 售票
+
+`data/tickets.json` 按分站登记人工核对的售票信息：`sale_start`（带该站当地 UTC 偏移）、ISU 售票说明 `isu_url` 和订票链接 `booking_url`。订票域名必须在 `tools/build.py` 的 `BOOKING_SITES` 白名单中，按钮名称也取自那里；新增售票平台只需加一行。分站结束后售票卡自动消失。
+
 ## 中国队高亮
 
 只有某个具体轮次（`round_key`）的官方分组里出现 CHN，才在赛程中高亮该轮次。来源依次是官方分组接口、`data/china_auto.json`（自动导入）和 `data/china.json`（人工覆盖，优先）。CHN、HKG、TPE 严格区分；不根据报名或上一轮晋级推断下一轮。

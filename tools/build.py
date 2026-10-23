@@ -135,27 +135,31 @@ def attach_china(rows, station_id="vancouver"):
                       "source_url":item["source_url"],"verified_at":item["verified_at"]}
     return rows
 
+# Booking sites the curated ticket links may point to, with the name shown on the button.
+BOOKING_SITES = {"m.ticketlink.co.kr": "Ticketlink"}
+
 def load_ticketing():
     """Validate curated ticket links before publishing them to the calendar."""
-    from urllib.parse import urlsplit
     path = ROOT / "data/tickets.json"
     cfg = json.loads(path.read_text(encoding="utf-8"))
     if cfg.get("schema_version") != 1 or not isinstance(cfg.get("stations"), dict):
         raise ValueError("Invalid ticket information schema")
-    allowed = {st["id"] for st in CONFIG["stations"]}
+    by_id = {st["id"]: st for st in CONFIG["stations"]}
     result = {}
     for station, item in cfg["stations"].items():
-        if station not in allowed or not isinstance(item, dict):
+        if station not in by_id or not isinstance(item, dict):
             raise ValueError("Unknown ticket event")
-        for field, host in (("isu_url", "isu-skating.com"), ("booking_url", "m.ticketlink.co.kr")):
+        for field, hosts in (("isu_url", {"isu-skating.com"}), ("booking_url", set(BOOKING_SITES))):
             u = urlsplit(item.get(field, ""))
-            if u.scheme != "https" or u.hostname != host or u.username or u.password:
+            if u.scheme != "https" or u.hostname not in hosts or u.username or u.password:
                 raise ValueError("Invalid ticket source: " + field)
         start = datetime.fromisoformat(item["sale_start"])
-        if start.tzinfo is None or start.utcoffset().total_seconds() != 9 * 3600:
-            raise ValueError("Ticket opening must include Korea timezone")
+        # Ticket offices announce local time; the stored offset must be the station's own.
+        if start.tzinfo is None or start.utcoffset() != start.astimezone(ZoneInfo(by_id[station]["timezone"])).utcoffset():
+            raise ValueError("Ticket opening must carry the station's local UTC offset")
         result[station] = {"sale_start": item["sale_start"], "isu_url": item["isu_url"],
-                           "booking_url": item["booking_url"]}
+                           "booking_url": item["booking_url"],
+                           "booking_name": BOOKING_SITES[urlsplit(item["booking_url"]).hostname]}
     return result
 
 def export():
