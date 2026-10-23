@@ -568,8 +568,11 @@
           results ? h('div', {class: cls('result-value num', p.penalty && 'penalty-value')},
             h('b', {text: result}), p.qualification ? h('small', {text: ({Q: '晋级', q: '按成绩晋级', ADV: '判进'})[p.qualification] || p.qualification}) : null) : null));
       }
+      // Column names, since the leading number means a start position before results and a rank after.
+      const cols = h('div', {class: 'result-cols', 'aria-hidden': 'true'},
+        h('span', {text: results ? '名次' : '出发位'}), h('span', {text: '选手 · 国家 · 头盔号'}), results ? h('span', {text: '成绩'}) : null);
       dialog.append(h('section', {class: 'competition-heat'},
-        h('div', {class: 'competition-heat-head'}, h('h3', {text: heading}), status ? h('span', {class: 'pill', text: status}) : null), people));
+        h('div', {class: 'competition-heat-head'}, h('h3', {text: heading}), status ? h('span', {class: 'pill', text: status}) : null), cols, people));
     }
     if (heats[0]?.source_url) dialog.append(h('p', {class: 'source-line'}, external(heats[0].source_url, '官方来源')));
     close.addEventListener('click', () => dialog.close());

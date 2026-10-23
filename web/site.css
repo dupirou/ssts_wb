@@ -832,7 +832,9 @@ td.time { white-space: nowrap; }
 .competition-heat-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .competition-heat-head h3 { font-size: .95rem; }
 .result-people { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-.result-person { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 10px; background: var(--well-soft); }
+.result-person, .result-cols { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 10px; background: var(--well-soft); }
+.result-cols { padding-block: 0 4px; background: none; font-size: .68rem; color: var(--muted); }
+.result-cols span:first-child { text-align: center; }
 .result-person.is-china { box-shadow: inset 3px 0 0 var(--red); background: rgb(var(--red-rgb) / .08); }
 .result-rank { font-size: 1rem; font-weight: 700; text-align: center; }
 .result-identity { display: grid; gap: 0; min-width: 0; overflow-wrap: anywhere; font-size: .86rem; line-height: 1.35; }
@@ -846,7 +848,7 @@ td.time { white-space: nowrap; }
   .athlete-grid { grid-template-columns: minmax(0, 1fr); }
   .athlete-tools select { flex: 1 1 120px; }
   .competition-dialog { padding: 16px 12px; max-height: calc(100dvh - 24px); }
-  .result-person { gap: 7px; padding: 7px 8px; }
+  .result-person, .result-cols { gap: 7px; padding-inline: 8px; }
 }
 @media print { .athlete-data, .competition-open, .competition-dialog { display: none !important; } }
 
