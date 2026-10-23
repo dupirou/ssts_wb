@@ -655,19 +655,15 @@
         h('li', {}, icon('globe'),
           utcLabel(event.timezone, win.start) + ' · ' + bjDiff(event.timezone, win.start))));
     const official = () => officialPage(cal, event);
-    const schedule = h('section', {class: 'schedule-content'},
+    // Nothing is published for a championship yet, so there is one panel and no tabs to switch.
+    const schedule = h('section', {class: 'schedule-content', id: 'section-schedule'},
       h('section', {class: 'panel empty-state'},
         trackArt('empty-track', 2),
         h('h2', {text: '逐项赛程待公布'}),
+        h('p', {class: 'faint', text: '报名名单与分组也将在 ISU 公布后显示'}),
         official()));
-    const athletes = h('section', {class: 'schedule-content'},
-      h('section', {class: 'panel empty-state'},
-        h('h2', {text: '报名名单待公布'}),
-        official()));
-    const competition = {athletes, show: () => {}, startRounds: () => {}};
     root.replaceChildren(stationNav(cal, event),
-      h('section', {class: 'station-hero'}, copy, pendingCard(win)));
-    root.append(...stationTabs(schedule, competition));
+      h('section', {class: 'station-hero'}, copy, pendingCard(win)), schedule);
   }
 
   // The centrepiece: where and when the next racing happens, in Beijing time.
