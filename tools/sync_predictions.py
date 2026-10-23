@@ -3,7 +3,7 @@
 
 The public Entries tab identifies skaters per distance. Historical WCD decides
 the 20 byes at World Tour #1; WRD orders the first qualifying round
-(references/isu-seeding-2026-27.md).
+(docs/isu-seeding-2026-27.md).
 """
 import argparse
 import json

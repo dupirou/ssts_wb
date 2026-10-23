@@ -7,7 +7,6 @@ starts ISU may still restructure the tentative programme and the new one replace
 racing has started only time changes are accepted, and more than ten at once need manual review.
 """
 import argparse,csv,io,json,re,sys
-from datetime import datetime,timedelta
 from pathlib import Path
 from urllib.parse import urljoin,urlsplit
 from urllib.request import Request,urlopen

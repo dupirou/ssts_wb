@@ -6,7 +6,6 @@ Document URL discovery is repeated each run so replacement PDFs are picked up.
 """
 import argparse
 import io
-import json
 import re
 import sys
 from datetime import datetime, timezone

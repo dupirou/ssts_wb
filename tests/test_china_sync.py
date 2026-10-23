@@ -1,4 +1,3 @@
-import importlib
 import json
 import sys
 import tempfile
@@ -33,7 +32,7 @@ class ChinaSyncTests(unittest.TestCase):
     def test_discovery_requires_year_and_host(self):
         source=f'<article><p>23 Oct 2026 Vancouver</p><a href="{EVENT}">World Tour 1</a></article>'
         self.assertEqual(china.discover_event(china.BeautifulSoup(source,"html.parser")),EVENT)
-        bad=f'<article>Vancouver 2026<a href="https://evil.example/short-track/results/xx/123/">Results</a></article>'
+        bad='<article>Vancouver 2026<a href="https://evil.example/short-track/results/xx/123/">Results</a></article>'
         self.assertIsNone(china.discover_event(china.BeautifulSoup(bad,"html.parser")))
     def test_round_link_mapping_requires_exact_match(self):
         category=china.BeautifulSoup('<a href="?round=111">Preliminaries</a><a href="?round=112">Rep. Heats</a>',"html.parser")
