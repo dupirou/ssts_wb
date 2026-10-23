@@ -43,7 +43,7 @@
 
 页面读取 `data/calendar.json`、`data/<id>.json`（赛程）、`data/updates.json` 和 `/api/v1/events/<id>/<resource>`。
 
-- `calendar.json`：`stations[]`（`id`、`city`、`city_en`、`country`、`date_start`、`date_end`、`timezone`、`venue`、`detail_status`、`ticketing`、`predictions`）与 `championships[]`。
+- `calendar.json`：`stations[]`（`id`、`city`、`city_en`、`country`、`date_start`、`date_end`、`timezone`、`venue`、`detail_status`、`ticketing`、`predictions`、`source_url`）与 `championships[]`。`source_url` 是该站自己的 ISU 赛事页（尚未找到时为赛季赛历），未出赛程的分站与世锦赛页链接到它。
 - `<id>.json` 的 `entries[]`：`round_key`（稳定）、当地与北京的日期时间、`session`（qualifying / repechage / main）、`gender`、`format`、`distance_m`、`round`、`group`（A / B）、`china`。
 - `china.status` 为 `confirmed` 才高亮 CHN；`china.heats[]` 含 `number`、`athletes`、`estimate`（非官方估算区间）。
 - `sync.last_successful_schedule_check_utc` 为空表示尚未成功核对，不能伪造时间。

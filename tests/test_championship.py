@@ -18,6 +18,8 @@ class ChampionshipCalendarTests(unittest.TestCase):
         self.assertIsNone(worlds['venue'])
         self.assertEqual(worlds['detail_status'], 'not_entered')
         self.assertTrue(worlds['source_url'].startswith('https://www.isu-skating.com/'))
+        # The championship links to its own ISU event page, not the season calendar.
+        self.assertIn('/events/eventdetail/', worlds['source_url'])
         self.assertNotIn('worlds-2027', [st['id'] for st in calendar['stations']])
 
 

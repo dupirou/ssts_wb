@@ -613,6 +613,10 @@
       h('p', {class: 'source-line'}, external(cal.source_url, 'ISU 官方赛历')));
   }
 
+  // A station's own ISU page when known, else the season calendar.
+  const officialPage = (cal, st) => st.source_url && st.source_url !== cal.source_url
+    ? external(st.source_url, 'ISU 赛事页') : external(cal.source_url, 'ISU 官方赛历');
+
   function championshipsCard(cal) {
     if (!cal.championships?.length) return null;
     return h('section', {class: 'championship-section', 'aria-label': '世界锦标赛'},
@@ -640,7 +644,7 @@
         h('li', {}, icon('pin'), event.city + ' · ' + (event.venue || '场馆待公布')),
         h('li', {}, icon('globe'),
           utcLabel(event.timezone, win.start) + ' · ' + bjDiff(event.timezone, win.start))));
-    const official = () => external(event.source_url, 'ISU 官方赛历');
+    const official = () => officialPage(cal, event);
     const schedule = h('section', {class: 'schedule-content'},
       h('section', {class: 'panel empty-state'},
         trackArt('empty-track', 2),
@@ -808,7 +812,7 @@
       schedule.append(competition.status, h('section', {class: 'panel empty-state'},
         trackArt('empty-track', 2),
         h('h2', {text: '详细赛程尚未录入'}),
-        h('p', {}, external(cal.source_url, 'ISU 官方赛历'))));
+        h('p', {}, officialPage(cal, station))));
     } else {
       scheduleView(data, station, schedule, competition.status);
     }

@@ -34,7 +34,11 @@ VENUES = stations.venues()
 
 # Championships are independent events, never counted as World Tour stages.
 CHAMPIONSHIPS = [
-    dict({k: v for k, v in c.items() if k != 'isu'}, detail_status='not_entered', source_url=CALENDAR_URL)
+    dict(
+        {k: v for k, v in c.items() if k != 'isu'},
+        detail_status='not_entered',
+        source_url=stations.page_url(c) or CALENDAR_URL,
+    )
     for c in CONFIG['championships']
 ]
 
@@ -237,6 +241,8 @@ def export():
             dict(
                 {k: st[k] for k in stations.FIELDS},
                 ticketing=ticketing.get(st['id']),
+                # The station's own ISU event page once found; the season calendar until then.
+                source_url=stations.page_url(st) or CALENDAR_URL,
                 detail_status='verified' if st['id'] in schedules else 'not_entered',
                 predictions=predict_groups.has_open_items(st['id'], schedules.get(st['id'], [])),
             )
