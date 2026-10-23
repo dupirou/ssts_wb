@@ -3,6 +3,7 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -150,7 +151,7 @@ class PredictionSourceTests(unittest.TestCase):
     def test_sync_failure_preserves_known_data(self):
         old = dict(schema_version=2, event_id='vancouver', lists=[dict(gender='women', distance_m=500,
                    participants=[dict(name='TEST')])])
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryDirectory() as tmp, patch.object(source, 'predictions_settled', return_value=False):
             file = Path(tmp) / 'vancouver.json'
             file.write_text(json.dumps(old))
             obj, errors = source.sync_event('vancouver', CONFIG, directory=Path(tmp),
