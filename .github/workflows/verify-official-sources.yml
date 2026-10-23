@@ -16,20 +16,16 @@ jobs:
       - name: Read public official sources
         run: |
           python - <<'PY'
-          import sys, json, zlib, base64, urllib.request
-          sys.path.insert(0, 'tools')
-          import sync_competitions as sync, stations
+          import sys,json,zlib,base64
+          sys.path.insert(0,'tools')
+          import sync_competitions as sync, isu_results,stations
           from bs4 import BeautifulSoup
-          from pathlib import Path
-          cfg=stations.sources(stations.get('montreal'))
-          snap, errors=sync.sync_event('montreal',cfg,directory=Path('/tmp/audit-competitions'))
-          print('MONTREAL_ERRORS',errors)
-          print('MONTREAL_SNAPSHOT',base64.b64encode(zlib.compress(json.dumps(snap).encode())).decode())
-          for url in ['https://www.shorttrack.swisstiming.com/', 'https://shorttrack.sportresult.com/']:
-           try:
-            raw=urllib.request.urlopen(url,timeout=25).read()
-            soup=BeautifulSoup(raw,'html.parser')
-            print('TIMING_SOURCE',url,soup.get_text(' ',strip=True)[:5000])
-            print('TIMING_LINKS',[(a.get_text(' ',strip=True),a.get('href')) for a in soup.select('a[href]')])
-           except Exception as e: print('TIMING_ERROR',url,repr(e))
+          cfg=stations.sources(stations.get('vancouver'))
+          raw=sync.fetch(cfg['results_url']); soup=BeautifulSoup(raw,'html.parser')
+          print('OFFICIAL_LINKS',[(a.get_text(' ',strip=True),a['href']) for a in soup.select('a[href]') if any(t in a['href'].lower() for t in ['swisstiming','sportresult','.pdf'])])
+          events=isu_results.embedded_results(raw)
+          print('EVENT_METADATA',json.dumps(events))
+          for e in events:
+           b=sync.fetch(isu_results.API+'/events/get-event-result-round',dict(event_result_id=e['event_result_id']))
+           print('ROUND_METADATA',e['name'],b.decode())
           PY
