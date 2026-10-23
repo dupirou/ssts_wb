@@ -56,7 +56,59 @@ class Recorder:
         return json.dumps(dict(status=200, data=rows)).encode()
 
 
+def person(name, position, skater_id, row=0):
+    return dict(
+        event_result_round_heats_competitors_id=row,
+        updated_at=f'2026-10-23T17:30:0{row % 10}.000Z',
+        skaters=dict(full_name=name),
+        started_for_nf_code='CAN',
+        skaters_id=skater_id,
+        bib_number=str(skater_id),
+        starting_position=str(position),
+        final_rank=None,
+        final_result=None,
+        qualification_code=None,
+    )
+
+
+class HeatFeed:
+    """Round 21 enters one skater twice in one lane; round 22 lists one skater in two lanes."""
+
+    def __call__(self, endpoint, form):
+        if endpoint.endswith('get-event-result-round'):
+            rows = [dict(event_result_id=11, event_id=5, event_result_round_id=rid, name='Heats') for rid in (21, 22)]
+        else:
+            rid = int(form['event_result_round_id'])
+            # The repeat is a second database row: its own id and timestamps, the same skater and lane.
+            people = [person('Ann TEST', 1, 101, 1), person('Bea TEST', 2, 102, 2), person('Bea TEST', 2, 102, 3)]
+            if rid == 22:
+                people[2] = person('Bea TEST', 3, 102, 3)
+            rows = [
+                dict(
+                    event_result_id=11,
+                    event_result_round_id=rid,
+                    event_result_round_heats_id=rid * 10,
+                    name='Heat 1',
+                    result_status='Start List',
+                    event_result_round_heats_competitors=people,
+                )
+            ]
+        return json.dumps(dict(status=200, data=rows)).encode()
+
+
 class ReuseTests(unittest.TestCase):
+    def test_exact_repeat_rows_collapse_and_one_bad_round_does_not_block_the_rest(self):
+        config = dict(CONFIG, isu_event_id=5)
+        problems = []
+        rounds = api.collect(results_page([EVENT]), config, HeatFeed(), problems=problems)
+        # Round 21's repeated row is one skater; round 22's two lanes for one skater are refused alone.
+        self.assertEqual([r['source_url'].rsplit('=', 1)[1] for r in rounds], ['21'])
+        self.assertEqual([p['name'] for p in rounds[0]['participants']], ['Ann TEST', 'Bea TEST'])
+        self.assertEqual(len(problems), 1)
+        self.assertIn('Duplicate competitor', problems[0])
+        with self.assertRaisesRegex(ValueError, 'Duplicate competitor'):
+            api.collect(results_page([EVENT]), config, HeatFeed())
+
     def test_completed_discipline_is_not_requested(self):
         known = [stored(1), stored(2, round_='final', group='A')]
         fetch = Recorder()

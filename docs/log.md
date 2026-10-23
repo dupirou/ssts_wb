@@ -16,6 +16,8 @@
 
 **处理。** 按上表人工更正 `data/schedules/vancouver.csv`（61 轮），两处时间变动作为新动态发布。比赛进行中赛程同步改为保留已核对的赛程（结果为 `live`），不再报错，也不读取 getschedule；比赛日的时间变动仍需按官方逐组时间人工核对。
 
+
+**17:31 UTC 后成绩停更。** ISU 把女子 500m 预赛第 5–8 组最后一名选手各录入了两次（两行只差数据库行 ID 和时间戳）。结果同步发现“同组重复选手”后按设计拒收整站新数据，1000m 等成绩也被挡住。改为：只差记录字段的重复行视为同一条；其他不一致仍拒收，但只影响出错的那一轮（保留其上次数据并在 Actions 里警告），其余轮次照常更新。
 ## 2026-10-23 · 温哥华官方首轮分组
 
 **来源核查。** 10-22 晚间已有 Swiss Timing 打印的 C48A《Seeding Analysis》报表在流传，但当时 ISU 官网的 Documents 标签只有 Announcement 与 Entries，`front-api.isu.org` 的轮次接口对九个项目都返回空列表；`shorttrack.swisstiming.com`、`shorttrack.sportresult.com` 已不可用，`live.isuresults.eu` 只有大道速滑。

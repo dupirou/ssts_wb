@@ -301,7 +301,11 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
         known = [
             i for i in snapshot['rounds']['items'] if i.get('evidence') in ('official_results', 'official_start_list')
         ]
-        proposed_rounds += isu_results.collect(body, config, api_fetcher, schedule, known)
+        problems = []
+        proposed_rounds += isu_results.collect(body, config, api_fetcher, schedule, known, problems)
+        for problem in problems:
+            # Only that round keeps its last accepted data; the rest of the event still updates.
+            print(f'::warning::{event_id} results: kept the last accepted data for {problem}', file=sys.stderr)
     except Exception as exc:
         errors.append('results: ' + str(exc))
     for kind, proposed in [('rounds', proposed_rounds), ('rankings', proposed_rankings)]:
