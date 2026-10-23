@@ -65,7 +65,8 @@ test('CHN rows list each heat once with an approximate time and open the officia
   row.querySelector('.competition-open').click();
   const dialog = d.querySelector('dialog[open]');
   assert.doesNotMatch(dialog.textContent, /出发位 \d|已列入分组/);
-  assert.equal(dialog.querySelectorAll('.competition-heat-head .pill').length, 0);
+  // Groups carry no '分组' tag; once racing starts a heat may show its result status, and only that.
+  for (const pill of dialog.querySelectorAll('.competition-heat-head .pill')) assert.match(pill.textContent, /^(暂定|正式)成绩$/);
   assert.equal(dialog.querySelectorAll('.source-line a').length, 1);
 });
 
