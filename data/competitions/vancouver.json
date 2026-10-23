@@ -3,7 +3,7 @@
   "event_id": "vancouver",
   "entries": {
     "status": "available",
-    "update_status": "error",
+    "update_status": "ok",
     "checked_at": "2026-10-23T00:01:35+00:00",
     "updated_at": "2026-10-20T08:52:40+00:00",
     "source_urls": [
@@ -8190,14 +8190,15 @@
         ]
       }
     ],
-    "error": "Previously published data absent; retained last snapshot"
+    "error": "results: Duplicate competitor in official heat"
   },
   "rankings": {
     "status": "not_published",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-10-23T00:01:35+00:00",
     "updated_at": null,
     "source_urls": [],
-    "items": []
+    "items": [],
+    "error": "results: Duplicate competitor in official heat"
   }
 }
