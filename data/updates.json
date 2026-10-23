@@ -21,10 +21,12 @@
     "vancouver/round/2026-10-23/qualifying/women/1000/preliminaries/-/groups": "published",
     "vancouver/round/2026-10-23/qualifying/women/1000/preliminaries/-/results": "official",
     "vancouver/round/2026-10-23/qualifying/women/1500/quarterfinal/-/groups": "published",
+    "vancouver/round/2026-10-23/qualifying/women/1500/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-23/qualifying/women/500/heats/-/groups": "published",
     "vancouver/round/2026-10-23/qualifying/women/500/preliminaries/-/groups": "published",
     "vancouver/round/2026-10-23/qualifying/women/500/preliminaries/-/results": "official",
     "vancouver/round/2026-10-24/main/women/3000/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-24/repechage/men/1500/heats/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/men/500/heats/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/women/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
@@ -605,6 +607,40 @@
       "china": [
         "Kun LI",
         "Long SUN"
+      ]
+    },
+    {
+      "id": "14cfed3dcc8298c1",
+      "station": "vancouver",
+      "at": "2026-10-23T23:21:33+00:00",
+      "local_date": "2026-10-24",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": []
+    },
+    {
+      "id": "2cf35ba0d87ac427",
+      "station": "vancouver",
+      "at": "2026-10-23T23:21:33+00:00",
+      "local_date": "2026-10-23",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Li GONG",
+        "Yan ZHANG"
       ]
     }
   ]
