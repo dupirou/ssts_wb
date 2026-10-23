@@ -11,6 +11,13 @@ import competition_data as data
 import sync_china
 
 API = 'https://front-api.isu.org'
+# Database bookkeeping on each heat row; it says nothing about the skater or the race.
+BOOKKEEPING = {
+    'event_result_round_heats_competitors_id',
+    'event_result_round_heats_teams_id',
+    'created_at',
+    'updated_at',
+}
 
 
 def embedded_results(body):
@@ -71,6 +78,11 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
             people = heat.get('event_result_round_heats_teams')
         if not isinstance(people, list) or not people:
             raise ValueError('Empty or unsupported official heat table')
+        # ISU has entered one start-list row twice (2026-10-23, women's 500 m heats 5-8): rows that agree on
+        # everything but their own record id and timestamps are one entry. Two different rows for one
+        # skater (another lane, rank or time) still fail below.
+        content = [{k: v for k, v in p.items() if k not in BOOKKEEPING} for p in people]
+        people = [p for i, p in enumerate(people) if content[i] not in content[:i]]
         members = []
         for person in people:
             skater = person.get('skaters_team' if relay else 'skaters') or {}
@@ -149,10 +161,14 @@ def is_final(items):
     )
 
 
-def collect(body, config, api_fetch, schedule=(), known=()):
+def collect(body, config, api_fetch, schedule=(), known=(), problems=None):
     """Read official rounds. Rounds already stored with official results are reused, not
     re-requested; a discipline whose official Final A is stored and whose every stored round is
-    official is complete, so even its round list is not requested again."""
+    official is complete, so even its round list is not requested again.
+
+    With a `problems` list, a round whose official heats fail validation is left out (so the
+    caller keeps what it stored from that round's source) and its error appended, instead of one
+    bad heat holding back every other round of the event."""
     events = embedded_results(body)
     stored = {}
     for item in known:
@@ -203,7 +219,13 @@ def collect(body, config, api_fetch, schedule=(), known=()):
             if requests > 100:
                 raise ValueError('ISU traversal exceeds request budget')
             if heats:
-                parsed = heat_items(heats, event, meta, disc, schedule)
+                try:
+                    parsed = heat_items(heats, event, meta, disc, schedule)
+                except ValueError as exc:
+                    if problems is None:
+                        raise
+                    problems.append(f'{event["name"]} {meta["name"]}: {exc}')
+                    continue
                 for item in parsed:
                     if item['id'] in seen:
                         raise ValueError('Duplicate ISU heat ID')
