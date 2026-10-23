@@ -81,10 +81,11 @@ def project(event_id, schedule, snapshot, inputs=None):
                         status='waiting_for_data', missing=[], groups=[], unseeded=[], prequalified=[],
                         source_urls=[], updated_at=None, country_conflicts=[])
             official = [h for h in snapshot['rounds']['items'] if target and h.get('round_key') == target['round_key']
-                        and h.get('evidence') in ('official_start_list', 'official_results')]
+                        and h.get('evidence') in ('official_start_list', 'official_results', 'reviewed_seeding_image')]
             entered = lists.get((gender, distance))
             if official:
                 item.update(status='official_available', source_urls=sorted({h['source_url'] for h in official}))
+                item['partial_round'] = any(h.get('partial_round') for h in official)
             elif not target:
                 item['missing'] = ['schedule']
             elif not entered:
@@ -142,5 +143,5 @@ def export(out, venues, schedules):
     for event in venues:
         event_id = event[0]
         result = project(event_id, schedules.get(event_id, []),
-                         competition_data.load_snapshot(event_id), load_inputs(event_id))
+                         competition_data.published_snapshot(event_id), load_inputs(event_id))
         (directory / f'{event_id}.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')

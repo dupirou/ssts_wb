@@ -31,7 +31,7 @@ Cloudflare Worker 读取由 Python 校验并生成的静态快照；访问接口
 
 ### 首轮分组预测
 
-2026-10-23 来源核查：蒙特利尔整站报名已自动抓取并上线（197 人，CHN 12 人）；温哥华官网九项轮次接口仍为空，用户提供的 Seeding Analysis 截图尚待完整原件。入口、核验运行及接入缺口见[来源核查记录](references/source-audit-2026-10-23.md)。
+2026-10-23：蒙特利尔整站报名已自动抓取并上线（197 人，CHN 12 人）。温哥华三张 Seeding Analysis 截图可见的 24 组、131 条记录已手工录入 `data/reviewed_groups/vancouver.json`，原图保存在 `web/sources/`；构建时补充到分组接口、赛程和中国队高亮，注明仅第 1 页。同轮次有官网 API 分组后整轮优先采用 API。录入前的 64 位有世界排名者，其排名与预测组号均匹配；其余 67 位原先未排组。见[逐人对比与原图](references/vancouver-seeding-comparison-2026-10-23.md)及[来源核查](references/source-audit-2026-10-23.md)。
 
 完整规则摘要、来源与实现边界见[参考资料：2026/27 世巡赛直通、种子与分组](references/isu-seeding-2026-27.md)。
 

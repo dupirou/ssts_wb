@@ -34,7 +34,7 @@
 
 当前 `tools/isu_results.py` 从官网 JSON 接口读取正式分组，`tools/sync_competitions.py` 的 PDF 报表适配仅覆盖排名，不支持 C48A Seeding Analysis。应取得原始 PDF 后按真实文本布局增加解析及回归样本，再接入既有同步流程。正式分组录入后应覆盖对应预测，并更新具体轮次的中国队高亮。
 
-本次不把两张不完整截图或预测名单写成完整官方出场表。PR 保持草稿，待温哥华原件定位及接入验证完成后再转为可合并状态。
+后续按用户要求，已录入三张截图可见的 24 组、131 条记录，并提供原图链接及“仅第 1 页”说明；不完整页面不作为整轮完整名单。逐人核对结论与复现方法见[分组对比](vancouver-seeding-comparison-2026-10-23.md)。公开 PDF 原件仍待定位，PR 暂不合并。
 
 [montreal-documents]: https://isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=documents_16272
 [montreal-pdf]: https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/ecf91af0c829137ee15c6a3ef30bc04fd36959e82037f19def6320cd934128f0.pdf

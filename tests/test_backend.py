@@ -47,7 +47,7 @@ class DataTests(unittest.TestCase):
             "heats":[{"number":6,"athletes":["FAKE_TEST_ATHLETE"]}]
         }]}
         original=build.CHINA
-        with tempfile.TemporaryDirectory() as temp, patch.object(build.competition_data, 'load_snapshot',
+        with tempfile.TemporaryDirectory() as temp, patch.object(build.competition_data, 'published_snapshot',
                 return_value=build.competition_data.empty_snapshot('vancouver')):
             file=Path(temp)/"china.json"
             file.write_text(json.dumps(example),encoding="utf-8")

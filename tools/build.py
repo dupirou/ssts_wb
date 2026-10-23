@@ -68,6 +68,8 @@ def read_schedule(station_id="vancouver", directory=stations.SCHEDULES):
     return result
 
 def valid_evidence(url):
+    if competition_data.reviewed_source(url):
+        return True
     parsed = urlsplit(url)
     return parsed.scheme == "https" and parsed.hostname in {
         "www.isu-skating.com","isu-skating.com","www.isu.org","isu.org",
@@ -84,7 +86,7 @@ def attach_china(rows, station_id="vancouver"):
     for obj in (data, auto):
         if obj.get("schema_version") != 1 or not isinstance(obj.get("heats"),list):
             raise ValueError("Invalid China provenance schema")
-    new_evidence, covered = competition_data.china_evidence(competition_data.load_snapshot(station_id))
+    new_evidence, covered = competition_data.china_evidence(competition_data.published_snapshot(station_id))
     auto['heats'] = new_evidence + [item for item in auto['heats'] if item['round_key'] not in covered]
     lookup = {r["round_key"]:r for r in rows}
     days = {d.isoformat() for d in stations.dates(stations.get(station_id))}
@@ -195,6 +197,8 @@ def export():
     shutil.copyfile(ROOT/"web/site.css",OUT/"site.css")
     shutil.copyfile(ROOT/"web/manifest.webmanifest",OUT/"manifest.webmanifest")
     shutil.copytree(ROOT/"web/icons",OUT/"icons",dirs_exist_ok=True)
+    if (ROOT/"web/sources").exists():
+        shutil.copytree(ROOT/"web/sources",OUT/"sources",dirs_exist_ok=True)
     # The service worker cache name follows the app shell, so a new release replaces the old cache.
     shell=b"".join((ROOT/"web"/name).read_bytes() for name in ("index.html","app.js","site.css","manifest.webmanifest","sw.js"))
     (OUT/"sw.js").write_text((ROOT/"web/sw.js").read_text(encoding="utf-8").replace(
