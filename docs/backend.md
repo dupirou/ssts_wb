@@ -19,7 +19,7 @@
 | `sync_china.py` 中国队小组 | 开赛前 1 天至赛后 3 天 | 结果页标注本站城市和年份 | `data/china_auto.json` |
 | `sync_predictions.py` 单项报项与排名 | 配置了 `prediction` 的站（目前温哥华），直到各项都有官方分组 | 六个单项各自的官方报项 | `data/prediction_inputs/<id>.json` |
 
-**赛程**：第一次出现完整赛程时直接录入；开赛前可整体替换；开赛后只接受时间变动，一次超过 10 处或轮次结构改变则拒绝并保留原数据。赛事页有 Schedule 标签却读不到轮次，视为失败而不是“未公布”。比赛开始后 ISU 的赛程标签改为在浏览器里加载（页面只有 `loading_schedule`），此时已存的赛程保持不变（结果 `live`）；浏览器所用的 getschedule 接口在比赛中出现过与实际不符的时间，不自动采用，比赛日的改动按官方逐组时间人工核对（见 [log.md](log.md)）。
+**赛程**：第一次出现完整赛程时直接录入；开赛前可整体替换；开赛后只接受时间变动，一次超过 10 处或轮次结构改变则拒绝并保留原数据。赛事页有 Schedule 标签却读不到轮次，视为失败而不是“未公布”。比赛开始后 ISU 的赛程标签改为在浏览器里加载（页面只有 `loading_schedule`），此时已存的赛程保持不变（结果 `live`）；浏览器所用的 getschedule 接口在比赛中出现过与实际不符的时间，不自动采用，比赛日的改动按官方逐组时间人工核对：`python tools/check_live_schedule.py --station <id>` 只读地列出每轮的已存时间与官方第 1 组计划时间（`moved` / `missing` / `extra` / `no_heats`），见 [log.md](log.md)。
 
 **报名**：每次从 Documents 重新发现最新的报名 PDF（ISU 更新时会换 URL）；整站名单只说明谁报了这一站，不能据此推断单项。
 
