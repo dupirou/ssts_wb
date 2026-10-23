@@ -57,8 +57,45 @@
       "group": null,
       "status": "scheduled",
       "china": {
-        "status": "unknown",
-        "heats": []
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 6,
+            "athletes": [
+              "LI Kun"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-23T09:33:30-07:00",
+              "latest_local": "2026-10-23T09:41:00-07:00",
+              "earliest_beijing": "2026-10-24T00:33:30+08:00",
+              "latest_beijing": "2026-10-24T00:41:00+08:00",
+              "assumed_minutes_per_heat": [
+                2.5,
+                4.0
+              ]
+            }
+          },
+          {
+            "number": 9,
+            "athletes": [
+              "ZHANG Bohao"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-23T09:41:00-07:00",
+              "latest_local": "2026-10-23T09:53:00-07:00",
+              "earliest_beijing": "2026-10-24T00:41:00+08:00",
+              "latest_beijing": "2026-10-24T00:53:00+08:00",
+              "assumed_minutes_per_heat": [
+                2.5,
+                4.0
+              ]
+            }
+          }
+        ],
+        "source_url": "/sources/vancouver-men-500-seeding-page1.jpg",
+        "verified_at": "2026-10-23T03:26:36+00:00"
       }
     },
     {
@@ -99,8 +136,62 @@
       "group": null,
       "status": "scheduled",
       "china": {
-        "status": "unknown",
-        "heats": []
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 1,
+            "athletes": [
+              "ZHU Yiding"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-23T10:34:00-07:00",
+              "latest_local": "2026-10-23T10:34:00-07:00",
+              "earliest_beijing": "2026-10-24T01:34:00+08:00",
+              "latest_beijing": "2026-10-24T01:34:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          },
+          {
+            "number": 3,
+            "athletes": [
+              "SONG Kerui"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-23T10:40:00-07:00",
+              "latest_local": "2026-10-23T10:44:00-07:00",
+              "earliest_beijing": "2026-10-24T01:40:00+08:00",
+              "latest_beijing": "2026-10-24T01:44:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          },
+          {
+            "number": 5,
+            "athletes": [
+              "LI Kun"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-23T10:46:00-07:00",
+              "latest_local": "2026-10-23T10:54:00-07:00",
+              "earliest_beijing": "2026-10-24T01:46:00+08:00",
+              "latest_beijing": "2026-10-24T01:54:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          }
+        ],
+        "source_url": "/sources/vancouver-men-1000-seeding-page1.jpg",
+        "verified_at": "2026-10-23T03:26:36+00:00"
       }
     },
     {
@@ -120,8 +211,45 @@
       "group": null,
       "status": "scheduled",
       "china": {
-        "status": "unknown",
-        "heats": []
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 4,
+            "athletes": [
+              "ZHANG Zixia"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-23T11:41:00-07:00",
+              "latest_local": "2026-10-23T11:50:00-07:00",
+              "earliest_beijing": "2026-10-24T02:41:00+08:00",
+              "latest_beijing": "2026-10-24T02:50:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          },
+          {
+            "number": 5,
+            "athletes": [
+              "SONG Kerui"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-23T11:45:00-07:00",
+              "latest_local": "2026-10-23T11:57:00-07:00",
+              "earliest_beijing": "2026-10-24T02:45:00+08:00",
+              "latest_beijing": "2026-10-24T02:57:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          }
+        ],
+        "source_url": "/sources/vancouver-men-1500-seeding-page1.jpg",
+        "verified_at": "2026-10-23T03:26:36+00:00"
       }
     },
     {

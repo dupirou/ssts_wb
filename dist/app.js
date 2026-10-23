@@ -452,7 +452,7 @@
       fill(body);
       chinaOnly.hidden = item.status !== 'predicted';
       if (item.status === 'official_available') {
-        body.append(h('p', {class: 'faint athlete-empty', text: '官方分组已公布，请在赛程中查看'}));
+        body.append(h('p', {class: 'faint athlete-empty', text: item.partial_round ? '截图分组已录入（仅第 1 页），请在赛程中查看' : '官方分组已公布，请在赛程中查看'}));
       } else if (item.status !== 'predicted') {
         body.append(h('p', {class: 'faint athlete-empty', text: reasons[item.missing[0]] || '暂无法预测'}));
       } else {
@@ -544,6 +544,7 @@
     const close = h('button', {type: 'button', class: 'icon-btn', 'aria-label': '关闭比赛详情'}, icon('close'));
     const dialog = h('dialog', {class: 'competition-dialog', 'aria-labelledby': titleId},
       h('header', {class: 'competition-head'}, h('h2', {id: titleId, text: eventName(r) + ' · ' + roundName(r)}), close));
+    if (heats.some(h => h.partial_round)) dialog.append(h('p', {class: 'faint tiny', text: '按用户提供的种子分析截图录入 · 仅第 1 页；未显示部分待补充'}));
     for (const heat of [...heats].sort((a, b) => (a.heat_number ?? 0) - (b.heat_number ?? 0))) {
       const results = heat.evidence === 'official_results';
       const status = !results ? '分组' : heat.result_status?.toLowerCase() === 'official' ? '正式成绩' : '暂定成绩';
@@ -563,7 +564,7 @@
       dialog.append(h('section', {class: 'competition-heat'},
         h('div', {class: 'competition-heat-head'}, h('h3', {text: heading}), h('span', {class: 'pill', text: status})), people));
     }
-    if (heats[0]?.source_url) dialog.append(h('p', {class: 'source-line'}, external(heats[0].source_url, '官方来源')));
+    if (heats[0]?.source_url) dialog.append(h('p', {class: 'source-line'}, external(heats[0].source_url, heats[0].evidence === 'reviewed_seeding_image' ? '分组原图' : '官方来源')));
     close.addEventListener('click', () => dialog.close());
     dialog.addEventListener('close', () => dialog.remove());
     dialog.addEventListener('click', e => {

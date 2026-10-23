@@ -49,6 +49,22 @@ async function page({data = snapshot, fails = () => false, view = 'athletes', de
 }
 const change = (dom, el, value) => {el.value=value;el.dispatchEvent(new dom.window.Event('change'));};
 
+test('reviewed image groups show partial coverage and source without invented lanes', async t => {
+  const published = JSON.parse(await file('dist/data/competitions/vancouver.json'));
+  const data = structuredClone(snapshot);
+  data.rounds = published.rounds;
+  const dom = await page({data});t.after(()=>dom.window.close());
+  const d = dom.window.document;
+  const button = [...d.querySelectorAll('.competition-open')].find(b=>b.closest('.match-row')?.textContent.includes('男子'));
+  assert.ok(button);
+  button.click();
+  const dialog=d.querySelector('dialog[open]');
+  assert.match(dialog.textContent,/仅第 1 页/);
+  assert.equal(dialog.querySelector('a').textContent.trim(),'分组原图');
+  assert.match(dialog.querySelector('a').getAttribute('href'),/^\/sources\//);
+  assert.ok([...dialog.querySelectorAll('.result-rank')].every(p=>p.textContent==='—'));
+});
+
 test('real roster defaults to CHN; country and gender filters compose', async t => {
   const dom = await page();t.after(()=>dom.window.close());
   const d = dom.window.document;
