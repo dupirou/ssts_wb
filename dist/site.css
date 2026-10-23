@@ -852,6 +852,31 @@ td.time { white-space: nowrap; }
 }
 @media print { .athlete-data, .competition-open, .competition-dialog { display: none !important; } }
 
+/* Finished rounds fold to one line: time, event, round and a way into the results.
+   The CHN heat estimates no longer matter once a round is over. Print keeps the full table. */
+@media screen {
+  .match-row.is-past td.notes-cell .heat, .match-row.is-past td.time .dt { display: none; }
+  .match-row.is-past .competition-open { min-height: 0; margin: 0; padding: 0; }
+}
+@media screen and (min-width: 1180px) {
+  .match-row.is-past td { padding-block: 6px; }
+}
+@media screen and (max-width: 1179px) {
+  .match-row.is-past {
+    grid-template-columns: auto minmax(0, max-content) minmax(0, 1fr) auto; grid-template-areas: "t e r n";
+    gap: 0 10px; padding-block: 6px; grid-column: 1 / -1; /* full width, never stretched beside a card */
+  }
+  .match-row.is-past td.secondary-time, .match-row.is-past td.group-cell,
+  .match-row.is-past td.time .dp, .match-row.is-past td.time .dt, .match-row.is-past .meter, .match-row.is-past .co-verb { display: none; }
+  .match-row.is-past td.primary-time .tm { font-size: 1rem; }
+  .match-row.is-past td.event-cell { flex-wrap: nowrap; overflow: hidden; white-space: nowrap; font-size: .9rem; }
+  /* The star alone marks a CHN round here; the red row already says it. */
+  .match-row.is-past td.event-cell .china-label { font-size: 0; padding: 3px 5px; }
+  .match-row.is-past td.round-cell { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .match-row.is-past td.notes-cell { margin: 0; padding: 0; border: 0; }
+  .match-row.is-past td.notes-cell:not(:has(.competition-open)) { display: none; }
+}
+
 /* ---------- tablet & phone: compact cards ----------
    | 00:00 凌晨 | 女子 500m      | A 组 |
    | 当地 09:00 | 初赛 ● ● ○ ○ ○ |      |   */

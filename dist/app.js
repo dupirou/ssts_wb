@@ -1155,7 +1155,9 @@
     note.classList.toggle('is-empty', !isChina(r) && !heats.length);
     if (heats.length) note.append(h('button', {type: 'button', class: 'competition-open',
       'aria-label': '查看' + eventName(r) + roundName(r) + '分组与成绩', onclick: () => showCompetition(r, heats)},
-      heats.some(x => x.evidence === 'official_results') ? '查看成绩' : '查看分组', icon('arrow', 'ico ico-xs')));
+      // A finished round folds to one line on small screens, where the verb is dropped.
+      h('span', {}, h('span', {class: 'co-verb', text: '查看'}), heats.some(x => x.evidence === 'official_results') ? '成绩' : '分组'),
+      icon('arrow', 'ico ico-xs')));
   }
 
   /* Race-day ribbon: every round start on a shared hour axis; medal races stand out. */
