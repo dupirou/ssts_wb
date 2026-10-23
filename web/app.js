@@ -1173,6 +1173,7 @@
       const shown = ((m + (bjFirst ? shift : 0)) % 1440 + 1440) % 1440;
       axis.append(h('span', {style: {left: x(m)}, text: pad(Math.floor(shown / 60)) + ':00'}));
     }
+    let nowShown = false;
     const lanes = days.map(d => {
       const active = state.day === 'all' || state.day === d.local;
       const track = h('div', {class: 'rb-track'});
@@ -1200,7 +1201,7 @@
         const p = parts(station.timezone, t);
         if (p.date === d.local) {
           const m = Number(p.hm.slice(0, 2)) * 60 + Number(p.hm.slice(3, 5));
-          if (m >= lo && m <= hi) track.append(h('i', {class: 'rb-now', style: {left: x(m)}}));
+          if (m >= lo && m <= hi) { track.append(h('i', {class: 'rb-now', style: {left: x(m)}})); nowShown = true; }
         }
       }
       const date = bjFirst ? d.bj : d.local;
@@ -1210,11 +1211,12 @@
         track);
     });
     return h('div', {class: 'panel ribbon'},
-      h('div', {class: 'panel-head'}, h('h2', {text: '三天赛程一览'}),
+      h('div', {class: 'panel-head'}, h('h2', {text: (['一', '两', '三', '四', '五', '六', '七'][days.length - 1] || days.length) + '天赛程一览'}),
         h('p', {text: (bjFirst ? '北京时间' : station.city + '时间') + ' · 点击刻度跳到对应比赛'})),
       h('div', {class: 'rb-body', 'aria-hidden': 'true'}, lanes, h('div', {class: 'rb-axis-row'}, h('span'), axis)),
       h('p', {class: 'rb-legend'}, h('span', {class: 'lg lg-gold', text: 'A 组决赛'}),
-        h('span', {class: 'lg lg-plain', text: '其他轮次'}), h('span', {class: 'lg lg-red', text: 'CHN / 现在'})));
+        h('span', {class: 'lg lg-plain', text: '其他轮次'}), h('span', {class: 'lg lg-red', text: 'CHN'}),
+        nowShown ? h('span', {class: 'lg lg-now', text: '现在'}) : null));
   }
 
   function finalsBoard(finals, state) {
