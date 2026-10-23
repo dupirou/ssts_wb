@@ -150,6 +150,11 @@ def export(out, venues, schedules):
     directory.mkdir(parents=True, exist_ok=True)
     for event in venues:
         event_id = event[0]
-        result = project(event_id, schedules.get(event_id, []),
-                         competition_data.load_snapshot(event_id), load_inputs(event_id))
+        snapshot, inputs = competition_data.load_snapshot(event_id), load_inputs(event_id)
+        if inputs:
+            # Same spelling as the entry list and the official groups.
+            names = competition_data.display_names(snapshot, competition_data.distance_entrants(event_id))
+            for p in (p for entered in inputs.get('lists', []) for p in entered['participants']):
+                p['name'] = names.get(p['athlete_id'], p['name'])
+        result = project(event_id, schedules.get(event_id, []), snapshot, inputs)
         (directory / f'{event_id}.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')

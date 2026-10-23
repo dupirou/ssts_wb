@@ -58,7 +58,7 @@ def round_facts(event_id, rounds):
     return facts
 
 
-def collect(venues, schedule, schedule_checked_at, load=competition_data.load_snapshot):
+def collect(venues, schedule, schedule_checked_at, load=competition_data.display_snapshot):
     """Current milestone facts: key -> (value, announcement or None for a silent baseline).
 
     schedule_checked_at is one timestamp, or a mapping of station id to its last schedule check."""

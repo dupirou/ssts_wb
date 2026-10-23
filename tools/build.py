@@ -84,7 +84,7 @@ def attach_china(rows, station_id="vancouver"):
     for obj in (data, auto):
         if obj.get("schema_version") != 1 or not isinstance(obj.get("heats"),list):
             raise ValueError("Invalid China provenance schema")
-    new_evidence, covered = competition_data.china_evidence(competition_data.load_snapshot(station_id))
+    new_evidence, covered = competition_data.china_evidence(competition_data.display_snapshot(station_id))
     auto['heats'] = new_evidence + [item for item in auto['heats'] if item['round_key'] not in covered]
     lookup = {r["round_key"]:r for r in rows}
     days = {d.isoformat() for d in stations.dates(stations.get(station_id))}

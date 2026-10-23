@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'data/competitions'
+INPUTS = ROOT / 'data/prediction_inputs'
 KINDS = ('entries', 'rounds', 'rankings')
 
 
@@ -33,6 +34,51 @@ def load_snapshot(event_id, directory=DATA):
         return empty_snapshot(event_id)
     snapshot = json.loads(path.read_text(encoding='utf-8'))
     validate(snapshot, event_id)
+    return snapshot
+
+
+def surname_last(name):
+    """'LI Kun' -> 'Kun LI'. Entry PDFs lead with the upper-case surname; None if the
+    capitals do not mark one (all upper case, or none)."""
+    tokens = name.split()
+    n = next((i for i, t in enumerate(tokens) if not t.isupper()), len(tokens))
+    return ' '.join(tokens[n:] + tokens[:n]) if 0 < n < len(tokens) else None
+
+
+def given_first(name):
+    """Whether a name already reads 'Given SURNAME', as ISU's results feed mostly writes it."""
+    tokens = name.split()
+    n = next((i for i, t in enumerate(reversed(tokens)) if not t.isupper()), len(tokens))
+    return 0 < n < len(tokens)
+
+
+def display_names(snapshot, extra=()):
+    """One spelling per athlete across the site, 'Given SURNAME'.
+
+    Official sources disagree ('LI Kun' in entry PDFs, 'Kun LI' or 'Margherita Betti' in the
+    results feed, 'SONG KERUI'), so the entry PDF's capitals decide the surname when they can,
+    and any other source already in that form is the fallback. Stored data keeps ISU's text."""
+    others = [p for heat in snapshot['rounds']['items'] for p in heat['participants']] + list(extra)
+    names = {p['athlete_id']: ' '.join(p['name'].split()) for p in others if given_first(p['name'])}
+    for person in snapshot['entries']['items']:
+        flipped = surname_last(person['name'])
+        if flipped:
+            names[person['athlete_id']] = flipped
+    return names
+
+
+def distance_entrants(event_id, directory=INPUTS):
+    path = directory / f'{event_id}.json'
+    lists = json.loads(path.read_text(encoding='utf-8')).get('lists', []) if path.exists() else []
+    return [p for entered in lists for p in entered['participants']]
+
+
+def display_snapshot(event_id):
+    """The stored snapshot with every athlete under their display name, for publishing."""
+    snapshot = load_snapshot(event_id)
+    names = display_names(snapshot, distance_entrants(event_id))
+    for person in snapshot['entries']['items'] + [p for h in snapshot['rounds']['items'] for p in h['participants']]:
+        person['name'] = names.get(person['athlete_id'], person['name'])
     return snapshot
 
 
@@ -97,7 +143,7 @@ def export(out, venues, distances=lambda event_id: {}):
     events = []
     for event in venues:
         event_id, city, city_en = event[:3]
-        snapshot = load_snapshot(event_id)
+        snapshot = display_snapshot(event_id)
         entered = distances(event_id)
         for person in snapshot['entries']['items']:
             if person['athlete_id'] in entered:

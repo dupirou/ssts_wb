@@ -149,6 +149,20 @@ class CompetitionTests(unittest.TestCase):
         self.assertEqual(records,[])
         self.assertEqual(covered,corrected)
 
+    def test_display_names_put_the_surname_last_everywhere(self):
+        person = lambda name: dict(athlete_id=data.athlete_id(name, 'CHN', 'men'), name=name)
+        obj = data.empty_snapshot('vancouver')
+        obj['entries']['items'] = [person('LI Kun'), person('SONG KERUI'), person('VAN  \'T WOUT Jens')]
+        obj['rounds']['items'] = [dict(participants=[person('Kun Li'), person('Kerui SONG')])]
+        names = data.display_names(obj)
+        # The entry PDF's capitals mark the surname; an all-capitals entry falls back to the feed.
+        self.assertEqual(names[person('LI Kun')['athlete_id']], 'Kun LI')
+        self.assertEqual(names[person('SONG KERUI')['athlete_id']], 'Kerui SONG')
+        self.assertEqual(names[person('Jens VAN \'T WOUT')['athlete_id']], "Jens VAN 'T WOUT")
+        self.assertIsNone(data.surname_last('Margherita Betti'))
+        self.assertTrue(data.given_first('Ching Shun Nicole LAW'))
+        self.assertFalse(data.given_first('SONG KERUI'))
+
 
 if __name__ == '__main__':
     unittest.main()
