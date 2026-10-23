@@ -157,6 +157,7 @@
     el.set = ms => {
       const p = split(ms);
       el.classList.toggle('no-days', p.d === 0);
+      el.classList.toggle('long-days', p.d >= 100);
       for (const [k, v] of cells) {
         const value = k === 'd' ? String(p.d) : pad(p[k]);
         if (v.textContent !== value) v.textContent = value;

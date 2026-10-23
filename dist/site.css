@@ -918,7 +918,11 @@ td.time { white-space: nowrap; }
   .next-main > .btn { width: 100%; }
   .cd-xl { font-size: 2rem; }
   .countdown { gap: 6px; }
-  .countdown span { padding: 7px 10px; border-radius: 12px; }
+  /* Tiles share the card width so four of them (days shown) never run past its edge. */
+  .countdown span { flex: 0 1 auto; min-width: 0; justify-content: center; padding: 7px 10px; border-radius: 12px; }
+  .countdown:not(.no-days) { font-size: 1.6rem; }
+  .countdown:not(.no-days) span { flex: 1 1 0; padding-inline: 6px; }
+  .countdown.long-days { font-size: 1.35rem; }
 
   .sl { margin: 0 12px; height: 112px; }
   .sl-node { width: 44px; }
@@ -999,7 +1003,8 @@ td.time { white-space: nowrap; }
   .match-row { grid-template-columns: 5.1rem minmax(0, 1fr) auto; gap: 2px 9px; padding: 9px 11px; }
   .match-row td.primary-time .tm { font-size: 1.2rem; }
   .countdown span { padding: 6px 8px; }
-  .cd-xl, .cd-lg { font-size: 1.45rem; }
+  .cd-xl, .cd-lg, .countdown:not(.no-days) { font-size: 1.4rem; }
+  .countdown.long-days { font-size: 1.2rem; }
   .countdown { gap: 4px; }
 }
 
