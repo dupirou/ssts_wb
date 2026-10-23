@@ -266,13 +266,18 @@ def sync_station(station, fetcher=fetch, now=None, directory=stations.SCHEDULES,
     if not identity(text[:5000], station):
         raise ValueError("ISU page is not labelled with the station's city and dates")
     found = parse_text(text, station)
+    path = stations.schedule_path(station['id'], directory)
+    if not found and 'loading_schedule' in text and read(path):
+        # Once racing starts the tab loads its times in the browser from front-api's getschedule
+        # feed. On 2026-10-23 that feed moved rounds already raced by 16 minutes, so it is not
+        # trusted: the verified programme stands and race-day changes are checked by hand.
+        return 'live', []
     if not found:
         # The requested URL itself names the schedule tab, so ask the plain event page whether
         # ISU lists one: a listed tab without readable rows is a parsing failure, not "unpublished".
         if re.search(rf'[?&]tab=schedule_{station["isu"]["event_id"]}\b', fetcher(stations.page_url(station))):
             raise ValueError('Schedule tab is published but no programme rows could be read')
         return 'not_published', []
-    path = stations.schedule_path(station['id'], directory)
     action, rows, changes = merge(validate(found, station), read(path), station, now)
     if rows is not None:
         write(rows, path)

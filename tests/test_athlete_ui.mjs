@@ -65,7 +65,8 @@ test('CHN rows list each heat once with an approximate time and open the officia
   row.querySelector('.competition-open').click();
   const dialog = d.querySelector('dialog[open]');
   assert.doesNotMatch(dialog.textContent, /出发位 \d|已列入分组/);
-  assert.equal(dialog.querySelectorAll('.competition-heat-head .pill').length, 0);
+  // Groups carry no '分组' tag; once racing starts a heat may show its result status, and only that.
+  for (const pill of dialog.querySelectorAll('.competition-heat-head .pill')) assert.match(pill.textContent, /^(暂定|正式)成绩$/);
   assert.equal(dialog.querySelectorAll('.source-line a').length, 1);
 });
 
@@ -102,7 +103,7 @@ test('real roster defaults to CHN; country and gender filters compose', async t 
   assert.equal(roster.querySelectorAll('.athlete-card').length,snapshot.entries.items.filter(p=>p.gender==='women').length);
   change(dom,country,'CHN');
   assert.equal(roster.querySelectorAll('.athlete-card').length,china.filter(p=>p.gender==='women').length);
-  assert.equal(d.querySelectorAll('.match-row').length,62);
+  assert.equal(d.querySelectorAll('.match-row').length,61);
 });
 test('roster cards list the distances each athlete entered', async t => {
   const data=structuredClone(snapshot);
@@ -120,19 +121,19 @@ test('not-published data stays empty and never fabricates heat buttons', async t
   const d=dom.window.document;
   assert.match(d.querySelector('.athlete-panel').textContent,/待公布/);
   assert.equal(d.querySelectorAll('.athlete-card,.competition-open').length,0);
-  assert.equal(d.querySelectorAll('.match-row').length,62);
+  assert.equal(d.querySelectorAll('.match-row').length,61);
 });
 test('source failure preserves schedule and successful roster, retry restores details', async t => {
   let fail=true;
   const dom=await page({fails:kind=>kind==='rounds'&&fail});t.after(()=>dom.window.close());
   const d=dom.window.document;
-  assert.equal(d.querySelectorAll('.match-row').length,62);
+  assert.equal(d.querySelectorAll('.match-row').length,61);
   assert.equal(d.querySelectorAll('.athlete-card').length,snapshot.entries.items.filter(p=>p.country==='CHN').length);
   assert.ok(d.querySelector('.athlete-load-error'));
   fail=false;
   d.querySelector('.athlete-load-error button').click();
   await settle(dom,()=>!d.querySelector('.athlete-load-error')&&!d.querySelector('[data-resource=rounds][aria-busy]'));
-  assert.equal(d.querySelectorAll('.match-row').length,62);
+  assert.equal(d.querySelectorAll('.match-row').length,61);
 });
 test('official heat opens participant results and penalties without HTML injection', async t => {
   const data=structuredClone(snapshot);
@@ -227,7 +228,7 @@ test('schedule first: one API, no roster/prediction or overview work until reque
   assert.deepEqual(dom.requests.filter(p=>p.startsWith('/api/')),['/api/v1/events/vancouver/rounds']);
   assert.deepEqual(dom.requests.filter(p=>p.startsWith('/data/')).sort(),['/data/calendar.json','/data/updates.json','/data/vancouver.json']);
   assert.equal(d.querySelectorAll('.athlete-card,.prediction-panel,.rb-body').length,0);
-  assert.equal(d.querySelectorAll('.match-row').length,62);
+  assert.equal(d.querySelectorAll('.match-row').length,61);
   const first=d.querySelector('.match-row');
   d.getElementById('tab-athletes').click();
   await settle(dom,()=>d.querySelector('.athlete-card'));
@@ -284,7 +285,7 @@ test('day, timezone and overview work after navigating between content tabs', as
   const dom=await page({view:'schedule'});t.after(()=>dom.window.close());
   const d=dom.window.document;
   d.querySelectorAll('.fb-day')[1].click();
-  assert.equal(d.querySelectorAll('.match-row').length,14);
+  assert.equal(d.querySelectorAll('.match-row').length,13);
   const row=d.querySelector('.match-row');
   const bj=row.querySelector('.primary-time .tm').textContent;
   d.querySelectorAll('.fb-zone button')[1].click();
@@ -292,14 +293,14 @@ test('day, timezone and overview work after navigating between content tabs', as
   d.getElementById('tab-athletes').click();
   await settle(dom,()=>d.querySelector('.athlete-card'));
   d.getElementById('tab-schedule').click();
-  assert.equal(d.querySelectorAll('.match-row').length,14);
+  assert.equal(d.querySelectorAll('.match-row').length,13);
   assert.equal(d.querySelectorAll('.fb-zone button')[1].getAttribute('aria-pressed'),'true');
   const overview=d.querySelector('.schedule-overview');
   overview.open=true;
   await settle(dom,()=>d.querySelector('.rb-body'));
   assert.equal(d.querySelectorAll('.finals-list button').length,9);
   d.querySelector('.finals-list button').click();
-  assert.equal(d.querySelectorAll('.match-row').length,62,'jump clears a day filter hiding the target');
+  assert.equal(d.querySelectorAll('.match-row').length,61,'jump clears a day filter hiding the target');
 });
 
 test('tab keyboard navigation and prediction URL survive reload', async t => {
