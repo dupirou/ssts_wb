@@ -5,6 +5,7 @@ a station's detailed programme is published, an entry list appears or changes, a
 official groups or results are published, a scheduled start moves, final rankings appear. Event times come from the data's own timestamps,
 so rebuilding the same data reproduces the same feed.
 """
+
 import hashlib
 import json
 import re
@@ -34,25 +35,38 @@ def round_facts(event_id, rounds):
     """One 'groups published' and one 'official results' milestone per scheduled round."""
     grouped = {}
     for heat in rounds['items']:
-        ident = heat.get('round_key') or '/'.join(map(str, (heat['gender'], heat['distance_m'], heat['format'],
-                                                             heat.get('round_label'), heat.get('group'))))
+        ident = heat.get('round_key') or '/'.join(
+            map(str, (heat['gender'], heat['distance_m'], heat['format'], heat.get('round_label'), heat.get('group')))
+        )
         grouped.setdefault(ident, []).append(heat)
     facts = {}
     for ident, heats in grouped.items():
         first = heats[0]
-        base = dict(at=rounds['updated_at'], local_date=first.get('local_date'), round=first['round'],
-                    group=first.get('group'),
-                    repechage=('/repechage/' in first['round_key']) if first.get('round_key')
-                    else bool(re.search(r'\brep(?:echage)?\b', first.get('round_label') or '', re.I)),
-                    **discipline(first))
+        base = dict(
+            at=rounds['updated_at'],
+            local_date=first.get('local_date'),
+            round=first['round'],
+            group=first.get('group'),
+            repechage=('/repechage/' in first['round_key'])
+            if first.get('round_key')
+            else bool(re.search(r'\brep(?:echage)?\b', first.get('round_label') or '', re.I)),
+            **discipline(first),
+        )
         people = [p for h in heats for p in h['participants']]
         china = sorted({p['name'] for p in people if p['country'] == 'CHN'})
-        facts[f'{event_id}/round/{ident}/groups'] = ('published', dict(base, kind='groups', heats=len(heats), china=china))
-        if all(h['evidence'] == 'official_results' and (h.get('result_status') or '').lower() == 'official' for h in heats):
+        facts[f'{event_id}/round/{ident}/groups'] = (
+            'published',
+            dict(base, kind='groups', heats=len(heats), china=china),
+        )
+        if all(
+            h['evidence'] == 'official_results' and (h.get('result_status') or '').lower() == 'official' for h in heats
+        ):
             results = dict(base, kind='results', china=china)
             if first['round'] == 'final' and first.get('group') == 'A':
-                ranked = sorted((p for p in people if isinstance(p.get('rank'), int) and 1 <= p['rank'] <= 3),
-                                key=lambda p: p['rank'])
+                ranked = sorted(
+                    (p for p in people if isinstance(p.get('rank'), int) and 1 <= p['rank'] <= 3),
+                    key=lambda p: p['rank'],
+                )
                 results['podium'] = [dict(rank=p['rank'], name=p['name'], country=p['country']) for p in ranked]
             facts[f'{event_id}/round/{ident}/results'] = ('official', results)
     return facts
@@ -65,26 +79,40 @@ def collect(venues, schedule, schedule_checked_at, load=competition_data.display
     facts = {}
     for venue in venues:
         event_id = venue[0]
-        checked = (schedule_checked_at.get(event_id) if isinstance(schedule_checked_at, dict)
-                   else schedule_checked_at)
+        checked = schedule_checked_at.get(event_id) if isinstance(schedule_checked_at, dict) else schedule_checked_at
         rows = schedule.get(event_id, [])
         if rows:
-            facts[f'{event_id}/schedule'] = ('published', dict(kind='schedule', at=checked,
-                local_date=rows[0]['local_date'], count=len(rows)))
+            facts[f'{event_id}/schedule'] = (
+                'published',
+                dict(kind='schedule', at=checked, local_date=rows[0]['local_date'], count=len(rows)),
+            )
         snapshot = load(event_id)
         entries = snapshot['entries']
         if entries['status'] == 'available' and entries['items']:
-            facts[f'{event_id}/entries'] = (digest(*sorted(i['id'] for i in entries['items'])),
-                dict(kind='entries', at=entries['updated_at'], count=len(entries['items'])))
+            facts[f'{event_id}/entries'] = (
+                digest(*sorted(i['id'] for i in entries['items'])),
+                dict(kind='entries', at=entries['updated_at'], count=len(entries['items'])),
+            )
         facts.update(round_facts(event_id, snapshot['rounds']))
         rankings = snapshot['rankings']
         if rankings['status'] == 'available' and rankings['items']:
-            facts[f'{event_id}/rankings'] = (digest(*sorted(i['id'] for i in rankings['items'])),
-                dict(kind='rankings', at=rankings['updated_at']))
+            facts[f'{event_id}/rankings'] = (
+                digest(*sorted(i['id'] for i in rankings['items'])),
+                dict(kind='rankings', at=rankings['updated_at']),
+            )
         for e in rows:
-            facts[f'{event_id}/time/{e["round_key"]}'] = (e['beijing_date'] + ' ' + e['beijing_time'],
-                dict(kind='time', at=checked, local_date=e['local_date'], round=e['round'],
-                     group=e['group'], repechage=e['session'] == 'repechage', **discipline(e)))
+            facts[f'{event_id}/time/{e["round_key"]}'] = (
+                e['beijing_date'] + ' ' + e['beijing_time'],
+                dict(
+                    kind='time',
+                    at=checked,
+                    local_date=e['local_date'],
+                    round=e['round'],
+                    group=e['group'],
+                    repechage=e['session'] == 'repechage',
+                    **discipline(e),
+                ),
+            )
     return facts
 
 
@@ -98,7 +126,11 @@ def update(log, facts):
         if old == value or not event.get('at'):
             continue  # an undated fact waits until the data carries its own timestamp
         station = key.split('/', 1)[0]
-        if event['kind'] == 'schedule' and old is None and (fresh or any(k.startswith(station + '/time/') for k in known)):
+        if (
+            event['kind'] == 'schedule'
+            and old is None
+            and (fresh or any(k.startswith(station + '/time/') for k in known))
+        ):
             known[key] = value
             continue  # a programme already on the site before this notice existed is not news
         known[key] = value

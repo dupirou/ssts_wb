@@ -42,6 +42,7 @@ python tools/build.py
 python -m http.server 8000 --directory dist  # 打开 http://127.0.0.1:8000
 python -m unittest discover -s tests
 npm ci --ignore-scripts && node --test tests/*.mjs
+ruff format tools tests && ruff check tools tests   # Python 格式与检查（pyproject.toml）
 ```
 
 同步脚本需要能访问 ISU 官网，一般只在 Actions 里运行；单站检查可用 `python tools/sync_schedule.py --station montreal`。

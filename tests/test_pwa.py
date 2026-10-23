@@ -1,4 +1,5 @@
 """The site installs as a PWA: valid manifest, real icons, and a service worker versioned by the app shell."""
+
 import hashlib
 import json
 import re
@@ -39,8 +40,13 @@ class PwaTests(unittest.TestCase):
 
     def test_built_worker_is_stamped_with_the_shell_version(self):
         built = (ROOT / 'dist/sw.js').read_text(encoding='utf-8')
-        shell = b''.join((ROOT / 'dist' / name).read_bytes()
-                         for name in ('index.html', 'app.js', 'site.css', 'manifest.webmanifest')) + (ROOT / 'web/sw.js').read_bytes()
+        shell = (
+            b''.join(
+                (ROOT / 'dist' / name).read_bytes()
+                for name in ('index.html', 'app.js', 'site.css', 'manifest.webmanifest')
+            )
+            + (ROOT / 'web/sw.js').read_bytes()
+        )
         self.assertEqual(re.search(r"VERSION = '(\w+)'", built)[1], hashlib.sha256(shell).hexdigest()[:12])
         for asset in re.search(r'SHELL = \[(.*?)\];', built, re.S)[1].replace("'", '').replace('\n', '').split(','):
             path = asset.strip().removeprefix('./') or 'index.html'

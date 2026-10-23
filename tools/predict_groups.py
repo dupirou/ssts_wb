@@ -4,6 +4,7 @@ Only skaters with a distance World Ranking have a known seed, so only they are p
 without one are seeded by submitted entry times that ISU does not publish; they are listed apart,
 and each group shows how many places they fill. Lanes, results and later rounds are not predicted.
 """
+
 import json
 from pathlib import Path
 
@@ -20,9 +21,16 @@ def first_round(distance, total):
     if distance not in (500, 1000, 1500) or str(total) not in TABLES['first_round_heat_counts'][kind]:
         return None
     preliminary = total >= (64 if distance == 1500 else 41)
-    stage = ('heats' if preliminary else 'quarterfinal') if distance == 1500 else ('preliminaries' if preliminary else 'heats')
-    return dict(round=stage, heat_count=TABLES['first_round_heat_counts'][kind][str(total)],
-                prequalified_count=20 if preliminary else 0)
+    stage = (
+        ('heats' if preliminary else 'quarterfinal')
+        if distance == 1500
+        else ('preliminaries' if preliminary else 'heats')
+    )
+    return dict(
+        round=stage,
+        heat_count=TABLES['first_round_heat_counts'][kind][str(total)],
+        prequalified_count=20 if preliminary else 0,
+    )
 
 
 def heat_sizes(total, heat_count):
@@ -48,7 +56,7 @@ def snake_groups(people, heat_count, separate_country=True):
         if (start // heat_count) % 2:
             order.reverse()
         placed = {}
-        for person in people[start:start + heat_count]:
+        for person in people[start : start + heat_count]:
             available = [g for g in order if g not in placed]
             target = available[0]
             if separate_country and clash(target, person['country']):
@@ -64,8 +72,9 @@ def snake_groups(people, heat_count, separate_country=True):
             placed[target] = person
         for g, person in placed.items():
             groups[g].append(person)
-    conflicts = [i for i, group in enumerate(groups, 1)
-                 if separate_country and len({p['country'] for p in group}) != len(group)]
+    conflicts = [
+        i for i, group in enumerate(groups, 1) if separate_country and len({p['country'] for p in group}) != len(group)
+    ]
     return groups, conflicts
 
 
@@ -74,14 +83,39 @@ def project(event_id, schedule, snapshot, inputs=None):
     output = []
     for gender in ('women', 'men'):
         for distance in (500, 1000, 1500):
-            target = next((r for r in schedule if r['gender'] == gender and r['distance_m'] == distance
-                           and r['format'] == 'individual' and r['session'] == 'qualifying'), None)
-            item = dict(id=f'{gender}-{distance}', gender=gender, distance_m=distance,
-                        round_key=target and target['round_key'], round=target and target['round'],
-                        status='waiting_for_data', missing=[], groups=[], unseeded=[], prequalified=[],
-                        source_urls=[], updated_at=None, country_conflicts=[])
-            official = [h for h in snapshot['rounds']['items'] if target and h.get('round_key') == target['round_key']
-                        and h.get('evidence') in ('official_start_list', 'official_results')]
+            target = next(
+                (
+                    r
+                    for r in schedule
+                    if r['gender'] == gender
+                    and r['distance_m'] == distance
+                    and r['format'] == 'individual'
+                    and r['session'] == 'qualifying'
+                ),
+                None,
+            )
+            item = dict(
+                id=f'{gender}-{distance}',
+                gender=gender,
+                distance_m=distance,
+                round_key=target and target['round_key'],
+                round=target and target['round'],
+                status='waiting_for_data',
+                missing=[],
+                groups=[],
+                unseeded=[],
+                prequalified=[],
+                source_urls=[],
+                updated_at=None,
+                country_conflicts=[],
+            )
+            official = [
+                h
+                for h in snapshot['rounds']['items']
+                if target
+                and h.get('round_key') == target['round_key']
+                and h.get('evidence') in ('official_start_list', 'official_results')
+            ]
             entered = lists.get((gender, distance))
             if official:
                 item.update(status='official_available', source_urls=sorted({h['source_url'] for h in official}))
@@ -102,23 +136,41 @@ def project(event_id, schedule, snapshot, inputs=None):
                     seeded = [dict(p, seed_rank=n) for n, p in enumerate(racing, 1) if p['world_rank'] is not None]
                     # Rule 293.5(a) country separation does not apply when the first round is a quarter-final.
                     groups, conflicts = snake_groups(seeded, plan['heat_count'], plan['round'] != 'quarterfinal')
-                    item.update(status='predicted', country_conflicts=conflicts,
-                                prequalified=[p for p in people if p['prequalified']],
-                                unseeded=[p for p in racing if p['world_rank'] is None],
-                                groups=[dict(heat_number=n, size=size, participants=group,
-                                             has_china=any(p['country'] == 'CHN' for p in group))
-                                        for n, (group, size) in enumerate(
-                                            zip(groups, heat_sizes(len(racing), plan['heat_count'])), 1)])
+                    item.update(
+                        status='predicted',
+                        country_conflicts=conflicts,
+                        prequalified=[p for p in people if p['prequalified']],
+                        unseeded=[p for p in racing if p['world_rank'] is None],
+                        groups=[
+                            dict(
+                                heat_number=n,
+                                size=size,
+                                participants=group,
+                                has_china=any(p['country'] == 'CHN' for p in group),
+                            )
+                            for n, (group, size) in enumerate(
+                                zip(groups, heat_sizes(len(racing), plan['heat_count'])), 1
+                            )
+                        ],
+                    )
             output.append(item)
-    return dict(schema_version=1, event_id=event_id, resource='predictions',
+    return dict(
+        schema_version=1,
+        event_id=event_id,
+        resource='predictions',
         status='available' if any(i['status'] == 'predicted' for i in output) else 'waiting_for_data',
         evidence='model_prediction_not_official',
         update_status=(inputs or {}).get('update_status', 'not_checked'),
         checked_at=(inputs or {}).get('checked_at'),
         stale=(inputs or {}).get('update_status') == 'error',
-        rules=[dict(label='ISU 规则 293', url=RULES_URL), dict(label='世巡赛通告 2806 §7', url=TOUR_URL),
-               dict(label='2026/27 晋级表', url=TABLES['source_url'])],
-        total=len(output), items=output)
+        rules=[
+            dict(label='ISU 规则 293', url=RULES_URL),
+            dict(label='世巡赛通告 2806 §7', url=TOUR_URL),
+            dict(label='2026/27 晋级表', url=TABLES['source_url']),
+        ],
+        total=len(output),
+        items=output,
+    )
 
 
 def load_inputs(event_id):
@@ -130,9 +182,12 @@ def has_open_items(event_id, schedule):
     """Whether the station needs a prediction tab: distance entries exist and some first
     round still has no official groups."""
     import competition_data
+
     inputs = load_inputs(event_id)
-    return bool(inputs) and any(i['status'] != 'official_available' for i in
-                                project(event_id, schedule, competition_data.load_snapshot(event_id), inputs)['items'])
+    return bool(inputs) and any(
+        i['status'] != 'official_available'
+        for i in project(event_id, schedule, competition_data.load_snapshot(event_id), inputs)['items']
+    )
 
 
 def entered_distances(event_id):
@@ -146,6 +201,7 @@ def entered_distances(event_id):
 
 def export(out, venues, schedules):
     import competition_data
+
     directory = out / 'data/predictions'
     directory.mkdir(parents=True, exist_ok=True)
     for event in venues:

@@ -1,4 +1,5 @@
 """Small, source-backed competition snapshots shared by sync and build."""
+
 import hashlib
 import json
 import re
@@ -19,13 +20,13 @@ def athlete_id(name, country, gender):
 
 
 def empty_dataset():
-    return dict(status='not_published', update_status='not_checked',
-                checked_at=None, updated_at=None, source_urls=[], items=[])
+    return dict(
+        status='not_published', update_status='not_checked', checked_at=None, updated_at=None, source_urls=[], items=[]
+    )
 
 
 def empty_snapshot(event_id):
-    return dict(schema_version=1, event_id=event_id,
-                **{kind: empty_dataset() for kind in KINDS})
+    return dict(schema_version=1, event_id=event_id, **{kind: empty_dataset() for kind in KINDS})
 
 
 def load_snapshot(event_id, directory=DATA):
@@ -130,9 +131,18 @@ def china_evidence(snapshot):
             if names and isinstance(number, int):
                 chinese.append(dict(number=number, athletes=names))
         if chinese:
-            records.append(dict(round_key=key, country='CHN',
-                evidence='official_round_results' if all(h['evidence'] == 'official_results' for h in heats) else 'official_start_list',
-                source_url=heats[0]['source_url'], verified_at=snapshot['rounds']['updated_at'], heats=chinese))
+            records.append(
+                dict(
+                    round_key=key,
+                    country='CHN',
+                    evidence='official_round_results'
+                    if all(h['evidence'] == 'official_results' for h in heats)
+                    else 'official_start_list',
+                    source_url=heats[0]['source_url'],
+                    verified_at=snapshot['rounds']['updated_at'],
+                    heats=chinese,
+                )
+            )
     return records, set(grouped)
 
 
@@ -148,10 +158,13 @@ def export(out, venues, distances=lambda event_id: {}, season=None):
         for person in snapshot['entries']['items']:
             if person['athlete_id'] in entered:
                 person['distances'] = entered[person['athlete_id']]
-        events.append(dict(id=event_id, city=city, city_en=city_en,
-                           **{kind: snapshot[kind]['status'] for kind in KINDS}))
+        events.append(
+            dict(id=event_id, city=city, city_en=city_en, **{kind: snapshot[kind]['status'] for kind in KINDS})
+        )
         (directory / f'{event_id}.json').write_text(
-            json.dumps(snapshot, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+            json.dumps(snapshot, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+        )
     (directory / 'index.json').write_text(
-        json.dumps(dict(schema_version=1, season=season, events=events),
-                   ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        json.dumps(dict(schema_version=1, season=season, events=events), ensure_ascii=False, indent=2) + '\n',
+        encoding='utf-8',
+    )

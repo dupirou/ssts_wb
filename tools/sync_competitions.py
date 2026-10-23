@@ -4,6 +4,7 @@
 Only official published rows are imported. A roster never confirms a heat.
 Document URL discovery is repeated each run so replacement PDFs are picked up.
 """
+
 import argparse
 import io
 import re
@@ -18,16 +19,14 @@ import competition_data as data
 import stations
 import tls
 
-HOSTS = {'isu-skating.com', 'www.isu-skating.com',
-         'isu-d8g8b4b7ece7aphs.a03.azurefd.net', 'front-api.isu.org'}
+HOSTS = {'isu-skating.com', 'www.isu-skating.com', 'isu-d8g8b4b7ece7aphs.a03.azurefd.net', 'front-api.isu.org'}
 GENDERS = {'M': 'men', 'F': 'women', 'X': 'mixed'}
 MAX_BYTES = 20_000_000
 
 
 def allowed(url):
     p = urlsplit(url)
-    return (p.scheme == 'https' and p.hostname in HOSTS and
-            p.port in (None, 443) and not p.username and not p.password)
+    return p.scheme == 'https' and p.hostname in HOSTS and p.port in (None, 443) and not p.username and not p.password
 
 
 class OfficialRedirect(HTTPRedirectHandler):
@@ -58,7 +57,9 @@ WINDOW_BEFORE_DAYS = 14
 
 
 def assert_identity(text, config):
-    if stations.plain(config['city']) not in stations.plain(text) or not re.search(r'\b' + str(config['year']) + r'\b', text):
+    if stations.plain(config['city']) not in stations.plain(text) or not re.search(
+        r'\b' + str(config['year']) + r'\b', text
+    ):
         raise ValueError('Source is not labelled with the expected city and year')
 
 
@@ -87,8 +88,9 @@ def parse_entries(body, config):
         country, name, sex, participation = match.groups()
         gender = GENDERS[sex]
         aid = data.athlete_id(name, country, gender)
-        items.append(dict(id=aid, athlete_id=aid, name=name, country=country,
-                          gender=gender, participation=participation.lower()))
+        items.append(
+            dict(id=aid, athlete_id=aid, name=name, country=country, gender=gender, participation=participation.lower())
+        )
     if not items:
         raise ValueError('No supported roster rows')
     if len({item['id'] for item in items}) != len(items):
@@ -125,8 +127,11 @@ def discipline(text):
     distance = int(distance[1]) if distance else 2000 if sex[1].lower() == 'mixed' else None
     if distance is None:
         return None
-    return dict(gender=sex[1].lower(), distance_m=distance,
-                format='relay' if re.search(r'\brelay\b', text, re.I) else 'individual')
+    return dict(
+        gender=sex[1].lower(),
+        distance_m=distance,
+        format='relay' if re.search(r'\brelay\b', text, re.I) else 'individual',
+    )
 
 
 def penalty(value, infringement=None):
@@ -147,18 +152,30 @@ def parse_reports(body, config, source_url):
     rankings = []
     recognized = False
     for text in pages:
-        title = re.search(r'^\s*(WORLD RANKING|EVENT CLASSIFICATION|FINAL CLASSIFICATION|WORLD TOUR CLASSIFICATION)\s*$', text, re.M)
+        title = re.search(
+            r'^\s*(WORLD RANKING|EVENT CLASSIFICATION|FINAL CLASSIFICATION|WORLD TOUR CLASSIFICATION)\s*$', text, re.M
+        )
         if not title:
             continue
         lines = text.splitlines()
-        heading = next((discipline(line.strip()) for line in lines
-                        if discipline(line.strip()) and 'Record' not in line and len(line.strip()) < 100), None)
+        heading = next(
+            (
+                discipline(line.strip())
+                for line in lines
+                if discipline(line.strip()) and 'Record' not in line and len(line.strip()) < 100
+            ),
+            None,
+        )
         header = next((line for line in lines if 'Name' in line and 'ISU' in line), None)
         if not heading or not header:
             continue
         recognized = True
-        kind = {'WORLD RANKING': 'world', 'EVENT CLASSIFICATION': 'event',
-                'FINAL CLASSIFICATION': 'event', 'WORLD TOUR CLASSIFICATION': 'world_tour'}[title[1]]
+        kind = {
+            'WORLD RANKING': 'world',
+            'EVENT CLASSIFICATION': 'event',
+            'FINAL CLASSIFICATION': 'event',
+            'WORLD TOUR CLASSIFICATION': 'world_tour',
+        }[title[1]]
         name_col, country_col = header.index('Name'), header.index('ISU')
         points_col = header.find('Total')
         last = None
@@ -167,26 +184,39 @@ def parse_reports(body, config, source_url):
                 continue
             name = line[name_col:country_col].strip()
             prefix = line[:name_col].split()
-            country = line[country_col:country_col + 3]
+            country = line[country_col : country_col + 3]
             if not re.fullmatch(r'[A-Z]{3}', country) or not prefix:
-                if last is not None and not prefix and name and re.fullmatch(r"[A-Za-z .’'\-]+", name) and not line[country_col:].strip():
+                if (
+                    last is not None
+                    and not prefix
+                    and name
+                    and re.fullmatch(r"[A-Za-z .’'\-]+", name)
+                    and not line[country_col:].strip()
+                ):
                     last['name'] += ' ' + name
                 continue
             ranks = [x for x in prefix if x.isdigit()]
-            has_helmet = 'Helmet' in header or 'Helmet' in text[:text.index(header) + len(header)]
+            has_helmet = 'Helmet' in header or 'Helmet' in text[: text.index(header) + len(header)]
             if len(ranks) < (2 if has_helmet else 1):
                 continue
             rank = int(ranks[-2] if has_helmet else ranks[-1])
             point = re.match(r'\s*(\d+)\b', line[points_col:]) if points_col >= 0 else None
-            last = dict(ranking_type=kind, **heading, name=name, country=country, rank=rank,
-                        points=int(point[1]) if point else None,
-                        official_details=line[country_col + 3:].strip(), source_url=source_url)
+            last = dict(
+                ranking_type=kind,
+                **heading,
+                name=name,
+                country=country,
+                rank=rank,
+                points=int(point[1]) if point else None,
+                official_details=line[country_col + 3 :].strip(),
+                source_url=source_url,
+            )
             # Re-key after all continuation lines have been appended.
             rankings.append(last)
     output = {}
     for row in rankings:
         aid = data.athlete_id(row['name'], row['country'], row['gender'])
-        key = f"{row['ranking_type']}/{row['gender']}/{row['distance_m']}/{aid}"
+        key = f'{row["ranking_type"]}/{row["gender"]}/{row["distance_m"]}/{aid}'
         value = dict(id=key, athlete_id=aid, **row)
         if key in output and output[key] != value:
             raise ValueError('Conflicting official ranking rows')
@@ -220,10 +250,16 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
         docs += discover_documents(fetcher(config['documents_url']), config['documents_url'], config)
     except Exception as exc:
         errors.append('documents: ' + str(exc))
-    entry_docs = sorted([d for d in docs if d['kind'] == 'entries'],
-                        key=lambda d: d.get('published_at') or '', reverse=True)
+    entry_docs = sorted(
+        [d for d in docs if d['kind'] == 'entries'], key=lambda d: d.get('published_at') or '', reverse=True
+    )
     entries = snapshot['entries']
-    if entry_docs and entries['items'] and entries['source_urls'] == [entry_docs[0]['url']] and entries['update_status'] == 'ok':
+    if (
+        entry_docs
+        and entries['items']
+        and entries['source_urls'] == [entry_docs[0]['url']]
+        and entries['update_status'] == 'ok'
+    ):
         # Same official PDF already parsed: ISU publishes revisions under new URLs.
         update_dataset(entries, entries['items'], entries['source_urls'], now, entries.get('published_at'))
     elif entry_docs:
@@ -257,11 +293,14 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
     try:
         import build
         import isu_results
+
         body = fetcher(config['results_url'])
         assert_identity(BeautifulSoup(body, 'html.parser').get_text(' ', strip=True), config)
         api_fetcher = api_fetcher or (lambda endpoint, form: fetch(isu_results.API + endpoint, form))
         schedule = build.read_schedule(event_id)
-        known = [i for i in snapshot['rounds']['items'] if i.get('evidence') in ('official_results', 'official_start_list')]
+        known = [
+            i for i in snapshot['rounds']['items'] if i.get('evidence') in ('official_results', 'official_start_list')
+        ]
         proposed_rounds += isu_results.collect(body, config, api_fetcher, schedule, known)
     except Exception as exc:
         errors.append('results: ' + str(exc))
@@ -272,10 +311,16 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
             replaced_sources = {p['source_url'] for p in proposed}
             merged = {p['id']: p for p in snapshot[kind]['items'] if p['source_url'] not in replaced_sources}
             merged.update({p['id']: p for p in proposed})
-            update_dataset(snapshot[kind], sorted(merged.values(), key=lambda i: i['id']),
-                           [p['source_url'] for p in merged.values()], now)
+            update_dataset(
+                snapshot[kind],
+                sorted(merged.values(), key=lambda i: i['id']),
+                [p['source_url'] for p in merged.values()],
+                now,
+            )
         elif snapshot[kind]['items']:
-            snapshot[kind].update(update_status='error', error='Previously published data absent; retained last snapshot')
+            snapshot[kind].update(
+                update_status='error', error='Previously published data absent; retained last snapshot'
+            )
         elif not errors:
             snapshot[kind].update(update_status='ok')
             snapshot[kind].pop('error', None)  # a recovered check must not keep reporting the old failure
@@ -304,8 +349,7 @@ def main():
     for station in stations.stations():
         if args.event and station['id'] != args.event:
             continue
-        if not station.get('isu') or (not args.event and
-                not stations.within(station, now, WINDOW_BEFORE_DAYS)):
+        if not station.get('isu') or (not args.event and not stations.within(station, now, WINDOW_BEFORE_DAYS)):
             continue
         try:
             snapshot, errors = sync_event(station['id'], stations.sources(station))
@@ -315,7 +359,7 @@ def main():
         if snapshot:
             print(station['id'], {k: len(snapshot[k]['items']) for k in data.KINDS})
         for message in errors:
-            print(f"::warning::{station['id']} entries/results sync: {message}", file=sys.stderr)
+            print(f'::warning::{station["id"]} entries/results sync: {message}', file=sys.stderr)
         failed |= bool(errors)
     return int(failed)
 
