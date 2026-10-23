@@ -53,16 +53,32 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add dist
-          git add data/competitions data/prediction_inputs data/updates.json
-          git add data/stations.json data/schedules data/sync_meta.json data/china_auto.json
+          stage_updates() {
+            git add dist
+            git add data/competitions data/prediction_inputs data/updates.json
+            git add data/stations.json data/schedules data/sync_meta.json data/china_auto.json
+          }
+          stage_updates
           if ! git diff --cached --quiet; then
             git commit -m "build: publish verified static schedule"
-            # Someone may have pushed to main while the sync ran: replay this commit on top and retry.
+            # A moved main may contain new build code or dependencies; validate the rebased output before retrying.
             for attempt in 1 2 3; do
               git push && exit 0
+              if [ "$attempt" -eq 3 ]; then
+                exit 1
+              fi
               sleep $((attempt * 5))
               git pull --rebase origin main
+              python -m pip install -r requirements.txt
+              npm ci --ignore-scripts
+              python tools/build.py
+              python -m unittest discover -s tests -v
+              node --check web/app.js
+              node --test tests/*.mjs
+              stage_updates
+              if ! git diff --cached --quiet; then
+                git commit -m "build: regenerate verified site after rebase"
+              fi
             done
             exit 1
           fi
