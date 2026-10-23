@@ -105,25 +105,15 @@ class ScheduleSyncTests(unittest.TestCase):
             )
         self.assertFalse(stations.has_schedule('montreal', self.dir))
 
-    def test_real_isu_page_text_matches_the_stored_programme(self):
-        # Text of ISU's Vancouver schedule tab as served on 2026-10-21.
+    def test_real_isu_page_text_parses_to_the_pre_race_programme(self):
+        # Text of ISU's Vancouver schedule tab as served on 2026-10-21, and the programme it gave.
+        # The stored programme has since taken race-day corrections (docs/log.md, 2026-10-23).
         text = (ROOT / 'tests/fixtures/vancouver-2026-schedule.txt').read_text(encoding='utf-8')
         vancouver = stations.get('vancouver')
         self.assertTrue(sync_schedule.identity(text, vancouver))
         self.assertFalse(sync_schedule.identity(text, MONTREAL))
         found = sync_schedule.validate(sync_schedule.parse_text(text, vancouver), vancouver)
-        stored = sync_schedule.read(build.stations.schedule_path('vancouver'))
-        # On race day ISU dropped the women's relay quarter-finals and moved the other two relay
-        # quarter-finals forward (official heat times; docs/log.md, 2026-10-23). Nothing else changed.
-        moved = {('M', '5000'): '17:12', ('X', '2000'): '18:12'}
-        corrected = [
-            dict(r, time=moved.get((r['gender'], r['distance']), r['time']))
-            if (r['kind'], r['round']) == ('R', 'Q')
-            else r
-            for r in found
-            if (r['gender'], r['distance'], r['kind'], r['round']) != ('W', '3000', 'R', 'Q')
-        ]
-        self.assertEqual(corrected, stored)
+        self.assertEqual(found, sync_schedule.read(ROOT / 'tests/fixtures/vancouver-2026-schedule.csv'))
 
     def test_discovery_matches_dates_city_and_country(self):
         pages = {
