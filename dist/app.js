@@ -619,7 +619,7 @@
       h('h2', {class: 'section-title', text: '世界锦标赛'}),
       cal.championships.map(st => h('article', {class: 'panel championship-card'},
         h('div', {class: 'championship-main'},
-          h('p', {class: 'championship-kicker', text: '2027 · ISU WORLD CHAMPIONSHIPS'}),
+          h('p', {class: 'championship-kicker', text: st.date_start.slice(0, 4) + ' · ISU WORLD CHAMPIONSHIPS'}),
           h('h3', {text: st.title}),
           h('p', {class: 'championship-meta'}, icon('calendar'),
             dot(st.date_start) + ' — ' + dot(st.date_end),
@@ -755,7 +755,7 @@
           ? [h('span', {class: 'ok-text'}, icon('check'), '已录入 ' + st.detail.entries.length + ' 个轮次'), icon('arrow')]
           : h('span', {text: '详细赛程待公布'}))));
     }
-    return h('section', {'aria-label': '七站赛历'}, h('h2', {class: 'section-title', text: '全部分站'}), grid);
+    return h('section', {'aria-label': stations.length + ' 站赛历'}, h('h2', {class: 'section-title', text: '全部分站'}), grid);
   }
 
   /* ---------- station page ---------- */
@@ -1305,12 +1305,12 @@
     } else {
       const championship = (calendar.championships || []).find(st => st.id === requested);
       if (championship) {
-        document.title = championship.title + '｜2027 短道速滑赛程';
+        document.title = championship.title + '｜' + championship.date_start.slice(0, 4) + ' 短道速滑赛程';
         renderChampionship(calendar, championship);
       } else {
         const station = calendar.stations.find(st => st.id === requested);
         if (!station) throw new Error('未知赛事');
-        document.title = station.city + '站赛程｜2026/27 短道速滑世界巡回赛';
+        document.title = station.city + '站赛程｜' + calendar.season + ' 短道速滑世界巡回赛';
         const details = station.detail_status === 'verified' ? prepare(await fetchData(station.id + '.json')) : null;
         renderStation(calendar, station, details);
       }

@@ -1,6 +1,6 @@
 # 前端
 
-`web/index.html`、`web/site.css`、`web/app.js` 是全部前端源码：零依赖原生 JS，不用外部字体、图片或 CDN。`tools/build.py` 复制到 `dist/`，不要直接改 `dist/`。
+`web/index.html`、`web/site.css`、`web/app.js` 是全部前端源码：零依赖原生 JS，不用外部字体、图片或 CDN。`tools/build.py` 复制到 `dist/`，不要直接改 `dist/`。`index.html` 与 `manifest.webmanifest` 中的 `{{SEASON}}`、`{{DESCRIPTION}}` 在构建时按 `data/stations.json` 填入，页面脚本里的赛季文字也都取自 `calendar.json`，换赛季不必改前端。
 
 ## 页面
 

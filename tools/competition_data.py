@@ -136,7 +136,7 @@ def china_evidence(snapshot):
     return records, set(grouped)
 
 
-def export(out, venues, distances=lambda event_id: {}):
+def export(out, venues, distances=lambda event_id: {}, season=None):
     """`distances(event_id)` maps athlete_id to the individual distances entered there."""
     directory = out / 'data/competitions'
     directory.mkdir(parents=True, exist_ok=True)
@@ -153,5 +153,5 @@ def export(out, venues, distances=lambda event_id: {}):
         (directory / f'{event_id}.json').write_text(
             json.dumps(snapshot, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     (directory / 'index.json').write_text(
-        json.dumps(dict(schema_version=1, season='2026/27', events=events),
+        json.dumps(dict(schema_version=1, season=season, events=events),
                    ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

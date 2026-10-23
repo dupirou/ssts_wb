@@ -162,6 +162,12 @@ def load_ticketing():
                            "booking_name": BOOKING_SITES[urlsplit(item["booking_url"]).hostname]}
     return result
 
+def season_text(text):
+    """Fill the page shell's season wording from data/stations.json, so a new season edits one file."""
+    worlds="".join(f"及{c['date_start'][:4]}{c['city']}世锦赛" for c in CONFIG["championships"])
+    description=f"{CONFIG['season']} ISU 短道速滑世巡赛 {len(CONFIG['stations'])} 站{worlds}赛程，北京时间、官方报名和分组信息。"
+    return text.replace("{{SEASON}}",CONFIG["season"]).replace("{{DESCRIPTION}}",description)
+
 def export():
     import predict_groups
     meta=stations.load_meta()
@@ -194,16 +200,16 @@ def export():
                   "notice":"ISU暂定轮次时间；中国队单组时间仅是非官方模型估算。",
                   "day_counts":days,"total_items":len(rows),"entries":rows}
         (OUT/"data"/(st["id"]+".json")).write_text(json.dumps(schedule,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    shutil.copyfile(ROOT/"web/index.html",OUT/"index.html")
+    for name in ("index.html","manifest.webmanifest"):
+        (OUT/name).write_text(season_text((ROOT/"web"/name).read_text(encoding="utf-8")),encoding="utf-8")
     shutil.copyfile(ROOT/"web/app.js",OUT/"app.js")
     shutil.copyfile(ROOT/"web/site.css",OUT/"site.css")
-    shutil.copyfile(ROOT/"web/manifest.webmanifest",OUT/"manifest.webmanifest")
     shutil.copytree(ROOT/"web/icons",OUT/"icons",dirs_exist_ok=True)
-    # The service worker cache name follows the app shell, so a new release replaces the old cache.
-    shell=b"".join((ROOT/"web"/name).read_bytes() for name in ("index.html","app.js","site.css","manifest.webmanifest","sw.js"))
+    # The service worker cache name follows the published shell, so a new release replaces the old cache.
+    shell=b"".join((OUT/name).read_bytes() for name in ("index.html","app.js","site.css","manifest.webmanifest"))+(ROOT/"web/sw.js").read_bytes()
     (OUT/"sw.js").write_text((ROOT/"web/sw.js").read_text(encoding="utf-8").replace(
         "__BUILD_VERSION__",hashlib.sha256(shell).hexdigest()[:12]),encoding="utf-8")
-    competition_data.export(OUT, VENUES, predict_groups.entered_distances)
+    competition_data.export(OUT, VENUES, predict_groups.entered_distances, CONFIG["season"])
     predict_groups.export(OUT, VENUES, schedules)
     import updates
     feed = updates.export(OUT, VENUES, schedules,
