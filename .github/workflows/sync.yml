@@ -58,5 +58,11 @@ jobs:
           git add data/stations.json data/schedules data/sync_meta.json data/china_auto.json
           if ! git diff --cached --quiet; then
             git commit -m "build: publish verified static schedule"
-            git push
+            # Someone may have pushed to main while the sync ran: replay this commit on top and retry.
+            for attempt in 1 2 3; do
+              git push && exit 0
+              sleep $((attempt * 5))
+              git pull --rebase origin main
+            done
+            exit 1
           fi
