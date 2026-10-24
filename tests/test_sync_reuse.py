@@ -109,6 +109,27 @@ class ReuseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Duplicate competitor'):
             api.collect(results_page([EVENT]), config, HeatFeed())
 
+    def test_an_empty_copy_of_a_raced_entry_is_dropped(self):
+        # After the heat ISU filled one of the two rows and left the other empty (2026-10-23).
+        raced = dict(person('Bea TEST', 2, 102, 2), final_rank='2', final_result='44.419', qualification_code='Q')
+        heat = dict(
+            event_result_id=11,
+            event_result_round_id=21,
+            event_result_round_heats_id=210,
+            name='Heat 1',
+            result_status='Official',
+            event_result_round_heats_competitors=[person('Ann TEST', 1, 101, 1), raced, person('Bea TEST', 2, 102, 3)],
+        )
+        event, meta = dict(EVENT), dict(event_result_round_id=21, name='Heats')
+        parsed = api.heat_items([heat], event, meta, CONFIG['results_url'] + '&type=11&round=21')
+        self.assertEqual(
+            [(p['name'], p['result']) for p in parsed[0]['participants']], [('Ann TEST', None), ('Bea TEST', '44.419')]
+        )
+        # Two filled rows that disagree are still refused.
+        heat['event_result_round_heats_competitors'][2] = dict(raced, final_result='44.500')
+        with self.assertRaisesRegex(ValueError, 'Duplicate competitor'):
+            api.heat_items([heat], event, meta, CONFIG['results_url'] + '&type=11&round=21')
+
     def test_completed_discipline_is_not_requested(self):
         known = [stored(1), stored(2, round_='final', group='A')]
         fetch = Recorder()
