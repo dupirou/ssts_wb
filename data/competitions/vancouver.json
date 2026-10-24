@@ -1527,9 +1527,9 @@
   },
   "rounds": {
     "status": "available",
-    "update_status": "error",
-    "checked_at": "2026-10-24T19:11:21+00:00",
-    "updated_at": "2026-10-24T19:11:21+00:00",
+    "update_status": "ok",
+    "checked_at": "2026-10-24T19:31:27+00:00",
+    "updated_at": "2026-10-24T19:31:27+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -4775,7 +4775,7 @@
             "starting_position": 3,
             "rank": 2,
             "result": "40.706",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -4828,12 +4828,24 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-10-24T12:07:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-24T12:10:12.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22873",
         "participants": [
+          {
+            "athlete_id": "ath-49385aad096bc1c84902",
+            "name": "Tamirlan ZHOLDAS",
+            "country": "KAZ",
+            "official_skater_id": 18246,
+            "helmet_number": 95,
+            "starting_position": 4,
+            "rank": 1,
+            "result": "41.848",
+            "qualification": "Q",
+            "penalty": null
+          },
           {
             "athlete_id": "ath-5412f5778387aad9a803",
             "name": "Shuta MATSUZU",
@@ -4841,9 +4853,9 @@
             "official_skater_id": 4633,
             "helmet_number": 89,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "41.946",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -4853,32 +4865,8 @@
             "official_skater_id": 4970,
             "helmet_number": 76,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-10150460017447b98409",
-            "name": "Muhammed BOZDAG",
-            "country": "TUR",
-            "official_skater_id": 859,
-            "helmet_number": 109,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-49385aad096bc1c84902",
-            "name": "Tamirlan ZHOLDAS",
-            "country": "KAZ",
-            "official_skater_id": 18246,
-            "helmet_number": 95,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "41.994",
             "qualification": null,
             "penalty": null
           },
@@ -4889,8 +4877,20 @@
             "official_skater_id": 4367,
             "helmet_number": 45,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "42.089",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-10150460017447b98409",
+            "name": "Muhammed BOZDAG",
+            "country": "TUR",
+            "official_skater_id": 859,
+            "helmet_number": 109,
+            "starting_position": 3,
+            "rank": 5,
+            "result": "42.681",
             "qualification": null,
             "penalty": null
           }
@@ -4908,24 +4908,12 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-10-24T12:09:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-24T12:12:46.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22873",
         "participants": [
-          {
-            "athlete_id": "ath-83cf68476818bb34df2a",
-            "name": "Brendan COREY",
-            "country": "AUS",
-            "official_skater_id": 1342,
-            "helmet_number": 18,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-2e2dffc68de9b2b1504b",
             "name": "Lukasz KUCZYNSKI",
@@ -4933,9 +4921,9 @@
             "official_skater_id": 3795,
             "helmet_number": 39,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "42.027",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4945,8 +4933,8 @@
             "official_skater_id": 5703,
             "helmet_number": 48,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "42.087",
             "qualification": null,
             "penalty": null
           },
@@ -4957,8 +4945,8 @@
             "official_skater_id": 2986,
             "helmet_number": 81,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "42.140",
             "qualification": null,
             "penalty": null
           },
@@ -4969,8 +4957,20 @@
             "official_skater_id": 1657,
             "helmet_number": 60,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "55.137",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-83cf68476818bb34df2a",
+            "name": "Brendan COREY",
+            "country": "AUS",
+            "official_skater_id": 1342,
+            "helmet_number": 18,
+            "starting_position": 1,
+            "rank": 5,
+            "result": "1:25.134",
             "qualification": null,
             "penalty": null
           }
@@ -4988,22 +4988,22 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-10-24T12:11:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-24T12:20:00.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22873",
         "participants": [
           {
-            "athlete_id": "ath-c28e18c99f0af84ca8d0",
-            "name": "Takumi WADA",
-            "country": "JPN",
-            "official_skater_id": 7563,
-            "helmet_number": 90,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "athlete_id": "ath-872b8b25f1eda8723e33",
+            "name": "Kun LI",
+            "country": "CHN",
+            "official_skater_id": 4167,
+            "helmet_number": 67,
+            "starting_position": 5,
+            "rank": 1,
+            "result": "41.643",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -5013,8 +5013,20 @@
             "official_skater_id": 7129,
             "helmet_number": 20,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "41.716",
+            "qualification": "q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-c28e18c99f0af84ca8d0",
+            "name": "Takumi WADA",
+            "country": "JPN",
+            "official_skater_id": 7563,
+            "helmet_number": 90,
+            "starting_position": 1,
+            "rank": 3,
+            "result": "41.728",
             "qualification": null,
             "penalty": null
           },
@@ -5025,8 +5037,8 @@
             "official_skater_id": 7759,
             "helmet_number": 52,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "41.978",
             "qualification": null,
             "penalty": null
           },
@@ -5037,20 +5049,8 @@
             "official_skater_id": 6644,
             "helmet_number": 24,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-872b8b25f1eda8723e33",
-            "name": "Kun LI",
-            "country": "CHN",
-            "official_skater_id": 4167,
-            "helmet_number": 67,
-            "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "42.997",
             "qualification": null,
             "penalty": null
           }
@@ -5068,24 +5068,12 @@
         "group": null,
         "heat_number": 5,
         "heat_label": "Heat 5",
-        "source_start": "2026-10-24T12:13:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-24T12:22:48.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22873",
         "participants": [
-          {
-            "athlete_id": "ath-623779beeda587847aba",
-            "name": "Nicolas ANDERMANN",
-            "country": "AUT",
-            "official_skater_id": 314,
-            "helmet_number": 51,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-d17ee33a3816179f80fc",
             "name": "Seochan BAE",
@@ -5093,8 +5081,20 @@
             "official_skater_id": 22070,
             "helmet_number": 96,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "41.917",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-dca7784fc8fdf2fbec50",
+            "name": "Daniel TIBORCZ",
+            "country": "HUN",
+            "official_skater_id": 7047,
+            "helmet_number": 82,
+            "starting_position": 4,
+            "rank": 2,
+            "result": "42.094",
             "qualification": null,
             "penalty": null
           },
@@ -5105,22 +5105,25 @@
             "official_skater_id": 3473,
             "helmet_number": 97,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "1:21.587",
             "qualification": null,
             "penalty": null
           },
           {
-            "athlete_id": "ath-dca7784fc8fdf2fbec50",
-            "name": "Daniel TIBORCZ",
-            "country": "HUN",
-            "official_skater_id": 7047,
-            "helmet_number": 82,
-            "starting_position": 4,
+            "athlete_id": "ath-623779beeda587847aba",
+            "name": "Nicolas ANDERMANN",
+            "country": "AUT",
+            "official_skater_id": 314,
+            "helmet_number": 51,
+            "starting_position": 1,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -5136,9 +5139,9 @@
         "group": null,
         "heat_number": 6,
         "heat_label": "Heat 6",
-        "source_start": "2026-10-24T12:15:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-24T12:27:42.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22873",
         "participants": [
@@ -5149,9 +5152,9 @@
             "official_skater_id": 4451,
             "helmet_number": 105,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "41.941",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -5161,8 +5164,20 @@
             "official_skater_id": 8078,
             "helmet_number": 42,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "42.050",
+            "qualification": "q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-b5c1b200753b9da39257",
+            "name": "Luka JASIC",
+            "country": "SRB",
+            "official_skater_id": 2980,
+            "helmet_number": 107,
+            "starting_position": 4,
+            "rank": 3,
+            "result": "42.169",
             "qualification": null,
             "penalty": null
           },
@@ -5173,19 +5188,7 @@
             "official_skater_id": 7625,
             "helmet_number": 50,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-b5c1b200753b9da39257",
-            "name": "Luka JASIC",
-            "country": "SRB",
-            "official_skater_id": 2980,
-            "helmet_number": 107,
-            "starting_position": 4,
-            "rank": null,
+            "rank": 4,
             "result": "no time",
             "qualification": null,
             "penalty": null
@@ -13919,8 +13922,7 @@
       "2026-10-25/repechage/women/500/heats/-": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Rep Quarterfinals.",
       "2026-10-25/repechage/women/500/quarterfinal/-": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals.",
       "2026-10-25/repechage/women/500/semifinal/-": "The first placed skater from each race qualify for Quarterfinals."
-    },
-    "error": "Previously published data absent; retained last snapshot"
+    }
   },
   "rankings": {
     "status": "not_published",
