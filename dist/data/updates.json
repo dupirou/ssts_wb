@@ -2,6 +2,59 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "3da9481e588c9514",
+      "station": "vancouver",
+      "at": "2026-10-24T20:51:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG",
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Kerui SONG",
+          "rank": 6,
+          "status": "out"
+        },
+        {
+          "name": "Yiding ZHU",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "36285acbe02b6940",
+      "station": "vancouver",
+      "at": "2026-10-24T20:51:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Bohao ZHANG",
+        "Yiding ZHU"
+      ]
+    },
+    {
       "id": "d1e12686ee50b698",
       "station": "vancouver",
       "at": "2026-10-24T20:11:21+00:00",
