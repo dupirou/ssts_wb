@@ -565,7 +565,8 @@
           h('span', {class: 'result-rank num', text: results ? p.rank ?? '—' : p.starting_position ?? '—',
             title: results ? '名次' : '出发位'}),
           h('div', {class: 'result-identity'}, h('b', {text: p.name}),
-            h('span', {class: 'faint tiny', text: p.country + (p.helmet_number != null ? ' · #' + p.helmet_number : '')})),
+            h('span', {class: 'faint tiny', text: p.country + (p.helmet_number != null ? ' · #' + p.helmet_number : '')}),
+            p.members?.length ? h('span', {class: 'result-members tiny'}, phrases(...p.members.map(m => m.name))) : null),
           results ? h('div', {class: cls('result-value num', p.penalty && 'penalty-value')},
             h('b', {text: result}), p.qualification ? h('small', {text: ({Q: '晋级', q: '按成绩晋级', ADV: '判进'})[p.qualification] || p.qualification}) : null) : null));
       }
@@ -1143,7 +1144,9 @@
         // "约" marks the model estimate; official start times carry no prefix.
         note.append(h('p', {class: 'heat'},
           h('span', {class: 'heat-no', text: '第 ' + heat.number + ' 组'}),
-          h('span', {class: 'athletes', text: r.format === 'relay' ? '' : heat.athletes.join('、')}),
+          // A relay lists its skaters only once raced; before that the team name says nothing new.
+          h('span', {class: 'athletes'}, r.format === 'relay' && heat.athletes.length < 2 ? null
+            : heat.athletes.flatMap((a, i) => [i ? '、' : null, h('span', {class: 'nowrap', text: a})])),
           h('span', {class: 'est num', title: '按组号估算的出场时间，非官方', text: '约 ' + (from === to ? from : from + '–' + to)})));
       }
     }

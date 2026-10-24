@@ -845,6 +845,7 @@ td.time { white-space: nowrap; }
 .result-person.is-china { box-shadow: inset 3px 0 0 var(--red); background: rgb(var(--red-rgb) / .08); }
 .result-rank { font-size: 1rem; font-weight: 700; text-align: center; }
 .result-identity { display: grid; gap: 0; min-width: 0; overflow-wrap: anywhere; font-size: .86rem; line-height: 1.35; }
+.result-members { color: var(--text-2); }
 .result-value { display: grid; text-align: right; gap: 2px; font-size: .9rem; }
 .result-value small { font-size: .7rem; color: var(--ok); }
 .penalty-value { color: var(--red-text); }

@@ -62,7 +62,8 @@ def display_names(snapshot, extra=()):
     Official sources disagree ('LI Kun' in entry PDFs, 'Kun LI' or 'Margherita Betti' in the
     results feed, 'SONG KERUI'), so the entry PDF's capitals decide the surname when they can,
     and any other source already in that form is the fallback. Stored data keeps ISU's text."""
-    others = [p for heat in snapshot['rounds']['items'] for p in heat['participants']] + list(extra)
+    others = [p for heat in snapshot['rounds']['items'] for p in heat['participants']]
+    others += [m for p in others for m in p.get('members', [])] + list(extra)
     names = {p['athlete_id']: ' '.join(p['name'].split()) for p in others if given_first(p['name'])}
     for person in snapshot['entries']['items']:
         flipped = surname_last(person['name'])
@@ -81,7 +82,8 @@ def display_snapshot(event_id):
     """The stored snapshot with every athlete under their display name, for publishing."""
     snapshot = load_snapshot(event_id)
     names = display_names(snapshot, distance_entrants(event_id))
-    for person in snapshot['entries']['items'] + [p for h in snapshot['rounds']['items'] for p in h['participants']]:
+    people = [p for h in snapshot['rounds']['items'] for p in h['participants']]
+    for person in snapshot['entries']['items'] + people + [m for p in people for m in p.get('members', [])]:
         person['name'] = names.get(person['athlete_id'], person['name'])
     return snapshot
 
@@ -125,7 +127,13 @@ def china_evidence(snapshot):
     for key, heats in grouped.items():
         chinese = []
         for heat in heats:
-            names = [p['name'] for p in heat['participants'] if p['country'] == 'CHN']
+            # A relay team is named by its skaters once ISU lists them (after the heat), else by the team.
+            names = [
+                n
+                for p in heat['participants']
+                if p['country'] == 'CHN'
+                for n in ([m['name'] for m in p.get('members', [])] or [p['name']])
+            ]
             number = heat.get('heat_number')
             # Each explicitly named Final A/B is one race within its own
             # schedule row; this does not infer which final a skater enters.
