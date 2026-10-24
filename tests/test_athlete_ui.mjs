@@ -402,6 +402,42 @@ test('what\'s new bar: newest first, results supersede groups, closing remembers
   assert.equal(Number(dom.window.localStorage.getItem('ssts.updates.seen')), Date.parse(events[0].at));
 });
 
+test('what\'s new bar says what results meant for China: advanced, repechage, out, a place or a medal', async t => {
+  const base = {station:'vancouver', local_date:'2026-10-24', repechage:false, kind:'results'};
+  const relay = {...base, gender:'mixed', distance_m:2000, format:'relay', china:['China']};
+  const solo = {...base, gender:'men', distance_m:500, format:'individual'};
+  const events = [
+    {...relay, id:'1', at:'2026-10-24T17:50:00+00:00', round:'quarterfinal', group:null, china_results:[{name:'China', rank:3, status:'out'}]},
+    {...solo, id:'2', at:'2026-10-24T17:40:00+00:00', round:'heats', group:null, china:['A','B','C'],
+     china_results:[{name:'A', rank:1, status:'advanced'}, {name:'B', rank:3, status:'repechage'}, {name:'C', rank:4, status:'out', penalty:'PEN'}]},
+    {...solo, id:'3', at:'2026-10-24T17:30:00+00:00', round:'final', group:'A', china:['A','B'],
+     podium:[{rank:1, name:'X', country:'KOR'}, {rank:2, name:'A', country:'CHN'}, {rank:3, name:'Y', country:'CAN'}],
+     china_results:[{name:'A', rank:2}, {name:'B', rank:4}]},
+    {...relay, id:'4', at:'2026-10-24T17:20:00+00:00', round:'final', group:'B', china_results:[{name:'China', rank:1}]},
+    {...solo, id:'5', at:'2026-10-24T17:10:00+00:00', round:'quarterfinal', group:null, china:['D'], china_results:[{name:'D', rank:4, status:'out', penalty:'PEN'}]},
+    {...solo, id:'6', at:'2026-10-24T17:00:00+00:00', round:'final', group:'A', china:[], podium:[{rank:1, name:'X', country:'KOR'}], china_results:[]},
+  ];
+  const dom = await page({view:'schedule', url:'https://example.test/?station=vancouver&now=2026-10-24T18:00:00Z',
+    files:{'/data/updates.json':{schema_version:1, events}}});
+  t.after(()=>dom.window.close());
+  const d = dom.window.document;
+  await settle(dom, () => d.querySelector('.updates'));
+  const texts = [...d.querySelectorAll('.upd-list .upd-text')].map(x => x.textContent);
+  assert.deepEqual(texts, [
+    '混合 2000m 接力 1/4决赛 成绩已公布 · 中国队未晋级',
+    '男子 500m 预赛 成绩已公布 · 中国队 1 人晋级，1 人进复活赛，1 人未晋级',
+    '男子 500m A组决赛 成绩已公布 · A 银牌、B 第 4 名',
+    '混合 2000m 接力 B组决赛 成绩已公布 · 中国队B组第 1 名',
+    '男子 500m 1/4决赛 成绩已公布 · D 未晋级（犯规）',
+    '男子 500m A组决赛 成绩已公布 · 冠军 X',
+  ]);
+  assert.ok(!d.querySelector('.upd-list').textContent.includes('在列'));
+  const items = d.querySelectorAll('.upd-list li');
+  assert.equal(items[1].querySelector('.upd-sub').textContent, '晋级：A · 进复活赛：B · 未晋级：C');
+  assert.ok(items[0].classList.contains('is-chn'));
+  assert.ok(!items[5].classList.contains('is-chn'));
+});
+
 test('what\'s new bar stays hidden when everything was already seen', async t => {
   const dom = await page({view:'schedule', url:'https://example.test/?station=vancouver&now=2026-10-24T18:00:00Z',
     before: w => w.localStorage.setItem('ssts.updates.seen', String(Date.parse('2026-10-24T17:00:00Z'))),
