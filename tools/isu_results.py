@@ -83,6 +83,11 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
         # skater (another lane, rank or time) still fail below.
         content = [{k: v for k, v in p.items() if k not in BOOKKEEPING} for p in people]
         people = [p for i, p in enumerate(people) if content[i] not in content[:i]]
+        # Once that heat was raced, ISU filled in one of the two rows and left the other empty: an empty
+        # row in the same lane under the same helmet as a filled one adds nothing and is dropped.
+        people = [
+            p for p in people if not (placeholder(p) and any(same_entry(p, o) and not placeholder(o) for o in people))
+        ]
         members = []
         for person in people:
             skater = person.get('skaters_team' if relay else 'skaters') or {}
@@ -152,6 +157,22 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
             )
         )
     return output
+
+
+def placeholder(person):
+    """A heat row with no outcome at all: no rank, time, qualification or laps."""
+    return (
+        person.get('final_rank') in (None, '')
+        and str(person.get('final_result') or '').strip().lower() in ('', 'no time')
+        and not person.get('qualification_code')
+        and not person.get('lap')
+    )
+
+
+def same_entry(a, b):
+    """Two heat rows for the same skater or team in the same lane under the same helmet number."""
+    keys = ('skaters_id', 'skaters_team_id', 'started_for_nf_code', 'starting_position', 'bib_number')
+    return a is not b and all(a.get(k) == b.get(k) for k in keys)
 
 
 def is_final(items):
