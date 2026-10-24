@@ -72,8 +72,11 @@ test('CHN rows list each heat once with an approximate time and open the officia
 
 test('a round shows its published qualification rule, in the row and in the group dialog', async t => {
   const rule = {code: '2Q+6q', zh: '每组前 2 名及成绩最好的 6 名第 3 名晋级预赛', text: 'ISU text'};
-  const entries = schedule.entries.map((e, i) => i === 0 ? {...e, qualification: rule} : e);
-  const dom = await page({view: 'schedule', files: {'/data/calendar.json': withPredictions, '/data/vancouver.json': {...schedule, entries}}});
+  // Only the first round carries a rule here, whatever the synced data holds.
+  const entries = schedule.entries.map(({qualification, ...e}, i) => i === 0 ? {...e, qualification: rule} : e);
+  // Every file comes from memory, so nothing is still loading when the window closes.
+  const files = {'/data/calendar.json': withPredictions, '/data/vancouver.json': {...schedule, entries}, '/data/updates.json': {schema_version: 1, events: []}};
+  const dom = await page({view: 'schedule', files});
   t.after(() => dom.window.close());
   const d = dom.window.document;
   const row = d.getElementById('r-' + entries[0].id);
