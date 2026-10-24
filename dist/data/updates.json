@@ -2,6 +2,36 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "42f04b70abc34bd7",
+      "station": "vancouver",
+      "kind": "time_change",
+      "at": "2026-10-24T16:52:48+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "previous": "2026-10-25 05:14",
+      "current": "2026-10-25 05:21"
+    },
+    {
+      "id": "2dce2947b214f33a",
+      "station": "vancouver",
+      "kind": "time_change",
+      "at": "2026-10-24T16:52:48+00:00",
+      "local_date": "2026-10-24",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "previous": "2026-10-25 02:27",
+      "current": "2026-10-25 02:30"
+    },
+    {
       "id": "9a25a0b1690f5509",
       "station": "vancouver",
       "at": "2026-10-24T01:41:19+00:00",
