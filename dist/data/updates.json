@@ -2,6 +2,40 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "f7de470cc53680d8",
+      "station": "vancouver",
+      "at": "2026-10-24T19:01:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "b1b9ba843a85f2af",
+      "station": "vancouver",
+      "at": "2026-10-24T19:01:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG",
+        "Yiding ZHU"
+      ]
+    },
+    {
       "id": "faab35caa2e330b1",
       "station": "vancouver",
       "at": "2026-10-24T18:31:23+00:00",
@@ -247,17 +281,17 @@
         {
           "name": "Bohao ZHANG",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Kerui SONG",
           "rank": 5,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Yiding ZHU",
           "rank": 6,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Zixia ZHANG",
