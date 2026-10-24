@@ -35,6 +35,8 @@
     "vancouver/round/2026-10-24/main/men/500/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/men/5000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/women/1000/quarterfinal/-/groups": "published",
+    "vancouver/round/2026-10-24/main/women/1000/quarterfinal/-/results": "official",
+    "vancouver/round/2026-10-24/main/women/1000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/women/3000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/men/1500/heats/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/men/1500/heats/-/results": "official",
@@ -1539,6 +1541,58 @@
       "kind": "groups",
       "heats": 2,
       "china": []
+    },
+    {
+      "id": "021b431d2c6a0a94",
+      "station": "vancouver",
+      "at": "2026-10-24T23:41:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Jiarui SONG"
+      ]
+    },
+    {
+      "id": "35f76879ef7e140e",
+      "station": "vancouver",
+      "at": "2026-10-24T23:41:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jiarui SONG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jiarui SONG",
+          "rank": 4,
+          "status": "advanced"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 3,
+          "status": "repechage"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 3,
+          "status": "repechage"
+        }
+      ]
     }
   ]
 }

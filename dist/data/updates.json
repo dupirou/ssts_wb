@@ -2,6 +2,58 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "35f76879ef7e140e",
+      "station": "vancouver",
+      "at": "2026-10-24T23:41:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jiarui SONG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jiarui SONG",
+          "rank": 4,
+          "status": "advanced"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 3,
+          "status": "repechage"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 3,
+          "status": "repechage"
+        }
+      ]
+    },
+    {
+      "id": "021b431d2c6a0a94",
+      "station": "vancouver",
+      "at": "2026-10-24T23:41:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Jiarui SONG"
+      ]
+    },
+    {
       "id": "690a73ff0475d9a8",
       "station": "vancouver",
       "at": "2026-10-24T23:21:17+00:00",
