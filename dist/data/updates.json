@@ -2,6 +2,37 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "9a25a0b1690f5509",
+      "station": "vancouver",
+      "at": "2026-10-24T01:41:19+00:00",
+      "local_date": "2026-10-23",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ]
+    },
+    {
+      "id": "4c109e8da4df1fbf",
+      "station": "vancouver",
+      "at": "2026-10-24T01:41:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
       "id": "d4bf041655f619e3",
       "station": "vancouver",
       "at": "2026-10-24T01:01:18+00:00",
