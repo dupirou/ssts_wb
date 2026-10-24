@@ -101,6 +101,53 @@ class UpdateFeedTests(unittest.TestCase):
         )
         self.assertEqual(self.run_once(log)['events'], log['events'])
 
+    def test_results_say_where_each_chinese_skater_went(self):
+        heats, rep = '2026-10-23/qualifying/women/500/heats/-', '2026-10-24/repechage/women/500/heats/-'
+        q, out, back = person('A Q', 'CHN', 1), person('B OUT', 'CHN', 4), person('C REP', 'CHN', 3)
+        q['qualification'] = 'Q'
+        out['penalty'] = dict(code='PEN')
+        results = heat('h1', heats, 'heats', 'official_results', [q, out, back, person('D', 'KOR', 2)])
+        log = self.run_once({})
+        self.load.rounds('2026-10-24T01:00:00+00:00', results)
+        log = self.run_once(log)
+        announced = next(e for e in log['events'] if e['kind'] == 'results')
+        self.assertEqual(
+            [(s['name'], s['status']) for s in announced['china_results']],
+            [('A Q', 'advanced'), ('B OUT', 'out'), ('C REP', 'out')],
+        )
+        self.assertEqual(announced['china_results'][1]['penalty'], 'PEN')
+        # The repechage start list comes later; the same announcement, at the same time, follows it.
+        later = heat('h2', rep, 'heats', 'official_start_list', [person('C REP', 'CHN')])
+        later['round_label'] = 'Rep. Heats'
+        self.load.rounds('2026-10-24T02:00:00+00:00', results, later)
+        log = self.run_once(log)
+        same = [e for e in log['events'] if e['id'] == announced['id']]
+        self.assertEqual(len(same), 1)
+        self.assertEqual(same[0]['at'], announced['at'])
+        self.assertEqual(same[0]['china_results'][2]['status'], 'repechage')
+        self.assertTrue(
+            next(e for e in log['events'] if e['kind'] == 'groups' and e['round'] == 'heats' and e['repechage'])
+        )
+
+    def test_a_main_round_in_the_repechage_session_is_not_called_a_repechage(self):
+        semi = heat('h1', '2026-10-24/repechage/mixed/2000/semifinal/-', 'semifinal', 'official_start_list', [])
+        semi.update(round_label='Semifinals', gender='mixed', distance_m=2000, format='relay')
+        self.load.rounds('2026-10-24T01:00:00+00:00', semi)
+        self.assertFalse(self.run_once({})['events'][-1]['repechage'])
+
+    def test_final_results_keep_each_chinese_place(self):
+        final = heat(
+            'h1',
+            '2026-10-24/main/women/500/final/B',
+            'final',
+            'official_results',
+            [person('A', 'CHN', 2), person('B', 'KOR', 1)],
+            'B',
+        )
+        self.load.rounds('2026-10-25T01:00:00+00:00', final)
+        results = next(e for e in self.run_once({})['events'] if e['kind'] == 'results')
+        self.assertEqual(results['china_results'], [dict(name='A', rank=2)])
+
     def test_provisional_results_are_not_announced_as_results(self):
         self.load.rounds(
             '2026-10-24T01:00:00+00:00',

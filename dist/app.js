@@ -1251,6 +1251,17 @@
   function seenAt() {
     try { return Number(localStorage.getItem(SEEN_KEY)) || 0; } catch (_) { return 0; }
   }
+  // What a published result meant for a Chinese skater or team: a final's place or medal, else where the round led.
+  const STEPS = ['advanced', 'final_b', 'repechage', 'out'];
+  const STEP = {advanced: '晋级', final_b: '进B组决赛', repechage: '进复活赛', out: '未晋级'};
+  const PENALTY = {PEN: '犯规', YC: '黄牌', DNF: '未完赛', DNS: '未出发', DQ: '取消成绩'};
+  function outcome(e, s) {
+    const pen = s.penalty ? PENALTY[s.penalty] || s.penalty : '';
+    if (e.round !== 'final') return (STEP[s.status] || '') + (s.status === 'out' && pen ? '（' + pen + '）' : '');
+    if (s.rank == null) return pen || '无名次';
+    if (e.group === 'A' && s.rank <= 3) return MEDAL[s.rank] + '牌';
+    return (e.group && e.group !== 'A' ? e.group + '组' : '') + '第 ' + s.rank + ' 名';
+  }
   const roundOf = e => eventName(e) + ' ' + (e.repechage ? '复活赛' : '') + roundName(e);
   const roundIdent = e => [e.station, e.local_date, e.gender, e.distance_m, e.format, e.round, e.group, e.repechage].join('|');
   function notice(e) {
@@ -1265,9 +1276,23 @@
       case 'results': {
         const podium = e.podium || [];
         const champ = podium.find(p => p.rank === 1);
-        return {text: roundOf(e) + ' 成绩已公布' + (champ ? ' · 冠军 ' + champ.name : chinaNote),
-          gold: podium.length > 0, chn: podium.some(p => p.country === 'CHN') || (!podium.length && china > 0),
-          sub: podium.map(p => h('span', {class: cls('upd-medal', p.country === 'CHN' && 'is-chn'), text: MEDAL[p.rank] + ' ' + p.name + ' ' + p.country}))};
+        const sub = podium.map(p => h('span', {class: cls('upd-medal', p.country === 'CHN' && 'is-chn'), text: MEDAL[p.rank] + ' ' + p.name + ' ' + p.country}));
+        const ours = e.china_results;
+        if (!ours) {  // announced before outcomes were recorded
+          return {text: roundOf(e) + ' 成绩已公布' + (champ ? ' · 冠军 ' + champ.name : chinaNote),
+            gold: podium.length > 0, chn: podium.some(p => p.country === 'CHN') || (!podium.length && china > 0), sub};
+        }
+        let note = champ ? ' · 冠军 ' + champ.name : '';
+        if (ours.length && (e.round === 'final' || ours.length === 1)) {
+          note = ' · ' + (e.format === 'relay' ? '中国队' + outcome(e, ours[0])
+            : ours.map(s => s.name + ' ' + outcome(e, s)).join('、'));
+        } else if (ours.length) {
+          const by = STEPS.map(k => [k, ours.filter(s => s.status === k)]).filter(([, v]) => v.length);
+          note = ' · 中国队 ' + by.map(([k, v]) => v.length + ' 人' + STEP[k]).join('，');
+          sub.push(h('span', {class: 'is-chn', text: by.map(([k, v]) => STEP[k] + '：' + v.map(s => s.name).join('、')).join(' · ')}));
+        }
+        return {text: roundOf(e) + ' 成绩已公布' + note, gold: podium.length > 0,
+          chn: ours.length > 0 || podium.some(p => p.country === 'CHN'), sub};
       }
       case 'time_change': {
         const [pd, pt] = e.previous.split(' '), [cd, ct] = e.current.split(' ');

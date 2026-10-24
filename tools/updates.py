@@ -3,7 +3,9 @@
 data/updates.json remembers every milestone it has announced, so each one is announced once:
 a station's detailed programme is published, an entry list appears or changes, a round's
 official groups or results are published, a scheduled start moves, final rankings appear. Event times come from the data's own timestamps,
-so rebuilding the same data reproduces the same feed.
+so rebuilding the same data reproduces the same feed. A results announcement says where each Chinese
+skater or team went from that round; it is refreshed from the current data while the round is
+still published, so a repechage or Final B start list that appears later is reflected in it.
 """
 
 import hashlib
@@ -17,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LOG = ROOT / 'data/updates.json'
 KEEP_DAYS = 30
 KEEP_MAX = 150
+ROUND_KINDS = ('groups', 'results')
 
 
 def digest(*parts):
@@ -29,6 +32,49 @@ def parse(iso):
 
 def discipline(item):
     return dict(gender=item['gender'], distance_m=item['distance_m'], format=item['format'])
+
+
+def same_discipline(a, b):
+    return all(a[k] == b[k] for k in ('gender', 'distance_m', 'format'))
+
+
+def is_repechage(heat):
+    """Whether ISU names the round a repechage ('Rep. Heats'); a main round can sit in the repechage
+    session, like the mixed relay semi-final in Vancouver, so the session alone does not say."""
+    label = heat.get('round_label')
+    if label:
+        return bool(re.search(r'\brep(?:echage)?\b', label, re.I))
+    return '/repechage/' in (heat.get('round_key') or '')
+
+
+def standing(person, first, items):
+    """One published result: a final's place, or where the round led (advanced, Final B, repechage, out)."""
+    out = dict(name=person['name'], rank=person.get('rank'))
+    penalty = (person.get('penalty') or {}).get('code')
+    if penalty:
+        out['penalty'] = penalty
+    if first['round'] == 'final':
+        return out
+    later = set()
+    for heat in items:
+        if heat.get('round_key') == first.get('round_key') or not same_discipline(heat, first):
+            continue
+        if not any(p.get('athlete_id') == person.get('athlete_id') for p in heat['participants']):
+            continue
+        if first['round'] == 'semifinal' and heat['round'] == 'final' and heat.get('group') == 'B':
+            later.add('final_b')
+        elif is_repechage(heat) and not is_repechage(first):
+            later.add('repechage')
+    code = (person.get('qualification') or '').upper()
+    if 'final_b' in later or (first['round'] == 'semifinal' and code.endswith('B')):
+        out['status'] = 'final_b'
+    elif code:
+        out['status'] = 'advanced'
+    elif 'repechage' in later:
+        out['status'] = 'repechage'
+    else:
+        out['status'] = 'out'
+    return out
 
 
 def round_facts(event_id, rounds):
@@ -47,9 +93,7 @@ def round_facts(event_id, rounds):
             local_date=first.get('local_date'),
             round=first['round'],
             group=first.get('group'),
-            repechage=('/repechage/' in first['round_key'])
-            if first.get('round_key')
-            else bool(re.search(r'\brep(?:echage)?\b', first.get('round_label') or '', re.I)),
+            repechage=is_repechage(first),
             **discipline(first),
         )
         people = [p for h in heats for p in h['participants']]
@@ -61,7 +105,8 @@ def round_facts(event_id, rounds):
         if all(
             h['evidence'] == 'official_results' and (h.get('result_status') or '').lower() == 'official' for h in heats
         ):
-            results = dict(base, kind='results', china=china)
+            standings = [standing(p, first, rounds['items']) for p in people if p['country'] == 'CHN']
+            results = dict(base, kind='results', china=china, china_results=sorted(standings, key=lambda s: s['name']))
             if first['round'] == 'final' and first.get('group') == 'A':
                 ranked = sorted(
                     (p for p in people if isinstance(p.get('rank'), int) and 1 <= p['rank'] <= 3),
@@ -141,6 +186,14 @@ def update(log, facts):
         elif event['kind'] in ('entries', 'rankings') and old is not None:
             event = dict(event, changed=True)
         events.append(dict(id=digest(key, value), station=station, **event))
+    # A round's announcement keeps its time but follows the data for what it describes.
+    current = {digest(key, value): event for key, (value, event) in facts.items() if event['kind'] in ROUND_KINDS}
+    events = [
+        dict(e, **{k: v for k, v in current[e['id']].items() if k != 'at'})
+        if e['kind'] in ROUND_KINDS and e['id'] in current
+        else e
+        for e in events
+    ]
     events.sort(key=lambda e: (parse(e['at']), e['id']))
     if events:
         horizon = parse(events[-1]['at']) - timedelta(days=KEEP_DAYS)
