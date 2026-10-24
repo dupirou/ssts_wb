@@ -2,6 +2,41 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "af9e7849d771d6a4",
+      "station": "vancouver",
+      "at": "2026-10-24T21:01:21+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 5,
+          "status": "out"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "3da9481e588c9514",
       "station": "vancouver",
       "at": "2026-10-24T20:51:19+00:00",

@@ -49,6 +49,7 @@
     "vancouver/round/2026-10-24/repechage/women/1000/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/women/1000/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-24/repechage/women/1000/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-24/repechage/women/1000/semifinal/-/results": "official",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
@@ -1331,6 +1332,41 @@
         {
           "name": "Yiding ZHU",
           "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "af9e7849d771d6a4",
+      "station": "vancouver",
+      "at": "2026-10-24T21:01:21+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 5,
+          "status": "out"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 1,
           "status": "advanced"
         }
       ]
