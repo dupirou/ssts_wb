@@ -30,9 +30,11 @@
     "vancouver/round/2026-10-23/qualifying/women/500/preliminaries/-/groups": "published",
     "vancouver/round/2026-10-23/qualifying/women/500/preliminaries/-/results": "official",
     "vancouver/round/2026-10-24/main/men/1500/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-24/main/men/500/final/B/groups": "published",
     "vancouver/round/2026-10-24/main/men/500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/men/500/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-24/main/men/500/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-24/main/men/500/semifinal/-/results": "official",
     "vancouver/round/2026-10-24/main/men/5000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/women/1000/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/women/1000/quarterfinal/-/results": "official",
@@ -62,6 +64,7 @@
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
+    "vancouver/round/men/500/individual/Finals/None/groups": "published",
     "vancouver/round/mixed/2000/relay/Finals/None/groups": "published",
     "vancouver/schedule": "published",
     "vancouver/time/2026-10-23/qualifying/men/1000/heats/-": "2026-10-24 05:50",
@@ -1593,6 +1596,51 @@
           "status": "repechage"
         }
       ]
+    },
+    {
+      "id": "2bb5a9a20265c7b5",
+      "station": "vancouver",
+      "at": "2026-10-24T23:51:18+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "53b7c8b952d2e9b6",
+      "station": "vancouver",
+      "at": "2026-10-24T23:51:18+00:00",
+      "local_date": "2026-10-24",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "8dd02772df131aeb",
+      "station": "vancouver",
+      "at": "2026-10-24T23:51:18+00:00",
+      "local_date": null,
+      "round": "final",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
     }
   ]
 }
