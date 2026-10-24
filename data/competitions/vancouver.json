@@ -1528,8 +1528,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-24T01:21:20+00:00",
-    "updated_at": "2026-10-24T01:21:20+00:00",
+    "checked_at": "2026-10-24T01:31:18+00:00",
+    "updated_at": "2026-10-24T01:31:18+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -11351,8 +11351,8 @@
         "heat_number": 2,
         "heat_label": "Heat 2",
         "source_start": "2026-10-23T18:19:00.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15995&round=22909",
         "participants": [
@@ -11363,9 +11363,9 @@
             "official_skater_id": 12553,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "2:41.741",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -11375,9 +11375,9 @@
             "official_skater_id": 12555,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "2:42.418",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -11387,8 +11387,8 @@
             "official_skater_id": 12552,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "2:42.450",
             "qualification": null,
             "penalty": null
           }
@@ -11406,24 +11406,12 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-10-23T18:22:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-23T18:24:00.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15995&round=22909",
         "participants": [
-          {
-            "athlete_id": "team-CAN-mixed",
-            "name": "Canada",
-            "country": "CAN",
-            "official_skater_id": 12544,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "team-ITA-mixed",
             "name": "Italy",
@@ -11431,9 +11419,21 @@
             "official_skater_id": 12550,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "2:41.699",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "team-CAN-mixed",
+            "name": "Canada",
+            "country": "CAN",
+            "official_skater_id": 12544,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "2:42.013",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -11443,8 +11443,8 @@
             "official_skater_id": 12549,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "2:44.262",
             "qualification": null,
             "penalty": null
           },
@@ -11455,8 +11455,8 @@
             "official_skater_id": 12546,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "2:49.747",
             "qualification": null,
             "penalty": null
           }
@@ -11474,8 +11474,8 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-10-23T18:27:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-10-23T18:29:34.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15995&round=22909",
