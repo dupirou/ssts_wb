@@ -34,8 +34,11 @@
     "vancouver/round/2026-10-24/repechage/men/1500/heats/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/men/500/heats/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/men/500/heats/-/results": "official",
+    "vancouver/round/2026-10-24/repechage/men/500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/mixed/2000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/women/1000/heats/-/groups": "published",
+    "vancouver/round/2026-10-24/repechage/women/1000/heats/-/results": "official",
+    "vancouver/round/2026-10-24/repechage/women/1000/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
@@ -664,7 +667,7 @@
         {
           "name": "Bohao ZHANG",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Long SUN",
@@ -700,7 +703,7 @@
         {
           "name": "Jianing ZHANG",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Jiarui SONG",
@@ -710,12 +713,12 @@
         {
           "name": "Li GONG",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Yan ZHANG",
           "rank": 4,
-          "status": "out"
+          "status": "repechage"
         }
       ]
     },
@@ -1033,6 +1036,58 @@
           "status": "advanced"
         }
       ]
+    },
+    {
+      "id": "430630aaa749c7f4",
+      "station": "vancouver",
+      "at": "2026-10-24T18:31:23+00:00",
+      "local_date": "2026-10-24",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "Jianing ZHANG",
+        "Li GONG",
+        "Yan ZHANG"
+      ]
+    },
+    {
+      "id": "a11256f5a366703d",
+      "station": "vancouver",
+      "at": "2026-10-24T18:31:23+00:00",
+      "local_date": "2026-10-24",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "Bohao ZHANG",
+        "Kun LI"
+      ]
+    },
+    {
+      "id": "faab35caa2e330b1",
+      "station": "vancouver",
+      "at": "2026-10-24T18:31:23+00:00",
+      "local_date": "2026-10-24",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
     }
   ]
 }
