@@ -1528,8 +1528,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-24T00:41:20+00:00",
-    "updated_at": "2026-10-24T00:41:20+00:00",
+    "checked_at": "2026-10-24T00:51:28+00:00",
+    "updated_at": "2026-10-24T00:51:28+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -11022,8 +11022,8 @@
         "heat_number": 3,
         "heat_label": "Heat 3",
         "source_start": "2026-10-23T17:34:44.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15994&round=22906",
         "participants": [
@@ -11034,9 +11034,9 @@
             "official_skater_id": 12568,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "7:07.954",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -11046,9 +11046,9 @@
             "official_skater_id": 12564,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "7:08.097",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -11058,8 +11058,8 @@
             "official_skater_id": 12558,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "7:10.410",
             "qualification": null,
             "penalty": null
           },
@@ -11070,8 +11070,8 @@
             "official_skater_id": 12567,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "7:13.613",
             "qualification": null,
             "penalty": null
           }
@@ -11089,24 +11089,12 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-10-23T17:36:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-10-23T17:45:23.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15994&round=22906",
         "participants": [
-          {
-            "athlete_id": "team-ITA-men",
-            "name": "Italy",
-            "country": "ITA",
-            "official_skater_id": 12563,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "team-CAN-men",
             "name": "Canada",
@@ -11114,6 +11102,18 @@
             "official_skater_id": 12559,
             "helmet_number": null,
             "starting_position": 2,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "team-ITA-men",
+            "name": "Italy",
+            "country": "ITA",
+            "official_skater_id": 12563,
+            "helmet_number": null,
+            "starting_position": 1,
             "rank": null,
             "result": "no time",
             "qualification": null,
