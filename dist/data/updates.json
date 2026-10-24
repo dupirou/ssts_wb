@@ -2,6 +2,54 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "d1e12686ee50b698",
+      "station": "vancouver",
+      "at": "2026-10-24T20:11:21+00:00",
+      "local_date": "2026-10-24",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "Kun LI",
+        "Long SUN",
+        "Zixia ZHANG"
+      ]
+    },
+    {
+      "id": "aeb431d947aa7740",
+      "station": "vancouver",
+      "at": "2026-10-24T20:11:21+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kun LI"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 2,
+          "status": "out"
+        },
+        {
+          "name": "Kun LI",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "548d2431ab979f13",
       "station": "vancouver",
       "at": "2026-10-24T20:01:17+00:00",
