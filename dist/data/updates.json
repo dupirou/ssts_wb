@@ -2,6 +2,29 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "71f33a56ec681475",
+      "station": "vancouver",
+      "at": "2026-10-24T18:21:20+00:00",
+      "local_date": "2026-10-24",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Kun LI"
+      ],
+      "china_results": [
+        {
+          "name": "Kun LI",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "42f04b70abc34bd7",
       "station": "vancouver",
       "kind": "time_change",

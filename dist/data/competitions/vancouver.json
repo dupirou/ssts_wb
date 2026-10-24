@@ -2181,8 +2181,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-24T18:11:23+00:00",
-    "updated_at": "2026-10-24T18:11:23+00:00",
+    "checked_at": "2026-10-24T18:21:20+00:00",
+    "updated_at": "2026-10-24T18:21:20+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -4379,7 +4379,7 @@
             "starting_position": 2,
             "rank": 2,
             "result": "42.141",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -4459,7 +4459,7 @@
             "starting_position": 1,
             "rank": 2,
             "result": "42.232",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -4539,7 +4539,7 @@
             "starting_position": 3,
             "rank": 2,
             "result": "42.578",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -4593,8 +4593,8 @@
         "heat_number": 4,
         "heat_label": "Heat 4",
         "source_start": "2026-10-24T11:09:17.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22871",
         "participants": [
@@ -4606,20 +4606,8 @@
             "helmet_number": 34,
             "starting_position": 3,
             "rank": 1,
-            "result": "42.360",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-64a844d676fa24746b6b",
-            "name": "Aibek NASSEN",
-            "country": "KAZ",
-            "official_skater_id": 5039,
-            "helmet_number": 91,
-            "starting_position": 5,
-            "rank": 2,
-            "result": "42.620",
-            "qualification": null,
+            "result": "42.343",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4629,8 +4617,8 @@
             "official_skater_id": 18224,
             "helmet_number": 79,
             "starting_position": 2,
-            "rank": 3,
-            "result": "42.780",
+            "rank": 2,
+            "result": "42.770",
             "qualification": null,
             "penalty": null
           },
@@ -4641,8 +4629,8 @@
             "official_skater_id": 3636,
             "helmet_number": 59,
             "starting_position": 4,
-            "rank": 4,
-            "result": "42.880",
+            "rank": 3,
+            "result": "42.882",
             "qualification": null,
             "penalty": null
           },
@@ -4653,10 +4641,25 @@
             "official_skater_id": 361,
             "helmet_number": 85,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "43.467",
             "qualification": null,
             "penalty": null
+          },
+          {
+            "athlete_id": "ath-64a844d676fa24746b6b",
+            "name": "Aibek NASSEN",
+            "country": "KAZ",
+            "official_skater_id": 5039,
+            "helmet_number": 91,
+            "starting_position": 5,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -4673,23 +4676,11 @@
         "heat_number": 5,
         "heat_label": "Heat 5",
         "source_start": "2026-10-24T11:08:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22871",
         "participants": [
-          {
-            "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
-            "name": "Warre NOIRON",
-            "country": "BEL",
-            "official_skater_id": 5140,
-            "helmet_number": 54,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-91511b3c9de89e30bfa8",
             "name": "Peter JASZAPATI",
@@ -4697,8 +4688,32 @@
             "official_skater_id": 2986,
             "helmet_number": 81,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "42.217",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-872b8b25f1eda8723e33",
+            "name": "Kun LI",
+            "country": "CHN",
+            "official_skater_id": 4167,
+            "helmet_number": 67,
+            "starting_position": 4,
+            "rank": 2,
+            "result": "42.431",
+            "qualification": "q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
+            "name": "Warre NOIRON",
+            "country": "BEL",
+            "official_skater_id": 5140,
+            "helmet_number": 54,
+            "starting_position": 1,
+            "rank": 3,
+            "result": "42.633",
             "qualification": null,
             "penalty": null
           },
@@ -4709,20 +4724,8 @@
             "official_skater_id": 4648,
             "helmet_number": 63,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-872b8b25f1eda8723e33",
-            "name": "Kun LI",
-            "country": "CHN",
-            "official_skater_id": 4167,
-            "helmet_number": 67,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "42.711",
             "qualification": null,
             "penalty": null
           },
@@ -4733,8 +4736,8 @@
             "official_skater_id": 5717,
             "helmet_number": 72,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "42.754",
             "qualification": null,
             "penalty": null
           }
@@ -5910,19 +5913,19 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-10-24T11:15:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-10-24T11:19:29.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15936&round=22879",
         "participants": [
           {
-            "athlete_id": "ath-ee4b7a824eb8cb36d140",
-            "name": "Kateryna SOLOVIOVA",
-            "country": "GER",
-            "official_skater_id": 18274,
-            "helmet_number": 64,
-            "starting_position": 1,
+            "athlete_id": "ath-3c87cc73801139f1ee27",
+            "name": "Anastassiya GALECHINA",
+            "country": "KAZ",
+            "official_skater_id": 414,
+            "helmet_number": 72,
+            "starting_position": 4,
             "rank": null,
             "result": "no time",
             "qualification": null,
@@ -5941,36 +5944,36 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-c4d9ec09e1031114684f",
-            "name": "Guldana ZHALMUKHAN",
-            "country": "KAZ",
-            "official_skater_id": 8073,
-            "helmet_number": 75,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-3c87cc73801139f1ee27",
-            "name": "Anastassiya GALECHINA",
-            "country": "KAZ",
-            "official_skater_id": 414,
-            "helmet_number": 72,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
             "athlete_id": "ath-c510d796c94e67b22927",
             "name": "Ching Shun Nicole LAW",
             "country": "HKG",
             "official_skater_id": 3969,
             "helmet_number": 65,
             "starting_position": 5,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-ee4b7a824eb8cb36d140",
+            "name": "Kateryna SOLOVIOVA",
+            "country": "GER",
+            "official_skater_id": 18274,
+            "helmet_number": 64,
+            "starting_position": 1,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-c4d9ec09e1031114684f",
+            "name": "Guldana ZHALMUKHAN",
+            "country": "KAZ",
+            "official_skater_id": 8073,
+            "helmet_number": 75,
+            "starting_position": 3,
             "rank": null,
             "result": "no time",
             "qualification": null,

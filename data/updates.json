@@ -33,6 +33,7 @@
     "vancouver/round/2026-10-24/main/women/3000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/men/1500/heats/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/men/500/heats/-/groups": "published",
+    "vancouver/round/2026-10-24/repechage/men/500/heats/-/results": "official",
     "vancouver/round/2026-10-24/repechage/mixed/2000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/women/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
@@ -1009,6 +1010,29 @@
       "format": "relay",
       "previous": "2026-10-25 05:14",
       "current": "2026-10-25 05:21"
+    },
+    {
+      "id": "71f33a56ec681475",
+      "station": "vancouver",
+      "at": "2026-10-24T18:21:20+00:00",
+      "local_date": "2026-10-24",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Kun LI"
+      ],
+      "china_results": [
+        {
+          "name": "Kun LI",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
     }
   ]
 }
