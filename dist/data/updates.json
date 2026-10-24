@@ -2,6 +2,54 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "ed4d2028f4582630",
+      "station": "vancouver",
+      "at": "2026-10-24T21:11:22+00:00",
+      "local_date": "2026-10-24",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "Jiarui SONG",
+        "Li GONG",
+        "Yan ZHANG"
+      ]
+    },
+    {
+      "id": "8590c12af474b842",
+      "station": "vancouver",
+      "at": "2026-10-24T21:11:22+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 4,
+          "status": "out"
+        },
+        {
+          "name": "Yiding ZHU",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "af9e7849d771d6a4",
       "station": "vancouver",
       "at": "2026-10-24T21:01:21+00:00",
