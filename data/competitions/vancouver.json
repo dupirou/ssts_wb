@@ -1528,8 +1528,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-24T23:21:17+00:00",
-    "updated_at": "2026-10-24T23:21:17+00:00",
+    "checked_at": "2026-10-24T23:31:18+00:00",
+    "updated_at": "2026-10-24T23:31:18+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -7808,8 +7808,8 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-10-24T16:18:00.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15936&round=22883",
         "participants": [
@@ -7821,8 +7821,8 @@
             "helmet_number": 4,
             "starting_position": 1,
             "rank": 1,
-            "result": "1:30.660",
-            "qualification": null,
+            "result": "1:30.635",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -7833,8 +7833,8 @@
             "helmet_number": 79,
             "starting_position": 4,
             "rank": 2,
-            "result": "1:31.250",
-            "qualification": null,
+            "result": "1:31.238",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -7845,7 +7845,7 @@
             "helmet_number": 83,
             "starting_position": 3,
             "rank": 3,
-            "result": "1:31.620",
+            "result": "1:31.602",
             "qualification": null,
             "penalty": null
           },
@@ -7856,8 +7856,8 @@
             "official_skater_id": 7446,
             "helmet_number": 9,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "DNF",
             "qualification": null,
             "penalty": null
           },
@@ -7868,9 +7868,9 @@
             "official_skater_id": 6617,
             "helmet_number": 54,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 4,
+            "result": "DNF",
+            "qualification": "ADV",
             "penalty": null
           }
         ]
@@ -7887,9 +7887,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-10-24T16:21:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-24T16:23:47.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15936&round=22883",
         "participants": [
@@ -7900,21 +7900,9 @@
             "official_skater_id": 6159,
             "helmet_number": 1,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-7a90548f25275fc9709d",
-            "name": "Gabriela TOPOLSKA",
-            "country": "POL",
-            "official_skater_id": 7104,
-            "helmet_number": 13,
-            "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "1:30.640",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -7924,8 +7912,32 @@
             "official_skater_id": 2861,
             "helmet_number": 21,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "1:30.705",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-7a90548f25275fc9709d",
+            "name": "Gabriela TOPOLSKA",
+            "country": "POL",
+            "official_skater_id": 7104,
+            "helmet_number": 13,
+            "starting_position": 2,
+            "rank": 3,
+            "result": "1:31.264",
+            "qualification": "p",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-d7393090231b3ef25ede",
+            "name": "Alina AZHGALIYEVA",
+            "country": "KAZ",
+            "official_skater_id": 446,
+            "helmet_number": 71,
+            "starting_position": 5,
+            "rank": 4,
+            "result": "1:31.285",
             "qualification": null,
             "penalty": null
           },
@@ -7936,20 +7948,8 @@
             "official_skater_id": 7437,
             "helmet_number": 46,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-d7393090231b3ef25ede",
-            "name": "Alina AZHGALIYEVA",
-            "country": "KAZ",
-            "official_skater_id": 446,
-            "helmet_number": 71,
-            "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "1:32.375",
             "qualification": null,
             "penalty": null
           }
@@ -7967,9 +7967,9 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-10-24T16:24:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-24T16:27:11.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15936&round=22883",
         "participants": [
@@ -7980,8 +7980,44 @@
             "official_skater_id": 7447,
             "helmet_number": 3,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "1:32.294",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-3e79769fe95fdcfb1c3e",
+            "name": "Gilli KIM",
+            "country": "KOR",
+            "official_skater_id": 3406,
+            "helmet_number": 5,
+            "starting_position": 3,
+            "rank": 2,
+            "result": "1:32.383",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-c9d7d5a38485bd9c344f",
+            "name": "Yan ZHANG",
+            "country": "CHN",
+            "official_skater_id": 19401,
+            "helmet_number": 56,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "1:32.457",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-6015217f50457d7cc862",
+            "name": "Zoe Florence DELTRAP",
+            "country": "NED",
+            "official_skater_id": 1534,
+            "helmet_number": 49,
+            "starting_position": 4,
+            "rank": 4,
+            "result": "2:12.997",
             "qualification": null,
             "penalty": null
           },
@@ -7993,45 +8029,12 @@
             "helmet_number": 6,
             "starting_position": 2,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-3e79769fe95fdcfb1c3e",
-            "name": "Gilli KIM",
-            "country": "KOR",
-            "official_skater_id": 3406,
-            "helmet_number": 5,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-6015217f50457d7cc862",
-            "name": "Zoe Florence DELTRAP",
-            "country": "NED",
-            "official_skater_id": 1534,
-            "helmet_number": 49,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-c9d7d5a38485bd9c344f",
-            "name": "Yan ZHANG",
-            "country": "CHN",
-            "official_skater_id": 19401,
-            "helmet_number": 56,
-            "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
