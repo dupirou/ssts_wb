@@ -29,6 +29,8 @@
 
 **排名**：只解析官方 PDF 的列，不自行按积分重算。
 
+**接力队员**：接力的报项和出发名单只列队名；ISU 在队员确定后（比赛前或比完）把上场队员填进逐组接口，同步时存为该队的 `participants[].members`（姓名、选手 ID，按个人项目同一 `athlete_id` 统一写法），中国队接力行的“第 N 组”也随之写出队员。已出正式成绩、但存于此功能之前的接力轮次会再请求一次以补上队员。
+
 **晋级规则**：每轮的 `qualification_rule`（如 “The first and second placed skaters from each race and up to a maximum of six fastest third place skaters qualify for Heats.”）按 `round_key` 存入快照的 `rounds.rules`，未公布分组的轮次也有；已结束而不再请求的项目保留上次的原文。构建时由 `tools/qualification.py` 转成 `2Q+6q` 和中文说明写入赛程的 `entries[].qualification`；不认识的写法不显示，不猜。
 
 **单项报项**：从 Entries 标签读取六个单项各自的选手名单，按 ISU 选手 ID 匹配上赛季单项世巡赛排名（WCD）与世界排名（WRD）；上赛季榜单只抓一次，缓存在 `historic_rankings.json`。同一份报项也给运动员名单加上每人报的单项（`entries[].distances`）。

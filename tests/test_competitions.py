@@ -103,6 +103,48 @@ class CompetitionTests(unittest.TestCase):
         self.assertEqual(api.embedded_results(html), events)
         self.assertEqual(api.embedded_results('<script>dangerous()</script>'), [])
 
+    def test_relay_teams_carry_their_skaters_once_isu_names_them(self):
+        heats = api.api_data((ROOT / 'tests/fixtures/gdansk-2025-relay-sample.json').read_bytes())
+        event = {'event_result_id': 203, 'name': 'Women 3000 m Relay'}
+        meta = {'event_result_round_id': 561, 'name': 'Finals'}
+        team = heats[0]['event_result_round_heats_competitors'][0]
+        member = lambda i, name: dict(
+            event_result_round_heats_competitors_team_member_id=i,
+            skaters_id=900 + i,
+            skaters=dict(full_name=name, gender='F'),
+        )
+        team['event_result_round_heats_competitors_team_members'] = [member(2, 'Bea TEST'), member(1, 'Ann TEST')]
+        parsed = api.heat_items(heats, event, meta, 'https://isu-skating.com/event')
+        first, other = parsed[0]['participants'][0], parsed[0]['participants'][1]
+        # ISU's order, each skater under the id the individual events use; a team not yet named has none.
+        self.assertEqual([m['name'] for m in first['members']], ['Ann TEST', 'Bea TEST'])
+        self.assertEqual(
+            first['members'][0]['athlete_id'], data.athlete_id('Ann TEST', team['started_for_nf_code'], 'women')
+        )
+        self.assertEqual(other['members'], [])
+        members = list(first['members'])
+        # Official relay rounds stored before skaters were kept are fetched once more.
+        stored = [dict(h, result_status='Official', evidence='official_results') for h in parsed]
+        self.assertTrue(api.settled(stored))
+        for h in stored:
+            for p in h['participants']:
+                p.pop('members')
+        self.assertFalse(api.settled(stored))
+        # A CHN relay row names the skaters when ISU lists them.
+        obj = data.empty_snapshot('vancouver')
+        obj['rounds']['updated_at'] = '2026-10-23T10:00:00+00:00'
+        obj['rounds']['items'] = [
+            dict(
+                id='r',
+                round_key='k',
+                evidence='official_results',
+                heat_number=1,
+                source_url=SOURCE,
+                participants=[dict(name='China', country='CHN', members=members)],
+            )
+        ]
+        self.assertEqual(data.china_evidence(obj)[0][0]['heats'][0]['athletes'], ['Ann TEST', 'Bea TEST'])
+
     def test_real_official_single_and_relay_response_shapes(self):
         fixtures = ROOT / 'tests/fixtures'
         for file, eid, rid, label in [

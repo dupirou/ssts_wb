@@ -113,6 +113,7 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
                     result=result,
                     qualification=person.get('qualification_code') or None,
                     penalty=sync.penalty(result),
+                    **({'members': team_members(person, country, disc['gender'])} if relay else {}),
                 )
             )
         if len({m['athlete_id'] for m in members}) != len(members):
@@ -159,6 +160,29 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
     return output
 
 
+def team_members(team, country, gender):
+    """The skaters a relay team raced with, in ISU's order. ISU lists them only once the heat is
+    raced; the entry lists and start lists name the team alone."""
+    members = []
+    rows = sorted(
+        team.get('event_result_round_heats_competitors_team_members') or [],
+        key=lambda m: m.get('event_result_round_heats_competitors_team_member_id') or 0,
+    )
+    for row in rows:
+        skater = row.get('skaters') or {}
+        name = ' '.join((skater.get('full_name') or '').split())
+        if not name or type(row.get('skaters_id')) is not int:
+            raise ValueError('Relay team member identity missing')
+        # A mixed team's members are men and women; each keeps the id the individual events use.
+        sex = {'M': 'men', 'F': 'women', 'W': 'women'}.get(skater.get('gender'), gender)
+        members.append(
+            dict(athlete_id=data.athlete_id(name, country, sex), name=name, official_skater_id=row['skaters_id'])
+        )
+    if len({m['athlete_id'] for m in members}) != len(members):
+        raise ValueError('Duplicate relay team member')
+    return members
+
+
 def placeholder(person):
     """A heat row with no outcome at all: no rank, time, qualification or laps."""
     return (
@@ -184,6 +208,14 @@ def scheduled_rounds(event, meta, schedule):
         return []
     rows = sync_china.round_matches(schedule, (disc['gender'], disc['distance_m'], disc['format']), stage)
     return rows if stage[0] == 'final' or len(rows) == 1 else []
+
+
+def settled(items):
+    """A stored round that need not be requested again: official results throughout, and, for a
+    relay, its teams' skaters recorded (rounds stored before members were kept are fetched once)."""
+    return is_final(items) and all(
+        'members' in p for i in items if i.get('format') == 'relay' for p in i['participants']
+    )
 
 
 def is_final(items):
@@ -227,7 +259,7 @@ def collect(body, config, api_fetch, schedule=(), known=(), problems=None, rules
         mine = {url: items for url, items in stored.items() if (url or '').startswith(prefix)}
         if (
             mine
-            and all(is_final(items) for items in mine.values())
+            and all(settled(items) for items in mine.values())
             and any(i.get('round') == 'final' and i.get('group') == 'A' for items in mine.values() for i in items)
         ):
             reused = [i for items in mine.values() for i in items]
@@ -244,7 +276,7 @@ def collect(body, config, api_fetch, schedule=(), known=(), problems=None, rules
             if rules is not None and (meta.get('qualification_rule') or '').strip():
                 for row in scheduled_rounds(event, meta, schedule):
                     rules[row['round_key']] = ' '.join(meta['qualification_rule'].split())
-            if is_final(stored.get(disc)):
+            if settled(stored.get(disc)):
                 seen.update(i['id'] for i in stored[disc])
                 rounds.extend(stored[disc])
                 continue

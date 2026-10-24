@@ -123,6 +123,23 @@ test('real roster defaults to CHN; country and gender filters compose', async t 
   assert.equal(roster.querySelectorAll('.athlete-card').length,china.filter(p=>p.gender==='women').length);
   assert.equal(d.querySelectorAll('.match-row').length,61);
 });
+test('a relay team in the group dialog lists the skaters ISU names', async t => {
+  const data = structuredClone(snapshot);
+  const relay = schedule.entries.find(e => e.format === 'relay');
+  data.rounds = {...data.rounds, items: [{id: 'isu-heat-1', round_key: relay.round_key, evidence: 'official_start_list', heat_number: 1,
+    source_url: 'https://isu-skating.com/x', participants: [
+      {athlete_id: 'team-CAN', name: 'Canada', country: 'CAN', starting_position: 1, members: [{name: 'Ann TEST'}, {name: 'Bea TEST'}]},
+      {athlete_id: 'team-USA', name: 'United States of America', country: 'USA', starting_position: 2, members: []}]}]};
+  const dom = await page({data, view: 'schedule'}); t.after(() => dom.window.close());
+  const d = dom.window.document;
+  const row = d.getElementById('r-' + relay.id);
+  await settle(dom, () => row.querySelector('.competition-open'));
+  row.querySelector('.competition-open').click();
+  const teams = [...d.querySelectorAll('dialog[open] .result-person')];
+  assert.equal(teams[0].querySelector('.result-members').textContent, 'Ann TEST\u00a0· Bea TEST');
+  assert.equal(teams[1].querySelector('.result-members'), null, 'no line until ISU names the skaters');
+});
+
 test('roster cards list the distances each athlete entered', async t => {
   const data=structuredClone(snapshot);
   const chn=data.entries.items.find(p=>p.country==='CHN');
