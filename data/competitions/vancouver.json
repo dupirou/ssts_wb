@@ -1527,7 +1527,7 @@
   },
   "rounds": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-10-24T19:11:21+00:00",
     "updated_at": "2026-10-24T19:11:21+00:00",
     "source_urls": [
@@ -13919,7 +13919,8 @@
       "2026-10-25/repechage/women/500/heats/-": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Rep Quarterfinals.",
       "2026-10-25/repechage/women/500/quarterfinal/-": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals.",
       "2026-10-25/repechage/women/500/semifinal/-": "The first placed skater from each race qualify for Quarterfinals."
-    }
+    },
+    "error": "Previously published data absent; retained last snapshot"
   },
   "rankings": {
     "status": "not_published",
