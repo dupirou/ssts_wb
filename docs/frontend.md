@@ -8,6 +8,7 @@
 - **分站页 `/?station=<id>`**：标题区与数字条；倒计时卡和中国队下一场；“赛程 / 运动员 / 分组预测”三个标签（预测只在仍有首轮未出官方分组时出现）。`?day=`、`?view=athletes|predictions` 可直达。
 - **赛程**：赛程概览（比赛时段刻度与奖牌赛，默认收起）；吸顶筛选栏（比赛日、筛选面板、北京 / 当地时间）；按比赛日分组的列表。桌面为表格，平板两列卡片，手机单列卡片，打印恢复完整七列表格。
 - **已比完的轮次**：自动折成一行（时间、项目、轮次和“成绩 / 分组”入口），不再显示中国队小组的估算时间；手机上 CHN 标签缩成星标，平板上占满整行；打印仍是完整表格。
+- **晋级规则**：轮次名后的小标签（如 `2Q+6q`，悬停显示中文），分组弹窗标题下有完整一行；来自 ISU 每轮公布的规则，决赛没有。
 - **分组弹窗**：有官方分组的轮次显示“查看分组 / 查看成绩”，弹窗按组列出出发位、姓名、国家、头盔号；有成绩时显示名次、成绩、晋级与判罚。
 - **运动员**：报名名单（默认 CHN，国家与性别筛选，名字后小字写性别与所报单项）和排名。
 - **新动态横条**：只显示上次关闭后的新条目，首访显示最近 3 天；涉及中国队为红点，A 组决赛成绩为金点，时间调整为蓝点。
@@ -45,7 +46,7 @@
 页面读取 `data/calendar.json`、`data/<id>.json`（赛程）、`data/updates.json` 和 `/api/v1/events/<id>/<resource>`。
 
 - `calendar.json`：`stations[]`（`id`、`city`、`city_en`、`country`、`date_start`、`date_end`、`timezone`、`venue`、`detail_status`、`ticketing`、`predictions`、`source_url`）与 `championships[]`。`source_url` 是该站自己的 ISU 赛事页（尚未找到时为赛季赛历），未出赛程的分站与世锦赛页链接到它。
-- `<id>.json` 的 `entries[]`：`round_key`（稳定）、当地与北京的日期时间、`session`（qualifying / repechage / main）、`gender`、`format`、`distance_m`、`round`、`group`（A / B）、`china`。
+- `<id>.json` 的 `entries[]`：`round_key`（稳定）、当地与北京的日期时间、`session`（qualifying / repechage / main）、`gender`、`format`、`distance_m`、`round`、`group`（A / B）、`china`，以及有官方规则时的 `qualification`（`code`、`zh`、`text`）。
 - `china.status` 为 `confirmed` 才高亮 CHN；`china.heats[]` 含 `number`、`athletes`、`estimate`（非官方估算区间）。
 - `sync.last_successful_schedule_check_utc` 为空表示尚未成功核对，不能伪造时间。
 

@@ -71,12 +71,18 @@ def person(name, position, skater_id, row=0):
     )
 
 
+RULE = 'The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Quarterfinals.'
+
+
 class HeatFeed:
     """Round 21 enters one skater twice in one lane; round 22 lists one skater in two lanes."""
 
     def __call__(self, endpoint, form):
         if endpoint.endswith('get-event-result-round'):
-            rows = [dict(event_result_id=11, event_id=5, event_result_round_id=rid, name='Heats') for rid in (21, 22)]
+            rows = [
+                dict(event_result_id=11, event_id=5, event_result_round_id=rid, name='Heats', qualification_rule=RULE)
+                for rid in (21, 22)
+            ]
         else:
             rid = int(form['event_result_round_id'])
             # The repeat is a second database row: its own id and timestamps, the same skater and lane.
@@ -108,6 +114,15 @@ class ReuseTests(unittest.TestCase):
         self.assertIn('Duplicate competitor', problems[0])
         with self.assertRaisesRegex(ValueError, 'Duplicate competitor'):
             api.collect(results_page([EVENT]), config, HeatFeed())
+
+    def test_published_qualification_rules_are_kept_per_scheduled_round(self):
+        import build
+
+        rules = {}
+        schedule = build.read_schedule('vancouver')
+        api.collect(results_page([EVENT]), dict(CONFIG, isu_event_id=5), HeatFeed(), schedule, problems=[], rules=rules)
+        # Every round's rule is recorded, a refused round's included; ISU's text is kept as published.
+        self.assertEqual(rules, {'2026-10-23/qualifying/women/500/heats/-': RULE})
 
     def test_an_empty_copy_of_a_raced_entry_is_dropped(self):
         # After the heat ISU filled one of the two rows and left the other empty (2026-10-23).
