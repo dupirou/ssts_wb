@@ -552,7 +552,8 @@
     const titleId = 'competition-title';
     const close = h('button', {type: 'button', class: 'icon-btn', 'aria-label': '关闭比赛详情'}, icon('close'));
     const dialog = h('dialog', {class: 'competition-dialog', 'aria-labelledby': titleId},
-      h('header', {class: 'competition-head'}, h('h2', {id: titleId, text: eventName(r) + ' · ' + roundName(r)}), close));
+      h('header', {class: 'competition-head'}, h('h2', {id: titleId, text: eventName(r) + ' · ' + roundName(r)}), close),
+      r.qualification ? h('p', {class: 'qual-rule'}, h('b', {class: 'num', text: r.qualification.code}), r.qualification.zh) : null);
     for (const heat of [...heats].sort((a, b) => (a.heat_number ?? 0) - (b.heat_number ?? 0))) {
       const results = heat.evidence === 'official_results';
       const status = !results ? null : heat.result_status?.toLowerCase() === 'official' ? '正式成绩' : '暂定成绩';
@@ -1127,7 +1128,8 @@
       h('b', {class: 'dist num', text: r.distance_m + 'm'}),
       r.format === 'relay' ? [' ', h('span', {class: 'relay', text: '接力'})] : null,
       china ? h('strong', {class: 'china-label'}, icon('star', 'ico ico-xs'), ' CHN') : null);
-    cell(labels[4], 'round-cell', h('span', {class: 'round-name', text: roundName(r)}), ' ', stageMeter(r));
+    cell(labels[4], 'round-cell', h('span', {class: 'round-name', text: roundName(r)}), ' ', stageMeter(r),
+      r.qualification ? h('abbr', {class: 'qual num', title: r.qualification.zh, text: r.qualification.code}) : null);
     cell(labels[5], 'group-cell' + (r.group ? '' : ' is-empty'),
       r.group ? h('span', {class: 'grp grp-' + r.group}, r.group === 'A' ? icon('medal', 'ico ico-xs') : null, r.group + ' 组',
         h('small', {text: r.group === 'A' ? '奖牌' : '排位'})) : '—');

@@ -729,6 +729,13 @@ td.time { white-space: nowrap; }
 .relay { font-size: .78rem; color: var(--text-2); }
 .china-label { margin-left: 8px; vertical-align: 1px; }
 .round-name { color: var(--text-2); font-weight: 600; }
+/* ISU's qualification rule for the round, '2Q+6q'; the Chinese wording is its title. */
+.qual {
+  margin-left: 6px; padding: 1px 6px; border-radius: 6px; font-size: .72rem; font-weight: 700; white-space: nowrap;
+  color: var(--sel-fg); background: var(--sel-bg); text-decoration: none; cursor: help;
+}
+.qual-rule { margin: -10px 0 16px; font-size: .84rem; color: var(--text-2); }
+.qual-rule b { margin-right: 8px; color: var(--sel-fg); }
 .a-final .round-name { color: var(--gold-text); font-weight: 800; }
 .grp { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 999px; font-size: .8rem; font-weight: 700; white-space: nowrap; }
 .grp small { font-size: .7rem; font-weight: 600; opacity: .85; }
@@ -867,7 +874,8 @@ td.time { white-space: nowrap; }
     gap: 0 10px; padding-block: 6px; grid-column: 1 / -1; /* full width, never stretched beside a card */
   }
   .match-row.is-past td.secondary-time, .match-row.is-past td.group-cell,
-  .match-row.is-past td.time .dp, .match-row.is-past td.time .dt, .match-row.is-past .meter, .match-row.is-past .co-verb { display: none; }
+  .match-row.is-past td.time .dp, .match-row.is-past td.time .dt, .match-row.is-past .meter, .match-row.is-past .co-verb,
+  .match-row.is-past .qual { display: none; }
   .match-row.is-past td.primary-time .tm { font-size: 1rem; }
   .match-row.is-past td.event-cell { flex-wrap: nowrap; overflow: hidden; white-space: nowrap; font-size: .9rem; }
   /* The star alone marks a CHN round here; the red row already says it. */

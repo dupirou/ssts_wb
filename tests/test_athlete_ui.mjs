@@ -70,6 +70,21 @@ test('CHN rows list each heat once with an approximate time and open the officia
   assert.equal(dialog.querySelectorAll('.source-line a').length, 1);
 });
 
+test('a round shows its published qualification rule, in the row and in the group dialog', async t => {
+  const rule = {code: '2Q+6q', zh: '每组前 2 名及成绩最好的 6 名第 3 名晋级预赛', text: 'ISU text'};
+  const entries = schedule.entries.map((e, i) => i === 0 ? {...e, qualification: rule} : e);
+  const dom = await page({view: 'schedule', files: {'/data/calendar.json': withPredictions, '/data/vancouver.json': {...schedule, entries}}});
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  const row = d.getElementById('r-' + entries[0].id);
+  assert.equal(row.querySelector('.qual').textContent, '2Q+6q');
+  assert.equal(row.querySelector('.qual').title, rule.zh);
+  assert.equal(d.querySelectorAll('.qual').length, 1, 'rounds without a published rule show none');
+  await settle(dom, () => row.querySelector('.competition-open'));
+  row.querySelector('.competition-open').click();
+  assert.match(d.querySelector('dialog[open] .qual-rule').textContent, /^2Q\+6q每组前 2 名/);
+});
+
 test('round meter has one dot per round the event actually races', async t => {
   const dom = await page({view:'schedule'});t.after(()=>dom.window.close());
   const d = dom.window.document;

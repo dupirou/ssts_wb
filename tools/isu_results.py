@@ -175,6 +175,17 @@ def same_entry(a, b):
     return a is not b and all(a.get(k) == b.get(k) for k in keys)
 
 
+def scheduled_rounds(event, meta, schedule):
+    """The scheduled rows one official round stands for: one round, or Final A and B together."""
+    import sync_competitions as sync
+
+    disc, stage = sync.discipline(event['name']), sync_china.round_from_text(meta['name'])
+    if not disc or not stage:
+        return []
+    rows = sync_china.round_matches(schedule, (disc['gender'], disc['distance_m'], disc['format']), stage)
+    return rows if stage[0] == 'final' or len(rows) == 1 else []
+
+
 def is_final(items):
     """A round whose every heat already carries official (not provisional) results."""
     return bool(items) and all(
@@ -182,14 +193,17 @@ def is_final(items):
     )
 
 
-def collect(body, config, api_fetch, schedule=(), known=(), problems=None):
+def collect(body, config, api_fetch, schedule=(), known=(), problems=None, rules=None):
     """Read official rounds. Rounds already stored with official results are reused, not
     re-requested; a discipline whose official Final A is stored and whose every stored round is
     official is complete, so even its round list is not requested again.
 
     With a `problems` list, a round whose official heats fail validation is left out (so the
     caller keeps what it stored from that round's source) and its error appended, instead of one
-    bad heat holding back every other round of the event."""
+    bad heat holding back every other round of the event.
+
+    With a `rules` dict, each fetched round's published qualification rule is recorded under the
+    round_key of every scheduled round it describes (both finals share one), heats or not."""
     events = embedded_results(body)
     stored = {}
     for item in known:
@@ -227,6 +241,9 @@ def collect(body, config, api_fetch, schedule=(), known=(), problems=None):
                 raise ValueError('Official round belongs to another event')
             rid = meta['event_result_round_id']
             disc = prefix + str(rid)
+            if rules is not None and (meta.get('qualification_rule') or '').strip():
+                for row in scheduled_rounds(event, meta, schedule):
+                    rules[row['round_key']] = ' '.join(meta['qualification_rule'].split())
             if is_final(stored.get(disc)):
                 seen.update(i['id'] for i in stored[disc])
                 rounds.extend(stored[disc])

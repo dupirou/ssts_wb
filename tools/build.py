@@ -185,6 +185,18 @@ def attach_china(rows, station_id):
 BOOKING_SITES = {'m.ticketlink.co.kr': 'Ticketlink'}
 
 
+def attach_qualification(rows, station_id):
+    """Each round's published qualification rule ('2Q+6q' and in Chinese), once ISU lists it."""
+    import qualification
+
+    rules = competition_data.load_snapshot(station_id)['rounds'].get('rules', {})
+    for row in rows:
+        rule = qualification.describe(rules.get(row['round_key']))
+        if rule and rule['code']:
+            row['qualification'] = rule
+    return rows
+
+
 def load_ticketing():
     """Validate curated ticket links before publishing them to the calendar."""
     path = ROOT / 'data/tickets.json'
@@ -262,7 +274,7 @@ def export(now=None):
     for st in CONFIG['stations']:
         rows = read_schedule(st['id'])
         if rows:
-            schedules[st['id']] = attach_china(rows, st['id'])
+            schedules[st['id']] = attach_qualification(attach_china(rows, st['id']), st['id'])
     season = {
         'schema_version': 1,
         'season': CONFIG['season'],

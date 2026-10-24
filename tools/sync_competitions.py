@@ -301,8 +301,12 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
         known = [
             i for i in snapshot['rounds']['items'] if i.get('evidence') in ('official_results', 'official_start_list')
         ]
-        problems = []
-        proposed_rounds += isu_results.collect(body, config, api_fetcher, schedule, known, problems)
+        problems, rules = [], {}
+        proposed_rounds += isu_results.collect(body, config, api_fetcher, schedule, known, problems, rules)
+        # Rules of rounds not re-requested this time (finished disciplines) keep their last text.
+        merged_rules = dict(sorted({**snapshot['rounds'].get('rules', {}), **rules}.items()))
+        if merged_rules:
+            snapshot['rounds']['rules'] = merged_rules
         for problem in problems:
             # Only that round keeps its last accepted data; the rest of the event still updates.
             print(f'::warning::{event_id} results: kept the last accepted data for {problem}', file=sys.stderr)
