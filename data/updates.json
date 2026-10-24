@@ -43,6 +43,8 @@
     "vancouver/round/2026-10-24/repechage/women/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/women/1000/heats/-/results": "official",
     "vancouver/round/2026-10-24/repechage/women/1000/quarterfinal/-/groups": "published",
+    "vancouver/round/2026-10-24/repechage/women/1000/quarterfinal/-/results": "official",
+    "vancouver/round/2026-10-24/repechage/women/1000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
@@ -1172,6 +1174,60 @@
       "china": [
         "Bohao ZHANG",
         "Kun LI"
+      ]
+    },
+    {
+      "id": "0c3da637a1645d8d",
+      "station": "vancouver",
+      "at": "2026-10-24T20:01:17+00:00",
+      "local_date": "2026-10-24",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "548d2431ab979f13",
+      "station": "vancouver",
+      "at": "2026-10-24T20:01:17+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Jianing ZHANG",
+        "Li GONG",
+        "Yan ZHANG"
       ]
     }
   ]
