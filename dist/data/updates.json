@@ -2,6 +2,47 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "a82c39706e84ffa9",
+      "station": "vancouver",
+      "at": "2026-10-25T19:31:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Yiding ZHU",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "94632c670cb7678e",
+      "station": "vancouver",
+      "at": "2026-10-25T19:31:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "Kun LI",
+        "Yiding ZHU"
+      ]
+    },
+    {
       "id": "b6817c37aa041db9",
       "station": "vancouver",
       "at": "2026-10-25T19:01:20+00:00",
@@ -1278,7 +1319,7 @@
         {
           "name": "Kun LI",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Long SUN",

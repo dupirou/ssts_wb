@@ -74,6 +74,8 @@
     "vancouver/round/2026-10-25/main/men/5000/final/B/groups": "published",
     "vancouver/round/2026-10-25/main/mixed/2000/final/B/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
+    "vancouver/round/2026-10-25/repechage/men/1000/heats/-/results": "official",
+    "vancouver/round/2026-10-25/repechage/men/1000/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/results": "official",
@@ -788,7 +790,7 @@
         {
           "name": "Kun LI",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Long SUN",
@@ -2053,6 +2055,47 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "94632c670cb7678e",
+      "station": "vancouver",
+      "at": "2026-10-25T19:31:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "Kun LI",
+        "Yiding ZHU"
+      ]
+    },
+    {
+      "id": "a82c39706e84ffa9",
+      "station": "vancouver",
+      "at": "2026-10-25T19:31:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Yiding ZHU",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
     }
   ]
 }
