@@ -71,6 +71,7 @@
     "vancouver/round/2026-10-24/repechage/women/1000/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-24/repechage/women/1000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/women/1000/semifinal/-/results": "official",
+    "vancouver/round/2026-10-25/main/men/1000/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/main/men/5000/final/B/groups": "published",
     "vancouver/round/2026-10-25/main/mixed/2000/final/B/groups": "published",
     "vancouver/round/2026-10-25/main/women/500/quarterfinal/-/groups": "published",
@@ -79,6 +80,7 @@
     "vancouver/round/2026-10-25/repechage/men/1000/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-25/repechage/men/1000/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-25/repechage/men/1000/semifinal/-/results": "official",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-25/repechage/women/1500/semifinal/-/groups": "published",
@@ -2255,6 +2257,46 @@
       "heats": 2,
       "china": [
         "Yan ZHANG"
+      ]
+    },
+    {
+      "id": "0b8078d1e7748233",
+      "station": "vancouver",
+      "at": "2026-10-25T21:21:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Yiding ZHU",
+          "rank": 2,
+          "status": "out"
+        }
+      ]
+    },
+    {
+      "id": "86fef3f7148eca38",
+      "station": "vancouver",
+      "at": "2026-10-25T21:21:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "Long SUN"
       ]
     }
   ]
