@@ -2181,8 +2181,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-25T23:11:19+00:00",
-    "updated_at": "2026-10-25T23:11:19+00:00",
+    "checked_at": "2026-10-25T23:21:24+00:00",
+    "updated_at": "2026-10-25T23:21:24+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -19474,9 +19474,9 @@
         "group": null,
         "heat_number": null,
         "heat_label": "Final",
-        "source_start": "2026-10-25T16:10:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T16:13:59.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15995&round=22911",
         "participants": [
@@ -19487,8 +19487,8 @@
             "official_skater_id": 12554,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "2:37.593",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -19521,8 +19521,8 @@
             "official_skater_id": 12553,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "2:38.526",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -19549,48 +19549,14 @@
             ]
           },
           {
-            "athlete_id": "team-CAN-mixed",
-            "name": "Canada",
-            "country": "CAN",
-            "official_skater_id": 12544,
-            "helmet_number": null,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-5a7cd29016a92caa9dfb",
-                "name": "Claudia GAGNON",
-                "official_skater_id": 2052
-              },
-              {
-                "athlete_id": "ath-2f5775133539f6a7e0f7",
-                "name": "Felix ROUSSEL",
-                "official_skater_id": 5998
-              },
-              {
-                "athlete_id": "ath-fc00bf7d3e213bcf4f68",
-                "name": "Maxime LAOUN",
-                "official_skater_id": 3951
-              },
-              {
-                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
-                "name": "Courtney SARAULT",
-                "official_skater_id": 6159
-              }
-            ]
-          },
-          {
             "athlete_id": "team-POL-mixed",
             "name": "Poland",
             "country": "POL",
             "official_skater_id": 12555,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "2:38.776",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -19613,6 +19579,40 @@
                 "athlete_id": "ath-775d347cc69597e5a04c",
                 "name": "Michal NIEWINSKI",
                 "official_skater_id": 5097
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-CAN-mixed",
+            "name": "Canada",
+            "country": "CAN",
+            "official_skater_id": 12544,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": 4,
+            "result": "2:47.791",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-5a7cd29016a92caa9dfb",
+                "name": "Claudia GAGNON",
+                "official_skater_id": 2052
+              },
+              {
+                "athlete_id": "ath-2f5775133539f6a7e0f7",
+                "name": "Felix ROUSSEL",
+                "official_skater_id": 5998
+              },
+              {
+                "athlete_id": "ath-6a55e9fb6f1aecd29288",
+                "name": "Steven DUBOIS",
+                "official_skater_id": 1701
+              },
+              {
+                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+                "name": "Courtney SARAULT",
+                "official_skater_id": 6159
               }
             ]
           }
