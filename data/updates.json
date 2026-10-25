@@ -73,16 +73,19 @@
     "vancouver/round/2026-10-24/repechage/women/1000/semifinal/-/results": "official",
     "vancouver/round/2026-10-25/main/men/5000/final/B/groups": "published",
     "vancouver/round/2026-10-25/main/mixed/2000/final/B/groups": "published",
+    "vancouver/round/2026-10-25/main/women/500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/results": "official",
     "vancouver/round/2026-10-25/repechage/men/1000/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/quarterfinal/-/results": "official",
+    "vancouver/round/2026-10-25/repechage/men/1000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/results": "official",
     "vancouver/round/2026-10-25/repechage/women/500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-25/repechage/women/500/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-25/repechage/women/500/semifinal/-/results": "official",
     "vancouver/round/men/1500/individual/Finals/None/groups": "published",
     "vancouver/round/men/1500/individual/Finals/None/results": "official",
     "vancouver/round/men/500/individual/Finals/None/groups": "published",
@@ -2159,6 +2162,58 @@
           "status": "advanced"
         }
       ]
+    },
+    {
+      "id": "5b768d2afd13efb1",
+      "station": "vancouver",
+      "at": "2026-10-25T20:31:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Ye WANG"
+      ]
+    },
+    {
+      "id": "97b6681f4d172a16",
+      "station": "vancouver",
+      "at": "2026-10-25T20:31:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Yiding ZHU"
+      ]
+    },
+    {
+      "id": "a95eeb5ea1b04377",
+      "station": "vancouver",
+      "at": "2026-10-25T20:31:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
     }
   ]
 }
