@@ -29,7 +29,9 @@
     "vancouver/round/2026-10-23/qualifying/women/500/heats/-/results": "official",
     "vancouver/round/2026-10-23/qualifying/women/500/preliminaries/-/groups": "published",
     "vancouver/round/2026-10-23/qualifying/women/500/preliminaries/-/results": "official",
+    "vancouver/round/2026-10-24/main/men/1500/final/B/groups": "published",
     "vancouver/round/2026-10-24/main/men/1500/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-24/main/men/1500/semifinal/-/results": "official",
     "vancouver/round/2026-10-24/main/men/500/final/B/groups": "published",
     "vancouver/round/2026-10-24/main/men/500/final/B/results": "official",
     "vancouver/round/2026-10-24/main/men/500/quarterfinal/-/groups": "published",
@@ -68,6 +70,7 @@
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
+    "vancouver/round/men/1500/individual/Finals/None/groups": "published",
     "vancouver/round/men/500/individual/Finals/None/groups": "published",
     "vancouver/round/men/500/individual/Finals/None/results": "official",
     "vancouver/round/mixed/2000/relay/Finals/None/groups": "published",
@@ -1762,6 +1765,68 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "38805c93e79ae8c2",
+      "station": "vancouver",
+      "at": "2026-10-25T01:21:19+00:00",
+      "local_date": null,
+      "round": "final",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "Yiding ZHU"
+      ]
+    },
+    {
+      "id": "3c20e91c3d5ff7ab",
+      "station": "vancouver",
+      "at": "2026-10-25T01:21:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Yiding ZHU",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Yiding ZHU",
+          "rank": 6,
+          "status": "advanced"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        }
+      ]
+    },
+    {
+      "id": "f71fba0c7a725bae",
+      "station": "vancouver",
+      "at": "2026-10-25T01:21:19+00:00",
+      "local_date": "2026-10-24",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
     }
   ]
 }
