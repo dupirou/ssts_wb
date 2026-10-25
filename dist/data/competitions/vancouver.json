@@ -2181,8 +2181,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-25T00:11:23+00:00",
-    "updated_at": "2026-10-25T00:11:23+00:00",
+    "checked_at": "2026-10-25T00:21:18+00:00",
+    "updated_at": "2026-10-25T00:21:18+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -6514,24 +6514,12 @@
         "group": null,
         "heat_number": null,
         "heat_label": "Final",
-        "source_start": "2026-10-24T17:10:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-24T17:15:37.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22877",
         "participants": [
-          {
-            "athlete_id": "ath-fc00bf7d3e213bcf4f68",
-            "name": "Maxime LAOUN",
-            "country": "CAN",
-            "official_skater_id": 3951,
-            "helmet_number": 26,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-3c121028999cfe671647",
             "name": "Jens VAN 'T WOUT",
@@ -6539,8 +6527,44 @@
             "official_skater_id": 7375,
             "helmet_number": 7,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "40.551",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-fc00bf7d3e213bcf4f68",
+            "name": "Maxime LAOUN",
+            "country": "CAN",
+            "official_skater_id": 3951,
+            "helmet_number": 26,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "40.725",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-a9ddcbdd069f5c0a1198",
+            "name": "Furkan AKAR",
+            "country": "TUR",
+            "official_skater_id": 226,
+            "helmet_number": 27,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "41.334",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-6a55e9fb6f1aecd29288",
+            "name": "Steven DUBOIS",
+            "country": "CAN",
+            "official_skater_id": 1701,
+            "helmet_number": 3,
+            "starting_position": 4,
+            "rank": 4,
+            "result": "54.389",
             "qualification": null,
             "penalty": null
           },
@@ -6552,33 +6576,12 @@
             "helmet_number": 32,
             "starting_position": 3,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-6a55e9fb6f1aecd29288",
-            "name": "Steven DUBOIS",
-            "country": "CAN",
-            "official_skater_id": 1701,
-            "helmet_number": 3,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-a9ddcbdd069f5c0a1198",
-            "name": "Furkan AKAR",
-            "country": "TUR",
-            "official_skater_id": 226,
-            "helmet_number": 27,
-            "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
