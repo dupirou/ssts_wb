@@ -132,7 +132,7 @@
     "vancouver/time/2026-10-25/main/men/1000/semifinal/-": "2026-10-26 08:36",
     "vancouver/time/2026-10-25/main/men/5000/final/A": "2026-10-26 10:30",
     "vancouver/time/2026-10-25/main/men/5000/final/B": "2026-10-26 10:19",
-    "vancouver/time/2026-10-25/main/mixed/2000/final/A": "2026-10-26 07:11",
+    "vancouver/time/2026-10-25/main/mixed/2000/final/A": "2026-10-26 07:10",
     "vancouver/time/2026-10-25/main/mixed/2000/final/B": "2026-10-26 07:05",
     "vancouver/time/2026-10-25/main/women/1500/final/A": "2026-10-26 10:06",
     "vancouver/time/2026-10-25/main/women/1500/final/B": "2026-10-26 09:59",
@@ -2021,6 +2021,21 @@
       "kind": "groups",
       "heats": 1,
       "china": []
+    },
+    {
+      "id": "dc8eb8deee87d081",
+      "station": "vancouver",
+      "kind": "time_change",
+      "at": "2026-10-25T17:37:53+00:00",
+      "local_date": "2026-10-25",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "previous": "2026-10-26 07:11",
+      "current": "2026-10-26 07:10"
     }
   ]
 }
