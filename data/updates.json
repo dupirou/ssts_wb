@@ -80,6 +80,8 @@
     "vancouver/round/2026-10-25/repechage/men/1000/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-25/repechage/men/1000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
+    "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/results": "official",
+    "vancouver/round/2026-10-25/repechage/women/1500/semifinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/results": "official",
     "vancouver/round/2026-10-25/repechage/women/500/quarterfinal/-/groups": "published",
@@ -2214,6 +2216,46 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "3c35ff466a195dda",
+      "station": "vancouver",
+      "at": "2026-10-25T21:11:20+00:00",
+      "local_date": "2026-10-25",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Yan ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "e77b03ab62b8c812",
+      "station": "vancouver",
+      "at": "2026-10-25T21:11:20+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Yan ZHANG"
+      ]
     }
   ]
 }
