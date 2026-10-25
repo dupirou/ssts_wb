@@ -2,6 +2,61 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "b888d9b850340d0f",
+      "station": "vancouver",
+      "at": "2026-10-25T01:31:18+00:00",
+      "local_date": "2026-10-24",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "China"
+      ]
+    },
+    {
+      "id": "a6fdc00ab2fc0df8",
+      "station": "vancouver",
+      "at": "2026-10-25T01:31:18+00:00",
+      "local_date": null,
+      "round": "final",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "1acb292d86be7de2",
+      "station": "vancouver",
+      "at": "2026-10-25T01:31:18+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 4,
+          "status": "final_b"
+        }
+      ]
+    },
+    {
       "id": "f71fba0c7a725bae",
       "station": "vancouver",
       "at": "2026-10-25T01:21:19+00:00",
