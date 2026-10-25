@@ -2,6 +2,36 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "8eb9a837be87271e",
+      "station": "vancouver",
+      "at": "2026-10-25T20:21:23+00:00",
+      "local_date": "2026-10-25",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Kun LI",
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Kun LI",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        },
+        {
+          "name": "Yiding ZHU",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "af3516b059addac4",
       "station": "vancouver",
       "at": "2026-10-25T20:01:23+00:00",
