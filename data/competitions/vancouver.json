@@ -1528,8 +1528,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-25T02:11:22+00:00",
-    "updated_at": "2026-10-25T02:11:22+00:00",
+    "checked_at": "2026-10-25T02:21:18+00:00",
+    "updated_at": "2026-10-25T02:21:18+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -16631,7 +16631,28 @@
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-27654e207b20ca51c8bf",
+                "name": "Minjeong CHOI",
+                "official_skater_id": 1231
+              },
+              {
+                "athlete_id": "ath-8361e1c91aab972b6ca4",
+                "name": "Sukhee SHIM",
+                "official_skater_id": 6380
+              },
+              {
+                "athlete_id": "ath-856445cfa3a2dc493db7",
+                "name": "Minji KIM",
+                "official_skater_id": 18348
+              },
+              {
+                "athlete_id": "ath-3e79769fe95fdcfb1c3e",
+                "name": "Gilli KIM",
+                "official_skater_id": 3406
+              }
+            ]
           },
           {
             "athlete_id": "team-NED-women",
@@ -16644,7 +16665,28 @@
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-6341667ddb63ec55f914",
+                "name": "Diede VAN OORSCHOT",
+                "official_skater_id": 7365
+              },
+              {
+                "athlete_id": "ath-990ecbf9d406d93654b3",
+                "name": "Xandra VELZEBOER",
+                "official_skater_id": 7447
+              },
+              {
+                "athlete_id": "ath-fdc4ee292490f2789298",
+                "name": "Selma POUTSMA",
+                "official_skater_id": 5679
+              },
+              {
+                "athlete_id": "ath-6015217f50457d7cc862",
+                "name": "Zoe Florence DELTRAP",
+                "official_skater_id": 1534
+              }
+            ]
           },
           {
             "athlete_id": "team-CAN-women",
@@ -16657,7 +16699,28 @@
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-3eaa973ae7925d335ead",
+                "name": "Danae BLAIS",
+                "official_skater_id": 743
+              },
+              {
+                "athlete_id": "ath-5a7cd29016a92caa9dfb",
+                "name": "Claudia GAGNON",
+                "official_skater_id": 2052
+              },
+              {
+                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+                "name": "Courtney SARAULT",
+                "official_skater_id": 6159
+              },
+              {
+                "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+                "name": "Florence BRUNELLE",
+                "official_skater_id": 924
+              }
+            ]
           },
           {
             "athlete_id": "team-ITA-women",
@@ -16670,7 +16733,28 @@
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-4ee0f4f305dd7e06cf81",
+                "name": "Gloria IORIATTI",
+                "official_skater_id": 2861
+              },
+              {
+                "athlete_id": "ath-10b4e338d1b0cc128837",
+                "name": "Elisa CONFORTOLA",
+                "official_skater_id": 1324
+              },
+              {
+                "athlete_id": "ath-950324020eca0420a24c",
+                "name": "Margherita BETTI",
+                "official_skater_id": 690
+              },
+              {
+                "athlete_id": "ath-f7571561174376f54f0b",
+                "name": "Chiara BETTI",
+                "official_skater_id": 687
+              }
+            ]
           }
         ]
       },
@@ -16686,21 +16770,21 @@
         "group": "B",
         "heat_number": null,
         "heat_label": "Final B",
-        "source_start": "2026-10-24T19:09:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-24T19:12:40.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15996&round=22913",
         "participants": [
           {
-            "athlete_id": "team-FRA-women",
-            "name": "France",
-            "country": "FRA",
-            "official_skater_id": 12573,
+            "athlete_id": "team-CHN-women",
+            "name": "China",
+            "country": "CHN",
+            "official_skater_id": 12572,
             "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "starting_position": 4,
+            "rank": 1,
+            "result": "4:15.499",
             "qualification": null,
             "penalty": null,
             "members": []
@@ -16712,8 +16796,21 @@
             "official_skater_id": 12575,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "4:17.771",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-FRA-women",
+            "name": "France",
+            "country": "FRA",
+            "official_skater_id": 12573,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 3,
+            "result": "4:18.023",
             "qualification": null,
             "penalty": null,
             "members": []
@@ -16725,21 +16822,8 @@
             "official_skater_id": 12579,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": []
-          },
-          {
-            "athlete_id": "team-CHN-women",
-            "name": "China",
-            "country": "CHN",
-            "official_skater_id": 12572,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "4:25.573",
             "qualification": null,
             "penalty": null,
             "members": []
