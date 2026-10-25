@@ -74,6 +74,7 @@
     "vancouver/round/2026-10-25/main/men/1000/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/main/men/5000/final/B/groups": "published",
     "vancouver/round/2026-10-25/main/mixed/2000/final/B/groups": "published",
+    "vancouver/round/2026-10-25/main/women/1500/semifinal/-/groups": "published",
     "vancouver/round/2026-10-25/main/women/500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/results": "official",
@@ -84,6 +85,7 @@
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-25/repechage/women/1500/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-25/repechage/women/1500/semifinal/-/results": "official",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/results": "official",
     "vancouver/round/2026-10-25/repechage/women/500/quarterfinal/-/groups": "published",
@@ -2297,6 +2299,48 @@
       "heats": 4,
       "china": [
         "Long SUN"
+      ]
+    },
+    {
+      "id": "51f399bb0a44ba04",
+      "station": "vancouver",
+      "at": "2026-10-25T21:31:18+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Yan ZHANG",
+          "rank": 2,
+          "status": "out"
+        }
+      ]
+    },
+    {
+      "id": "f2a335c58c419207",
+      "station": "vancouver",
+      "at": "2026-10-25T21:31:18+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 3,
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Li GONG"
       ]
     }
   ]

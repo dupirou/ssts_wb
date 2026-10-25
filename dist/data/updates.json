@@ -2,6 +2,48 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "f2a335c58c419207",
+      "station": "vancouver",
+      "at": "2026-10-25T21:31:18+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 3,
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Li GONG"
+      ]
+    },
+    {
+      "id": "51f399bb0a44ba04",
+      "station": "vancouver",
+      "at": "2026-10-25T21:31:18+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Yan ZHANG",
+          "rank": 2,
+          "status": "out"
+        }
+      ]
+    },
+    {
       "id": "86fef3f7148eca38",
       "station": "vancouver",
       "at": "2026-10-25T21:21:21+00:00",
