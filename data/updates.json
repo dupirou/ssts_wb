@@ -40,6 +40,7 @@
     "vancouver/round/2026-10-24/main/men/500/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/men/500/semifinal/-/results": "official",
     "vancouver/round/2026-10-24/main/men/5000/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-24/main/men/5000/semifinal/-/results": "official",
     "vancouver/round/2026-10-24/main/women/1000/final/B/groups": "published",
     "vancouver/round/2026-10-24/main/women/1000/final/B/results": "official",
     "vancouver/round/2026-10-24/main/women/1000/quarterfinal/-/groups": "published",
@@ -70,6 +71,7 @@
     "vancouver/round/2026-10-24/repechage/women/1000/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-24/repechage/women/1000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/women/1000/semifinal/-/results": "official",
+    "vancouver/round/2026-10-25/main/men/5000/final/B/groups": "published",
     "vancouver/round/2026-10-25/main/mixed/2000/final/B/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
@@ -78,6 +80,7 @@
     "vancouver/round/men/1500/individual/Finals/None/results": "official",
     "vancouver/round/men/500/individual/Finals/None/groups": "published",
     "vancouver/round/men/500/individual/Finals/None/results": "official",
+    "vancouver/round/men/5000/relay/Finals/None/groups": "published",
     "vancouver/round/mixed/2000/relay/Finals/None/groups": "published",
     "vancouver/round/women/1000/individual/Finals/None/groups": "published",
     "vancouver/round/women/1000/individual/Finals/None/results": "official",
@@ -1963,6 +1966,61 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "83d9e9be074e7ee6",
+      "station": "vancouver",
+      "at": "2026-10-25T03:01:25+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "8a47d517c775fe66",
+      "station": "vancouver",
+      "at": "2026-10-25T03:01:25+00:00",
+      "local_date": null,
+      "round": "final",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "China"
+      ]
+    },
+    {
+      "id": "9786a3dae4d0feb8",
+      "station": "vancouver",
+      "at": "2026-10-25T03:01:25+00:00",
+      "local_date": "2026-10-25",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
     }
   ]
 }

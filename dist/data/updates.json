@@ -2,6 +2,61 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "9786a3dae4d0feb8",
+      "station": "vancouver",
+      "at": "2026-10-25T03:01:25+00:00",
+      "local_date": "2026-10-25",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "8a47d517c775fe66",
+      "station": "vancouver",
+      "at": "2026-10-25T03:01:25+00:00",
+      "local_date": null,
+      "round": "final",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "China"
+      ]
+    },
+    {
+      "id": "83d9e9be074e7ee6",
+      "station": "vancouver",
+      "at": "2026-10-25T03:01:25+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "ccfc7291bd7e7087",
       "station": "vancouver",
       "at": "2026-10-25T02:31:22+00:00",
