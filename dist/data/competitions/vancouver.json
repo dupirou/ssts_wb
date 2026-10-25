@@ -4,7 +4,7 @@
   "entries": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-24T00:01:22+00:00",
+    "checked_at": "2026-10-25T00:01:43+00:00",
     "updated_at": "2026-10-20T08:52:40+00:00",
     "source_urls": [
       "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/12d12d528c94ca8853cf8c37bf40fa88b5d7753f643fe2937181fb364516ae79.pdf"
@@ -2181,8 +2181,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-24T23:51:18+00:00",
-    "updated_at": "2026-10-24T23:51:18+00:00",
+    "checked_at": "2026-10-25T00:01:43+00:00",
+    "updated_at": "2026-10-25T00:01:43+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -8945,8 +8945,8 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-10-24T16:59:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-10-24T16:59:07.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15936&round=22884",
@@ -8958,8 +8958,8 @@
             "official_skater_id": 1231,
             "helmet_number": 4,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "1:31.140",
             "qualification": null,
             "penalty": null
           },
@@ -8970,20 +8970,8 @@
             "official_skater_id": 6152,
             "helmet_number": 7,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-4ee0f4f305dd7e06cf81",
-            "name": "Gloria IORIATTI",
-            "country": "ITA",
-            "official_skater_id": 2861,
-            "helmet_number": 21,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "1:31.190",
             "qualification": null,
             "penalty": null
           },
@@ -8994,8 +8982,8 @@
             "official_skater_id": 1324,
             "helmet_number": 8,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "1:31.580",
             "qualification": null,
             "penalty": null
           },
@@ -9006,6 +8994,18 @@
             "official_skater_id": 6617,
             "helmet_number": 54,
             "starting_position": 5,
+            "rank": 4,
+            "result": "1:36.550",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-4ee0f4f305dd7e06cf81",
+            "name": "Gloria IORIATTI",
+            "country": "ITA",
+            "official_skater_id": 2861,
+            "helmet_number": 21,
+            "starting_position": 3,
             "rank": null,
             "result": "no time",
             "qualification": null,
@@ -16712,7 +16712,7 @@
   "rankings": {
     "status": "not_published",
     "update_status": "ok",
-    "checked_at": "2026-10-24T00:01:22+00:00",
+    "checked_at": "2026-10-25T00:01:43+00:00",
     "updated_at": null,
     "source_urls": [],
     "items": []
