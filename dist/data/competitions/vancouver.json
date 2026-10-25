@@ -2181,8 +2181,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-25T22:51:18+00:00",
-    "updated_at": "2026-10-25T22:51:18+00:00",
+    "checked_at": "2026-10-25T23:11:19+00:00",
+    "updated_at": "2026-10-25T23:11:19+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -19630,12 +19630,46 @@
         "group": "B",
         "heat_number": null,
         "heat_label": "Final B",
-        "source_start": "2026-10-25T16:05:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T16:05:29.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15995&round=22911",
         "participants": [
+          {
+            "athlete_id": "team-ITA-mixed",
+            "name": "Italy",
+            "country": "ITA",
+            "official_skater_id": 12550,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": 1,
+            "result": "2:43.887",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-3fef0b1541b18629ec36",
+                "name": "Mattia ANTONIOLI",
+                "official_skater_id": 361
+              },
+              {
+                "athlete_id": "ath-d92eaba24dcaf8aca602",
+                "name": "Luca SPECHENHAUSER",
+                "official_skater_id": 6644
+              },
+              {
+                "athlete_id": "ath-f7571561174376f54f0b",
+                "name": "Chiara BETTI",
+                "official_skater_id": 687
+              },
+              {
+                "athlete_id": "ath-950324020eca0420a24c",
+                "name": "Margherita BETTI",
+                "official_skater_id": 690
+              }
+            ]
+          },
           {
             "athlete_id": "team-JPN-mixed",
             "name": "Japan",
@@ -19643,11 +19677,32 @@
             "official_skater_id": 12551,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "2:43.939",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-c28e18c99f0af84ca8d0",
+                "name": "Takumi WADA",
+                "official_skater_id": 7563
+              },
+              {
+                "athlete_id": "ath-3612b246d8bc6f06f928",
+                "name": "Haruna NAGAMORI",
+                "official_skater_id": 4995
+              },
+              {
+                "athlete_id": "ath-5412f5778387aad9a803",
+                "name": "Shuta MATSUZU",
+                "official_skater_id": 4633
+              },
+              {
+                "athlete_id": "ath-eb740365f54e07425ea8",
+                "name": "Wakaba KENJO",
+                "official_skater_id": 18322
+              }
+            ]
           },
           {
             "athlete_id": "team-GER-mixed",
@@ -19656,11 +19711,32 @@
             "official_skater_id": 12548,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "2:44.052",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-2aff26915e477356a31f",
+                "name": "Betty MOESKE",
+                "official_skater_id": 4857
+              },
+              {
+                "athlete_id": "ath-78b1997e73d6897f4a5d",
+                "name": "Yanghun Ben JUNG",
+                "official_skater_id": 3114
+              },
+              {
+                "athlete_id": "ath-deb7324d5b25a9ec103c",
+                "name": "Marten TAUBERT",
+                "official_skater_id": 18224
+              },
+              {
+                "athlete_id": "ath-ee4b7a824eb8cb36d140",
+                "name": "Kateryna SOLOVIOVA",
+                "official_skater_id": 18274
+              }
+            ]
           },
           {
             "athlete_id": "team-USA-mixed",
@@ -19669,24 +19745,32 @@
             "official_skater_id": 12556,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "2:47.388",
             "qualification": null,
             "penalty": null,
-            "members": []
-          },
-          {
-            "athlete_id": "team-ITA-mixed",
-            "name": "Italy",
-            "country": "ITA",
-            "official_skater_id": 12550,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-e948029948fd80d8f376",
+                "name": "Eliza RHODEHAMEL",
+                "official_skater_id": 5881
+              },
+              {
+                "athlete_id": "ath-c56914a18481d4557bba",
+                "name": "Marcus HOWARD",
+                "official_skater_id": 2734
+              },
+              {
+                "athlete_id": "ath-827e905d163c7f93c593",
+                "name": "Brandon KIM",
+                "official_skater_id": 3385
+              },
+              {
+                "athlete_id": "ath-69176211234ea45cd0aa",
+                "name": "Kamryn LUTE",
+                "official_skater_id": 4412
+              }
+            ]
           }
         ]
       },
