@@ -1528,8 +1528,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-25T19:01:20+00:00",
-    "updated_at": "2026-10-25T19:01:20+00:00",
+    "checked_at": "2026-10-25T19:11:23+00:00",
+    "updated_at": "2026-10-25T19:11:23+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -9864,7 +9864,7 @@
             "starting_position": 5,
             "rank": 2,
             "result": "1:32.042",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -9918,8 +9918,8 @@
         "heat_number": 2,
         "heat_label": "Heat 2",
         "source_start": "2026-10-25T11:57:03.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15940&round=22887",
         "participants": [
@@ -9930,9 +9930,9 @@
             "official_skater_id": 4030,
             "helmet_number": 32,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "1:30.538",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -9942,9 +9942,9 @@
             "official_skater_id": 3636,
             "helmet_number": 59,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "1:31.154",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -9954,8 +9954,8 @@
             "official_skater_id": 7047,
             "helmet_number": 82,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "1:31.617",
             "qualification": null,
             "penalty": null
           },
@@ -9966,8 +9966,8 @@
             "official_skater_id": 419,
             "helmet_number": 108,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "1:47.621",
             "qualification": null,
             "penalty": null
           },
@@ -9978,8 +9978,8 @@
             "official_skater_id": 6337,
             "helmet_number": 112,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "2:01.244",
             "qualification": null,
             "penalty": null
           }
@@ -9997,24 +9997,12 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-10-25T12:00:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T12:03:42.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15940&round=22887",
         "participants": [
-          {
-            "athlete_id": "ath-0a5bc324b57513d96b86",
-            "name": "Davide OSS CHEMPER",
-            "country": "ITA",
-            "official_skater_id": 5277,
-            "helmet_number": 87,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-33784c1a829757d78105",
             "name": "Yiding ZHU",
@@ -10022,9 +10010,9 @@
             "official_skater_id": 8157,
             "helmet_number": 70,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "1:26.959",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -10034,8 +10022,20 @@
             "official_skater_id": 2363,
             "helmet_number": 102,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "1:27.386",
+            "qualification": "p",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-0a5bc324b57513d96b86",
+            "name": "Davide OSS CHEMPER",
+            "country": "ITA",
+            "official_skater_id": 5277,
+            "helmet_number": 87,
+            "starting_position": 1,
+            "rank": 3,
+            "result": "1:27.457",
             "qualification": null,
             "penalty": null
           },
@@ -10046,8 +10046,8 @@
             "official_skater_id": 3613,
             "helmet_number": 106,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "1:28.107",
             "qualification": null,
             "penalty": null
           },
@@ -10058,8 +10058,8 @@
             "official_skater_id": 2934,
             "helmet_number": 84,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "1:32.390",
             "qualification": null,
             "penalty": null
           }
@@ -10077,9 +10077,9 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-10-25T12:03:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T12:08:08.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15940&round=22887",
         "participants": [
@@ -10090,9 +10090,21 @@
             "official_skater_id": 7376,
             "helmet_number": 21,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "1:29.220",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-0e38b751b0d28ae491f5",
+            "name": "Pawel ADAMSKI",
+            "country": "POL",
+            "official_skater_id": 152,
+            "helmet_number": 103,
+            "starting_position": 5,
+            "rank": 2,
+            "result": "1:30.711",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -10102,8 +10114,8 @@
             "official_skater_id": 1657,
             "helmet_number": 60,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "1:30.844",
             "qualification": null,
             "penalty": null
           },
@@ -10114,8 +10126,8 @@
             "official_skater_id": 7563,
             "helmet_number": 90,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "1:54.681",
             "qualification": null,
             "penalty": null
           },
@@ -10126,19 +10138,7 @@
             "official_skater_id": 4451,
             "helmet_number": 105,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-0e38b751b0d28ae491f5",
-            "name": "Pawel ADAMSKI",
-            "country": "POL",
-            "official_skater_id": 152,
-            "helmet_number": 103,
-            "starting_position": 5,
-            "rank": null,
+            "rank": 5,
             "result": "no time",
             "qualification": null,
             "penalty": null
