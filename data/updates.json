@@ -31,14 +31,17 @@
     "vancouver/round/2026-10-23/qualifying/women/500/preliminaries/-/results": "official",
     "vancouver/round/2026-10-24/main/men/1500/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/men/500/final/B/groups": "published",
+    "vancouver/round/2026-10-24/main/men/500/final/B/results": "official",
     "vancouver/round/2026-10-24/main/men/500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/men/500/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-24/main/men/500/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/men/500/semifinal/-/results": "official",
     "vancouver/round/2026-10-24/main/men/5000/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-24/main/women/1000/final/B/groups": "published",
     "vancouver/round/2026-10-24/main/women/1000/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-24/main/women/1000/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-24/main/women/1000/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-24/main/women/1000/semifinal/-/results": "official",
     "vancouver/round/2026-10-24/main/women/3000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/men/1500/heats/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/men/1500/heats/-/results": "official",
@@ -66,6 +69,7 @@
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
     "vancouver/round/men/500/individual/Finals/None/groups": "published",
     "vancouver/round/mixed/2000/relay/Finals/None/groups": "published",
+    "vancouver/round/women/1000/individual/Finals/None/groups": "published",
     "vancouver/schedule": "published",
     "vancouver/time/2026-10-23/qualifying/men/1000/heats/-": "2026-10-24 05:50",
     "vancouver/time/2026-10-23/qualifying/men/1000/preliminaries/-": "2026-10-24 01:34",
@@ -1641,6 +1645,75 @@
       "kind": "groups",
       "heats": 1,
       "china": []
+    },
+    {
+      "id": "165e0f4bc9cfc90a",
+      "station": "vancouver",
+      "at": "2026-10-25T00:11:23+00:00",
+      "local_date": "2026-10-24",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "5106f46b7d39548c",
+      "station": "vancouver",
+      "at": "2026-10-25T00:11:23+00:00",
+      "local_date": null,
+      "round": "final",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "b1d5a149a82dee10",
+      "station": "vancouver",
+      "at": "2026-10-25T00:11:23+00:00",
+      "local_date": "2026-10-24",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "f94f40819d9da143",
+      "station": "vancouver",
+      "at": "2026-10-25T00:11:23+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jiarui SONG"
+      ],
+      "china_results": [
+        {
+          "name": "Jiarui SONG",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        }
+      ]
     }
   ]
 }

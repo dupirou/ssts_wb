@@ -2,6 +2,75 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "f94f40819d9da143",
+      "station": "vancouver",
+      "at": "2026-10-25T00:11:23+00:00",
+      "local_date": "2026-10-24",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jiarui SONG"
+      ],
+      "china_results": [
+        {
+          "name": "Jiarui SONG",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        }
+      ]
+    },
+    {
+      "id": "b1d5a149a82dee10",
+      "station": "vancouver",
+      "at": "2026-10-25T00:11:23+00:00",
+      "local_date": "2026-10-24",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "5106f46b7d39548c",
+      "station": "vancouver",
+      "at": "2026-10-25T00:11:23+00:00",
+      "local_date": null,
+      "round": "final",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "165e0f4bc9cfc90a",
+      "station": "vancouver",
+      "at": "2026-10-25T00:11:23+00:00",
+      "local_date": "2026-10-24",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
       "id": "8dd02772df131aeb",
       "station": "vancouver",
       "at": "2026-10-24T23:51:18+00:00",
