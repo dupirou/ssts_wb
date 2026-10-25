@@ -2181,8 +2181,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-25T19:41:22+00:00",
-    "updated_at": "2026-10-25T19:41:22+00:00",
+    "checked_at": "2026-10-25T19:51:20+00:00",
+    "updated_at": "2026-10-25T19:51:20+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -3619,7 +3619,7 @@
             "starting_position": 3,
             "rank": 2,
             "result": "44.155",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -3699,7 +3699,7 @@
             "starting_position": 3,
             "rank": 2,
             "result": "45.496",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -3779,7 +3779,7 @@
             "starting_position": 1,
             "rank": 2,
             "result": "44.691",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -3820,24 +3820,12 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-10-25T12:35:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T12:42:33.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22865",
         "participants": [
-          {
-            "athlete_id": "ath-a45aacdb0c84739c0ec3",
-            "name": "Zeinep KUMARKAN",
-            "country": "KAZ",
-            "official_skater_id": 3815,
-            "helmet_number": 73,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-d07ff35989421c041f6e",
             "name": "Victoria JEAN-BAPTISTE",
@@ -3845,8 +3833,32 @@
             "official_skater_id": 2993,
             "helmet_number": 53,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "43.370",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-c4d9ec09e1031114684f",
+            "name": "Guldana ZHALMUKHAN",
+            "country": "KAZ",
+            "official_skater_id": 8073,
+            "helmet_number": 75,
+            "starting_position": 4,
+            "rank": 2,
+            "result": "44.664",
+            "qualification": "q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-a45aacdb0c84739c0ec3",
+            "name": "Zeinep KUMARKAN",
+            "country": "KAZ",
+            "official_skater_id": 3815,
+            "helmet_number": 73,
+            "starting_position": 1,
+            "rank": 3,
+            "result": "44.684",
             "qualification": null,
             "penalty": null
           },
@@ -3857,20 +3869,8 @@
             "official_skater_id": 4412,
             "helmet_number": 43,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-c4d9ec09e1031114684f",
-            "name": "Guldana ZHALMUKHAN",
-            "country": "KAZ",
-            "official_skater_id": 8073,
-            "helmet_number": 75,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "44.744",
             "qualification": null,
             "penalty": null
           }
@@ -3888,12 +3888,24 @@
         "group": null,
         "heat_number": 5,
         "heat_label": "Heat 5",
-        "source_start": "2026-10-25T12:37:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T12:45:01.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22865",
         "participants": [
+          {
+            "athlete_id": "ath-df765364c74846f50d97",
+            "name": "Rina YAMANA",
+            "country": "JPN",
+            "official_skater_id": 7851,
+            "helmet_number": 70,
+            "starting_position": 4,
+            "rank": 1,
+            "result": "44.933",
+            "qualification": "Q",
+            "penalty": null
+          },
           {
             "athlete_id": "ath-3db9b82d1690d02d78cf",
             "name": "Polina OMELCHUK",
@@ -3901,8 +3913,20 @@
             "official_skater_id": 5238,
             "helmet_number": 74,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "45.163",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-e948029948fd80d8f376",
+            "name": "Eliza RHODEHAMEL",
+            "country": "USA",
+            "official_skater_id": 5881,
+            "helmet_number": 86,
+            "starting_position": 3,
+            "rank": 3,
+            "result": "45.293",
             "qualification": null,
             "penalty": null
           },
@@ -3914,31 +3938,7 @@
             "helmet_number": 5,
             "starting_position": 2,
             "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-e948029948fd80d8f376",
-            "name": "Eliza RHODEHAMEL",
-            "country": "USA",
-            "official_skater_id": 5881,
-            "helmet_number": 86,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-df765364c74846f50d97",
-            "name": "Rina YAMANA",
-            "country": "JPN",
-            "official_skater_id": 7851,
-            "helmet_number": 70,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "result": "DNS",
             "qualification": null,
             "penalty": null
           }
@@ -3956,12 +3956,24 @@
         "group": null,
         "heat_number": 6,
         "heat_label": "Heat 6",
-        "source_start": "2026-10-25T12:39:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T12:47:45.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22865",
         "participants": [
+          {
+            "athlete_id": "ath-c1d7bd7451e837684ae7",
+            "name": "Anna FALKOWSKA",
+            "country": "POL",
+            "official_skater_id": 1874,
+            "helmet_number": 82,
+            "starting_position": 4,
+            "rank": 1,
+            "result": "44.516",
+            "qualification": "Q",
+            "penalty": null
+          },
           {
             "athlete_id": "ath-fd0ac8fcf99b108ede4f",
             "name": "Ji Hyun CHOI",
@@ -3969,9 +3981,9 @@
             "official_skater_id": 1227,
             "helmet_number": 76,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "44.646",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -3981,8 +3993,8 @@
             "official_skater_id": 7398,
             "helmet_number": 33,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "45.769",
             "qualification": null,
             "penalty": null
           },
@@ -3994,21 +4006,12 @@
             "helmet_number": 7,
             "starting_position": 3,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-c1d7bd7451e837684ae7",
-            "name": "Anna FALKOWSKA",
-            "country": "POL",
-            "official_skater_id": 1874,
-            "helmet_number": 82,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
