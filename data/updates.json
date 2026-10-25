@@ -76,6 +76,8 @@
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/1500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/women/500/heats/-/groups": "published",
+    "vancouver/round/2026-10-25/repechage/women/500/heats/-/results": "official",
+    "vancouver/round/2026-10-25/repechage/women/500/quarterfinal/-/groups": "published",
     "vancouver/round/men/1500/individual/Finals/None/groups": "published",
     "vancouver/round/men/1500/individual/Finals/None/results": "official",
     "vancouver/round/men/500/individual/Finals/None/groups": "published",
@@ -2021,6 +2023,36 @@
       "kind": "groups",
       "heats": 1,
       "china": []
+    },
+    {
+      "id": "39905bb161074a1e",
+      "station": "vancouver",
+      "at": "2026-10-25T19:01:20+00:00",
+      "local_date": "2026-10-25",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": []
+    },
+    {
+      "id": "b6817c37aa041db9",
+      "station": "vancouver",
+      "at": "2026-10-25T19:01:20+00:00",
+      "local_date": "2026-10-25",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
     }
   ]
 }
