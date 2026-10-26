@@ -81,6 +81,7 @@
     "vancouver/round/2026-10-25/main/mixed/2000/final/B/groups": "published",
     "vancouver/round/2026-10-25/main/mixed/2000/final/B/results": "official",
     "vancouver/round/2026-10-25/main/women/1500/final/B/groups": "published",
+    "vancouver/round/2026-10-25/main/women/1500/final/B/results": "official",
     "vancouver/round/2026-10-25/main/women/1500/semifinal/-/groups": "published",
     "vancouver/round/2026-10-25/main/women/1500/semifinal/-/results": "official",
     "vancouver/round/2026-10-25/main/women/500/final/B/groups": "published",
@@ -2750,6 +2751,34 @@
       "china": [
         "Chutong ZHANG",
         "Li GONG"
+      ]
+    },
+    {
+      "id": "1e525ef0dec85498",
+      "station": "vancouver",
+      "at": "2026-10-26T02:11:20+00:00",
+      "local_date": "2026-10-25",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Li GONG"
+      ],
+      "china_results": [
+        {
+          "name": "Chutong ZHANG",
+          "rank": 1
+        },
+        {
+          "name": "Li GONG",
+          "rank": null,
+          "penalty": "PEN"
+        }
       ]
     }
   ]

@@ -1528,8 +1528,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-26T01:51:18+00:00",
-    "updated_at": "2026-10-26T01:51:18+00:00",
+    "checked_at": "2026-10-26T02:11:20+00:00",
+    "updated_at": "2026-10-26T02:11:20+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -17897,21 +17897,33 @@
         "group": "B",
         "heat_number": null,
         "heat_label": "Final B",
-        "source_start": "2026-10-25T18:59:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T19:02:04.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22905",
         "participants": [
           {
-            "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
-            "name": "Florence BRUNELLE",
-            "country": "CAN",
-            "official_skater_id": 924,
-            "helmet_number": 10,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "athlete_id": "ath-08caea4ad943373c94ab",
+            "name": "Chutong ZHANG",
+            "country": "CHN",
+            "official_skater_id": 8080,
+            "helmet_number": 11,
+            "starting_position": 6,
+            "rank": 1,
+            "result": "2:32.341",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-d7393090231b3ef25ede",
+            "name": "Alina AZHGALIYEVA",
+            "country": "KAZ",
+            "official_skater_id": 446,
+            "helmet_number": 71,
+            "starting_position": 5,
+            "rank": 2,
+            "result": "2:32.802",
             "qualification": null,
             "penalty": null
           },
@@ -17922,7 +17934,43 @@
             "official_skater_id": 18348,
             "helmet_number": 78,
             "starting_position": 2,
-            "rank": null,
+            "rank": 3,
+            "result": "2:32.978",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+            "name": "Florence BRUNELLE",
+            "country": "CAN",
+            "official_skater_id": 924,
+            "helmet_number": 10,
+            "starting_position": 1,
+            "rank": 4,
+            "result": "2:33.062",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-f7571561174376f54f0b",
+            "name": "Chiara BETTI",
+            "country": "ITA",
+            "official_skater_id": 687,
+            "helmet_number": 16,
+            "starting_position": 7,
+            "rank": 5,
+            "result": "2:35.744",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-6015217f50457d7cc862",
+            "name": "Zoe Florence DELTRAP",
+            "country": "NED",
+            "official_skater_id": 1534,
+            "helmet_number": 49,
+            "starting_position": 4,
+            "rank": 6,
             "result": "no time",
             "qualification": null,
             "penalty": null
@@ -17935,57 +17983,12 @@
             "helmet_number": 19,
             "starting_position": 3,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-6015217f50457d7cc862",
-            "name": "Zoe Florence DELTRAP",
-            "country": "NED",
-            "official_skater_id": 1534,
-            "helmet_number": 49,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-d7393090231b3ef25ede",
-            "name": "Alina AZHGALIYEVA",
-            "country": "KAZ",
-            "official_skater_id": 446,
-            "helmet_number": 71,
-            "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-08caea4ad943373c94ab",
-            "name": "Chutong ZHANG",
-            "country": "CHN",
-            "official_skater_id": 8080,
-            "helmet_number": 11,
-            "starting_position": 6,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-f7571561174376f54f0b",
-            "name": "Chiara BETTI",
-            "country": "ITA",
-            "official_skater_id": 687,
-            "helmet_number": 16,
-            "starting_position": 7,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
