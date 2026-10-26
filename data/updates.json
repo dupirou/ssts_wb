@@ -114,6 +114,7 @@
     "vancouver/round/men/500/individual/Finals/None/groups": "published",
     "vancouver/round/men/500/individual/Finals/None/results": "official",
     "vancouver/round/men/5000/relay/Finals/None/groups": "published",
+    "vancouver/round/men/5000/relay/Finals/None/results": "official",
     "vancouver/round/mixed/2000/relay/Finals/None/groups": "published",
     "vancouver/round/mixed/2000/relay/Finals/None/results": "official",
     "vancouver/round/women/1000/individual/Finals/None/groups": "published",
@@ -2819,6 +2820,28 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "bd8909f080c9695f",
+      "station": "vancouver",
+      "at": "2026-10-26T02:51:17+00:00",
+      "local_date": null,
+      "round": "final",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 3
+        }
+      ]
     }
   ]
 }
