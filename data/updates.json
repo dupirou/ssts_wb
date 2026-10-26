@@ -72,6 +72,8 @@
     "vancouver/round/2026-10-24/repechage/women/1000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-24/repechage/women/1000/semifinal/-/results": "official",
     "vancouver/round/2026-10-25/main/men/1000/quarterfinal/-/groups": "published",
+    "vancouver/round/2026-10-25/main/men/1000/quarterfinal/-/results": "official",
+    "vancouver/round/2026-10-25/main/men/1000/semifinal/-/groups": "published",
     "vancouver/round/2026-10-25/main/men/5000/final/B/groups": "published",
     "vancouver/round/2026-10-25/main/mixed/2000/final/B/groups": "published",
     "vancouver/round/2026-10-25/main/mixed/2000/final/B/results": "official",
@@ -79,6 +81,7 @@
     "vancouver/round/2026-10-25/main/women/500/quarterfinal/-/groups": "published",
     "vancouver/round/2026-10-25/main/women/500/quarterfinal/-/results": "official",
     "vancouver/round/2026-10-25/main/women/500/semifinal/-/groups": "published",
+    "vancouver/round/2026-10-25/main/women/500/semifinal/-/results": "official",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/results": "official",
     "vancouver/round/2026-10-25/repechage/men/1000/quarterfinal/-/groups": "published",
@@ -2436,6 +2439,80 @@
         "Jiarui SONG",
         "Ye WANG"
       ]
+    },
+    {
+      "id": "1dbc5d84a9f0acae",
+      "station": "vancouver",
+      "at": "2026-10-26T00:21:20+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Ye WANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 3,
+          "status": "final_b"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 5,
+          "status": "final_b"
+        },
+        {
+          "name": "Ye WANG",
+          "rank": 4,
+          "status": "final_b"
+        }
+      ]
+    },
+    {
+      "id": "8b04e839b93ff0d4",
+      "station": "vancouver",
+      "at": "2026-10-26T00:21:20+00:00",
+      "local_date": "2026-10-25",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Long SUN"
+      ],
+      "china_results": [
+        {
+          "name": "Long SUN",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        }
+      ]
+    },
+    {
+      "id": "9c8eba61e3d8bedc",
+      "station": "vancouver",
+      "at": "2026-10-26T00:21:20+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
     }
   ]
 }
