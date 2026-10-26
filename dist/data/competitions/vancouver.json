@@ -2181,8 +2181,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-26T01:31:18+00:00",
-    "updated_at": "2026-10-26T01:31:18+00:00",
+    "checked_at": "2026-10-26T01:41:21+00:00",
+    "updated_at": "2026-10-26T01:41:21+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -18118,24 +18118,12 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-10-25T18:21:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T18:30:28.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22904",
         "participants": [
-          {
-            "athlete_id": "ath-3e79769fe95fdcfb1c3e",
-            "name": "Gilli KIM",
-            "country": "KOR",
-            "official_skater_id": 3406,
-            "helmet_number": 5,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-27654e207b20ca51c8bf",
             "name": "Minjeong CHOI",
@@ -18143,9 +18131,21 @@
             "official_skater_id": 1231,
             "helmet_number": 4,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "2:31.655",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-3e79769fe95fdcfb1c3e",
+            "name": "Gilli KIM",
+            "country": "KOR",
+            "official_skater_id": 3406,
+            "helmet_number": 5,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "2:31.721",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -18155,9 +18155,9 @@
             "official_skater_id": 2262,
             "helmet_number": 19,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "2:31.798",
+            "qualification": "QB",
             "penalty": null
           },
           {
@@ -18167,9 +18167,9 @@
             "official_skater_id": 446,
             "helmet_number": 71,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 4,
+            "result": "2:31.901",
+            "qualification": "QB",
             "penalty": null
           },
           {
@@ -18179,9 +18179,9 @@
             "official_skater_id": 687,
             "helmet_number": 16,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 5,
+            "result": "2:32.283",
+            "qualification": "pB",
             "penalty": null
           },
           {
@@ -18191,8 +18191,8 @@
             "official_skater_id": 4995,
             "helmet_number": 69,
             "starting_position": 6,
-            "rank": null,
-            "result": "no time",
+            "rank": 6,
+            "result": "2:32.462",
             "qualification": null,
             "penalty": null
           },
@@ -18203,8 +18203,8 @@
             "official_skater_id": 7398,
             "helmet_number": 33,
             "starting_position": 7,
-            "rank": null,
-            "result": "no time",
+            "rank": 7,
+            "result": "2:32.475",
             "qualification": null,
             "penalty": null
           }
@@ -18222,9 +18222,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-10-25T18:25:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T18:34:52.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22904",
         "participants": [
@@ -18235,21 +18235,33 @@
             "official_skater_id": 6159,
             "helmet_number": 1,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "2:30.251",
+            "qualification": "Q",
             "penalty": null
           },
           {
-            "athlete_id": "ath-10b4e338d1b0cc128837",
-            "name": "Elisa CONFORTOLA",
-            "country": "ITA",
-            "official_skater_id": 1324,
-            "helmet_number": 8,
-            "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "athlete_id": "ath-f5df095326a0281962ea",
+            "name": "Jianing ZHANG",
+            "country": "CHN",
+            "official_skater_id": 8090,
+            "helmet_number": 55,
+            "starting_position": 5,
+            "rank": 2,
+            "result": "2:30.309",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+            "name": "Florence BRUNELLE",
+            "country": "CAN",
+            "official_skater_id": 924,
+            "helmet_number": 10,
+            "starting_position": 7,
+            "rank": 3,
+            "result": "2:30.682",
+            "qualification": "QB",
             "penalty": null
           },
           {
@@ -18259,7 +18271,31 @@
             "official_skater_id": 2861,
             "helmet_number": 21,
             "starting_position": 3,
-            "rank": null,
+            "rank": 4,
+            "result": "2:30.767",
+            "qualification": "ADV",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-8361e1c91aab972b6ca4",
+            "name": "Sukhee SHIM",
+            "country": "KOR",
+            "official_skater_id": 6380,
+            "helmet_number": 79,
+            "starting_position": 6,
+            "rank": 5,
+            "result": "2:31.168",
+            "qualification": "ADV",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-10b4e338d1b0cc128837",
+            "name": "Elisa CONFORTOLA",
+            "country": "ITA",
+            "official_skater_id": 1324,
+            "helmet_number": 8,
+            "starting_position": 2,
+            "rank": 6,
             "result": "no time",
             "qualification": null,
             "penalty": null
@@ -18272,45 +18308,12 @@
             "helmet_number": 7,
             "starting_position": 4,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
-            "country": "CHN",
-            "official_skater_id": 8090,
-            "helmet_number": 55,
-            "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-8361e1c91aab972b6ca4",
-            "name": "Sukhee SHIM",
-            "country": "KOR",
-            "official_skater_id": 6380,
-            "helmet_number": 79,
-            "starting_position": 6,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
-            "name": "Florence BRUNELLE",
-            "country": "CAN",
-            "official_skater_id": 924,
-            "helmet_number": 10,
-            "starting_position": 7,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
