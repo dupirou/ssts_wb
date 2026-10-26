@@ -4,7 +4,7 @@
   "entries": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-25T00:01:43+00:00",
+    "checked_at": "2026-10-26T00:01:21+00:00",
     "updated_at": "2026-10-20T08:52:40+00:00",
     "source_urls": [
       "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/12d12d528c94ca8853cf8c37bf40fa88b5d7753f643fe2937181fb364516ae79.pdf"
@@ -1528,8 +1528,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-25T23:51:21+00:00",
-    "updated_at": "2026-10-25T23:51:21+00:00",
+    "checked_at": "2026-10-26T00:01:21+00:00",
+    "updated_at": "2026-10-26T00:01:21+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -1549,6 +1549,7 @@
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22865",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22866",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22867",
+      "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22868",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22870",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22871",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15939&round=22872",
@@ -3579,7 +3580,7 @@
             "starting_position": 5,
             "rank": 3,
             "result": "43.608",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -3662,7 +3663,7 @@
             "starting_position": 2,
             "rank": 3,
             "result": "43.509",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -3703,9 +3704,9 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-10-25T16:47:00.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T16:49:55.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22867",
         "participants": [
@@ -3716,9 +3717,9 @@
             "official_skater_id": 924,
             "helmet_number": 10,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "43.094",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -3728,9 +3729,9 @@
             "official_skater_id": 7613,
             "helmet_number": 40,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "43.159",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -3741,7 +3742,7 @@
             "helmet_number": 11,
             "starting_position": 3,
             "rank": 3,
-            "result": "43.910",
+            "result": "43.909",
             "qualification": null,
             "penalty": null
           },
@@ -3753,7 +3754,7 @@
             "helmet_number": 6,
             "starting_position": 2,
             "rank": 4,
-            "result": "43.950",
+            "result": "43.959",
             "qualification": null,
             "penalty": null
           },
@@ -3765,7 +3766,7 @@
             "helmet_number": 66,
             "starting_position": 4,
             "rank": 5,
-            "result": "44.390",
+            "result": "44.389",
             "qualification": null,
             "penalty": null
           }
@@ -3783,9 +3784,9 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-10-25T16:49:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-25T16:53:26.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22867",
         "participants": [
@@ -3796,9 +3797,33 @@
             "official_skater_id": 6159,
             "helmet_number": 1,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "42.719",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-7a90548f25275fc9709d",
+            "name": "Gabriela TOPOLSKA",
+            "country": "POL",
+            "official_skater_id": 7104,
+            "helmet_number": 13,
+            "starting_position": 3,
+            "rank": 2,
+            "result": "42.932",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-d07ff35989421c041f6e",
+            "name": "Victoria JEAN-BAPTISTE",
+            "country": "CAN",
+            "official_skater_id": 2993,
+            "helmet_number": 53,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "42.952",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -3807,6 +3832,74 @@
             "country": "KOR",
             "official_skater_id": 1231,
             "helmet_number": 4,
+            "starting_position": 2,
+            "rank": 4,
+            "result": "42.969",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-4ee0f4f305dd7e06cf81",
+            "name": "Gloria IORIATTI",
+            "country": "ITA",
+            "official_skater_id": 2861,
+            "helmet_number": 21,
+            "starting_position": 6,
+            "rank": 5,
+            "result": "44.285",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-cdc04f60f74742612112",
+            "name": "Diana Laura VEGI",
+            "country": "HUN",
+            "official_skater_id": 7437,
+            "helmet_number": 46,
+            "starting_position": 4,
+            "rank": 6,
+            "result": "46.044",
+            "qualification": null,
+            "penalty": null
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-20217",
+        "gender": "women",
+        "distance_m": 500,
+        "format": "individual",
+        "round_key": "2026-10-25/main/women/500/semifinal/-",
+        "local_date": "2026-10-25",
+        "round": "semifinal",
+        "round_label": "Semifinals",
+        "group": null,
+        "heat_number": 1,
+        "heat_label": "Heat 1",
+        "source_start": "2026-10-25T17:13:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": true,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22868",
+        "participants": [
+          {
+            "athlete_id": "ath-fdc4ee292490f2789298",
+            "name": "Selma POUTSMA",
+            "country": "NED",
+            "official_skater_id": 5679,
+            "helmet_number": 15,
+            "starting_position": 1,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+            "name": "Florence BRUNELLE",
+            "country": "CAN",
+            "official_skater_id": 924,
+            "helmet_number": 10,
             "starting_position": 2,
             "rank": null,
             "result": "no time",
@@ -3826,11 +3919,11 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-cdc04f60f74742612112",
-            "name": "Diana Laura VEGI",
-            "country": "HUN",
-            "official_skater_id": 7437,
-            "helmet_number": 46,
+            "athlete_id": "ath-f5df095326a0281962ea",
+            "name": "Jianing ZHANG",
+            "country": "CHN",
+            "official_skater_id": 8090,
+            "helmet_number": 55,
             "starting_position": 4,
             "rank": null,
             "result": "no time",
@@ -3848,14 +3941,82 @@
             "result": "no time",
             "qualification": null,
             "penalty": null
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-20218",
+        "gender": "women",
+        "distance_m": 500,
+        "format": "individual",
+        "round_key": "2026-10-25/main/women/500/semifinal/-",
+        "local_date": "2026-10-25",
+        "round": "semifinal",
+        "round_label": "Semifinals",
+        "group": null,
+        "heat_number": 2,
+        "heat_label": "Heat 2",
+        "source_start": "2026-10-25T17:15:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": true,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15937&round=22868",
+        "participants": [
+          {
+            "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+            "name": "Courtney SARAULT",
+            "country": "CAN",
+            "official_skater_id": 6159,
+            "helmet_number": 1,
+            "starting_position": 1,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
           },
           {
-            "athlete_id": "ath-4ee0f4f305dd7e06cf81",
-            "name": "Gloria IORIATTI",
-            "country": "ITA",
-            "official_skater_id": 2861,
-            "helmet_number": 21,
-            "starting_position": 6,
+            "athlete_id": "ath-990ecbf9d406d93654b3",
+            "name": "Xandra VELZEBOER",
+            "country": "NED",
+            "official_skater_id": 7447,
+            "helmet_number": 3,
+            "starting_position": 2,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-cc55f03a16f76d5efb7e",
+            "name": "Ye WANG",
+            "country": "CHN",
+            "official_skater_id": 7613,
+            "helmet_number": 40,
+            "starting_position": 3,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-387545148a759a14a937",
+            "name": "Jiarui SONG",
+            "country": "CHN",
+            "official_skater_id": 6617,
+            "helmet_number": 54,
+            "starting_position": 4,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-19acc54c4991181cfe31",
+            "name": "Kornelia WOZNIAK",
+            "country": "POL",
+            "official_skater_id": 7784,
+            "helmet_number": 84,
+            "starting_position": 5,
             "rank": null,
             "result": "no time",
             "qualification": null,
@@ -12029,23 +12190,11 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-10-25T16:56:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15940&round=22891",
         "participants": [
-          {
-            "athlete_id": "ath-2c7bf7881e6dda162f51",
-            "name": "Niall TREACY",
-            "country": "GBR",
-            "official_skater_id": 7129,
-            "helmet_number": 20,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-a9ddcbdd069f5c0a1198",
             "name": "Furkan AKAR",
@@ -12053,18 +12202,6 @@
             "official_skater_id": 226,
             "helmet_number": 27,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-d92eaba24dcaf8aca602",
-            "name": "Luca SPECHENHAUSER",
-            "country": "ITA",
-            "official_skater_id": 6644,
-            "helmet_number": 24,
-            "starting_position": 3,
             "rank": null,
             "result": "no time",
             "qualification": null,
@@ -12083,14 +12220,38 @@
             "penalty": null
           },
           {
+            "athlete_id": "ath-d92eaba24dcaf8aca602",
+            "name": "Luca SPECHENHAUSER",
+            "country": "ITA",
+            "official_skater_id": 6644,
+            "helmet_number": 24,
+            "starting_position": 3,
+            "rank": 3,
+            "result": "1:25.760",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-2c7bf7881e6dda162f51",
+            "name": "Niall TREACY",
+            "country": "GBR",
+            "official_skater_id": 7129,
+            "helmet_number": 20,
+            "starting_position": 1,
+            "rank": 4,
+            "result": "1:26.100",
+            "qualification": null,
+            "penalty": null
+          },
+          {
             "athlete_id": "ath-d17ee33a3816179f80fc",
             "name": "Seochan BAE",
             "country": "KOR",
             "official_skater_id": 22070,
             "helmet_number": 96,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "1:33.900",
             "qualification": null,
             "penalty": null
           }
@@ -19768,7 +19929,7 @@
       "2026-10-24/repechage/women/1000/quarterfinal/-": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals.",
       "2026-10-24/repechage/women/1000/semifinal/-": "The first placed skater from each race qualify for Quarterfinals.",
       "2026-10-25/main/men/1000/quarterfinal/-": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Semifinals.",
-      "2026-10-25/main/men/1000/semifinal/-": "The first and second placed skaters from each race and up to a maximum of one fastest third place skater qualify for Final A. Remainder may qualify for Final B.",
+      "2026-10-25/main/men/1000/semifinal/-": "The first and second placed skaters from each race and up to a maximum of one fastest third place skater qualify for Final, the third and fourth placed skaters from each race and up to a maximum of next two fastest fifth place skaters qualify for Final B.",
       "2026-10-25/main/women/1500/semifinal/-": "The first and second placed skaters from each race and up to a maximum of one fastest third place skater qualify for Final, the third and fourth placed skaters from each race and up to a maximum of next two fastest fifth place skaters qualify for Final B.",
       "2026-10-25/main/women/500/quarterfinal/-": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Semifinals.",
       "2026-10-25/main/women/500/semifinal/-": "The first and second placed skaters from each race and up to a maximum of one fastest third place skater qualify for Final A. Remainder may qualify for Final B.",
@@ -19785,7 +19946,7 @@
   "rankings": {
     "status": "not_published",
     "update_status": "ok",
-    "checked_at": "2026-10-25T00:01:43+00:00",
+    "checked_at": "2026-10-26T00:01:21+00:00",
     "updated_at": null,
     "source_urls": [],
     "items": []

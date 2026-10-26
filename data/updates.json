@@ -77,6 +77,8 @@
     "vancouver/round/2026-10-25/main/mixed/2000/final/B/results": "official",
     "vancouver/round/2026-10-25/main/women/1500/semifinal/-/groups": "published",
     "vancouver/round/2026-10-25/main/women/500/quarterfinal/-/groups": "published",
+    "vancouver/round/2026-10-25/main/women/500/quarterfinal/-/results": "official",
+    "vancouver/round/2026-10-25/main/women/500/semifinal/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/groups": "published",
     "vancouver/round/2026-10-25/repechage/men/1000/heats/-/results": "official",
     "vancouver/round/2026-10-25/repechage/men/1000/quarterfinal/-/groups": "published",
@@ -2374,6 +2376,66 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "44ada4f51de3ecc5",
+      "station": "vancouver",
+      "at": "2026-10-26T00:01:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Ye WANG"
+      ],
+      "china_results": [
+        {
+          "name": "Chutong ZHANG",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Jianing ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Ye WANG",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "851d397a1c3d1e17",
+      "station": "vancouver",
+      "at": "2026-10-26T00:01:21+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Ye WANG"
+      ]
     }
   ]
 }
