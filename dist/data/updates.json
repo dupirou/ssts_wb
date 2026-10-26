@@ -2,6 +2,76 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "e80718d08ab0281f",
+      "station": "vancouver",
+      "at": "2026-10-26T01:51:18+00:00",
+      "local_date": "2026-10-25",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "Chutong ZHANG",
+        "Li GONG"
+      ]
+    },
+    {
+      "id": "79045fbc7859c218",
+      "station": "vancouver",
+      "at": "2026-10-26T01:51:18+00:00",
+      "local_date": null,
+      "round": "final",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "Jianing ZHANG"
+      ]
+    },
+    {
+      "id": "269bf985eb088504",
+      "station": "vancouver",
+      "at": "2026-10-26T01:51:18+00:00",
+      "local_date": "2026-10-25",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Li GONG"
+      ],
+      "china_results": [
+        {
+          "name": "Chutong ZHANG",
+          "rank": 5,
+          "status": "final_b"
+        },
+        {
+          "name": "Jianing ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 3,
+          "status": "final_b"
+        }
+      ]
+    },
+    {
       "id": "410d9329f832d053",
       "station": "vancouver",
       "at": "2026-10-26T01:31:18+00:00",
