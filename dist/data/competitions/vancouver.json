@@ -2181,8 +2181,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-26T02:31:21+00:00",
-    "updated_at": "2026-10-26T02:31:21+00:00",
+    "checked_at": "2026-10-26T02:41:23+00:00",
+    "updated_at": "2026-10-26T02:41:23+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22901",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15934&round=22902",
@@ -19531,43 +19531,43 @@
         "group": null,
         "heat_number": null,
         "heat_label": "Final",
-        "source_start": "2026-10-25T19:27:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-10-25T19:37:42.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15994&round=22908",
         "participants": [
           {
-            "athlete_id": "team-KOR-men",
-            "name": "Republic of Korea",
-            "country": "KOR",
-            "official_skater_id": 12566,
+            "athlete_id": "team-CHN-men",
+            "name": "China",
+            "country": "CHN",
+            "official_skater_id": 12560,
             "helmet_number": null,
-            "starting_position": 1,
+            "starting_position": 4,
             "rank": null,
             "result": "no time",
             "qualification": null,
             "penalty": null,
             "members": [
               {
-                "athlete_id": "ath-c9500eb167ae2d20c117",
-                "name": "Gyuho LEE",
-                "official_skater_id": 22072
+                "athlete_id": "ath-799c7f543fce635aeeb8",
+                "name": "Zixia ZHANG",
+                "official_skater_id": 20586
               },
               {
-                "athlete_id": "ath-7c9576fc5f305230747a",
-                "name": "Dong Min SHIN",
-                "official_skater_id": 6390
+                "athlete_id": "ath-33784c1a829757d78105",
+                "name": "Yiding ZHU",
+                "official_skater_id": 8157
               },
               {
-                "athlete_id": "ath-d17ee33a3816179f80fc",
-                "name": "Seochan BAE",
-                "official_skater_id": 22070
+                "athlete_id": "ath-78a6ed2c7eac904f5ca0",
+                "name": "Long SUN",
+                "official_skater_id": 6784
               },
               {
-                "athlete_id": "ath-2eea258e3a0d28fc0ba5",
-                "name": "Jeongmin LEE",
-                "official_skater_id": 4030
+                "athlete_id": "ath-49a455de09fadeaad9c9",
+                "name": "Bohao ZHANG",
+                "official_skater_id": 8078
               }
             ]
           },
@@ -19584,6 +19584,11 @@
             "penalty": null,
             "members": [
               {
+                "athlete_id": "ath-c28e18c99f0af84ca8d0",
+                "name": "Takumi WADA",
+                "official_skater_id": 7563
+              },
+              {
                 "athlete_id": "ath-5412f5778387aad9a803",
                 "name": "Shuta MATSUZU",
                 "official_skater_id": 4633
@@ -19592,11 +19597,6 @@
                 "athlete_id": "ath-ff0e797c67667f8c165e",
                 "name": "Musashi KAKINAMI",
                 "official_skater_id": 22908
-              },
-              {
-                "athlete_id": "ath-dae50584eb222f8f7725",
-                "name": "Shogo MIYATA",
-                "official_skater_id": 4847
               },
               {
                 "athlete_id": "ath-26292f2efadb197ddb94",
@@ -19640,36 +19640,36 @@
             ]
           },
           {
-            "athlete_id": "team-CHN-men",
-            "name": "China",
-            "country": "CHN",
-            "official_skater_id": 12560,
+            "athlete_id": "team-KOR-men",
+            "name": "Republic of Korea",
+            "country": "KOR",
+            "official_skater_id": 12566,
             "helmet_number": null,
-            "starting_position": 4,
+            "starting_position": 1,
             "rank": null,
             "result": "no time",
             "qualification": null,
             "penalty": null,
             "members": [
               {
-                "athlete_id": "ath-799c7f543fce635aeeb8",
-                "name": "Zixia ZHANG",
-                "official_skater_id": 20586
+                "athlete_id": "ath-c9500eb167ae2d20c117",
+                "name": "Gyuho LEE",
+                "official_skater_id": 22072
               },
               {
-                "athlete_id": "ath-33784c1a829757d78105",
-                "name": "Yiding ZHU",
-                "official_skater_id": 8157
+                "athlete_id": "ath-7c9576fc5f305230747a",
+                "name": "Dong Min SHIN",
+                "official_skater_id": 6390
               },
               {
-                "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-                "name": "Long SUN",
-                "official_skater_id": 6784
+                "athlete_id": "ath-d17ee33a3816179f80fc",
+                "name": "Seochan BAE",
+                "official_skater_id": 22070
               },
               {
-                "athlete_id": "ath-49a455de09fadeaad9c9",
-                "name": "Bohao ZHANG",
-                "official_skater_id": 8078
+                "athlete_id": "ath-2eea258e3a0d28fc0ba5",
+                "name": "Jeongmin LEE",
+                "official_skater_id": 4030
               }
             ]
           }
@@ -19688,45 +19688,11 @@
         "heat_number": null,
         "heat_label": "Final B",
         "source_start": "2026-10-25T19:24:39.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-1/?tab=results_16230&type=15994&round=22908",
         "participants": [
-          {
-            "athlete_id": "team-USA-men",
-            "name": "United States of America",
-            "country": "USA",
-            "official_skater_id": 12570,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-d8fe2a4f5c1f83e30594",
-                "name": "Ryan SHANE",
-                "official_skater_id": 6337
-              },
-              {
-                "athlete_id": "ath-c56914a18481d4557bba",
-                "name": "Marcus HOWARD",
-                "official_skater_id": 2734
-              },
-              {
-                "athlete_id": "ath-386e02e7887f7b96867e",
-                "name": "Benjamin SULLIVAN",
-                "official_skater_id": 19467
-              },
-              {
-                "athlete_id": "ath-bf41d212ebfe992891e6",
-                "name": "Justin LIU",
-                "official_skater_id": 4302
-              }
-            ]
-          },
           {
             "athlete_id": "team-POL-men",
             "name": "Poland",
@@ -19734,8 +19700,8 @@
             "official_skater_id": 12568,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "7:14.291",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -19762,36 +19728,36 @@
             ]
           },
           {
-            "athlete_id": "team-ITA-men",
-            "name": "Italy",
-            "country": "ITA",
-            "official_skater_id": 12563,
+            "athlete_id": "team-USA-men",
+            "name": "United States of America",
+            "country": "USA",
+            "official_skater_id": 12570,
             "helmet_number": null,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "starting_position": 4,
+            "rank": 2,
+            "result": "7:14.372",
             "qualification": null,
             "penalty": null,
             "members": [
               {
-                "athlete_id": "ath-0b75c8b148a940d59dbb",
-                "name": "Thomas NADALINI",
-                "official_skater_id": 4990
+                "athlete_id": "ath-d8fe2a4f5c1f83e30594",
+                "name": "Ryan SHANE",
+                "official_skater_id": 6337
               },
               {
-                "athlete_id": "ath-0a5bc324b57513d96b86",
-                "name": "Davide OSS CHEMPER",
-                "official_skater_id": 5277
+                "athlete_id": "ath-c56914a18481d4557bba",
+                "name": "Marcus HOWARD",
+                "official_skater_id": 2734
               },
               {
-                "athlete_id": "ath-b94dfa98131e8ff1906a",
-                "name": "Pietro MARINELLI",
-                "official_skater_id": 4560
+                "athlete_id": "ath-386e02e7887f7b96867e",
+                "name": "Benjamin SULLIVAN",
+                "official_skater_id": 19467
               },
               {
-                "athlete_id": "ath-bf93d274dece11d17ae7",
-                "name": "Lorenzo PREVITALI",
-                "official_skater_id": 5703
+                "athlete_id": "ath-bf41d212ebfe992891e6",
+                "name": "Justin LIU",
+                "official_skater_id": 4302
               }
             ]
           },
@@ -19802,8 +19768,8 @@
             "official_skater_id": 12561,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "7:21.667",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -19826,6 +19792,40 @@
                 "athlete_id": "ath-a59812c330ba5762181b",
                 "name": "Willem MURRAY",
                 "official_skater_id": 4970
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-ITA-men",
+            "name": "Italy",
+            "country": "ITA",
+            "official_skater_id": 12563,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": 4,
+            "result": "7:22.260",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-0b75c8b148a940d59dbb",
+                "name": "Thomas NADALINI",
+                "official_skater_id": 4990
+              },
+              {
+                "athlete_id": "ath-0a5bc324b57513d96b86",
+                "name": "Davide OSS CHEMPER",
+                "official_skater_id": 5277
+              },
+              {
+                "athlete_id": "ath-b94dfa98131e8ff1906a",
+                "name": "Pietro MARINELLI",
+                "official_skater_id": 4560
+              },
+              {
+                "athlete_id": "ath-bf93d274dece11d17ae7",
+                "name": "Lorenzo PREVITALI",
+                "official_skater_id": 5703
               }
             ]
           }
