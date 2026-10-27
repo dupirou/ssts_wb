@@ -11,6 +11,44 @@ import sync_competitions
 ROOT = Path(__file__).resolve().parents[1]
 DIRECTORY = ROOT / 'data/history'
 STATUSES = {'PEN', 'DNS', 'DNF', 'DSQ', 'YC', 'RC'}
+STATISTICS_SCOPE = dict(
+    individual_distances_m=[500, 1000, 1500],
+    include_relays=True,
+    include_all_around=False,
+    include_super_3000=False,
+    relay_lineups_required=False,
+)
+
+
+def included_discipline(row):
+    """Count standard individual distances and relays; omit all-around and super finals."""
+    return (
+        row.get('format') == 'individual' and row.get('distance_m') in {500, 1000, 1500}
+    ) or (row.get('format') == 'relay' and row.get('distance_m') in {2000, 3000, 5000})
+
+
+def coverage_detail(event):
+    """Result completeness is independent of optional historical relay lineups."""
+    rows = [r for r in event['results'] if included_discipline(r)]
+    programme = event.get('programme')
+    included_ids = {d.get('official_result_id') for d in programme or [] if included_discipline(d)}
+    missing = [ident for ident in event.get('missing_disciplines', []) if programme is None or ident in included_ids]
+    return dict(
+        missing_disciplines=missing,
+        classification_conflicts=sum(bool(r.get('classification_conflict')) for r in rows),
+        missing_classifications=sum(bool(r.get('classification_missing')) for r in rows),
+        relay_lineups_unavailable=sum(r['format'] == 'relay' and not r.get('members') for r in rows),
+        relay_lineups_required=False,
+    )
+
+
+def result_coverage(event):
+    detail = coverage_detail(event)
+    return (
+        'partial'
+        if any(detail[key] for key in ('missing_disciplines', 'classification_conflicts', 'missing_classifications'))
+        else 'complete'
+    )
 
 
 def parse_classifications(pages, expected_disciplines=9):
@@ -262,6 +300,9 @@ def load(directory=DIRECTORY):
             continue
         event = json.loads(file.read_text())
         validate_event(event, meta, registry)
+        event['results'] = [r for r in event['results'] if included_discipline(r)]
+        if event.get('programme') is not None:
+            event['programme'] = [d for d in event['programme'] if included_discipline(d)]
         medals = {
             str(i): sum(
                 r['rank'] == i
@@ -275,10 +316,12 @@ def load(directory=DIRECTORY):
         }
         events.append(
             dict(
-                **meta,
+                **dict(meta, coverage=result_coverage(event)),
+                coverage_detail=coverage_detail(event),
+                participation=event.get('participation', 'recorded'),
                 source=event['source'],
                 programme=event.get('programme'),
-                missing_disciplines=event.get('missing_disciplines', []),
+                missing_disciplines=coverage_detail(event)['missing_disciplines'],
                 results=event['results'],
                 medals=medals,
             )
@@ -304,6 +347,7 @@ def load(directory=DIRECTORY):
     return dict(
         schema_version=1,
         country='CHN',
+        statistics_scope=STATISTICS_SCOPE,
         cycles=catalog['cycles'],
         inventory=inventory,
         events=sorted(events, key=lambda e: e['date_end'], reverse=True),
@@ -346,6 +390,7 @@ def result_catalog(out, calendar, archive):
                 programme=event.get('programme'),
                 participation=event.get('participation', 'recorded'),
                 coverage=event['coverage'],
+                coverage_detail=event['coverage_detail'],
                 results=rows,
             )
         )
@@ -443,6 +488,7 @@ def result_catalog(out, calendar, archive):
     return dict(
         schema_version=1,
         country='CHN',
+        statistics_scope=archive['statistics_scope'],
         cycles=cycles,
         athletes=list(people.values()),
         events=sorted(events, key=lambda e: e['date_end'], reverse=True),

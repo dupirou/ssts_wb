@@ -77,14 +77,31 @@
       "medal_eligible": true
     }
   ],
-  "missing_disciplines": [
-    4232,
-    4324,
-    4333,
-    4341,
-    4361
-  ],
+  "missing_disciplines": [],
   "results": [
+    {
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "name": "China",
+      "country": "CHN",
+      "rank": 3,
+      "rank_scope": "final",
+      "final_group": "A",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+      "source_ref": "e85c8abe0c3546e7eb136e145c16fa05eeeb455a721fdfe427974bc47ed773e1",
+      "official_result_id": 4232,
+      "official_skater_id": 8088,
+      "medal_eligible": true,
+      "classification_missing": true,
+      "started": true,
+      "members": [],
+      "last_round": "Finals",
+      "lineup_status": "unavailable"
+    },
     {
       "gender": "women",
       "distance_m": 1500,
@@ -293,6 +310,162 @@
       "official_skater_id": 4296,
       "medal_eligible": true,
       "athlete_id": "skater-guanyi-liu"
+    },
+    {
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "name": "China",
+      "country": "CHN",
+      "rank": 1,
+      "rank_scope": "final",
+      "final_group": "B",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+      "source_ref": "c06634ee911b7eb786d5054acb09552173971a5026994843f238de369d2173c1",
+      "official_result_id": 4324,
+      "official_skater_id": 8088,
+      "medal_eligible": true,
+      "classification_missing": true,
+      "started": true,
+      "members": [],
+      "last_round": "Finals",
+      "lineup_status": "unavailable"
+    },
+    {
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "name": "China",
+      "country": "CHN",
+      "rank": 2,
+      "rank_scope": "final",
+      "final_group": "A",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+      "source_ref": "ae962ec2642b98196f0187482f75121a4db8c467bf5f178ac3770708f6bcfe70",
+      "official_result_id": 4333,
+      "official_skater_id": 8088,
+      "medal_eligible": true,
+      "classification_missing": true,
+      "started": true,
+      "members": [],
+      "last_round": "Finals",
+      "lineup_status": "unavailable"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Weiying HAO",
+      "country": "CHN",
+      "rank": null,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "PEN",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+      "source_ref": "88b975cc4beb98e029c938db24a61c300aa3f3839db08b089a7ee175f9f13c20",
+      "official_result_id": 4341,
+      "official_skater_id": 2519,
+      "medal_eligible": true,
+      "classification_missing": true,
+      "started": true,
+      "last_round": "Quarterfinals",
+      "athlete_id": "isu-2519"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Jiarui SONG",
+      "country": "CHN",
+      "rank": null,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "PEN",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+      "source_ref": "88b975cc4beb98e029c938db24a61c300aa3f3839db08b089a7ee175f9f13c20",
+      "official_result_id": 4341,
+      "official_skater_id": 6617,
+      "medal_eligible": true,
+      "classification_missing": true,
+      "started": true,
+      "last_round": "Quarterfinals",
+      "athlete_id": "isu-6617"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Jianing ZHANG",
+      "country": "CHN",
+      "rank": null,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+      "source_ref": "88b975cc4beb98e029c938db24a61c300aa3f3839db08b089a7ee175f9f13c20",
+      "official_result_id": 4341,
+      "official_skater_id": 8090,
+      "medal_eligible": true,
+      "classification_missing": true,
+      "started": true,
+      "last_round": "Quarterfinals",
+      "athlete_id": "isu-8090"
+    },
+    {
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Yuchen ZHONG",
+      "country": "CHN",
+      "rank": null,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+      "source_ref": "76b17771bd8621fa95b0c9e859851a78e562227e879ce07660055c5ce04f79ec",
+      "official_result_id": 4361,
+      "official_skater_id": 8145,
+      "medal_eligible": true,
+      "classification_missing": true,
+      "started": true,
+      "last_round": "Quarterfinals",
+      "athlete_id": "isu-8145"
+    },
+    {
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Wenlong LI",
+      "country": "CHN",
+      "rank": 4,
+      "rank_scope": "final",
+      "final_group": "A",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+      "source_ref": "89271e02df6935f6da73c66b450316293b83aca9ca97a8a39ca7c2a6dc631a91",
+      "official_result_id": 4361,
+      "official_skater_id": 4176,
+      "medal_eligible": true,
+      "classification_missing": true,
+      "started": true,
+      "last_round": "Finals",
+      "athlete_id": "skater-wenlong-li"
     }
   ],
   "source": {
@@ -340,6 +513,63 @@
         "sha256": "733c08d0ac636ffbe11d118aa573ae8a5381b773b146000aecceb6b94e44024a"
       },
       {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 3249,
+          "event_result_id": 4341
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 3249,
+          "event_result_id": 4361
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 3249,
+          "event_result_id": 4232
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 3249,
+          "event_result_id": 4324
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 3249,
+          "event_result_id": 4333
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4232
+        },
+        "sha256": "3961f4fed83ffd5240f2cb7d63f5948c9c419ecfcbb88c2f4dddbb7b77b7dcb2"
+      },
+      {
         "url": "https://front-api.isu.org/events/get-event-result-round",
         "form": {
           "event_result_id": 4240
@@ -366,6 +596,34 @@
           "event_result_id": 4310
         },
         "sha256": "bf4f31c007574f5fd7d71b0754a02a1e26c5e7ca024f7274e8922bc957dfb8fc"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4324
+        },
+        "sha256": "fd86f9adc3e58fe5b3420e3f0257c14a6c76314dc066df8005be6248d17aa5b8"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4333
+        },
+        "sha256": "cb9082ed5bf90515123126e54602df0d7257d9127dde45d8852b1c17a0310c5f"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4341
+        },
+        "sha256": "0a78cb1db53fad08e67e722411687f5059d8252d2311604677e19ba298419fde"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4361
+        },
+        "sha256": "bace8dcff5ba1217a2b6bd2a2f873d98e873961dfc79f6c1b3d321e411c20ad7"
       },
       {
         "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
@@ -404,12 +662,120 @@
         "sha256": "22e057a7a1b936afae818b7c23afdf0d18cf17fae69d83d40fda56d5c0ec8f06"
       },
       {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4341,
+          "event_result_round_id": 6693
+        },
+        "sha256": "88b975cc4beb98e029c938db24a61c300aa3f3839db08b089a7ee175f9f13c20"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4341,
+          "event_result_round_id": 6714
+        },
+        "sha256": "c9055e6da9c77f19bf5fe41b9189286a198003b657ea6b4f26191b11711e4681"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4341,
+          "event_result_round_id": 6731
+        },
+        "sha256": "0ed3efabd5d038f99517f07e9ab263ccb2c2f28c1982b3a24805d018c661edbb"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4361,
+          "event_result_round_id": 6744
+        },
+        "sha256": "76b17771bd8621fa95b0c9e859851a78e562227e879ce07660055c5ce04f79ec"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4361,
+          "event_result_round_id": 6764
+        },
+        "sha256": "3c69bb0a76a686390b9e3f1489d7ccd27ea4bb9293c1d98db5fdf0f18fc2b169"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4361,
+          "event_result_round_id": 6773
+        },
+        "sha256": "89271e02df6935f6da73c66b450316293b83aca9ca97a8a39ca7c2a6dc631a91"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4232,
+          "event_result_round_id": 6506
+        },
+        "sha256": "45821fa08c17421d10c5047dd1fd748f70c17753f91939b7152a2c35c64d5824"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4232,
+          "event_result_round_id": 6510
+        },
+        "sha256": "e85c8abe0c3546e7eb136e145c16fa05eeeb455a721fdfe427974bc47ed773e1"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4324,
+          "event_result_round_id": 6656
+        },
+        "sha256": "7e4eeec3dd520948ab5a196cb72e649b4f1403209b4a2f058cc68865f444daae"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4324,
+          "event_result_round_id": 6660
+        },
+        "sha256": "c06634ee911b7eb786d5054acb09552173971a5026994843f238de369d2173c1"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4333,
+          "event_result_round_id": 6675
+        },
+        "sha256": "480ecee33c5ce1dda84f9900ef09377a68be3697c22130193c90213796a93446"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4333,
+          "event_result_round_id": 6682
+        },
+        "sha256": "ae962ec2642b98196f0187482f75121a4db8c467bf5f178ac3770708f6bcfe70"
+      },
+      {
         "url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-four-continents-short-track-speed-skating-championships-3/?tab=results_3249",
         "form": {},
-        "sha256": "520dbefd473701f7cf3e363bc56d17fe9e0b172fdcb08e59fca755f53f619b82"
+        "sha256": "897e035514e1b4b42629922bc1a2bfbfc3855e84a7c5cedb5dbff277616c27be"
       }
     ],
-    "retrieved_at": "2026-10-27T08:19:14.870024+00:00",
-    "sha256": "ef7fe24e917c238ee89bda572f1a16b81bb532f8523c65364a25959b367176ea"
+    "retrieved_at": "2026-10-27T13:37:08.269613+00:00",
+    "sha256": "a011e9be53bbb1af74588155e8498b2f2ac3b777314f96d6bfddf49655501221"
   }
 }

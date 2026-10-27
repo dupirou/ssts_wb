@@ -56,6 +56,8 @@
 
 统一索引的 `rank_scope=overall` 表示项目最终名次；当前接力只有决赛组内名次时，`rank_scope=final` 并保留 A/B 组，页面明确显示“A组第 N 名／B组第 N 名”，不把 B 组第 1 名标成金牌。每场只保留一个成绩册链接，接力阵容在行内按需展开。
 
+成绩索引排除全能和个人超级 3000；保留女子 3000 米接力。`coverage_detail` 区分项目缺项、分类与决赛名次冲突、最终分类缺失，赛事行和待核对列表显示具体原因。接力阵容缺失独立记录，不影响成绩完整度。统计与列表使用同一范围。
+
 页面读取 `data/calendar.json`、`data/<id>.json`（赛程）、`data/updates.json` 和 `/api/v1/events/<id>/<resource>`。
 
 - `calendar.json`：`stations[]`（`id`、`city`、`city_en`、`country`、`date_start`、`date_end`、`timezone`、`venue`、`detail_status`、`ticketing`、`predictions`、`source_url`）与 `championships[]`。`source_url` 是该站自己的 ISU 赛事页（尚未找到时为赛季赛历），未出赛程的分站与世锦赛页链接到它。

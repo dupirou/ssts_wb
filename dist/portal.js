@@ -98,7 +98,8 @@
           const source = external(e.source.url + (Number.isFinite(page) ? '#page=' + page : ''), e.source.kind==='isu_api'?'官方成绩':'成绩册');
           const body = h('tbody', {'data-event': e.id}, h('tr', {class: 'result-event'},
             h('th', {colspan: '3', scope: 'rowgroup'}, h('div', {}, h('span', {class: 'result-season num', text: e.season}),
-              h('b', {text: e.title}), h('span', {class: 'faint num result-date', text: e.date_end}), source))));
+              h('b', {text: e.title}), h('span', {class: 'faint num result-date', text: e.date_end}), source,
+              e.coverage === 'partial' ? h('small', {class: 'faint', text: coverageReason(e)}) : null))));
           const sorted = [...e.results].sort((a, b) => ['women', 'men', 'mixed'].indexOf(a.gender) - ['women', 'men', 'mixed'].indexOf(b.gender) || a.distance_m - b.distance_m || (a.race_number || 1) - (b.race_number || 1) || (a.rank ?? 999) - (b.rank ?? 999));
           for (const r of sorted) {
             const finalRank = r.rank_scope === 'final';
@@ -111,8 +112,11 @@
           table.append(body);
         }
         const pending = index.pending.filter(e => matchEvent(e) && event.value === 'all');
-        missing.hidden = !pending.length;
-        missing.replaceChildren(h('summary', {text: '待收录 ' + pending.length + ' 场'}), h('ul', {}, pending.map(e => h('li', {text: e.season + ' · ' + e.title}))));
+        const partial = index.events.filter(e => matchEvent(e) && (event.value === 'all' || e.id === event.value) && e.coverage === 'partial');
+        missing.hidden = !pending.length && !partial.length;
+        missing.replaceChildren(h('summary', {text: '成绩待补 / 核对 ' + (pending.length + partial.length) + ' 场'}),
+          h('ul', {}, pending.map(e => h('li', {text: e.season + ' · ' + e.title + ' · 待收录'})),
+            partial.map(e => h('li', {}, h('a', {href: eventLink(e), text: e.season + ' · ' + e.title}), ' · ' + coverageReason(e)))));
       };
       const update = () => {
         const url = new URL(location.href); url.pathname = '/results/events/'; url.searchParams.delete('view');
@@ -128,7 +132,8 @@
         update();
       });
       search.addEventListener('input', update);
-      panel.replaceChildren(form, summary, table, missing);
+      panel.replaceChildren(form, summary, table, missing,
+        h('p', {class: 'stat-definition faint tiny', text: '只计个人 500 / 1000 / 1500 米及接力；全能和超级 3000 不计。接力阵容缺失不影响团队成绩收录。'}));
       fillSeasons(true); fillEvents(true);
       draw();
     } catch (_) {
@@ -150,6 +155,12 @@
   const seasonId = value => value.replace('/', '-');
   const seasonValue = value => value.replace(/^(\d{4})-(\d{2})$/, '$1/$2');
   const eventLink = (e, query = '') => '/results/events/' + encodeURIComponent(e.id) + '/' + query;
+  function coverageReason(event) {
+    const d = event.coverage_detail || {};
+    return [d.missing_disciplines?.length ? '项目缺项 ' + d.missing_disciplines.length + ' 项' : '',
+      d.classification_conflicts ? '分类与决赛名次冲突 ' + d.classification_conflicts + ' 条' : '',
+      d.missing_classifications ? '最终分类缺失 ' + d.missing_classifications + ' 条' : ''].filter(Boolean).join('；') || '成绩待核对';
+  }
   function reviewSelect(h, name, label, values, value) {
     const select = h('select', {name, 'aria-label': label}, values.map(([value,text]) => h('option', {value,text})));
     if (values.some(([id]) => id === value)) select.value = value;
@@ -170,8 +181,8 @@
   }
   function coverage(h, events, scope) {
     const ratio=scope?.expected?events.length+' / '+scope.expected+' 场':events.length+' 场';
-    const tail=scope?.expected&&!scope.partial&&events.length===scope.expected?'': ' · 未齐';
-    return h('span', {class: 'coverage-note'}, h('span', {class:'coverage-long',text:events.length ? '已收录 '+ratio+tail : '未收录'}), h('span', {class:'coverage-short',text:events.length ? ratio+tail : '未收录'}));
+    const tail=scope?.expected&&!scope.partial&&events.length===scope.expected?'': ' · 成绩待补 / 核对';
+    return h('span', {class: 'coverage-note'}, h('span', {class:'coverage-long',text:events.length ? '已收录 '+ratio+tail : '未收录'}), h('span', {class:'coverage-short',text:events.length ? ratio+(tail?' · 待核':'') : '未收录'}));
   }
   function eventRows(h, events, people, key) {
     const rows = events.flatMap(e => e.results.filter(r => !key || matchesProject(r,key)).map(r => ({e,r})));

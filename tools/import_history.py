@@ -2,17 +2,28 @@
 """Import an explicitly configured official protocol from a local PDF.
 
 Usage: python tools/import_history.py COMPETITION_ID /path/to/protocol.pdf
-Requires pdftotext (Poppler). The source URL and expected SHA live in catalog.json.
+Uses pdftotext (Poppler), or pypdf's layout extraction when Poppler is unavailable.
+The source URL and expected SHA live in catalog.json.
 No scraping or live-season data is changed by this command.
 """
 
 import argparse
 import json
+import shutil
 import subprocess
 from pathlib import Path
 
 import history_data
 import sync_competitions
+
+
+def classification_pages(pdf):
+    if shutil.which('pdftotext'):
+        text = subprocess.check_output(['pdftotext', '-layout', str(pdf.resolve()), '-'], text=True)
+        return text.rstrip('\f').split('\f')
+    from pypdf import PdfReader
+
+    return [page.extract_text(extraction_mode='layout') for page in PdfReader(pdf).pages]
 
 
 def main():
@@ -26,11 +37,9 @@ def main():
     digest = history_data.document_hash(args.pdf.read_bytes())
     if digest != config['source_sha256']:
         raise ValueError('PDF differs from the reviewed source')
-    text = subprocess.check_output(['pdftotext', '-layout', str(args.pdf.resolve()), '-'], text=True)
+    pages = classification_pages(args.pdf)
+    text = '\f'.join(pages)
     sync_competitions.assert_identity(text, dict(city=config['source_city'], year=config['date_end'][:4]))
-    pages = text.split('\f')
-    if not pages[-1].strip():
-        pages.pop()
     results = history_data.parse_classifications(pages, config.get('expected_disciplines', 9))
     registry = json.loads((directory / 'athletes.json').read_text())
     history_data.attach_identities(results, registry)

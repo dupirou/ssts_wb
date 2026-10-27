@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 import re
 import ssl
+import time
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
@@ -94,8 +96,19 @@ class SourceCache:
                     **({'Content-Type': 'application/x-www-form-urlencoded'} if form else {}),
                 },
             )
-            with urlopen(request, context=self.context, timeout=25) as response:
-                body = response.read(20_000_001)
+            for attempt in range(3):
+                try:
+                    with urlopen(request, context=self.context, timeout=25) as response:
+                        body = response.read(20_000_001)
+                    break
+                except HTTPError as ex:
+                    if ex.code not in {429, 500, 502, 503, 504} or attempt == 2:
+                        raise
+                    time.sleep(2**attempt)
+                except (URLError, TimeoutError):
+                    if attempt == 2:
+                        raise
+                    time.sleep(2**attempt)
             if len(body) > 20_000_000:
                 raise ValueError('Official response exceeds size limit')
             path.write_bytes(body)
@@ -120,6 +133,13 @@ def discipline(meta):
     if gender not in {'women', 'men', 'mixed'} or distance not in {500, 1000, 1500, 2000, 3000, 5000}:
         raise ValueError('Unsupported historical discipline: ' + str(meta))
     return dict(gender=gender, distance_m=distance, format='relay' if relay else 'individual')
+
+
+def included_meta(meta):
+    name = meta['name'].lower()
+    if any(label in name for label in ('madison', 'overall', 'all-around', 'allround', 'super final', 'superfinal')):
+        return False
+    return history_data.included_discipline(discipline(meta))
 
 
 def final_group(heat, round_meta):
@@ -439,6 +459,7 @@ def main():
     parser.add_argument('--cache', type=Path, required=True)
     parser.add_argument('--workers', type=int, default=8)
     parser.add_argument('--season')
+    parser.add_argument('--event', action='append', help='Limit to an official event ID; may be repeated')
     parser.add_argument('--refresh-api', action='store_true')
     args = parser.parse_args()
     cache = SourceCache(args.cache)
@@ -475,12 +496,16 @@ def main():
 
         first = date.fromisoformat(e['from_date'][:10]) - timedelta(days=1)
         last = date.fromisoformat(e['to_date'][:10]) + timedelta(days=1)
-        rows = [r for r in rows if first <= date.fromisoformat(r['start_date'][:10]) <= last]
+        rows = [r for r in rows if not r.get('start_date') or first <= date.fromisoformat(r['start_date'][:10]) <= last]
         if not rows or any(str(r['event_id']) != str(e['event_id']) for r in rows):
             raise ValueError('Missing or mismatched discipline metadata')
         return rows, source, page
 
-    pending = [e for e in selected if str(e['event_id']) not in known]
+    pending = [
+        e
+        for e in selected
+        if str(e['event_id']) not in known and (not args.event or str(e['event_id']) in args.event)
+    ]
     with ThreadPoolExecutor(max_workers=min(args.workers, 6)) as pool:
         futures = {pool.submit(get_meta, e): e for e in pending}
         for f in as_completed(futures):
@@ -491,7 +516,7 @@ def main():
                 failures[str(e['event_id'])] = str(ex)
     print('Metadata ready:', len(metadata), 'failed:', failures, flush=True)
     tasks = [
-        (eid, meta) for eid, (rows, _, _) in metadata.items() for meta in rows if 'madison' not in meta['name'].lower()
+        (eid, meta) for eid, (rows, _, _) in metadata.items() for meta in rows if included_meta(meta)
     ]
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         futures = {pool.submit(collect_discipline, cache, meta): (eid, meta) for eid, meta in tasks}
@@ -515,12 +540,12 @@ def main():
         by_key = {}
         values = {c['meta']['event_result_id']: c for c in collected[eid]}
         for m in rows:
-            if 'madison' in m['name'].lower():
+            if not included_meta(m):
                 continue
             disc = discipline(m)
             by_key.setdefault((disc['gender'], disc['distance_m'], disc['format']), []).append(m)
         for group in by_key.values():
-            group.sort(key=lambda m: (m['start_date'], m['display_order'], m['event_result_id']))
+            group.sort(key=lambda m: (m.get('start_date') or '', m['display_order'], m['event_result_id']))
             for number, m in enumerate(group, 1):
                 c = values.get(m['event_result_id'])
                 if c is None:
@@ -575,12 +600,7 @@ def main():
             official_event_id=eid,
             source_url=page,
             source_sha256=source['sha256'],
-            coverage='partial'
-            if eid in failures
-            or any(c.get('incomplete_classification') for c in collected[eid])
-            or any(r.get('classification_conflict') for r in results)
-            or (kind == 'worlds' and int(season[:4]) < 2022)
-            else 'complete',
+            coverage='partial',
             source_kind='isu_api',
         )
         programme = [
@@ -591,12 +611,12 @@ def main():
                 medal_eligible='super final' not in m['name'].lower(),
             )
             for m in rows
-            if 'madison' not in m['name'].lower()
+            if included_meta(m)
         ]
         missing = [
             m['event_result_id']
             for m in rows
-            if m['event_result_id'] not in values and 'madison' not in m['name'].lower()
+            if m['event_result_id'] not in values and included_meta(m)
         ]
         event = dict(
             schema_version=1,
@@ -608,6 +628,7 @@ def main():
             results=results,
             source=source,
         )
+        meta['coverage'] = history_data.result_coverage(event)
         try:
             history_data.validate_event(event, meta, registry)
         except ValueError as ex:
