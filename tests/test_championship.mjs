@@ -5,10 +5,10 @@ import {JSDOM} from 'jsdom';
 
 const file = async name => readFile(new URL('../' + name, import.meta.url), 'utf8');
 const [html, script, cal] = await Promise.all([
-  file('web/index.html'), file('web/app.js'), file('dist/data/calendar.json').then(JSON.parse),
+  file('web/index.html'), Promise.all(['navigation', 'portal', 'app'].map(name => file('web/' + name + '.js'))).then(parts => parts.join('\n')), file('dist/data/calendar.json').then(JSON.parse),
 ]);
 async function page(path) {
-  const dom = new JSDOM(html, {url: 'https://example.test/' + path,
+  const dom = new JSDOM(html, {url: new URL(path, 'https://example.test/').href,
     runScripts: 'outside-only', pretendToBeVisual: true});
   const w = dom.window;
   w.matchMedia = () => ({matches: false, addEventListener() {}});
@@ -22,7 +22,7 @@ async function page(path) {
   };
   dom.requests = [];
   w.eval(script);
-  const selector = path.includes('station=worlds-2027') ? '.station-hero' : '.championship-card';
+  const selector = path.includes('worlds-2027') ? '.station-hero' : '.championship-card';
   for (let i=0; i<150; i++) {
     if (w.document.querySelector(selector)) return dom;
     await new Promise(resolve => setTimeout(resolve, 5));
@@ -30,8 +30,8 @@ async function page(path) {
   dom.window.close();
   throw new Error('Championship UI not rendered');
 }
-test('homepage keeps seven World Tour cards and offers a distinct World Championships page', async t => {
-  const dom = await page('?now=2026-10-21T09:00:00Z');
+test('events page keeps seven World Tour cards and offers a distinct World Championships page', async t => {
+  const dom = await page('events/?now=2026-10-21T09:00:00Z');
   t.after(() => dom.window.close());
   const d = dom.window.document;
   assert.equal(d.querySelectorAll('.st-card').length, 7);
@@ -40,13 +40,13 @@ test('homepage keeps seven World Tour cards and offers a distinct World Champion
   assert.match(world.textContent, /短道速滑世锦赛/);
   assert.match(world.textContent, /03\.12 — 03\.14/);
   assert.match(world.textContent, /首尔/);
-  assert.equal(world.querySelector('.btn').getAttribute('href'), '?station=worlds-2027');
+  assert.equal(world.querySelector('.btn').getAttribute('href'), '/events/2026-27/worlds-2027/');
   // Separators use a no-break space so they stay at line ends; compare words, not space kinds.
   assert.match(d.querySelector('.season-head .lead').textContent.replace(/\s+/g, ' '), /7 站世巡赛 · 1 场世锦赛/);
   assert.equal(d.querySelectorAll('.ticket-panel').length, 1);
 });
 test('Worlds detail uses schedule and roster waiting states without World Tour forecasts or API calls', async t => {
-  const dom = await page('?station=worlds-2027');
+  const dom = await page('/events/2026-27/worlds-2027/');
   t.after(() => dom.window.close());
   const d = dom.window.document;
   assert.match(d.title, /世锦赛/);

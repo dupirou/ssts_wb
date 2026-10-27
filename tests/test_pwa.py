@@ -40,9 +40,9 @@ class PwaTests(unittest.TestCase):
         utc = lambda iso: datetime.fromisoformat(iso).replace(tzinfo=timezone.utc)
         source = (ROOT / 'web/manifest.webmanifest').read_text(encoding='utf-8')
         shortcut = lambda iso: json.loads(build.manifest_text(source, utc(iso)))['shortcuts']
-        self.assertEqual(shortcut('2026-10-20T00:00:00')[0]['url'], './?station=vancouver')
+        self.assertEqual(shortcut('2026-10-20T00:00:00')[0]['url'], '/events/2026-27/vancouver/')
         # Vancouver's last local day ends 2026-10-26 07:00 UTC; the shortcut then moves to Montréal.
-        self.assertEqual(shortcut('2026-10-26T06:59:00')[0]['url'], './?station=vancouver')
+        self.assertEqual(shortcut('2026-10-26T06:59:00')[0]['url'], '/events/2026-27/vancouver/')
         self.assertEqual(shortcut('2026-10-26T07:00:00')[0]['name'], '蒙特利尔站赛程')
         self.assertEqual(shortcut('2027-02-20T00:00:00')[0]['short_name'], '世锦赛')
         self.assertEqual(shortcut('2027-04-01T00:00:00'), [])
@@ -50,16 +50,18 @@ class PwaTests(unittest.TestCase):
 
     def test_page_links_manifest_and_registers_worker(self):
         html = (ROOT / 'web/index.html').read_text(encoding='utf-8')
-        self.assertIn('rel="manifest" href="./manifest.webmanifest"', html)
+        self.assertIn('rel="manifest" href="/manifest.webmanifest"', html)
         self.assertIn('rel="apple-touch-icon"', html)
-        self.assertIn("serviceWorker.register('./sw.js')", (ROOT / 'web/app.js').read_text(encoding='utf-8'))
+        self.assertIn(
+            "serviceWorker.register('/sw.js', {scope: '/'})", (ROOT / 'web/app.js').read_text(encoding='utf-8')
+        )
 
     def test_built_worker_is_stamped_with_the_shell_version(self):
         built = (ROOT / 'dist/sw.js').read_text(encoding='utf-8')
         shell = (
             b''.join(
                 (ROOT / 'dist' / name).read_bytes()
-                for name in ('index.html', 'app.js', 'site.css', 'manifest.webmanifest')
+                for name in ('index.html', 'app.js', 'navigation.js', 'portal.js', 'site.css', 'manifest.webmanifest')
             )
             + (ROOT / 'web/sw.js').read_bytes()
         )

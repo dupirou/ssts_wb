@@ -5,7 +5,7 @@ import {JSDOM} from 'jsdom';
 
 const file = async name => readFile(new URL('../' + name, import.meta.url), 'utf8');
 const [html, script, calendar] = await Promise.all([
-  file('web/index.html'), file('web/app.js'), file('dist/data/calendar.json').then(JSON.parse),
+  file('web/index.html'), Promise.all(['navigation', 'portal', 'app'].map(name => file('web/' + name + '.js'))).then(parts => parts.join('\n')), file('dist/data/calendar.json').then(JSON.parse),
 ]);
 async function render(url) {
   const dom = new JSDOM(html, {url, runScripts: 'outside-only', pretendToBeVisual: true});
@@ -27,7 +27,7 @@ async function render(url) {
   throw new Error('Ticket section did not render');
 }
 test('Seoul ticket links appear on season home and station details', async t => {
-  for (const route of ['/?now=2026-10-21T09:00:00Z', '/?station=seoul&now=2026-10-21T09:00:00Z']) {
+  for (const route of ['/events/?now=2026-10-21T09:00:00Z', '/?station=seoul&now=2026-10-21T09:00:00Z']) {
     await t.test(route, async t => {
       const dom = await render('https://example.test' + route);
       t.after(() => dom.window.close());
@@ -61,7 +61,7 @@ test('ticket notice says on sale after opening and disappears once Seoul is over
     assert.match(panel.textContent, /已于北京时间 10\/23 周五 下午 13:00 开售/);
   });
   await t.test('after the stage', async t => {
-    const dom = new JSDOM(html, {url: 'https://example.test/?now=2026-11-23T00:00:00Z', runScripts: 'outside-only', pretendToBeVisual: true});
+    const dom = new JSDOM(html, {url: 'https://example.test/events/?now=2026-11-23T00:00:00Z', runScripts: 'outside-only', pretendToBeVisual: true});
     t.after(() => dom.window.close());
     const w = dom.window;
     w.matchMedia = () => ({matches: false, addEventListener() {}});

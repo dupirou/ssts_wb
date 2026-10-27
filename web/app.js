@@ -52,6 +52,9 @@
   const phrases = (...items) => items.filter(Boolean).flatMap((x, i) => [i ? '\u00a0· ' : null, h('span', {class: 'nowrap'}, x)]);
 
   const ICONS = {
+    home: [['path', {d: 'M3 11l9-8 9 8M5 10v11h5v-7h4v7h5V10'}]],
+    history: [['path', {d: 'M4 10a8 8 0 1 1 1 8M4 4v6h6M12 7v5l3 2'}]],
+    people: [['circle', {cx: 9, cy: 8, r: 3}], ['path', {d: 'M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6M18 15a5 5 0 0 1 3 5'}]],
     calendar: [['rect', {x: 3.5, y: 5, width: 17, height: 15.5, rx: 2.5}], ['path', {d: 'M3.5 10h17M8 3v4M16 3v4'}]],
     pin: [['path', {d: 'M12 21s-6.5-5.8-6.5-11a6.5 6.5 0 0 1 13 0c0 5.2-6.5 11-6.5 11z'}], ['circle', {cx: 12, cy: 10, r: 2.4}]],
     globe: [['circle', {cx: 12, cy: 12, r: 8.5}], ['path', {d: 'M3.5 12h17M12 3.5c2.8 3 2.8 14 0 17M12 3.5c-2.8 3-2.8 14 0 17'}]],
@@ -258,7 +261,7 @@
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
     try {
-      const response = await fetch('./data/' + file, {cache: file === 'calendar.json' ? 'default' : 'no-cache', signal: controller.signal});
+      const response = await fetch('/data/' + file, {cache: file === 'calendar.json' ? 'default' : 'no-cache', signal: controller.signal});
       if (!response.ok) throw new Error('数据请求失败: ' + response.status);
       return await response.json();
     } finally { clearTimeout(timeout); }
@@ -305,7 +308,8 @@
     }
     return days;
   }
-  const stationHref = (id, day) => '?station=' + encodeURIComponent(id) + (day ? '&day=' + encodeURIComponent(day) : '');
+  let calendarSeason;
+  const stationHref = (id, day) => window.SSTS.navigation.eventHref(id, calendarSeason) + (day ? '?day=' + encodeURIComponent(day) : '');
 
   /* ---------- athlete entries and official competition details ---------- */
   const officialHeats = new Map();
@@ -393,7 +397,7 @@
   function stationTabs(schedule, competition) {
     const sections = {schedule, athletes: competition.athletes};
     if (competition.predictions) sections.predictions = competition.predictions;
-    const labels = {schedule: '赛程', athletes: '运动员', predictions: '分组预测'};
+    const labels = {schedule: '赛程', athletes: '报名名单', predictions: '分组预测'};
     const nav = h('div', {class: 'section-tabs', role: 'tablist', 'aria-label': '本站内容'});
     const buttons = new Map();
     let selected = 'schedule';
@@ -516,7 +520,7 @@
     const country = h('select', {'aria-label': title + '国家或地区'},
       h('option', {value: 'all', text: '全部国家 / 地区'}),
       countries.map(c => h('option', {value: c, text: c})));
-    country.value = china ? 'CHN' : 'all';
+    country.value = countries.includes(params.get('country')) ? params.get('country') : china ? 'CHN' : 'all';
     const sex = h('select', {'aria-label': title + '性别'},
       [['all', '全部'], ['women', '女子'], ['men', '男子'], ...(ranking ? [['mixed', '混合']] : [])]
         .map(([value, text]) => h('option', {value, text})));
@@ -526,7 +530,7 @@
       const selected = people.filter(p => (country.value === 'all' || p.country === country.value) && (sex.value === 'all' || p.gender === sex.value));
       if (ranking) selected.sort((a, b) => a.ranking_type.localeCompare(b.ranking_type) || a.distance_m - b.distance_m || a.rank - b.rank);
       count.textContent = '显示 ' + selected.length + (ranking ? ' 条' : ' 人');
-      fill(list, selected.map(p => h('li', {class: cls('athlete-card', p.country === 'CHN' && 'is-china'), dataset: {country: p.country}},
+      fill(list, selected.map(p => h('li', {class: cls('athlete-card', p.country === 'CHN' && 'is-china'), id: ranking ? null : 'athlete-' + p.athlete_id, dataset: {country: p.country}},
         h('span', {class: 'athlete-nation', text: p.country}),
         ranking ? [h('b', {class: 'athlete-name', text: p.name}),
           h('span', {class: 'athlete-caption'}, ({'event': '单站排名', world_tour: '世巡赛积分', world: '世界排名'})[p.ranking_type] || p.ranking_type,
@@ -544,7 +548,13 @@
         dataset.updated_at ? h('span', {text: '更新于 ' + sourceTime(dataset.updated_at)}) : null,
         dataset.source_urls?.[0] ? external(dataset.source_urls[0], '官方来源') : null));
     if (ranking) box.addEventListener('toggle', () => { if (box.open && !list.childElementCount) update(); });
-    else update();
+    else {
+      update();
+      if (location.hash.startsWith('#athlete-')) requestAnimationFrame(() => {
+        const selected = document.getElementById(location.hash.slice(1));
+        selected?.scrollIntoView({block: 'center'});
+      });
+    }
     return box;
   }
 
@@ -621,7 +631,6 @@
         first.date_start.slice(0, 7).replace('-', '.') + ' — ' + lastEvent.date_end.slice(0, 7).replace('-', '.'), '北京时间')));
 
     root.replaceChildren(head,
-      focus ? nextCard(focus) : h('section', {class: 'next-card is-done'}, h('h2', {text: '本赛季全部分站已结束'})),
       ...stations.map(ticketPanel).filter(Boolean),
       seasonLine(stations, focus, cal.championships || []), stationGrid(stations, focus),
       championshipsCard(cal),
@@ -680,8 +689,8 @@
     const main = h('div', {class: 'next-main'},
       h('p', {class: 'next-kicker'},
         h('span', {class: cls('pill', live ? 'pill-live' : 'pill-accent')}, live ? h('i', {class: 'pulse'}) : null, live ? '正在进行' : '下一站'),
-        h('span', {text: '第 ' + st.n + ' 站'})),
-      h('h2', {class: 'next-city'}, st.city + '站', h('small', {text: st.city_en})),
+        h('span', {text: st.isChampionship ? '世锦赛' : '第 ' + st.n + ' 站'})),
+      h('h2', {class: 'next-city'}, st.isChampionship ? st.title : st.city + '站', h('small', {text: st.city_en})),
       h('ul', {class: 'meta-list'},
         h('li', {}, icon('calendar'), dot(st.date_start) + ' ' + wk(st.date_start) + ' — ' + dot(st.date_end) + ' ' + wk(st.date_end)),
         h('li', {}, icon('pin'), st.venue || '场馆待公布'),
@@ -796,7 +805,7 @@
       const a = list.querySelector('[aria-current]');
       if (a) list.scrollLeft += a.getBoundingClientRect().left - list.getBoundingClientRect().left - (list.clientWidth - a.offsetWidth) / 2;
     });
-    return h('nav', {class: 'st-nav', 'aria-label': '赛事切换'}, h('a', {class: 'back', href: './'}, icon('back'), '全部赛事'), list);
+    return h('nav', {class: 'st-nav', 'aria-label': '赛事切换'}, h('a', {class: 'back', href: '/events/'}, icon('back'), '全部赛事'), list);
   }
 
   function renderStation(cal, station, data) {
@@ -1348,29 +1357,51 @@
 
   /* ---------- boot ---------- */
   try {
-    const updates = fetchData('updates.json').catch(() => null);
+    const route = window.SSTS.navigation.resolve(location);
+    window.SSTS.navigation.render(h, icon, route);
+    document.body.dataset.page = route.page;
+    const updates = ['home', 'events', 'event'].includes(route.page)
+      ? fetchData('updates.json').catch(() => null) : Promise.resolve(null);
     const calendar = await fetchData('calendar.json');
-    const requested = params.get('station');
+    calendarSeason = calendar.season;
+    const requested = route.page === 'event' ? route.event : null;
     const detailFor = st => st.detail_status === 'verified'
       ? fetchData(st.id + '.json').then(prepare).catch(() => null) : Promise.resolve(null);
-    if (!requested) {
+    const context = {h, icon, external, root, fetchData, now, stationHref, nextCard, ticketPanel, stationWindow, phase};
+    const unavailable = () => root.replaceChildren(h('section', {class: 'panel empty-state'},
+      h('h1', {text: '页面尚未收录'}), h('p', {class: 'faint', text: '可以从赛事页查看已收录的比赛。'}),
+      h('a', {class: 'btn', href: '/events/'}, '查看赛事')));
+    setClocks([['北京时间', BJ]]);
+    if (route.page === 'home') {
+      document.title = '短道速滑｜赛事与历史回顾';
+      const focus = calendar.stations.find(st => phase(stationWindow(st, null)) === 'live') ||
+        calendar.stations.find(st => phase(stationWindow(st, null)) === 'upcoming');
+      const detail = focus ? await detailFor(focus) : null;
+      await window.SSTS.portal.home(context, calendar, focus && detail ? {[focus.id]: detail} : {});
+    } else if (route.page === 'events') {
+      document.title = calendar.season + ' 赛事｜短道速滑';
       const loaded = await Promise.all(calendar.stations.map(detailFor));
       const details = {};
       calendar.stations.forEach((st, i) => { if (loaded[i]) details[st.id] = loaded[i]; });
       renderSeason(calendar, details);
-    } else {
+    } else if (route.page === 'history') {
+      document.title = '历史回顾｜短道速滑';
+      window.SSTS.portal.history(context);
+    } else if (route.page === 'athletes') {
+      document.title = '运动员｜短道速滑';
+      await window.SSTS.portal.athletes(context, calendar);
+    } else if (route.page === 'event' && (!route.season || route.season === calendar.season.replace('/', '-'))) {
       const championship = (calendar.championships || []).find(st => st.id === requested);
+      const station = calendar.stations.find(st => st.id === requested);
       if (championship) {
         document.title = championship.title + '｜' + championship.date_start.slice(0, 4) + ' 短道速滑赛程';
         renderChampionship(calendar, championship);
-      } else {
-        const station = calendar.stations.find(st => st.id === requested);
-        if (!station) throw new Error('未知赛事');
+      } else if (station) {
         document.title = station.city + '站赛程｜' + calendar.season + ' 短道速滑世界巡回赛';
         const details = station.detail_status === 'verified' ? prepare(await fetchData(station.id + '.json')) : null;
         renderStation(calendar, station, details);
-      }
-    }
+      } else unavailable();
+    } else unavailable();
     // Offline, the service worker serves the last saved copy; say so instead of looking live.
     const offline = h('p', {class: 'offline-note', role: 'status', hidden: navigator.onLine !== false},
       h('span', {class: 'upd-dot', 'aria-hidden': 'true'}), '当前离线，显示的是上次联网时保存的赛程');
@@ -1378,7 +1409,7 @@
     addEventListener('online', () => { offline.hidden = true; });
     addEventListener('offline', () => { offline.hidden = false; });
     // Installable app with offline fallback; jsdom and plain-http previews skip it.
-    if ('serviceWorker' in navigator && isSecureContext) navigator.serviceWorker.register('./sw.js').catch(() => {});
+    if ('serviceWorker' in navigator && isSecureContext) navigator.serviceWorker.register('/sw.js', {scope: '/'}).catch(() => {});
     updates.then(feed => { const bar = feed && updatesBar(feed, calendar.stations, requested); if (bar) offline.after(bar); });
     // Back-to-top for long phone lists.
     const top = h('button', {type: 'button', class: 'to-top', 'aria-label': '回到顶部',
@@ -1387,9 +1418,9 @@
     addEventListener('scroll', () => top.classList.toggle('show', scrollY > innerHeight * 1.2), {passive: true});
   } catch (e) {
     root.replaceChildren(h('div', {class: 'panel error'}, icon('alert'),
-      h('p', {text: '赛程暂时无法加载，请重试。'}),
+      h('p', {text: '页面暂时无法加载，请重试。'}),
       h('button', {type: 'button', class: 'btn', onclick: () => location.reload()}, '重新加载'),
-      h('a', {class: 'btn', href: './'}, '返回首页')));
+      h('a', {class: 'btn', href: '/'}, '返回首页')));
   } finally {
     root.removeAttribute('aria-busy');
     // Let the launch lap show for a moment, then fade it and restore the theme's status bar colour.

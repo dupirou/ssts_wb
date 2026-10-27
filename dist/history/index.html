@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#070B12">
+<meta name="description" content="2026/27 ISU 短道速滑世巡赛 7 站及2027首尔世锦赛赛程，北京时间、官方报名和分组信息。">
+<title>2026/27 短道速滑｜世巡赛与世锦赛</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="短道赛程">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1F33'/%3E%3Crect x='8' y='18' width='48' height='28' rx='14' fill='none' stroke='%2355D6FF' stroke-width='4'/%3E%3Ccircle cx='22' cy='18' r='5' fill='%23F7FBFF'/%3E%3C/svg%3E">
+<script>
+/* Apply the theme before first paint. Order: ?theme= link (this visit only) > manual toggle > phone/OS setting. */
+(function () {
+  var q = new URLSearchParams(location.search).get('theme'), t = null;
+  try {
+    if (q === 'light' || q === 'dark') sessionStorage.setItem('ssts.theme', q);
+    t = sessionStorage.getItem('ssts.theme') || localStorage.getItem('ssts.theme');
+  } catch (e) { t = q; }
+  if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  document.documentElement.dataset.theme = t;
+  // Opened from the home screen: hold the dark launch screen until the first view is ready (app.js fades it).
+  var launching = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  if (launching) document.documentElement.classList.add('launching');
+  document.querySelector('meta[name="theme-color"]').content = t === 'light' && !launching ? '#F3F8FC' : '#070B12';
+  // Home-screen app on iOS: white status text only on the dark theme.
+  if (t === 'light') document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').content = 'default';
+})();
+</script>
+<link rel="stylesheet" href="/site.css">
+<link rel="preload" href="/data/calendar.json" as="fetch" crossorigin>
+<script defer src="/navigation.js"></script>
+<script defer src="/portal.js"></script>
+<script defer src="/app.js"></script>
+</head><body>
+<div class="launch" id="launch" aria-hidden="true">
+  <svg class="launch-mark" viewBox="0 0 512 512">
+    <defs>
+      <radialGradient id="lg-glow" cx="50%" cy="48%" r="50%"><stop offset="0" stop-color="#0F3A5C"/><stop offset=".55" stop-color="#0A1A2B"/><stop offset="1" stop-color="#070B12" stop-opacity="0"/></radialGradient>
+      <linearGradient id="lg-track" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7DD3FC"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient>
+      <filter id="lg-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
+    </defs>
+    <rect width="512" height="512" fill="url(#lg-glow)"/>
+    <rect x="160" y="216" width="192" height="80" rx="40" fill="none" stroke="#E2E8F0" stroke-opacity=".14" stroke-width="7"/>
+    <rect x="96" y="176" width="320" height="160" rx="80" fill="none" stroke="#38BDF8" stroke-opacity=".55" stroke-width="26" filter="url(#lg-soft)"/>
+    <rect x="96" y="176" width="320" height="160" rx="80" fill="none" stroke="url(#lg-track)" stroke-width="26"/>
+    <!-- The skater laps anticlockwise, as on a real rink, from where the icon leaves it. -->
+    <g fill="none" stroke="#F8FAFC" stroke-width="26">
+      <path class="launch-trail" d="M176 176A80 80 0 0 0 176 336H336A80 80 0 0 0 336 176Z" pathLength="1000" stroke-opacity=".3" stroke-dasharray="175 825" stroke-dashoffset="175"><animate attributeName="stroke-dashoffset" from="175" to="-825" dur="1.6s" begin="indefinite" repeatCount="indefinite"/></path>
+      <path class="launch-trail" d="M176 176A80 80 0 0 0 176 336H336A80 80 0 0 0 336 176Z" pathLength="1000" stroke-opacity=".35" stroke-dasharray="110 890" stroke-dashoffset="110"><animate attributeName="stroke-dashoffset" from="110" to="-890" dur="1.6s" begin="indefinite" repeatCount="indefinite"/></path>
+      <path class="launch-trail" d="M176 176A80 80 0 0 0 176 336H336A80 80 0 0 0 336 176Z" pathLength="1000" stroke-opacity=".45" stroke-dasharray="50 950" stroke-dashoffset="50"><animate attributeName="stroke-dashoffset" from="50" to="-950" dur="1.6s" begin="indefinite" repeatCount="indefinite"/></path>
+    </g>
+    <g transform="translate(176 176)">
+      <circle r="44" fill="#F8FAFC" fill-opacity=".35" filter="url(#lg-soft)"/>
+      <circle r="32" fill="#F8FAFC"/>
+      <animateMotion path="M0 0A80 80 0 0 0 0 160H160A80 80 0 0 0 160 0Z" dur="1.6s" begin="indefinite" repeatCount="indefinite"/>
+    </g>
+  </svg>
+  <div class="launch-copy"><b>短道速滑</b><span>赛事 · 历史 · 运动员</span></div>
+  <p class="launch-foot">北京时间 · ISU 官方数据</p>
+</div>
+<script>
+if (document.documentElement.classList.contains('launching') && !matchMedia('(prefers-reduced-motion: reduce)').matches)
+  document.querySelectorAll('#launch animate, #launch animateMotion').forEach(function (a) { a.beginElement(); });
+// Never trap the app behind the launch screen if app.js fails to load.
+setTimeout(function () { document.documentElement.classList.add('launched'); }, 8000);
+</script>
+<div class="backdrop" aria-hidden="true"></div>
+<a class="skip-link" href="#app">跳到内容</a>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="短道速滑首页">
+    <svg class="brand-mark" viewBox="0 0 40 24" aria-hidden="true"><rect x="2" y="2" width="36" height="20" rx="10" fill="none" stroke="currentColor" stroke-width="2.4"/><circle class="brand-dot" cx="12" cy="2" r="3"/></svg>
+    <span class="brand-text"><b>短道速滑</b><span>赛事 · 历史 · 运动员</span></span>
+  </a>
+  <nav class="site-nav" id="site-nav" aria-label="全站导航"></nav>
+  <div class="clocks" id="clocks" aria-live="off"></div>
+</header>
+<main id="app" aria-busy="true" tabindex="-1">
+  <div class="loading"><span class="loading-ring" aria-hidden="true"></span><p>正在读取数据……</p></div>
+</main>
+<noscript><p class="noscript">本页需要启用 JavaScript 才能显示赛程。原始数据：<a href="/data/vancouver.json">vancouver.json</a></p></noscript>
+</body></html>

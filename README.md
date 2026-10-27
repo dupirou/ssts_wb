@@ -2,6 +2,14 @@
 
 非官方的 2026/27 ISU 短道速滑世巡赛与世锦赛赛程站：北京时间换算、官方报名与分组、中国队场次高亮、首轮分组预测。线上地址 https://stss.fusu.uk ，可安装为手机主屏幕应用。
 
+## 页面入口
+
+- `/`：近期赛事与最近赛果
+- `/events/`：完整赛季赛历
+- `/events/2026-27/vancouver/`：分站详情（原 `/?station=vancouver` 等链接继续可用）
+- `/history/`：奥运周期回顾入口，目前历史资料正在收录
+- `/athletes/`：本赛季报名运动员目录
+
 ## 怎么运转
 
 ```
@@ -30,6 +38,7 @@ Worker stsswb：静态文件 + 只读 /api/v1（src/worker.mjs）
 | `data/updates.json` | 已通知过的“新动态” |
 | `tools/` | 同步脚本（`sync_*.py`）、构建（`build.py`）、预测、图标渲染 |
 | `web/` | 前端源文件；`dist/` 为构建产物，不要手改 |
+| `tools/site_catalog.py` | 从快照生成首页赛果摘要、运动员报名索引与关联赛事 |
 | `src/worker.mjs` | Cloudflare Worker：API 与比赛时段定时触发 |
 | `tests/` | Python 与 Node 测试 |
 | `docs/` | 详细说明（见下） |
@@ -51,6 +60,7 @@ ruff format tools tests && ruff check tools tests   # Python 格式与检查（p
 ## 文档
 
 - [docs/backend.md](docs/backend.md)：数据同步、接口、预测、新动态、安全边界
+- [docs/architecture.md](docs/architecture.md)：全站导航与多赛季演进顺序
 - [docs/frontend.md](docs/frontend.md)：页面结构、视觉规则、文案约定
 - [docs/deploy.md](docs/deploy.md)：Cloudflare 部署与比赛时段定时同步
 - [docs/isu-seeding-2026-27.md](docs/isu-seeding-2026-27.md)：直通、种子与分组规则（含官方条款出处）

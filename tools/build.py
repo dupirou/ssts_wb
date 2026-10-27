@@ -253,7 +253,7 @@ def manifest_text(text, now):
             {
                 'name': event['title'] if event in CONFIG['championships'] else event['city'] + '站赛程',
                 'short_name': '世锦赛' if event in CONFIG['championships'] else event['city'],
-                'url': './?station=' + event['id'],
+                'url': '/events/' + CONFIG['season'].replace('/', '-') + '/' + event['id'] + '/',
                 'icons': [{'src': 'icons/icon-192.png', 'sizes': '192x192'}],
             }
         ]
@@ -325,12 +325,16 @@ def export(now=None):
     (OUT / 'manifest.webmanifest').write_text(
         manifest_text((ROOT / 'web/manifest.webmanifest').read_text(encoding='utf-8'), now), encoding='utf-8'
     )
-    shutil.copyfile(ROOT / 'web/app.js', OUT / 'app.js')
+    for filename in ('app.js', 'navigation.js', 'portal.js'):
+        shutil.copyfile(ROOT / 'web' / filename, OUT / filename)
     shutil.copyfile(ROOT / 'web/site.css', OUT / 'site.css')
     shutil.copytree(ROOT / 'web/icons', OUT / 'icons', dirs_exist_ok=True)
     # The service worker cache name follows the published shell, so a new release replaces the old cache.
     shell = (
-        b''.join((OUT / name).read_bytes() for name in ('index.html', 'app.js', 'site.css', 'manifest.webmanifest'))
+        b''.join(
+            (OUT / name).read_bytes()
+            for name in ('index.html', 'app.js', 'navigation.js', 'portal.js', 'site.css', 'manifest.webmanifest')
+        )
         + (ROOT / 'web/sw.js').read_bytes()
     )
     (OUT / 'sw.js').write_text(
@@ -341,6 +345,18 @@ def export(now=None):
     )
     competition_data.export(OUT, VENUES, predict_groups.entered_distances, CONFIG['season'])
     predict_groups.export(OUT, VENUES, schedules)
+    import site_catalog
+
+    site_catalog.export(OUT, season, schedules)
+    # Real index files make deep links work on Workers Assets and a plain static server alike.
+    page_paths = ['events', 'history', 'athletes'] + [
+        'events/' + CONFIG['season'].replace('/', '-') + '/' + event['id']
+        for event in CONFIG['stations'] + CONFIG['championships']
+    ]
+    for page_path in page_paths:
+        page_dir = OUT / page_path
+        page_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(OUT / 'index.html', page_dir / 'index.html')
     import updates
 
     feed = updates.export(
