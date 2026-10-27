@@ -4,11 +4,11 @@
 
 ## 页面入口
 
-- `/`：近期赛事与最近赛果
+- `/`：当前或下一场赛事与售票信息
 - `/events/`：完整赛季赛历
 - `/events/2026-27/vancouver/`：分站详情（原 `/?station=vancouver` 等链接继续可用）
-- `/history/`：奥运周期回顾入口，目前历史资料正在收录
-- `/athletes/`：本赛季报名运动员目录
+- `/results/`：最近赛果与历史成绩；原 `/history/` 入口继续可用
+- `/athletes/`：运动员目录与已公布的本赛季世巡赛单项排名
 
 ## 怎么运转
 
@@ -38,7 +38,7 @@ Worker stsswb：静态文件 + 只读 /api/v1（src/worker.mjs）
 | `data/updates.json` | 已通知过的“新动态” |
 | `tools/` | 同步脚本（`sync_*.py`）、构建（`build.py`）、预测、图标渲染 |
 | `web/` | 前端源文件；`dist/` 为构建产物，不要手改 |
-| `tools/site_catalog.py` | 从快照生成首页赛果摘要、运动员报名索引与关联赛事 |
+| `tools/site_catalog.py` | 从快照生成赛果摘要、运动员索引与本赛季世巡赛排名 |
 | `src/worker.mjs` | Cloudflare Worker：API 与比赛时段定时触发 |
 | `tests/` | Python 与 Node 测试 |
 | `docs/` | 详细说明（见下） |

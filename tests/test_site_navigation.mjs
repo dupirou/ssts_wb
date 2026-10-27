@@ -36,17 +36,20 @@ async function page(path, fail = '') {
   throw new Error('Page did not finish loading');
 }
 
-test('home prioritizes the next event and a small results index, with a four-section navigation', async t => {
+test('home shows the next event without results or explanatory copy', async t => {
   const dom = await page('/?now=2026-10-27T04:00:00Z');
   t.after(() => dom.window.close());
   const d = dom.window.document;
-  assert.deepEqual([...d.querySelectorAll('#site-nav a')].map(a => a.textContent), ['首页', '赛事', '历史', '运动员']);
+  assert.deepEqual([...d.querySelectorAll('#site-nav a')].map(a => a.textContent), ['首页', '赛事', '成绩', '运动员']);
   assert.equal(d.querySelector('#site-nav [aria-current]').getAttribute('href'), '/');
   assert.match(d.querySelector('.next-city').textContent, /蒙特利尔/);
   assert.equal(d.querySelectorAll('.st-card').length, 0);
-  assert.ok(d.querySelector('.recent-card'));
-  assert.ok(d.querySelector('.recent-card').getAttribute('href').includes('#r-'));
-  assert.ok(dom.requests.includes('/data/portal.json'));
+  assert.equal(d.querySelector('.recent-card'), null);
+  assert.equal(d.querySelector('.results-history'), null);
+  assert.equal(d.querySelector('a[href="/history/"]'), null);
+  assert.doesNotMatch(d.querySelector('#app').textContent, /看当下|更长的赛场|按奥运周期|最新动态/);
+  assert.ok(!dom.requests.includes('/data/portal.json'));
+  assert.ok(!dom.requests.includes('/data/updates.json'));
   assert.ok(!dom.requests.some(p => /\/api\/|athletes\.json|competitions\//.test(p)));
   assert.ok(!dom.requests.includes('/data/vancouver.json'));
 });
@@ -86,8 +89,10 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   q.dispatchEvent(new dom.window.Event('input'));
   assert.equal(d.querySelectorAll('.directory-card').length, 1);
   assert.match(d.querySelector('.directory-card').textContent, /Kun LI/);
-  const link = d.querySelector('.directory-card a').getAttribute('href');
-  assert.match(link, /^\/events\/2026-27\/vancouver\/\?view=athletes&country=CHN#athlete-/);
+  assert.equal(d.querySelector('.directory-card a'), null);
+  assert.doesNotMatch(d.querySelector('.directory-card').textContent, /报名/);
+  assert.match(d.querySelector('.directory-rankings').textContent, /本赛季世巡赛排名500m第 16 名/);
+  assert.doesNotMatch(d.querySelector('.directory-rankings').textContent, /1000m|第 45 名/);
   assert.equal(new URL(dom.window.location.href).searchParams.get('q'), 'LI Kun');
   const restored = await page(dom.window.location.pathname + dom.window.location.search);
   t.after(() => restored.window.close());
@@ -95,26 +100,33 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   assert.equal(dom.requests.filter(p => p.includes('/api/')).length, 0);
 });
 
-test('history states its coverage honestly and another season cannot silently open this season', async t => {
-  const dom = await page('/history/');
-  t.after(() => dom.window.close());
-  const d = dom.window.document;
-  assert.equal(d.querySelectorAll('.cycle-card').length, 3);
-  assert.match(d.querySelector('.history-intro').textContent, /历史成绩正在整理/);
-  assert.deepEqual(dom.requests, ['/data/calendar.json']);
+test('results combines current podiums and historical cycles, including the old history address', async t => {
+  for (const route of ['/results/', '/history/']) {
+    const dom = await page(route + '?now=2026-10-27T04:00:00Z');
+    t.after(() => dom.window.close());
+    const d = dom.window.document;
+    assert.equal(d.querySelector('h1').textContent, '成绩');
+    assert.equal(d.querySelector('#site-nav [aria-current]').getAttribute('href'), '/results/');
+    assert.ok(d.querySelector('.recent-card').getAttribute('href').includes('#r-'));
+    assert.equal(d.querySelectorAll('.cycle-card').length, 3);
+    assert.match(d.querySelector('.results-history').textContent, /整理中/);
+    assert.doesNotMatch(d.querySelector('#app').textContent, /按奥运周期|以四年为一段|收录后可/);
+    assert.deepEqual(dom.requests, ['/data/calendar.json', '/data/portal.json']);
+  }
   const absent = await page('/events/2022-23/vancouver/');
   t.after(() => absent.window.close());
   assert.match(absent.window.document.querySelector('#app').textContent, /页面尚未收录/);
   assert.equal(absent.window.document.querySelector('.station-hero'), null);
 });
 
-test('a failed homepage results summary leaves navigation and the next event usable', async t => {
-  const dom = await page('/?now=2026-10-27T04:00:00Z', '/data/portal.json');
+test('results loading failure keeps historical cycles and navigation usable', async t => {
+  const dom = await page('/results/', '/data/portal.json');
   t.after(() => dom.window.close());
   const d = dom.window.document;
-  assert.ok(d.querySelector('.next-card a'));
-  assert.match(d.querySelector('.home-recent').textContent, /暂时无法加载/);
+  assert.match(d.querySelector('.results-recent').textContent, /暂时无法加载/);
+  assert.equal(d.querySelectorAll('.cycle-card').length, 3);
   assert.equal(d.querySelectorAll('#site-nav a').length, 4);
+  assert.ok(d.querySelector('.results-recent button'));
 });
 
 test('after the World Tour, the homepage points to the upcoming championship', async t => {

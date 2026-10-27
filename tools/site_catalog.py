@@ -1,11 +1,11 @@
-"""Small, derived indexes for the homepage and current-season athlete directory."""
+"""Derived results and current-season athlete indexes."""
 
 import json
 from pathlib import Path
 
 
 def export(out: Path, calendar: dict, schedules: dict):
-    people, finals = {}, []
+    people, finals, ranking_tables = {}, [], {}
     genders = {'women': '女子', 'men': '男子', 'mixed': '混合'}
     for event in calendar['stations']:
         path = out / 'data/competitions' / (event['id'] + '.json')
@@ -21,6 +21,21 @@ def export(out: Path, calendar: dict, schedules: dict):
             if person['name'] != item['name']:
                 item.setdefault('aliases', []).append(person['name'])
             item['events'].append(dict(event_id=event['id'], city=event['city'], season=calendar['season']))
+        rankings = snapshot.get('rankings', {})
+        tables = {}
+        for ranking in rankings.get('items', []):
+            if (
+                ranking.get('ranking_type') == 'world_tour'
+                and ranking.get('format') == 'individual'
+                and ranking.get('gender') in ('men', 'women')
+                and type(ranking.get('rank')) is int
+                and ranking['rank'] > 0
+            ):
+                tables.setdefault((ranking['gender'], ranking['distance_m']), []).append(ranking)
+        order = (event.get('date_end', event.get('date_start', '')), rankings.get('updated_at') or '')
+        for key, items in tables.items():
+            if key not in ranking_tables or order > ranking_tables[key]['order']:
+                ranking_tables[key] = dict(order=order, event_id=event['id'], city=event['city'], items=items)
         rows = {row['round_key']: row for row in schedules.get(event['id'], [])}
         for heat in snapshot['rounds']['items']:
             row = rows.get(heat.get('round_key'))
@@ -57,12 +72,25 @@ def export(out: Path, calendar: dict, schedules: dict):
                     podium=podium,
                 )
             )
+    ranking_events = {}
+    for table in ranking_tables.values():
+        ranking_events[table['event_id']] = dict(event_id=table['event_id'], city=table['city'])
+        for ranking in table['items']:
+            person = people.get(ranking['athlete_id'])
+            if person and person['gender'] == ranking['gender']:
+                person.setdefault('season_rankings', []).append(
+                    dict(distance_m=ranking['distance_m'], rank=ranking['rank'])
+                )
+    for person in people.values():
+        if 'season_rankings' in person:
+            person['season_rankings'].sort(key=lambda r: r['distance_m'])
     finals.sort(key=lambda f: (f['utc_start'], f['event_id']), reverse=True)
     datasets = {
         'portal.json': dict(schema_version=1, season=calendar['season'], finals=finals[:12]),
         'athletes.json': dict(
             schema_version=1,
             season=calendar['season'],
+            ranking_as_of=list(ranking_events.values()),
             items=sorted(people.values(), key=lambda p: (p['name'].casefold(), p['id'])),
         ),
     }

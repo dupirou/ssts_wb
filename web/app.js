@@ -1360,7 +1360,7 @@
     const route = window.SSTS.navigation.resolve(location);
     window.SSTS.navigation.render(h, icon, route);
     document.body.dataset.page = route.page;
-    const updates = ['home', 'events', 'event'].includes(route.page)
+    const updates = ['events', 'event'].includes(route.page)
       ? fetchData('updates.json').catch(() => null) : Promise.resolve(null);
     const calendar = await fetchData('calendar.json');
     calendarSeason = calendar.season;
@@ -1373,7 +1373,7 @@
       h('a', {class: 'btn', href: '/events/'}, '查看赛事')));
     setClocks([['北京时间', BJ]]);
     if (route.page === 'home') {
-      document.title = '短道速滑｜赛事与历史回顾';
+      document.title = '短道速滑';
       const focus = calendar.stations.find(st => phase(stationWindow(st, null)) === 'live') ||
         calendar.stations.find(st => phase(stationWindow(st, null)) === 'upcoming');
       const detail = focus ? await detailFor(focus) : null;
@@ -1384,9 +1384,9 @@
       const details = {};
       calendar.stations.forEach((st, i) => { if (loaded[i]) details[st.id] = loaded[i]; });
       renderSeason(calendar, details);
-    } else if (route.page === 'history') {
-      document.title = '历史回顾｜短道速滑';
-      window.SSTS.portal.history(context);
+    } else if (route.page === 'results') {
+      document.title = '成绩｜短道速滑';
+      await window.SSTS.portal.results(context, calendar);
     } else if (route.page === 'athletes') {
       document.title = '运动员｜短道速滑';
       await window.SSTS.portal.athletes(context, calendar);

@@ -12,7 +12,7 @@ import site_catalog
 
 
 class SiteCatalogTests(unittest.TestCase):
-    def test_directory_deduplicates_rosters_and_home_uses_only_official_medal_finals(self):
+    def test_directory_deduplicates_rosters_and_results_use_only_official_medal_finals(self):
         calendar = dict(season='2026/27', stations=[dict(id='one', city='甲'), dict(id='two', city='乙')])
         person = dict(athlete_id='a-1', name='Kun LI', country='CHN', gender='men')
         heat = dict(
@@ -54,8 +54,53 @@ class SiteCatalogTests(unittest.TestCase):
             self.assertEqual(finals[0]['schedule_id'], 'row-a')
             self.assertEqual((directory / 'one.json').read_bytes(), original)
 
+    def test_season_ranks_use_latest_world_tour_table_per_distance(self):
+        calendar = dict(
+            season='2026/27',
+            stations=[
+                dict(id='new', city='乙', date_end='2026-11-01'),
+                dict(id='old', city='甲', date_end='2026-10-25'),
+            ],
+        )
+        people = [dict(athlete_id=aid, name=aid, country='CHN', gender='men') for aid in ['a', 'b']]
+
+        def ranking(aid, distance, rank, kind='world_tour', format='individual'):
+            return dict(athlete_id=aid, gender='men', distance_m=distance, rank=rank, ranking_type=kind, format=format)
+
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            directory = out / 'data/competitions'
+            directory.mkdir(parents=True)
+            for event, ranks in {
+                'old': [ranking('a', 500, 1), ranking('b', 500, 2), ranking('a', 1000, 4)],
+                'new': [
+                    ranking('a', 500, 3),
+                    ranking('a', 1000, 1, 'event'),
+                    ranking('a', 1500, 1, 'world'),
+                    ranking('a', 5000, 1, format='relay'),
+                    ranking('b', 500, None),
+                ],
+            }.items():
+                snapshot = dict(entries=dict(items=people), rounds=dict(items=[]), rankings=dict(items=ranks))
+                (directory / (event + '.json')).write_text(json.dumps(snapshot))
+            site_catalog.export(out, calendar, {})
+            index = json.loads((out / 'data/athletes.json').read_text())
+            by_id = {p['id']: p for p in index['items']}
+            self.assertEqual(
+                by_id['a']['season_rankings'], [dict(distance_m=500, rank=3), dict(distance_m=1000, rank=4)]
+            )
+            self.assertNotIn('season_rankings', by_id['b'])
+            self.assertEqual({r['event_id'] for r in index['ranking_as_of']}, {'old', 'new'})
+
     def test_all_generated_deep_pages_use_root_assets_and_include_global_navigation(self):
-        for route in ('events', 'history', 'athletes', 'events/2026-27/vancouver', 'events/2026-27/worlds-2027'):
+        for route in (
+            'events',
+            'results',
+            'history',
+            'athletes',
+            'events/2026-27/vancouver',
+            'events/2026-27/worlds-2027',
+        ):
             with self.subTest(route=route):
                 page = (ROOT / 'dist' / route / 'index.html').read_text()
                 self.assertIn('id="site-nav"', page)

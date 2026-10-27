@@ -7,34 +7,38 @@
     {label: '北京周期', years: '2018 — 2022', seasons: '2018/19 — 2021/22'},
     {label: '米兰周期', years: '2022 — 2026', seasons: '2022/23 — 2025/26'},
   ];
-  function header(h, eyebrow, title, description) {
-    return h('section', {class: 'season-head'}, h('p', {class: 'eyebrow', text: eyebrow}),
-      h('h1', {text: title}), h('p', {class: 'lead', text: description}));
+  function header(h, title, description) {
+    return h('section', {class: 'season-head'}, h('h1', {text: title}),
+      description ? h('p', {class: 'lead', text: description}) : null);
   }
-  async function home(ctx, calendar, details) {
-    const {h, icon, root, nextCard, stationWindow, phase, fetchData, stationHref, ticketPanel, now} = ctx;
+  function home(ctx, calendar, details) {
+    const {h, root, nextCard, stationWindow, phase, ticketPanel} = ctx;
     const stations = calendar.stations.map((st, i) => ({...st, n: i + 1,
       detail: details[st.id], win: stationWindow(st, details[st.id])}));
     const events = [...stations, ...(calendar.championships || []).map(st => ({...st, isChampionship: true, win: stationWindow(st, null)}))];
     const focus = events.find(s => phase(s.win) === 'live') || events.find(s => phase(s.win) === 'upcoming');
-    const recent = h('section', {class: 'home-recent', 'aria-label': '最近赛果'},
-      h('div', {class: 'portal-section-head'}, h('h2', {class: 'section-title', text: '最近赛果'}),
-        h('a', {class: 'text-link', href: '/events/'}, '全部赛事', icon('arrow'))));
-    root.replaceChildren(header(h, 'SHORT TRACK', '短道速滑', '看当下的比赛，也看更长的赛场。'),
+    root.replaceChildren(header(h, '短道速滑', calendar.season),
       focus ? nextCard(focus) : h('section', {class: 'panel empty-state'},
-        h('h2', {text: '本赛季比赛已结束'}), h('a', {class: 'btn', href: '/events/'}, '回看本赛季')),
-      ...stations.map(ticketPanel).filter(Boolean), recent,
-      h('section', {class: 'portal-entry-grid', 'aria-label': '探索短道'},
-        h('a', {class: 'panel portal-entry', href: '/history/'}, icon('history'),
-          h('h2', {text: '历史回顾'}), h('p', {text: '按奥运周期，回看项目与队伍的变化'}), icon('arrow')),
-        h('a', {class: 'panel portal-entry', href: '/athletes/'}, icon('people'),
-          h('h2', {text: '运动员'}), h('p', {text: '查找已公布名单和运动员报项'}), icon('arrow'))));
-    // A missing summary must not block the next-event card or the rest of the homepage.
+        h('h2', {text: '本赛季比赛已结束'}), h('a', {class: 'btn', href: '/events/'}, '查看赛事')),
+      ...stations.map(ticketPanel).filter(Boolean));
+  }
+  async function results(ctx, calendar) {
+    const {h, root, fetchData, stationHref, now} = ctx;
+    const recent = h('section', {class: 'results-recent', 'aria-label': '最近赛果'},
+      h('div', {class: 'portal-section-head'}, h('h2', {class: 'section-title', text: '最近赛果'})),
+      h('p', {class: 'results-loading faint', role: 'status', text: '正在读取成绩…'}));
+    root.replaceChildren(header(h, '成绩', calendar.season), recent,
+      h('section', {class: 'results-history', 'aria-label': '历史成绩'},
+        h('div', {class: 'portal-section-head'}, h('h2', {class: 'section-title', text: '历史成绩'}),
+          h('span', {class: 'faint tiny', text: '整理中'})),
+        h('div', {class: 'cycle-grid'}, cycles.map(c => h('article', {class: 'panel cycle-card'},
+          h('p', {class: 'eyebrow num', text: c.years}), h('h3', {text: c.label}), h('p', {class: 'faint', text: c.seasons}))))));
     try {
       const summary = await fetchData('portal.json');
-      const finals = (summary.finals || []).filter(f => Date.parse(f.utc_start) <= now()).slice(0, 6);
+      recent.querySelector('.results-loading').remove();
+      const finals = (summary.finals || []).filter(f => Date.parse(f.utc_start) <= now());
       if (!finals.length) {
-        recent.append(h('p', {class: 'panel faint', text: '正式决赛成绩公布后，在这里回看。'}));
+        recent.append(h('p', {class: 'panel faint', text: '成绩待公布'}));
         return;
       }
       recent.append(h('div', {class: 'recent-grid'}, finals.map(f => h('a', {
@@ -44,22 +48,14 @@
         h('span', {class: 'num podium-place', text: p.rank}), h('b', {text: p.name}),
         h('span', {class: p.country === 'CHN' ? 'athlete-china' : 'faint', text: p.country}))))))));
     } catch (_) {
-      recent.append(h('p', {class: 'panel faint'}, '最近赛果暂时无法加载。',
-        h('a', {class: 'text-link', href: '/events/'}, '前往赛事页')));
+      recent.querySelector('.results-loading')?.remove();
+      recent.append(h('p', {class: 'panel faint'}, '成绩暂时无法加载。',
+        h('button', {class: 'btn', type: 'button', onclick: () => results(ctx, calendar)}, '重试')));
     }
   }
-  function history(ctx) {
-    const {h, icon, root} = ctx;
-    root.replaceChildren(header(h, 'OLYMPIC CYCLES', '历史回顾', '以四年为一段，观察赛季、项目与队伍。'),
-      h('section', {class: 'panel history-intro'}, icon('history'),
-        h('h2', {text: '历史成绩正在整理'}), h('p', {class: 'faint', text: '收录后可按周期、国家和单项查看，并展开到每场比赛。'}),
-        h('a', {class: 'text-link', href: '/events/'}, '先回看本赛季赛事', icon('arrow'))),
-      h('section', {class: 'cycle-grid', 'aria-label': '奥运周期'}, cycles.map(c => h('article', {class: 'panel cycle-card'},
-        h('p', {class: 'eyebrow num', text: c.years}), h('h2', {text: c.label}), h('p', {class: 'faint', text: c.seasons})))));
-  }
   async function athletes(ctx, calendar) {
-    const {h, root, fetchData, stationHref} = ctx;
-    root.replaceChildren(header(h, 'ATHLETES', '运动员', calendar.season + ' 赛季 · 已公布报名名单'),
+    const {h, root, fetchData} = ctx;
+    root.replaceChildren(header(h, '运动员', calendar.season),
       h('p', {class: 'athlete-loading', role: 'status', text: '正在读取运动员名单…'}));
     try {
       const index = await fetchData('athletes.json');
@@ -85,10 +81,10 @@
         list.replaceChildren(...people.map(p => h('li', {class: 'panel directory-card'},
           h('div', {class: 'directory-identity'}, h('span', {class: p.country === 'CHN' ? 'athlete-china' : 'athlete-nation', text: p.country}),
             h('h2', {text: p.name}), h('small', {class: 'faint', text: p.gender === 'women' ? '女子' : '男子'})),
-          h('p', {class: 'faint tiny', text: '已报名 ' + p.events.length + ' 场赛事'}),
-          h('div', {class: 'directory-event-links'}, p.events.map(e => h('a', {
-            href: stationHref(e.event_id) + '?view=athletes&country=' + p.country + '#athlete-' + p.id,
-          }, e.city + '报名'))))));
+          p.season_rankings?.length ? h('section', {class: 'directory-rankings', 'aria-label': '本赛季世巡赛排名'},
+            h('h3', {class: 'faint tiny', text: '本赛季世巡赛排名'}),
+            h('dl', {}, p.season_rankings.map(r => h('div', {},
+              h('dt', {text: r.distance_m + 'm'}), h('dd', {class: 'num', text: '第 ' + r.rank + ' 名'}))))) : null)));
         if (!people.length) list.append(h('li', {class: 'panel empty-state', text: '没有符合条件的运动员'}));
       };
       const update = () => {
@@ -104,13 +100,14 @@
       country.addEventListener('change', update);
       sex.addEventListener('change', update);
       form.append(h('label', {class: 'directory-search'}, h('span', {class: 'sr-only', text: '姓名或国家代码'}), q), country, sex);
-      root.replaceChildren(header(h, 'ATHLETES', '运动员', calendar.season + ' 赛季 · 已公布报名名单'), form, count, list);
+      root.replaceChildren(header(h, '运动员', calendar.season), form,
+        index.ranking_as_of?.length ? h('p', {class: 'ranking-as-of faint tiny', text: '排名截至' + index.ranking_as_of.map(e => e.city + '站').join('、')}) : null, count, list);
       draw();
     } catch (_) {
-      root.replaceChildren(header(h, 'ATHLETES', '运动员', '已公布报名名单'),
+      root.replaceChildren(header(h, '运动员', calendar.season),
         h('section', {class: 'panel empty-state'}, h('h2', {text: '名单暂时无法加载'}),
           h('button', {class: 'btn', type: 'button', onclick: () => athletes(ctx, calendar)}, '重试')));
     }
   }
-  site.portal = {home, history, athletes};
+  site.portal = {home, results, athletes};
 })();

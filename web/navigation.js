@@ -5,7 +5,7 @@
   const sections = [
     {id: 'home', label: '首页', href: '/', icon: 'home'},
     {id: 'events', label: '赛事', href: '/events/', icon: 'calendar'},
-    {id: 'history', label: '历史', href: '/history/', icon: 'history'},
+    {id: 'results', label: '成绩', href: '/results/', icon: 'history'},
     {id: 'athletes', label: '运动员', href: '/athletes/', icon: 'people'},
   ];
   function resolve(input) {
@@ -15,6 +15,7 @@
       return {page: 'event', section: 'events', event: url.searchParams.get('station'), legacy: true};
     }
     if (path === '/') return {page: 'home', section: 'home'};
+    if (path === '/history') return {page: 'results', section: 'results'};
     const section = sections.find(s => s.href.replace(/\/$/, '') === path);
     if (section) return {page: section.id, section: section.id};
     const event = path.match(/^\/events\/(\d{4}-\d{2})\/([a-z0-9-]+)$/);
