@@ -102,7 +102,6 @@
             h('span', {class: 'history-place num', text: r.rank === null ? r.status : '第 ' + r.rank + ' 名'}),
             h('small', {class: 'faint', text: [r.final_group ? r.final_group + ' 决赛' : '', r.status === 'classified' ? '' : r.status].filter(Boolean).join(' · ')}), lineup(r)))),
           external(e.source.url + '#page=' + Math.min(...e.results.map(r => r.source_page)), '官方成绩册'))));
-        if (!events.length) list.append(h('p', {class: 'panel empty-state', text: '暂无已收录成绩'}));
         const missing = index.pending.filter(eventMatch);
         pending.hidden = !missing.length;
         pending.replaceChildren(h('summary', {text: '待收录 ' + missing.length + ' 场'}),
