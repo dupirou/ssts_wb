@@ -157,6 +157,16 @@ class CompetitionTests(unittest.TestCase):
             parsed = api.heat_items(heats, event, meta, 'https://isu-skating.com/event')
             self.assertEqual([p['group'] for p in parsed], ['A', 'B'])
             self.assertTrue(all(p['evidence'] == 'official_results' for p in parsed))
+            # Vancouver calls the medal race 'Final', while older feeds call it 'Final A'.
+            for final_label in ('Final', 'Final A', ' final '):
+                with self.subTest(file=file, final_label=final_label):
+                    labelled = copy.deepcopy(heats)
+                    labelled[0]['name'] = final_label
+                    mapped = api.heat_items(
+                        labelled, event, meta, 'https://isu-skating.com/event', build.read_schedule('vancouver')
+                    )
+                    self.assertEqual([h['group'] for h in mapped], ['A', 'B'])
+                    self.assertTrue(all(h['round_key'].endswith('/final/' + h['group']) for h in mapped))
             self.assertEqual(
                 sum(p['penalty'] is not None for h in parsed for p in h['participants']), 1 if eid == 200 else 0
             )

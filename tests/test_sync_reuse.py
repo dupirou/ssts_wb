@@ -1,5 +1,6 @@
 """Already-final official data must not be requested from ISU again."""
 
+import copy
 import json
 import sys
 import tempfile
@@ -9,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import competition_data as data
+import build
 import isu_results as api
 import sync_competitions as sync
 import sync_predictions as predictions
@@ -151,6 +153,34 @@ class ReuseTests(unittest.TestCase):
         rounds = api.collect(results_page([EVENT]), CONFIG, fetch, known=known)
         self.assertEqual(fetch.calls, [])
         self.assertEqual({r['id'] for r in rounds}, {'isu-heat-1', 'isu-heat-2'})
+
+    def test_cached_unrecognized_medal_final_is_refetched_and_then_reused(self):
+        heats = api.api_data((ROOT / 'tests/fixtures/gdansk-2025-heats-sample.json').read_bytes())
+        heats[0]['name'] = 'Final'
+        event = dict(EVENT, event_result_id=200, name='Women 1000 m')
+        meta = dict(event_result_id=200, event_id=5, event_result_round_id=543, name='Finals')
+        schedule = build.read_schedule('vancouver')
+        url = CONFIG['results_url'] + '&type=200&round=543'
+        known = api.heat_items(heats, event, meta, url, schedule)
+        known[0].update(group=None, round_key=None, local_date=None)
+        self.assertFalse(api.settled(known))
+        before = copy.deepcopy(known)
+        calls = []
+
+        def fetch(endpoint, form):
+            calls.append(endpoint)
+            rows = [meta] if endpoint.endswith('get-event-result-round') else heats
+            return json.dumps(dict(status=200, data=rows)).encode()
+
+        repaired = api.collect(results_page([event]), CONFIG, fetch, schedule, known)
+        self.assertEqual(len(calls), 2)
+        self.assertEqual([h['group'] for h in repaired], ['A', 'B'])
+        self.assertTrue(all(h['round_key'].endswith('/final/' + h['group']) for h in repaired))
+        self.assertEqual(known, before)
+        self.assertTrue(api.settled(repaired))
+        calls.clear()
+        self.assertEqual(api.collect(results_page([event]), CONFIG, fetch, schedule, repaired), repaired)
+        self.assertEqual(calls, [])
 
     def test_only_unfinished_rounds_are_requested(self):
         meta = lambda rid: dict(event_result_id=11, event_id=5, event_result_round_id=rid, name='Heats')

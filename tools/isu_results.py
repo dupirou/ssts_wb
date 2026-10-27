@@ -120,16 +120,17 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
             raise ValueError('Duplicate competitor in official heat')
         label = heat.get('name', '')
         number = re.fullmatch(r'Heat\s+(\d+)', label, re.I)
-        group = re.fullmatch(r'Final\s+([AB])', label, re.I)
+        group_match = re.fullmatch(r'Final(?:\s+([AB]))?', label.strip(), re.I)
         round_info = sync_china.round_from_text(round_meta['name'])
         if round_info is None:
             raise ValueError('Unsupported official round label')
         stage, rep = round_info
+        group = (group_match[1] or 'A').upper() if stage == 'final' and group_match else None
         candidates = sync_china.round_matches(
             schedule, (disc['gender'], disc['distance_m'], disc['format']), round_info
         )
         if stage == 'final':
-            candidates = [r for r in candidates if group and r['group'] == group[1].upper()]
+            candidates = [r for r in candidates if group and r['group'] == group]
         if len(candidates) > 1:
             raise ValueError('Ambiguous schedule round mapping')
         match = candidates[0] if candidates else None
@@ -146,7 +147,7 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
                 local_date=match['local_date'] if match else None,
                 round=stage,
                 round_label=round_meta['name'],
-                group=group[1].upper() if group else None,
+                group=group,
                 heat_number=int(number[1]) if number else None,
                 heat_label=label,
                 source_start=heat.get('date'),
@@ -212,9 +213,11 @@ def scheduled_rounds(event, meta, schedule):
 
 def settled(items):
     """A stored round that need not be requested again: official results throughout, and, for a
-    relay, its teams' skaters recorded (rounds stored before members were kept are fetched once)."""
-    return is_final(items) and all(
-        'members' in p for i in items if i.get('format') == 'relay' for p in i['participants']
+    relay, its teams' skaters recorded. Finals stored before their group was recognized are fetched again."""
+    return (
+        is_final(items)
+        and all(i.get('round') != 'final' or i.get('group') in ('A', 'B') for i in items)
+        and all('members' in p for i in items if i.get('format') == 'relay' for p in i['participants'])
     )
 
 
