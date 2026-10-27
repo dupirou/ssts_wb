@@ -11,41 +11,10 @@
   const now = () => Date.now() + skew;
   const BJ = 'Asia/Shanghai';
   const DAY = 86400000;
-  const SVGNS = 'http://www.w3.org/2000/svg';
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- DOM helpers ---------- */
-  function h(name, props, ...kids) {
-    const el = document.createElement(name);
-    setProps(el, props);
-    append(el, kids);
-    return el;
-  }
-  function s(name, attrs, ...kids) {
-    const el = document.createElementNS(SVGNS, name);
-    for (const [k, v] of Object.entries(attrs || {})) if (v != null) el.setAttribute(k, String(v));
-    append(el, kids);
-    return el;
-  }
-  function setProps(el, props) {
-    for (const [k, v] of Object.entries(props || {})) {
-      if (v == null || v === false) continue;
-      if (k === 'class') el.className = v;
-      else if (k === 'text') el.textContent = String(v);
-      else if (k === 'dataset') Object.assign(el.dataset, v);
-      else if (k === 'style') Object.assign(el.style, v);
-      else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
-      else el.setAttribute(k, v === true ? '' : String(v));
-    }
-  }
-  function append(el, kids) {
-    for (const kid of kids.flat(Infinity)) {
-      if (kid == null || kid === false) continue;
-      el.append(kid instanceof Node ? kid : document.createTextNode(String(kid)));
-    }
-  }
-  // replaceChildren() would print null/false; fill() skips them like h().
-  const fill = (el, ...kids) => { el.replaceChildren(); append(el, kids); return el; };
+  const {h,s,append,fill} = window.SSTS.ui;
   const external = (href, ...kids) => h('a', {href, target: '_blank', rel: 'noopener noreferrer'}, ...kids, icon('external', 'ico ico-xs'));
   const cls = (...names) => names.filter(Boolean).join(' ');
   // " · "-separated facts that wrap between facts, never inside one.
@@ -1386,7 +1355,7 @@
       renderSeason(calendar, details);
     } else if (route.page === 'results') {
       document.title = '成绩｜短道速滑';
-      await window.SSTS.portal.results(context, calendar, route);
+      await window.SSTS.results.render(context, calendar, route);
     } else if (route.page === 'athletes') {
       document.title = '运动员｜短道速滑';
       await window.SSTS.portal.athletes(context, calendar);

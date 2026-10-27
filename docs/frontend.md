@@ -1,6 +1,6 @@
 # 前端
 
-`web/index.html` 与 `web/site.css` 提供公共外壳；`web/navigation.js` 管理路由与全站导航，`web/portal.js` 提供首页、成绩与运动员目录，`web/app.js` 提供赛事页与共用显示逻辑。前端采用零依赖原生 JS，不用外部字体、图片或 CDN。`tools/build.py` 复制到 `dist/`，不要直接改 `dist/`。`index.html` 与 `manifest.webmanifest` 中的 `{{SEASON}}`、`{{DESCRIPTION}}` 在构建时按 `data/stations.json` 填入，页面脚本里的赛季文字也都取自 `calendar.json`，换赛季不必改前端。
+`web/index.html` 与 `web/site.css` 提供公共外壳；`web/navigation.js` 管理路由与全站导航，`web/portal.js` 提供首页与运动员目录，成绩业务在 `web/results.js`，纯模型、数据仓库和共享 DOM 分别在 `results-model.js`、`results-store.js`、`ui.js`，`web/app.js` 提供赛事页与共用显示逻辑。前端采用零依赖原生 JS，不用外部字体、图片或 CDN。`tools/build.py` 复制到 `dist/`，不要直接改 `dist/`。`index.html` 与 `manifest.webmanifest` 中的 `{{SEASON}}`、`{{DESCRIPTION}}` 在构建时按 `data/stations.json` 填入，页面脚本里的赛季文字也都取自 `calendar.json`，换赛季不必改前端。
 
 ## 页面
 
@@ -52,7 +52,7 @@
 
 ## 数据契约
 
-成绩页只读取 `/data/results.json`，由 `tools/history_data.py` 合并独立档案与当前已构建的官方成绩快照生成，不改写原始成绩，不增加上游抓取。首页与运动员栏目不预取成绩。历史存储仍为 `/data/history/index.json`，不作为页面分栏。运动员目录 `/data/athletes.json` 由 `tools/site_catalog.py` 构建。
+成绩总览读取轻量 `/data/results/index.json`，回顾与对比按所选赛季读取摘要，列表和原始成绩展开时按赛事读取明细。完整契约见 [results-contract.md](results-contract.md)。原 `/data/results.json` 继续保留，由 `tools/history_data.py` 合并独立档案与当前已构建的官方成绩快照生成，不改写原始成绩，不增加上游抓取。首页与运动员栏目不预取成绩。历史存储仍为 `/data/history/index.json`，不作为页面分栏。运动员目录 `/data/athletes.json` 由 `tools/site_catalog.py` 构建。
 
 统一索引的 `rank_scope=overall` 表示项目最终名次；当前接力只有决赛组内名次时，`rank_scope=final` 并保留 A/B 组，页面明确显示“A组第 N 名／B组第 N 名”，不把 B 组第 1 名标成金牌。每场只保留一个成绩册链接，接力阵容在行内按需展开。
 

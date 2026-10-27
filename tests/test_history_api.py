@@ -76,7 +76,7 @@ class HistoryApiTests(unittest.TestCase):
         rows, _, _ = import_olympic_history.parse_bbox(xml, 1)
         self.assertEqual([(r['rank'], r['final_group']) for r in rows], [(5, 'A'), (6, 'B')])
 
-    def test_migrated_total_cannot_override_actual_final_or_supply_a_current_lineup(self):
+    def test_current_official_classification_preserves_previous_final_without_inventing_lineup(self):
         fixture = json.loads((ROOT / 'tests/fixtures/history-2024-relay-conflict.json').read_text())
 
         class Cache:
@@ -94,12 +94,16 @@ class HistoryApiTests(unittest.TestCase):
                 )
 
         result = import_history_api.collect_discipline(Cache(), fixture['meta'])['results'][0]
-        self.assertEqual((result['rank'], result['rank_scope'], result['final_group']), (1, 'final', 'A'))
+        self.assertEqual((result['rank'], result['rank_scope'], result['final_group']), (2, 'overall', 'A'))
         self.assertEqual(result['reported_overall_rank'], 2)
         self.assertTrue(result['classification_conflict'])
         self.assertEqual(result['members'], [])
         self.assertEqual(result['lineup_status'], 'unavailable')
-        self.assertIn('round-heats-stk-team', result['source_url'])
+        self.assertIn('get-event-result-fsksys-team', result['source_url'])
+        self.assertEqual(result['classification_resolution'], 'current_official_classification')
+        self.assertEqual(result['previous_final_result']['rank'], 1)
+        self.assertEqual(result['previous_final_result']['rank_scope'], 'final')
+        self.assertIn('round-heats-stk-team', result['previous_final_result']['source_url'])
 
 
 if __name__ == '__main__':

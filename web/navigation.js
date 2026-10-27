@@ -14,6 +14,7 @@
     if (path === '/' && url.searchParams.has('station')) {
       return {page: 'event', section: 'events', event: url.searchParams.get('station'), legacy: true};
     }
+    if(path==='/'&&url.searchParams.get('view')==='history')return {page:'results',section:'results',view:'event',legacy:true};
     if (path === '/') return {page: 'home', section: 'home'};
     if (path === '/history' || (path === '/results' && ['view', 'cycle', 'season', 'event', 'kind', 'gender', 'distance', 'athlete'].some(key => url.searchParams.has(key)))) return {page: 'results', section: 'results', view: 'event'};
     const results = path.match(/^\/results\/(events|seasons|cycles)(?:\/([a-z0-9-]+))?$/);

@@ -5,7 +5,7 @@ import {JSDOM} from 'jsdom';
 
 const file = async name => readFile(new URL('../' + name, import.meta.url), 'utf8');
 const [html, script, snapshot, schedule, predictions, calendar] = await Promise.all([
-  file('web/index.html'), Promise.all(['navigation', 'portal', 'app'].map(name => file('web/' + name + '.js'))).then(parts => parts.join('\n')), file('data/competitions/vancouver.json').then(JSON.parse),
+  file('web/index.html'), Promise.all(['ui', 'navigation', 'results-model', 'results-store', 'results', 'portal', 'app'].map(name => file('web/' + name + '.js'))).then(parts => parts.join('\n')), file('data/competitions/vancouver.json').then(JSON.parse),
   file('dist/data/vancouver.json').then(JSON.parse),
   file('dist/data/predictions/vancouver.json').then(JSON.parse),
   file('dist/data/calendar.json').then(JSON.parse),

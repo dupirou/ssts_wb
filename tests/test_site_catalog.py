@@ -104,7 +104,7 @@ class SiteCatalogTests(unittest.TestCase):
             with self.subTest(route=route):
                 page = (ROOT / 'dist' / route / 'index.html').read_text()
                 self.assertIn('id="site-nav"', page)
-                for asset in ('site.css', 'navigation.js', 'portal.js', 'app.js'):
+                for asset in ('site.css', 'site.js'):
                     self.assertRegex(page, '(?:href|src)="/' + asset + '"')
                     self.assertTrue((ROOT / 'dist' / asset).is_file())
                 self.assertNotIn('{{SEASON}}', page)

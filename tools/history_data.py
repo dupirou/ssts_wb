@@ -396,7 +396,8 @@ def result_catalog(out, calendar, archive):
                 title=re.sub(r'(\d)站', r'\1 站', event['title']),
                 date_start=event['date_start'],
                 date_end=event['date_end'],
-                source={k: v for k, v in event['source'].items() if k != 'documents'},
+                source=event['source'],
+                official_event_id=event.get('official_event_id'),
                 programme=event.get('programme'),
                 participation=event.get('participation', 'recorded'),
                 coverage=event['coverage'],
@@ -480,6 +481,8 @@ def result_catalog(out, calendar, archive):
                     title='世巡赛第 ' + str(number) + ' 站 · ' + event['city'],
                     date_start=event['date_start'],
                     date_end=event['date_end'],
+                    coverage='partial',
+                    coverage_detail=dict(unverified_programme=True),
                     source=dict(url=(snapshot['rankings'].get('source_urls') or [rows[0]['source_url']])[0]),
                     results=rows,
                 )

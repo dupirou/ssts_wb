@@ -28,4 +28,17 @@ jobs:
       - run: python -m unittest discover -s tests -v
       # Every Node test file, so a new one can never be left out of PR checks.
       - run: node --test tests/*.mjs
-      - run: node --check web/app.js
+      - name: Check every frontend and build module
+        run: for file in web/*.js tools/*.mjs; do node --check "$file"; done
+      - name: Install test browser
+        run: npx playwright install --with-deps chromium --only-shell
+      - name: Install CJK fonts for Chinese layout checks
+        run: sudo apt-get install -y fonts-noto-cjk
+      - name: Responsive layouts and offline PWA
+        run: node tools/verify_results_ui.mjs
+      - name: Save responsive screenshots and measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-ui-verification
+          path: docs/reviews/pr36/

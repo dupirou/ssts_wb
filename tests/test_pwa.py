@@ -56,13 +56,20 @@ class PwaTests(unittest.TestCase):
             "serviceWorker.register('/sw.js', {scope: '/'})", (ROOT / 'web/app.js').read_text(encoding='utf-8')
         )
 
+    def test_every_module_is_in_html_and_precache(self):
+        html = (ROOT / 'web/index.html').read_text()
+        worker = (ROOT / 'web/sw.js').read_text()
+        declared = re.findall(r'<script defer src="/([^"]+)"', html)
+        self.assertEqual(declared, [build.BUNDLE])
+        self.assertIn("'./" + build.BUNDLE + "'", worker)
+        bundle = (ROOT / 'dist' / build.BUNDLE).read_text()
+        for script in build.SCRIPTS:
+            self.assertIn((ROOT / 'web' / script).read_text(), bundle)
+
     def test_built_worker_is_stamped_with_the_shell_version(self):
         built = (ROOT / 'dist/sw.js').read_text(encoding='utf-8')
         shell = (
-            b''.join(
-                (ROOT / 'dist' / name).read_bytes()
-                for name in ('index.html', 'app.js', 'navigation.js', 'portal.js', 'site.css', 'manifest.webmanifest')
-            )
+            b''.join((ROOT / 'dist' / name).read_bytes() for name in build.SHELL_FILES)
             + (ROOT / 'web/sw.js').read_bytes()
         )
         self.assertEqual(re.search(r"VERSION = '(\w+)'", built)[1], hashlib.sha256(shell).hexdigest()[:12])
