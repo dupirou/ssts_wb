@@ -362,7 +362,7 @@
       "format": "individual",
       "name": "Tianyu Han",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -375,8 +375,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-2495"
+      "medal_verified": true,
+      "athlete_id": "isu-2495",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "1a2c4eeface714eeabbadce1cce4f35a66d721744e6aabe67ea11a4d11895e69",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.577665+00:00"
     },
     {
       "gender": "men",
@@ -730,6 +741,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.747553+00:00",
-    "sha256": "8550dd7cebb74e4bce5eb4b3f3f9d0838246191c27c627703ab94882bee5e114"
+    "sha256": "8550dd7cebb74e4bce5eb4b3f3f9d0838246191c27c627703ab94882bee5e114",
+    "classification_checked_at": "2026-10-27T13:55:10.579067+00:00"
   }
 }

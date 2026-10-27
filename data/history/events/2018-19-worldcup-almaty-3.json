@@ -215,7 +215,7 @@
       "format": "individual",
       "name": "Jinyu Li",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -228,9 +228,20 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "race_number": 1,
-      "athlete_id": "isu-4164"
+      "athlete_id": "isu-4164",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "b42d49995a07433067c07c25f7f828076138e8262139a65217cf534cd60f71f1",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.583555+00:00"
     },
     {
       "gender": "women",
@@ -653,7 +664,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -666,7 +677,7 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "members": [
         {
           "name": "Songnan Yu",
@@ -709,7 +720,18 @@
           "athlete_id": "isu-4322"
         }
       ],
-      "lineup_status": "recorded"
+      "lineup_status": "recorded",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "bd6430da8498c06340cf63b71ae160da83931fcb4a2e38edcdae074239764a59",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.583555+00:00"
     },
     {
       "gender": "mixed",
@@ -717,7 +739,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -730,7 +752,7 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "members": [
         {
           "name": "Xinran WANG",
@@ -793,7 +815,18 @@
           "athlete_id": "isu-7814"
         }
       ],
-      "lineup_status": "recorded"
+      "lineup_status": "recorded",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "79dd42797c359766a50ca8f69c11c9a8e59b89d1fcfcce1f7d8564cebc34c11a",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.583555+00:00"
     }
   ],
   "source": {
@@ -1147,6 +1180,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.772794+00:00",
-    "sha256": "cac5f50321b128337792d3fd0c569b8cb99af02047e524bafb55eb24ee4cf81d"
+    "sha256": "cac5f50321b128337792d3fd0c569b8cb99af02047e524bafb55eb24ee4cf81d",
+    "classification_checked_at": "2026-10-27T13:55:10.584768+00:00"
   }
 }

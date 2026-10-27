@@ -248,7 +248,7 @@
       "format": "individual",
       "name": "Dajing Wu",
       "country": "CHN",
-      "rank": null,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -261,8 +261,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 1,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-7792"
+      "medal_verified": true,
+      "athlete_id": "isu-7792",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "6c0acacf7a4c52f4233e0bf16b9fad7046de5d211d2dce543d14975ce52877e2",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 1,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.613047+00:00"
     },
     {
       "gender": "men",
@@ -365,7 +376,7 @@
       "format": "individual",
       "name": "Dajing Wu",
       "country": "CHN",
-      "rank": null,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -378,8 +389,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 1,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-7792"
+      "medal_verified": true,
+      "athlete_id": "isu-7792",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "80b8a1ae80db905128780b9068ad79107737f49892726e9c24a8cf72cdb736b2",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 1,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.613047+00:00"
     },
     {
       "gender": "men",
@@ -715,6 +737,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.753248+00:00",
-    "sha256": "3b1c294c5ceaf8e2c584192d2d0809dae16bf49929435d7d5d619b0b19fe1d1c"
+    "sha256": "3b1c294c5ceaf8e2c584192d2d0809dae16bf49929435d7d5d619b0b19fe1d1c",
+    "classification_checked_at": "2026-10-27T13:55:10.613047+00:00"
   }
 }

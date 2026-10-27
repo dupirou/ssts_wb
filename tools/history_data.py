@@ -17,6 +17,7 @@ STATISTICS_SCOPE = dict(
     include_all_around=False,
     include_super_3000=False,
     relay_lineups_required=False,
+    classification_conflict_policy='current_official_classification',
 )
 
 
@@ -35,7 +36,16 @@ def coverage_detail(event):
     missing = [ident for ident in event.get('missing_disciplines', []) if programme is None or ident in included_ids]
     return dict(
         missing_disciplines=missing,
-        classification_conflicts=sum(bool(r.get('classification_conflict')) for r in rows),
+        classification_conflicts=sum(
+            bool(r.get('classification_conflict'))
+            and r.get('classification_resolution') != 'current_official_classification'
+            for r in rows
+        ),
+        resolved_classification_conflicts=sum(
+            bool(r.get('classification_conflict'))
+            and r.get('classification_resolution') == 'current_official_classification'
+            for r in rows
+        ),
         missing_classifications=sum(bool(r.get('classification_missing')) for r in rows),
         relay_lineups_unavailable=sum(r['format'] == 'relay' and not r.get('members') for r in rows),
         relay_lineups_required=False,

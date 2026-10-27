@@ -207,7 +207,7 @@
       "format": "individual",
       "name": "Kexin FAN",
       "country": "CHN",
-      "rank": null,
+      "rank": 2,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -220,8 +220,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 2,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "skater-kexin-fan"
+      "medal_verified": true,
+      "athlete_id": "skater-kexin-fan",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "a923dd1c2b83acc4ebd1db2e907ace3f1ded2eb5d77f4eb6ce5b701be1279e33",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 2,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.585799+00:00"
     },
     {
       "gender": "women",
@@ -267,7 +278,7 @@
       "format": "individual",
       "name": "Dajing Wu",
       "country": "CHN",
-      "rank": null,
+      "rank": 2,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -280,8 +291,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 2,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-7792"
+      "medal_verified": true,
+      "athlete_id": "isu-7792",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "059cdce99a5052c3f5f8cae3a8e286b963dfe71079081f8e91045b206e67645b",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 2,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.585799+00:00"
     },
     {
       "gender": "men",
@@ -289,7 +311,7 @@
       "format": "individual",
       "name": "Ziwei REN",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -302,8 +324,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-5859"
+      "medal_verified": true,
+      "athlete_id": "isu-5859",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "059cdce99a5052c3f5f8cae3a8e286b963dfe71079081f8e91045b206e67645b",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.585799+00:00"
     },
     {
       "gender": "men",
@@ -520,14 +553,14 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 2,
-      "rank_scope": "final",
+      "rank": 7,
+      "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
       "best_time": null,
       "source_page": null,
-      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
-      "source_ref": "2dba49cf0fa586461c9134ac1140ac0e078c2a2565825e1fadbefe1841d9adf2",
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+      "source_ref": "7ab70474323fb4259d08cc84ccd9d72d5dec33dd4baaae5f6305c1814115db43",
       "official_result_id": 3161,
       "official_skater_id": 8043,
       "medal_eligible": true,
@@ -535,7 +568,18 @@
       "classification_conflict": true,
       "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": 2,
+        "rank_scope": "final",
+        "final_group": "A",
+        "status": "classified",
+        "source_ref": "2dba49cf0fa586461c9134ac1140ac0e078c2a2565825e1fadbefe1841d9adf2",
+        "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
+      },
+      "previous_reported_overall_rank": 7,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.585799+00:00"
     }
   ],
   "source": {
@@ -811,6 +855,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.782711+00:00",
-    "sha256": "79f3ea3ac65e435a4b83e08f75316cdd1a152ff2cdac65a6282ebb73404b7b95"
+    "sha256": "79f3ea3ac65e435a4b83e08f75316cdd1a152ff2cdac65a6282ebb73404b7b95",
+    "classification_checked_at": "2026-10-27T13:55:10.585799+00:00"
   }
 }

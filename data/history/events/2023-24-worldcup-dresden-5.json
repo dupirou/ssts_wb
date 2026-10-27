@@ -456,21 +456,32 @@
       "name": "China",
       "country": "CHN",
       "rank": 2,
-      "rank_scope": "final",
+      "rank_scope": "overall",
       "final_group": "B",
       "status": "classified",
       "best_time": null,
       "source_page": null,
-      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
-      "source_ref": "2067a3f7dcd1d3d902563e08c6f5be9cac7135e693aa55752a570ac63064434d",
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+      "source_ref": "b5488bf46fd92cfa716e94dfba01957e937fe650a0e2cd6a9cb6171983ee8c8a",
       "official_result_id": 2959,
       "official_skater_id": 8163,
       "medal_eligible": true,
       "reported_overall_rank": 2,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": 2,
+        "rank_scope": "final",
+        "final_group": "B",
+        "status": "classified",
+        "source_ref": "2067a3f7dcd1d3d902563e08c6f5be9cac7135e693aa55752a570ac63064434d",
+        "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
+      },
+      "previous_reported_overall_rank": 2,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.631045+00:00"
     },
     {
       "gender": "men",
@@ -612,7 +623,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -625,9 +636,20 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "2ba81d7c6124064f26006a960722ecde85218fd5410496753b217022d6576e3e",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.631045+00:00"
     }
   ],
   "source": {
@@ -981,6 +1003,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.881623+00:00",
-    "sha256": "db0bda0d075f2f794ea362349d8ad316df13e6c4da7273a3a12e15f57e1872e3"
+    "sha256": "db0bda0d075f2f794ea362349d8ad316df13e6c4da7273a3a12e15f57e1872e3",
+    "classification_checked_at": "2026-10-27T13:55:10.632077+00:00"
   }
 }

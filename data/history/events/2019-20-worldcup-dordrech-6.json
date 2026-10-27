@@ -550,14 +550,14 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 3,
-      "rank_scope": "final",
+      "rank": 13,
+      "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
       "best_time": null,
       "source_page": null,
-      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
-      "source_ref": "2e3cf8c6e050260c92b90e516e6924425e56c60d0ba2fca5fab567fe800ccebc",
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+      "source_ref": "edc060d467ca4b9017040dc8e8a5d2dee84838a8c2b318fc201bf2076c3975b8",
       "official_result_id": 3485,
       "official_skater_id": 8043,
       "medal_eligible": true,
@@ -565,7 +565,18 @@
       "classification_conflict": true,
       "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": 3,
+        "rank_scope": "final",
+        "final_group": "A",
+        "status": "classified",
+        "source_ref": "2e3cf8c6e050260c92b90e516e6924425e56c60d0ba2fca5fab567fe800ccebc",
+        "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
+      },
+      "previous_reported_overall_rank": 13,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.589045+00:00"
     },
     {
       "gender": "mixed",
@@ -573,14 +584,14 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 1,
-      "rank_scope": "final",
+      "rank": 10,
+      "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
       "best_time": null,
       "source_page": null,
-      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
-      "source_ref": "a2531b792b9e0fdf8e62eb4f56df08a3691f0b6ba962d56db6a329ee2dd64668",
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+      "source_ref": "eb9b936a231bdbac520a20cec735d0e833616fa6b6c4b1ab0c299b436f7bdc03",
       "official_result_id": 3525,
       "official_skater_id": 8059,
       "medal_eligible": true,
@@ -588,7 +599,18 @@
       "classification_conflict": true,
       "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": 1,
+        "rank_scope": "final",
+        "final_group": "A",
+        "status": "classified",
+        "source_ref": "a2531b792b9e0fdf8e62eb4f56df08a3691f0b6ba962d56db6a329ee2dd64668",
+        "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
+      },
+      "previous_reported_overall_rank": 10,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.589045+00:00"
     }
   ],
   "source": {
@@ -996,6 +1018,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.808261+00:00",
-    "sha256": "6acce58beca3640226d521c7d0a9bc109874eed40f272f0cf6c2ad4cb7f036b7"
+    "sha256": "6acce58beca3640226d521c7d0a9bc109874eed40f272f0cf6c2ad4cb7f036b7",
+    "classification_checked_at": "2026-10-27T13:55:10.589045+00:00"
   }
 }

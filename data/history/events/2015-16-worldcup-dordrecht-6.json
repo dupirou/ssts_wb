@@ -153,7 +153,7 @@
       "format": "individual",
       "name": "Jiaying Tao",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -166,9 +166,20 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "race_number": 2,
-      "athlete_id": "isu-6951"
+      "athlete_id": "isu-6951",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "e8ff7917bc16b121520704f0aacb766a3863d7fe5d49a7c91503f6a9e6bf16bb",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.567105+00:00"
     },
     {
       "gender": "women",
@@ -336,7 +347,7 @@
       "format": "individual",
       "name": "Yihan Guo",
       "country": "CHN",
-      "rank": null,
+      "rank": 2,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -349,8 +360,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 2,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-2421"
+      "medal_verified": true,
+      "athlete_id": "isu-2421",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "50300ced76e5691024cd26e07def1b22eb2191df2c3531f0d417cb17f6325693",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 2,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.567105+00:00"
     },
     {
       "gender": "women",
@@ -909,6 +931,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.716084+00:00",
-    "sha256": "f03b94986800410d12f3c56360acd8b97e125e89d869c821e1f830972424e630"
+    "sha256": "f03b94986800410d12f3c56360acd8b97e125e89d869c821e1f830972424e630",
+    "classification_checked_at": "2026-10-27T13:55:10.568510+00:00"
   }
 }

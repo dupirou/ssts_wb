@@ -207,7 +207,7 @@
       "format": "individual",
       "name": "Kexin FAN",
       "country": "CHN",
-      "rank": null,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -220,8 +220,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 1,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "skater-kexin-fan"
+      "medal_verified": true,
+      "athlete_id": "skater-kexin-fan",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "86b54113ee9ba12d99d44dc84947083a60d5ccb0bb00d561cca50c5c9f8a4ef6",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 1,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.561960+00:00"
     },
     {
       "gender": "women",
@@ -267,7 +278,7 @@
       "format": "individual",
       "name": "Dajing Wu",
       "country": "CHN",
-      "rank": null,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -280,8 +291,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 1,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-7792"
+      "medal_verified": true,
+      "athlete_id": "isu-7792",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "e04005d5ad77e401fdc22037ba71956f3edb9e860d21adf7435145559ded1d48",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 1,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.561960+00:00"
     },
     {
       "gender": "men",
@@ -289,7 +311,7 @@
       "format": "individual",
       "name": "Tianyu Han",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -302,8 +324,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-2495"
+      "medal_verified": true,
+      "athlete_id": "isu-2495",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "e04005d5ad77e401fdc22037ba71956f3edb9e860d21adf7435145559ded1d48",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.561960+00:00"
     },
     {
       "gender": "men",
@@ -387,7 +420,7 @@
       "format": "individual",
       "name": "Jingnan Shi",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -400,8 +433,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-6368"
+      "medal_verified": true,
+      "athlete_id": "isu-6368",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "ec46647a18d9fdcba66fbcd6eaad8a5cd3f28d056a153655bed1635c721029d0",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.561960+00:00"
     },
     {
       "gender": "men",
@@ -850,6 +894,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.693099+00:00",
-    "sha256": "485c8144a70f309aa34e3671eb085ee33b3880661eaaa92106f0c136649b2fd4"
+    "sha256": "485c8144a70f309aa34e3671eb085ee33b3880661eaaa92106f0c136649b2fd4",
+    "classification_checked_at": "2026-10-27T13:55:10.561960+00:00"
   }
 }

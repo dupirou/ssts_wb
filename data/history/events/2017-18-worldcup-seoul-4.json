@@ -248,7 +248,7 @@
       "format": "individual",
       "name": "Dajing Wu",
       "country": "CHN",
-      "rank": null,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -261,8 +261,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 1,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-7792"
+      "medal_verified": true,
+      "athlete_id": "isu-7792",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "31c1aa1bd680ab1d6df96738f5ea7888dc7963331871427611a793e06a8890e3",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 1,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.580072+00:00"
     },
     {
       "gender": "men",
@@ -712,6 +723,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.756149+00:00",
-    "sha256": "3ca0755108e8efaff4fb2843311fa873b6b41067d0474e3c3d63206383375c23"
+    "sha256": "3ca0755108e8efaff4fb2843311fa873b6b41067d0474e3c3d63206383375c23",
+    "classification_checked_at": "2026-10-27T13:55:10.580072+00:00"
   }
 }

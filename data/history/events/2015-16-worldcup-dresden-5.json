@@ -93,7 +93,7 @@
       "format": "individual",
       "name": "Jiaying Tao",
       "country": "CHN",
-      "rank": null,
+      "rank": 2,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -106,8 +106,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 2,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-6951"
+      "medal_verified": true,
+      "athlete_id": "isu-6951",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "ece149cf9c84bc0bb79570f95e1b4e02cc1882e35b701f80701f82b50b85f2d1",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 2,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.609874+00:00"
     },
     {
       "gender": "women",
@@ -924,6 +935,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.711825+00:00",
-    "sha256": "6f99ba7f4ec957fe303ea4f04509c959d927d7dc7bb1b2c840c97f7acdc0cd77"
+    "sha256": "6f99ba7f4ec957fe303ea4f04509c959d927d7dc7bb1b2c840c97f7acdc0cd77",
+    "classification_checked_at": "2026-10-27T13:55:10.609874+00:00"
   }
 }

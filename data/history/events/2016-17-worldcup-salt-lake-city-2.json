@@ -447,7 +447,7 @@
       "format": "individual",
       "name": "Kexin FAN",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -460,8 +460,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "skater-kexin-fan"
+      "medal_verified": true,
+      "athlete_id": "skater-kexin-fan",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "837faf9132160ca0c91317bdb12b796489e39e1af007d6476ed5c08328f42f24",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.571351+00:00"
     },
     {
       "gender": "women",
@@ -507,7 +518,7 @@
       "format": "individual",
       "name": "Tianyu Han",
       "country": "CHN",
-      "rank": null,
+      "rank": 2,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -520,8 +531,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 2,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-2495"
+      "medal_verified": true,
+      "athlete_id": "isu-2495",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "b0fc7ec9030ca8fe3f436fb08d25f9ce2e942d5b387f173395768419c3b38081",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 2,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.571351+00:00"
     },
     {
       "gender": "men",
@@ -587,7 +609,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -600,9 +622,20 @@
       "medal_eligible": true,
       "reported_overall_rank": 1,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "4c834c9170c19270232273c194f200b855924bc3868448c6756568304aecbf07",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team"
+      },
+      "previous_reported_overall_rank": 1,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.571351+00:00"
     }
   ],
   "source": {
@@ -912,6 +945,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.728080+00:00",
-    "sha256": "259a1ebfd5c80ffd2b6039df0416a5d9a9c6038939c5a6e84d3ad2250678fc80"
+    "sha256": "259a1ebfd5c80ffd2b6039df0416a5d9a9c6038939c5a6e84d3ad2250678fc80",
+    "classification_checked_at": "2026-10-27T13:55:10.572731+00:00"
   }
 }

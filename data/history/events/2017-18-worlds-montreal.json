@@ -207,7 +207,7 @@
       "format": "individual",
       "name": "Chunyu Qu",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -220,8 +220,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-5753"
+      "medal_verified": true,
+      "athlete_id": "isu-5753",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "a327e2e07e2a42d1bedcf1d0b48cbf63acc46b6b863ffcfeeed4b2c7169b6b3c",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.581065+00:00"
     },
     {
       "gender": "women",
@@ -267,7 +278,7 @@
       "format": "individual",
       "name": "Ziwei REN",
       "country": "CHN",
-      "rank": null,
+      "rank": 2,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -280,8 +291,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 2,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-5859"
+      "medal_verified": true,
+      "athlete_id": "isu-5859",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "baf50de2a11cce3382c254fbd1638f1d64bd735746e8bae088e469ad92122a5f",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 2,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.581065+00:00"
     },
     {
       "gender": "men",
@@ -327,7 +349,7 @@
       "format": "individual",
       "name": "Jinyu Li",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -340,8 +362,19 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
-      "athlete_id": "isu-4164"
+      "medal_verified": true,
+      "athlete_id": "isu-4164",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "75d6c2ebd981127e79593bbe9a004c812aca54d49be3f32ce63fc0be7d62fd55",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.581065+00:00"
     },
     {
       "gender": "women",
@@ -850,6 +883,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.759170+00:00",
-    "sha256": "e30bd17f9930f226871d34701dcceb6f17c50ba65be6db9021f857138244cef1"
+    "sha256": "e30bd17f9930f226871d34701dcceb6f17c50ba65be6db9021f857138244cef1",
+    "classification_checked_at": "2026-10-27T13:55:10.581065+00:00"
   }
 }

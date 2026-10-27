@@ -349,9 +349,7 @@ def collect_discipline(cache, meta):
         if not name or not oid:
             raise ValueError('Missing official competitor identity')
         final = finals.get(oid, {})
-        status = next(
-            (v for v in [final.get('status'), r.get('final_result')] if v in history_data.STATUSES), 'classified'
-        )
+        status = r.get('final_result') if r.get('final_result') in history_data.STATUSES else 'classified'
         conflict = status == 'classified' and (
             (final.get('group') == 'A' and rank != final.get('rank'))
             or (rank is not None and rank <= 3 and final.get('group') != 'A')
@@ -373,14 +371,18 @@ def collect_discipline(cache, meta):
             medal_eligible='super final' not in meta['name'].lower(),
         )
         if conflict:
-            item.update(
-                reported_overall_rank=rank,
-                rank=final.get('rank'),
-                rank_scope='final' if final.get('group') else 'overall',
-                source_ref=final.get('source', total_source)['sha256'],
-                source_url=final.get('source', total_source)['url'],
-                classification_conflict=True,
-                medal_verified=final.get('group') == 'A',
+            adopt_current_classification(
+                item,
+                r,
+                total_source,
+                dict(
+                    rank=final.get('rank'),
+                    rank_scope='final' if final.get('group') else 'overall',
+                    final_group=final.get('group'),
+                    status=final.get('status'),
+                    source_ref=final.get('source', total_source)['sha256'],
+                    source_url=final.get('source', total_source)['url'],
+                ),
             )
         if relay:
             item['members'] = [
@@ -407,6 +409,31 @@ def collect_discipline(cache, meta):
         base['lineup_status'] = 'recorded' if base['members'] else 'unavailable'
         output = [base]
     return dict(meta=meta, disc=disc, results=output, documents=docs)
+
+
+def adopt_current_classification(row, official, source, previous_final=None):
+    """Adopt the currently published final classification and retain the earlier race evidence."""
+    rank = isu_results.integer(official.get('final_rank'))
+    if rank is None:
+        raise ValueError('Current official classification has no rank')
+    if previous_final is None:
+        previous_final = {
+            key: row.get(key) for key in ('rank', 'rank_scope', 'final_group', 'status', 'source_ref', 'source_url')
+        }
+    row.update(
+        previous_final_result=previous_final,
+        previous_reported_overall_rank=row.get('reported_overall_rank', row.get('rank')),
+        reported_overall_rank=rank,
+        rank=rank,
+        rank_scope='overall',
+        status=official.get('final_result') if official.get('final_result') in history_data.STATUSES else 'classified',
+        source_ref=source['sha256'],
+        source_url=source['url'],
+        classification_conflict=True,
+        classification_resolution='current_official_classification',
+        classification_selected_at=datetime.now(timezone.utc).isoformat(),
+        medal_verified=True,
+    )
 
 
 def register_person(registry, name, gender, official_id):

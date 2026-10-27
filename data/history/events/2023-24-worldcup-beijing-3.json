@@ -455,14 +455,14 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 2,
-      "rank_scope": "final",
+      "rank": 9,
+      "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
       "best_time": null,
       "source_page": null,
-      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
-      "source_ref": "2e95307aa9a73ece22c6efcbd9801959728cbdaceda3850d32065b4da14fc275",
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+      "source_ref": "0847a6100fc10223fcc73126393be94a7c7d77991b1adca8c1fb03aa39c5c2d5",
       "official_result_id": 3981,
       "official_skater_id": 8157,
       "medal_eligible": true,
@@ -470,7 +470,18 @@
       "classification_conflict": true,
       "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": 2,
+        "rank_scope": "final",
+        "final_group": "A",
+        "status": "classified",
+        "source_ref": "2e95307aa9a73ece22c6efcbd9801959728cbdaceda3850d32065b4da14fc275",
+        "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
+      },
+      "previous_reported_overall_rank": 9,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.599967+00:00"
     },
     {
       "gender": "women",
@@ -592,7 +603,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -605,9 +616,20 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "8864181e1a432cc45bddbad0ea5f159be6192b65bf10b6041ab9d0c2c2b67ae8",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.599967+00:00"
     },
     {
       "gender": "men",
@@ -615,14 +637,14 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 3,
-      "rank_scope": "final",
+      "rank": 8,
+      "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
       "best_time": null,
       "source_page": null,
-      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
-      "source_ref": "3c276983fae15aaa0d7bc0e1e265c86d24fa28f29f26eac4143e9f7b3ce4ce18",
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+      "source_ref": "257a4d9b062055d5001fa730ac9ffee86d7036e91ac16089c7bf410a984be8a4",
       "official_result_id": 4209,
       "official_skater_id": 8157,
       "medal_eligible": true,
@@ -630,7 +652,18 @@
       "classification_conflict": true,
       "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": 3,
+        "rank_scope": "final",
+        "final_group": "A",
+        "status": "classified",
+        "source_ref": "3c276983fae15aaa0d7bc0e1e265c86d24fa28f29f26eac4143e9f7b3ce4ce18",
+        "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
+      },
+      "previous_reported_overall_rank": 8,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.599967+00:00"
     }
   ],
   "source": {
@@ -984,6 +1017,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.873929+00:00",
-    "sha256": "110b712dbd5429b8e38465631b422515b24216edbffeaac392860537cc20f15a"
+    "sha256": "110b712dbd5429b8e38465631b422515b24216edbffeaac392860537cc20f15a",
+    "classification_checked_at": "2026-10-27T13:55:10.600470+00:00"
   }
 }

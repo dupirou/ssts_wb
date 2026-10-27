@@ -161,7 +161,7 @@
       "format": "individual",
       "name": "Chutong ZHANG",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -174,9 +174,20 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "race_number": 2,
-      "athlete_id": "skater-chutong-zhang"
+      "athlete_id": "skater-chutong-zhang",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "dc209f3bfb86229f0ad5f647185f3dbf49c323db46c82d482278a37be4a919aa",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.616207+00:00"
     },
     {
       "gender": "women",
@@ -1014,6 +1025,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.776220+00:00",
-    "sha256": "d596f64805e90cde59fd338176f7e14bd2e636aabfb0f0256561e09e17808887"
+    "sha256": "d596f64805e90cde59fd338176f7e14bd2e636aabfb0f0256561e09e17808887",
+    "classification_checked_at": "2026-10-27T13:55:10.616207+00:00"
   }
 }

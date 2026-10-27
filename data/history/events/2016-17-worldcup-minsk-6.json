@@ -93,7 +93,7 @@
       "format": "individual",
       "name": "Yang LIU",
       "country": "CHN",
-      "rank": null,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -106,9 +106,20 @@
       "medal_eligible": true,
       "reported_overall_rank": 1,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "race_number": 1,
-      "athlete_id": "isu-4320"
+      "athlete_id": "isu-4320",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "eabe5a5eb448578824dabebf5225b6e6f95f5c0650043e9b35be19c1a8fa22c0",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 1,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.575205+00:00"
     },
     {
       "gender": "women",
@@ -156,7 +167,7 @@
       "format": "individual",
       "name": "Yutong Han",
       "country": "CHN",
-      "rank": null,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -169,9 +180,20 @@
       "medal_eligible": true,
       "reported_overall_rank": 1,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "race_number": 2,
-      "athlete_id": "isu-2499"
+      "athlete_id": "isu-2499",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "35cbcb1df7b31af53eb7de372c307f94957e08323b10c0a61de28a876dd8525a",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 1,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.575205+00:00"
     },
     {
       "gender": "women",
@@ -870,6 +892,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.741469+00:00",
-    "sha256": "9c3623f9c7118a75c82e1fa77353d1049091035c08f126a71d5e83378f73d54e"
+    "sha256": "9c3623f9c7118a75c82e1fa77353d1049091035c08f126a71d5e83378f73d54e",
+    "classification_checked_at": "2026-10-27T13:55:10.576223+00:00"
   }
 }

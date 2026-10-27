@@ -281,7 +281,7 @@
       "format": "individual",
       "name": "Songnan Yu",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -294,9 +294,20 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "race_number": 2,
-      "athlete_id": "isu-7983"
+      "athlete_id": "isu-7983",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "9e18399cfb5873dbb83562ec3fc9d9906257310bdcb0bff4e350eba9d874235e",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.617207+00:00"
     },
     {
       "gender": "men",
@@ -572,7 +583,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 3,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -585,9 +596,20 @@
       "medal_eligible": true,
       "reported_overall_rank": 3,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": null,
+        "rank_scope": "overall",
+        "final_group": null,
+        "status": "classified",
+        "source_ref": "800992071b4ecf762d31321881cbad78ccea81d0f9f3059dd70934879525b592",
+        "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team"
+      },
+      "previous_reported_overall_rank": 3,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.617207+00:00"
     },
     {
       "gender": "men",
@@ -595,22 +617,33 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 1,
-      "rank_scope": "final",
+      "rank": 2,
+      "rank_scope": "overall",
       "final_group": "B",
       "status": "classified",
       "best_time": null,
       "source_page": null,
-      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
-      "source_ref": "dc26ff62af462a490e198619acc0c46db3efe6457e24ada00e682637df79a324",
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+      "source_ref": "2a93bff13b9856f569c8924e225619133e2a8f0f1020cf4fc590070866ee72a7",
       "official_result_id": 3304,
       "official_skater_id": 8043,
       "medal_eligible": true,
       "reported_overall_rank": 2,
       "classification_conflict": true,
-      "medal_verified": false,
+      "medal_verified": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_final_result": {
+        "rank": 1,
+        "rank_scope": "final",
+        "final_group": "B",
+        "status": "classified",
+        "source_ref": "dc26ff62af462a490e198619acc0c46db3efe6457e24ada00e682637df79a324",
+        "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
+      },
+      "previous_reported_overall_rank": 2,
+      "classification_resolution": "current_official_classification",
+      "classification_selected_at": "2026-10-27T13:55:10.617207+00:00"
     },
     {
       "gender": "mixed",
@@ -1020,6 +1053,7 @@
       }
     ],
     "retrieved_at": "2026-10-27T08:19:14.779623+00:00",
-    "sha256": "b3b2b71c102e99049c9030a57905d90d9d26de89eaeb28afe1a26997c4394336"
+    "sha256": "b3b2b71c102e99049c9030a57905d90d9d26de89eaeb28afe1a26997c4394336",
+    "classification_checked_at": "2026-10-27T13:55:10.618220+00:00"
   }
 }
