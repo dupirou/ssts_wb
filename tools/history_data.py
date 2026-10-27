@@ -23,9 +23,9 @@ STATISTICS_SCOPE = dict(
 
 def included_discipline(row):
     """Count standard individual distances and relays; omit all-around and super finals."""
-    return (
-        row.get('format') == 'individual' and row.get('distance_m') in {500, 1000, 1500}
-    ) or (row.get('format') == 'relay' and row.get('distance_m') in {2000, 3000, 5000})
+    return (row.get('format') == 'individual' and row.get('distance_m') in {500, 1000, 1500}) or (
+        row.get('format') == 'relay' and row.get('distance_m') in {2000, 3000, 5000}
+    )
 
 
 def coverage_detail(event):

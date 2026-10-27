@@ -529,9 +529,7 @@ def main():
         return rows, source, page
 
     pending = [
-        e
-        for e in selected
-        if str(e['event_id']) not in known and (not args.event or str(e['event_id']) in args.event)
+        e for e in selected if str(e['event_id']) not in known and (not args.event or str(e['event_id']) in args.event)
     ]
     with ThreadPoolExecutor(max_workers=min(args.workers, 6)) as pool:
         futures = {pool.submit(get_meta, e): e for e in pending}
@@ -542,9 +540,7 @@ def main():
             except Exception as ex:
                 failures[str(e['event_id'])] = str(ex)
     print('Metadata ready:', len(metadata), 'failed:', failures, flush=True)
-    tasks = [
-        (eid, meta) for eid, (rows, _, _) in metadata.items() for meta in rows if included_meta(meta)
-    ]
+    tasks = [(eid, meta) for eid, (rows, _, _) in metadata.items() for meta in rows if included_meta(meta)]
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         futures = {pool.submit(collect_discipline, cache, meta): (eid, meta) for eid, meta in tasks}
         for i, f in enumerate(as_completed(futures), 1):
@@ -640,11 +636,7 @@ def main():
             for m in rows
             if included_meta(m)
         ]
-        missing = [
-            m['event_result_id']
-            for m in rows
-            if m['event_result_id'] not in values and included_meta(m)
-        ]
+        missing = [m['event_result_id'] for m in rows if m['event_result_id'] not in values and included_meta(m)]
         event = dict(
             schema_version=1,
             competition_id=ident,
