@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "competition_id": "2020-21-worlds-dordrecht",
+  "country": "CHN",
+  "participation": "none",
+  "programme": [
+    {
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "official_result_id": 5184,
+      "name": "Men 500 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "official_result_id": 5207,
+      "name": "Men 1000 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "official_result_id": 5238,
+      "name": "Men 5000 m Relay",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 3000,
+      "format": "individual",
+      "official_result_id": 5241,
+      "name": "Men 3000 m Superfinal",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "official_result_id": 5243,
+      "name": "Men 1500 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "official_result_id": 5272,
+      "name": "Ladies 1000 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "official_result_id": 5288,
+      "name": "Ladies 3000 m Relay",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "individual",
+      "official_result_id": 5291,
+      "name": "Ladies 3000 m Superfinal",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "official_result_id": 5296,
+      "name": "Ladies 1500 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "official_result_id": 5335,
+      "name": "Ladies 500 m",
+      "medal_eligible": true
+    }
+  ],
+  "missing_disciplines": [],
+  "results": [],
+  "source": {
+    "kind": "isu_api",
+    "url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-short-track-speed-skating-championships-5/?tab=results_4555",
+    "documents": [
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4555,
+          "event_result_id": 5184
+        },
+        "sha256": "3929eb2af960652c9eea7f0aa1852bedf9f44a4a2d1486a3929ec34c47fc53c4"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4555,
+          "event_result_id": 5207
+        },
+        "sha256": "477e83a0b3b848ad3002a2f42e24cc60feb0e71ef5c4e59616f131aea51d9c8c"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4555,
+          "event_result_id": 5241
+        },
+        "sha256": "c47d34b4a3f66fa663dd08997e3c0a5c348591fee9cf625a6e844c6a7cd20c2a"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4555,
+          "event_result_id": 5243
+        },
+        "sha256": "2a1d33e6ae7916070a652abe61506a8ece27c354f02f3edeff958917f7eea2fd"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4555,
+          "event_result_id": 5272
+        },
+        "sha256": "04eda83d52fc4e397d07f668a78b8614bdac8c702bc8895c8b693b926bc5012c"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4555,
+          "event_result_id": 5291
+        },
+        "sha256": "f5bb37daf37baf598c7584640512ef656a2c9ea95c861d70ebfda8fef553b6ba"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4555,
+          "event_result_id": 5296
+        },
+        "sha256": "4b3128effaaca5a0d5aa3ab10fae17e6b1add5cf0a3be4b17679c719563df3de"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4555,
+          "event_result_id": 5335
+        },
+        "sha256": "24d39d6dbd070f376abf1741e5441833cc522693d3c18144123fd1c6d282e381"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4555,
+          "event_result_id": 5238
+        },
+        "sha256": "9d55f1990dc7a2927b4a37f3169994c5a3bc64857594b3c5cd70a70f93d327bf"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4555,
+          "event_result_id": 5288
+        },
+        "sha256": "fe8232157d400ecadbb04d5632143b8b1d022d310c8c8a5a02037d8498c23bc5"
+      },
+      {
+        "url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-short-track-speed-skating-championships-5/?tab=results_4555",
+        "form": {},
+        "sha256": "bbf3b93709b8743f779c50a0b230ef5e1721ba2d7d5c8ed7ba7bf8db0eacc3c4"
+      }
+    ],
+    "retrieved_at": "2026-10-27T08:19:14.809630+00:00",
+    "sha256": "71dd2e4575240018af6a1816bfea005765e1394f483c9ffb17856db32e5e7b60"
+  }
+}

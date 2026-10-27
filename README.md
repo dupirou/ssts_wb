@@ -61,7 +61,7 @@ ruff format tools tests && ruff check tools tests   # Python 格式与检查（p
 ## 文档
 
 - [docs/backend.md](docs/backend.md)：数据同步、接口、预测、新动态、安全边界
-- [docs/architecture.md](docs/architecture.md)：全站导航与多赛季演进顺序
+- [docs/architecture.md](docs/architecture.md)：页面架构、赛季／周期回顾、对比形式与实施顺序
 - [docs/history.md](docs/history.md)：中国队历史成绩收录、导入与覆盖范围
 - [docs/frontend.md](docs/frontend.md)：页面结构、视觉规则、文案约定
 - [docs/deploy.md](docs/deploy.md)：Cloudflare 部署与比赛时段定时同步

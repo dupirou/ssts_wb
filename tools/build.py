@@ -352,10 +352,30 @@ def export(now=None):
 
     history_data.export(OUT, calendar=season)
     # Real index files make deep links work on Workers Assets and a plain static server alike.
-    page_paths = ['events', 'results', 'history', 'athletes'] + [
-        'events/' + CONFIG['season'].replace('/', '-') + '/' + event['id']
-        for event in CONFIG['stations'] + CONFIG['championships']
-    ]
+    results_index = json.loads((OUT / 'data/results.json').read_text(encoding='utf-8'))
+    page_paths = (
+        [
+            'events',
+            'results',
+            'results/events',
+            'results/seasons',
+            'results/cycles',
+            'results/compare',
+            'history',
+            'athletes',
+        ]
+        + ['results/events/' + event['id'] for event in results_index['events']]
+        + [
+            'results/seasons/' + season.replace('/', '-')
+            for season in sorted({s for cycle in results_index['cycles'] for s in cycle['seasons']})
+            if season <= CONFIG['season']
+        ]
+        + ['results/cycles/' + cycle['id'] for cycle in results_index['cycles']]
+        + [
+            'events/' + CONFIG['season'].replace('/', '-') + '/' + event['id']
+            for event in CONFIG['stations'] + CONFIG['championships']
+        ]
+    )
     for page_path in page_paths:
         page_dir = OUT / page_path
         page_dir.mkdir(parents=True, exist_ok=True)

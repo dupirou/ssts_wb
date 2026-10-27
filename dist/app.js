@@ -1386,7 +1386,7 @@
       renderSeason(calendar, details);
     } else if (route.page === 'results') {
       document.title = '成绩｜短道速滑';
-      await window.SSTS.portal.results(context, calendar);
+      await window.SSTS.portal.results(context, calendar, route);
     } else if (route.page === 'athletes') {
       document.title = '运动员｜短道速滑';
       await window.SSTS.portal.athletes(context, calendar);

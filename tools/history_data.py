@@ -13,7 +13,7 @@ DIRECTORY = ROOT / 'data/history'
 STATUSES = {'PEN', 'DNS', 'DNF', 'DSQ', 'YC', 'RC'}
 
 
-def parse_classifications(pages):
+def parse_classifications(pages, expected_disciplines=9):
     """Read C74 A/B final classifications, never ranks in individual heat reports.
 
     Input is Poppler's layout-preserving text, one string per physical PDF page.
@@ -21,7 +21,7 @@ def parse_classifications(pages):
     """
     records, covered = {}, set()
     for page_no, text in enumerate(pages, 1):
-        if not re.search(r'^\s*(?:EVENT|FINAL) CLASSIFICATION\s*$', text, re.M):
+        if not re.search(r'^\s*(?:EVENT|FINAL) CLASSIFICATION\s*$', text, re.M | re.I):
             continue
         lines = text.splitlines()
         disc = next(
@@ -39,15 +39,19 @@ def parse_classifications(pages):
             (i for i, l in enumerate(lines) if 'Group' in l and 'Rank' in l and ('Name' in l or 'Team' in l)), None
         )
         if header_index is None:
-            if re.search(r'^\s*LEGEND\s*$', text, re.M):
+            if re.search(r'^\s*LEGEND:?\s*$', text, re.M | re.I):
                 continue
             raise ValueError('Unsupported classification header on page ' + str(page_no))
         header = lines[header_index]
         relay = disc['format'] == 'relay'
         name_col = header.index('Team' if relay else 'Name')
         rank_col = header.index('Rank')
-        country_line = next((l for l in lines[max(0, header_index - 1) : header_index + 2] if 'ISU' in l), '')
-        country_col = None if relay else country_line.index('ISU')
+        country_line = next(
+            (l for l in lines[max(0, header_index - 1) : header_index + 2] if 'ISU' in l or 'NOC' in l), ''
+        )
+        country_col = (
+            None if relay else (country_line.index('ISU') if 'ISU' in country_line else country_line.index('NOC'))
+        )
         round_header = next(
             (l for l in lines[header_index + 1 : header_index + 4] if re.search(r'\b(?:FA|FB)\b', l)), None
         )
@@ -88,22 +92,29 @@ def parse_classifications(pages):
                     if member:
                         name = member[2].strip()
                         sex = re.search(r'\s+\(([MW])\)$', name)
-                        gender = ('men' if sex[1] == 'M' else 'women') if sex else disc['gender']
+                        explicit_sex = re.search(r'\b(Female|Male)\b', line)
+                        gender = (
+                            ('women' if explicit_sex[1] == 'Female' else 'men')
+                            if explicit_sex
+                            else ('men' if sex[1] == 'M' else 'women')
+                            if sex
+                            else disc['gender']
+                        )
                         name = name[: sex.start()] if sex else name
                         rounds = [code for code, start, end in columns if 'X' in line[max(0, start - 1) : end + 2]]
                         if not rounds:
-                            raise ValueError('Relay member without participation columns')
+                            if 'X' in line[first_round:]:
+                                raise ValueError('Relay participation columns do not align')
+                            continue
                         current_team['members'].append(dict(name=name, gender=gender, rounds=rounds))
             else:
                 if len(line) < country_col + 3 or line[country_col : country_col + 3] != 'CHN':
                     continue
-                prefix = line[rank_col:name_col].split()
-                digits = [p for p in prefix if p.isdigit()]
-                if len(digits) not in (1, 2):
+                match = re.fullmatch(r'\s*(?:(\d+)\s+)?(\d+)\s+(.+?)\s*', line[rank_col:country_col])
+                if not match:
                     raise ValueError('Invalid individual classification rank/helmet')
-                name = line[name_col:country_col].strip()
-                if not name:
-                    raise ValueError('Missing classified skater')
+                rank = int(match[1]) if match[1] else None
+                name = match[3]
                 right = line[country_col + 3 :].split()
                 finals = [
                     code[-1]
@@ -119,14 +130,14 @@ def parse_classifications(pages):
                         **disc,
                         name=name,
                         country='CHN',
-                        rank=int(digits[0]) if len(digits) == 2 else None,
+                        rank=rank,
                         final_group=final_group,
                         status=terminal_status(right),
                         best_time=best_time(right),
                         source_page=page_no,
                     ),
                 )
-    if not records or len(covered) != 9:
+    if not records or len(covered) != expected_disciplines:
         raise ValueError('Expected all nine senior disciplines; found ' + str(len(covered)))
     for row in records.values():
         if row['format'] == 'relay':
@@ -189,13 +200,13 @@ def attach_identities(records, registry):
 def validate_event(event, config, registry):
     if event['schema_version'] != 1 or event['competition_id'] != config['id']:
         raise ValueError('Historical event/schema mismatch')
-    if event['country'] != 'CHN' or not event['results']:
+    if event['country'] != 'CHN' or (not event['results'] and event.get('participation') != 'none'):
         raise ValueError('Expected Chinese final classifications')
     ids = {p['id'] for p in registry['items']}
     seen = set()
     for r in event['results']:
         identity = r.get('athlete_id') if r['format'] == 'individual' else 'CHN'
-        key = (r['gender'], r['distance_m'], identity)
+        key = (r['gender'], r['distance_m'], r['format'], r.get('race_number', 1), identity)
         if key in seen:
             raise ValueError('Duplicate historical result')
         seen.add(key)
@@ -205,10 +216,27 @@ def validate_event(event, config, registry):
             raise ValueError('Invalid historical rank')
         if r['format'] == 'individual' and identity not in ids:
             raise ValueError('Unknown historical athlete')
-        if not 1 <= r['source_page'] <= event['source']['pages']:
+        if event['source'].get('kind') == 'isu_api':
+            if r.get('source_ref') not in {d['sha256'] for d in event['source']['documents']}:
+                raise ValueError('Invalid API result source')
+        elif not 1 <= r['source_page'] <= event['source']['pages']:
             raise ValueError('Invalid result source page')
         if any(m['athlete_id'] not in ids for m in r.get('members', [])):
             raise ValueError('Unknown relay athlete')
+    if event['source'].get('kind') == 'isu_api':
+        from urllib.parse import urlsplit
+
+        docs = event['source']['documents']
+        if not docs or any(
+            urlsplit(d['url']).scheme != 'https'
+            or urlsplit(d['url']).hostname not in {'front-api.isu.org', 'isu-skating.com', 'www.isu-skating.com'}
+            or not re.fullmatch(r'[a-f0-9]{64}', d['sha256'])
+            for d in docs
+        ):
+            raise ValueError('Invalid official API provenance')
+        fingerprint = hashlib.sha256(json.dumps(docs, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+        if fingerprint != event['source']['sha256']:
+            raise ValueError('API provenance fingerprint mismatch')
     if not re.fullmatch(r'[a-f0-9]{64}', event['source']['sha256']):
         raise ValueError('Missing source fingerprint')
     if event['source']['sha256'] != config['source_sha256'] or event['source']['url'] != config['source_url']:
@@ -228,20 +256,58 @@ def load(directory=DIRECTORY):
             raise ValueError('Invalid historical competition identity/season')
         event_ids.add(meta['id'])
         file = directory / 'events' / (meta['id'] + '.json')
-        if meta['coverage'] != 'complete':
+        if meta['coverage'] not in {'complete', 'partial'}:
             if file.exists():
                 raise ValueError('Unpublished event has stored results')
             continue
         event = json.loads(file.read_text())
         validate_event(event, meta, registry)
-        medals = {str(i): sum(r['rank'] == i for r in event['results']) for i in (1, 2, 3)}
-        events.append(dict(**meta, source=event['source'], results=event['results'], medals=medals))
+        medals = {
+            str(i): sum(
+                r['rank'] == i
+                and r['status'] == 'classified'
+                and r.get('medal_eligible', True)
+                and r.get('medal_verified', True)
+                and (r.get('rank_scope') != 'final' or r['final_group'] == 'A')
+                for r in event['results']
+            )
+            for i in (1, 2, 3)
+        }
+        events.append(
+            dict(
+                **meta,
+                source=event['source'],
+                programme=event.get('programme'),
+                missing_disciplines=event.get('missing_disciplines', []),
+                results=event['results'],
+                medals=medals,
+            )
+        )
+    inventory = (
+        json.loads((directory / 'inventory.json').read_text())['scopes']
+        if (directory / 'inventory.json').exists()
+        else []
+    )
+    pending = [e for e in catalog['events'] if e['coverage'] == 'pending']
+    registered = {str(e.get('official_event_id')) for e in catalog['events']}
+    for scope in inventory:
+        for event in scope.get('events', []):
+            if event['official_event_id'] not in registered:
+                pending.append(
+                    dict(
+                        event,
+                        id='pending-isu-' + event['official_event_id'],
+                        coverage='pending',
+                        pending_reason='not_imported',
+                    )
+                )
     return dict(
         schema_version=1,
         country='CHN',
         cycles=catalog['cycles'],
+        inventory=inventory,
         events=sorted(events, key=lambda e: e['date_end'], reverse=True),
-        pending=[e for e in catalog['events'] if e['coverage'] != 'complete'],
+        pending=pending,
         athletes=registry['items'],
     )
 
@@ -267,7 +333,7 @@ def result_catalog(out, calendar, archive):
 
     events = []
     for event in archive['events']:
-        rows = [dict(r, rank_scope='overall') for r in event['results']]
+        rows = [dict(r, rank_scope=r.get('rank_scope', 'overall')) for r in event['results']]
         events.append(
             dict(
                 id=event['id'],
@@ -276,7 +342,10 @@ def result_catalog(out, calendar, archive):
                 title=re.sub(r'(\d)站', r'\1 站', event['title']),
                 date_start=event['date_start'],
                 date_end=event['date_end'],
-                source=event['source'],
+                source={k: v for k, v in event['source'].items() if k != 'documents'},
+                programme=event.get('programme'),
+                participation=event.get('participation', 'recorded'),
+                coverage=event['coverage'],
                 results=rows,
             )
         )
@@ -378,6 +447,7 @@ def result_catalog(out, calendar, archive):
         athletes=list(people.values()),
         events=sorted(events, key=lambda e: e['date_end'], reverse=True),
         pending=archive['pending'],
+        inventory=archive.get('inventory', []),
     )
 
 

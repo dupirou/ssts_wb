@@ -1,0 +1,700 @@
+{
+  "schema_version": 1,
+  "competition_id": "2019-20-fourcontinents-montreal",
+  "country": "CHN",
+  "participation": "recorded",
+  "programme": [
+    {
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "official_result_id": 4700,
+      "name": "Men 5000 m Relay",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "official_result_id": 4704,
+      "name": "Men 1500 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 3000,
+      "format": "individual",
+      "official_result_id": 4722,
+      "name": "Men 3000 m Superfinal",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "official_result_id": 4727,
+      "name": "Men 1000 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "official_result_id": 4739,
+      "name": "Men 500 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "official_result_id": 4756,
+      "name": "Ladies 3000 m Relay",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "individual",
+      "official_result_id": 4760,
+      "name": "Ladies 3000 m Superfinal",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "official_result_id": 4764,
+      "name": "Ladies 1000 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "official_result_id": 4778,
+      "name": "Ladies 1500 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "official_result_id": 4789,
+      "name": "Ladies 500 m",
+      "medal_eligible": true
+    }
+  ],
+  "missing_disciplines": [
+    4722,
+    4760
+  ],
+  "results": [
+    {
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "name": "China",
+      "country": "CHN",
+      "rank": 4,
+      "rank_scope": "overall",
+      "final_group": "A",
+      "status": "PEN",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+      "source_ref": "8750e7cc3870db76a9f3b413662c7424dff6a23dc6c37c3aa3f01618f6f65b24",
+      "official_result_id": 4700,
+      "official_skater_id": 8024,
+      "medal_eligible": true,
+      "members": [],
+      "lineup_status": "unavailable"
+    },
+    {
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "name": "Jiahua SONG",
+      "country": "CHN",
+      "rank": 5,
+      "rank_scope": "overall",
+      "final_group": "A",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "30adc6aa087c4515865d939ead50b102633f6954d66b4ed78d812a3702f523f9",
+      "official_result_id": 4704,
+      "official_skater_id": 6615,
+      "medal_eligible": true,
+      "athlete_id": "isu-6615"
+    },
+    {
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "name": "Wenlong LI",
+      "country": "CHN",
+      "rank": 10,
+      "rank_scope": "overall",
+      "final_group": "B",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "30adc6aa087c4515865d939ead50b102633f6954d66b4ed78d812a3702f523f9",
+      "official_result_id": 4704,
+      "official_skater_id": 4176,
+      "medal_eligible": true,
+      "athlete_id": "skater-wenlong-li"
+    },
+    {
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "name": "Kai An",
+      "country": "CHN",
+      "rank": 15,
+      "rank_scope": "overall",
+      "final_group": "B",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "30adc6aa087c4515865d939ead50b102633f6954d66b4ed78d812a3702f523f9",
+      "official_result_id": 4704,
+      "official_skater_id": 304,
+      "medal_eligible": true,
+      "athlete_id": "isu-304"
+    },
+    {
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Kai An",
+      "country": "CHN",
+      "rank": 5,
+      "rank_scope": "overall",
+      "final_group": "A",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "3755b7a02f65f8df531745b93e6fd25e12d163451d18451f4c0559ebd84bf872",
+      "official_result_id": 4727,
+      "official_skater_id": 304,
+      "medal_eligible": true,
+      "athlete_id": "isu-304"
+    },
+    {
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Wenlong LI",
+      "country": "CHN",
+      "rank": 12,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "3755b7a02f65f8df531745b93e6fd25e12d163451d18451f4c0559ebd84bf872",
+      "official_result_id": 4727,
+      "official_skater_id": 4176,
+      "medal_eligible": true,
+      "athlete_id": "skater-wenlong-li"
+    },
+    {
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Jiahua SONG",
+      "country": "CHN",
+      "rank": 17,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "3755b7a02f65f8df531745b93e6fd25e12d163451d18451f4c0559ebd84bf872",
+      "official_result_id": 4727,
+      "official_skater_id": 6615,
+      "medal_eligible": true,
+      "athlete_id": "isu-6615"
+    },
+    {
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "name": "Wenlong LI",
+      "country": "CHN",
+      "rank": 5,
+      "rank_scope": "overall",
+      "final_group": "B",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "b4edba54b3ad54be5718707bb8c59d53623adb9215e5f0d3b357902708a3e373",
+      "official_result_id": 4739,
+      "official_skater_id": 4176,
+      "medal_eligible": true,
+      "athlete_id": "skater-wenlong-li"
+    },
+    {
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "name": "Jiahua SONG",
+      "country": "CHN",
+      "rank": 8,
+      "rank_scope": "overall",
+      "final_group": "B",
+      "status": "PEN",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "b4edba54b3ad54be5718707bb8c59d53623adb9215e5f0d3b357902708a3e373",
+      "official_result_id": 4739,
+      "official_skater_id": 6615,
+      "medal_eligible": true,
+      "athlete_id": "isu-6615"
+    },
+    {
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "name": "Kai An",
+      "country": "CHN",
+      "rank": 13,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "b4edba54b3ad54be5718707bb8c59d53623adb9215e5f0d3b357902708a3e373",
+      "official_result_id": 4739,
+      "official_skater_id": 304,
+      "medal_eligible": true,
+      "athlete_id": "isu-304"
+    },
+    {
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "name": "China",
+      "country": "CHN",
+      "rank": 3,
+      "rank_scope": "final",
+      "final_group": "A",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+      "source_ref": "dc826bf9dac23a60446bf65448a366aaa60d749c12447e1df6c334391c6e4302",
+      "official_result_id": 4756,
+      "official_skater_id": 8024,
+      "medal_eligible": true,
+      "reported_overall_rank": 1,
+      "classification_conflict": true,
+      "medal_verified": true,
+      "members": [],
+      "lineup_status": "unavailable"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Aili XU",
+      "country": "CHN",
+      "rank": 6,
+      "rank_scope": "overall",
+      "final_group": "B",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "a2e008da2d419cca883c546781bb40c81a1601b0a767b4ed0071a06f275488af",
+      "official_result_id": 4764,
+      "official_skater_id": 7808,
+      "medal_eligible": true,
+      "athlete_id": "isu-7808"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Jinyu Li",
+      "country": "CHN",
+      "rank": 7,
+      "rank_scope": "overall",
+      "final_group": "B",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "a2e008da2d419cca883c546781bb40c81a1601b0a767b4ed0071a06f275488af",
+      "official_result_id": 4764,
+      "official_skater_id": 4164,
+      "medal_eligible": true,
+      "athlete_id": "isu-4164"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "name": "Yihan Guo",
+      "country": "CHN",
+      "rank": 11,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "a2e008da2d419cca883c546781bb40c81a1601b0a767b4ed0071a06f275488af",
+      "official_result_id": 4764,
+      "official_skater_id": 2421,
+      "medal_eligible": true,
+      "athlete_id": "isu-2421"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "name": "Aili XU",
+      "country": "CHN",
+      "rank": 8,
+      "rank_scope": "overall",
+      "final_group": "B",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "ecce3f4477d0b182ce1246d0018922f484e2362e0b6328982800a13438f69ec0",
+      "official_result_id": 4778,
+      "official_skater_id": 7808,
+      "medal_eligible": true,
+      "athlete_id": "isu-7808"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "name": "Yihan Guo",
+      "country": "CHN",
+      "rank": 9,
+      "rank_scope": "overall",
+      "final_group": "B",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "ecce3f4477d0b182ce1246d0018922f484e2362e0b6328982800a13438f69ec0",
+      "official_result_id": 4778,
+      "official_skater_id": 2421,
+      "medal_eligible": true,
+      "athlete_id": "isu-2421"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "name": "Jinyu Li",
+      "country": "CHN",
+      "rank": 17,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "ecce3f4477d0b182ce1246d0018922f484e2362e0b6328982800a13438f69ec0",
+      "official_result_id": 4778,
+      "official_skater_id": 4164,
+      "medal_eligible": true,
+      "athlete_id": "isu-4164"
+    },
+    {
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "name": "Jinyu Li",
+      "country": "CHN",
+      "rank": 6,
+      "rank_scope": "overall",
+      "final_group": "B",
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "62d0db577111d0e6e0af07f8b063571d9e1b6bb7044df3734baa94f7bc8d487b",
+      "official_result_id": 4789,
+      "official_skater_id": 4164,
+      "medal_eligible": true,
+      "athlete_id": "isu-4164"
+    },
+    {
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "name": "Aili XU",
+      "country": "CHN",
+      "rank": 13,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "62d0db577111d0e6e0af07f8b063571d9e1b6bb7044df3734baa94f7bc8d487b",
+      "official_result_id": 4789,
+      "official_skater_id": 7808,
+      "medal_eligible": true,
+      "athlete_id": "isu-7808"
+    },
+    {
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "name": "Yihan Guo",
+      "country": "CHN",
+      "rank": 17,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "classified",
+      "best_time": null,
+      "source_page": null,
+      "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+      "source_ref": "62d0db577111d0e6e0af07f8b063571d9e1b6bb7044df3734baa94f7bc8d487b",
+      "official_result_id": 4789,
+      "official_skater_id": 2421,
+      "medal_eligible": true,
+      "athlete_id": "isu-2421"
+    }
+  ],
+  "source": {
+    "kind": "isu_api",
+    "url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-four-continents-short-track-championships-2020-montreal/?tab=results_4946",
+    "documents": [
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4946,
+          "event_result_id": 4704
+        },
+        "sha256": "30adc6aa087c4515865d939ead50b102633f6954d66b4ed78d812a3702f523f9"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4946,
+          "event_result_id": 4727
+        },
+        "sha256": "3755b7a02f65f8df531745b93e6fd25e12d163451d18451f4c0559ebd84bf872"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4946,
+          "event_result_id": 4739
+        },
+        "sha256": "b4edba54b3ad54be5718707bb8c59d53623adb9215e5f0d3b357902708a3e373"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4946,
+          "event_result_id": 4764
+        },
+        "sha256": "a2e008da2d419cca883c546781bb40c81a1601b0a767b4ed0071a06f275488af"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4946,
+          "event_result_id": 4778
+        },
+        "sha256": "ecce3f4477d0b182ce1246d0018922f484e2362e0b6328982800a13438f69ec0"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4946,
+          "event_result_id": 4789
+        },
+        "sha256": "62d0db577111d0e6e0af07f8b063571d9e1b6bb7044df3734baa94f7bc8d487b"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4946,
+          "event_result_id": 4700
+        },
+        "sha256": "8750e7cc3870db76a9f3b413662c7424dff6a23dc6c37c3aa3f01618f6f65b24"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4946,
+          "event_result_id": 4756
+        },
+        "sha256": "ffc69b3b296e4fac811da504b785b31d3987a9b85e2fb289702ebfb3a9b1d7f9"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4700
+        },
+        "sha256": "da22c4d14ccfc5a6518b61d8c1dca516086163ae547fdd0f16f8e72ebb764bcf"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4704
+        },
+        "sha256": "526a44ab8f30f38be58e1205d2df9ba155b7eac27ac1c48063fa7354e5744ef0"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4727
+        },
+        "sha256": "64bf2a788e69eae2cb3e5a956760563efdc0072b4f56d05faa3a35048ef50d86"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4739
+        },
+        "sha256": "90edbe287a2f8f47c2e64d69fbcc13f1d0e54b6d188b6356e5fe63e01a61119e"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4756
+        },
+        "sha256": "dc2bc93809e7e207b60d9550104f136b86e4095daaaaea7b317406e3f7d8fce7"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4764
+        },
+        "sha256": "f037a5dec3ee7e63a79d59afed31e01ed9b6046141262c89476fb146cc611eb1"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4778
+        },
+        "sha256": "cd638f91ce30058f4724d04bfe260785665f5de2d5da82c09d858118cd55e943"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 4789
+        },
+        "sha256": "4ff7e03cb2373bbddd9a8966db2159a789f2679fbf4fd703cd488b7f92948d31"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4704,
+          "event_result_round_id": 7394
+        },
+        "sha256": "a2bf7b5ce4122a88cdcc91ca84461fd0601654ed1bbb155b4800f23ffbfbb835"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4727,
+          "event_result_round_id": 7444
+        },
+        "sha256": "6b31e7f37943fbeafa285c09ca1a00049586bee1354725ab26f4ad0bec66b35b"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4739,
+          "event_result_round_id": 7477
+        },
+        "sha256": "f57dc7f549001cb9fb0cc5c5119734e071095429ec8fb6e99ff3eccbcc6c85e0"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4764,
+          "event_result_round_id": 7529
+        },
+        "sha256": "49c4f85eeb85297bf7c3e0239bebd962326abb157965c634132c5a36b3fa5f47"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4778,
+          "event_result_round_id": 7551
+        },
+        "sha256": "609b202e96bfcb05f651fba144ac0849c2aa8835f8115826eb4370754e979f67"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4789,
+          "event_result_round_id": 7584
+        },
+        "sha256": "efddaa2f62fed59416eb42a9de3ed2bdff514f6676876a86f9fd89b58a6ef3bb"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4700,
+          "event_result_round_id": 7365
+        },
+        "sha256": "152750b04d87aa4ec44b9c0ca497c48d37d37f88eb2c64caea0d599f5b68d89c"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 4756,
+          "event_result_round_id": 7489
+        },
+        "sha256": "dc826bf9dac23a60446bf65448a366aaa60d749c12447e1df6c334391c6e4302"
+      },
+      {
+        "url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-four-continents-short-track-championships-2020-montreal/?tab=results_4946",
+        "form": {},
+        "sha256": "d74c23803a010c16cd3e5c153b87868303215f44f6a4cdadeb3dd2ba443739bf"
+      }
+    ],
+    "retrieved_at": "2026-10-27T08:19:14.800748+00:00",
+    "sha256": "cae8298f58bb351edf867e87a314c07224efb657ec8a99263ae2839ef44a5e1c"
+  }
+}

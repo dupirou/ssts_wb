@@ -31,7 +31,7 @@ def main():
     pages = text.split('\f')
     if not pages[-1].strip():
         pages.pop()
-    results = history_data.parse_classifications(pages)
+    results = history_data.parse_classifications(pages, config.get('expected_disciplines', 9))
     registry = json.loads((directory / 'athletes.json').read_text())
     history_data.attach_identities(results, registry)
     event = dict(

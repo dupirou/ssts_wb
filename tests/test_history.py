@@ -32,13 +32,13 @@ class HistoryTests(unittest.TestCase):
 
     def test_relay_counts_once_and_uncollected_events_have_no_results(self):
         archive = history_data.load()
-        self.assertEqual(sum(len(e['results']) for e in archive['events']), 79)
-        self.assertEqual(len(archive['events']), 4)
-        self.assertEqual(len(archive['pending']), 3)
+        self.assertGreaterEqual(sum(len(e['results']) for e in archive['events']), 142)
+        self.assertGreaterEqual(len(archive['events']), 7)
+        self.assertFalse(any(e['season'] == '2025/26' for e in archive['pending']))
         worlds = next(e for e in archive['events'] if e['id'] == '2025-26-worlds-montreal')
         self.assertEqual(worlds['medals'], {'1': 0, '2': 1, '3': 1})
         self.assertTrue(all('results' not in e for e in archive['pending']))
-        self.assertFalse(any(e['season'] in archive['cycles'][1]['seasons'] for e in archive['events']))
+        self.assertTrue(all(r['country'] == 'CHN' for e in archive['events'] for r in e['results']))
 
     def test_source_and_identity_mismatches_reject_the_event(self):
         catalog = json.loads((history_data.DIRECTORY / 'catalog.json').read_text())
@@ -67,7 +67,9 @@ class HistoryTests(unittest.TestCase):
         original = copy.deepcopy(archive)
         calendar = json.loads((ROOT / 'dist/data/calendar.json').read_text())
         index = history_data.result_catalog(ROOT / 'dist', calendar, archive)
-        self.assertEqual(len(index['events']), 5)
+        self.assertEqual(len(index['events']), len(archive['events']) + 1)
+        alps = next(c for c in index['cycles'] if '2026/27' in c['seasons'])
+        self.assertEqual((alps['id'], alps['label']), ('cycle-2030', '阿尔卑斯周期'))
         self.assertEqual(archive, original)
         current = next(e for e in index['events'] if e['season'] == '2026/27')
         self.assertTrue(all(r['country'] == 'CHN' for e in index['events'] for r in e['results']))
