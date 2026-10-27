@@ -246,11 +246,150 @@ def load(directory=DIRECTORY):
     )
 
 
-def export(out, directory=DIRECTORY):
+def result_catalog(out, calendar, archive):
+    """One browsing index for stored classifications and the current official feed."""
+    people = {p['id']: dict(p) for p in archive['athletes']}
+    aliases = {identity_key(name, p['gender']): p['id'] for p in people.values() for name in [p['name'], *p['aliases']]}
+
+    def person(row, gender):
+        aid = aliases.get(identity_key(row['name'], gender), row['athlete_id'])
+        if aid not in people:
+            people[aid] = dict(
+                id=aid,
+                name=competition_data.surname_last(row['name'])
+                if not competition_data.given_first(row['name'])
+                else row['name'],
+                gender=gender,
+                aliases=[row['name']],
+            )
+            people[aid]['name'] = people[aid]['name'] or row['name']
+        return aid
+
+    events = []
+    for event in archive['events']:
+        rows = [dict(r, rank_scope='overall') for r in event['results']]
+        events.append(
+            dict(
+                id=event['id'],
+                season=event['season'],
+                kind=event['kind'],
+                title=re.sub(r'(\d)站', r'\1 站', event['title']),
+                date_start=event['date_start'],
+                date_end=event['date_end'],
+                source=event['source'],
+                results=rows,
+            )
+        )
+    for number, event in enumerate(calendar['stations'], 1):
+        path = out / 'data/competitions' / (event['id'] + '.json')
+        if not path.exists():
+            continue
+        snapshot = json.loads(path.read_text())
+        genders = {p['athlete_id']: p['gender'] for p in snapshot.get('entries', {}).get('items', [])}
+        rows, final_groups = [], {}
+        heats = [
+            h
+            for h in snapshot['rounds']['items']
+            if h.get('round') == 'final'
+            and h.get('group') in ('A', 'B')
+            and h.get('evidence') == 'official_results'
+            and str(h.get('result_status', '')).lower() == 'official'
+        ]
+        for heat in heats:
+            for p in heat['participants']:
+                if p['country'] != 'CHN':
+                    continue
+                final_groups[(p['athlete_id'], heat['gender'], heat['distance_m'])] = heat['group']
+                if heat['format'] != 'relay' or p.get('rank') is None:
+                    continue
+                members = [
+                    dict(
+                        name=m['name'],
+                        athlete_id=person(m, genders.get(m['athlete_id'], heat['gender']))
+                        if genders.get(m['athlete_id'], heat['gender']) != 'mixed'
+                        else m['athlete_id'],
+                        rounds=['F' + heat['group']],
+                    )
+                    for m in p.get('members', [])
+                ]
+                rows.append(
+                    dict(
+                        gender=heat['gender'],
+                        distance_m=heat['distance_m'],
+                        format='relay',
+                        name='China',
+                        country='CHN',
+                        rank=p['rank'],
+                        rank_scope='final',
+                        final_group=heat['group'],
+                        status=p.get('penalty', {}).get('code', 'classified')
+                        if p.get('penalty')
+                        else terminal_status([p.get('result') or '']),
+                        members=members,
+                        source_url=heat['source_url'],
+                    )
+                )
+        for r in snapshot['rankings']['items']:
+            if r['country'] != 'CHN' or r['ranking_type'] != 'event' or r['format'] != 'individual':
+                continue
+            rows.append(
+                dict(
+                    gender=r['gender'],
+                    distance_m=r['distance_m'],
+                    format='individual',
+                    name=r['name'],
+                    athlete_id=person(r, r['gender']),
+                    country='CHN',
+                    rank=r['rank'],
+                    rank_scope='overall',
+                    final_group=final_groups.get((r['athlete_id'], r['gender'], r['distance_m'])),
+                    status=terminal_status(r.get('official_details', '').split()),
+                    source_url=r['source_url'],
+                )
+            )
+        if rows:
+            events.append(
+                dict(
+                    id=calendar['season'].replace('/', '-') + '-worldtour-' + event['id'] + '-' + str(number),
+                    season=calendar['season'],
+                    kind='worldtour',
+                    title='世巡赛第 ' + str(number) + ' 站 · ' + event['city'],
+                    date_start=event['date_start'],
+                    date_end=event['date_end'],
+                    source=dict(url=(snapshot['rankings'].get('source_urls') or [rows[0]['source_url']])[0]),
+                    results=rows,
+                )
+            )
+    cycles = list(archive['cycles'])
+    if not any(calendar['season'] in c['seasons'] for c in cycles):
+        start = int(calendar['season'][:4])
+        start -= (start - 2014) % 4
+        cycles.append(
+            dict(
+                id='cycle-' + str(start + 4),
+                label=str(start) + '—' + str(start + 4),
+                seasons=[str(y) + '/' + str(y + 1)[-2:] for y in range(start, start + 4)],
+            )
+        )
+    return dict(
+        schema_version=1,
+        country='CHN',
+        cycles=cycles,
+        athletes=list(people.values()),
+        events=sorted(events, key=lambda e: e['date_end'], reverse=True),
+        pending=archive['pending'],
+    )
+
+
+def export(out, directory=DIRECTORY, calendar=None):
     data = load(directory)
     target = out / 'data/history'
     target.mkdir(parents=True, exist_ok=True)
     (target / 'index.json').write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    if calendar:
+        (out / 'data/results.json').write_text(
+            json.dumps(result_catalog(out, calendar, data), ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+        )
 
 
 def document_hash(body):

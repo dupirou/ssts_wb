@@ -62,6 +62,22 @@ class HistoryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Unregistered athlete'):
             history_data.attach_identities([dict(format='individual', gender='men', name='Unknown Skater')], registry)
 
+    def test_unified_index_keeps_final_heat_positions_distinct_from_overall_ranks(self):
+        archive = history_data.load()
+        original = copy.deepcopy(archive)
+        calendar = json.loads((ROOT / 'dist/data/calendar.json').read_text())
+        index = history_data.result_catalog(ROOT / 'dist', calendar, archive)
+        self.assertEqual(len(index['events']), 5)
+        self.assertEqual(archive, original)
+        current = next(e for e in index['events'] if e['season'] == '2026/27')
+        self.assertTrue(all(r['country'] == 'CHN' for e in index['events'] for r in e['results']))
+        relay = next(r for r in current['results'] if r['gender'] == 'women' and r['format'] == 'relay')
+        self.assertEqual((relay['rank'], relay['rank_scope'], relay['final_group']), (1, 'final', 'B'))
+        individual = next(r for r in current['results'] if r['format'] == 'individual')
+        self.assertEqual(individual['rank_scope'], 'overall')
+        kun = next(r for r in current['results'] if r['name'] == 'LI Kun')
+        self.assertEqual(kun['athlete_id'], 'skater-kun-li')
+
 
 if __name__ == '__main__':
     unittest.main()

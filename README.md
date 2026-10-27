@@ -7,7 +7,7 @@
 - `/`：当前或下一场赛事与售票信息
 - `/events/`：完整赛季赛历
 - `/events/2026-27/vancouver/`：分站详情（原 `/?station=vancouver` 等链接继续可用）
-- `/results/`：最近赛果；`?view=history` 查看中国队历史成绩，原 `/history/` 入口继续可用
+- `/results/`：中国队统一成绩表，按周期、赛季、赛事和单项筛选；原 `/history/` 入口继续可用
 - `/athletes/`：运动员目录与已公布的本赛季世巡赛单项排名
 
 ## 怎么运转
