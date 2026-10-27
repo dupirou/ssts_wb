@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "country": "CHN",
+  "cycles": [
+    {
+      "id": "pyeongchang-2018",
+      "label": "平昌周期",
+      "seasons": [
+        "2014/15",
+        "2015/16",
+        "2016/17",
+        "2017/18"
+      ]
+    },
+    {
+      "id": "beijing-2022",
+      "label": "北京周期",
+      "seasons": [
+        "2018/19",
+        "2019/20",
+        "2020/21",
+        "2021/22"
+      ]
+    },
+    {
+      "id": "milano-2026",
+      "label": "米兰周期",
+      "seasons": [
+        "2022/23",
+        "2023/24",
+        "2024/25",
+        "2025/26"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "2025-26-worlds-montreal",
+      "season": "2025/26",
+      "kind": "worlds",
+      "title": "世锦赛 · 蒙特利尔",
+      "city": "蒙特利尔",
+      "source_city": "Montreal",
+      "date_start": "2026-03-13",
+      "date_end": "2026-03-15",
+      "official_event_id": "1",
+      "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Fansite/Short-Track/2025-2026/Events/World-STSS-Championships/Documents/Protocol-1773648916-2179.pdf",
+      "source_sha256": "57ccbe99f3fde1200422cca42f405b2bd9fced5d351c709679e7dba5ab3d344a",
+      "coverage": "complete",
+      "pending_reason": null
+    },
+    {
+      "id": "2025-26-worldtour-dordrecht-4",
+      "season": "2025/26",
+      "kind": "worldtour",
+      "title": "世巡赛第 4站 · 多德雷赫特",
+      "city": "多德雷赫特",
+      "source_city": "Dordrecht",
+      "date_start": "2025-11-27",
+      "date_end": "2025-11-30",
+      "official_event_id": "953",
+      "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Fansite/Short-Track/2025-2026/Events/Short-Track-World-Tour/Documents/WC2526NED-4-0-1764858302-4029.pdf",
+      "source_sha256": "d8e33fb6ab3922ccd1a5ec6c6ff35a477905910ded86420053bc6f00fe13c6e4",
+      "coverage": "complete",
+      "pending_reason": null
+    },
+    {
+      "id": "2025-26-worldtour-gdansk-3",
+      "season": "2025/26",
+      "kind": "worldtour",
+      "title": "世巡赛第 3站 · 格但斯克",
+      "city": "格但斯克",
+      "source_city": "Gdansk",
+      "date_start": "2025-11-20",
+      "date_end": "2025-11-23",
+      "official_event_id": "793",
+      "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Fansite/Short-Track/2025-2026/Events/Short-Track-World-Tour/Documents/STWT-3-Gdansk-2025-26-1764072868-1511.pdf",
+      "source_sha256": "b34646e6865ea34034b17e6dad9cd66c4c5030e0ffe9500ed918e2519f7de2e4",
+      "coverage": "pending",
+      "pending_reason": "image_protocol"
+    },
+    {
+      "id": "2025-26-worldtour-montreal-2",
+      "season": "2025/26",
+      "kind": "worldtour",
+      "title": "世巡赛第 2站 · 蒙特利尔",
+      "city": "蒙特利尔",
+      "source_city": "Montréal",
+      "date_start": "2025-10-16",
+      "date_end": "2025-10-19",
+      "official_event_id": "960",
+      "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Fansite/Short-Track/2025-2026/Events/Short-Track-World-Tour/Documents/STWT-2-Montreal-2025-26-1761561207-5928.pdf",
+      "source_sha256": "be38cd916e79fa1ebdfd19b97ed1516427c867208c189b844931bcc90a11247c",
+      "coverage": "pending",
+      "pending_reason": "image_protocol"
+    },
+    {
+      "id": "2025-26-worldtour-montreal-1",
+      "season": "2025/26",
+      "kind": "worldtour",
+      "title": "世巡赛第 1站 · 蒙特利尔",
+      "city": "蒙特利尔",
+      "source_city": "Montréal",
+      "date_start": "2025-10-09",
+      "date_end": "2025-10-12",
+      "official_event_id": "967",
+      "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Fansite/Short-Track/2025-2026/Events/Short-Track-World-Tour/Documents/STWT-1-Montreal-2025-26-1760329512-1523.pdf",
+      "source_sha256": "ecc74904ddb908f36404e2135398611e98203a57688f3af6b21f6dc18f7fa720",
+      "coverage": "complete",
+      "pending_reason": null
+    },
+    {
+      "id": "2024-25-worlds-beijing",
+      "season": "2024/25",
+      "kind": "worlds",
+      "title": "世锦赛 · 北京",
+      "city": "北京",
+      "source_city": "Beijing",
+      "date_start": "2025-03-14",
+      "date_end": "2025-03-16",
+      "official_event_id": "1502",
+      "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/CMS/Fansite/Short-Track/2024-2025/Events/World-STSS-Championships/Documents/Protocol-of-Results-ISU-World-Short-Track-Championships-2025-Beijing-1760795859-7587.pdf",
+      "source_sha256": "7b8a3b037464bdb6f5abf1d3c6120ce29e4f3b4f97cf038a2658d3cc81ed6f6f",
+      "coverage": "complete",
+      "pending_reason": null
+    },
+    {
+      "id": "2025-26-olympics-milano",
+      "season": "2025/26",
+      "kind": "olympics",
+      "title": "米兰冬奥会",
+      "city": "米兰",
+      "date_start": "2026-02-10",
+      "date_end": "2026-02-20",
+      "coverage": "pending",
+      "pending_reason": "source_pending",
+      "source_url": "https://isu-skating.com/en/short-track/events/eventdetail/olympic-winter-games-2026-short-track-skating/?tab=results_22"
+    }
+  ]
+}

@@ -348,6 +348,9 @@ def export(now=None):
     import site_catalog
 
     site_catalog.export(OUT, season, schedules)
+    import history_data
+
+    history_data.export(OUT)
     # Real index files make deep links work on Workers Assets and a plain static server alike.
     page_paths = ['events', 'results', 'history', 'athletes'] + [
         'events/' + CONFIG['season'].replace('/', '-') + '/' + event['id']

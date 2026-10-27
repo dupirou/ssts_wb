@@ -100,18 +100,27 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   assert.equal(dom.requests.filter(p => p.includes('/api/')).length, 0);
 });
 
-test('results combines current podiums and historical cycles, including the old history address', async t => {
-  for (const route of ['/results/', '/history/']) {
-    const dom = await page(route + '?now=2026-10-27T04:00:00Z');
-    t.after(() => dom.window.close());
-    const d = dom.window.document;
-    assert.equal(d.querySelector('h1').textContent, '成绩');
-    assert.equal(d.querySelector('#site-nav [aria-current]').getAttribute('href'), '/results/');
-    assert.ok(d.querySelector('.recent-card').getAttribute('href').includes('#r-'));
-    assert.equal(d.querySelectorAll('.cycle-card').length, 3);
-    assert.match(d.querySelector('.results-history').textContent, /整理中/);
-    assert.doesNotMatch(d.querySelector('#app').textContent, /按奥运周期|以四年为一段|收录后可/);
-    assert.deepEqual(dom.requests, ['/data/calendar.json', '/data/portal.json']);
+test('results separates current podiums from the Chinese historical archive', async t => {
+  const dom = await page('/results/?now=2026-10-27T04:00:00Z');
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.equal(d.querySelector('h1').textContent, '成绩');
+  assert.equal(d.querySelector('#site-nav [aria-current]').getAttribute('href'), '/results/');
+  assert.ok(d.querySelector('.recent-card').getAttribute('href').includes('#r-'));
+  assert.equal(d.querySelectorAll('.cycle-card').length, 0);
+  assert.ok(!dom.requests.includes('/data/history/index.json'));
+  for (const route of ['/results/?view=history', '/history/']) {
+    const past = await page(route);
+    t.after(() => past.window.close());
+    const p = past.window.document;
+    assert.equal(p.querySelector('h1').textContent, '成绩');
+    assert.equal(p.querySelectorAll('.cycle-card').length, 3);
+    assert.equal(p.querySelectorAll('.history-event').length, 4);
+    assert.equal(p.querySelectorAll('.history-result').length, 79);
+    assert.equal(p.querySelector('.recent-card'), null);
+    assert.match(p.querySelector('.history-count').textContent, /4 场 · 79 条成绩/);
+    assert.match(p.querySelector('.history-coverage').textContent, /待收录 3 场/);
+    assert.deepEqual(past.requests, ['/data/calendar.json', '/data/history/index.json']);
   }
   const absent = await page('/events/2022-23/vancouver/');
   t.after(() => absent.window.close());
@@ -119,14 +128,41 @@ test('results combines current podiums and historical cycles, including the old 
   assert.equal(absent.window.document.querySelector('.station-hero'), null);
 });
 
-test('results loading failure keeps historical cycles and navigation usable', async t => {
-  const dom = await page('/results/', '/data/portal.json');
+test('historical filters share a season, discipline and actual relay participant search', async t => {
+  const dom = await page('/results/?view=history&season=2025%2F26&gender=women&distance=3000');
   t.after(() => dom.window.close());
   const d = dom.window.document;
-  assert.match(d.querySelector('.results-recent').textContent, /暂时无法加载/);
-  assert.equal(d.querySelectorAll('.cycle-card').length, 3);
-  assert.equal(d.querySelectorAll('#site-nav a').length, 4);
-  assert.ok(d.querySelector('.results-recent button'));
+  assert.equal(d.querySelectorAll('.history-result').length, 3);
+  const first = d.querySelector('.history-event');
+  assert.match(first.textContent, /世锦赛 · 蒙特利尔/);
+  assert.match(first.querySelector('.history-result').textContent, /第 3 名/);
+  const final = [...first.querySelectorAll('.history-lineup p')].find(p => p.textContent.startsWith('A 决赛'));
+  assert.match(final.textContent, /Li GONG/);
+  assert.doesNotMatch(final.textContent, /Jingru YANG/);
+  const type = d.querySelector('select[name="kind"]'); type.value = 'worlds';
+  type.dispatchEvent(new dom.window.Event('change', {bubbles:true}));
+  assert.equal(d.querySelectorAll('.history-result').length, 1);
+  const restored = await page(dom.window.location.pathname + dom.window.location.search);
+  t.after(() => restored.window.close());
+  assert.equal(restored.window.document.querySelectorAll('.history-result').length, 1);
+  d.querySelector('[data-cycle="beijing-2022"]').click();
+  assert.equal(d.querySelectorAll('.history-result').length, 0);
+  assert.match(d.querySelector('.history-count').textContent, /暂无已收录/);
+  assert.doesNotMatch(d.querySelector('.history-events').textContent, /0 金|0 银|0 铜/);
+});
+
+test('a failed results feed preserves navigation and provides a retry', async t => {
+  for (const [route, resource, selector] of [
+    ['/results/', '/data/portal.json', '.results-recent'],
+    ['/results/?view=history', '/data/history/index.json', '.results-history'],
+  ]) {
+    const dom = await page(route, resource);
+    t.after(() => dom.window.close());
+    const d = dom.window.document;
+    assert.match(d.querySelector(selector).textContent, /暂时无法加载/);
+    assert.equal(d.querySelectorAll('#site-nav a').length, 4);
+    assert.ok(d.querySelector(selector + ' button'));
+  }
 });
 
 test('after the World Tour, the homepage points to the upcoming championship', async t => {
