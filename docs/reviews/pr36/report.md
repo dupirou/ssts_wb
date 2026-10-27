@@ -41,7 +41,7 @@
 
 基线 Python 原本 93/94；唯一过时测试仍要求舍弃官网当前正式分类。本轮更新其断言，同时验证保留 previous_final_result 和源引用，不改变生产名次选择逻辑。
 
-CI 新增每个 JS/MJS 模块语法检查、真实浏览器响应式与离线 PWA 验证，保存 results-ui-verification artifact。中文字体通过测试环境安装，无网站外部字体请求。
+CI 固定 ubuntu-24.04，避免 ubuntu-latest 升级至 Playwright 尚不支持的 Ubuntu 26.04。新增每个 JS/MJS 模块语法检查、真实浏览器响应式与离线 PWA 验证，保存 results-ui-verification artifact。中文字体通过测试环境安装，无网站外部字体请求。
 
 ## 截图
 
