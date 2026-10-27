@@ -105,6 +105,28 @@
   const medalResult = r => r.medal_eligible !== false && r.medal_verified !== false && r.status === 'classified' && r.rank >= 1 && r.rank <= 3 && (r.rank_scope !== 'final' || r.final_group === 'A');
   const kindMatches = (value,kind) => kind === 'all' || value === kind || kind === 'circuit' && ['worldcup','worldtour'].includes(value);
   const normalizeKind = kind => ['worldcup','worldtour'].includes(kind) ? 'circuit' : kind;
+  // Search projections and detail rows use this single predicate; no event-wide name bag.
+  const normalizeSearch = value => String(value || '').normalize('NFKC').toLowerCase().replace(/\s+/g,' ').trim();
+  function resultSearchRow(row,people) {
+    const person = id => people?.get ? people.get(id) : people?.[id];
+    const subjects = row.format === 'relay' ? [{name:row.name,aliases:['中国队']},...(row.members || [])] : [row];
+    const names = subjects.map(subject => {
+      const registered = person(subject.athlete_id);
+      return [...new Set([subject.name,registered?.name,...(registered?.aliases || []),...(subject.aliases || [])].map(normalizeSearch).filter(Boolean))].join(' ');
+    }).filter(Boolean);
+    return {gender:row.gender,distance_m:row.distance_m,names:[...new Set(names)]};
+  }
+  function resultSearchRows(rows,people) {
+    return [...new Map(rows.map(row => {const projection=resultSearchRow(row,people);return [JSON.stringify(projection),projection];})).values()];
+  }
+  function resultFilter({athlete='',gender='all',distance='all'} = {}) {
+    return {tokens:normalizeSearch(athlete).split(' ').filter(Boolean),gender,distance:String(distance)};
+  }
+  const hasResultFilter = filter => filter.tokens.length > 0 || filter.gender !== 'all' || filter.distance !== 'all';
+  const matchesResultSearch = (row,filter) => (filter.gender === 'all' || row.gender === filter.gender) &&
+    (filter.distance === 'all' || String(row.distance_m) === filter.distance) &&
+    (!filter.tokens.length || row.names.some(name => filter.tokens.every(token => name.includes(token))));
+  const eventMatchesResults = (event,filter) => !hasResultFilter(filter) || event.search_rows.some(row => matchesResultSearch(row,filter));
   const empty = () => ({events:0, entries:0, starts:0, medals:[0,0,0], a_finals:0, top8:0});
   function rowStatistics(rows) {
     rows = rows.filter(r => included(r) && r.medal_eligible !== false);
@@ -201,7 +223,7 @@
     const state = totals.entries ? 'recorded' : scope?.partial || !events.length ? scope?.state === 'not_offered' ? 'not_offered' : 'uncollected' : projects.every(p => p.state === 'not_offered') ? 'not_offered' : projects.every(p => ['zero','not_offered'].includes(p.state)) ? 'zero' : 'uncollected';
     return {state, totals, best, partial:!!scope?.partial, group_only:projects.some(p => p.group_only), missing_classifications:projects.some(p => p.missing_classifications)};
   }
-  site.resultsModel = {projectKeys,projectId,included,matchesProject,medalResult,kindMatches,normalizeKind,statistics,summarize,athleteStatistics,scopeEvents,scopeCoverage,projectSummary};
+  site.resultsModel = {normalizeSearch,resultSearchRow,resultSearchRows,resultFilter,hasResultFilter,matchesResultSearch,eventMatchesResults,projectKeys,projectId,included,matchesProject,medalResult,kindMatches,normalizeKind,statistics,summarize,athleteStatistics,scopeEvents,scopeCoverage,projectSummary};
 })(typeof window === 'undefined' ? globalThis : window);
 ;
 /* Results I/O boundary: immutable metadata, cached summaries, bounded detail requests. */
@@ -224,7 +246,15 @@
       }
       return cache.get(file);
     };
-    const getIndex = () => read('results/index.json',data=>data.schema_version===2&&Array.isArray(data.events));
+    const getIndex = () => read('results/index.json',data=>data.schema_version===2&&data.search_version===1&&data.search_file==='results/search.json'&&Array.isArray(data.events));
+    async function ensureSearch(events) {
+      const missing=events.filter(e=>!e.search_rows);
+      if(!missing.length)return;
+      const data=await read('results/search.json',data=>data.schema_version===2&&data.search_version===1&&Array.isArray(data.events)&&
+        missing.every(e=>data.events.some(item=>item.id===e.id&&Array.isArray(item.search_rows))));
+      const byId=new Map(data.events.map(e=>[e.id,e.search_rows]));
+      for(const event of missing)event.search_rows=byId.get(event.id);
+    }
     async function ensureStats(events) {
       const seasons = [...new Set(events.filter(e => !e.summary).map(e => e.season))];
       const files = await Promise.all(seasons.map(season => read('results/seasons/' + season.replace('/','-') + '.json',data=>data.schema_version===2&&Array.isArray(data.items)&&events.filter(e=>e.season===season).every(e=>data.items.some(item=>item.id===e.id&&item.summary?.totals)))));
@@ -235,7 +265,7 @@
       const event = await read(meta.detail_file,data=>data.id===meta.id&&Array.isArray(data.results));
       return event;
     }
-    return {getIndex,ensureStats,getEvent, getEvents:events => Promise.all(events.map(getEvent))};
+    return {getIndex,ensureSearch,ensureStats,getEvent, getEvents:events => Promise.all(events.map(getEvent))};
   }
   site.resultsStore = {create};
 })();
@@ -244,7 +274,7 @@
 (function () {
   'use strict';
   const site = window.SSTS;
-  const {projectKeys,matchesProject,medalResult,normalizeKind,kindMatches,scopeEvents,scopeCoverage,statistics,athleteStatistics,projectSummary} = site.resultsModel;
+  const {resultSearchRow,resultFilter,hasResultFilter,matchesResultSearch,eventMatchesResults,projectKeys,matchesProject,medalResult,normalizeKind,kindMatches,scopeEvents,scopeCoverage,statistics,athleteStatistics,projectSummary} = site.resultsModel;
   async function eventResults(ctx, calendar, route = {}) {
     const {h, root, fetchData, external} = ctx;
     const panel = h('section', {class: 'results-browser', 'aria-label': '中国队成绩'},
@@ -317,23 +347,40 @@
           const items=[['成绩','/results/'],...(parent?[[parent.label,'/results/cycles/'+parent.id+'/']]:[]),[selected.season,'/results/seasons/'+seasonId(selected.season)+'/'],[selected.title,null]];
           root.insertBefore(breadcrumbs(h,items),root.querySelector('.results-heading'));
         }
-        const query = search.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
-        const rowMatch = r => (gender.value === 'all' || r.gender === gender.value) && (distance.value === 'all' || String(r.distance_m) === distance.value) &&
-          query.every(token => [name(r), r.name, ...(people[r.athlete_id]?.aliases || []), ...(r.members || []).flatMap(m => [people[m.athlete_id]?.name || '', m.name])].join(' ').toLocaleLowerCase().includes(token));
-        const candidates = index.events.filter(e => matchEvent(e) && (event.value === 'all' || e.id === event.value) &&
-          query.every(token=>e.search_text.includes(token)));
+        const filter = resultFilter({athlete:search.value,gender:gender.value,distance:distance.value});
+        const rowMatch = row => matchesResultSearch(resultSearchRow(row,people),filter);
+        const selectedEvent = event.value !== 'all';
+        const inScope=index.events.filter(e=>matchEvent(e)&&(event.value==='all'||e.id===event.value));
+        summary.textContent='正在读取成绩…';
+        table.setAttribute('aria-busy','true');
+        if(hasResultFilter(filter)){
+          try {await store.ensureSearch(inScope);}
+          catch(_){if(request===generation){table.removeAttribute('aria-busy');summary.replaceChildren('检索索引暂时无法加载。',h('button',{type:'button',text:'重试',onclick:draw}));}return;}
+          if(request!==generation)return;
+        }
+        const candidates = inScope.filter(e=>selectedEvent||eventMatchesResults(e,filter));
         const pages=Math.max(1,Math.ceil(candidates.length/4));
         pageNumber=Math.min(pageNumber,pages);
-        const begin=(pageNumber-1)*4;
+        const currentPage=pageNumber;
+        const begin=(currentPage-1)*4;
         summary.textContent='正在读取成绩…';
         table.setAttribute('aria-busy','true');
         let events;
-        try {events=(await store.getEvents(candidates.slice(begin,begin+4))).map(e=>({...e,results:e.results.filter(rowMatch)}));}
+        try {
+          const pageEvents=candidates.slice(begin,begin+4);
+          const details=await store.getEvents(pageEvents.filter(e=>eventMatchesResults(e,filter)));
+          const byId=new Map(details.map(e=>[e.id,e]));
+          events=pageEvents.map(e=>({...e,...byId.get(e.id),results:(byId.get(e.id)?.results || []).filter(rowMatch)}));
+        }
         catch(_){if(request===generation){table.removeAttribute('aria-busy');summary.replaceChildren('成绩暂时无法加载。',h('button',{type:'button',text:'重试',onclick:draw}));}return;}
         if(request!==generation)return;
         table.removeAttribute('aria-busy');
-        summary.textContent = candidates.length ? (begin+1)+'–'+Math.min(begin+4,candidates.length)+' / '+candidates.length+' 场 · 本页 '+events.reduce((n,e)=>n+e.results.length,0)+' 条成绩' : '暂无已收录成绩';
-        const turn=delta=>{pageNumber+=delta;update(false);};
+        const emptySelection=selectedEvent&&events.length&&!events.some(e=>e.results.length)&&hasResultFilter(filter);
+        summary.textContent = emptySelection ? '所选赛事没有符合条件的成绩' : candidates.length ? (begin+1)+'–'+Math.min(begin+4,candidates.length)+' / '+candidates.length+' 场 · 本页 '+events.reduce((n,e)=>n+e.results.length,0)+' 条成绩' : '没有匹配的赛事';
+        const canonical=new URL(location.href);
+        if(currentPage>1)canonical.searchParams.set('page',String(currentPage));else canonical.searchParams.delete('page');
+        window.history.replaceState(null,'',canonical);
+        const turn=delta=>{pageNumber=currentPage+delta;update(false);};
         pager.hidden=pages<=1;
         pager.replaceChildren(h('button',{type:'button',text:'上一页',disabled:pageNumber===1,onclick:()=>turn(-1)}),h('span',{class:'num',text:pageNumber+' / '+pages}),h('button',{type:'button',text:'下一页',disabled:pageNumber===pages,onclick:()=>turn(1)}));
         for (const body of [...table.tBodies]) body.remove();
@@ -345,7 +392,7 @@
             h('th', {colspan: '3', scope: 'rowgroup'}, h('div', {}, h('span', {class: 'result-season num', text: e.season}),
               h('b', {text: e.title}), h('span', {class: 'faint num result-date', text: e.date_end}), source,
               e.coverage === 'partial' ? h('small', {class: 'faint', text: coverageReason(e)}) : null))));
-          if(!e.results.length)body.append(h('tr',{},h('td',{colspan:'3',class:'faint',text:e.participation==='none'?'无中国队记录（0）':'当前筛选无记录'})));
+          if(!e.results.length)body.append(h('tr',{},h('td',{colspan:'3',class:'faint',text:hasResultFilter(filter)?'所选赛事没有符合条件的成绩':e.participation==='none'?'无中国队记录（0）':'当前筛选无记录'})));
           const sorted = [...e.results].sort((a, b) => ['women', 'men', 'mixed'].indexOf(a.gender) - ['women', 'men', 'mixed'].indexOf(b.gender) || a.distance_m - b.distance_m || (a.race_number || 1) - (b.race_number || 1) || (a.rank ?? 999) - (b.rank ?? 999));
           for (const r of sorted) {
             const finalRank = r.rank_scope === 'final';
@@ -413,31 +460,47 @@
     const text=state==='not_offered'?'未设赛事':!events.length?'未收录':ratio+(scope?.partial?' · 已收录部分':'');
     return h('span',{class:'coverage-note'},h('span',{text}));
   }
-  function eventRows(ctx,events,people,key) {
+  function eventRows(ctx,events,people,key,isActive) {
     const {h}=ctx;
-    const panel=h('div',{class:'raw-records'});
-    let page=0;
+    const records=h('div');
+    const pager=h('div',{class:'raw-pager'});
+    const lastPage=Math.max(0,Math.ceil(events.length/3)-1);
+    const panel=h('div',{class:'raw-records'},records,lastPage?pager:null);
+    let page=0,generation=0;
+    const valid = request => request===generation&&panel.isConnected&&isActive();
+    const changePage=delta=>{
+      if(!isActive())return;
+      const next=Math.max(0,Math.min(lastPage,page+delta));
+      if(next!==page){page=next;draw();}
+    };
     const draw=async()=>{
-      panel.replaceChildren(h('p',{class:'faint',role:'status',text:'正在读取原始成绩…'}));
+      if(!isActive()||!panel.isConnected)return;
+      const request=++generation;
+      const selectedPage=page;
+      panel.setAttribute('aria-busy','true');
+      records.replaceChildren(h('p',{class:'faint',role:'status',text:'正在读取原始成绩…'}));
+      pager.hidden=lastPage===0;
+      pager.replaceChildren(
+        h('button',{type:'button',text:'上一组',disabled:page===0,onclick:()=>changePage(-1)}),
+        h('span',{class:'faint tiny',text:(page+1)+' / '+(lastPage+1)}),
+        h('button',{type:'button',text:'下一组',disabled:page===lastPage,onclick:()=>changePage(1)}));
       try {
-        const selected=events.slice(page*3,page*3+3);
-        const details=await ctx.resultsStore.getEvents(selected);
+        const details=await ctx.resultsStore.getEvents(events.slice(selectedPage*3,selectedPage*3+3));
+        if(!valid(request))return;
         const rows=details.flatMap(e=>e.results.filter(r=>matchesProject(r,key)).map(r=>({e,r})));
         const source=({e,r})=>ctx.external((r.source_url||e.source.url)+(r.source_page?'#page='+r.source_page:''),'来源');
-        site.ui.fill(panel,rows.length?h('ul',{class:'review-records'},rows.map(({e,r})=>h('li',{},
+        records.replaceChildren(rows.length?h('ul',{class:'review-records'},rows.map(({e,r})=>h('li',{},
           h('a',{href:eventLink(e,'?gender='+r.gender+'&distance='+r.distance_m)},h('span',{class:'review-record-event',text:e.title}),
             h('span',{text:r.format==='relay'?'中国队':people[r.athlete_id]?.name||r.name}),
             h('b',{class:medalResult(r)?'num is-medal':'num',text:resultPlace(r)+(r.final_group&&r.rank_scope!=='final'?' · '+r.final_group+' 决赛':'')})),source({e,r})))):
-          h('p',{class:'faint',text:events.length?'本页无该项目记录':'未收录'}),
-          events.length>3?h('div',{class:'raw-pager'},
-            h('button',{type:'button',text:'上一组',disabled:page===0,onclick:()=>{page--;draw();}}),
-            h('span',{class:'faint tiny',text:(page+1)+' / '+Math.ceil(events.length/3)}),
-            h('button',{type:'button',text:'下一组',disabled:(page+1)*3>=events.length,onclick:()=>{page++;draw();}})):null);
-      }catch(_){panel.replaceChildren(h('p',{role:'alert',text:'原始成绩暂时无法加载'}),h('button',{type:'button',text:'重试',onclick:draw}));}
+          h('p',{class:'faint',text:events.length?'本页无该项目记录':'未收录'}));
+      }catch(_){
+        if(valid(request))records.replaceChildren(h('p',{role:'alert',text:'原始成绩暂时无法加载'}),h('button',{type:'button',text:'重试',onclick:draw}));
+      }finally{if(valid(request))panel.removeAttribute('aria-busy');}
     };
-    draw();return panel;
+    return {panel,resume:draw,suspend:()=>{generation++;panel.removeAttribute('aria-busy');}};
   }
-  function summaryTable(ctx, sets, names, people, metric = 'best', periods = null, selectors = [], scopes = []) {
+  function summaryTable(ctx, sets, names, people, metric = 'best', periods = null, selectors = [], scopes = [], isCurrentView = () => true) {
     const {h}=ctx;
     const table = h('table', {class:'compare-table','aria-label':'项目成绩对照','data-columns':names.length}, h('thead', {}, h('tr', {},
       h('th', {scope:'col',text:'项目'}), names.map((text,i) => h('th', {scope:'col'},selectors[i] ? h('div',{class:'compare-object'},selectors[i]) : h('span',{text}),coverage(h,sets[i],scopes[i]))))));
@@ -448,9 +511,17 @@
         group = key[0];
         body.append(h('tr', {class:'compare-group'}, h('th', {colspan:names.length + 1,scope:'rowgroup',text:({women:'女子',men:'男子',mixed:'混合接力'})[group]})));
       }
+      const rawViews=[];
       const detail = h('tr', {class:'compare-detail',hidden:true,id:'project-detail-' + i});
       const button = h('button', {type:'button',class:'project-toggle','aria-expanded':'false','aria-controls':detail.id,
-        onclick:() => {if(!detail.hasChildNodes())populateDetail();detail.hidden = !detail.hidden; button.setAttribute('aria-expanded',String(!detail.hidden));}},
+        onclick:() => {
+          if(detail.hidden){
+            detail.hidden=false;
+            if(!detail.hasChildNodes())populateDetail();
+            rawViews.forEach(view=>view.resume());
+          }else{detail.hidden=true;rawViews.forEach(view=>view.suspend());}
+          button.setAttribute('aria-expanded',String(!detail.hidden));
+        }},
         h('span', {class:'project-chevron','aria-hidden':'true',text:'›'}), key[1] + ' 米' + (key[1] >= 2000 ? '接力' : ''));
       body.append(h('tr', {class:'compare-project'}, h('th', {scope:'row'},button), sets.map((events,column) => {
         const project=projectSummary(events,key,scopes[column]);
@@ -475,13 +546,17 @@
         if(project.partial||project.missing_classifications)cell.append(h('span',{class:'partial-stat',text:project.missing_classifications?'缺最终分类':'已收录部分'}));
         return cell;
       })));
+      const renderRecords=events=>{
+        const view=eventRows(ctx,events,people,key,()=>!detail.hidden&&isCurrentView());
+        rawViews.push(view);return view.panel;
+      };
       const populateDetail=()=>{
       const detailGroups = periods ? [0,1,2,3].map(offset => h('section', {class:'compare-period'},
         h('h3', {text:'第 ' + (offset + 1) + ' 赛季'}),
         h('div', {class:'compare-detail-grid',style:{gridTemplateColumns:'repeat(' + names.length + ', minmax(0, 1fr))'}}, sets.map((events,j) =>
-          h('section', {},h('h4',{text:periods[j]?.[offset] || names[j]}),eventRows(ctx,events.filter(e=>e.season===periods[j]?.[offset]),people,key)))))) :
+          h('section', {},h('h4',{text:periods[j]?.[offset] || names[j]}),renderRecords(events.filter(e=>e.season===periods[j]?.[offset]))))))) :
         h('div', {class:'compare-detail-grid',style:{gridTemplateColumns:'repeat(' + names.length + ', minmax(0, 1fr))'}}, sets.map((events,j) =>
-          h('section', {'aria-label':names[j] + ' ' + projectLabel(key)},h('h3',{text:names[j]}),eventRows(ctx,events,people,key))));
+          h('section', {'aria-label':names[j] + ' ' + projectLabel(key)},h('h3',{text:names[j]}),renderRecords(events))));
       detail.append(h('td', {colspan:names.length + 1},detailGroups));
       };
       body.append(detail);
@@ -582,7 +657,7 @@
       const pending=index.pending.filter(e=>seasons.includes(e.season)&&kindMatches(e.kind,kind.value));
       body.replaceChildren(...[coverage(h,events,scopeCoverage(index,mode,id,kind.value,events)),statsRibbon(h,events,scopeCoverage(index,mode,id,kind.value,events)),
         statsTable(h,cycle?'赛季成绩':'各站成绩',groups,!!cycle),
-        h('div',{class:'portal-section-head'},h('h2',{text:'项目成绩'})),summaryTable(ctx,[events],[title],people,'best',cycle?[cycle.seasons]:null,[],[scopeCoverage(index,mode,id,kind.value,events)]),
+        h('div',{class:'portal-section-head'},h('h2',{text:'项目成绩'})),summaryTable(ctx,[events],[title],people,'best',cycle?[cycle.seasons]:null,[],[scopeCoverage(index,mode,id,kind.value,events)],()=>request===generation),
         contributions(h,events,people),pending.length?h('details',{class:'results-coverage'},h('summary',{text:'待核验 '+pending.length+' 场'}),h('ul',{},pending.map(e=>h('li',{},ctx.external(e.source_url,e.title))))):null,h('p',{class:'stat-definition faint tiny',text:'接力按队计成绩；运动员奖牌列仅统计个人项目'})].filter(Boolean));
     };
     kind.addEventListener('change',()=>{site.ui.writeFilters([kind]);draw();});
@@ -618,7 +693,7 @@
       try {await ctx.resultsStore.ensureStats(sets.flat());} catch (_) {if(request===generation)body.replaceChildren(h('p',{role:'alert',text:'统计暂时无法加载'}),h('button',{type:'button',text:'重试',onclick:draw}));return;}
       if(request!==generation)return;
       const names=ids.map(id=>options().find(([value])=>value===id)?.[1] || id);
-      const table=summaryTable(ctx,sets,names,people,metric.value,mode.value==='cycle'?ids.map(id=>index.cycles.find(c=>c.id===id)?.seasons):null,[left,right,...(third.value?[third]:[])],ids.map((id,i)=>scopeCoverage(index,mode.value,id,kind.value,sets[i])));
+      const table=summaryTable(ctx,sets,names,people,metric.value,mode.value==='cycle'?ids.map(id=>index.cycles.find(c=>c.id===id)?.seasons):null,[left,right,...(third.value?[third]:[])],ids.map((id,i)=>scopeCoverage(index,mode.value,id,kind.value,sets[i])),()=>request===generation);
       if(new Set(ids).size!==ids.length){table.querySelector('tbody').replaceChildren();body.replaceChildren(h('p',{class:'review-notice',role:'status',text:'请选择不同的对比对象'}),table);return;}
       body.replaceChildren(table,
         h('details',{class:'results-coverage'},h('summary',{text:'收录范围'}),sets.map((events,i)=>h('p',{},h('b',{text:names[i]+' · '}),events.length?events.map(e=>e.title).join('、'):'未收录'))));

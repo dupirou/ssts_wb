@@ -10,6 +10,28 @@
   const medalResult = r => r.medal_eligible !== false && r.medal_verified !== false && r.status === 'classified' && r.rank >= 1 && r.rank <= 3 && (r.rank_scope !== 'final' || r.final_group === 'A');
   const kindMatches = (value,kind) => kind === 'all' || value === kind || kind === 'circuit' && ['worldcup','worldtour'].includes(value);
   const normalizeKind = kind => ['worldcup','worldtour'].includes(kind) ? 'circuit' : kind;
+  // Search projections and detail rows use this single predicate; no event-wide name bag.
+  const normalizeSearch = value => String(value || '').normalize('NFKC').toLowerCase().replace(/\s+/g,' ').trim();
+  function resultSearchRow(row,people) {
+    const person = id => people?.get ? people.get(id) : people?.[id];
+    const subjects = row.format === 'relay' ? [{name:row.name,aliases:['中国队']},...(row.members || [])] : [row];
+    const names = subjects.map(subject => {
+      const registered = person(subject.athlete_id);
+      return [...new Set([subject.name,registered?.name,...(registered?.aliases || []),...(subject.aliases || [])].map(normalizeSearch).filter(Boolean))].join(' ');
+    }).filter(Boolean);
+    return {gender:row.gender,distance_m:row.distance_m,names:[...new Set(names)]};
+  }
+  function resultSearchRows(rows,people) {
+    return [...new Map(rows.map(row => {const projection=resultSearchRow(row,people);return [JSON.stringify(projection),projection];})).values()];
+  }
+  function resultFilter({athlete='',gender='all',distance='all'} = {}) {
+    return {tokens:normalizeSearch(athlete).split(' ').filter(Boolean),gender,distance:String(distance)};
+  }
+  const hasResultFilter = filter => filter.tokens.length > 0 || filter.gender !== 'all' || filter.distance !== 'all';
+  const matchesResultSearch = (row,filter) => (filter.gender === 'all' || row.gender === filter.gender) &&
+    (filter.distance === 'all' || String(row.distance_m) === filter.distance) &&
+    (!filter.tokens.length || row.names.some(name => filter.tokens.every(token => name.includes(token))));
+  const eventMatchesResults = (event,filter) => !hasResultFilter(filter) || event.search_rows.some(row => matchesResultSearch(row,filter));
   const empty = () => ({events:0, entries:0, starts:0, medals:[0,0,0], a_finals:0, top8:0});
   function rowStatistics(rows) {
     rows = rows.filter(r => included(r) && r.medal_eligible !== false);
@@ -106,5 +128,5 @@
     const state = totals.entries ? 'recorded' : scope?.partial || !events.length ? scope?.state === 'not_offered' ? 'not_offered' : 'uncollected' : projects.every(p => p.state === 'not_offered') ? 'not_offered' : projects.every(p => ['zero','not_offered'].includes(p.state)) ? 'zero' : 'uncollected';
     return {state, totals, best, partial:!!scope?.partial, group_only:projects.some(p => p.group_only), missing_classifications:projects.some(p => p.missing_classifications)};
   }
-  site.resultsModel = {projectKeys,projectId,included,matchesProject,medalResult,kindMatches,normalizeKind,statistics,summarize,athleteStatistics,scopeEvents,scopeCoverage,projectSummary};
+  site.resultsModel = {normalizeSearch,resultSearchRow,resultSearchRows,resultFilter,hasResultFilter,matchesResultSearch,eventMatchesResults,projectKeys,projectId,included,matchesProject,medalResult,kindMatches,normalizeKind,statistics,summarize,athleteStatistics,scopeEvents,scopeCoverage,projectSummary};
 })(typeof window === 'undefined' ? globalThis : window);

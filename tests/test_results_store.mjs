@@ -23,7 +23,7 @@ test('overview does not request summaries or details; each selected season summa
   const requests=[];
   const store=create(async file=>{
     requests.push(file);
-    if(file.endsWith('index.json'))return {schema_version:2,events:[]};
+    if(file.endsWith('index.json'))return {schema_version:2,search_version:1,search_file:'results/search.json',events:[]};
     return {schema_version:2,items:[{id:'a',summary:{totals:{}}},{id:'b',summary:{totals:{}}}]};
   });
   await store.getIndex();await store.getIndex();assert.deepEqual(requests,['results/index.json']);
@@ -34,8 +34,23 @@ test('overview does not request summaries or details; each selected season summa
 
 test('invalid schemas and identity mismatches are evicted rather than cached forever',async()=>{
   let valid=false;
-  const store=create(async file=>file==='results/index.json'?{schema_version:valid?2:1,events:[]}:{id:valid?'correct':'wrong',results:[]});
+  const store=create(async file=>file==='results/index.json'?{schema_version:valid?2:1,search_version:1,search_file:'results/search.json',events:[]}:{id:valid?'correct':'wrong',results:[]});
   await assert.rejects(store.getIndex());valid=true;await store.getIndex();
   valid=false;await assert.rejects(store.getEvent({id:'correct',detail_file:'detail'}));valid=true;
   assert.equal((await store.getEvent({id:'correct',detail_file:'detail'})).id,'correct');
+});
+
+test('old search contracts and malformed row projections reject and retry without full-feed fallback',async()=>{
+  let response={schema_version:2,events:[]};const requests=[];
+  const store=create(async file=>{requests.push(file);return response;});
+  await assert.rejects(store.getIndex());
+  response={schema_version:2,search_version:1,search_file:'results/search.json',events:[]};
+  await store.getIndex();
+  const events=[{id:'a'}];
+  response={schema_version:2,search_version:1,events:[{id:'a',search_rows:null}]};
+  await assert.rejects(store.ensureSearch(events));
+  response={schema_version:2,search_version:1,events:[{id:'a',search_rows:[]}]};
+  await store.ensureSearch(events);await store.ensureSearch(events);
+  assert.deepEqual(Array.from(events[0].search_rows),[]);
+  assert.deepEqual(requests,['results/index.json','results/index.json','results/search.json','results/search.json']);
 });

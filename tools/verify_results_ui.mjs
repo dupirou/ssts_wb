@@ -4,6 +4,11 @@ import {createServer} from 'node:http';
 import {readFile,writeFile,mkdir,stat} from 'node:fs/promises';
 import {resolve,extname,join} from 'node:path';
 import assert from 'node:assert/strict';
+import '../web/results-model.js';
+const model=globalThis.SSTS.resultsModel;
+const resultIndex=JSON.parse(await readFile(resolve('dist/data/results/index.json'),'utf8'));
+const searchIndex=JSON.parse(await readFile(resolve('dist/data/results/search.json'),'utf8'));
+for(const event of resultIndex.events)event.search_rows=searchIndex.events.find(e=>e.id===event.id).search_rows;
 const out=resolve(process.env.QA_OUT || 'docs/reviews/pr36');
 await mkdir(join(out,'screenshots'),{recursive:true});
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.webmanifest':'application/manifest+json'};
@@ -43,6 +48,7 @@ async function measure(origin,path,width,label,screenshot){
       data_requests:performance.getEntriesByType('resource').filter(e=>new URL(e.name).pathname.startsWith('/data/')).map(e=>new URL(e.name).pathname),
       scroll_width:document.documentElement.scrollWidth,viewport:innerWidth,
     }));
+    if(label==='after')assert.ok(!metrics.data_requests.some(p=>['/data/results.json','/data/history/index.json'].includes(p)),'No full history feed');
     if(label==='after')assert.ok(metrics.scroll_width<=width,`${path}: overflow ${metrics.scroll_width}/${width}`);
     values.push(metrics);
     if(i===0&&screenshot)await page.screenshot({path:join(out,'screenshots',screenshot),fullPage:!path.includes('/events/')});
@@ -103,14 +109,62 @@ try{
   assert.equal(new URL(page.url()).searchParams.get('page'),'3');
   assert.notDeepEqual(await page.locator('.results-table tbody').evaluateAll(es=>es.map(e=>e.dataset.event)),ids);
   await context.close();report.checks.push({name:'legacy filters and pagination',passed:true});
+  // Compare combined-filter page contents with the lightweight index at every requested width.
+  const filter=model.resultFilter({athlete:'LI',gender:'women',distance:3000});
+  const matched=resultIndex.events.filter(e=>model.eventMatchesResults(e,filter));
+  assert.ok(matched.length>4);
+  for(const width of report.sizes){
+    const filtered=await pageAt(current.origin,'/history/?season=all&athlete=LI&gender=women&distance=3000',width);
+    const detailRequests=[];
+    filtered.page.on('request',r=>{const p=new URL(r.url()).pathname;if(p.startsWith('/data/'))detailRequests.push(p);});
+    assert.deepEqual(await filtered.page.locator('.results-table tbody').evaluateAll(es=>es.map(e=>e.dataset.event)),matched.slice(0,4).map(e=>e.id));
+    assert.equal(await filtered.page.getByText('当前筛选无记录',{exact:true}).count(),0);
+    await filtered.page.locator('.results-pager button').last().click();
+    await filtered.page.waitForFunction(()=>!document.querySelector('.results-table[aria-busy]'));
+    assert.deepEqual(await filtered.page.locator('.results-table tbody').evaluateAll(es=>es.map(e=>e.dataset.event)),matched.slice(4,8).map(e=>e.id));
+    assert.ok(detailRequests.filter(p=>p.startsWith('/data/results/events/')).length<=4);
+    await filtered.page.reload();await filtered.page.waitForSelector('#app:not([aria-busy])');
+    assert.deepEqual(await filtered.page.locator('.results-table tbody').evaluateAll(es=>es.map(e=>e.dataset.event)),matched.slice(4,8).map(e=>e.id));
+    assert.equal(detailRequests.some(p=>['/data/results.json','/data/history/index.json'].includes(p)),false);
+    assert.ok(await filtered.page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+    await filtered.context.close();report.checks.push({name:'exact combined filters and page restore',width,passed:true});
+  }
+  // Hold the next raw group on real network requests, go back using the store cache,
+  // then release the obsolete response. It must not overwrite the current group.
+  const racing=await pageAt(current.origin,'/results/compare/?mode=cycle&left=beijing-2022&right=milano-2026&kind=circuit',390);
+  const firstSeason=model.scopeEvents(resultIndex,'cycle','beijing-2022','circuit').filter(e=>e.season==='2018/19');
+  const heldIds=new Set(firstSeason.slice(3,6).map(e=>e.id));
+  let release,blocked;
+  const gate=new Promise(resolve=>release=resolve),started=new Promise(resolve=>blocked=resolve);
+  await racing.page.route('**/data/results/events/*.json',async route=>{
+    const id=new URL(route.request().url()).pathname.split('/').at(-1).replace(/\.json$/,'');
+    if(heldIds.has(id)){blocked();await gate;}
+    await route.continue();
+  });
+  await racing.page.locator('.project-toggle').first().click();
+  await racing.page.waitForFunction(()=>!document.querySelector('#project-detail-0').textContent.includes('正在读取'));
+  const raw=racing.page.locator('.raw-records').first();
+  const originalLinks=await raw.locator('.review-records a:not([target])').evaluateAll(es=>es.map(e=>e.getAttribute('href')));
+  await raw.locator('.raw-pager button').last().click();await started;
+  await raw.locator('.raw-pager button').first().click();
+  await racing.page.waitForFunction(()=>!document.querySelector('.raw-records[aria-busy]'));
+  release();await racing.page.waitForLoadState('networkidle');
+  assert.deepEqual(await raw.locator('.review-records a:not([target])').evaluateAll(es=>es.map(e=>e.getAttribute('href'))),originalLinks);
+  assert.equal(await raw.getByRole('alert').count(),0);
+  await racing.context.close();report.checks.push({name:'delayed raw group cannot overwrite cache-restored selection',passed:true});
   // Real worker install, complete shell caching, visited deep links and raw evidence offline.
   const pwa=await pageAt(current.origin,'/results/compare/',390,true);
   await pwa.page.evaluate(()=>navigator.serviceWorker.ready);
   await pwa.page.reload();await pwa.page.waitForSelector('#app:not([aria-busy])');
   await pwa.page.locator('.project-toggle').first().click();
   await pwa.page.waitForFunction(()=>!document.querySelector('#project-detail-0').textContent.includes('正在读取'));
+  await pwa.page.goto(current.origin+'/history/?season=all&athlete=LI&gender=women&distance=3000');
+  await pwa.page.waitForSelector('#app:not([aria-busy])');
   await pwa.context.setOffline(true);
   await pwa.page.reload();await pwa.page.waitForSelector('#app:not([aria-busy])');
+  assert.deepEqual(await pwa.page.locator('.results-table tbody').evaluateAll(es=>es.map(e=>e.dataset.event)),matched.slice(0,4).map(e=>e.id));
+  report.checks.push({name:'cached search index, filtered deep link and event rows offline',passed:true});
+  await pwa.page.goto(current.origin+'/results/compare/');await pwa.page.waitForSelector('#app:not([aria-busy])');
   assert.equal(await pwa.page.locator('.compare-project').count(),9);
   await pwa.page.locator('.project-toggle').first().click();
   await pwa.page.waitForFunction(()=>!document.querySelector('#project-detail-0').textContent.includes('正在读取'));

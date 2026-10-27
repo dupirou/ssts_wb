@@ -167,7 +167,7 @@ test('unified filters share selected season, discipline, event and actual relay 
   cycle.dispatchEvent(new dom.window.Event('change', {bubbles:true}));
   await settled(dom);
   assert.equal(d.querySelectorAll('.result-row').length, 0);
-  assert.match(d.querySelector('.results-count').textContent, /暂无已收录/);
+  assert.match(d.querySelector('.results-count').textContent, /没有匹配的赛事/);
   d.querySelector('.results-reset').click();
   await settled(dom);
   assert.equal(d.querySelectorAll('.result-row').length, currentCount);

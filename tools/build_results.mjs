@@ -12,17 +12,20 @@ await mkdir(resolve(target,'seasons'),{recursive:true});
 const write = (path,value) => writeFile(resolve(target,path),JSON.stringify(value) + '\n');
 const seasons = new Map();
 const events = [];
+const searchEvents = [];
 const athletesById = new Map(catalog.athletes.map(person=>[person.id,person]));
 for (const event of catalog.events) {
   const {results,...meta} = event;
   const detail_file = 'results/events/' + event.id + '.json';
   await write('events/' + event.id + '.json',{schema_version:2,...event});
-  const search_text = [...new Set(results.flatMap(r=>[r.name,...(athletesById.get(r.athlete_id)?.aliases||[]),...(r.members||[]).flatMap(m=>[m.name,...(athletesById.get(m.athlete_id)?.aliases||[])])]))].join(' ').toLocaleLowerCase();
+  const search_rows = model.resultSearchRows(results,athletesById);
   const programme=meta.programme?.map(({gender,distance_m,format,official_result_id})=>({gender,distance_m,format,official_result_id})) ?? null;
-  events.push({...meta,programme,source:{url:meta.source.url,kind:meta.source.kind},record_count:results.length,search_text,detail_file});
+  events.push({...meta,programme,source:{url:meta.source.url,kind:meta.source.kind},record_count:results.length,detail_file});
+  searchEvents.push({id:event.id,search_rows});
   if (!seasons.has(event.season)) seasons.set(event.season,[]);
   seasons.get(event.season).push({id:event.id,summary:model.summarize(event)});
 }
 for (const [season,items] of seasons) await write('seasons/' + season.replace('/','-') + '.json',{schema_version:2,season,items});
 const inventory = catalog.inventory.map(({season,kind,official_event_ids}) => ({season,kind,official_event_ids}));
-await write('index.json',{...catalog,schema_version:2,current_season:process.argv[3],events,inventory});
+await write('search.json',{schema_version:2,search_version:1,events:searchEvents});
+await write('index.json',{...catalog,schema_version:2,search_version:1,search_file:'results/search.json',current_season:process.argv[3],events,inventory});
