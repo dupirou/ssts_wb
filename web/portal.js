@@ -199,19 +199,48 @@
                   h(
                     'li',
                     { class: 'penalty-row' },
-                    h('span', {
-                      text: person.country + ' · ' + person.name
-                    }),
-                    h('b', { class: 'num', text: person.total + ' 次' }),
-                    person.next_restriction?.blocked_individual_distances
-                      ? h('span', {
-                          class: 'penalty-restriction',
-                          text:
-                            '下站限报 ' +
-                            person.next_restriction.blocked_individual_distances +
-                            ' 项'
-                        })
-                      : null
+                    h(
+                      'details',
+                      { class: 'penalty-person' },
+                      h(
+                        'summary',
+                        {},
+                        h('span', { text: person.country + ' · ' + person.name }),
+                        h('b', { class: 'num', text: person.total + ' 次' }),
+                        person.next_restriction?.blocked_individual_distances
+                          ? h('span', {
+                              class: 'penalty-restriction',
+                              text:
+                                '下站限报 ' +
+                                person.next_restriction.blocked_individual_distances +
+                                ' 项'
+                            })
+                          : null
+                      ),
+                      h(
+                        'ul',
+                        { class: 'penalty-details' },
+                        (person.details || []).map((item) =>
+                          h(
+                            'li',
+                            {},
+                            h('span', {
+                              text:
+                                (calendar.stations.find((st) => st.id === item.event_id)?.city ||
+                                  item.event_id) +
+                                ' · ' +
+                                item.distance_m +
+                                'm ' +
+                                item.round_label
+                            }),
+                            h('b', { class: 'num', text: item.infringement_code }),
+                            !item.counted
+                              ? h('small', { class: 'faint', text: '不计入累计' })
+                              : null
+                          )
+                        )
+                      )
+                    )
                   )
                 )
             ),
