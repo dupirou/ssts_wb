@@ -1,12 +1,15 @@
 # 前端
 
-`web/index.html` 与 `web/site.css` 提供公共外壳；`web/navigation.js` 管理路由与全站导航，`web/portal.js` 提供首页、成绩与运动员目录，`web/app.js` 提供赛事页与共用显示逻辑。前端采用零依赖原生 JS，不用外部字体、图片或 CDN。`tools/build.py` 复制到 `dist/`，不要直接改 `dist/`。`index.html` 与 `manifest.webmanifest` 中的 `{{SEASON}}`、`{{DESCRIPTION}}` 在构建时按 `data/stations.json` 填入，页面脚本里的赛季文字也都取自 `calendar.json`，换赛季不必改前端。
+`web/index.html` 与 `web/site.css` 提供公共外壳；`web/navigation.js` 管理路由与全站导航，`web/portal.js` 提供首页与运动员目录，成绩业务在 `web/results.js`，纯模型、数据仓库和共享 DOM 分别在 `results-model.js`、`results-store.js`、`ui.js`，`web/app.js` 提供赛事页与共用显示逻辑。前端采用零依赖原生 JS，不用外部字体、图片或 CDN。`tools/build.py` 复制到 `dist/`，不要直接改 `dist/`。`index.html` 与 `manifest.webmanifest` 中的 `{{SEASON}}`、`{{DESCRIPTION}}` 在构建时按 `data/stations.json` 填入，页面脚本里的赛季文字也都取自 `calendar.json`，换赛季不必改前端。
 
 ## 页面
 
 - **首页 `/`**：当前／下一场赛事与售票卡；只读取当前关注赛事的赛程。
 - **赛事 `/events/`**：完整赛季时间轴、全部分站与世锦赛入口。
-- **成绩 `/results/`**：最近正式 A 组决赛的领奖台，以及三个历史周期的收录状态。原 `/history/` 继续打开同一成绩页。
+- **成绩 `/results/`**：最近赛果、按奥运周期包含赛季的档案索引和对比入口；不堆放全部成绩。
+- **赛事成绩 `/results/events/`**：按赛事分组的紧凑成绩表；支持周期、赛季、赛事、单项和运动员筛选。具体赛事地址为 `/results/events/<competition_id>/`。旧历史入口和筛选链接继续兼容。
+- **回顾 `/results/seasons/<season_id>/`、`/results/cycles/<cycle_id>/`**：单对象的项目成绩与赛事入口；档案入口按周期分组列出已开始的赛季，周期页下钻到赛季、赛季页下钻到赛事，并显示父级导航；未收录范围留空。
+- **对比 `/results/compare/`**：两个或三个赛季／周期横向并排，按赛事类型切换最佳名次、奖牌和 A 组决赛人或队次。项目行展开贡献成绩，周期展开按四个赛季对齐。对象选择器位于对应列表头，第三项按需添加；手机筛选区一行排列。选择写入 URL；窄屏双对象尽量同屏显示，三个对象时固定项目列、表格内部横向滚动。
 - **运动员 `/athletes/`**：从本赛季已公布报名名单生成的去重目录；支持姓名（不依赖名姓顺序）、国家与性别筛选，筛选写入 URL。卡片显示姓名、国家、性别及已公布的本赛季世巡赛单项排名，不重复报名链接。
 - **分站页 `/events/<season>/<id>/`**（如 `/events/2026-27/vancouver/`，兼容原 `/?station=<id>` 链接）：标题区与数字条；倒计时卡和中国队下一场；“赛程 / 报名名单 / 分组预测”三个标签（预测只在仍有首轮未出官方分组时出现）。`?day=`、`?view=athletes|predictions` 可直达。
 - **赛程**：赛程概览（比赛时段刻度与奖牌赛，默认收起）；吸顶筛选栏（比赛日、筛选面板、北京 / 当地时间）；按比赛日分组的列表。桌面为表格，平板两列卡片，手机单列卡片，打印恢复完整七列表格。
@@ -49,7 +52,11 @@
 
 ## 数据契约
 
-成绩摘要为 `/data/portal.json`（只含最近已确认的决赛领奖台）；运动员目录为 `/data/athletes.json`（当前赛季名单、关联赛事与最新已公布的世巡赛单项排名），由 `tools/site_catalog.py` 从已构建快照生成。两者不改写原始成绩，也不增加抓取请求。
+成绩总览读取轻量 `/data/results/index.json`，回顾与对比按所选赛季读取摘要，列表和原始成绩展开时按赛事读取明细。完整契约见 [results-contract.md](results-contract.md)。原 `/data/results.json` 继续保留，由 `tools/history_data.py` 合并独立档案与当前已构建的官方成绩快照生成，不改写原始成绩，不增加上游抓取。首页与运动员栏目不预取成绩。历史存储仍为 `/data/history/index.json`，不作为页面分栏。运动员目录 `/data/athletes.json` 由 `tools/site_catalog.py` 构建。
+
+统一索引的 `rank_scope=overall` 表示项目最终名次；当前接力只有决赛组内名次时，`rank_scope=final` 并保留 A/B 组，页面明确显示“A组第 N 名／B组第 N 名”，不把 B 组第 1 名标成金牌。每场只保留一个成绩册链接，接力阵容在行内按需展开。
+
+成绩索引排除全能和个人超级 3000；保留女子 3000 米接力。`coverage_detail` 区分项目缺项、未解决的名次冲突和最终分类缺失，赛事行和待核对列表显示具体原因。名次来源不一致时采用当前官网正式最终分类，已采用的差异只保留溯源，不再显示为待核对。接力阵容缺失独立记录，不影响成绩完整度。统计与列表使用同一范围。
 
 页面读取 `data/calendar.json`、`data/<id>.json`（赛程）、`data/updates.json` 和 `/api/v1/events/<id>/<resource>`。
 

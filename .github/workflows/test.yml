@@ -7,7 +7,8 @@ permissions:
   contents: read
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # Keep the browser-supported image stable when ubuntu-latest advances.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,4 +29,22 @@ jobs:
       - run: python -m unittest discover -s tests -v
       # Every Node test file, so a new one can never be left out of PR checks.
       - run: node --test tests/*.mjs
-      - run: node --check web/app.js
+      - name: Check every frontend and build module
+        run: for file in web/*.js tools/*.mjs; do node --check "$file"; done
+      - name: Use preinstalled Chrome
+        run: |
+          printf 'PLAYWRIGHT_CHROMIUM_EXECUTABLE=%s\n' "$(command -v google-chrome)" >> "$GITHUB_ENV"
+          google-chrome --version
+      - name: Install CJK fonts for Chinese layout checks
+        run: |
+          mkdir -p "$HOME/.local/share/fonts"
+          curl --fail --location --retry 2 --max-time 60 https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf -o "$HOME/.local/share/fonts/NotoSansCJKsc-Regular.otf"
+          fc-cache -f
+      - name: Responsive layouts and offline PWA
+        run: node tools/verify_results_ui.mjs
+      - name: Save responsive screenshots and measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-ui-verification
+          path: docs/reviews/pr36/

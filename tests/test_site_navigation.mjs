@@ -5,7 +5,14 @@ import {JSDOM} from 'jsdom';
 
 const file = name => readFile(new URL('../' + name, import.meta.url), 'utf8');
 const html = await file('web/index.html');
-const scripts = (await Promise.all(['navigation', 'portal', 'app'].map(name => file('web/' + name + '.js')))).join('\n');
+const resultData = JSON.parse(await file('dist/data/results.json'));
+const currentEvents = resultData.events.filter(e=>e.season==='2026/27');
+const currentCount = currentEvents.reduce((n,e)=>n+e.results.length,0);
+const scripts = (await Promise.all(['ui', 'navigation', 'results-model', 'results-store', 'results', 'portal', 'app'].map(name => file('web/' + name + '.js')))).join('\n');
+async function settled(dom,predicate=()=>!dom.window.document.querySelector('.results-table[aria-busy]')) {
+  for(let i=0;i<200;i++){if(predicate())return;await new Promise(r=>setTimeout(r,5));}
+  throw new Error('UI did not settle');
+}
 async function page(path, fail = '') {
   const dom = new JSDOM(html, {url: new URL(path, 'https://example.test/').href, runScripts: 'outside-only', pretendToBeVisual: true});
   const w = dom.window;
@@ -100,33 +107,86 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   assert.equal(dom.requests.filter(p => p.includes('/api/')).length, 0);
 });
 
-test('results combines current podiums and historical cycles, including the old history address', async t => {
-  for (const route of ['/results/', '/history/']) {
-    const dom = await page(route + '?now=2026-10-27T04:00:00Z');
+test('results overview links to separate season, cycle and comparison pages without dumping scores', async t => {
+  const dom = await page('/results/');
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.equal(d.querySelector('h1').textContent, '成绩');
+  assert.equal(d.querySelector('#site-nav [aria-current]').getAttribute('href'), '/results/');
+  assert.equal(d.querySelectorAll('.result-row, .cycle-card').length, 0);
+  assert.ok(d.querySelector('a[href="/results/seasons/2025-26/"]'));
+  assert.equal(d.querySelector('a[href="/results/seasons/2025-26/"]').closest('.cycle-branch').dataset.cycle, 'milano-2026');
+  assert.equal(d.querySelector('.results-index-columns'), null);
+  assert.doesNotMatch(d.querySelector('.review-nav').textContent, /赛季回顾|周期回顾/);
+  assert.ok(d.querySelector('a[href="/results/cycles/milano-2026/"]'));
+  assert.ok(d.querySelector('.results-compare-entry'));
+  assert.deepEqual(dom.requests, ['/data/calendar.json', '/data/results/index.json']);
+});
+
+test('event browser retains current and archived scores and legacy result links', async t => {
+  for (const route of ['/results/events/', '/results/?view=history', '/history/', '/?view=history']) {
+    const dom = await page(route);
     t.after(() => dom.window.close());
     const d = dom.window.document;
-    assert.equal(d.querySelector('h1').textContent, '成绩');
-    assert.equal(d.querySelector('#site-nav [aria-current]').getAttribute('href'), '/results/');
-    assert.ok(d.querySelector('.recent-card').getAttribute('href').includes('#r-'));
-    assert.equal(d.querySelectorAll('.cycle-card').length, 3);
-    assert.match(d.querySelector('.results-history').textContent, /整理中/);
-    assert.doesNotMatch(d.querySelector('#app').textContent, /按奥运周期|以四年为一段|收录后可/);
-    assert.deepEqual(dom.requests, ['/data/calendar.json', '/data/portal.json']);
+    assert.ok(!dom.requests.includes('/data/results.json'));
+    assert.equal(d.querySelectorAll('.results-table tbody').length, currentEvents.length);
+    assert.equal(d.querySelectorAll('.result-row').length, currentCount);
+    const relay = [...d.querySelectorAll('tbody[data-event*="vancouver"] .result-row')].find(r => r.textContent.includes('女子 3000m'));
+    assert.match(relay.querySelector('.result-place').textContent, /B组第 1 名/);
+    assert.equal(relay.querySelector('.is-medal'), null);
   }
+  const detail = await page('/results/events/2025-26-worlds-montreal/');
+  t.after(() => detail.window.close());
+  assert.equal(detail.window.document.querySelectorAll('.result-row').length, 16);
+  assert.match(detail.window.document.querySelector('.results-breadcrumb').textContent, /米兰周期.*2025\/26.*蒙特利尔/);
   const absent = await page('/events/2022-23/vancouver/');
   t.after(() => absent.window.close());
   assert.match(absent.window.document.querySelector('#app').textContent, /页面尚未收录/);
-  assert.equal(absent.window.document.querySelector('.station-hero'), null);
 });
 
-test('results loading failure keeps historical cycles and navigation usable', async t => {
-  const dom = await page('/results/', '/data/portal.json');
+test('unified filters share selected season, discipline, event and actual relay lineups', async t => {
+  const dom = await page('/results/events/?season=2025%2F26&gender=women&distance=3000');
   t.after(() => dom.window.close());
   const d = dom.window.document;
-  assert.match(d.querySelector('.results-recent').textContent, /暂时无法加载/);
-  assert.equal(d.querySelectorAll('.cycle-card').length, 3);
+  assert.equal(d.querySelectorAll('.result-row').length, resultData.events.filter(e=>e.season==='2025/26').slice(0,4).flatMap(e=>e.results).filter(r=>r.gender==='women'&&r.distance_m===3000&&r.format==='relay').length);
+  const first = d.querySelector('.results-table tbody');
+  assert.match(first.textContent, /世锦赛 · 蒙特利尔/);
+  assert.match(first.querySelector('.result-place').textContent, /第 3 名/);
+  const final = [...first.querySelectorAll('.result-lineup p')].find(p => p.textContent.startsWith('A 决赛'));
+  assert.match(final.textContent, /Li GONG/);
+  assert.doesNotMatch(final.textContent, /Jingru YANG/);
+  const type = d.querySelector('select[name="kind"]'); type.value = 'worlds';
+  type.dispatchEvent(new dom.window.Event('change', {bubbles:true}));
+  await settled(dom);
+  assert.equal(d.querySelectorAll('.result-row').length, 1);
+  assert.equal(new URL(dom.window.location.href).searchParams.has('view'), false);
+  const restored = await page(dom.window.location.pathname + dom.window.location.search);
+  t.after(() => restored.window.close());
+  assert.equal(restored.window.document.querySelectorAll('.result-row').length, 1);
+  const cycle = d.querySelector('select[name="cycle"]'); cycle.value = 'cycle-2030';
+  cycle.dispatchEvent(new dom.window.Event('change', {bubbles:true}));
+  await settled(dom);
+  assert.equal(d.querySelectorAll('.result-row').length, 0);
+  assert.match(d.querySelector('.results-count').textContent, /没有匹配的赛事/);
+  d.querySelector('.results-reset').click();
+  await settled(dom);
+  assert.equal(d.querySelectorAll('.result-row').length, currentCount);
+  const season=d.querySelector('select[name="season"]');season.value='2024/25';season.dispatchEvent(new dom.window.Event('change',{bubbles:true}));
+  await settled(dom);
+  const event = d.querySelector('select[name="event"]'); event.value = '2024-25-worlds-beijing';
+  event.dispatchEvent(new dom.window.Event('change', {bubbles:true}));
+  await settled(dom);
+  assert.equal(d.querySelectorAll('.results-table tbody').length, 1);
+  assert.equal(d.querySelectorAll('.result-row').length, 21);
+});
+
+test('a failed results feed preserves global navigation and provides a retry', async t => {
+  const dom = await page('/results/', '/data/results/index.json');
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.match(d.querySelector('.review-content').textContent, /暂时无法加载/);
   assert.equal(d.querySelectorAll('#site-nav a').length, 4);
-  assert.ok(d.querySelector('.results-recent button'));
+  assert.ok(d.querySelector('.review-content button'));
 });
 
 test('after the World Tour, the homepage points to the upcoming championship', async t => {
@@ -134,4 +194,112 @@ test('after the World Tour, the homepage points to the upcoming championship', a
   t.after(() => dom.window.close());
   assert.match(dom.window.document.querySelector('.next-city').textContent, /世锦赛/);
   assert.match(dom.window.document.querySelector('.next-card .btn').getAttribute('href'), /worlds-2027/);
+});
+
+
+test('comparison preserves official PEN places, expands contributing results and shares metric choices', async t => {
+  const dom = await page('/results/compare/');
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.equal(d.querySelectorAll('.compare-project').length, 9);
+  const relay = d.querySelectorAll('.compare-project')[3];
+  assert.match(relay.textContent, /第 8 名 · PEN/);
+  assert.match(relay.textContent, /第 3 名/);
+  assert.equal(relay.querySelectorAll('.is-medal').length, 1);
+  relay.querySelector('button').click();
+  await settled(dom,()=>!relay.nextElementSibling.textContent.includes('正在读取'));
+  assert.equal(relay.nextElementSibling.hidden, false);
+  assert.equal(relay.querySelector('button').getAttribute('aria-expanded'), 'true');
+  assert.match(relay.nextElementSibling.textContent, /世锦赛 · 北京/);
+  assert.ok(relay.nextElementSibling.querySelector('a[href*="2024-25-worlds-beijing"]'));
+  const metric = d.querySelector('[name="metric"]'); metric.value = 'medals';
+  metric.dispatchEvent(new dom.window.Event('change', {bubbles:true}));
+  await settled(dom,()=>d.querySelectorAll('.compare-project')[3].textContent.includes(' 铜'));
+  assert.match(d.querySelectorAll('.compare-project')[3].textContent, /0 金 · 0 银 · 1 铜/);
+  const restored = await page(dom.window.location.pathname + dom.window.location.search);
+  t.after(() => restored.window.close());
+  assert.equal(restored.window.document.querySelector('[name="metric"]').value, 'medals');
+  const left = d.querySelector('[name="left"]');
+  assert.ok(left.closest('thead'));
+  left.value = '2026/27'; left.dispatchEvent(new dom.window.Event('change', {bubbles:true}));
+  await settled(dom,()=>d.querySelector('.compare-project td').textContent==='未收录');
+  assert.equal(d.querySelector('.compare-project td').textContent, '未收录');
+  const third = d.querySelector('[name="third"]');
+  third.value = '2023/24'; third.dispatchEvent(new dom.window.Event('change', {bubbles:true}));
+  await settled(dom,()=>d.querySelector('.compare-table').dataset.columns==='3');
+  assert.equal(d.querySelector('.compare-table').dataset.columns, '3');
+  assert.ok(third.closest('thead'));
+  d.querySelector('.compare-more summary').click();
+  await settled(dom,()=>d.querySelector('.compare-table').dataset.columns==='2');
+  assert.equal(d.querySelector('.compare-table').dataset.columns, '2');
+  assert.equal(new URL(dom.window.location.href).searchParams.has('third'), false);
+
+});
+
+test('cycle comparison distinguishes missing archives and never awards a B-final winner gold', async t => {
+  const empty = await page('/results/compare/?mode=cycle&left=cycle-2030&right=milano-2026');
+  t.after(() => empty.window.close());
+  const d = empty.window.document;
+  for (const row of d.querySelectorAll('.compare-project')) assert.equal(row.querySelector('td').textContent, '未收录');
+  d.querySelector('.project-toggle').click();
+  assert.deepEqual([...d.querySelectorAll('#project-detail-0 h4')].map(el=>el.textContent), ['2026/27','2022/23','2027/28','2023/24','2028/29','2024/25','2029/30','2025/26']);
+  const current = await page('/results/compare/?left=2025%2F26&right=2026%2F27&kind=worldtour&metric=medals');
+  t.after(() => current.window.close());
+  const relay = current.window.document.querySelectorAll('.compare-project')[3];
+  assert.equal(relay.querySelectorAll('td')[1].textContent, '0 金 · 0 银 · 0 铜1 条成绩已收录部分');
+  const review = await page('/results/seasons/2025-26/');
+  t.after(() => review.window.close());
+  assert.equal(review.window.document.querySelector('h1').textContent, '2025/26');
+  assert.ok(review.window.document.querySelector('.results-breadcrumb a[href="/results/cycles/milano-2026/"]'));
+  assert.equal(review.window.document.querySelectorAll('.compare-project').length, 9);
+});
+
+
+test('statistics count relay medals once and exclude DNS, B-final wins and superfinal medals', async t => {
+  const dom = await page('/results/'); t.after(()=>dom.window.close());
+  const row=(rank,extra={})=>({format:'individual',distance_m:500,rank,rank_scope:'overall',status:'classified',final_group:'A',...extra});
+  const stats=dom.window.SSTS.resultsModel.statistics([{results:[row(1,{format:'relay',distance_m:5000,members:[{},{},{},{}]}),row(1,{rank_scope:'final',final_group:'B'}),row(2,{status:'PEN'}),row(null,{status:'DNS'}),row(3),row(1,{medal_eligible:false})]}]);
+  assert.deepEqual(Array.from(stats.medals),[1,0,1]);
+  assert.equal(stats.starts,4);
+  assert.equal(stats.a_finals,3);
+  assert.equal(stats.top8,2);
+});
+
+
+test('all-season pagination is bounded, shares the page and does not load unused details',async t=>{
+  const dom=await page('/history/?season=all');t.after(()=>dom.window.close());
+  const d=dom.window.document;
+  assert.equal(d.querySelectorAll('.results-table tbody').length,4);
+  assert.equal(dom.requests.filter(p=>p.startsWith('/data/results/events/')).length,4);
+  d.querySelector('.results-pager button:last-child').click();await settled(dom);
+  assert.equal(d.querySelectorAll('.results-table tbody').length,4);
+  assert.equal(dom.requests.filter(p=>p.startsWith('/data/results/events/')).length,8);
+  assert.equal(new URL(dom.window.location.href).searchParams.get('season'),'all');
+  assert.equal(new URL(dom.window.location.href).searchParams.get('page'),'2');
+  const restored=await page(dom.window.location.pathname+dom.window.location.search);t.after(()=>restored.window.close());
+  assert.equal(restored.window.document.querySelector('.results-table tbody').dataset.event,d.querySelector('.results-table tbody').dataset.event);
+});
+
+test('review and compare use summaries, fetch raw evidence only on expansion',async t=>{
+  const dom=await page('/results/compare/?mode=cycle&left=beijing-2022&right=milano-2026&kind=circuit');t.after(()=>dom.window.close());
+  const d=dom.window.document;
+  assert.equal(dom.requests.some(p=>p.startsWith('/data/results/events/')),false);
+  assert.equal(d.querySelectorAll('.review-records li').length,0);
+  assert.equal(d.querySelectorAll('.compare-detail td').length,0);
+  assert.ok(!dom.requests.includes('/data/results.json'));
+  d.querySelector('.project-toggle').click();
+  await settled(dom,()=>!d.querySelector('#project-detail-0').textContent.includes('正在读取'));
+  assert.ok(dom.requests.some(p=>p.startsWith('/data/results/events/')));
+  assert.ok(d.querySelectorAll('.review-records li').length>0);
+});
+
+test('zero participation, missing classifications and unfinished current scope remain visible',async t=>{
+  const empty=resultData.events.find(e=>e.participation==='none');
+  assert.ok(empty);
+  const dom=await page('/results/events/'+empty.id+'/');t.after(()=>dom.window.close());
+  assert.match(dom.window.document.querySelector('.results-table').textContent,/无中国队记录（0）/);
+  const partial=await page('/results/cycles/milano-2026/?kind=circuit');t.after(()=>partial.window.close());
+  assert.match(partial.window.document.querySelector('.review-content').textContent,/已收录部分/);
+  const missing=[...partial.window.document.querySelectorAll('.compare-project')].filter(r=>r.textContent.includes('缺最终分类'));
+  assert.ok(missing.length>0);
 });

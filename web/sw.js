@@ -3,7 +3,7 @@
    network fails or takes longer than 4 s. The build stamps VERSION, which retires the old cache. */
 const VERSION = '__BUILD_VERSION__';
 const CACHE = 'ssts-' + VERSION;
-const SHELL = ['./', './app.js', './navigation.js', './portal.js', './site.css', './manifest.webmanifest', './icons/icon-192.png',
+const SHELL = ['./', './site.js', './site.css', './manifest.webmanifest', './icons/icon-192.png',
   './data/calendar.json', './data/updates.json'];
 const SLOW_MS = 4000;
 

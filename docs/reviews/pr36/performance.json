@@ -1,0 +1,185 @@
+{
+  "browser": "134.0.6998.35",
+  "sizes": [
+    390,
+    768,
+    1440
+  ],
+  "metrics": [
+    {
+      "label": "before",
+      "path": "/results/",
+      "width": 390,
+      "ready_ms": 212,
+      "nodes": 161,
+      "rows": 0,
+      "data_bytes": 1586664,
+      "requests": [
+        "/data/calendar.json",
+        "/data/results.json"
+      ]
+    },
+    {
+      "label": "after",
+      "path": "/results/",
+      "width": 390,
+      "ready_ms": 217,
+      "nodes": 148,
+      "rows": 0,
+      "data_bytes": 139089,
+      "requests": [
+        "/data/calendar.json",
+        "/data/results/index.json"
+      ]
+    },
+    {
+      "label": "before",
+      "path": "/results/events/",
+      "width": 390,
+      "ready_ms": 1553,
+      "nodes": 12357,
+      "rows": 1752,
+      "data_bytes": 1586664,
+      "requests": [
+        "/data/calendar.json",
+        "/data/results.json"
+      ]
+    },
+    {
+      "label": "after",
+      "path": "/results/events/",
+      "width": 390,
+      "ready_ms": 269,
+      "nodes": 261,
+      "rows": 26,
+      "data_bytes": 149602,
+      "requests": [
+        "/data/calendar.json",
+        "/data/results/index.json",
+        "/data/results/events/2026-27-worldtour-vancouver-1.json"
+      ]
+    },
+    {
+      "label": "before",
+      "path": "/results/compare/",
+      "width": 390,
+      "ready_ms": 218,
+      "nodes": 485,
+      "rows": 0,
+      "data_bytes": 1586664,
+      "requests": [
+        "/data/calendar.json",
+        "/data/results.json"
+      ]
+    },
+    {
+      "label": "after",
+      "path": "/results/compare/",
+      "width": 390,
+      "ready_ms": 223,
+      "nodes": 226,
+      "rows": 0,
+      "data_bytes": 193234,
+      "requests": [
+        "/data/calendar.json",
+        "/data/results/index.json",
+        "/data/results/seasons/2024-25.json",
+        "/data/results/seasons/2025-26.json"
+      ]
+    },
+    {
+      "label": "before",
+      "path": "/results/cycles/milano-2026/?kind=circuit",
+      "width": 390,
+      "ready_ms": 312,
+      "nodes": 3389,
+      "rows": 0,
+      "data_bytes": 1586664,
+      "requests": [
+        "/data/calendar.json",
+        "/data/results.json"
+      ]
+    },
+    {
+      "label": "after",
+      "path": "/results/cycles/milano-2026/?kind=circuit",
+      "width": 390,
+      "ready_ms": 297,
+      "nodes": 528,
+      "rows": 0,
+      "data_bytes": 261032,
+      "requests": [
+        "/data/calendar.json",
+        "/data/results/index.json",
+        "/data/results/seasons/2025-26.json",
+        "/data/results/seasons/2024-25.json",
+        "/data/results/seasons/2023-24.json",
+        "/data/results/seasons/2022-23.json"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "compare",
+      "path": "/results/compare/",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "season",
+      "path": "/results/seasons/2025-26/?kind=circuit",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "events",
+      "path": "/results/events/",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "compare",
+      "path": "/results/compare/",
+      "width": 768,
+      "passed": true
+    },
+    {
+      "name": "season",
+      "path": "/results/seasons/2025-26/?kind=circuit",
+      "width": 768,
+      "passed": true
+    },
+    {
+      "name": "events",
+      "path": "/results/events/",
+      "width": 768,
+      "passed": true
+    },
+    {
+      "name": "compare",
+      "path": "/results/compare/",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "name": "season",
+      "path": "/results/seasons/2025-26/?kind=circuit",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "name": "events",
+      "path": "/results/events/",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "name": "legacy filters and pagination",
+      "passed": true
+    },
+    {
+      "name": "PWA visited deep link and expanded raw records offline",
+      "passed": true
+    }
+  ]
+}

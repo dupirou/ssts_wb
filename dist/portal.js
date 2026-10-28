@@ -2,11 +2,6 @@
 (function () {
   'use strict';
   const site = window.SSTS = window.SSTS || {};
-  const cycles = [
-    {label: '平昌周期', years: '2014 — 2018', seasons: '2014/15 — 2017/18'},
-    {label: '北京周期', years: '2018 — 2022', seasons: '2018/19 — 2021/22'},
-    {label: '米兰周期', years: '2022 — 2026', seasons: '2022/23 — 2025/26'},
-  ];
   function header(h, title, description) {
     return h('section', {class: 'season-head'}, h('h1', {text: title}),
       description ? h('p', {class: 'lead', text: description}) : null);
@@ -21,37 +16,6 @@
       focus ? nextCard(focus) : h('section', {class: 'panel empty-state'},
         h('h2', {text: '本赛季比赛已结束'}), h('a', {class: 'btn', href: '/events/'}, '查看赛事')),
       ...stations.map(ticketPanel).filter(Boolean));
-  }
-  async function results(ctx, calendar) {
-    const {h, root, fetchData, stationHref, now} = ctx;
-    const recent = h('section', {class: 'results-recent', 'aria-label': '最近赛果'},
-      h('div', {class: 'portal-section-head'}, h('h2', {class: 'section-title', text: '最近赛果'})),
-      h('p', {class: 'results-loading faint', role: 'status', text: '正在读取成绩…'}));
-    root.replaceChildren(header(h, '成绩', calendar.season), recent,
-      h('section', {class: 'results-history', 'aria-label': '历史成绩'},
-        h('div', {class: 'portal-section-head'}, h('h2', {class: 'section-title', text: '历史成绩'}),
-          h('span', {class: 'faint tiny', text: '整理中'})),
-        h('div', {class: 'cycle-grid'}, cycles.map(c => h('article', {class: 'panel cycle-card'},
-          h('p', {class: 'eyebrow num', text: c.years}), h('h3', {text: c.label}), h('p', {class: 'faint', text: c.seasons}))))));
-    try {
-      const summary = await fetchData('portal.json');
-      recent.querySelector('.results-loading').remove();
-      const finals = (summary.finals || []).filter(f => Date.parse(f.utc_start) <= now());
-      if (!finals.length) {
-        recent.append(h('p', {class: 'panel faint', text: '成绩待公布'}));
-        return;
-      }
-      recent.append(h('div', {class: 'recent-grid'}, finals.map(f => h('a', {
-        class: 'panel recent-card', href: stationHref(f.event_id, f.local_date) + '#r-' + f.schedule_id,
-      }, h('span', {class: 'eyebrow', text: f.city + ' · ' + f.local_date.slice(5).replace('-', '/')}),
-      h('h3', {text: f.label}), h('ol', {class: 'recent-podium'}, f.podium.map(p => h('li', {},
-        h('span', {class: 'num podium-place', text: p.rank}), h('b', {text: p.name}),
-        h('span', {class: p.country === 'CHN' ? 'athlete-china' : 'faint', text: p.country}))))))));
-    } catch (_) {
-      recent.querySelector('.results-loading')?.remove();
-      recent.append(h('p', {class: 'panel faint'}, '成绩暂时无法加载。',
-        h('button', {class: 'btn', type: 'button', onclick: () => results(ctx, calendar)}, '重试')));
-    }
   }
   async function athletes(ctx, calendar) {
     const {h, root, fetchData} = ctx;
@@ -109,5 +73,5 @@
           h('button', {class: 'btn', type: 'button', onclick: () => athletes(ctx, calendar)}, '重试')));
     }
   }
-  site.portal = {home, results, athletes};
+  site.portal = {home, athletes};
 })();

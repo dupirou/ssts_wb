@@ -7,8 +7,10 @@
 - `/`：当前或下一场赛事与售票信息
 - `/events/`：完整赛季赛历
 - `/events/2026-27/vancouver/`：分站详情（原 `/?station=vancouver` 等链接继续可用）
-- `/results/`：最近赛果与历史成绩；原 `/history/` 入口继续可用
+- `/results/`：中国队成绩总览、赛事成绩、周期／赛季档案与对比；原 `/history/` 入口继续可用
 - `/athletes/`：运动员目录与已公布的本赛季世巡赛单项排名
+
+历史成绩截至 2026-10-27：官方目录 76 场均已建档，74 场有中国队成绩，共 1,726 条。只统计个人 500 / 1000 / 1500 米及接力；全能和个人超级 3000 不计，缺接力阵容不影响团队成绩。名次来源不一致时采用当前官网正式最终分类，旧版本保留溯源；72 场成绩完整，剩余四场最终分类缺口和逐季数量见 [历史成绩说明](docs/history.md)。
 
 ## 怎么运转
 
@@ -33,6 +35,7 @@ Worker stsswb：静态文件 + 只读 /api/v1（src/worker.mjs）
 |---|---|
 | `data/stations.json` | 唯一的分站配置：日期、时区、场馆、ISU 赛事页 |
 | `data/schedules/` `data/competitions/` | 已核对的官方赛程、报名、分组与成绩 |
+| `data/history/` | 中国队历史赛事索引、固定运动员身份与官方最终成绩 |
 | `data/prediction_inputs/` | 单项报项与上赛季单项排名（预测和运动员报项用） |
 | `data/china*.json` | 中国队分组证据（自动导入与人工覆盖） |
 | `data/updates.json` | 已通知过的“新动态” |
@@ -60,7 +63,8 @@ ruff format tools tests && ruff check tools tests   # Python 格式与检查（p
 ## 文档
 
 - [docs/backend.md](docs/backend.md)：数据同步、接口、预测、新动态、安全边界
-- [docs/architecture.md](docs/architecture.md)：全站导航与多赛季演进顺序
+- [docs/architecture.md](docs/architecture.md)：页面架构、赛季／周期回顾、对比形式与实施顺序
+- [docs/history.md](docs/history.md)：中国队历史成绩收录、导入与覆盖范围
 - [docs/frontend.md](docs/frontend.md)：页面结构、视觉规则、文案约定
 - [docs/deploy.md](docs/deploy.md)：Cloudflare 部署与比赛时段定时同步
 - [docs/isu-seeding-2026-27.md](docs/isu-seeding-2026-27.md)：直通、种子与分组规则（含官方条款出处）

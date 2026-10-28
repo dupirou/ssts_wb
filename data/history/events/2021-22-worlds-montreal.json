@@ -1,0 +1,547 @@
+{
+  "schema_version": 1,
+  "competition_id": "2021-22-worlds-montreal",
+  "country": "CHN",
+  "participation": "none",
+  "programme": [
+    {
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "official_result_id": 2432,
+      "name": "Men 1500 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "official_result_id": 2455,
+      "name": "Women 1500 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "official_result_id": 2459,
+      "name": "Men 500 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "official_result_id": 2471,
+      "name": "Women 500 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "official_result_id": 2533,
+      "name": "Men 1000 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "official_result_id": 2579,
+      "name": "Women 1000 m",
+      "medal_eligible": true
+    },
+    {
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "official_result_id": 2597,
+      "name": "Women 3000 m Relay",
+      "medal_eligible": true
+    },
+    {
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "official_result_id": 2599,
+      "name": "Men 5000 m Relay",
+      "medal_eligible": true
+    }
+  ],
+  "missing_disciplines": [],
+  "results": [],
+  "source": {
+    "kind": "isu_api",
+    "url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-short-track-speed-skating-championships-4/?tab=results_4059",
+    "documents": [
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4059,
+          "event_result_id": 2432
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4059,
+          "event_result_id": 2455
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4059,
+          "event_result_id": 2459
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4059,
+          "event_result_id": 2471
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4059,
+          "event_result_id": 2533
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4059,
+          "event_result_id": 2579
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4059,
+          "event_result_id": 2597
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
+        "form": {
+          "code": "",
+          "country_code": "",
+          "event_id": 4059,
+          "event_result_id": 2599
+        },
+        "sha256": "a6dd601cf42c8fa7a0adab97fabfdc14286bdbe2095392cf270e331a4b408891"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 2432
+        },
+        "sha256": "3043c560447febed0d704f828357ce55768e47fc7722c1c37757f64750e7bcb3"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 2455
+        },
+        "sha256": "3fc52d7bc70c2227da92152572e52230e724ce80de89b520b431b7e78375e8ee"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 2459
+        },
+        "sha256": "a711de69e7191eca47d7ff7854554df0becc7ef791b2445c23e362fa4e8b5013"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 2471
+        },
+        "sha256": "1a21d5fd9d40fb0dccde2667c468ad3b0fabd1d1c62b7c9bd66384aece046eb2"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 2533
+        },
+        "sha256": "0dc4f12da3686f23e1d2b8f53d1247733e599899aa407e4d3c46507413357034"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 2579
+        },
+        "sha256": "146bea9e733065679f2835d547d693b6da760f03f6656e6445ffef05b882a386"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 2597
+        },
+        "sha256": "90701a2186189feb9252b6bbb893f9a4a3605573b074945f0e754bc668b34db6"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round",
+        "form": {
+          "event_result_id": 2599
+        },
+        "sha256": "a3ce8742c3896cb266d5a88039ac1e43ca8928f484c9a058656251843f8eb601"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2432,
+          "event_result_round_id": 2790
+        },
+        "sha256": "159ac0923efa05fbbc9203d08afcc3fb2836faf1f8c9c9ad5571258a47d85dfd"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2432,
+          "event_result_round_id": 2799
+        },
+        "sha256": "e7d5f9ae6b397a668bf85b18f1afa3c4fa1be2ec8b67faab92b53dac93a68249"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2432,
+          "event_result_round_id": 2804
+        },
+        "sha256": "e941385a915b58d28476abc71a08165f3c90f42868be1b086c17f57636165ef4"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2432,
+          "event_result_round_id": 2814
+        },
+        "sha256": "d0ded0cf13b4d830dc9ca38776bd18fdd3f82917a261c490313b3630b12fa8f3"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2455,
+          "event_result_round_id": 2824
+        },
+        "sha256": "a52132dbbc3a8e47af797a0cce580c52ad975755502b658897dc799c36fbfa0a"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2455,
+          "event_result_round_id": 2833
+        },
+        "sha256": "e991218349606e7cfb17140b548e7c48a4e478ca758e504b7837ee23ae87cd9a"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2455,
+          "event_result_round_id": 2834
+        },
+        "sha256": "916d3371a793edce7b65c6a2170fea34947a4831b31c37ddc0377e52769d9ea3"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2455,
+          "event_result_round_id": 2839
+        },
+        "sha256": "33f9e779a6c5219e450525b2f8cc1056a08cf8962fb25f761aa903a831783b6d"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2459,
+          "event_result_round_id": 2846
+        },
+        "sha256": "fa5000ddd9a52c6cdea3680fa6ddfd9635b3b8d6df42a82830cd4c2c7efdf48d"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2459,
+          "event_result_round_id": 2857
+        },
+        "sha256": "fd2c2b22f65c96b34afdaa6fae4885c523bb27d9af8618bb30bc39155bbab9a0"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2459,
+          "event_result_round_id": 2861
+        },
+        "sha256": "6525afe45c137a4d2fdddd5917588eda6907381e0b45c87edcd6d4ed1b925b89"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2459,
+          "event_result_round_id": 2874
+        },
+        "sha256": "c2899b13c9f3f4c0f8b6979b2ac45d10cb085d228bb7d62bfe5213bb9016ea61"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2459,
+          "event_result_round_id": 2876
+        },
+        "sha256": "68536955ec401f3cce953e554bb2ee7405b3fe192d8540eb639459d91730a18b"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2459,
+          "event_result_round_id": 2878
+        },
+        "sha256": "52d933fe1bee85d74d8cf2457bcadc986b1ca33ba3bd4d8c825b3b34c2edeadd"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2459,
+          "event_result_round_id": 2883
+        },
+        "sha256": "18eb4c5620edf6835f02f97129ec2beb93a9e8943e5c7f5a97112e8da7eb2fff"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2471,
+          "event_result_round_id": 2889
+        },
+        "sha256": "e73f33cf170437d66e8dbb7050d12f9cdf3b478d9a255dd8d5bc5dfecbfd34ff"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2471,
+          "event_result_round_id": 2907
+        },
+        "sha256": "43055bec7dd4e59e88364400e3d4144befb65e1f4ec27a0f3fb6e9a3d3df5c6f"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2471,
+          "event_result_round_id": 2912
+        },
+        "sha256": "806d04e7cef13571f7253515b143f2dc55d999980c195742984b3aa9dbdae50a"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2471,
+          "event_result_round_id": 2916
+        },
+        "sha256": "6d4a51aaf2d9cd00c9e2d0fe319b6db79436aa2e18ec74c1919e90aac4591488"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2471,
+          "event_result_round_id": 2919
+        },
+        "sha256": "2a75eee7923834108c48e1b49089692154274e968d6aa54f88da2dcc14b7f290"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2533,
+          "event_result_round_id": 2930
+        },
+        "sha256": "0d2cb8bf8a8ab64c60dee90574d40e7cfa00e02bfe4ff065392e98afd83b5c69"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2533,
+          "event_result_round_id": 2953
+        },
+        "sha256": "ad00c08a286c1481a8e3f8a3185b710addfa3ba56c907dc476f82d6138ce817a"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2533,
+          "event_result_round_id": 2959
+        },
+        "sha256": "f7b3326a042e6441ad05b46a7eaebd65a91c2bd1f64bfebb5319d5d9635910b4"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2533,
+          "event_result_round_id": 2969
+        },
+        "sha256": "2b1778cd073d31a2c5953518127d517bd815280296852e7e28f5f057882c4ea1"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2533,
+          "event_result_round_id": 2972
+        },
+        "sha256": "b43bc0dc72c699b7c8196a2c418f65302a7ce670a5fce05d0f0189f023ec82fd"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2533,
+          "event_result_round_id": 2984
+        },
+        "sha256": "6a511cb805f1481c5004045176a314189e583308148a7b74e5adc1be8fce0360"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2533,
+          "event_result_round_id": 2988
+        },
+        "sha256": "28055a4aa8760bf993174cc712c69ebab5b23c0fef7c9e7a2b33ce42dea1eb5e"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2579,
+          "event_result_round_id": 2998
+        },
+        "sha256": "d85e1c9be6bf8f0c7b916e2ecad04a716af254ea4d2449a83db1185aa8605ec5"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2579,
+          "event_result_round_id": 3015
+        },
+        "sha256": "2473adc6c9bb32bfbbcb97b201b0f35aef3ccfac3a2a5b555451fa452998fe17"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2579,
+          "event_result_round_id": 3020
+        },
+        "sha256": "4917e904b05f3d02c610ae281ce575c822d36129b0e484da9799d5ea5ed14ab4"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2579,
+          "event_result_round_id": 3030
+        },
+        "sha256": "95822b58f630ac378df95d96fa3f007e8f4bb5cfab1003becbafab08a0f69dd1"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2579,
+          "event_result_round_id": 3035
+        },
+        "sha256": "1efddb21058383b6ab07a8abffdaa55db9c6c63eceba0b0c5eb6ea825cc1a06c"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2597,
+          "event_result_round_id": 3044
+        },
+        "sha256": "e134ef264f19df4cbd971157dba4dcd2474ebcfe011c49e4c9bb9b4e3f99fa9d"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2597,
+          "event_result_round_id": 3047
+        },
+        "sha256": "6050fbc707acdd743ccdb08d64a2835b48ef73fe2006edd9ab788321b2f7f675"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2599,
+          "event_result_round_id": 3053
+        },
+        "sha256": "db419f49818d71b4d08dbccca4cfbf62211aacc162826a9f6809eacca85dbbd0"
+      },
+      {
+        "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
+        "form": {
+          "country_code": "",
+          "event_result_id": 2599,
+          "event_result_round_id": 3057
+        },
+        "sha256": "0dc98a30da07d93f6b7ab79561ec6b81f90bbac8198857648eecdfb2275080a6"
+      },
+      {
+        "url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-short-track-speed-skating-championships-4/?tab=results_4059",
+        "form": {},
+        "sha256": "3ef920703354996d0e2d1573ebfbe630469a9bd4e316a6a08f242ef15cfb2c2d"
+      }
+    ],
+    "retrieved_at": "2026-10-27T13:37:08.197305+00:00",
+    "sha256": "195c84862cecd0c77610e8722f44ff8891acd46732197535c1a19d0220d8d94b"
+  }
+}

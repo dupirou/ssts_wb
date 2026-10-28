@@ -4,6 +4,7 @@
 import hashlib
 import json
 import shutil
+import subprocess
 import competition_data
 import stations
 import sync_schedule
@@ -15,6 +16,9 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1]
 CHINA = ROOT / 'data/china.json'
 OUT = ROOT / 'dist'
+SCRIPTS = ('ui.js', 'navigation.js', 'results-model.js', 'results-store.js', 'results.js', 'portal.js', 'app.js')
+BUNDLE = 'site.js'
+SHELL_FILES = ('index.html', BUNDLE, 'site.css', 'manifest.webmanifest')
 BJ = ZoneInfo('Asia/Shanghai')
 CONFIG = stations.load()
 CALENDAR_URL = CONFIG['calendar_url']
@@ -325,18 +329,16 @@ def export(now=None):
     (OUT / 'manifest.webmanifest').write_text(
         manifest_text((ROOT / 'web/manifest.webmanifest').read_text(encoding='utf-8'), now), encoding='utf-8'
     )
-    for filename in ('app.js', 'navigation.js', 'portal.js'):
+    for filename in SCRIPTS:
         shutil.copyfile(ROOT / 'web' / filename, OUT / filename)
+    # Plain concatenation keeps source modules testable without extra browser round trips or a bundler dependency.
+    (OUT / BUNDLE).write_text(
+        ';\n'.join((ROOT / 'web' / name).read_text(encoding='utf-8') for name in SCRIPTS), encoding='utf-8'
+    )
     shutil.copyfile(ROOT / 'web/site.css', OUT / 'site.css')
     shutil.copytree(ROOT / 'web/icons', OUT / 'icons', dirs_exist_ok=True)
     # The service worker cache name follows the published shell, so a new release replaces the old cache.
-    shell = (
-        b''.join(
-            (OUT / name).read_bytes()
-            for name in ('index.html', 'app.js', 'navigation.js', 'portal.js', 'site.css', 'manifest.webmanifest')
-        )
-        + (ROOT / 'web/sw.js').read_bytes()
-    )
+    shell = b''.join((OUT / name).read_bytes() for name in SHELL_FILES) + (ROOT / 'web/sw.js').read_bytes()
     (OUT / 'sw.js').write_text(
         (ROOT / 'web/sw.js')
         .read_text(encoding='utf-8')
@@ -348,11 +350,35 @@ def export(now=None):
     import site_catalog
 
     site_catalog.export(OUT, season, schedules)
+    import history_data
+
+    history_data.export(OUT, calendar=season)
+    subprocess.run(['node', str(ROOT / 'tools/build_results.mjs'), str(OUT), CONFIG['season']], check=True)
     # Real index files make deep links work on Workers Assets and a plain static server alike.
-    page_paths = ['events', 'results', 'history', 'athletes'] + [
-        'events/' + CONFIG['season'].replace('/', '-') + '/' + event['id']
-        for event in CONFIG['stations'] + CONFIG['championships']
-    ]
+    results_index = json.loads((OUT / 'data/results/index.json').read_text(encoding='utf-8'))
+    page_paths = (
+        [
+            'events',
+            'results',
+            'results/events',
+            'results/seasons',
+            'results/cycles',
+            'results/compare',
+            'history',
+            'athletes',
+        ]
+        + ['results/events/' + event['id'] for event in results_index['events']]
+        + [
+            'results/seasons/' + season.replace('/', '-')
+            for season in sorted({s for cycle in results_index['cycles'] for s in cycle['seasons']})
+            if season <= CONFIG['season']
+        ]
+        + ['results/cycles/' + cycle['id'] for cycle in results_index['cycles']]
+        + [
+            'events/' + CONFIG['season'].replace('/', '-') + '/' + event['id']
+            for event in CONFIG['stations'] + CONFIG['championships']
+        ]
+    )
     for page_path in page_paths:
         page_dir = OUT / page_path
         page_dir.mkdir(parents=True, exist_ok=True)
