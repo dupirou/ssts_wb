@@ -48,14 +48,14 @@ class PenaltyProtocolTests(unittest.TestCase):
     def test_multi_page_gender_table_is_supported(self):
         pages = fixture()
         extra = (
-            'ISU Short Track World Tour 2026/27 - Vancouver (CAN)\\n'
-            'WORLD TOUR PENALTIES\\nAfter 1 of 7 World Tour Events\\nWomen\\n'
-            '19  GONG Li  CHN  1 - - - - - - 1\\n'
+            'ISU Short Track World Tour 2026/27 - Vancouver (CAN)\n'
+            'WORLD TOUR PENALTIES\nAfter 1 of 7 World Tour Events\nWomen\n'
+            '19  GONG Li  CHN  1 - - - - - - 1\n'
         )
         pages.insert(1, extra)
         pages[3] = pages[3].replace(
-            'Summary: PEN: 3\\n',
-            '4  213 Women 1500 m       Final B  19  GONG Li  CHN    PEN    C5\\nSummary: PEN: 4\\n',
+            'Summary: PEN: 3\n',
+            '4  213 Women 1500 m       Final B  19  GONG Li  CHN    PEN    C5\nSummary: PEN: 4\n',
         )
         result = self.report(pages)
         self.assertEqual(result['completed_events'], 1)
@@ -64,7 +64,7 @@ class PenaltyProtocolTests(unittest.TestCase):
 
     def test_missing_gender_table_is_rejected(self):
         pages = fixture()
-        pages[1] = pages[1].replace('Men\\n', 'Women\\n')
+        pages[1] = pages[1].replace('Men\n', 'Women\n')
         with self.assertRaisesRegex(ValueError, 'both genders'):
             self.report(pages)
 
