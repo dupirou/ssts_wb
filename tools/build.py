@@ -24,8 +24,6 @@ SCRIPTS = ('ui.js', 'navigation.js', 'results-model.js', 'results-store.js', 're
 BUNDLE = 'site.js'
 SHELL_FILES = ('index.html', BUNDLE, 'site.css', 'manifest.webmanifest')
 BJ = ZoneInfo('Asia/Shanghai')
-CONFIG = stations.load()
-CALENDAR_URL = CONFIG['calendar_url']
 STAGES = {'Q': 'qualifying', 'R': 'repechage', 'F': 'main'}
 GENDERS = {'W': 'women', 'M': 'men', 'X': 'mixed'}
 ROUNDS = {'P': 'preliminaries', 'H': 'heats', 'Q': 'quarterfinal', 'S': 'semifinal', 'F': 'final'}
@@ -38,18 +36,6 @@ HEAT_DURATIONS = {
     ('R', 3000): (7.0, 12.0),
     ('R', 5000): (8.0, 15.0),
 }
-VENUES = stations.venues()
-
-# Championships are independent events, never counted as World Tour stages.
-CHAMPIONSHIPS = [
-    dict(
-        {k: v for k, v in c.items() if k != 'isu'},
-        detail_status='not_entered',
-        source_url=stations.page_url(c) or CALENDAR_URL,
-    )
-    for c in CONFIG['championships']
-]
-
 
 def read_schedule(station_id, directory=stations.SCHEDULES):
     """A station's stored official programme as Beijing-time rows; [] until ISU publishes one."""
@@ -214,7 +200,7 @@ def load_ticketing():
     cfg = json.loads(path.read_text(encoding='utf-8'))
     if cfg.get('schema_version') != 1 or not isinstance(cfg.get('stations'), dict):
         raise ValueError('Invalid ticket information schema')
-    by_id = {st['id']: st for st in CONFIG['stations']}
+    by_id = {st['id']: st for st in stations.load()['stations']}
     result = {}
     for station, item in cfg['stations'].items():
         if station not in by_id or not isinstance(item, dict):
@@ -241,14 +227,15 @@ def load_ticketing():
 
 def season_text(text):
     """Fill the page shell's season wording from data/stations.json, so a new season edits one file."""
-    worlds = ''.join(f'及{c["date_start"][:4]}{c["city"]}世锦赛' for c in CONFIG['championships'])
-    description = f'{CONFIG["season"]} ISU 短道速滑世巡赛 {len(CONFIG["stations"])} 站{worlds}赛程，北京时间、官方报名和分组信息。'
-    return text.replace('{{SEASON}}', CONFIG['season']).replace('{{DESCRIPTION}}', description)
+    config = stations.load()
+    worlds = ''.join(f'及{c["date_start"][:4]}{c["city"]}世锦赛' for c in config['championships'])
+    description = f'{config["season"]} ISU 短道速滑世巡赛 {len(config["stations"])} 站{worlds}赛程，北京时间、官方报名和分组信息。'
+    return text.replace('{{SEASON}}', config['season']).replace('{{DESCRIPTION}}', description)
 
 
 def next_event(now):
     """The stage, then championship, whose last local day has not ended yet; None after the season."""
-    for event in CONFIG['stations'] + CONFIG['championships']:
+    for event in stations.load()['stations'] + stations.load()['championships']:
         end = datetime.fromisoformat(event['date_end']).replace(tzinfo=ZoneInfo(event['timezone'])) + timedelta(days=1)
         if now < end:
             return event
@@ -257,14 +244,15 @@ def next_event(now):
 
 def manifest_text(text, now):
     """The web manifest with its home-screen shortcut on the next event; the twice-daily build moves it on."""
+    config = stations.load()
     manifest = json.loads(season_text(text))
     event = next_event(now)
     manifest['shortcuts'] = (
         [
             {
-                'name': event['title'] if event in CONFIG['championships'] else event['city'] + '站赛程',
-                'short_name': '世锦赛' if event in CONFIG['championships'] else event['city'],
-                'url': '/events/' + CONFIG['season'].replace('/', '-') + '/' + event['id'] + '/',
+                'name': event['title'] if event in config['championships'] else event['city'] + '站赛程',
+                'short_name': '世锦赛' if event in config['championships'] else event['city'],
+                'url': '/events/' + config['season'].replace('/', '-') + '/' + event['id'] + '/',
                 'icons': [{'src': 'icons/icon-192.png', 'sizes': '192x192'}],
             }
         ]
@@ -277,6 +265,17 @@ def manifest_text(text, now):
 def _compile(now, out, prior, source_log):
     import predict_groups
 
+    config = stations.load()
+    calendar_url = config['calendar_url']
+    venues = [tuple(st[field] for field in stations.FIELDS) for st in config['stations']]
+    championships = [
+        dict(
+            {k: v for k, v in championship.items() if k != 'isu'},
+            detail_status='not_entered',
+            source_url=stations.page_url(championship) or calendar_url,
+        )
+        for championship in config['championships']
+    ]
     meta = stations.load_meta()
     errors = {}
     try:
@@ -292,7 +291,7 @@ def _compile(now, out, prior, source_log):
         errors['ticketing'] = {'state': 'retained', 'reason': str(exc)}
         print(f'::error::Ticket source rejected; previously published links retained: {exc}', file=sys.stderr)
     schedules = {}
-    for st in CONFIG['stations']:
+    for st in config['stations']:
         station_id = st['id']
         try:
             rows = read_schedule(station_id)
@@ -314,25 +313,25 @@ def _compile(now, out, prior, source_log):
             print(f'::error::{station_id}: build input rejected ({state}): {exc}', file=sys.stderr)
     season = {
         'schema_version': 1,
-        'season': CONFIG['season'],
-        'source_url': CALENDAR_URL,
+        'season': config['season'],
+        'source_url': calendar_url,
         'stations': [
             dict(
                 {k: st[k] for k in stations.FIELDS},
                 ticketing=ticketing.get(st['id']),
                 # The station's own ISU event page once found; the season calendar until then.
-                source_url=stations.page_url(st) or CALENDAR_URL,
+                source_url=stations.page_url(st) or calendar_url,
                 detail_status='verified' if st['id'] in schedules else 'not_entered',
                 predictions=predict_groups.has_open_items(st['id'], schedules.get(st['id'], [])),
             )
-            for st in CONFIG['stations']
+            for st in config['stations']
         ],
-        'championships': CHAMPIONSHIPS,
+        'championships': championships,
         'notice': '各分站详细赛程在 ISU 公布后自动录入。',
     }
     (out / 'data').mkdir(parents=True, exist_ok=True)
     (out / 'data/calendar.json').write_text(json.dumps(season, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    for st in CONFIG['stations']:
+    for st in config['stations']:
         rows = schedules.get(st['id'])
         if not rows:
             continue
@@ -385,8 +384,8 @@ def _compile(now, out, prior, source_log):
         .replace('__BUILD_VERSION__', hashlib.sha256(shell).hexdigest()[:12]),
         encoding='utf-8',
     )
-    competition_data.export(out, VENUES, predict_groups.entered_distances, CONFIG['season'])
-    predict_groups.export(out, VENUES, schedules)
+    competition_data.export(out, venues, predict_groups.entered_distances, config['season'])
+    predict_groups.export(out, venues, schedules)
     import site_catalog
 
     site_catalog.export(out, season, schedules)
@@ -395,7 +394,7 @@ def _compile(now, out, prior, source_log):
     history_data.export(out, calendar=season)
     try:
         subprocess.run(
-            ['node', str(ROOT / 'tools/build_results.mjs'), str(out), CONFIG['season']],
+            ['node', str(ROOT / 'tools/build_results.mjs'), str(out), config['season']],
             check=True,
             cwd=ROOT,
             timeout=120,
@@ -423,12 +422,12 @@ def _compile(now, out, prior, source_log):
         + [
             'results/seasons/' + result_season.replace('/', '-')
             for result_season in sorted({s for cycle in results_index['cycles'] for s in cycle['seasons']})
-            if result_season <= CONFIG['season']
+            if result_season <= config['season']
         ]
         + ['results/cycles/' + cycle['id'] for cycle in results_index['cycles']]
         + [
-            'events/' + CONFIG['season'].replace('/', '-') + '/' + event['id']
-            for event in CONFIG['stations'] + CONFIG['championships']
+            'events/' + config['season'].replace('/', '-') + '/' + event['id']
+            for event in config['stations'] + config['championships']
         ]
     )
     for page_path in page_paths:
@@ -439,7 +438,7 @@ def _compile(now, out, prior, source_log):
 
     feed = updates.export(
         out,
-        VENUES,
+        venues,
         schedules,
         {k: v.get('last_successful_schedule_check_utc') for k, v in meta.items()},
         path=source_log,
