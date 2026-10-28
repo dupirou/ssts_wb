@@ -29,6 +29,21 @@ test('all real event/season/cycle metrics agree with pre-refactor statistics',()
     assert.deepEqual(m.athleteStatistics(events.map(e=>({...e,summary:m.summarize(e)}))),m.athleteStatistics(events));
   }
 });
+test('comparison best rank uses official overall classification, never final-heat place',()=>{
+  const base={gender:'women',distance_m:3000,format:'relay',name:'China',status:'classified',medal_eligible:true};
+  const group={...base,rank:1,rank_scope:'final',final_group:'A',classification_missing:true};
+  const classified={...base,rank:8,rank_scope:'overall',final_group:'B'};
+  const key=['women',3000];
+  const onlyHeats=m.projectSummary([{results:[group],coverage:'partial'}],key);
+  assert.equal(onlyHeats.best,null,'heat winner has no verified final classification');
+  assert.equal(onlyHeats.totals.entries,1,'raw race record remains present');
+  const combined=m.projectSummary([{results:[group],coverage:'partial'},{results:[classified],coverage:'complete'}],key);
+  assert.equal(combined.best.rank,8,'A-final first place must not outrank overall eighth');
+  assert.equal(combined.best.rank_scope,'overall');
+  const falselyOverall={...group,rank_scope:'overall'};
+  assert.equal(m.projectSummary([{results:[falselyOverall],coverage:'partial'}],key).best,null,
+    'classification_missing is never a valid overall best rank');
+});
 test('partial catalogue cannot assert not offered or zero from imported subset',()=>{
   const event={official_event_id:'1',season:'2020/21',kind:'worlds',coverage:'complete',programme:[],results:[]};
   const fixture={cycles:[],events:[event],inventory:[{season:'2020/21',kind:'worlds',official_event_ids:['1','2']}],pending:[]};

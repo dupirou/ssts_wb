@@ -55,7 +55,8 @@
     return stats;
   }
   function bestResult(rows) {
-    return rows.filter(r => r.rank != null && (r.rank_scope !== 'final' || r.final_group === 'A'))
+    // An A/B final heat place is not an event classification. Never compare the two rank scales.
+    return rows.filter(r => r.rank != null && r.rank_scope !== 'final' && !r.classification_missing)
       .sort((a,b) => Number(a.status !== 'classified') - Number(b.status !== 'classified') || a.rank - b.rank)[0] || null;
   }
   function athleteStatistics(events) {
