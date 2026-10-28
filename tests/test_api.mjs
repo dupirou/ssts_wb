@@ -84,7 +84,8 @@ test('built real snapshot and unconfigured event empty states are served', async
   assert.equal(projected.total,1);
   const stored=JSON.parse(await readFile(new URL('../dist/data/predictions/vancouver.json',import.meta.url),'utf8'));
   assert.deepEqual(projected.items,[stored.items.find(p=>p.gender==='women'&&p.distance_m===500)]);
-  assert.equal((await request('/api/v1/events/vancouver/predictions?country=CHN',realEnv)).status,400);
+  assert.deepEqual(await (await request('/api/v1/events/vancouver/predictions?country=CHN',realEnv)).json(),
+    {error:'invalid_filter',field:'country'});
   assert.equal(await (await request('/api/v1/events/vancouver/predictions',realEnv,'HEAD')).text(),'');
   const seoul=await (await request('/api/v1/events/seoul/predictions',realEnv)).json();
   assert.ok(seoul.items.every(p=>p.missing.includes('schedule')));
@@ -129,7 +130,9 @@ test('race-window cron: 10-min syncs around sessions, hourly between them, none 
   globalThis.fetch = async (url, init) => { calls.push({url, init}); return new Response(null, {status:204}); };
   const run = async (token, time) => {
     const pending = [];
-    await worker.scheduled({scheduledTime:Date.parse(time)}, {GITHUB_DISPATCH_TOKEN:token, ASSETS:assets}, {waitUntil:p => pending.push(p)});
+    await worker.scheduled({scheduledTime:Date.parse(time)},
+      {GITHUB_DISPATCH_TOKEN:token, SYNC_REPO:'dupirou/ssts_wb', SYNC_WORKFLOW:'sync.yml', ASSETS:assets},
+      {waitUntil:p => pending.push(p)});
     await Promise.all(pending);
   };
   try {
@@ -169,7 +172,8 @@ test('403 dispatch is rejected by waitUntil so the failure remains observable', 
   globalThis.fetch = async () => new Response('permission denied',{status:403});
   try {
     await worker.scheduled({scheduledTime:Date.parse('2026-10-24T18:00:00Z')},
-      {GITHUB_DISPATCH_TOKEN:'dummy',ASSETS:assets}, {waitUntil:promise => pending.push(promise)});
+      {GITHUB_DISPATCH_TOKEN:'dummy',SYNC_REPO:'dupirou/ssts_wb',SYNC_WORKFLOW:'sync.yml',ASSETS:assets},
+      {waitUntil:promise => pending.push(promise)});
     await assert.rejects(Promise.all(pending),/GitHub dispatch failed: 403/);
   } finally {globalThis.fetch = previous;}
 });
@@ -226,4 +230,29 @@ test('freshness uses current heartbeat, expires at 30 minutes in session, and fa
     assert.equal(fallback.freshness_degraded,true);
     assert.equal(fallback.stale,true);
   } finally {globalThis.Date=original;}
+});
+
+
+test('unsupported resource filters reject instead of pretending to return zero matches', async () => {
+  const combinations=[
+    ['entries','round_key=x'],['rankings','round_key=x'],['results','ranking_type=world'],
+    ['penalties','ranking_type=event'],['predictions','country=CHN'],
+  ];
+  for(const [resource,query] of combinations){
+    const response=await request('/api/v1/events/vancouver/'+resource+'?'+query);
+    assert.equal(response.status,400);
+    assert.equal((await response.json()).error,'invalid_filter');
+  }
+  assert.equal((await request('/api/v1/events/worlds-2027')).status,404);
+});
+
+test('missing assets return 503, malformed runtime snapshot returns 500 with no private details', async () => {
+  const bad=structuredClone(snapshot);
+  delete bad.entries.items;
+  const broken=await request('/api/v1/events/vancouver/entries',envFor(bad));
+  assert.equal(broken.status,500);
+  assert.deepEqual(await broken.json(),{error:'internal_error'});
+  const missing=envFor();
+  missing.ASSETS.fetch=async()=>new Response('missing',{status:404});
+  assert.equal((await request('/api/v1/events/vancouver/entries',missing)).status,503);
 });
