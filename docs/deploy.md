@@ -33,3 +33,16 @@ GitHub 自带的定时任务（每天 00:17、12:17 UTC）常常延迟。Worker 
 ## 自定义域名
 
 域名在 Workers 的 Custom domains 中添加，由 Cloudflare 自动建立 DNS 记录与证书；不要只手工加 CNAME。中国大陆的可达性需在实际运营商网络与微信内置浏览器中验证，不作保证。
+
+
+## 同步心跳与 KV 健康度
+
+Worker 使用 `SYNC_HEALTH_KV` 记录最后一次完整同步、构建、测试、发布成功的时间。KV 是运行状态存储，**不是赛事数据源**；官方数据仍只能由经过校验的 `data/` 提供。
+
+- `wrangler.jsonc` 通过无 ID 绑定声明 KV；当前 Wrangler 版本支持在首次部署时自动创建资源。上线时先在 Cloudflare Worker 的 Settings → Bindings 中确认 `SYNC_HEALTH_KV` 已成功绑定。如果 Worker Builds 不支持自动配置，需手动创建 KV 命名空间并将实际 ID 填入配置，不要使用占位 ID。
+- Cloudflare Worker Secrets 添加 `HEARTBEAT_SECRET`（随机长度至少 32 字符）；GitHub Actions 仓库 Secret 添加**相同值** `SYNC_HEARTBEAT_SECRET`。
+- GitHub Actions 仓库 Variable 添加 `SYNC_HEARTBEAT_URL=https://stss.fusu.uk/internal/heartbeat`。需要与 Cloudflare 实际已绑定的生产域名核对。
+- 缺任一配置时不会发送伪心跳。日志会记录 `Heartbeat not configured`，API 使用既有快照时间并返回 `freshness_degraded=true`。配置齐全后，成功的 workflow 才会 POST 心跳；密钥不写入响应、日志或仓库。
+- 比赛进行时段心跳超过 30 分钟后标记 stale；其他时段保持 36 小时。KV 故障或无可信心跳时回退旧快照时间（36 小时）。
+
+**上线顺序：** 先确认 Worker KV 绑定和密钥，然后配置 GitHub Secret / Variable；手动运行一次 `sync.yml` 并检查 Step Summary 中的心跳结果，再核对 API 的 `freshness_source`、`freshness_degraded`。即使心跳成功，已标记 `update_status=error` 的资源仍保持 stale。

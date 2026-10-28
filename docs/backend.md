@@ -66,7 +66,7 @@
 
 筛选参数：`country`、`gender`、`distance_m`、`round_key`、`athlete_id`、`ranking_type`（预测只支持前三个与 `round_key`）。未知参数返回 400，未知赛事返回 404，非 GET / HEAD 返回 405。按国家筛选 `rounds` 时保留同组对手。
 
-统一响应字段：`schema_version`、`event_id`、`resource`、`status`、`update_status`、`checked_at`（上次成功核对）、`updated_at`（内容变化）、`source_urls`、`stale`、`total`、`items`。`status=not_published` 加空数组表示尚未公布，不等于没人参赛。同步出错或超过 36 小时未核对时 `stale=true`。
+统一响应字段：`schema_version`、`event_id`、`resource`、`status`、`update_status`、`checked_at`（最近成功的同步链路心跳，KV 不可用时为原快照时间）、`data_checked_at`（原始数据校验时间）、`updated_at`（内容变化）、`freshness_source`、`freshness_degraded`、`source_urls`、`stale`、`total`、`items`。`status=not_published` 加空数组表示尚未公布，不等于没人参赛。比赛 session 心跳超过 30 分钟、其他时段超过 36 小时或该资源校验失败时 `stale=true`；KV 故障时使用原快照的 36 小时判定并标记降级。
 
 ## 新动态
 
