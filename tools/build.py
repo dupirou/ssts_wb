@@ -293,9 +293,7 @@ def export(now=None, out=OUT):
         old_calendar = OUT / 'data/calendar.json'
         previous = json.loads(old_calendar.read_text(encoding='utf-8')) if old_calendar.exists() else {}
         ticketing = {
-            item['id']: item['ticketing']
-            for item in previous.get('stations', [])
-            if item.get('ticketing') is not None
+            item['id']: item['ticketing'] for item in previous.get('stations', []) if item.get('ticketing') is not None
         }
         errors['ticketing'] = {'state': 'retained', 'reason': str(exc)}
         print(f'::error::Ticket source rejected; previously published links retained: {exc}', file=sys.stderr)
