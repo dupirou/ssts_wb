@@ -156,6 +156,7 @@ jobs:
           SCHEDULE: ${{ steps.sync_schedule.outcome }}
           CHINA: ${{ steps.sync_china.outcome }}
           COMPETITIONS: ${{ steps.sync_competitions.outcome }}
+          PENALTIES: ${{ steps.sync_penalties.outcome }}
           PREDICTIONS: ${{ steps.sync_predictions.outcome }}
         run: |
           for outcome in "$SCHEDULE" "$CHINA" "$COMPETITIONS" "$PENALTIES" "$PREDICTIONS"; do
