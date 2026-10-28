@@ -22,6 +22,7 @@ REQUIRED = {
     ('X', '2000', 'R'),
 }
 
+
 def validate(rows, station):
     """Shared by sync and build: a stored programme is always a complete, ordered one."""
     allowed = {d.isoformat() for d in stations.dates(station)}
@@ -68,5 +69,3 @@ def read(path):
         return None
     with Path(path).open(encoding='utf-8', newline='') as f:
         return list(csv.DictReader(f))
-
-
