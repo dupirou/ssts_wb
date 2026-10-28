@@ -23,7 +23,7 @@ test('official cumulative penalties render seven checkpoint cells and preserve r
     country: 'CHN',
     total,
     details: [{ event_id: 'vancouver', distance_m: 500, round_label: 'Heats', infringement_code: 'C1', counted: true }],
-    next_restriction: { event_id: blocked ? 'montreal' : null, blocked_individual_distances: blocked }
+    next_restriction: { event_id: blocked ? 'montreal' : null, blocked_individual_distances: blocked, distances_m: blocked ? [1000] : [] }
   });
   const index = {
     completed_events: 1,
@@ -64,7 +64,7 @@ test('official cumulative penalties render seven checkpoint cells and preserve r
   }
 
   assert.equal(rows[0].querySelector('.penalty-restriction'), null);
-  assert.match(rows[1].querySelector('.penalty-restriction').textContent, /下站限报 1 项/);
+  assert.match(rows[1].querySelector('.penalty-restriction').textContent, /下站禁报 1000m/);
   assert.equal(rows[2].querySelector('.penalty-restriction'), null);
   assert.match(rows[0].querySelector('.penalty-details').textContent, /温哥华.*500m Heats.*C1/s);
   dom.window.close();
