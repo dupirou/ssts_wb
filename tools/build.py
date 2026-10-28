@@ -278,18 +278,45 @@ def manifest_text(text, now):
     return json.dumps(manifest, ensure_ascii=False, indent=2) + '\n'
 
 
-def export(now=None):
+def export(now=None, out=OUT):
     import predict_groups
 
     now = now or stations.utc_now()
 
     meta = stations.load_meta()
-    ticketing = load_ticketing()
+    errors = {}
+    try:
+        ticketing = load_ticketing()
+    except (ValueError, KeyError, TypeError) as exc:
+        # Human-maintained links must be validated by tests; a bad edit must not
+        # block fresh official results for unrelated stations.
+        old_calendar = OUT / 'data/calendar.json'
+        previous = json.loads(old_calendar.read_text(encoding='utf-8')) if old_calendar.exists() else {}
+        ticketing = {
+            item['id']: item['ticketing']
+            for item in previous.get('stations', [])
+            if item.get('ticketing') is not None
+        }
+        errors['ticketing'] = {'state': 'retained', 'reason': str(exc)}
+        print(f'::error::Ticket source rejected; previously published links retained: {exc}', file=sys.stderr)
     schedules = {}
     for st in CONFIG['stations']:
-        rows = read_schedule(st['id'])
-        if rows:
-            schedules[st['id']] = attach_qualification(attach_china(rows, st['id']), st['id'])
+        station_id = st['id']
+        try:
+            rows = read_schedule(station_id)
+            if rows:
+                schedules[station_id] = attach_qualification(attach_china(rows, station_id), station_id)
+        except (ValueError, KeyError, TypeError, OSError) as exc:
+            # Only a previously published, source-backed station is eligible for fallback.
+            previous_path = OUT / 'data' / (station_id + '.json')
+            state = 'unavailable'
+            if previous_path.exists():
+                previous = json.loads(previous_path.read_text(encoding='utf-8'))
+                if previous.get('event_id') == station_id and isinstance(previous.get('entries'), list):
+                    schedules[station_id] = previous['entries']
+                    state = 'retained'
+            errors[station_id] = {'state': state, 'reason': str(exc)}
+            print(f'::error::{station_id}: build input rejected ({state}): {exc}', file=sys.stderr)
     season = {
         'schema_version': 1,
         'season': CONFIG['season'],
@@ -308,11 +335,16 @@ def export(now=None):
         'championships': CHAMPIONSHIPS,
         'notice': '各分站详细赛程在 ISU 公布后自动录入。',
     }
-    (OUT / 'data').mkdir(parents=True, exist_ok=True)
-    (OUT / 'data/calendar.json').write_text(json.dumps(season, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    (out / 'data').mkdir(parents=True, exist_ok=True)
+    (out / 'data/calendar.json').write_text(json.dumps(season, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     for st in CONFIG['stations']:
         rows = schedules.get(st['id'])
         if not rows:
+            continue
+        if st['id'] in errors:
+            previous_path = OUT / 'data' / (st['id'] + '.json')
+            if errors[st['id']]['state'] == 'retained':
+                shutil.copyfile(previous_path, out / 'data' / (st['id'] + '.json'))
             continue
         sync = meta.get(st['id'], {})
         days = {}
@@ -331,42 +363,42 @@ def export(now=None):
             'total_items': len(rows),
             'entries': rows,
         }
-        (OUT / 'data' / (st['id'] + '.json')).write_text(
+        (out / 'data' / (st['id'] + '.json')).write_text(
             json.dumps(schedule, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
         )
-    (OUT / 'index.html').write_text(
+    (out / 'index.html').write_text(
         season_text((ROOT / 'web/index.html').read_text(encoding='utf-8')), encoding='utf-8'
     )
-    (OUT / 'manifest.webmanifest').write_text(
+    (out / 'manifest.webmanifest').write_text(
         manifest_text((ROOT / 'web/manifest.webmanifest').read_text(encoding='utf-8'), now), encoding='utf-8'
     )
     for filename in SCRIPTS:
-        shutil.copyfile(ROOT / 'web' / filename, OUT / filename)
+        shutil.copyfile(ROOT / 'web' / filename, out / filename)
     # Plain concatenation keeps source modules testable without extra browser round trips or a bundler dependency.
-    (OUT / BUNDLE).write_text(
+    (out / BUNDLE).write_text(
         ';\n'.join((ROOT / 'web' / name).read_text(encoding='utf-8') for name in SCRIPTS), encoding='utf-8'
     )
-    shutil.copyfile(ROOT / 'web/site.css', OUT / 'site.css')
-    shutil.copytree(ROOT / 'web/icons', OUT / 'icons', dirs_exist_ok=True)
+    shutil.copyfile(ROOT / 'web/site.css', out / 'site.css')
+    shutil.copytree(ROOT / 'web/icons', out / 'icons', dirs_exist_ok=True)
     # The service worker cache name follows the published shell, so a new release replaces the old cache.
-    shell = b''.join((OUT / name).read_bytes() for name in SHELL_FILES) + (ROOT / 'web/sw.js').read_bytes()
-    (OUT / 'sw.js').write_text(
+    shell = b''.join((out / name).read_bytes() for name in SHELL_FILES) + (ROOT / 'web/sw.js').read_bytes()
+    (out / 'sw.js').write_text(
         (ROOT / 'web/sw.js')
         .read_text(encoding='utf-8')
         .replace('__BUILD_VERSION__', hashlib.sha256(shell).hexdigest()[:12]),
         encoding='utf-8',
     )
-    competition_data.export(OUT, VENUES, predict_groups.entered_distances, CONFIG['season'])
-    predict_groups.export(OUT, VENUES, schedules)
+    competition_data.export(out, VENUES, predict_groups.entered_distances, CONFIG['season'])
+    predict_groups.export(out, VENUES, schedules)
     import site_catalog
 
-    site_catalog.export(OUT, season, schedules)
+    site_catalog.export(out, season, schedules)
     import history_data
 
-    history_data.export(OUT, calendar=season)
+    history_data.export(out, calendar=season)
     try:
         subprocess.run(
-            ['node', str(ROOT / 'tools/build_results.mjs'), str(OUT), CONFIG['season']],
+            ['node', str(ROOT / 'tools/build_results.mjs'), str(out), CONFIG['season']],
             check=True,
             cwd=ROOT,
             timeout=120,
@@ -378,7 +410,7 @@ def export(now=None):
     except subprocess.CalledProcessError as exc:
         raise RuntimeError(f'Node results compiler failed: {(exc.stderr or "").strip()[-1000:]}') from exc
     # Real index files make deep links work on Workers Assets and a plain static server alike.
-    results_index = json.loads((OUT / 'data/results/index.json').read_text(encoding='utf-8'))
+    results_index = json.loads((out / 'data/results/index.json').read_text(encoding='utf-8'))
     page_paths = (
         [
             'events',
@@ -403,13 +435,13 @@ def export(now=None):
         ]
     )
     for page_path in page_paths:
-        page_dir = OUT / page_path
+        page_dir = out / page_path
         page_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(OUT / 'index.html', page_dir / 'index.html')
+        shutil.copyfile(out / 'index.html', page_dir / 'index.html')
     import updates
 
     feed = updates.export(
-        OUT, VENUES, schedules, {k: v.get('last_successful_schedule_check_utc') for k, v in meta.items()}
+        out, VENUES, schedules, {k: v.get('last_successful_schedule_check_utc') for k, v in meta.items()}
     )
     for station_id, rows in schedules.items():
         print(
@@ -419,6 +451,10 @@ def export(now=None):
             'ISU round start times; verified CHN:',
             sum(r['china']['status'] == 'confirmed' for r in rows),
         )
+    (out / 'data/build_report.json').write_text(
+        json.dumps({'schema_version': 1, 'errors': errors}, ensure_ascii=False, sort_keys=True, indent=2) + '\n',
+        encoding='utf-8',
+    )
     print('Update notices:', len(feed['events']))
 
 
