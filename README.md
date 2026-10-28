@@ -50,6 +50,7 @@ Worker stsswb：静态文件 + 只读 /api/v1（src/worker.mjs）
 
 ```sh
 python -m pip install -r requirements.txt   # Python 3.11+
+# 构建还需要 Node.js 22（tools/build_results.mjs）
 python tools/build.py
 python -m http.server 8000 --directory dist  # 打开 http://127.0.0.1:8000（只有静态页面）
 npx wrangler@4.151.2 dev --local            # 含 /api：运动员、分组、成绩与预测

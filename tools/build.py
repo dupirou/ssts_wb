@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Compile strictly verified provisional ISU timetable and China start-list evidence."""
+"""Build static pages and validated ISU data; never manufacture unverified competition facts."""
 
 import hashlib
 import json
 import shutil
 import subprocess
+import sys
 import competition_data
 import stations
 import sync_schedule
@@ -62,6 +63,14 @@ def read_schedule(station_id, directory=stations.SCHEDULES):
         dist, group = int(row['distance']), row['group']
         naive = datetime.strptime(f'{d} {t}', '%Y-%m-%d %H:%M')
         local = naive.replace(tzinfo=tz)
+        other = naive.replace(tzinfo=tz, fold=1)
+        if local.utcoffset() != other.utcoffset():
+            # A backward clock transition maps a local time to two different UTC instants.
+            if all(
+                value.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) == naive
+                for value in (local, other)
+            ):
+                raise ValueError("Ambiguous daylight-saving fold in station start time: " + d + ' ' + t)
         if local.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) != naive:
             raise ValueError("Start time does not exist in the station's timezone: " + d + ' ' + t)
         utc = local.astimezone(timezone.utc)
@@ -147,7 +156,12 @@ def attach_china(rows, station_id):
         confirmed = []
         row = lookup[key]
         typ = 'R' if row['format'] == 'relay' else 'I'
-        lo, hi = HEAT_DURATIONS[(typ, row['distance_m'])]
+        durations = HEAT_DURATIONS.get((typ, row['distance_m']))
+        if durations is None:
+            print(
+                f'::warning::{station_id}: no heat duration model for {typ}/{row["distance_m"]}; estimates omitted',
+                file=sys.stderr,
+            )
         base = datetime.fromisoformat(row['local_start'])
         for heat in heats:
             number = heat.get('number')
@@ -161,21 +175,19 @@ def attach_china(rows, station_id):
             ):
                 raise ValueError('Missing verified Chinese athlete or team names')
             seen_heat.add(number)
-            a, b = base + timedelta(minutes=(number - 1) * lo), base + timedelta(minutes=(number - 1) * hi)
-            confirmed.append(
-                {
-                    'number': number,
-                    'athletes': athletes,
-                    'estimate': {
-                        'status': 'model_estimate_not_official',
-                        'earliest_local': a.isoformat(),
-                        'latest_local': b.isoformat(),
-                        'earliest_beijing': a.astimezone(BJ).isoformat(),
-                        'latest_beijing': b.astimezone(BJ).isoformat(),
-                        'assumed_minutes_per_heat': [lo, hi],
-                    },
+            estimate = None
+            if durations is not None:
+                lo, hi = durations
+                a, b = base + timedelta(minutes=(number - 1) * lo), base + timedelta(minutes=(number - 1) * hi)
+                estimate = {
+                    'status': 'model_estimate_not_official',
+                    'earliest_local': a.isoformat(),
+                    'latest_local': b.isoformat(),
+                    'earliest_beijing': a.astimezone(BJ).isoformat(),
+                    'latest_beijing': b.astimezone(BJ).isoformat(),
+                    'assumed_minutes_per_heat': [lo, hi],
                 }
-            )
+            confirmed.append({'number': number, 'athletes': athletes, 'estimate': estimate})
         row['china'] = {
             'status': 'confirmed',
             'heats': sorted(confirmed, key=lambda h: h['number']),
@@ -353,7 +365,19 @@ def export(now=None):
     import history_data
 
     history_data.export(OUT, calendar=season)
-    subprocess.run(['node', str(ROOT / 'tools/build_results.mjs'), str(OUT), CONFIG['season']], check=True)
+    try:
+        subprocess.run(
+            ['node', str(ROOT / 'tools/build_results.mjs'), str(OUT), CONFIG['season']],
+            check=True,
+            cwd=ROOT,
+            timeout=120,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError('Node results compiler timed out after 120 seconds') from exc
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError(f'Node results compiler failed: {(exc.stderr or "").strip()[-1000:]}') from exc
     # Real index files make deep links work on Workers Assets and a plain static server alike.
     results_index = json.loads((OUT / 'data/results/index.json').read_text(encoding='utf-8'))
     page_paths = (
@@ -369,9 +393,9 @@ def export(now=None):
         ]
         + ['results/events/' + event['id'] for event in results_index['events']]
         + [
-            'results/seasons/' + season.replace('/', '-')
-            for season in sorted({s for cycle in results_index['cycles'] for s in cycle['seasons']})
-            if season <= CONFIG['season']
+            'results/seasons/' + result_season.replace('/', '-')
+            for result_season in sorted({s for cycle in results_index['cycles'] for s in cycle['seasons']})
+            if result_season <= CONFIG['season']
         ]
         + ['results/cycles/' + cycle['id'] for cycle in results_index['cycles']]
         + [
