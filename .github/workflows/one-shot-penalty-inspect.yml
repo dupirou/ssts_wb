@@ -33,7 +33,7 @@ jobs:
               if any(k in clean for k in ('INFRINGEMENT REPORT','CUMULATIVE PENALTY','ACCUMULATED SANCTION','SANCTIONS SUMMARY','INFRINGEMENTS')):
                   selections.append((i,t))
           print('MATCHED_PAGES:', [i+1 for i,_ in selections])
-          for i,t in selections[:18]:
+          for i,t in [(123, pdf.pages[123].extract_text(extraction_mode='layout') or ''), (124, pdf.pages[124].extract_text(extraction_mode='layout') or '')]:
               print('===== PAGE',i+1,'=====')
               lines=t.splitlines()
               for j,l in enumerate(lines):
