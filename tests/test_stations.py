@@ -149,14 +149,14 @@ class FailureIsolationTests(unittest.TestCase):
             patch.object(sync_competitions.stations, 'utc_now', lambda: racing),
             patch.object(sys, 'argv', ['sync_competitions.py']),
         ):
-            self.assertEqual(sync_competitions.main(), 1)
+            self.assertEqual(sync_competitions.main(), 0)
         self.assertEqual(seen, ['vancouver', 'montreal'])
 
         def raising(event_id, config, *args, **kwargs):
             raise ValueError('Prediction snapshot identity mismatch')
 
         with patch.object(sync_predictions, 'sync_event', raising), patch.object(sys, 'argv', ['sync_predictions.py']):
-            self.assertEqual(sync_predictions.main(), 1)
+            self.assertEqual(sync_predictions.main(), 0)
 
 
 class StationConfigTests(unittest.TestCase):
@@ -214,3 +214,29 @@ class StationConfigTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class SyncOutcomeTests(unittest.TestCase):
+    def test_unexpected_competition_failure_is_nonzero(self):
+        import sync_competitions
+        from unittest.mock import patch
+
+        def unreachable(*args, **kwargs):
+            raise OSError('network unavailable')
+
+        with (
+            patch.object(sync_competitions, 'sync_event', unreachable),
+            patch.object(sync_competitions.stations, 'utc_now', lambda: datetime(2026, 10, 31, tzinfo=timezone.utc)),
+            patch.object(sys, 'argv', ['sync_competitions.py']),
+        ):
+            self.assertEqual(sync_competitions.main(), 1)
+
+    def test_unexpected_prediction_failure_is_nonzero(self):
+        import sync_predictions
+        from unittest.mock import patch
+
+        with (
+            patch.object(sync_predictions, 'sync_event', side_effect=OSError('network unavailable')),
+            patch.object(sys, 'argv', ['sync_predictions.py']),
+        ):
+            self.assertEqual(sync_predictions.main(), 1)

@@ -9,6 +9,7 @@ import argparse
 import io
 import re
 import sys
+import traceback
 from datetime import datetime, timezone
 from urllib.parse import urljoin, urlsplit, urlencode
 from urllib.request import Request, HTTPRedirectHandler, HTTPSHandler, build_opener
@@ -249,7 +250,7 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
     try:
         docs += discover_documents(fetcher(config['documents_url']), config['documents_url'], config)
     except Exception as exc:
-        errors.append('documents: ' + str(exc))
+        errors.append(('rejected: ' if isinstance(exc, ValueError) else 'unexpected: ') + 'documents: ' + str(exc))
     entry_docs = sorted(
         [d for d in docs if d['kind'] == 'entries'], key=lambda d: d.get('published_at') or '', reverse=True
     )
@@ -269,7 +270,7 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
             update_dataset(snapshot['entries'], items, [doc['url']], now, doc.get('published_at'))
         except Exception as exc:
             snapshot['entries'].update(update_status='error', error=str(exc))
-            errors.append('entries: ' + str(exc))
+            errors.append(('rejected: ' if isinstance(exc, ValueError) else 'unexpected: ') + 'entries: ' + str(exc))
     report_docs = {d['url']: d for d in docs if d['kind'] == 'reports'}
     if len(report_docs) > 20:
         raise ValueError('Too many official report documents')
@@ -289,7 +290,7 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
             proposed_rounds += rounds
             proposed_rankings += rankings
         except Exception as exc:
-            errors.append('reports: ' + str(exc))
+            errors.append(('rejected: ' if isinstance(exc, ValueError) else 'unexpected: ') + 'reports: ' + str(exc))
     try:
         import build
         import isu_results
@@ -311,7 +312,7 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
             # Only that round keeps its last accepted data; the rest of the event still updates.
             print(f'::warning::{event_id} results: kept the last accepted data for {problem}', file=sys.stderr)
     except Exception as exc:
-        errors.append('results: ' + str(exc))
+        errors.append(('rejected: ' if isinstance(exc, ValueError) else 'unexpected: ') + 'results: ' + str(exc))
     for kind, proposed in [('rounds', proposed_rounds), ('rankings', proposed_rankings)]:
         if proposed:
             # Replace full source reports, not individual rows: corrections/removals
@@ -353,7 +354,7 @@ def main():
     parser.add_argument('--event', help='Station ID; default: every station inside its sync window')
     args = parser.parse_args()
     now = stations.utc_now()
-    failed = False
+    unexpected = False
     for station in stations.stations():
         if args.event and station['id'] != args.event:
             continue
@@ -363,13 +364,16 @@ def main():
             snapshot, errors = sync_event(station['id'], stations.sources(station))
         except Exception as exc:
             # One station's unexpected failure keeps its last snapshot and never stops the others.
-            snapshot, errors = None, ['unexpected: ' + str(exc)]
+            snapshot, errors = None, [('rejected: ' if isinstance(exc, ValueError) else 'unexpected: ') + str(exc)]
+            if not isinstance(exc, ValueError):
+                traceback.print_exc()
         if snapshot:
             print(station['id'], {k: len(snapshot[k]['items']) for k in data.KINDS})
         for message in errors:
-            print(f'::warning::{station["id"]} entries/results sync: {message}', file=sys.stderr)
-        failed |= bool(errors)
-    return int(failed)
+            is_unexpected = message.startswith('unexpected: ')
+            print(f'::{"error" if is_unexpected else "warning"}::{station["id"]} entries/results sync: {message}', file=sys.stderr)
+            unexpected |= is_unexpected
+    return int(unexpected)
 
 
 if __name__ == '__main__':

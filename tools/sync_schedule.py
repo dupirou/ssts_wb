@@ -13,6 +13,7 @@ import io
 import json
 import re
 import sys
+import traceback
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 from urllib.request import Request, urlopen
@@ -311,7 +312,7 @@ def main():
         rows = validate(parse_text(page_text(Path(args.fixture).read_text(encoding='utf-8')), station), station)
         print('Fixture programme valid:', len(rows), 'rounds')
         return 0
-    failed = False
+    unexpected = False
     taken = {s['isu']['slug'] for s in config['stations'] + config['championships'] if s.get('isu')}
     for station in config['stations']:
         if args.station and station['id'] != args.station:
@@ -330,14 +331,14 @@ def main():
                 print(station['id'], 'ISU event page found:', found)
             action, changes = sync_station(station, now=now, meta=meta)
             print(station['id'], 'official schedule', action, '; time changes:', changes)
+        except ValueError as exc:
+            print(f'::warning::{station["id"]}: ISU schedule rejected; previous programme retained: {exc}', file=sys.stderr)
         except Exception as exc:
-            failed = True
-            print(
-                f'::warning::{station["id"]}: ISU schedule rejected, keeping the last verified programme: {exc}',
-                file=sys.stderr,
-            )
+            unexpected = True
+            print(f'::error::{station["id"]}: unexpected ISU schedule failure: {exc}', file=sys.stderr)
+            traceback.print_exc()
     stations.save_meta(meta)
-    return int(failed)
+    return int(unexpected)
 
 
 if __name__ == '__main__':

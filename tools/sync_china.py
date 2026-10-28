@@ -9,6 +9,7 @@ import argparse
 import json
 import re
 import sys
+import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit, urlunsplit
@@ -336,7 +337,7 @@ def main():
     p.add_argument('--dry-run', action='store_true')
     a = p.parse_args()
     now = datetime.now(timezone.utc)
-    failed = False
+    unexpected = False
     for station in stations.stations():
         if a.station and station['id'] != a.station:
             continue
@@ -344,15 +345,13 @@ def main():
             continue
         try:
             sync(station['id'], event_url=a.event_url if a.station else None, dry_run=a.dry_run)
+        except ValueError as exc:
+            print(f'::warning::{station["id"]}: China evidence rejected, previous data retained: {exc}', file=sys.stderr)
         except Exception as exc:
-            failed = True
-            print(
-                station['id'],
-                'China results sync rejected; retaining previously verified evidence:',
-                str(exc),
-                file=sys.stderr,
-            )
-    return int(failed)
+            unexpected = True
+            print(f'::error::{station["id"]}: unexpected China results failure: {exc}', file=sys.stderr)
+            traceback.print_exc()
+    return int(unexpected)
 
 
 if __name__ == '__main__':

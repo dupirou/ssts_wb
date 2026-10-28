@@ -10,6 +10,7 @@ import argparse
 import json
 import re
 import sys
+import traceback
 from datetime import datetime, timezone
 from urllib.request import Request, HTTPSHandler, build_opener
 
@@ -346,7 +347,7 @@ def sync_event(event_id, cfg, *, now=None, directory=INPUTS, get=sync.fetch, for
         )
         if result != old:
             path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-        return result, [str(exc)]
+        return result, [('rejected: ' if isinstance(exc, ValueError) else 'unexpected: ') + str(exc)]
     path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     return result, []
 
@@ -356,7 +357,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--event', help='Station ID; default: every station with a prediction source')
     args = parser.parse_args()
-    failed = False
+    unexpected = False
     for station in stations.stations():
         cfg = stations.sources(station)
         if (args.event and station['id'] != args.event) or 'prediction' not in cfg:
@@ -365,7 +366,9 @@ def main():
             item, errors = sync_event(station['id'], cfg)
         except Exception as exc:
             # One station's unexpected failure keeps its last inputs and never stops the others.
-            item, errors = None, ['unexpected: ' + str(exc)]
+            item, errors = None, [('rejected: ' if isinstance(exc, ValueError) else 'unexpected: ') + str(exc)]
+            if not isinstance(exc, ValueError):
+                traceback.print_exc()
         print(
             station['id'],
             [(x['gender'], x['distance_m'], len(x['participants']), x['missing']) for x in item['lists']]
@@ -373,9 +376,10 @@ def main():
             else 'not updated',
         )
         for error in errors:
-            print(f'::warning::{station["id"]} prediction sync: {error}', file=sys.stderr)
-        failed |= bool(errors)
-    return int(failed)
+            is_unexpected = error.startswith('unexpected: ')
+            print(f'::{"error" if is_unexpected else "warning"}::{station["id"]} prediction sync: {error}', file=sys.stderr)
+            unexpected |= is_unexpected
+    return int(unexpected)
 
 
 if __name__ == '__main__':
