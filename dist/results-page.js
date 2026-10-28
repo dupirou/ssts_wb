@@ -1183,7 +1183,6 @@
             const rank =
               r.rank == null ? '—' : (finalRank ? r.final_group + '组第 ' : '第 ') + r.rank + ' 名';
             const tag = [
-              !finalRank && r.final_group ? r.final_group + ' 决赛' : '',
               r.status === 'classified' ? '' : r.status
             ]
               .filter(Boolean)
@@ -1364,11 +1363,7 @@
                       }),
                       h('b', {
                         class: medalResult(r) ? 'num is-medal' : 'num',
-                        text:
-                          resultPlace(r) +
-                          (r.final_group && r.rank_scope !== 'final'
-                            ? ' · ' + r.final_group + ' 决赛'
-                            : '')
+                        text: resultPlace(r)
                       })
                     )
                   )

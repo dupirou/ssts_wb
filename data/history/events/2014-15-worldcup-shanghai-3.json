@@ -561,7 +561,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 5,
+      "rank": 2,
       "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
@@ -586,8 +586,10 @@
         "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
       },
       "previous_reported_overall_rank": 5,
-      "classification_resolution": "current_official_classification",
-      "classification_selected_at": "2026-10-27T13:55:10.554464+00:00"
+      "classification_resolution": "user_selected_final_a",
+      "classification_selected_at": "2026-10-27T13:55:10.554464+00:00",
+      "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+      "classification_selected_date": "2026-10-28"
     },
     {
       "gender": "men",

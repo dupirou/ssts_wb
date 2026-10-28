@@ -132,7 +132,7 @@ test('event browser retains current and archived scores and legacy result links'
     assert.equal(d.querySelectorAll('.results-table tbody').length, currentEvents.length);
     assert.equal(d.querySelectorAll('.result-row').length, currentCount);
     const relay = [...d.querySelectorAll('tbody[data-event*="vancouver"] .result-row')].find(r => r.textContent.includes('女子 3000m'));
-    assert.match(relay.querySelector('.result-place').textContent, /第 5 名B 决赛/);
+    assert.match(relay.querySelector('.result-place').textContent, /第 5 名/);
     assert.equal(relay.querySelector('.is-medal'), null);
   }
   const detail = await page('/results/events/2025-26-worlds-montreal/');

@@ -11,7 +11,7 @@
     "include_all_around": false,
     "include_super_3000": false,
     "relay_lineups_required": false,
-    "classification_conflict_policy": "current_official_classification"
+    "classification_conflict_policy": "user_selected_final_a_or_protocol"
   },
   "cycles": [
     {
@@ -10772,7 +10772,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 4,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -10797,8 +10797,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 4,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.602542+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.602542+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "women",
@@ -10826,7 +10828,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 2,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -10851,8 +10853,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 2,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.602542+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.602542+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -13826,7 +13830,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 9,
+          "rank": 3,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -13851,8 +13855,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 9,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.601541+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.601541+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",
@@ -13860,7 +13866,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 6,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -13885,8 +13891,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 6,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.601541+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.601541+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -14713,7 +14721,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 9,
+          "rank": 2,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -14738,8 +14746,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 9,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.599967+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.599967+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "women",
@@ -14895,7 +14905,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 8,
+          "rank": 3,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -14920,8 +14930,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 8,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.599967+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.599967+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -16541,7 +16553,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 14,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -16566,8 +16578,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 14,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.629941+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.629941+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",
@@ -16723,7 +16737,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 3,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -16748,8 +16762,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 3,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.629941+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.629941+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -17576,7 +17592,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 13,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -17601,8 +17617,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 13,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.598485+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.598485+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",
@@ -17744,7 +17762,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 8,
+          "rank": 4,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -17769,8 +17787,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 8,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.598485+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.598485+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -19061,7 +19081,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 1,
+          "rank": 3,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -19086,8 +19106,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 1,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.597000+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.597000+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",
@@ -19095,7 +19117,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 1,
+          "rank": 2,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -19120,8 +19142,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 1,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.597000+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.597000+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -20298,7 +20322,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 11,
+          "rank": 4,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -20323,8 +20347,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 11,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.628129+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.628129+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",
@@ -23252,7 +23278,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 7,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -23277,8 +23303,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 7,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.626896+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.626896+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "women",
@@ -24163,7 +24191,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 10,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -24188,8 +24216,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 10,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.593497+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.593497+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "women",
@@ -24273,7 +24303,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 2,
+          "rank": 3,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -24298,8 +24328,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 2,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.593497+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.593497+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "women",
@@ -27659,7 +27691,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 11,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -27684,8 +27716,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 11,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.591265+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.591265+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",
@@ -30978,7 +31012,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 13,
+          "rank": 3,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -31003,8 +31037,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 13,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.589045+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.589045+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "mixed",
@@ -31012,7 +31048,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 10,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -31037,8 +31073,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 10,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.589045+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.589045+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -32033,7 +32071,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 16,
+          "rank": 2,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -32058,8 +32096,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 16,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.586803+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.586803+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",
@@ -32067,7 +32107,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 14,
+          "rank": 4,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -32092,8 +32132,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 14,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.586803+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.586803+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "mixed",
@@ -32621,7 +32663,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 1,
+          "rank": 3,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -32646,8 +32688,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 1,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.625870+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.625870+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "women",
@@ -34861,7 +34905,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 7,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -34886,8 +34930,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 7,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.623392+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.623392+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "mixed",
@@ -35893,7 +35939,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 2,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -35918,8 +35964,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 2,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.622375+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.622375+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",
@@ -35947,7 +35995,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 8,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -35972,8 +36020,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 8,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.622375+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.622375+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -36959,7 +37009,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 7,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -36984,8 +37034,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 7,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.620838+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.620838+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",
@@ -37780,7 +37832,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 7,
+          "rank": 2,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -37805,8 +37857,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 7,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.585799+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.585799+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -62135,7 +62189,7 @@
           "rank": 16,
           "rank_scope": "overall",
           "final_group": null,
-          "status": "classified",
+          "status": "PEN",
           "best_time": null,
           "source_page": null,
           "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -62144,7 +62198,12 @@
           "official_skater_id": 1134,
           "medal_eligible": true,
           "race_number": 2,
-          "athlete_id": "isu-1134"
+          "athlete_id": "isu-1134",
+          "previous_api_status": "classified",
+          "previous_api_rank": 16,
+          "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+          "selected_official_page": 80,
+          "classification_resolution": "user_selected_2015_official_protocol"
         },
         {
           "gender": "men",
@@ -62155,7 +62214,7 @@
           "rank": null,
           "rank_scope": "overall",
           "final_group": null,
-          "status": "classified",
+          "status": "PEN",
           "best_time": null,
           "source_page": null,
           "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -62164,7 +62223,12 @@
           "official_skater_id": 2495,
           "medal_eligible": true,
           "race_number": 2,
-          "athlete_id": "isu-2495"
+          "athlete_id": "isu-2495",
+          "previous_api_status": "classified",
+          "previous_api_rank": null,
+          "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+          "selected_official_page": 80,
+          "classification_resolution": "user_selected_2015_official_protocol"
         },
         {
           "gender": "women",
@@ -62194,7 +62258,7 @@
           "rank": 16,
           "rank_scope": "overall",
           "final_group": null,
-          "status": "classified",
+          "status": "PEN",
           "best_time": null,
           "source_page": null,
           "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -62202,7 +62266,12 @@
           "official_result_id": 6481,
           "official_skater_id": 8151,
           "medal_eligible": true,
-          "athlete_id": "isu-8151"
+          "athlete_id": "isu-8151",
+          "previous_api_status": "classified",
+          "previous_api_rank": 16,
+          "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+          "selected_official_page": 37,
+          "classification_resolution": "user_selected_2015_official_protocol"
         },
         {
           "gender": "women",
@@ -62213,7 +62282,7 @@
           "rank": 17,
           "rank_scope": "overall",
           "final_group": null,
-          "status": "classified",
+          "status": "PEN",
           "best_time": null,
           "source_page": null,
           "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -62221,7 +62290,12 @@
           "official_result_id": 6481,
           "official_skater_id": 4320,
           "medal_eligible": true,
-          "athlete_id": "isu-4320"
+          "athlete_id": "isu-4320",
+          "previous_api_status": "classified",
+          "previous_api_rank": 17,
+          "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+          "selected_official_page": 37,
+          "classification_resolution": "user_selected_2015_official_protocol"
         },
         {
           "gender": "men",
@@ -62270,7 +62344,7 @@
           "rank": 18,
           "rank_scope": "overall",
           "final_group": null,
-          "status": "classified",
+          "status": "DNF",
           "best_time": null,
           "source_page": null,
           "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -62278,7 +62352,12 @@
           "official_result_id": 6497,
           "official_skater_id": 8088,
           "medal_eligible": true,
-          "athlete_id": "isu-8088"
+          "athlete_id": "isu-8088",
+          "previous_api_status": "classified",
+          "previous_api_rank": 18,
+          "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+          "selected_official_page": 44,
+          "classification_resolution": "user_selected_2015_official_protocol"
         },
         {
           "gender": "women",
@@ -62400,7 +62479,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 4,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -62425,8 +62504,12 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 4,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.559770+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.559770+00:00",
+          "classification_selection_basis": "user_selected_2015_official_protocol",
+          "classification_selected_date": "2026-10-28",
+          "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+          "selected_official_page": 90
         },
         {
           "gender": "men",
@@ -62434,7 +62517,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 4,
+          "rank": 1,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -62459,8 +62542,12 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 4,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.560887+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.560887+00:00",
+          "classification_selection_basis": "user_selected_2015_official_protocol",
+          "classification_selected_date": "2026-10-28",
+          "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+          "selected_official_page": 96
         }
       ]
     },
@@ -63468,7 +63555,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 7,
+          "rank": 3,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -63493,8 +63580,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 7,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.558774+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.558774+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -64324,7 +64413,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 6,
+          "rank": 3,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -64349,8 +64438,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 6,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.556764+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.556764+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         }
       ]
     },
@@ -65329,7 +65420,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 5,
+          "rank": 2,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -65354,8 +65445,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 5,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.554464+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.554464+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",
@@ -67379,7 +67472,7 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 4,
+          "rank": 2,
           "rank_scope": "overall",
           "final_group": "A",
           "status": "classified",
@@ -67404,8 +67497,10 @@
             "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
           },
           "previous_reported_overall_rank": 4,
-          "classification_resolution": "current_official_classification",
-          "classification_selected_at": "2026-10-27T13:55:10.605213+00:00"
+          "classification_resolution": "user_selected_final_a",
+          "classification_selected_at": "2026-10-27T13:55:10.605213+00:00",
+          "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+          "classification_selected_date": "2026-10-28"
         },
         {
           "gender": "men",

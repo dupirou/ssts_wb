@@ -17,7 +17,7 @@ STATISTICS_SCOPE = dict(
     include_all_around=False,
     include_super_3000=False,
     relay_lineups_required=False,
-    classification_conflict_policy='current_official_classification',
+    classification_conflict_policy='user_selected_final_a_or_protocol',
 )
 
 
@@ -38,12 +38,12 @@ def coverage_detail(event):
         missing_disciplines=missing,
         classification_conflicts=sum(
             bool(r.get('classification_conflict'))
-            and r.get('classification_resolution') != 'current_official_classification'
+            and r.get('classification_resolution') not in {'current_official_classification', 'user_selected_final_a', 'user_selected_2015_official_protocol'}
             for r in rows
         ),
         resolved_classification_conflicts=sum(
             bool(r.get('classification_conflict'))
-            and r.get('classification_resolution') == 'current_official_classification'
+            and r.get('classification_resolution') in {'current_official_classification', 'user_selected_final_a', 'user_selected_2015_official_protocol'}
             for r in rows
         ),
         missing_classifications=sum(bool(r.get('classification_missing')) for r in rows),
