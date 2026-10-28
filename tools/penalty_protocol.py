@@ -95,7 +95,9 @@ def parse_pages(pages, config, source_url, sha256=''):
                 raise ValueError('Sanction without an official referee decision')
             code = parts[member + 2].strip()
             country = parts[member]
-            embedded_helmet = re.match(r'^(\d+)\s+(.+)
+            embedded_helmet = re.match(r'^([0-9]+)[ ]+(.+)', parts[1])
+            helmet = int(parts[1]) if parts[1].isdigit() else (int(embedded_helmet[1]) if embedded_helmet else None)
+            name = parts[2] if parts[1].isdigit() else (embedded_helmet[2] if embedded_helmet else parts[1])
             sex = gender.lower()
             ident = (('team-' + country + '-' + sex) if relay else
                      competition_data.athlete_id(name, country, sex))
