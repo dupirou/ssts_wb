@@ -14,31 +14,31 @@ import competition_data
 
 STATUSES = {'PEN', 'YC', 'RC'}
 MAX_PDF_BYTES = 20_000_000
-ROW = re.compile(r'^\\s*(\\d+)\\s{2,}(.+?)\\s{2,}([A-Z]{3})\\s+((?:\\d+|-)(?:\\s+(?:\\d+|-)){7})\\s*$')
+ROW = re.compile(r'^\s*(\d+)\s{2,}(.+?)\s{2,}([A-Z]{3})\s+((?:\d+|-)(?:\s+(?:\d+|-)){7})\s*$')
 INFRINGEMENT = re.compile(
-    r'^\\s*(\\d+)\\s+(\\d+)\\s+(Women|Men|Mixed)\\s+(\\d+)\\s*m(\\s+Relay)?\\s{2,}(.+)$',
+    r'^\s*(\d+)\s+(\d+)\s+(Women|Men|Mixed)\s+(\d+)\s*m(\s+Relay)?\s{2,}(.+)$',
     re.I,
 )
 
 
 def clean(value):
-    return ' '.join(re.findall(r'\\w+', value.casefold()))
+    return ' '.join(re.findall(r'\w+', value.casefold()))
 
 
 def parse_pages(pages, config, source_url, sha256=''):
     """Parse an entire Protocol, rejecting incomplete or conflicting summary tables."""
-    text = '\\n'.join(pages)
+    text = '\n'.join(pages)
     if config['city'].casefold() not in text.casefold() or str(config['year']) not in text:
         raise ValueError('Protocol city/year does not match station')
-    totals = [(i + 1, page) for i, page in enumerate(pages) if re.search(r'^\\s*WORLD TOUR PENALTIES\\s*$', page, re.M)]
-    violations = [(i + 1, page) for i, page in enumerate(pages) if re.search(r'^\\s*INFRINGEMENT REPORT\\s*$', page, re.M)]
+    totals = [(i + 1, page) for i, page in enumerate(pages) if re.search(r'^\s*WORLD TOUR PENALTIES\s*$', page, re.M)]
+    violations = [(i + 1, page) for i, page in enumerate(pages) if re.search(r'^\s*INFRINGEMENT REPORT\s*$', page, re.M)]
     if len(totals) != 2 or not violations:
         raise ValueError('Missing or incomplete World Tour penalties or infringement tables')
     completed = set()
     records = {}
     for page_number, page in totals:
-        progress = re.search(r'After\\s+(\\d+)\\s+of\\s+7\\s+World Tour Events', page, re.I)
-        gender = re.search(r'^\\s*(Women|Men)\\s*$', page, re.M)
+        progress = re.search(r'After\s+(\d+)\s+of\s+7\s+World Tour Events', page, re.I)
+        gender = re.search(r'^\s*(Women|Men)\s*$', page, re.M)
         if not progress or not gender:
             raise ValueError('Missing season penalty gender or progress')
         completed.add(int(progress.group(1)))
@@ -69,14 +69,14 @@ def parse_pages(pages, config, source_url, sha256=''):
         raise ValueError('Unsupported season penalty progress')
     if any(any(v for v in row['station_counts'][after:]) for row in records.values()):
         raise ValueError('Future stations must not contain penalty counts')
-    notes = re.findall(r'This report does not include the following penalties:\\s*([^\\n]+)', '\\n'.join(p for _, p in totals), re.I)
+    notes = re.findall(r'This report does not include the following penalties:\s*([^\n]+)', '\n'.join(p for _, p in totals), re.I)
     if not notes:
         raise ValueError('Official exclusion note is missing')
-    excluded = sorted(set(re.findall(r'\\b[A-Z]+\\d*\\b', notes[-1].upper())))
+    excluded = sorted(set(re.findall(r'\b[A-Z]+\d*\b', notes[-1].upper())))
     infringements = []
     summary_counts = set()
     for page_number, page in violations:
-        match = re.search(r'Summary:\\s+PEN:\\s*(\\d+)', page)
+        match = re.search(r'Summary:\s+PEN:\s*(\d+)', page)
         if match:
             summary_counts.add(int(match.group(1)))
         for line in page.splitlines():
@@ -84,7 +84,7 @@ def parse_pages(pages, config, source_url, sha256=''):
             if not found:
                 continue
             serial, race, gender, distance, relay, remainder = found.groups()
-            parts = re.split(r'\\s{2,}', remainder.strip())
+            parts = re.split(r'\s{2,}', remainder.strip())
             member = next((i for i, value in enumerate(parts) if re.fullmatch(r'[A-Z]{3}', value) and i >= 2), None)
             if member is None or member + 1 >= len(parts):
                 continue
