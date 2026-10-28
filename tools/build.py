@@ -67,10 +67,9 @@ def read_schedule(station_id, directory=stations.SCHEDULES):
         if local.utcoffset() != other.utcoffset():
             # A backward clock transition maps a local time to two different UTC instants.
             if all(
-                value.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) == naive
-                for value in (local, other)
+                value.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) == naive for value in (local, other)
             ):
-                raise ValueError("Ambiguous daylight-saving fold in station start time: " + d + ' ' + t)
+                raise ValueError('Ambiguous daylight-saving fold in station start time: ' + d + ' ' + t)
         if local.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) != naive:
             raise ValueError("Start time does not exist in the station's timezone: " + d + ' ' + t)
         utc = local.astimezone(timezone.utc)
