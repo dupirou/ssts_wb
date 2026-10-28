@@ -46,6 +46,10 @@ jobs:
         id: sync_competitions
         continue-on-error: true
         run: bash tools/ci_run.sh competitions
+      - name: Verify World Tour penalty protocol and referee decisions
+        id: sync_penalties
+        continue-on-error: true
+        run: bash tools/ci_run.sh penalties
       - name: Collect confirmed China heats from published ISU results
         id: sync_china
         continue-on-error: true
@@ -60,6 +64,7 @@ jobs:
           SCHEDULE: ${{ steps.sync_schedule.outcome }}
           CHINA: ${{ steps.sync_china.outcome }}
           COMPETITIONS: ${{ steps.sync_competitions.outcome }}
+          PENALTIES: ${{ steps.sync_penalties.outcome }}
           PREDICTIONS: ${{ steps.sync_predictions.outcome }}
         run: |
           {
@@ -69,6 +74,7 @@ jobs:
             printf '| schedule | %s |\\n' "$SCHEDULE"
             printf '| china | %s |\\n' "$CHINA"
             printf '| competitions | %s |\\n' "$COMPETITIONS"
+            printf '| penalties | %s |\\n' "$PENALTIES"
             printf '| predictions | %s |\\n' "$PREDICTIONS"
             echo 'Safe validation refusals exit 0 and appear as warnings in the step log; unexpected failures exit nonzero.'
           } >> "$GITHUB_STEP_SUMMARY"
@@ -86,6 +92,7 @@ jobs:
           stage_updates() {
             git add dist
             git add data/competitions data/prediction_inputs data/updates.json
+            if [ -d data/penalties ]; then git add data/penalties; fi
             git add data/stations.json data/schedules data/sync_meta.json data/china_auto.json
           }
           stage_updates
@@ -120,6 +127,7 @@ jobs:
           ${{ steps.sync_schedule.outcome == 'success' &&
               steps.sync_china.outcome == 'success' &&
               steps.sync_competitions.outcome == 'success' &&
+              steps.sync_penalties.outcome == 'success' &&
               steps.sync_predictions.outcome == 'success' &&
               steps.build_site.outcome == 'success' &&
               steps.test_site.outcome == 'success' &&
@@ -148,9 +156,10 @@ jobs:
           SCHEDULE: ${{ steps.sync_schedule.outcome }}
           CHINA: ${{ steps.sync_china.outcome }}
           COMPETITIONS: ${{ steps.sync_competitions.outcome }}
+          PENALTIES: ${{ steps.sync_penalties.outcome }}
           PREDICTIONS: ${{ steps.sync_predictions.outcome }}
         run: |
-          for outcome in "$SCHEDULE" "$CHINA" "$COMPETITIONS" "$PREDICTIONS"; do
+          for outcome in "$SCHEDULE" "$CHINA" "$COMPETITIONS" "$PENALTIES" "$PREDICTIONS"; do
             if [ "$outcome" != success ]; then
               echo "::error::Unexpected sync failure: at least one script did not complete successfully"
               exit 1
@@ -160,7 +169,8 @@ jobs:
         if: ${{ always() && inputs.sync_decision == 'session' }}
         env:
           GH_TOKEN: ${{ github.token }}
-          SYNC_FAILED: ${{ steps.sync_schedule.outcome != 'success' ||
+          SYNC_FAILED: ${{ steps.sync_penalties.outcome != 'success' ||
+              steps.sync_schedule.outcome != 'success' ||
               steps.sync_china.outcome != 'success' ||
               steps.sync_competitions.outcome != 'success' ||
               steps.sync_predictions.outcome != 'success' }}

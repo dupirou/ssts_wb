@@ -5565,3 +5565,125 @@ td.time {
   display: inline-block;
   vertical-align: top;
 }
+
+/* Official World Tour penalties: seven steps, with restriction checkpoints at 3/5/7. */
+.penalty-panel {
+  margin-block: 1rem;
+}
+.penalty-panel > summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.penalty-list,
+.penalty-details {
+  padding: 0;
+  list-style: none;
+}
+.penalty-list {
+  margin: 0.75rem 0;
+}
+.penalty-row {
+  border-bottom: 1px solid var(--border-soft);
+}
+.penalty-row:last-child {
+  border-bottom: 0;
+}
+.penalty-person > summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 0.75rem;
+  row-gap: 0.2rem;
+  align-items: center;
+  padding: 0.65rem 0;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+.penalty-person > summary::-webkit-details-marker {
+  display: none;
+}
+.penalty-person > summary::marker {
+  content: '';
+}
+.penalty-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.penalty-count {
+  white-space: nowrap;
+  color: var(--text-2);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.penalty-count::after {
+  content: '';
+  display: inline-block;
+  width: 0.38rem;
+  height: 0.38rem;
+  margin-left: 0.6rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-0.12rem) rotate(45deg);
+}
+.penalty-person[open] .penalty-count::after {
+  transform: translateY(0.12rem) rotate(225deg);
+}
+.penalty-meter-wrap {
+  display: block;
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.penalty-meter,
+.penalty-thresholds {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.3rem;
+}
+.penalty-segment {
+  display: block;
+  height: 0.47rem;
+  border-radius: 3px;
+  background: rgb(var(--ice-rgb) / 0.13);
+}
+.penalty-segment.is-filled {
+  background: var(--accent);
+}
+.penalty-segment.is-threshold {
+  box-shadow: inset -2px 0 0 rgb(var(--ice-rgb) / 0.48);
+}
+.penalty-thresholds {
+  margin-top: 0.17rem;
+  font: 0.68rem/1 var(--num);
+  color: var(--muted);
+}
+.penalty-threshold {
+  text-align: right;
+}
+.penalty-threshold-3 {
+  grid-column: 3;
+}
+.penalty-threshold-5 {
+  grid-column: 5;
+}
+.penalty-threshold-7 {
+  grid-column: 7;
+}
+.penalty-restriction {
+  grid-column: 1 / -1;
+  justify-self: start;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.penalty-details {
+  margin: 0 0 0.55rem 0.7rem;
+}
+.penalty-details li {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.3rem 0;
+  font-size: 0.8rem;
+}
+.penalty-details li > span {
+  flex: 1 1 13rem;
+}

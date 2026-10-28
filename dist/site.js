@@ -187,6 +187,7 @@
     );
     try {
       const index = await fetchData('athletes.json');
+      const penaltyIndex = await fetchData('penalties/index.json').catch(() => null);
       const form = h('form', {
         class: 'directory-tools',
         role: 'search',
@@ -309,8 +310,133 @@
         country,
         sex
       );
+      // Seven checkpoints represent official cumulative counts; only 3, 5 and 7 trigger restrictions.
+      const penaltyThresholds = [3, 5, 7];
+      const penaltyBar = (person) =>
+        h(
+          'span',
+          { class: 'penalty-meter-wrap' },
+          h(
+            'span',
+            {
+              class: 'penalty-meter',
+              role: 'progressbar',
+              'aria-label': '有效累计判罚',
+              'aria-valuemin': 0,
+              'aria-valuemax': 7,
+              'aria-valuenow': Math.min(person.total, 7),
+              'aria-valuetext': person.total + ' 次有效判罚'
+            },
+            Array.from({ length: 7 }, (_, i) =>
+              h('span', {
+                class:
+                  'penalty-segment' +
+                  (i < person.total ? ' is-filled' : '') +
+                  (penaltyThresholds.includes(i + 1) ? ' is-threshold' : ''),
+                'aria-hidden': 'true'
+              })
+            )
+          ),
+          h(
+            'span',
+            { class: 'penalty-thresholds', 'aria-hidden': 'true' },
+            penaltyThresholds.map((value) =>
+              h('span', { class: 'penalty-threshold penalty-threshold-' + value, text: value })
+            )
+          )
+        );
+      const restrictionText = (restriction) => {
+        const blocked = restriction?.blocked_individual_distances;
+        if (!blocked) return '';
+        if (restriction.distances_m?.length === 3) return '下站个人单项全部禁赛';
+        if (restriction.distances_m?.length === blocked)
+          return '下站禁报 ' + restriction.distances_m.map((m) => m + 'm').join('、');
+        return '下站禁报排名最高的 ' + blocked + ' 项';
+      };
+      const penaltyPanel = penaltyIndex?.items?.length
+        ? h(
+            'details',
+            { class: 'panel penalty-panel' },
+            h('summary', {
+              text:
+                '世巡赛累计判罚 · ' +
+                penaltyIndex.items.length +
+                ' 人 · 截至第 ' +
+                penaltyIndex.completed_events +
+                ' 站'
+            }),
+            h(
+              'ul',
+              { class: 'penalty-list' },
+              [...penaltyIndex.items]
+                .sort(
+                  (a, b) =>
+                    Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
+                    b.total - a.total ||
+                    a.name.localeCompare(b.name)
+                )
+                .map((person) =>
+                  h(
+                    'li',
+                    { class: 'penalty-row' },
+                    h(
+                      'details',
+                      { class: 'penalty-person' },
+                      h(
+                        'summary',
+                        {},
+                        h('span', {
+                          class: 'penalty-name',
+                          text: person.country + ' · ' + person.name
+                        }),
+                        h('b', { class: 'num penalty-count', text: person.total + ' 次' }),
+                        penaltyBar(person),
+                        person.next_restriction?.blocked_individual_distances
+                          ? h('span', {
+                              class: 'penalty-restriction',
+                              text: restrictionText(person.next_restriction)
+                            })
+                          : null
+                      ),
+                      h(
+                        'ul',
+                        { class: 'penalty-details' },
+                        (person.details || []).map((item) =>
+                          h(
+                            'li',
+                            {},
+                            h('span', {
+                              text:
+                                (calendar.stations.find((st) => st.id === item.event_id)?.city ||
+                                  item.event_id) +
+                                ' · ' +
+                                item.distance_m +
+                                'm ' +
+                                item.round_label
+                            }),
+                            h('b', { class: 'num', text: item.infringement_code }),
+                            !item.counted
+                              ? h('small', { class: 'faint', text: '不计入累计' })
+                              : null
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+            ),
+            h('a', {
+              href: penaltyIndex.source_url,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              class: 'faint tiny',
+              text: '官方 Protocol'
+            })
+          )
+        : null;
       root.replaceChildren(
         header(h, '运动员', calendar.season),
+        penaltyPanel,
         form,
         index.ranking_as_of?.length
           ? h('p', {
@@ -1407,7 +1533,11 @@
           : heat.heat_label;
       const people = h('ol', { class: 'result-people' });
       for (const p of heat.participants) {
-        const result = p.penalty ? p.penalty.code + ' 判罚' : p.result || '—';
+        const result = p.penalty
+          ? p.penalty.code +
+            (p.penalty.infringement_code ? ' · ' + p.penalty.infringement_code : '') +
+            ' 判罚'
+          : p.result || '—';
         people.append(
           h(
             'li',

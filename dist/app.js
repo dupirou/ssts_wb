@@ -1064,7 +1064,11 @@
           : heat.heat_label;
       const people = h('ol', { class: 'result-people' });
       for (const p of heat.participants) {
-        const result = p.penalty ? p.penalty.code + ' 判罚' : p.result || '—';
+        const result = p.penalty
+          ? p.penalty.code +
+            (p.penalty.infringement_code ? ' · ' + p.penalty.infringement_code : '') +
+            ' 判罚'
+          : p.result || '—';
         people.append(
           h(
             'li',

@@ -9,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 import competition_data
+import penalty_protocol
 import stations
 import schedule_store
 import official_sources
@@ -393,6 +394,7 @@ def _compile(now, out, prior, source_log):
         encoding='utf-8',
     )
     competition_data.export(out, venues, predict_groups.entered_distances, config['season'])
+    penalty_protocol.export(out, config)
     predict_groups.export(out, venues, schedules)
     site_catalog.export(out, season, schedules)
     history_data.export(out, calendar=season)
