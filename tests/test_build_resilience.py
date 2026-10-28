@@ -55,7 +55,6 @@ class BuildIsolationTests(unittest.TestCase):
             self.assertTrue((out / 'data/competitions/montreal.json').exists())
             self.assertTrue((out / 'index.html').exists())
 
-
     def test_two_identical_builds_and_removed_schedule_cleanup(self):
         with tempfile.TemporaryDirectory() as temp:
             out = Path(temp) / 'public'
