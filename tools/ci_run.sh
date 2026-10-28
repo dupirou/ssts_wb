@@ -11,6 +11,7 @@ run_tests() {
   ruff check tools tests
   node --check web/app.js
   node --check dist/site.js
+  node --check src/worker.mjs
 }
 
 case "${1:-}" in
