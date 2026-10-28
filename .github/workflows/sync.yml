@@ -1,4 +1,5 @@
 name: Build and safely sync ISU schedule
+run-name: ISU sync (${{ inputs.sync_decision || 'periodic' }})
 on:
   push:
     branches: [main]
@@ -15,6 +16,8 @@ on:
         default: manual
 permissions:
   contents: write
+  actions: read
+  issues: write
 concurrency:
   group: ssts-wb-build
   cancel-in-progress: false
@@ -157,3 +160,12 @@ jobs:
               exit 1
             fi
           done
+      - name: Track consecutive session crashes
+        if: ${{ always() && inputs.sync_decision == 'session' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SYNC_FAILED: ${{ steps.sync_schedule.outcome != 'success' ||
+              steps.sync_china.outcome != 'success' ||
+              steps.sync_competitions.outcome != 'success' ||
+              steps.sync_predictions.outcome != 'success' }}
+        run: python tools/session_incident.py
