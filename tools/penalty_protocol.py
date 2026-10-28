@@ -230,6 +230,43 @@ def attach_codes(snapshot, report):
     return updated
 
 
+def restricted_ranked_distances(out, event_id, athlete_id, gender, blocked):
+    """Resolve only uniquely ranked distances from an official World Tour classification.
+
+    A missing or tied ranking is not evidence for a specific ban. An unranked
+    distance is not selected ahead of an officially ranked one.
+    """
+    if blocked == 3:
+        return [500, 1000, 1500], None
+    path = Path(out) / 'data/competitions' / f'{event_id}.json'
+    if not path.exists():
+        return None, None
+    snapshot = json.loads(path.read_text(encoding='utf-8'))
+    rankings = snapshot.get('rankings', {})
+    if rankings.get('status') != 'available' or not rankings.get('source_urls'):
+        return None, None
+    distances = {}
+    for item in rankings.get('items', []):
+        if (
+            item.get('athlete_id') != athlete_id
+            or item.get('gender') != gender
+            or item.get('ranking_type') != 'world_tour'
+            or item.get('format') != 'individual'
+            or item.get('distance_m') not in (500, 1000, 1500)
+        ):
+            continue
+        distance, rank = item['distance_m'], item.get('rank')
+        if type(rank) is not int or rank < 1 or distance in distances:
+            return None, None
+        distances[distance] = rank
+    ordered = sorted(distances.items(), key=lambda row: row[1])
+    if len(ordered) < blocked:
+        return None, None
+    if len(ordered) > blocked and ordered[blocked - 1][1] == ordered[blocked][1]:
+        return None, None
+    return [distance for distance, _ in ordered[:blocked]], rankings['source_urls'][0]
+
+
 def export(out, config, source=None):
     """Build a compact, source-linked season index from accepted protocol snapshots."""
     source = source or Path(__file__).resolve().parents[1] / 'data/penalties'
@@ -268,6 +305,11 @@ def export(out, config, source=None):
                 if blocked and latest['completed_events'] < len(config['stations'])
                 else None
             )
+            distances, ranking_url = (
+                restricted_ranked_distances(out, station_id, row['athlete_id'], row['gender'], blocked)
+                if next_station
+                else ([], None)
+            )
             details = [
                 dict(
                     event_id=earlier_id,
@@ -294,7 +336,11 @@ def export(out, config, source=None):
                     total=total,
                     station_counts=row['station_counts'][: latest['completed_events']],
                     next_restriction=dict(
-                        event_id=next_station, blocked_individual_distances=blocked if next_station else 0
+                        event_id=next_station,
+                        blocked_individual_distances=blocked if next_station else 0,
+                        distances_m=distances,
+                        ranking_source_url=ranking_url,
+                        ranking_event_id=station_id if ranking_url else None,
                     ),
                     details=details,
                 )
