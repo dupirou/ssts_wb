@@ -115,11 +115,10 @@ test('results overview links to separate season, cycle and comparison pages with
   assert.equal(d.querySelector('h1').textContent, '成绩');
   assert.equal(d.querySelector('#site-nav [aria-current]').getAttribute('href'), '/results/');
   assert.equal(d.querySelectorAll('.result-row, .cycle-card').length, 0);
-  assert.ok(d.querySelector('a[href="/results/seasons/2025-26/"]'));
-  assert.equal(d.querySelector('a[href="/results/seasons/2025-26/"]').closest('.cycle-branch').dataset.cycle, 'milano-2026');
+  assert.ok(d.querySelector('a[href="/results/cycles/"]'));
+  assert.ok(d.querySelector('a[href="/results/seasons/2026-27/"]'));
   assert.equal(d.querySelector('.results-index-columns'), null);
   assert.doesNotMatch(d.querySelector('.review-nav').textContent, /赛季回顾|周期回顾/);
-  assert.ok(d.querySelector('a[href="/results/cycles/milano-2026/"]'));
   assert.ok(d.querySelector('.results-compare-entry'));
   assert.deepEqual(dom.requests, ['/data/results/index.json']);
 });
@@ -397,4 +396,33 @@ test('comparison defaults advance with new archived seasons instead of hardcoded
   t.after(() => dom.window.close());
   assert.equal(dom.window.document.querySelector('[name="left"]').value, '2030/31');
   assert.equal(dom.window.document.querySelector('[name="right"]').value, '2031/32');
+});
+
+test('current station and its archived result link to each other only when matched', async t => {
+  const station = await page('/events/2026-27/vancouver/');
+  const result = await page('/results/events/2026-27-worldtour-vancouver-1/');
+  const unmatched = await page('/results/events/2025-26-worldtour-montreal-1/');
+  for (const dom of [station, result, unmatched]) t.after(() => dom.window.close());
+  assert.equal(station.window.document.querySelector('.station-hero a[href*="/results/events/"]').getAttribute('href'), '/results/events/2026-27-worldtour-vancouver-1/');
+  assert.equal(result.window.document.querySelector('.review-to-schedule').getAttribute('href'), '/events/2026-27/vancouver/');
+  assert.equal(unmatched.window.document.querySelector('.review-to-schedule').hidden, true);
+  assert.equal(unmatched.window.document.querySelector('.review-to-previous').hidden, true);
+});
+
+test('previous station comparison stays in the same season and sources are grouped', async t => {
+  const dom = await page('/results/events/2025-26-worldtour-montreal-2/');
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  const link = new URL(d.querySelector('.review-to-previous').href);
+  assert.equal(link.searchParams.get('left'), '2025-26-worldtour-montreal-1');
+  assert.equal(link.searchParams.get('right'), '2025-26-worldtour-montreal-2');
+  assert.equal(d.querySelectorAll('.result-row a[target="_blank"]').length, 0);
+  assert.ok(d.querySelector('.result-event .result-sources'));
+  const compare = await page(link.pathname + link.search);
+  t.after(() => compare.window.close());
+  const row = compare.window.document.querySelector('.compare-project');
+  row.querySelector('button').click();
+  await settled(compare, () => row.nextElementSibling.querySelector('.raw-source-group'));
+  assert.equal(row.nextElementSibling.querySelectorAll('.review-records li > a[target]').length, 0);
+  assert.ok(row.nextElementSibling.querySelector('.raw-source-group a[target]'));
 });

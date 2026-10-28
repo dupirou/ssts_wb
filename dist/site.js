@@ -1639,6 +1639,18 @@
         )
       )
     );
+    if (event.results_event_id)
+      copy.append(
+        h(
+          'p',
+          {},
+          h('a', {
+            class: 'text-link',
+            href: '/results/events/' + encodeURIComponent(event.results_event_id) + '/',
+            text: '中国队成绩 →'
+          })
+        )
+      );
     const official = () => officialPage(cal, event);
     // Nothing is published for a championship yet, so there is one panel and no tabs to switch.
     const schedule = h(
@@ -2078,6 +2090,19 @@
           : null
       )
     );
+    if (station.results_event_id) {
+      copy.append(
+        h(
+          'p',
+          {},
+          h('a', {
+            class: 'text-link',
+            href: '/results/events/' + encodeURIComponent(station.results_event_id) + '/',
+            text: '中国队成绩 →'
+          })
+        )
+      );
+    }
     if (data) {
       copy.append(
         h(
