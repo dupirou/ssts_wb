@@ -481,7 +481,15 @@ def export(now=None, out=OUT):
             os.replace(out, backup)
         try:
             os.replace(staged, out)
-            os.replace(staged_log, updates.LOG)
+            # The public output may be on /tmp while the tracked log is on a different
+            # volume. Copy to a temporary file next to the destination before replace.
+            with tempfile.NamedTemporaryFile(prefix='.ssts-updates-', dir=updates.LOG.parent, delete=False) as temp_log:
+                prepared_log = Path(temp_log.name)
+            try:
+                shutil.copyfile(staged_log, prepared_log)
+                os.replace(prepared_log, updates.LOG)
+            finally:
+                prepared_log.unlink(missing_ok=True)
         except Exception:
             if out.exists():
                 shutil.rmtree(out)

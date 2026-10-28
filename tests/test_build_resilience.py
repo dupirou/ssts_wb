@@ -2,6 +2,8 @@
 
 import json
 import hashlib
+import errno
+import os
 import subprocess
 from datetime import datetime, timezone
 import sys
@@ -13,6 +15,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import build
+import updates
 
 
 class BuildIsolationTests(unittest.TestCase):
@@ -82,6 +85,26 @@ class BuildIsolationTests(unittest.TestCase):
             self.assertFalse((out / 'data/vancouver.json').exists())
             report = json.loads((out / 'data/build_report.json').read_text(encoding='utf-8'))
             self.assertEqual(report['errors']['vancouver']['state'], 'removed')
+
+    def test_update_log_is_atomically_promoted_on_its_own_volume(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            out = root / 'public' / 'dist'
+            log = root / 'repository' / 'updates.json'
+            log.parent.mkdir()
+            original_replace = os.replace
+
+            def prohibit_cross_volume_log_replace(src, dst):
+                if Path(dst) == log and Path(src).parent != log.parent:
+                    raise OSError(errno.EXDEV, 'Invalid cross-device link')
+                return original_replace(src, dst)
+
+            with patch.object(updates, 'LOG', log), patch.object(
+                build.os, 'replace', side_effect=prohibit_cross_volume_log_replace
+            ):
+                build.export(out=out)
+            self.assertEqual(json.loads(log.read_text(encoding='utf-8'))['schema_version'], 1)
+            self.assertTrue((out / 'index.html').exists())
 
     def test_failing_compiler_leaves_published_tree_unchanged(self):
         with tempfile.TemporaryDirectory() as temp:
