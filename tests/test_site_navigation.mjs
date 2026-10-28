@@ -13,7 +13,7 @@ async function settled(dom,predicate=()=>!dom.window.document.querySelector('.re
   for(let i=0;i<200;i++){if(predicate())return;await new Promise(r=>setTimeout(r,5));}
   throw new Error('UI did not settle');
 }
-async function page(path, fail = '') {
+async function page(path, fail = '', resultsIndex = null) {
   const dom = new JSDOM(html, {url: new URL(path, 'https://example.test/').href, runScripts: 'outside-only', pretendToBeVisual: true});
   const w = dom.window;
   dom.requests = [];
@@ -24,6 +24,7 @@ async function page(path, fail = '') {
   w.fetch = async input => {
     const url = new URL(input, w.location.href);
     dom.requests.push(url.pathname);
+    if (resultsIndex && url.pathname === '/data/results/index.json') return Response.json(resultsIndex);
     if (url.pathname === fail) return new Response('unavailable', {status: 503});
     const api = url.pathname.match(/^\/api\/v1\/events\/([^/]+)\/(entries|rounds|rankings)$/);
     if (api) {
@@ -371,4 +372,29 @@ test('results pages do not depend on the live calendar', async t => {
   t.after(() => dom.window.close());
   assert.ok(dom.window.document.querySelector('.results-recent-list'));
   assert.deepEqual(dom.requests, ['/data/results/index.json']);
+});
+
+test('comparison defaults follow recorded scopes and preserve explicit shared selections', async t => {
+  const worlds = await page('/results/compare/');
+  const circuit = await page('/results/compare/?kind=circuit');
+  const explicit = await page('/results/compare/?left=2023%2F24&right=2026%2F27');
+  for (const dom of [worlds, circuit, explicit]) t.after(() => dom.window.close());
+  const selected = dom => ['left', 'right'].map(name => dom.window.document.querySelector(`[name="${name}"]`).value);
+  assert.deepEqual(selected(worlds), ['2024/25', '2025/26']);
+  assert.deepEqual(selected(circuit), ['2025/26', '2026/27']);
+  assert.deepEqual(selected(explicit), ['2023/24', '2026/27']);
+});
+
+test('comparison defaults advance with new archived seasons instead of hardcoded years', async t => {
+  const index = JSON.parse(await file('dist/data/results/index.json'));
+  const archived = JSON.parse(await file('dist/data/results/seasons/2025-26.json'));
+  const original = index.events.find(event => event.kind === 'worlds');
+  const summary = archived.items.find(event => event.id === original.id).summary;
+  index.current_season = '2032/33';
+  index.cycles.push({id: 'future-cycle', label: '未来周期', seasons: ['2030/31', '2031/32', '2032/33']});
+  index.events.unshift(...['2031/32', '2030/31'].map(season => ({...original, id: 'worlds-' + season, season, summary})));
+  const dom = await page('/results/compare/?left=invalid', '', index);
+  t.after(() => dom.window.close());
+  assert.equal(dom.window.document.querySelector('[name="left"]').value, '2030/31');
+  assert.equal(dom.window.document.querySelector('[name="right"]').value, '2031/32');
 });

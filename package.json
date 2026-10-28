@@ -1,6 +1,11 @@
 {
   "devDependencies": {
     "jsdom": "26.1.0",
-    "playwright": "1.58.2"
+    "playwright": "1.58.2",
+    "prettier": "3.6.2"
+  },
+  "scripts": {
+    "format": "prettier --write \"web/*.js\" web/site.css",
+    "format:check": "prettier --check \"web/*.js\" web/site.css"
   }
 }

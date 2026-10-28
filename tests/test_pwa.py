@@ -60,8 +60,9 @@ class PwaTests(unittest.TestCase):
         html = (ROOT / 'web/index.html').read_text(encoding='utf-8')
         self.assertIn('rel="manifest" href="/manifest.webmanifest"', html)
         self.assertIn('rel="apple-touch-icon"', html)
-        self.assertIn(
-            "serviceWorker.register('/sw.js', {scope: '/'})", (ROOT / 'web/app.js').read_text(encoding='utf-8')
+        self.assertRegex(
+            (ROOT / 'web/app.js').read_text(encoding='utf-8'),
+            r"serviceWorker\.register\('/sw\.js',\s*\{\s*scope:\s*'/'\s*\}\)",
         )
 
     def test_modules_belong_to_their_route_bundle(self):

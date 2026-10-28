@@ -5,6 +5,7 @@ cd "$(dirname "$0")/.."
 
 run_tests() {
   npm ci --ignore-scripts
+  npm run format:check
   python -m unittest discover -s tests -v
   node --test tests/*.mjs
   ruff format --check tools tests

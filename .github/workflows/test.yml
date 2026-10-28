@@ -25,6 +25,7 @@ jobs:
       - run: ruff format --check tools tests
       - run: ruff check tools tests
       - run: npm ci --ignore-scripts
+      - run: npm run format:check
       - run: bash -n tools/ci_run.sh && bash tools/ci_run.sh build
       - name: Require committed dist to match a fresh build
         run: git diff --exit-code -- dist

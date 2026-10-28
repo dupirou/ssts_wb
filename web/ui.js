@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   const SVGNS = 'http://www.w3.org/2000/svg';
-  const site = window.SSTS = window.SSTS || {};
+  const site = (window.SSTS = window.SSTS || {});
   function h(name, props, ...kids) {
     const el = document.createElement(name);
     setProps(el, props);
@@ -33,22 +33,31 @@
     }
   }
   // replaceChildren() would print null/false; fill() skips them like h().
-  const fill = (el, ...kids) => { el.replaceChildren(); append(el, kids); return el; };
-  function select(h,name,label,values,value) {
-    const el = h('select',{name,'aria-label':label},values.map(([value,text]) => h('option',{value,text})));
+  const fill = (el, ...kids) => {
+    el.replaceChildren();
+    append(el, kids);
+    return el;
+  };
+  function select(h, name, label, values, value) {
+    const el = h(
+      'select',
+      { name, 'aria-label': label },
+      values.map(([value, text]) => h('option', { value, text }))
+    );
     if (values.some(([id]) => id === value)) el.value = value;
     return el;
   }
-  function writeFilters(controls,path) {
+  function writeFilters(controls, path) {
     const url = new URL(location.href);
     if (path) url.pathname = path;
     url.searchParams.delete('view');
     for (const el of controls) {
-      if (el.value && el.value !== 'all') url.searchParams.set(el.name,el.value);
+      if (el.value && el.value !== 'all') url.searchParams.set(el.name, el.value);
       else url.searchParams.delete(el.name);
     }
-    window.history.replaceState(null,'',url);
+    window.history.replaceState(null, '', url);
   }
-  const tableScroll = (h,table,label,cls='stats-scroll') => h('div',{class:cls,tabindex:'0','aria-label':label},table);
-  site.ui = {h,s,append,fill,select,writeFilters,tableScroll};
+  const tableScroll = (h, table, label, cls = 'stats-scroll') =>
+    h('div', { class: cls, tabindex: '0', 'aria-label': label }, table);
+  site.ui = { h, s, append, fill, select, writeFilters, tableScroll };
 })();
