@@ -84,7 +84,8 @@ test('built real snapshot and unconfigured event empty states are served', async
   assert.equal(projected.total,1);
   const stored=JSON.parse(await readFile(new URL('../dist/data/predictions/vancouver.json',import.meta.url),'utf8'));
   assert.deepEqual(projected.items,[stored.items.find(p=>p.gender==='women'&&p.distance_m===500)]);
-  assert.equal((await request('/api/v1/events/vancouver/predictions?country=CHN',realEnv)).status,400);
+  assert.deepEqual(await (await request('/api/v1/events/vancouver/predictions?country=CHN',realEnv)).json(),
+    {error:'invalid_filter',field:'country'});
   assert.equal(await (await request('/api/v1/events/vancouver/predictions',realEnv,'HEAD')).text(),'');
   const seoul=await (await request('/api/v1/events/seoul/predictions',realEnv)).json();
   assert.ok(seoul.items.every(p=>p.missing.includes('schedule')));
@@ -129,7 +130,9 @@ test('race-window cron: 10-min syncs around sessions, hourly between them, none 
   globalThis.fetch = async (url, init) => { calls.push({url, init}); return new Response(null, {status:204}); };
   const run = async (token, time) => {
     const pending = [];
-    await worker.scheduled({scheduledTime:Date.parse(time)}, {GITHUB_DISPATCH_TOKEN:token, ASSETS:assets}, {waitUntil:p => pending.push(p)});
+    await worker.scheduled({scheduledTime:Date.parse(time)},
+      {GITHUB_DISPATCH_TOKEN:token, SYNC_REPO:'dupirou/ssts_wb', SYNC_WORKFLOW:'sync.yml', ASSETS:assets},
+      {waitUntil:p => pending.push(p)});
     await Promise.all(pending);
   };
   try {
@@ -141,5 +144,116 @@ test('race-window cron: 10-min syncs around sessions, hourly between them, none 
   assert.equal(calls.length, 1);
   assert.equal(calls[0].url, 'https://api.github.com/repos/dupirou/ssts_wb/actions/workflows/sync.yml/dispatches');
   assert.equal(calls[0].init.headers.Authorization, 'Bearer t0k');
-  assert.deepEqual(JSON.parse(calls[0].init.body), {ref:'main'});
+  assert.deepEqual(JSON.parse(calls[0].init.body), {ref:'main', inputs:{sync_decision:'session'}});
+});
+
+
+test('calendar failure falls back to hourly dispatch and invalid start times are ignored', async () => {
+  const {syncDecision, inRacingSession} = await import('../src/worker.mjs');
+  const missing = {ASSETS:{fetch:async () => new Response('missing', {status:503})}};
+  assert.equal(await syncDecision(missing,Date.parse('2026-10-24T16:00:00Z')),'hourly');
+  assert.equal(await syncDecision(missing,Date.parse('2026-10-24T16:10:00Z')),'skip');
+  const rows = [
+    {local_date:'2026-10-24',utc_start:'invalid'},
+    {local_date:'2026-10-24',utc_start:'2026-10-24T16:00:00Z'},
+  ];
+  assert.equal(inRacingSession(rows,Date.parse('2026-10-24T16:30:00Z')),true);
+  assert.equal(inRacingSession(rows,Date.parse('2026-10-24T22:00:00Z')),false);
+});
+
+test('403 dispatch is rejected by waitUntil so the failure remains observable', async () => {
+  const previous = globalThis.fetch;
+  const assets = {fetch:async request => {
+    const path = new URL(request.url).pathname;
+    if (path === '/data/calendar.json') return Response.json({stations:[{id:'vancouver',date_start:'2026-10-23',date_end:'2026-10-25'}]});
+    return new Response('not found',{status:404});
+  }};
+  const pending = [];
+  globalThis.fetch = async () => new Response('permission denied',{status:403});
+  try {
+    await worker.scheduled({scheduledTime:Date.parse('2026-10-24T18:00:00Z')},
+      {GITHUB_DISPATCH_TOKEN:'dummy',SYNC_REPO:'dupirou/ssts_wb',SYNC_WORKFLOW:'sync.yml',ASSETS:assets},
+      {waitUntil:promise => pending.push(promise)});
+    await assert.rejects(Promise.all(pending),/GitHub dispatch failed: 403/);
+  } finally {globalThis.fetch = previous;}
+});
+
+
+test('heartbeat requires a shared secret and rejects other methods', async () => {
+  const secret = 'test-secret-with-at-least-32-characters';
+  const writes=[];
+  const env={HEARTBEAT_SECRET:secret,SYNC_HEALTH_KV:{put:async (...args)=>writes.push(args)}};
+  const call = (method,token) => worker.fetch(new Request('https://example.test/internal/heartbeat',
+    {method,headers:token?{Authorization:'Bearer '+token}:{}}),env);
+  assert.equal((await call('POST','wrong')).status,401);
+  assert.equal((await call('GET',secret)).status,405);
+  assert.equal(writes.length,0);
+  const result=await call('POST',secret);
+  assert.equal(result.status,200);
+  assert.equal(result.headers.get('Cache-Control'),'no-store');
+  assert.equal(writes.length,1);
+  assert.equal(writes[0][0],'sync:last_success');
+  assert.ok(Number.isFinite(Date.parse(JSON.parse(writes[0][1]).checked_at)));
+});
+
+test('freshness uses current heartbeat, expires at 30 minutes in session, and falls back on KV failure', async () => {
+  const now=Date.parse('2026-10-24T18:00:00Z');
+  const sample=structuredClone(snapshot);
+  sample.entries.checked_at=new Date(now-48*3600_000).toISOString();
+  const mkEnv = (age, fail=false) => ({
+    ...envFor(sample),
+    SYNC_HEALTH_KV:{get:async()=>{
+      if(fail)throw Error('KV outage');
+      return {checked_at:new Date(now-age).toISOString()};
+    }},
+  });
+  const original=globalThis.Date;
+  const station={id:'vancouver',date_start:'2026-10-23',date_end:'2026-10-25'};
+  const session=new Date('2026-10-24T18:00:00Z').getTime();
+  const assets = age => ({...mkEnv(age), ASSETS:{fetch:async request => {
+    const path=new URL(typeof request === 'string' ? request : request.url || request).pathname;
+    if(path==='/data/calendar.json')return Response.json({stations:[station]});
+    if(path==='/data/vancouver.json')return Response.json({entries:[{local_date:'2026-10-24',utc_start:'2026-10-24T18:00:00Z'}]});
+    return mkEnv(age).ASSETS.fetch(request);
+  }}});
+  // Override the clock only inside this serial test to exercise the session threshold.
+  class Clock extends original {constructor(...args){super(...(args.length?args:[session]));}static now(){return session;}}
+  globalThis.Date=Clock;
+  try {
+    const fresh=await (await request('/api/v1/events/vancouver/entries',assets(20*60_000))).json();
+    assert.equal(fresh.freshness_source,'heartbeat');
+    assert.equal(fresh.freshness_degraded,false);
+    assert.equal(fresh.stale,false);
+    const expired=await (await request('/api/v1/events/vancouver/entries',assets(31*60_000))).json();
+    assert.equal(expired.stale,true);
+    const fallback=await (await request('/api/v1/events/vancouver/entries',mkEnv(0,true))).json();
+    assert.equal(fallback.freshness_source,'snapshot');
+    assert.equal(fallback.freshness_degraded,true);
+    assert.equal(fallback.stale,true);
+  } finally {globalThis.Date=original;}
+});
+
+
+test('unsupported resource filters reject instead of pretending to return zero matches', async () => {
+  const combinations=[
+    ['entries','round_key=x'],['rankings','round_key=x'],['results','ranking_type=world'],
+    ['penalties','ranking_type=event'],['predictions','country=CHN'],
+  ];
+  for(const [resource,query] of combinations){
+    const response=await request('/api/v1/events/vancouver/'+resource+'?'+query);
+    assert.equal(response.status,400);
+    assert.equal((await response.json()).error,'invalid_filter');
+  }
+  assert.equal((await request('/api/v1/events/worlds-2027')).status,404);
+});
+
+test('missing assets return 503, malformed runtime snapshot returns 500 with no private details', async () => {
+  const bad=structuredClone(snapshot);
+  delete bad.entries.items;
+  const broken=await request('/api/v1/events/vancouver/entries',envFor(bad));
+  assert.equal(broken.status,500);
+  assert.deepEqual(await broken.json(),{error:'internal_error'});
+  const missing=envFor();
+  missing.ASSETS.fetch=async()=>new Response('missing',{status:404});
+  assert.equal((await request('/api/v1/events/vancouver/entries',missing)).status,503);
 });

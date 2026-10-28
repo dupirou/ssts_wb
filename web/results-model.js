@@ -55,8 +55,13 @@
     return stats;
   }
   function bestResult(rows) {
-    return rows.filter(r => r.rank != null && (r.rank_scope !== 'final' || r.final_group === 'A'))
-      .sort((a,b) => Number(a.status !== 'classified') - Number(b.status !== 'classified') || a.rank - b.rank)[0] || null;
+    // Rank scopes are incomparable: prefer published overall classifications whenever available.
+    const official = rows.filter(r => r.rank != null && r.rank_scope !== 'final' && !r.classification_missing);
+    const group = rows.filter(r => r.rank != null && r.rank_scope === 'final' && ['A','B'].includes(r.final_group));
+    const byRank = (a,b) => Number(a.status !== 'classified') - Number(b.status !== 'classified') || a.rank - b.rank;
+    // If no overall result exists, show the supported A/B final place explicitly as a group place.
+    return official.sort(byRank)[0] || group.sort((a,b) => Number(a.status !== 'classified') - Number(b.status !== 'classified') ||
+      Number(a.final_group === 'B') - Number(b.final_group === 'B') || a.rank - b.rank)[0] || null;
   }
   function athleteStatistics(events) {
     const people = new Map();

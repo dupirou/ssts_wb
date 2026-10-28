@@ -64,9 +64,9 @@
 | `/api/v1/events/<id>/rankings` | 官方文件中的单站 / 世巡赛 / 世界排名 |
 | `/api/v1/events/<id>/predictions` | 首轮非官方分组预测 |
 
-筛选参数：`country`、`gender`、`distance_m`、`round_key`、`athlete_id`、`ranking_type`（预测只支持前三个与 `round_key`）。未知参数返回 400，未知赛事返回 404，非 GET / HEAD 返回 405。按国家筛选 `rounds` 时保留同组对手。
+筛选参数：`country`、`gender`、`distance_m`、`round_key`、`athlete_id`、`ranking_type`（预测只支持前三个与 `round_key`）。未知参数和资源不支持的参数均返回 `400 invalid_filter`，未知赛事返回 404，非 GET / HEAD 返回 405。按国家筛选 `rounds` 时保留同组对手。`athlete_id` 只匹配报名运动员或接力队的主 `athlete_id`；不会递归匹配接力队 `participants[].members` 中的上场队员。
 
-统一响应字段：`schema_version`、`event_id`、`resource`、`status`、`update_status`、`checked_at`（上次成功核对）、`updated_at`（内容变化）、`source_urls`、`stale`、`total`、`items`。`status=not_published` 加空数组表示尚未公布，不等于没人参赛。同步出错或超过 36 小时未核对时 `stale=true`。
+统一响应字段：`schema_version`、`event_id`、`resource`、`status`、`update_status`、`checked_at`（最近成功的同步链路心跳，KV 不可用时为原快照时间）、`data_checked_at`（原始数据校验时间）、`updated_at`（内容变化）、`freshness_source`、`freshness_degraded`、`source_urls`、`stale`、`total`、`items`。`status=not_published` 加空数组表示尚未公布，不等于没人参赛。比赛 session 心跳超过 30 分钟、其他时段超过 36 小时或该资源校验失败时 `stale=true`；KV 故障时使用原快照的 36 小时判定并标记降级。
 
 ## 新动态
 
@@ -95,6 +95,6 @@
 
 ## 安全边界
 
-- 只接受 ISU 官方域名的数据；不用第三方转载自动确认任何分组。
+- 自动抓取只接受各解析器明确允许的 ISU 来源域名与官方接口，不用第三方转载自动确认分组。历史成绩溯源允许 `shorttrack.sportresult.com`：它是早年 ISU 赛事文件使用的官方成绩发布渠道，并非当前 ISU 自有域名；不会因此扩大当前自动抓取与票务链接的允许范围。证据链接与票务的 ISU 官方域名集中在 `tools/official_sources.py`，订票平台仍需独立白名单。
 - 所有抓取使用 certifi 的根证书（`tools/tls.py`），不依赖运行环境里可能过时的系统列表。
 - 页面数据以 DOM 文本节点插入，不作为 HTML 解析；测试同时使用合成夹具和已收录的官方历史记录。

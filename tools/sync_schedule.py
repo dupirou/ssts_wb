@@ -13,11 +13,13 @@ import io
 import json
 import re
 import sys
+import traceback
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 from urllib.request import Request, urlopen
 import stations
 import tls
+from schedule_store import FIELDS, IDENTITY, read, validate
 
 ROOT = Path(__file__).resolve().parents[1]
 EVENTS = 'https://www.isu-skating.com/en/short-track/events/'
@@ -25,21 +27,6 @@ HOSTS = {'www.isu-skating.com', 'isu-skating.com'}
 DAY = re.compile(r'(\d{2})\.(\d{2})\.(\d{4})\b')
 TIME = re.compile(r'^([0-2]\d):([0-5]\d)(?:\s+(.*))?$')
 DIST = re.compile(r'\b(5000|3000|2000|1500|1000|500)\s*(?:m|metre|meter)', re.I)
-FIELDS = ['date', 'time', 'session', 'gender', 'distance', 'kind', 'round', 'group']
-IDENTITY = ('date', 'session', 'gender', 'distance', 'kind', 'round', 'group')
-DISTANCES = {('I', 500), ('I', 1000), ('I', 1500), ('R', 2000), ('R', 3000), ('R', 5000)}
-# Every World Tour stage races these nine; a programme missing one's Final A is partial.
-REQUIRED = {
-    ('W', '500', 'I'),
-    ('M', '500', 'I'),
-    ('W', '1000', 'I'),
-    ('M', '1000', 'I'),
-    ('W', '1500', 'I'),
-    ('M', '1500', 'I'),
-    ('W', '3000', 'R'),
-    ('M', '5000', 'R'),
-    ('X', '2000', 'R'),
-}
 MAX_TIME_CHANGES = 10
 # Stop looking once a station's racing is over; start well before ISU usually publishes.
 LOOKAHEAD_DAYS = 45
@@ -117,54 +104,6 @@ def parse_text(text, station):
             continue
         out.append({'date': day, 'time': m.group(1) + ':' + m.group(2), **event(name, session)})
     return out
-
-
-def validate(rows, station):
-    """Shared by sync and build: a stored programme is always a complete, ordered one."""
-    allowed = {d.isoformat() for d in stations.dates(station)}
-    seen = set()
-    finals = set()
-    previous = None
-    for n, r in enumerate(rows, 1):
-        if r['date'] not in allowed or not re.fullmatch(r'[0-2]\d:[0-5]\d', r['time']):
-            raise ValueError("Programme row outside the station's dates on row " + str(n))
-        if (
-            r['session'] not in ('Q', 'R', 'F')
-            or r['gender'] not in ('W', 'M', 'X')
-            or r['kind'] not in ('I', 'R')
-            or r['round'] not in ('P', 'H', 'Q', 'S', 'F')
-            or not r['distance'].isdigit()
-        ):
-            raise ValueError('Invalid event fields on row ' + str(n))
-        if (r['kind'], int(r['distance'])) not in DISTANCES or (
-            r['gender'] == 'X' and (r['kind'], r['distance']) != ('R', '2000')
-        ):
-            raise ValueError('Invalid distance/format on row ' + str(n))
-        if (r['round'] == 'F') != (r['group'] in ('A', 'B')) or (r['round'] != 'F' and r['group'] != '-'):
-            raise ValueError('Invalid final group on row ' + str(n))
-        ident = tuple(r[k] for k in IDENTITY)
-        if ident in seen:
-            raise ValueError('Ambiguous duplicated official round on row ' + str(n))
-        seen.add(ident)
-        current = r['date'] + ' ' + r['time']
-        if previous and current < previous:
-            raise ValueError('Non-chronological official programme')
-        previous = current
-        if r['round'] == 'F' and r['group'] == 'A':
-            finals.add((r['gender'], r['distance'], r['kind']))
-    missing = REQUIRED - finals
-    if missing:
-        raise ValueError(
-            'Partial or changed ISU timetable: no Final A for ' + ', '.join('/'.join(m) for m in sorted(missing))
-        )
-    return rows
-
-
-def read(path):
-    if not Path(path).exists():
-        return None
-    with Path(path).open(encoding='utf-8', newline='') as f:
-        return list(csv.DictReader(f))
 
 
 def merge(found, old, station, now):
@@ -311,7 +250,7 @@ def main():
         rows = validate(parse_text(page_text(Path(args.fixture).read_text(encoding='utf-8')), station), station)
         print('Fixture programme valid:', len(rows), 'rounds')
         return 0
-    failed = False
+    unexpected = False
     taken = {s['isu']['slug'] for s in config['stations'] + config['championships'] if s.get('isu')}
     for station in config['stations']:
         if args.station and station['id'] != args.station:
@@ -330,14 +269,17 @@ def main():
                 print(station['id'], 'ISU event page found:', found)
             action, changes = sync_station(station, now=now, meta=meta)
             print(station['id'], 'official schedule', action, '; time changes:', changes)
-        except Exception as exc:
-            failed = True
+        except ValueError as exc:
             print(
-                f'::warning::{station["id"]}: ISU schedule rejected, keeping the last verified programme: {exc}',
+                f'::warning::{station["id"]}: ISU schedule rejected; previous programme retained: {exc}',
                 file=sys.stderr,
             )
+        except Exception as exc:
+            unexpected = True
+            print(f'::error::{station["id"]}: unexpected ISU schedule failure: {exc}', file=sys.stderr)
+            traceback.print_exc()
     stations.save_meta(meta)
-    return int(failed)
+    return int(unexpected)
 
 
 if __name__ == '__main__':

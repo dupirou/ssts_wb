@@ -136,3 +136,17 @@ test('changing comparison objects invalidates old work before the new summary re
   rightRequests(f)[0].resolve();await flush();assert.equal(old.textContent,text);
   assert.equal(f.d.querySelector('.comparison-body [role="alert"]'),null);
 });
+
+test('coverage diagnostics remain in data but not as front-end explanations',async t=>{
+  const partial=event('partial',[row()]);partial.coverage='partial';
+  partial.coverage_detail={missing_classifications:3,classification_conflicts:1,unverified_programme:true};
+  const records=[partial,event('complete',[row('bob')],'2025/26')];
+  const browser=await fixture('/results/events/?season=all&event=partial',records,'event');t.after(()=>browser.dom.window.close());
+  const compare=await fixture('/results/compare/?mode=season&left=2024%2F25&right=2025%2F26&kind=worlds',records);t.after(()=>compare.dom.window.close());
+  for(const f of [browser,compare]){
+    assert.doesNotMatch(f.d.querySelector('#app').textContent,/缺最终分类|最终分类缺失|已收录部分|待补 \/ 核对|待核验|收录范围|名次待核|仅组内成绩/);
+    assert.equal(f.d.querySelector('.results-coverage'),null);
+  }
+  assert.equal(partial.coverage_detail.missing_classifications,3);
+  assert.equal(compare.d.querySelectorAll('.compare-project').length,m.projectKeys.length);
+});

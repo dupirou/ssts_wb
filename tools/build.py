@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
-"""Compile strictly verified provisional ISU timetable and China start-list evidence."""
+"""Build static pages and validated ISU data; never manufacture unverified competition facts."""
 
 import hashlib
 import json
+import os
 import shutil
 import subprocess
+import sys
+import tempfile
 import competition_data
 import stations
-import sync_schedule
+import schedule_store
+import official_sources
+import predict_groups
+import qualification
+import site_catalog
+import history_data
+import updates
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -20,8 +29,6 @@ SCRIPTS = ('ui.js', 'navigation.js', 'results-model.js', 'results-store.js', 're
 BUNDLE = 'site.js'
 SHELL_FILES = ('index.html', BUNDLE, 'site.css', 'manifest.webmanifest')
 BJ = ZoneInfo('Asia/Shanghai')
-CONFIG = stations.load()
-CALENDAR_URL = CONFIG['calendar_url']
 STAGES = {'Q': 'qualifying', 'R': 'repechage', 'F': 'main'}
 GENDERS = {'W': 'women', 'M': 'men', 'X': 'mixed'}
 ROUNDS = {'P': 'preliminaries', 'H': 'heats', 'Q': 'quarterfinal', 'S': 'semifinal', 'F': 'final'}
@@ -34,26 +41,15 @@ HEAT_DURATIONS = {
     ('R', 3000): (7.0, 12.0),
     ('R', 5000): (8.0, 15.0),
 }
-VENUES = stations.venues()
-
-# Championships are independent events, never counted as World Tour stages.
-CHAMPIONSHIPS = [
-    dict(
-        {k: v for k, v in c.items() if k != 'isu'},
-        detail_status='not_entered',
-        source_url=stations.page_url(c) or CALENDAR_URL,
-    )
-    for c in CONFIG['championships']
-]
 
 
 def read_schedule(station_id, directory=stations.SCHEDULES):
     """A station's stored official programme as Beijing-time rows; [] until ISU publishes one."""
     station = stations.get(station_id)
-    data = sync_schedule.read(stations.schedule_path(station_id, directory))
+    data = schedule_store.read(stations.schedule_path(station_id, directory))
     if data is None:
         return []
-    sync_schedule.validate(data, station)
+    schedule_store.validate(data, station)
     tz = ZoneInfo(station['timezone'])
     result = []
     for row in data:
@@ -62,6 +58,13 @@ def read_schedule(station_id, directory=stations.SCHEDULES):
         dist, group = int(row['distance']), row['group']
         naive = datetime.strptime(f'{d} {t}', '%Y-%m-%d %H:%M')
         local = naive.replace(tzinfo=tz)
+        other = naive.replace(tzinfo=tz, fold=1)
+        if local.utcoffset() != other.utcoffset():
+            # A backward clock transition maps a local time to two different UTC instants.
+            if all(
+                value.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) == naive for value in (local, other)
+            ):
+                raise ValueError('Ambiguous daylight-saving fold in station start time: ' + d + ' ' + t)
         if local.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) != naive:
             raise ValueError("Start time does not exist in the station's timezone: " + d + ' ' + t)
         utc = local.astimezone(timezone.utc)
@@ -93,14 +96,7 @@ def read_schedule(station_id, directory=stations.SCHEDULES):
 
 
 def valid_evidence(url):
-    parsed = urlsplit(url)
-    return (
-        parsed.scheme == 'https'
-        and parsed.hostname
-        in {'www.isu-skating.com', 'isu-skating.com', 'www.isu.org', 'isu.org', 'shorttrack.sportresult.com'}
-        and not parsed.username
-        and not parsed.password
-    )
+    return official_sources.valid_evidence(url)
 
 
 def attach_china(rows, station_id):
@@ -147,7 +143,12 @@ def attach_china(rows, station_id):
         confirmed = []
         row = lookup[key]
         typ = 'R' if row['format'] == 'relay' else 'I'
-        lo, hi = HEAT_DURATIONS[(typ, row['distance_m'])]
+        durations = HEAT_DURATIONS.get((typ, row['distance_m']))
+        if durations is None:
+            print(
+                f'::warning::{station_id}: no heat duration model for {typ}/{row["distance_m"]}; estimates omitted',
+                file=sys.stderr,
+            )
         base = datetime.fromisoformat(row['local_start'])
         for heat in heats:
             number = heat.get('number')
@@ -161,21 +162,19 @@ def attach_china(rows, station_id):
             ):
                 raise ValueError('Missing verified Chinese athlete or team names')
             seen_heat.add(number)
-            a, b = base + timedelta(minutes=(number - 1) * lo), base + timedelta(minutes=(number - 1) * hi)
-            confirmed.append(
-                {
-                    'number': number,
-                    'athletes': athletes,
-                    'estimate': {
-                        'status': 'model_estimate_not_official',
-                        'earliest_local': a.isoformat(),
-                        'latest_local': b.isoformat(),
-                        'earliest_beijing': a.astimezone(BJ).isoformat(),
-                        'latest_beijing': b.astimezone(BJ).isoformat(),
-                        'assumed_minutes_per_heat': [lo, hi],
-                    },
+            estimate = None
+            if durations is not None:
+                lo, hi = durations
+                a, b = base + timedelta(minutes=(number - 1) * lo), base + timedelta(minutes=(number - 1) * hi)
+                estimate = {
+                    'status': 'model_estimate_not_official',
+                    'earliest_local': a.isoformat(),
+                    'latest_local': b.isoformat(),
+                    'earliest_beijing': a.astimezone(BJ).isoformat(),
+                    'latest_beijing': b.astimezone(BJ).isoformat(),
+                    'assumed_minutes_per_heat': [lo, hi],
                 }
-            )
+            confirmed.append({'number': number, 'athletes': athletes, 'estimate': estimate})
         row['china'] = {
             'status': 'confirmed',
             'heats': sorted(confirmed, key=lambda h: h['number']),
@@ -191,8 +190,6 @@ BOOKING_SITES = {'m.ticketlink.co.kr': 'Ticketlink'}
 
 def attach_qualification(rows, station_id):
     """Each round's published qualification rule ('2Q+6q' and in Chinese), once ISU lists it."""
-    import qualification
-
     rules = competition_data.load_snapshot(station_id)['rounds'].get('rules', {})
     for row in rows:
         rule = qualification.describe(rules.get(row['round_key']))
@@ -207,12 +204,12 @@ def load_ticketing():
     cfg = json.loads(path.read_text(encoding='utf-8'))
     if cfg.get('schema_version') != 1 or not isinstance(cfg.get('stations'), dict):
         raise ValueError('Invalid ticket information schema')
-    by_id = {st['id']: st for st in CONFIG['stations']}
+    by_id = {st['id']: st for st in stations.load()['stations']}
     result = {}
     for station, item in cfg['stations'].items():
         if station not in by_id or not isinstance(item, dict):
             raise ValueError('Unknown ticket event')
-        for field, hosts in (('isu_url', {'isu-skating.com'}), ('booking_url', set(BOOKING_SITES))):
+        for field, hosts in (('isu_url', official_sources.ISU_OFFICIAL_HOSTS), ('booking_url', set(BOOKING_SITES))):
             u = urlsplit(item.get(field, ''))
             if u.scheme != 'https' or u.hostname not in hosts or u.username or u.password:
                 raise ValueError('Invalid ticket source: ' + field)
@@ -234,14 +231,15 @@ def load_ticketing():
 
 def season_text(text):
     """Fill the page shell's season wording from data/stations.json, so a new season edits one file."""
-    worlds = ''.join(f'及{c["date_start"][:4]}{c["city"]}世锦赛' for c in CONFIG['championships'])
-    description = f'{CONFIG["season"]} ISU 短道速滑世巡赛 {len(CONFIG["stations"])} 站{worlds}赛程，北京时间、官方报名和分组信息。'
-    return text.replace('{{SEASON}}', CONFIG['season']).replace('{{DESCRIPTION}}', description)
+    config = stations.load()
+    worlds = ''.join(f'及{c["date_start"][:4]}{c["city"]}世锦赛' for c in config['championships'])
+    description = f'{config["season"]} ISU 短道速滑世巡赛 {len(config["stations"])} 站{worlds}赛程，北京时间、官方报名和分组信息。'
+    return text.replace('{{SEASON}}', config['season']).replace('{{DESCRIPTION}}', description)
 
 
 def next_event(now):
     """The stage, then championship, whose last local day has not ended yet; None after the season."""
-    for event in CONFIG['stations'] + CONFIG['championships']:
+    for event in stations.load()['stations'] + stations.load()['championships']:
         end = datetime.fromisoformat(event['date_end']).replace(tzinfo=ZoneInfo(event['timezone'])) + timedelta(days=1)
         if now < end:
             return event
@@ -250,14 +248,15 @@ def next_event(now):
 
 def manifest_text(text, now):
     """The web manifest with its home-screen shortcut on the next event; the twice-daily build moves it on."""
+    config = stations.load()
     manifest = json.loads(season_text(text))
     event = next_event(now)
     manifest['shortcuts'] = (
         [
             {
-                'name': event['title'] if event in CONFIG['championships'] else event['city'] + '站赛程',
-                'short_name': '世锦赛' if event in CONFIG['championships'] else event['city'],
-                'url': '/events/' + CONFIG['season'].replace('/', '-') + '/' + event['id'] + '/',
+                'name': event['title'] if event in config['championships'] else event['city'] + '站赛程',
+                'short_name': '世锦赛' if event in config['championships'] else event['city'],
+                'url': '/events/' + config['season'].replace('/', '-') + '/' + event['id'] + '/',
                 'icons': [{'src': 'icons/icon-192.png', 'sizes': '192x192'}],
             }
         ]
@@ -267,41 +266,83 @@ def manifest_text(text, now):
     return json.dumps(manifest, ensure_ascii=False, indent=2) + '\n'
 
 
-def export(now=None):
-    import predict_groups
-
-    now = now or stations.utc_now()
-
+def _compile(now, out, prior, source_log):
+    config = stations.load()
+    calendar_url = config['calendar_url']
+    venues = [tuple(st[field] for field in stations.FIELDS) for st in config['stations']]
+    championships = [
+        dict(
+            {k: v for k, v in championship.items() if k != 'isu'},
+            detail_status='not_entered',
+            source_url=stations.page_url(championship) or calendar_url,
+        )
+        for championship in config['championships']
+    ]
     meta = stations.load_meta()
-    ticketing = load_ticketing()
+    errors = {}
+    try:
+        ticketing = load_ticketing()
+    except (ValueError, KeyError, TypeError) as exc:
+        # Human-maintained links must be validated by tests; a bad edit must not
+        # block fresh official results for unrelated stations.
+        old_calendar = prior / 'data/calendar.json'
+        previous = json.loads(old_calendar.read_text(encoding='utf-8')) if old_calendar.exists() else {}
+        ticketing = {
+            item['id']: item['ticketing'] for item in previous.get('stations', []) if item.get('ticketing') is not None
+        }
+        errors['ticketing'] = {'state': 'retained', 'reason': str(exc)}
+        print(f'::error::Ticket source rejected; previously published links retained: {exc}', file=sys.stderr)
     schedules = {}
-    for st in CONFIG['stations']:
-        rows = read_schedule(st['id'])
-        if rows:
-            schedules[st['id']] = attach_qualification(attach_china(rows, st['id']), st['id'])
+    for st in config['stations']:
+        station_id = st['id']
+        try:
+            rows = read_schedule(station_id)
+            if rows:
+                schedules[station_id] = attach_qualification(attach_china(rows, station_id), station_id)
+            elif (prior / 'data' / (station_id + '.json')).exists():
+                # Deliberately missing stored programme: stale published routes must disappear.
+                errors[station_id] = {'state': 'removed', 'reason': 'Stored schedule no longer exists'}
+        except (ValueError, KeyError, TypeError, OSError) as exc:
+            # Only a previously published, source-backed station is eligible for fallback.
+            previous_path = prior / 'data' / (station_id + '.json')
+            state = 'unavailable'
+            if previous_path.exists():
+                previous = json.loads(previous_path.read_text(encoding='utf-8'))
+                if previous.get('event_id') == station_id and isinstance(previous.get('entries'), list):
+                    schedules[station_id] = previous['entries']
+                    state = 'retained'
+            errors[station_id] = {'state': state, 'reason': str(exc)}
+            print(f'::error::{station_id}: build input rejected ({state}): {exc}', file=sys.stderr)
     season = {
         'schema_version': 1,
-        'season': CONFIG['season'],
-        'source_url': CALENDAR_URL,
+        'season': config['season'],
+        'source_url': calendar_url,
         'stations': [
             dict(
                 {k: st[k] for k in stations.FIELDS},
                 ticketing=ticketing.get(st['id']),
                 # The station's own ISU event page once found; the season calendar until then.
-                source_url=stations.page_url(st) or CALENDAR_URL,
+                source_url=stations.page_url(st) or calendar_url,
                 detail_status='verified' if st['id'] in schedules else 'not_entered',
                 predictions=predict_groups.has_open_items(st['id'], schedules.get(st['id'], [])),
             )
-            for st in CONFIG['stations']
+            for st in config['stations']
         ],
-        'championships': CHAMPIONSHIPS,
+        'championships': championships,
         'notice': '各分站详细赛程在 ISU 公布后自动录入。',
     }
-    (OUT / 'data').mkdir(parents=True, exist_ok=True)
-    (OUT / 'data/calendar.json').write_text(json.dumps(season, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    for st in CONFIG['stations']:
+    (out / 'data').mkdir(parents=True, exist_ok=True)
+    (out / 'data/calendar.json').write_text(json.dumps(season, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    for st in config['stations']:
         rows = schedules.get(st['id'])
         if not rows:
+            continue
+        if st['id'] in errors:
+            previous_path = prior / 'data' / (st['id'] + '.json')
+            if errors[st['id']]['state'] == 'retained':
+                target_path = out / 'data' / (st['id'] + '.json')
+                if previous_path.resolve() != target_path.resolve():
+                    shutil.copyfile(previous_path, target_path)
             continue
         sync = meta.get(st['id'], {})
         days = {}
@@ -320,42 +361,51 @@ def export(now=None):
             'total_items': len(rows),
             'entries': rows,
         }
-        (OUT / 'data' / (st['id'] + '.json')).write_text(
+        (out / 'data' / (st['id'] + '.json')).write_text(
             json.dumps(schedule, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
         )
-    (OUT / 'index.html').write_text(
+    (out / 'index.html').write_text(
         season_text((ROOT / 'web/index.html').read_text(encoding='utf-8')), encoding='utf-8'
     )
-    (OUT / 'manifest.webmanifest').write_text(
+    (out / 'manifest.webmanifest').write_text(
         manifest_text((ROOT / 'web/manifest.webmanifest').read_text(encoding='utf-8'), now), encoding='utf-8'
     )
     for filename in SCRIPTS:
-        shutil.copyfile(ROOT / 'web' / filename, OUT / filename)
+        shutil.copyfile(ROOT / 'web' / filename, out / filename)
     # Plain concatenation keeps source modules testable without extra browser round trips or a bundler dependency.
-    (OUT / BUNDLE).write_text(
+    (out / BUNDLE).write_text(
         ';\n'.join((ROOT / 'web' / name).read_text(encoding='utf-8') for name in SCRIPTS), encoding='utf-8'
     )
-    shutil.copyfile(ROOT / 'web/site.css', OUT / 'site.css')
-    shutil.copytree(ROOT / 'web/icons', OUT / 'icons', dirs_exist_ok=True)
+    shutil.copyfile(ROOT / 'web/site.css', out / 'site.css')
+    shutil.copyfile(ROOT / 'web/_headers', out / '_headers')
+    shutil.copytree(ROOT / 'web/icons', out / 'icons', dirs_exist_ok=True)
     # The service worker cache name follows the published shell, so a new release replaces the old cache.
-    shell = b''.join((OUT / name).read_bytes() for name in SHELL_FILES) + (ROOT / 'web/sw.js').read_bytes()
-    (OUT / 'sw.js').write_text(
+    shell = b''.join((out / name).read_bytes() for name in SHELL_FILES) + (ROOT / 'web/sw.js').read_bytes()
+    (out / 'sw.js').write_text(
         (ROOT / 'web/sw.js')
         .read_text(encoding='utf-8')
         .replace('__BUILD_VERSION__', hashlib.sha256(shell).hexdigest()[:12]),
         encoding='utf-8',
     )
-    competition_data.export(OUT, VENUES, predict_groups.entered_distances, CONFIG['season'])
-    predict_groups.export(OUT, VENUES, schedules)
-    import site_catalog
-
-    site_catalog.export(OUT, season, schedules)
-    import history_data
-
-    history_data.export(OUT, calendar=season)
-    subprocess.run(['node', str(ROOT / 'tools/build_results.mjs'), str(OUT), CONFIG['season']], check=True)
+    competition_data.export(out, venues, predict_groups.entered_distances, config['season'])
+    predict_groups.export(out, venues, schedules)
+    site_catalog.export(out, season, schedules)
+    history_data.export(out, calendar=season)
+    try:
+        subprocess.run(
+            ['node', str(ROOT / 'tools/build_results.mjs'), str(out), config['season']],
+            check=True,
+            cwd=ROOT,
+            timeout=120,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError('Node results compiler timed out after 120 seconds') from exc
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError(f'Node results compiler failed: {(exc.stderr or "").strip()[-1000:]}') from exc
     # Real index files make deep links work on Workers Assets and a plain static server alike.
-    results_index = json.loads((OUT / 'data/results/index.json').read_text(encoding='utf-8'))
+    results_index = json.loads((out / 'data/results/index.json').read_text(encoding='utf-8'))
     page_paths = (
         [
             'events',
@@ -369,24 +419,26 @@ def export(now=None):
         ]
         + ['results/events/' + event['id'] for event in results_index['events']]
         + [
-            'results/seasons/' + season.replace('/', '-')
-            for season in sorted({s for cycle in results_index['cycles'] for s in cycle['seasons']})
-            if season <= CONFIG['season']
+            'results/seasons/' + result_season.replace('/', '-')
+            for result_season in sorted({s for cycle in results_index['cycles'] for s in cycle['seasons']})
+            if result_season <= config['season']
         ]
         + ['results/cycles/' + cycle['id'] for cycle in results_index['cycles']]
         + [
-            'events/' + CONFIG['season'].replace('/', '-') + '/' + event['id']
-            for event in CONFIG['stations'] + CONFIG['championships']
+            'events/' + config['season'].replace('/', '-') + '/' + event['id']
+            for event in config['stations'] + config['championships']
         ]
     )
     for page_path in page_paths:
-        page_dir = OUT / page_path
+        page_dir = out / page_path
         page_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(OUT / 'index.html', page_dir / 'index.html')
-    import updates
-
+        shutil.copyfile(out / 'index.html', page_dir / 'index.html')
     feed = updates.export(
-        OUT, VENUES, schedules, {k: v.get('last_successful_schedule_check_utc') for k, v in meta.items()}
+        out,
+        venues,
+        schedules,
+        {k: v.get('last_successful_schedule_check_utc') for k, v in meta.items()},
+        path=source_log,
     )
     for station_id, rows in schedules.items():
         print(
@@ -396,7 +448,46 @@ def export(now=None):
             'ISU round start times; verified CHN:',
             sum(r['china']['status'] == 'confirmed' for r in rows),
         )
+    (out / 'data/build_report.json').write_text(
+        json.dumps({'schema_version': 1, 'errors': errors}, ensure_ascii=False, sort_keys=True, indent=2) + '\n',
+        encoding='utf-8',
+    )
     print('Update notices:', len(feed['events']))
+
+
+def export(now=None, out=OUT):
+    """Generate into a sibling staging directory, then publish only a complete build.
+
+    Existing station snapshots are used only for explicit validated fallback.
+    The update history and public assets are promoted only after compilation succeeds.
+    """
+    import updates
+
+    out = Path(out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    now = now or stations.utc_now()
+    with tempfile.TemporaryDirectory(prefix='.ssts-build-', dir=out.parent) as temp:
+        work = Path(temp)
+        staged = work / 'new_dist'
+        staged.mkdir()
+        staged_log = work / 'updates.json'
+        if updates.LOG.exists():
+            shutil.copyfile(updates.LOG, staged_log)
+        _compile(now, staged, out, staged_log)
+
+        backup = work / 'old_dist'
+        replaced = out.exists()
+        if replaced:
+            os.replace(out, backup)
+        try:
+            os.replace(staged, out)
+            os.replace(staged_log, updates.LOG)
+        except Exception:
+            if out.exists():
+                shutil.rmtree(out)
+            if replaced:
+                os.replace(backup, out)
+            raise
 
 
 if __name__ == '__main__':

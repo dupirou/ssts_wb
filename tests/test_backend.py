@@ -27,6 +27,18 @@ class DataTests(unittest.TestCase):
         )
         self.assertEqual((rows[-1]['beijing_date'], rows[-1]['beijing_time']), ('2026-10-26', '10:30'))
 
+    def test_dst_repeated_local_hour_is_rejected(self):
+        row = dict(sync_schedule.read(build.stations.schedule_path('vancouver'))[0])
+        row.update(date='2026-11-01', time='01:30')
+        station = build.stations.get('montreal')
+        with (
+            patch.object(build.stations, 'get', return_value=station),
+            patch.object(build.schedule_store, 'read', return_value=[row]),
+            patch.object(build.schedule_store, 'validate', return_value=[row]),
+        ):
+            with self.assertRaisesRegex(ValueError, 'Ambiguous daylight-saving fold'):
+                build.read_schedule('montreal')
+
     def test_meta_refresh_is_day_scoped(self):
         # A scheduled official check should not force 48 Pages builds daily.
         previous = '2026-10-20T00:05:00+00:00'
@@ -144,3 +156,36 @@ class DataTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class BuildResilienceTests(unittest.TestCase):
+    def test_unknown_duration_omits_estimate_without_losing_official_heat(self):
+        row = build.read_schedule('vancouver')[0]
+        example = {
+            'schema_version': 1,
+            'heats': [
+                {
+                    'round_key': row['round_key'],
+                    'country': 'CHN',
+                    'evidence': 'official_start_list',
+                    'source_url': 'https://www.isu-skating.com/en/short-track/',
+                    'verified_at': '2026-10-21T10:00:00+08:00',
+                    'heats': [{'number': 6, 'athletes': ['FAKE_TEST_ATHLETE']}],
+                }
+            ],
+        }
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / 'china.json'
+            path.write_text(json.dumps(example), encoding='utf-8')
+            with (
+                patch.object(build, 'CHINA', path),
+                patch.dict(build.HEAT_DURATIONS, {}, clear=True),
+                patch.object(
+                    build.competition_data,
+                    'load_snapshot',
+                    return_value=build.competition_data.empty_snapshot('vancouver'),
+                ),
+            ):
+                rows = build.attach_china(build.read_schedule('vancouver'), 'vancouver')
+                self.assertEqual(rows[0]['china']['status'], 'confirmed')
+                self.assertIsNone(rows[0]['china']['heats'][0]['estimate'])

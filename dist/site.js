@@ -150,8 +150,13 @@
     return stats;
   }
   function bestResult(rows) {
-    return rows.filter(r => r.rank != null && (r.rank_scope !== 'final' || r.final_group === 'A'))
-      .sort((a,b) => Number(a.status !== 'classified') - Number(b.status !== 'classified') || a.rank - b.rank)[0] || null;
+    // Rank scopes are incomparable: prefer published overall classifications whenever available.
+    const official = rows.filter(r => r.rank != null && r.rank_scope !== 'final' && !r.classification_missing);
+    const group = rows.filter(r => r.rank != null && r.rank_scope === 'final' && ['A','B'].includes(r.final_group));
+    const byRank = (a,b) => Number(a.status !== 'classified') - Number(b.status !== 'classified') || a.rank - b.rank;
+    // If no overall result exists, show the supported A/B final place explicitly as a group place.
+    return official.sort(byRank)[0] || group.sort((a,b) => Number(a.status !== 'classified') - Number(b.status !== 'classified') ||
+      Number(a.final_group === 'B') - Number(b.final_group === 'B') || a.rank - b.rank)[0] || null;
   }
   function athleteStatistics(events) {
     const people = new Map();
@@ -311,7 +316,6 @@
       const table = h('table', {class: 'results-table', 'aria-label': '中国队成绩列表'},
         h('caption', {class: 'sr-only', text: '中国队成绩，按赛事分组'}),
         h('thead', {}, h('tr', {}, ['单项', '运动员 / 队伍', '名次'].map(text => h('th', {scope: 'col', text})))));
-      const missing = h('details', {class: 'results-coverage'});
       const name = r => r.format === 'relay' ? '中国队' : people[r.athlete_id]?.name || r.name;
       const label = r => ({women: '女子', men: '男子', mixed: '混合'})[r.gender] + ' ' + r.distance_m + 'm' + (r.format === 'relay' ? ' 接力' : r.medal_eligible === false ? ' 超级决赛' : '') + (r.race_number ? ' (' + r.race_number + ')' : '');
       const lineup = r => {
@@ -390,8 +394,7 @@
           const source = external(e.source.url + (Number.isFinite(page) ? '#page=' + page : ''), e.source.kind==='isu_api'?'官方成绩':'成绩册');
           const body = h('tbody', {'data-event': e.id}, h('tr', {class: 'result-event'},
             h('th', {colspan: '3', scope: 'rowgroup'}, h('div', {}, h('span', {class: 'result-season num', text: e.season}),
-              h('b', {text: e.title}), h('span', {class: 'faint num result-date', text: e.date_end}), source,
-              e.coverage === 'partial' ? h('small', {class: 'faint', text: coverageReason(e)}) : null))));
+              h('b', {text: e.title}), h('span', {class: 'faint num result-date', text: e.date_end}), source))));
           if(!e.results.length)body.append(h('tr',{},h('td',{colspan:'3',class:'faint',text:hasResultFilter(filter)?'所选赛事没有符合条件的成绩':e.participation==='none'?'无中国队记录（0）':'当前筛选无记录'})));
           const sorted = [...e.results].sort((a, b) => ['women', 'men', 'mixed'].indexOf(a.gender) - ['women', 'men', 'mixed'].indexOf(b.gender) || a.distance_m - b.distance_m || (a.race_number || 1) - (b.race_number || 1) || (a.rank ?? 999) - (b.rank ?? 999));
           for (const r of sorted) {
@@ -404,12 +407,7 @@
           }
           table.append(body);
         }
-        const pending = index.pending.filter(e => matchEvent(e) && event.value === 'all');
-        const partial = index.events.filter(e => matchEvent(e) && (event.value === 'all' || e.id === event.value) && e.coverage === 'partial');
-        missing.hidden = !pending.length && !partial.length;
-        missing.replaceChildren(h('summary', {text: '成绩待补 / 核对 ' + (pending.length + partial.length) + ' 场'}),
-          h('ul', {}, pending.map(e => h('li', {text: e.season + ' · ' + e.title + ' · 待收录'})),
-            partial.map(e => h('li', {}, h('a', {href: eventLink(e), text: e.season + ' · ' + e.title}), ' · ' + coverageReason(e)))));
+
       };
       const update = (resetPage=true) => {
         if(resetPage)pageNumber=1;
@@ -428,8 +426,7 @@
       });
       let searchTimer;
       search.addEventListener('input',()=>{clearTimeout(searchTimer);searchTimer=setTimeout(update,150);});
-      panel.replaceChildren(form, summary, table, pager, missing,
-        h('p', {class: 'stat-definition faint tiny', text: '只计个人 500 / 1000 / 1500 米及接力；全能和超级 3000 不计。接力阵容缺失不影响团队成绩收录。'}));
+      panel.replaceChildren(form, summary, table, pager);
       fillSeasons(true); fillEvents(true);
       await draw();
     } catch (_) {
@@ -447,17 +444,11 @@
   const seasonId = value => value.replace('/', '-');
   const seasonValue = value => value.replace(/^(\d{4})-(\d{2})$/, '$1/$2');
   const eventLink = (e, query = '') => '/results/events/' + encodeURIComponent(e.id) + '/' + query;
-  function coverageReason(event) {
-    const d = event.coverage_detail || {};
-    return [d.missing_disciplines?.length ? '项目缺项 ' + d.missing_disciplines.length + ' 项' : '',
-      d.classification_conflicts ? '分类与决赛名次冲突 ' + d.classification_conflicts + ' 条' : '',
-      d.missing_classifications ? '最终分类缺失 ' + d.missing_classifications + ' 条' : '',d.unverified_programme?'项目最终分类范围待核对':''].filter(Boolean).join('；') || '成绩待核对';
-  }
   const reviewSelect = site.ui.select;
   function coverage(h, events, scope) {
     const ratio=scope?.known?events.length+' / '+scope.expected+' 场':events.length+' 场';
     const state=scope?.state;
-    const text=state==='not_offered'?'未设赛事':!events.length?'未收录':ratio+(scope?.partial?' · 已收录部分':'');
+    const text=state==='not_offered'?'未设赛事':!events.length?'未收录':ratio;
     return h('span',{class:'coverage-note'},h('span',{text}));
   }
   function eventRows(ctx,events,people,key,isActive) {
@@ -540,10 +531,10 @@
           cell.append(h('b',{class:medalResult(best)?'num is-medal':'num',text:resultPlace(best)}),
             h('span',{class:'compare-person',text:best.format === 'relay' ? '中国队' : people[best.athlete_id]?.name || best.name}));
         } else {
-          cell.append(h('b',{text:project.group_only?'仅组内成绩':'名次待核'}));
+          cell.append(h('b',{text:'—'}));
         }
         cell.append(h('small',{class:'faint',text:stats.entries + ' 条成绩'}));
-        if(project.partial||project.missing_classifications)cell.append(h('span',{class:'partial-stat',text:project.missing_classifications?'缺最终分类':'已收录部分'}));
+
         return cell;
       })));
       const renderRecords=events=>{
@@ -613,14 +604,14 @@
   }
   function statsRibbon(h,events,scope) {
     const s=statistics(events);
-    return h('dl',{class:'stats-ribbon','aria-label':'当前范围统计'},[[scope?.partial?'已收录赛事':'赛事',s.events],['金',s.medals[0]],['银',s.medals[1]],['铜',s.medals[2]],['A 决赛',s.a_finals],['前 8 名',s.top8]].map(([text,value])=>
+    return h('dl',{class:'stats-ribbon','aria-label':'当前范围统计'},[['赛事',s.events],['金',s.medals[0]],['银',s.medals[1]],['铜',s.medals[2]],['A 决赛',s.a_finals],['前 8 名',s.top8]].map(([text,value])=>
       h('div',{},h('dt',{text}),h('dd',{class:'num',text:events.length?value:'—'}))));
   }
   function statsTable(h,title,groups,cycle) {
     const table=h('table',{class:'review-stats-table','aria-label':title},h('thead',{},h('tr',{},[cycle?'赛季':'赛事',...(cycle?['场']:[]),'金','银','铜','A 决赛','前 8'].map(text=>h('th',{scope:'col',text})))));
     table.append(h('tbody',{},groups.map(({text,href,events,scope})=>{
       const s=statistics(events);
-      return h('tr',{},h('th',{scope:'row'},h('a',{href,text}),scope?.partial?h('small',{class:'partial-stat',text:'已收录部分'}):null),[...(cycle?[s.events]:[]),...s.medals,s.a_finals,s.top8].map(value=>h('td',{class:'num',text:events.length?value:'—'})));
+      return h('tr',{},h('th',{scope:'row'},h('a',{href,text}),),[...(cycle?[s.events]:[]),...s.medals,s.a_finals,s.top8].map(value=>h('td',{class:'num',text:events.length?value:'—'})));
     })));
     return h('section',{class:'review-breakdown'},h('div',{class:'portal-section-head'},h('h2',{text:title})),site.ui.tableScroll(h,table,title));
   }
@@ -653,12 +644,10 @@
       const groups=cycle?cycle.seasons.filter(s=>s<=index.current_season).map(season=>({text:season,href:'/results/seasons/'+seasonId(season)+'/?kind='+kind.value,events:scopeEvents(index,'season',season,kind.value)})):
         events.map(e=>({text:e.title,href:eventLink(e),events:[e]}));
       for(const group of groups)group.scope=cycle?scopeCoverage(index,'season',group.text,kind.value,group.events):{partial:group.events.some(e=>e.coverage!=='complete')};
-      const seasons=cycle?cycle.seasons:[id];
-      const pending=index.pending.filter(e=>seasons.includes(e.season)&&kindMatches(e.kind,kind.value));
       body.replaceChildren(...[coverage(h,events,scopeCoverage(index,mode,id,kind.value,events)),statsRibbon(h,events,scopeCoverage(index,mode,id,kind.value,events)),
         statsTable(h,cycle?'赛季成绩':'各站成绩',groups,!!cycle),
         h('div',{class:'portal-section-head'},h('h2',{text:'项目成绩'})),summaryTable(ctx,[events],[title],people,'best',cycle?[cycle.seasons]:null,[],[scopeCoverage(index,mode,id,kind.value,events)],()=>request===generation),
-        contributions(h,events,people),pending.length?h('details',{class:'results-coverage'},h('summary',{text:'待核验 '+pending.length+' 场'}),h('ul',{},pending.map(e=>h('li',{},ctx.external(e.source_url,e.title))))):null,h('p',{class:'stat-definition faint tiny',text:'接力按队计成绩；运动员奖牌列仅统计个人项目'})].filter(Boolean));
+        contributions(h,events,people)].filter(Boolean));
     };
     kind.addEventListener('change',()=>{site.ui.writeFilters([kind]);draw();});
     panel.replaceChildren(breadcrumbs(h,[['成绩','/results/'],['成绩档案','/results/cycles/'],...(parentCycle?[[parentCycle.label,'/results/cycles/'+parentCycle.id+'/']]:[]),[title,null]]),h('div',{class:'results-heading'},h('h1',{text:title}),h('span',{class:'country-label',text:'CHN'}),
@@ -695,8 +684,7 @@
       const names=ids.map(id=>options().find(([value])=>value===id)?.[1] || id);
       const table=summaryTable(ctx,sets,names,people,metric.value,mode.value==='cycle'?ids.map(id=>index.cycles.find(c=>c.id===id)?.seasons):null,[left,right,...(third.value?[third]:[])],ids.map((id,i)=>scopeCoverage(index,mode.value,id,kind.value,sets[i])),()=>request===generation);
       if(new Set(ids).size!==ids.length){table.querySelector('tbody').replaceChildren();body.replaceChildren(h('p',{class:'review-notice',role:'status',text:'请选择不同的对比对象'}),table);return;}
-      body.replaceChildren(table,
-        h('details',{class:'results-coverage'},h('summary',{text:'收录范围'}),sets.map((events,i)=>h('p',{},h('b',{text:names[i]+' · '}),events.length?events.map(e=>e.title).join('、'):'未收录'))));
+      body.replaceChildren(table);
     };
     const update=()=>{
       site.ui.writeFilters([mode,left,right,third,kind,metric]);draw();
@@ -1688,9 +1676,10 @@
       const hs = r.china.heats;
       // The card above already names the next round; repeat it only when CHN races later.
       const sameRound = r === entries.find(x => x.t > now());
+      const firstEstimate = hs[0]?.estimate?.earliest_beijing;
       fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: sameRound ? 'CHN ' : 'CHN 下一场 '}),
         phrases(sameRound ? null : eventName(r) + ' ' + roundName(r), '第 ' + hs.map(x => x.number).join('、') + ' 组',
-          '约 ' + hs[0].estimate.earliest_beijing.slice(11, 16) + ' 出场')));
+          firstEstimate ? '约 ' + firstEstimate.slice(11, 16) + ' 出场' : null)));
     });
     return box;
   }
@@ -1914,15 +1903,15 @@
     if (china) {
       for (const heat of r.china.heats) {
         const e = heat.estimate;
-        const from = (bjFirst ? e.earliest_beijing : e.earliest_local).slice(11, 16);
-        const to = (bjFirst ? e.latest_beijing : e.latest_local).slice(11, 16);
+        const from = e ? (bjFirst ? e.earliest_beijing : e.earliest_local).slice(11, 16) : null;
+        const to = e ? (bjFirst ? e.latest_beijing : e.latest_local).slice(11, 16) : null;
         // "约" marks the model estimate; official start times carry no prefix.
         note.append(h('p', {class: 'heat'},
           h('span', {class: 'heat-no', text: '第 ' + heat.number + ' 组'}),
           // A relay lists its skaters only once raced; before that the team name says nothing new.
           h('span', {class: 'athletes'}, r.format === 'relay' && heat.athletes.length < 2 ? null
             : heat.athletes.flatMap((a, i) => [i ? '、' : null, h('span', {class: 'nowrap', text: a})])),
-          h('span', {class: 'est num', title: '按组号估算的出场时间，非官方', text: '约 ' + (from === to ? from : from + '–' + to)})));
+          e ? h('span', {class: 'est num', title: '按组号估算的出场时间，非官方', text: '约 ' + (from === to ? from : from + '–' + to)}) : null));
       }
     }
     updateHeatButton(note, r);

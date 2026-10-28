@@ -458,3 +458,18 @@ test('what\'s new bar announces another station\'s newly published programme wit
   assert.match(item.textContent, /^蒙特利尔站 详细赛程已公布 · 共 62 轮/);
   assert.equal(item.querySelector('a').getAttribute('href'), '/events/2026-27/montreal/?day=2026-10-30');
 });
+
+test('a confirmed heat remains visible when no estimation model exists', async t => {
+  const entries = structuredClone(schedule.entries);
+  const round = entries.find(r => r.china?.status === 'confirmed' && r.china.heats.length);
+  assert.ok(round);
+  for (const heat of round.china.heats) heat.estimate = null;
+  const files = {'/data/calendar.json': withPredictions, '/data/vancouver.json': {...schedule, entries},
+    '/data/updates.json': {schema_version:1,events:[]}};
+  const dom = await page({view:'schedule',files});
+  t.after(() => dom.window.close());
+  const row = dom.window.document.getElementById('r-' + round.id);
+  assert.ok(row);
+  assert.match(row.querySelector('.heat-no').textContent, /第 \d+ 组/);
+  assert.equal(row.querySelector('.est'), null);
+});
