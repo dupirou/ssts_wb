@@ -110,20 +110,82 @@ class PenaltyProtocolTests(unittest.TestCase):
             (source / 'vancouver.json').write_text(json.dumps(snapshot(1, 3, [3, 0, 0, 0])))
             result = penalty_protocol.export(out, cfg, source)
             self.assertEqual(
-                result['items'][0]['next_restriction'], {'event_id': 'montreal', 'blocked_individual_distances': 1}
+                result['items'][0]['next_restriction'], {'event_id': 'montreal', 'blocked_individual_distances': 1, 'distances_m': None,
+                 'ranking_source_url': None, 'ranking_event_id': None}
             )
 
             (source / 'montreal.json').write_text(json.dumps(snapshot(2, 3, [3, 0, 0, 0])))
             result = penalty_protocol.export(out, cfg, source)
             self.assertEqual(
-                result['items'][0]['next_restriction'], {'event_id': None, 'blocked_individual_distances': 0}
+                result['items'][0]['next_restriction'], {'event_id': None, 'blocked_individual_distances': 0, 'distances_m': [],
+                 'ranking_source_url': None, 'ranking_event_id': None}
             )
             self.assertEqual([d['event_id'] for d in result['items'][0]['details']], ['vancouver', 'montreal'])
 
             (source / 'seoul.json').write_text(json.dumps(snapshot(3, 5, [3, 0, 2, 0])))
             result = penalty_protocol.export(out, cfg, source)
             self.assertEqual(
-                result['items'][0]['next_restriction'], {'event_id': 'shanghai', 'blocked_individual_distances': 2}
+                result['items'][0]['next_restriction'], {'event_id': 'shanghai', 'blocked_individual_distances': 2, 'distances_m': None,
+                 'ranking_source_url': None, 'ranking_event_id': None}
+            )
+
+    def test_restriction_distance_ranking_and_ambiguity(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            station = out / 'data/competitions'
+            station.mkdir(parents=True)
+            path = station / 'vancouver.json'
+            source = 'https://isu.example/standings.pdf'
+
+            def ranks(values, status='available'):
+                path.write_text(
+                    json.dumps({
+                        'rankings': {
+                            'status': status,
+                            'source_urls': [source],
+                            'items': [
+                                {
+                                    'athlete_id': 'ath-test',
+                                    'gender': 'men',
+                                    'ranking_type': 'world_tour',
+                                    'format': 'individual',
+                                    'distance_m': distance,
+                                    'rank': rank,
+                                }
+                                for distance, rank in values
+                            ],
+                        }
+                    }),
+                    encoding='utf-8',
+                )
+
+            ranks([(500, 12), (1000, 3), (1500, 8)])
+            self.assertEqual(
+                penalty_protocol.restricted_ranked_distances(out, 'vancouver', 'ath-test', 'men', 1),
+                ([1000], source),
+            )
+            self.assertEqual(
+                penalty_protocol.restricted_ranked_distances(out, 'vancouver', 'ath-test', 'men', 2),
+                ([1000, 1500], source),
+            )
+            self.assertEqual(
+                penalty_protocol.restricted_ranked_distances(out, 'vancouver', 'ath-test', 'men', 3),
+                ([500, 1000, 1500], None),
+            )
+            ranks([(500, 4), (1000, 4), (1500, 9)])
+            self.assertEqual(
+                penalty_protocol.restricted_ranked_distances(out, 'vancouver', 'ath-test', 'men', 1),
+                (None, None),
+            )
+            ranks([(500, 12)])
+            self.assertEqual(
+                penalty_protocol.restricted_ranked_distances(out, 'vancouver', 'ath-test', 'men', 2),
+                (None, None),
+            )
+            ranks([(500, 12), (1000, 3)], status='not_published')
+            self.assertEqual(
+                penalty_protocol.restricted_ranked_distances(out, 'vancouver', 'ath-test', 'men', 1),
+                (None, None),
             )
 
     def test_official_total_mismatch_rejected(self):
