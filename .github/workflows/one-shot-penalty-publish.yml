@@ -28,7 +28,7 @@ jobs:
             echo 'Initial test run failed; rerun the full suite once to diagnose a known asynchronous Node fixture race'
             bash tools/ci_run.sh test
           fi
-      # Final verification includes multipage C98P fixtures and athlete detail UI.
+      # Final verification includes multipage C98P fixtures, source code tests and athlete details.
       - name: Commit only verified data, generated assets, and formatter edits
         run: |
           git config user.name 'github-actions[bot]'
