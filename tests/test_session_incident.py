@@ -23,12 +23,15 @@ class IncidentTests(unittest.TestCase):
         runs[2]['display_title'] = 'ISU sync (hourly)'
         self.assertFalse(incident.previous_crashes(runs, jobs, 3))
         runs[2]['display_title'] = incident.SESSION_RUN
-        self.assertTrue(incident.previous_crashes(runs, lambda _: [{'steps': [dict(name=incident.GATE, conclusion='failure')]}], 3))
+        self.assertTrue(
+            incident.previous_crashes(runs, lambda _: [{'steps': [dict(name=incident.GATE, conclusion='failure')]}], 3)
+        )
 
     def test_incident_create_once_update_then_recover(self):
-        state = {'issues': [], 'runs': [
-            dict(id=n, display_title=incident.SESSION_RUN, status='completed') for n in (3, 2, 1)
-        ]}
+        state = {
+            'issues': [],
+            'runs': [dict(id=n, display_title=incident.SESSION_RUN, status='completed') for n in (3, 2, 1)],
+        }
         calls = []
 
         def api(method, path, token, payload=None):
