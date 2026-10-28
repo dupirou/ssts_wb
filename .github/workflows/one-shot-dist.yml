@@ -1,4 +1,4 @@
-name: One-shot regenerate tracked assets on reliability branch
+name: One-shot rebuild verified result assets
 on:
   push:
     branches: [refactor/reliability-observability-20261028]
