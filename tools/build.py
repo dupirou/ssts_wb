@@ -376,6 +376,7 @@ def _compile(now, out, prior, source_log):
         ';\n'.join((ROOT / 'web' / name).read_text(encoding='utf-8') for name in SCRIPTS), encoding='utf-8'
     )
     shutil.copyfile(ROOT / 'web/site.css', out / 'site.css')
+    shutil.copyfile(ROOT / 'web/_headers', out / '_headers')
     shutil.copytree(ROOT / 'web/icons', out / 'icons', dirs_exist_ok=True)
     # The service worker cache name follows the published shell, so a new release replaces the old cache.
     shell = b''.join((out / name).read_bytes() for name in SHELL_FILES) + (ROOT / 'web/sw.js').read_bytes()

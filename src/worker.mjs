@@ -14,7 +14,8 @@ const routePattern = new RegExp('^/api/v1/events(?:/([a-z][a-z0-9-]*)(?:/(' + [.
 const json = (data, status = 200, head = false, extra = {}) => new Response(head ? null : JSON.stringify(data), {
   status, headers: {'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': status === 200 ? 'public, max-age=60, s-maxage=60' : 'no-store',
-    'X-Content-Type-Options': 'nosniff', ...extra},
+    'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'DENY',
+    'Referrer-Policy': 'strict-origin-when-cross-origin', ...extra},
 });
 
 function matches(item, query, participant = item) {
@@ -98,7 +99,7 @@ async function acceptHeartbeat(request, env) {
   const timestamp = new Date().toISOString();
   try {
     await env.SYNC_HEALTH_KV.put(HEARTBEAT_KEY, JSON.stringify({checked_at: timestamp}));
-    return json({status: 'ok', checked_at: timestamp});
+    return json({status: 'ok', checked_at: timestamp}, 200, false, {'Cache-Control': 'no-store'});
   } catch (error) {
     console.error(JSON.stringify({event: 'heartbeat_write_error', message: String(error?.message || error)}));
     return json({error: 'heartbeat_unavailable'}, 503);

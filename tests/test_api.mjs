@@ -190,6 +190,7 @@ test('heartbeat requires a shared secret and rejects other methods', async () =>
   assert.equal(writes.length,0);
   const result=await call('POST',secret);
   assert.equal(result.status,200);
+  assert.equal(result.headers.get('Cache-Control'),'no-store');
   assert.equal(writes.length,1);
   assert.equal(writes[0][0],'sync:last_success');
   assert.ok(Number.isFinite(Date.parse(JSON.parse(writes[0][1]).checked_at)));

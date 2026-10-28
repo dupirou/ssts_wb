@@ -21,6 +21,14 @@ def png_size(path):
 
 
 class PwaTests(unittest.TestCase):
+    def test_static_security_headers_are_built(self):
+        source = (ROOT / 'web/_headers').read_text(encoding='utf-8')
+        built = (ROOT / 'dist/_headers').read_text(encoding='utf-8')
+        self.assertEqual(built, source)
+        self.assertIn('X-Frame-Options: DENY', built)
+        self.assertIn("object-src 'none'", built)
+        self.assertNotIn('Access-Control-Allow-Origin', built)
+
     def test_manifest_is_installable(self):
         manifest = json.loads((ROOT / 'web/manifest.webmanifest').read_text(encoding='utf-8'))
         self.assertEqual((manifest['display'], manifest['start_url'], manifest['scope']), ('standalone', './', './'))
