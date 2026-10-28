@@ -332,7 +332,10 @@ def main():
             action, changes = sync_station(station, now=now, meta=meta)
             print(station['id'], 'official schedule', action, '; time changes:', changes)
         except ValueError as exc:
-            print(f'::warning::{station["id"]}: ISU schedule rejected; previous programme retained: {exc}', file=sys.stderr)
+            print(
+                f'::warning::{station["id"]}: ISU schedule rejected; previous programme retained: {exc}',
+                file=sys.stderr,
+            )
         except Exception as exc:
             unexpected = True
             print(f'::error::{station["id"]}: unexpected ISU schedule failure: {exc}', file=sys.stderr)

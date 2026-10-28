@@ -346,7 +346,9 @@ def main():
         try:
             sync(station['id'], event_url=a.event_url if a.station else None, dry_run=a.dry_run)
         except ValueError as exc:
-            print(f'::warning::{station["id"]}: China evidence rejected, previous data retained: {exc}', file=sys.stderr)
+            print(
+                f'::warning::{station["id"]}: China evidence rejected, previous data retained: {exc}', file=sys.stderr
+            )
         except Exception as exc:
             unexpected = True
             print(f'::error::{station["id"]}: unexpected China results failure: {exc}', file=sys.stderr)

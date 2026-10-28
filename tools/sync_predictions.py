@@ -377,7 +377,10 @@ def main():
         )
         for error in errors:
             is_unexpected = error.startswith('unexpected: ')
-            print(f'::{"error" if is_unexpected else "warning"}::{station["id"]} prediction sync: {error}', file=sys.stderr)
+            print(
+                f'::{"error" if is_unexpected else "warning"}::{station["id"]} prediction sync: {error}',
+                file=sys.stderr,
+            )
             unexpected |= is_unexpected
     return int(unexpected)
 

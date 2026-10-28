@@ -371,7 +371,10 @@ def main():
             print(station['id'], {k: len(snapshot[k]['items']) for k in data.KINDS})
         for message in errors:
             is_unexpected = message.startswith('unexpected: ')
-            print(f'::{"error" if is_unexpected else "warning"}::{station["id"]} entries/results sync: {message}', file=sys.stderr)
+            print(
+                f'::{"error" if is_unexpected else "warning"}::{station["id"]} entries/results sync: {message}',
+                file=sys.stderr,
+            )
             unexpected |= is_unexpected
     return int(unexpected)
 
