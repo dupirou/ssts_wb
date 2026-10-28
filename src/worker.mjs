@@ -10,7 +10,7 @@ const resourceFilters = {
 };
 const filters = new Set(Object.values(resourceFilters).flatMap(keys => [...keys]));
 // Keep this aligned with tools/stations.py's validated ID rule.
-const routePattern = new RegExp('^/api/v1/events(?:/([a-z][a-z0-9-]*)(?:/(' + [...resources].join('|') + '))?)?/?
+const routePattern = new RegExp('^/api/v1/events(?:/([a-z][a-z0-9-]*)(?:/(' + [...resources].join('|') + '))?)?/?$');
 const json = (data, status = 200, head = false, extra = {}) => new Response(head ? null : JSON.stringify(data), {
   status, headers: {'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': status === 200 ? 'public, max-age=60, s-maxage=60' : 'no-store',
