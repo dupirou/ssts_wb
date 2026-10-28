@@ -17,3 +17,9 @@ IOC 奥林匹克资料库搜索引擎的索引文本包含官方 event classific
 ## 温哥华首轮修正
 
 [vancouver-relay-evidence.md](vancouver-relay-evidence.md) 区分了快照的 world_tour 累计榜与独立官方 C74B 单站分类。中国混合接力第 11 可直接由第 105 页 C74B 的 Rank 列证实，不以累计排名或组内名次反推；首轮未充分解释这一证据链。
+
+## 2023 四大洲拉瓦尔站：官方分类资料与仓库不一致
+
+官方 [Laval 官方成绩册](https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/FCC24.pdf)的 EVENT CLASSIFICATION 给出中国女子接力总第 5（仓库 B 组第 1）、男子接力总第 2、混合接力第 5 且 PEN（仓库为 A 组第 3、classified）。女子 1000 米张佳宁第 13、郝唯英和宋佳瑞并列第 18 且 PEN；男子 1000 米钟宇晨第 16、李文龙第 4。仓库对应个人成绩有 4 条总名次为空，另 1 条为 A 组第 4。逐条记录见 [laval-2023-findings.json](laval-2023-findings.json)。
+
+女子接力仓库第 1 明确为 B 组名次，不能作为总名次；混合接力的决赛记录与官方成绩册半决赛 PEN 不一致，可能涉及赛事关联或修订，原因及官方版本先后未查明。未取得 PDF 字节，本次使用 ISU 归档 PDF 的网页缓存文本，暂不把这一来源当作已证明的最新版，也不直接改写仓库。
