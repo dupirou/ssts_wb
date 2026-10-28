@@ -2,7 +2,7 @@ name: One-shot inspect official Vancouver penalty pages
 on:
   push:
     branches: [feature/official-penalty-codes-20261028]
-    paths: ['.github/workflows/one-shot-penalty-inspect.yml']
+    paths: ['.github/workflows/one-shot-penalty-inspect.yml', 'tools/penalty_protocol.py']
 permissions:
   contents: read
 jobs:
