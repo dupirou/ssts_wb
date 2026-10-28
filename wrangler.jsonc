@@ -2,6 +2,7 @@
   "name": "stsswb",
   "main": "src/worker.mjs",
   "compatibility_date": "2026-10-20",
+  "previews": {},
   "observability": {"enabled": true},
   "vars": {"SYNC_REPO": "dupirou/ssts_wb", "SYNC_WORKFLOW": "sync.yml"},
   // Wrangler 4 automatically provisions this KV namespace on first deployment.
