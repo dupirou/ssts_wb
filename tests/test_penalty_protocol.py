@@ -110,23 +110,41 @@ class PenaltyProtocolTests(unittest.TestCase):
             (source / 'vancouver.json').write_text(json.dumps(snapshot(1, 3, [3, 0, 0, 0])))
             result = penalty_protocol.export(out, cfg, source)
             self.assertEqual(
-                result['items'][0]['next_restriction'], {'event_id': 'montreal', 'blocked_individual_distances': 1, 'distances_m': None,
-                 'ranking_source_url': None, 'ranking_event_id': None}
+                result['items'][0]['next_restriction'],
+                {
+                    'event_id': 'montreal',
+                    'blocked_individual_distances': 1,
+                    'distances_m': None,
+                    'ranking_source_url': None,
+                    'ranking_event_id': None,
+                },
             )
 
             (source / 'montreal.json').write_text(json.dumps(snapshot(2, 3, [3, 0, 0, 0])))
             result = penalty_protocol.export(out, cfg, source)
             self.assertEqual(
-                result['items'][0]['next_restriction'], {'event_id': None, 'blocked_individual_distances': 0, 'distances_m': [],
-                 'ranking_source_url': None, 'ranking_event_id': None}
+                result['items'][0]['next_restriction'],
+                {
+                    'event_id': None,
+                    'blocked_individual_distances': 0,
+                    'distances_m': [],
+                    'ranking_source_url': None,
+                    'ranking_event_id': None,
+                },
             )
             self.assertEqual([d['event_id'] for d in result['items'][0]['details']], ['vancouver', 'montreal'])
 
             (source / 'seoul.json').write_text(json.dumps(snapshot(3, 5, [3, 0, 2, 0])))
             result = penalty_protocol.export(out, cfg, source)
             self.assertEqual(
-                result['items'][0]['next_restriction'], {'event_id': 'shanghai', 'blocked_individual_distances': 2, 'distances_m': None,
-                 'ranking_source_url': None, 'ranking_event_id': None}
+                result['items'][0]['next_restriction'],
+                {
+                    'event_id': 'shanghai',
+                    'blocked_individual_distances': 2,
+                    'distances_m': None,
+                    'ranking_source_url': None,
+                    'ranking_event_id': None,
+                },
             )
 
     def test_restriction_distance_ranking_and_ambiguity(self):
@@ -139,23 +157,25 @@ class PenaltyProtocolTests(unittest.TestCase):
 
             def ranks(values, status='available'):
                 path.write_text(
-                    json.dumps({
-                        'rankings': {
-                            'status': status,
-                            'source_urls': [source],
-                            'items': [
-                                {
-                                    'athlete_id': 'ath-test',
-                                    'gender': 'men',
-                                    'ranking_type': 'world_tour',
-                                    'format': 'individual',
-                                    'distance_m': distance,
-                                    'rank': rank,
-                                }
-                                for distance, rank in values
-                            ],
+                    json.dumps(
+                        {
+                            'rankings': {
+                                'status': status,
+                                'source_urls': [source],
+                                'items': [
+                                    {
+                                        'athlete_id': 'ath-test',
+                                        'gender': 'men',
+                                        'ranking_type': 'world_tour',
+                                        'format': 'individual',
+                                        'distance_m': distance,
+                                        'rank': rank,
+                                    }
+                                    for distance, rank in values
+                                ],
+                            }
                         }
-                    }),
+                    ),
                     encoding='utf-8',
                 )
 
