@@ -756,6 +756,35 @@
     athleteStatistics,
     projectSummary
   } = site.resultsModel;
+  // Group evidence by document; page references stay available in a collapsed list.
+  function sources(h, external, event, rows) {
+    const documents = new Map();
+    const add = (url, page) => {
+      if (!url) return;
+      if (!documents.has(url)) documents.set(url, new Set());
+      if (page) documents.get(url).add(page);
+    };
+    add(event.source?.url);
+    for (const row of rows) add(row.source_url || event.source?.url, row.source_page);
+    if (!documents.size) return null;
+    if (documents.size === 1 && ![...documents.values()][0].size)
+      return external([...documents.keys()][0], '官方来源');
+    return h(
+      'details',
+      { class: 'result-sources' },
+      h('summary', { text: '官方来源' }),
+      ...[...documents].map(([url, pages], i) =>
+        h(
+          'p',
+          {},
+          external(url, documents.size === 1 ? '官方文件' : '官方文件 ' + (i + 1)),
+          ...[...pages]
+            .sort((a, b) => a - b)
+            .map((page) => external(url + '#page=' + page, '第 ' + page + ' 页'))
+        )
+      )
+    );
+  }
   async function eventResults(ctx, calendar, route = {}) {
     const { h, root, fetchData, external } = ctx;
     const panel = h(
@@ -943,7 +972,17 @@
         text: '加入对比 →',
         hidden: true
       });
-      root.querySelector('.results-heading').append(compareLink);
+      const previousLink = h('a', {
+        class: 'text-link review-to-previous',
+        text: '与上一站对比 →',
+        hidden: true
+      });
+      const scheduleLink = h('a', {
+        class: 'text-link review-to-schedule',
+        text: '查看赛程 →',
+        hidden: true
+      });
+      root.querySelector('.results-heading').append(scheduleLink, compareLink, previousLink);
       let generation = 0;
       let pageNumber = Math.max(1, Number.parseInt(params.get('page'), 10) || 1);
       const pager = h('nav', { class: 'results-pager', 'aria-label': '成绩分页' });
@@ -962,8 +1001,30 @@
           root.insertBefore(breadcrumbs(h, items), root.querySelector('.results-heading'));
           compareLink.href = '/results/compare/?mode=event&left=' + encodeURIComponent(selected.id);
           compareLink.hidden = false;
+          scheduleLink.hidden = !selected.schedule_path;
+          if (selected.schedule_path) scheduleLink.href = selected.schedule_path;
+          const match = selected.id.match(/-(\d+)$/);
+          const previous =
+            match && ['worldtour', 'worldcup'].includes(selected.kind) && Number(match[1]) > 1
+              ? index.events.filter(
+                  (e) =>
+                    e.season === selected.season &&
+                    e.kind === selected.kind &&
+                    e.id.endsWith('-' + (Number(match[1]) - 1))
+                )
+              : [];
+          const previousEvent = previous.length === 1 ? previous[0] : null;
+          previousLink.hidden = !previousEvent;
+          if (previousEvent)
+            previousLink.href =
+              '/results/compare/?mode=event&left=' +
+              encodeURIComponent(previousEvent.id) +
+              '&right=' +
+              encodeURIComponent(selected.id);
         } else {
           compareLink.hidden = true;
+          scheduleLink.hidden = true;
+          previousLink.hidden = true;
         }
         const filter = resultFilter({
           athlete: search.value,
@@ -1009,6 +1070,7 @@
           events = pageEvents.map((e) => ({
             ...e,
             ...byId.get(e.id),
+            sourceRows: byId.get(e.id)?.results || [],
             results: (byId.get(e.id)?.results || []).filter(rowMatch)
           }));
         } catch (_) {
@@ -1068,11 +1130,7 @@
         for (const body of [...table.tBodies]) body.remove();
         table.hidden = !events.length;
         for (const e of events) {
-          const page = Math.min(...e.results.map((r) => r.source_page).filter(Boolean));
-          const source = external(
-            e.source.url + (Number.isFinite(page) ? '#page=' + page : ''),
-            e.source.kind === 'isu_api' ? '官方成绩' : '成绩册'
-          );
+          const source = sources(h, external, e, e.sourceRows);
           const body = h(
             'tbody',
             { 'data-event': e.id },
@@ -1285,11 +1343,6 @@
         const rows = details.flatMap((e) =>
           e.results.filter((r) => matchesProject(r, key)).map((r) => ({ e, r }))
         );
-        const source = ({ e, r }) =>
-          ctx.external(
-            (r.source_url || e.source.url) + (r.source_page ? '#page=' + r.source_page : ''),
-            '来源'
-          );
         records.replaceChildren(
           rows.length
             ? h(
@@ -1314,12 +1367,26 @@
                             ? ' · ' + r.final_group + ' 决赛'
                             : '')
                       })
-                    ),
-                    source({ e, r })
+                    )
                   )
                 )
               )
-            : h('p', { class: 'faint', text: events.length ? '本页无该项目记录' : '未收录' })
+            : h('p', { class: 'faint', text: events.length ? '本页无该项目记录' : '未收录' }),
+          ...details
+            .filter((e) => rows.some((row) => row.e.id === e.id))
+            .map((e) =>
+              h(
+                'div',
+                { class: 'raw-source-group' },
+                h('span', { text: e.title + ' · ' }),
+                sources(
+                  h,
+                  ctx.external,
+                  e,
+                  rows.filter((row) => row.e.id === e.id).map((row) => row.r)
+                )
+              )
+            )
         );
       } catch (_) {
         if (valid(request))
@@ -1613,8 +1680,17 @@
       h(
         'section',
         { class: 'results-archive-index' },
-        h('div', { class: 'portal-section-head' }, h('h2', { text: '奥运周期' })),
-        cycleTree(h, index)
+        h('div', { class: 'portal-section-head' }, h('h2', { text: '成绩档案' })),
+        h('a', {
+          class: 'text-link',
+          href: '/results/seasons/' + seasonId(index.current_season) + '/',
+          text: index.current_season + ' 赛季 →'
+        }),
+        h(
+          'p',
+          {},
+          h('a', { class: 'text-link', href: '/results/cycles/', text: '全部周期与赛季 →' })
+        )
       ),
       h(
         'a',

@@ -55,8 +55,11 @@ python tools/build.py
 python -m http.server 8000 --directory dist  # 打开 http://127.0.0.1:8000（只有静态页面）
 npx wrangler@4.151.2 dev --local            # 含 /api：运动员、分组、成绩与预测
 python -m unittest discover -s tests
-npm ci --ignore-scripts && node --test tests/*.mjs
-ruff format tools tests && ruff check tools tests   # Python 格式与检查（pyproject.toml）
+npm ci --ignore-scripts
+node --test tests/*.mjs
+npm run format:check                       # 前端格式
+python -m pip install ruff==0.16.9          # CI 使用的版本
+ruff format --check tools tests && ruff check tools tests
 ```
 
 同步脚本需要能访问 ISU 官网，一般只在 Actions 里运行；单站检查可用 `python tools/sync_schedule.py --station montreal`。
@@ -64,11 +67,14 @@ ruff format tools tests && ruff check tools tests   # Python 格式与检查（p
 ## 文档
 
 - [docs/backend.md](docs/backend.md)：数据同步、接口、预测、新动态、安全边界
-- [docs/architecture.md](docs/architecture.md)：页面架构、赛季／周期回顾、对比形式与实施顺序
+- [docs/architecture.md](docs/architecture.md)：当前页面职责、模块与加载方式
 - [docs/history.md](docs/history.md)：中国队历史成绩收录、导入与覆盖范围
 - [docs/frontend.md](docs/frontend.md)：页面结构、视觉规则、文案约定
 - [docs/deploy.md](docs/deploy.md)：Cloudflare 部署与比赛时段定时同步
 - [docs/isu-seeding-2026-27.md](docs/isu-seeding-2026-27.md)：直通、种子与分组规则（含官方条款出处）
-- [docs/log.md](docs/log.md)：工作日志与核查记录
+- [docs/results-contract.md](docs/results-contract.md)：成绩模块、统计与数据契约
+- [docs/frontend-roadmap.md](docs/frontend-roadmap.md)：待实施的前端维护事项
+- [docs/log.md](docs/log.md)：历史工作日志与来源核查
+- [docs/reviews/README.md](docs/reviews/README.md)：历史审查与验证记录索引
 
 最近一次代码、界面与文档检查：[赛事对比与加载审查](docs/reviews/event-comparison.md)。

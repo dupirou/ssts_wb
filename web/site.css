@@ -5531,3 +5531,37 @@ td.time {
     max-width: 122px;
   }
 }
+
+/* Event navigation and evidence stay compact on small screens. */
+.results-heading {
+  flex-wrap: wrap;
+}
+.result-sources {
+  font-size: 0.74rem;
+  font-weight: 400;
+}
+.result-sources summary {
+  color: var(--accent-text);
+  cursor: pointer;
+}
+.result-sources p {
+  margin: 6px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+.result-sources p a {
+  margin: 0;
+}
+.result-event .result-sources {
+  margin-left: auto;
+}
+.raw-source-group {
+  margin: 8px 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+.raw-source-group .result-sources {
+  display: inline-block;
+  vertical-align: top;
+}

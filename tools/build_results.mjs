@@ -26,6 +26,20 @@ for (const event of catalog.events) {
   seasons.get(event.season).push({id:event.id,summary:model.summarize(event)});
 }
 for (const [season,items] of seasons) await write('seasons/' + season.replace('/','-') + '.json',{schema_version:2,season,items});
+// Join current calendar events only when season, type and both dates identify one result.
+const calendarPath = resolve(out, 'data/calendar.json');
+const calendar = JSON.parse(await readFile(calendarPath, 'utf8'));
+for (const [stations, kind] of [[calendar.stations || [], 'worldtour'], [calendar.championships || [], 'worlds']]) {
+  for (const station of stations) {
+    const matches = events.filter(event => event.season === calendar.season && event.kind === kind &&
+      event.date_start === station.date_start && event.date_end === station.date_end);
+    const matchingStations = stations.filter(item => item.date_start === station.date_start && item.date_end === station.date_end);
+    if (matches.length !== 1 || matchingStations.length !== 1) continue;
+    station.results_event_id = matches[0].id;
+    matches[0].schedule_path = '/events/' + calendar.season.replace('/', '-') + '/' + station.id + '/';
+  }
+}
+await writeFile(calendarPath, JSON.stringify(calendar, null, 2) + '\n');
 const inventory = catalog.inventory.map(({season,kind,official_event_ids}) => ({season,kind,official_event_ids}));
 await write('search.json',{schema_version:2,search_version:1,events:searchEvents});
 await write('index.json',{...catalog,schema_version:2,search_version:1,search_file:'results/search.json',current_season:process.argv[3],events,inventory});
