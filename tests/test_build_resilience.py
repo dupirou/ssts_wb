@@ -99,8 +99,9 @@ class BuildIsolationTests(unittest.TestCase):
                     raise OSError(errno.EXDEV, 'Invalid cross-device link')
                 return original_replace(src, dst)
 
-            with patch.object(updates, 'LOG', log), patch.object(
-                build.os, 'replace', side_effect=prohibit_cross_volume_log_replace
+            with (
+                patch.object(updates, 'LOG', log),
+                patch.object(build.os, 'replace', side_effect=prohibit_cross_volume_log_replace),
             ):
                 build.export(out=out)
             self.assertEqual(json.loads(log.read_text(encoding='utf-8'))['schema_version'], 1)
