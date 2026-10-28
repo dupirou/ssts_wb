@@ -147,6 +147,12 @@ def parse_pdf(body, config, source_url):
     return parse_pages(pages, config, source_url, hashlib.sha256(body).hexdigest())
 
 
+def same_round(heat, label):
+    if label in ('Final', 'Final B'):
+        return heat.get('round') == 'final' and heat.get('group') == ('B' if label == 'Final B' else 'A')
+    return clean((heat.get('round_label') or heat.get('round') or '').replace('-', ' ')) == clean(label)
+
+
 def attach_codes(snapshot, report):
     """Return a verified copy with referee codes linked to official result rows."""
     import copy
@@ -161,8 +167,7 @@ def attach_codes(snapshot, report):
             if (heat['gender'] != row['gender'] or heat['distance_m'] != row['distance_m']
                     or heat['format'] != row['format']):
                 continue
-            label = (heat.get('round_label') or heat.get('round') or '').replace('-', ' ')
-            if clean(label) != clean(row['round_label']):
+            if not same_round(heat, row['round_label']):
                 continue
             for person in heat['participants']:
                 penalty = person.get('penalty')
