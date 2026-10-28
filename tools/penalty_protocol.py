@@ -6,7 +6,9 @@ Do not infer a season sanction from a generic PEN in the live results API.
 
 import hashlib
 import io
+import json
 import re
+from pathlib import Path
 
 from pypdf import PdfReader
 
@@ -184,3 +186,60 @@ def attach_codes(snapshot, report):
             raise ValueError('Conflicting referee decision for existing heat')
         candidates[0]['penalty']['infringement_code'] = row['infringement_code']
     return updated
+
+
+def export(out, config, source=None):
+    """Build a compact, source-linked season index from accepted protocol snapshots."""
+    source = source or Path(__file__).resolve().parents[1] / 'data/penalties'
+    folder = Path(out) / 'data/penalties'
+    folder.mkdir(parents=True, exist_ok=True)
+    latest = None
+    station_id = None
+    for ordinal, station in enumerate(config['stations'], 1):
+        path = source / (station['id'] + '.json')
+        if not path.exists():
+            break
+        value = json.loads(path.read_text(encoding='utf-8'))
+        if (value.get('schema_version') != 1 or value.get('completed_events') != ordinal
+                or not isinstance(value.get('official'), list)
+                or not isinstance(value.get('infringements'), list)):
+            raise ValueError('Invalid accepted penalty report: ' + station['id'])
+        (folder / (station['id'] + '.json')).write_text(
+            json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8'
+        )
+        latest = value
+        station_id = station['id']
+    entries = []
+    if latest:
+        for row in latest['official']:
+            previous = sum(row['station_counts'][:latest['completed_events'] - 1])
+            total = row['total']
+            threshold = max((limit for limit in (3, 5, 7) if previous < limit <= total), default=0)
+            blocked = {3: 1, 5: 2, 7: 3}.get(threshold, 0)
+            next_station = (config['stations'][latest['completed_events']]['id']
+                            if blocked and latest['completed_events'] < len(config['stations']) else None)
+            details = [
+                dict(event_id=station_id, race_number=p['race_number'], distance_m=p['distance_m'],
+                     round_label=p['round_label'], infringement_code=p['infringement_code'],
+                     counted=p['format'] == 'individual' and p['infringement_code'] not in latest['excluded_codes'])
+                for p in latest['infringements']
+                if p['country'] == row['country'] and p['gender'] == row['gender']
+                and p['helmet_number'] == row['helmet_number']
+            ]
+            entries.append(dict(
+                athlete_id=row['athlete_id'], name=row['name'], gender=row['gender'], country=row['country'],
+                total=total, station_counts=row['station_counts'][:latest['completed_events']],
+                next_restriction=dict(event_id=next_station, blocked_individual_distances=blocked if next_station else 0),
+                details=details,
+            ))
+    summary = dict(
+        schema_version=1, season=config['season'], through_event_id=station_id,
+        completed_events=latest['completed_events'] if latest else 0,
+        source_url=latest['source_url'] if latest else None,
+        excluded_codes=latest['excluded_codes'] if latest else [],
+        items=sorted(entries, key=lambda row: (-row['total'], row['country'], row['name'])),
+    )
+    (folder / 'index.json').write_text(
+        json.dumps(summary, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8'
+    )
+    return summary
