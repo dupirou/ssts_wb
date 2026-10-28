@@ -62,6 +62,8 @@
         event.replaceChildren(h('option', {value: 'all', text: '全部赛事'}), ...options.map(e => h('option', {value: e.id, text: e.season + ' · ' + e.title})));
         if (options.some(e => e.id === value)) event.value = value;
       };
+      const compareLink = h('a', {class: 'text-link review-to-compare', text: '加入对比 →', hidden: true});
+      root.querySelector('.results-heading').append(compareLink);
       let generation=0;
       let pageNumber=Math.max(1,Number.parseInt(params.get('page'),10)||1);
       const pager=h('nav',{class:'results-pager','aria-label':'成绩分页'});
@@ -73,6 +75,10 @@
           const parent=index.cycles.find(c=>c.seasons.includes(selected.season));
           const items=[['成绩','/results/'],...(parent?[[parent.label,'/results/cycles/'+parent.id+'/']]:[]),[selected.season,'/results/seasons/'+seasonId(selected.season)+'/'],[selected.title,null]];
           root.insertBefore(breadcrumbs(h,items),root.querySelector('.results-heading'));
+          compareLink.href = '/results/compare/?mode=event&left=' + encodeURIComponent(selected.id);
+          compareLink.hidden = false;
+        } else {
+          compareLink.hidden = true;
         }
         const filter = resultFilter({athlete:search.value,gender:gender.value,distance:distance.value});
         const rowMatch = row => matchesResultSearch(resultSearchRow(row,people),filter);
@@ -169,6 +175,7 @@
   const eventLink = (e, query = '') => '/results/events/' + encodeURIComponent(e.id) + '/' + query;
   const reviewSelect = site.ui.select;
   function coverage(h, events, scope) {
+    if (scope?.singleEvent) return null;
     const ratio=scope?.known?events.length+' / '+scope.expected+' 场':events.length+' 场';
     const state=scope?.state;
     const text=state==='not_offered'?'未设赛事':!events.length?'未收录':ratio;
@@ -289,7 +296,7 @@
       const store = ctx.resultsStore ||= site.resultsStore.create(fetchData);
       const index = await store.getIndex();
       if (active === 'index') resultsIndex(ctx,index,panel);
-      else if (active === 'compare') await comparison(ctx,index,panel);
+      else if (active === 'compare') await site.resultsCompare.render(ctx,index,panel,summaryTable);
       else if (route.id) await review(ctx,index,panel,active,route.id);
       else reviewIndex(ctx,index,panel,active);
     } catch (_) {
@@ -302,7 +309,7 @@
       h('section',{class:'results-latest'},h('div',{class:'portal-section-head'},h('h2',{text:'最近赛果'}),h('a',{class:'text-link',href:'/results/events/',text:'全部赛事 →'})),
         h('ul',{class:'results-index-list results-recent-list'},index.events.slice(0,3).map(e=>h('li',{},h('a',{href:eventLink(e)},h('time',{datetime:e.date_end},h('b',{class:'num',text:e.date_end.slice(5).replace('-','.')}),h('small',{text:e.date_end.slice(0,4)})),h('span',{class:'recent-event-title'},h('b',{text:e.title}),h('small',{class:'faint',text:e.season})),h('span',{'aria-hidden':'true',text:'↗'})))))),
       h('section',{class:'results-archive-index'},h('div',{class:'portal-section-head'},h('h2',{text:'奥运周期'})),cycleTree(h,index)),
-      h('a',{class:'results-compare-entry',href:'/results/compare/'},h('b',{text:'成绩对比'}),h('span',{class:'faint',text:'赛季 / 奥运周期'}),h('span',{'aria-hidden':'true',text:'→'})));
+      h('a',{class:'results-compare-entry',href:'/results/compare/'},h('b',{text:'成绩对比'}),h('span',{class:'faint',text:'赛事 / 赛季 / 奥运周期'}),h('span',{'aria-hidden':'true',text:'→'})));
   }
   function cycleTree(h,index) {
     const current=index.current_season;
@@ -376,54 +383,6 @@
     panel.replaceChildren(breadcrumbs(h,[['成绩','/results/'],['成绩档案','/results/cycles/'],...(parentCycle?[[parentCycle.label,'/results/cycles/'+parentCycle.id+'/']]:[]),[title,null]]),h('div',{class:'results-heading'},h('h1',{text:title}),h('span',{class:'country-label',text:'CHN'}),
       compareLink),
       h('div',{class:'review-tools'},h('label',{},h('span',{text:'赛事范围'}),kind)),body);await draw();
-  }
-  async function comparison(ctx,index,panel) {
-    const {h} = ctx, params=new URLSearchParams(location.search);
-    const people=Object.fromEntries(index.athletes.map(p=>[p.id,p]));
-    const seasons=[...new Set(index.cycles.flatMap(c=>c.seasons))].filter(s=>s<=index.current_season).sort().reverse();
-    const mode=reviewSelect(h,'mode','对比类型',[['season','赛季'],['cycle','奥运周期']],params.get('mode'));
-    const options=()=>mode.value==='season'?seasons.map(s=>[s,s]):[...index.cycles].reverse().map(c=>[c.id,c.label]);
-    const values=options();
-    const left=reviewSelect(h,'left','对比对象一',values,params.get('left') || (mode.value==='season'?'2024/25':'beijing-2022'));
-    const right=reviewSelect(h,'right','对比对象二',values,params.get('right') || (mode.value==='season'?(left.value==='2025/26'?'2024/25':'2025/26'):(left.value==='milano-2026'?'beijing-2022':'milano-2026')));
-    const third=reviewSelect(h,'third','对比对象三',[['','不添加'],...values],params.get('third'));
-    const kind=reviewSelect(h,'kind','赛事范围',[['worlds','世锦赛'],['olympics','冬奥会'],['circuit','世界杯 / 世巡赛'],['fourcontinents','四大洲']],normalizeKind(params.get('kind')));
-    const metric=reviewSelect(h,'metric','对比指标',[['best','最佳名次'],['medals','奖牌'],['finals','A 组决赛人／队次'],['rate','A 决赛率'],['top8','前 8 名人／队次']],params.get('metric'));
-    const field=(text,control)=>h('label',{class:'field-'+control.name},h('span',{text}),control);
-    const thirdField=field('对象三',third);
-    const more=h('details',{class:'compare-more'},h('summary',{'aria-label':'第三个对比对象'},h('span',{class:'compare-more-icon',text:'＋'}),h('span',{class:'compare-more-label',text:'第三项'})),h('div',{class:'compare-more-panel'},thirdField));
-    const form=h('form',{class:'review-tools compare-tools',role:'search','aria-label':'成绩对比条件'},field('对比',mode),field('赛事',kind),field('指标',metric),more);
-    const body=h('div',{class:'comparison-body'});
-    let generation=0;
-    const draw=async()=>{
-      const request=++generation;
-      more.querySelector('.compare-more-icon').textContent=third.value?'−':'＋';
-      more.querySelector('summary').setAttribute('aria-label',third.value?'移除第三个对比对象':'添加第三个对比对象');
-      if(!third.value) thirdField.append(third);
-      const ids=[left.value,right.value,...(third.value?[third.value]:[])];
-      const sets=ids.map(id=>scopeEvents(index,mode.value,id,kind.value));
-      try {await ctx.resultsStore.ensureStats(sets.flat());} catch (_) {if(request===generation)body.replaceChildren(h('p',{role:'alert',text:'统计暂时无法加载'}),h('button',{type:'button',text:'重试',onclick:draw}));return;}
-      if(request!==generation)return;
-      const names=ids.map(id=>options().find(([value])=>value===id)?.[1] || id);
-      const table=summaryTable(ctx,sets,names,people,metric.value,mode.value==='cycle'?ids.map(id=>index.cycles.find(c=>c.id===id)?.seasons):null,[left,right,...(third.value?[third]:[])],ids.map((id,i)=>scopeCoverage(index,mode.value,id,kind.value,sets[i])),()=>request===generation);
-      if(new Set(ids).size!==ids.length){table.querySelector('tbody').replaceChildren();body.replaceChildren(h('p',{class:'review-notice',role:'status',text:'请选择不同的对比对象'}),table);return;}
-      body.replaceChildren(table);
-    };
-    const update=()=>{
-      site.ui.writeFilters([mode,left,right,third,kind,metric]);draw();
-    };
-    more.querySelector('summary').addEventListener('click',e=>{if(third.value){e.preventDefault();third.value='';more.open=false;update();}});
-    form.addEventListener('submit',e=>e.preventDefault());
-    panel.addEventListener('change',e=>{
-      if(e.target===third) more.open=false;
-      if(e.target===mode){
-        const items=options();
-        [left,right,third].forEach((select,i)=>{select.replaceChildren(...(i===2?[h('option',{value:'',text:'不添加'})]:[]),...items.map(([value,text])=>h('option',{value,text})));});
-        left.value=mode.value==='season'?'2024/25':'beijing-2022';right.value=mode.value==='season'?'2025/26':'milano-2026';third.value='';
-      }
-      update();
-    });
-    panel.replaceChildren(h('div',{class:'results-heading'},h('h1',{text:'成绩对比'}),h('span',{class:'country-label',text:'CHN'})),form,body);await draw();
   }
   site.results = {render:results};
 })();

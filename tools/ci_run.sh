@@ -9,8 +9,9 @@ run_tests() {
   node --test tests/*.mjs
   ruff format --check tools tests
   ruff check tools tests
-  node --check web/app.js
-  node --check dist/site.js
+  for file in web/*.js tools/*.mjs dist/site.js dist/results-page.js; do
+    node --check "$file"
+  done
   node --check src/worker.mjs
 }
 

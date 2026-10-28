@@ -1,5 +1,7 @@
 # PR #36 整改验收报告
 
+> 历史审核记录：保留当时的测量与问题。当前行为及文案以 docs/architecture.md、frontend.md、results-contract.md 为准。
+
 2026-10-28 最终筛选与异步竞态修复验收见 [pr36-final.md](../pr36-final.md)，下文为上一轮架构整改记录。
 
 基线：79d920104b6c0dbd1b2554c2517809e2a850dbe6，依赖 #35 的 40f886f。

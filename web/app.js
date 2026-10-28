@@ -1332,8 +1332,12 @@
     document.body.dataset.page = route.page;
     const updates = ['events', 'event'].includes(route.page)
       ? fetchData('updates.json').catch(() => null) : Promise.resolve(null);
-    const calendar = await fetchData('calendar.json');
-    calendarSeason = calendar.season;
+    const resultsPage = route.page === 'results';
+    // Start the independent catalogue request while the route's script downloads.
+    const resultIndex = resultsPage ? fetchData('results/index.json') : null;
+    resultIndex?.catch(() => {});
+    const calendar = resultsPage ? null : await fetchData('calendar.json');
+    calendarSeason = calendar?.season;
     const requested = route.page === 'event' ? route.event : null;
     const detailFor = st => st.detail_status === 'verified'
       ? fetchData(st.id + '.json').then(prepare).catch(() => null) : Promise.resolve(null);
@@ -1356,7 +1360,24 @@
       renderSeason(calendar, details);
     } else if (route.page === 'results') {
       document.title = '成绩｜短道速滑';
-      await window.SSTS.results.render(context, calendar, route);
+      if (!window.SSTS.results) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = '/results-page.js';
+          script.onload = resolve;
+          script.onerror = () => { script.remove(); reject(new Error('成绩模块加载失败')); };
+          document.head.append(script);
+        });
+      }
+      // Consume the prefetch once; retries must issue a new request after a failure.
+      let prefetched = resultIndex;
+      context.resultsStore = window.SSTS.resultsStore.create(file => {
+        if (file === 'results/index.json' && prefetched) {
+          const first = prefetched; prefetched = null; return first;
+        }
+        return fetchData(file);
+      });
+      await window.SSTS.results.render(context, null, route);
     } else if (route.page === 'athletes') {
       document.title = '运动员｜短道速滑';
       await window.SSTS.portal.athletes(context, calendar);

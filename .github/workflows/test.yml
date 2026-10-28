@@ -32,7 +32,7 @@ jobs:
       # Every Node test file, so a new one can never be left out of PR checks.
       - run: node --test tests/*.mjs
       - name: Check every frontend and build module
-        run: for file in web/*.js tools/*.mjs dist/site.js; do node --check "$file"; done
+        run: for file in web/*.js tools/*.mjs dist/site.js dist/results-page.js; do node --check "$file"; done
       - name: Use preinstalled Chrome
         run: |
           printf 'PLAYWRIGHT_CHROMIUM_EXECUTABLE=%s\n' "$(command -v google-chrome)" >> "$GITHUB_ENV"
@@ -49,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: results-ui-verification
-          path: docs/reviews/pr36/
+          path: artifacts/ui/

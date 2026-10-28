@@ -1,5 +1,7 @@
 # PR #36 最终修复与回归验收
 
+> 历史审核记录：保留当时的测量与问题。当前行为及文案以 docs/architecture.md、frontend.md、results-contract.md 为准。
+
 日期：2026-10-28。验收基线：`2ae6ce8877eb2cc8aaaa2202d3db1c11ac435ca6`。依赖 #35。
 
 ## 修复结果

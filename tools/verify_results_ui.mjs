@@ -9,7 +9,7 @@ const model=globalThis.SSTS.resultsModel;
 const resultIndex=JSON.parse(await readFile(resolve('dist/data/results/index.json'),'utf8'));
 const searchIndex=JSON.parse(await readFile(resolve('dist/data/results/search.json'),'utf8'));
 for(const event of resultIndex.events)event.search_rows=searchIndex.events.find(e=>e.id===event.id).search_rows;
-const out=resolve(process.env.QA_OUT || 'docs/reviews/pr36');
+const out=resolve(process.env.QA_OUT || 'artifacts/ui');
 await mkdir(join(out,'screenshots'),{recursive:true});
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.webmanifest':'application/manifest+json'};
 async function serve(directory){
@@ -44,6 +44,7 @@ async function measure(origin,path,width,label,screenshot){
     const metrics=await page.evaluate(()=>({
       ready_ms:performance.now(),nodes:document.querySelectorAll('#app *').length,
       rows:document.querySelectorAll('.result-row').length,
+      script_bytes:performance.getEntriesByType('resource').filter(e=>new URL(e.name).pathname.endsWith('.js')).reduce((n,e)=>n+e.decodedBodySize,0),
       data_bytes:performance.getEntriesByType('resource').filter(e=>new URL(e.name).pathname.startsWith('/data/')).reduce((n,e)=>n+e.decodedBodySize,0),
       data_requests:performance.getEntriesByType('resource').filter(e=>new URL(e.name).pathname.startsWith('/data/')).map(e=>new URL(e.name).pathname),
       scroll_width:document.documentElement.scrollWidth,viewport:innerWidth,
@@ -55,7 +56,7 @@ async function measure(origin,path,width,label,screenshot){
     await context.close();
   }
   const median=key=>values.map(v=>v[key]).sort((a,b)=>a-b)[1];
-  report.metrics.push({label,path,width,ready_ms:Math.round(median('ready_ms')),nodes:median('nodes'),rows:median('rows'),data_bytes:median('data_bytes'),requests:values[0].data_requests});
+  report.metrics.push({label,path,width,ready_ms:Math.round(median('ready_ms')),nodes:median('nodes'),rows:median('rows'),data_bytes:median('data_bytes'),script_bytes:median('script_bytes'),requests:values[0].data_requests});
 }
 try{
   for(const [path,name] of [['/results/','overview'],['/results/events/','events'],['/results/compare/','compare'],['/results/cycles/milano-2026/?kind=circuit','cycle']]){
@@ -152,6 +153,37 @@ try{
   assert.deepEqual(await raw.locator('.review-records a:not([target])').evaluateAll(es=>es.map(e=>e.getAttribute('href'))),originalLinks);
   assert.equal(await raw.getByRole('alert').count(),0);
   await racing.context.close();report.checks.push({name:'delayed raw group cannot overwrite cache-restored selection',passed:true});
+  // Exact-event comparison: narrow headers, cross-season restoration and a third object.
+  const eventIds=['2025-26-worldtour-montreal-1','2025-26-worldtour-montreal-2','2024-25-worldtour-montreal-1'];
+  for(const width of report.sizes){
+    const path='/results/compare/?mode=event&left='+eventIds[0]+'&right='+eventIds[1];
+    const {context,page}=await pageAt(current.origin,path,width);
+    assert.equal(await page.locator('[name=left]').inputValue(),eventIds[0]);
+    assert.equal(await page.locator('[name=right]').inputValue(),eventIds[1]);
+    assert.equal(await page.locator('.field-kind').isVisible(),false);
+    assert.equal(await page.locator('.compare-project').count(),9);
+    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+    if(width===390){
+      const rect=await page.locator('.compare-table').boundingBox();
+      assert.ok(rect.x+rect.width<=390);
+    }
+    await page.screenshot({path:join(out,'screenshots','event-compare-'+width+'.png'),fullPage:true});
+    await page.locator('.project-toggle').first().click();
+    await page.waitForFunction(()=>!document.querySelector('#project-detail-0').textContent.includes('正在读取'));
+    const links=await page.locator('#project-detail-0 .review-records a:not([target])').evaluateAll(nodes=>nodes.map(node=>node.pathname));
+    assert.ok(links.every(link=>eventIds.slice(0,2).some(id=>link.endsWith('/'+id+'/'))));
+    await page.getByLabel('第三个对比对象').click();
+    await page.locator('[name=third_season]').selectOption('2024/25');
+    await page.locator('[name=third]').selectOption(eventIds[2]);
+    await page.waitForSelector('.compare-table[data-columns="3"]');
+    await page.reload();
+    await page.waitForSelector('#app:not([aria-busy])');
+    assert.equal(await page.locator('[name=third]').inputValue(),eventIds[2]);
+    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+    await page.screenshot({path:join(out,'screenshots','event-compare-third-'+width+'.png'),fullPage:true});
+    await context.close();
+    report.checks.push({name:'exact-event comparison, three objects and reload',width,passed:true});
+  }
   // Real worker install, complete shell caching, visited deep links and raw evidence offline.
   const pwa=await pageAt(current.origin,'/results/compare/',390,true);
   await pwa.page.evaluate(()=>navigator.serviceWorker.ready);

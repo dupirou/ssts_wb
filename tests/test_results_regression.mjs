@@ -5,7 +5,7 @@ import {JSDOM} from 'jsdom';
 import '../web/results-model.js';
 const m=globalThis.SSTS.resultsModel;
 const file=name=>readFile(new URL('../'+name,import.meta.url),'utf8');
-const scripts=(await Promise.all(['ui','results-model','results-store','results'].map(name=>file('web/'+name+'.js')))).join('\n');
+const scripts=(await Promise.all(['ui','results-model','results-store','results-compare','results'].map(name=>file('web/'+name+'.js')))).join('\n');
 const data=JSON.parse(await file('dist/data/results.json'));
 const index=JSON.parse(await file('dist/data/results/index.json'));
 const searchIndex=JSON.parse(await file('dist/data/results/search.json'));

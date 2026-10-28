@@ -15,12 +15,12 @@ const events = [];
 const searchEvents = [];
 const athletesById = new Map(catalog.athletes.map(person=>[person.id,person]));
 for (const event of catalog.events) {
-  const {results,...meta} = event;
+  // Summaries contain derived project states; full programme/diagnostics stay in details.
+  const {results,programme,coverage_detail,...meta} = event;
   const detail_file = 'results/events/' + event.id + '.json';
   await write('events/' + event.id + '.json',{schema_version:2,...event});
   const search_rows = model.resultSearchRows(results,athletesById);
-  const programme=meta.programme?.map(({gender,distance_m,format,official_result_id})=>({gender,distance_m,format,official_result_id})) ?? null;
-  events.push({...meta,programme,source:{url:meta.source.url,kind:meta.source.kind},record_count:results.length,detail_file});
+  events.push({...meta,source:{url:meta.source.url,kind:meta.source.kind},record_count:results.length,detail_file});
   searchEvents.push({id:event.id,search_rows});
   if (!seasons.has(event.season)) seasons.set(event.season,[]);
   seasons.get(event.season).push({id:event.id,summary:model.summarize(event)});

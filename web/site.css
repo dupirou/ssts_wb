@@ -1325,6 +1325,7 @@ td.time { white-space: nowrap; }
   .results-page .results-compare-entry .faint { font-size:.7rem; }
   .results-page .review-tools { margin:10px 0 12px; }
   .results-page .compare-tools { display:grid; grid-template-columns:1fr 1.3fr 1fr 34px; gap:6px; align-items:end; }
+  .results-page .compare-tools-events { grid-template-columns:1fr 1.3fr 34px; }
   .compare-tools label { gap:0; }
   .compare-tools > label > span { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
   .compare-tools select { min-height:34px; padding:6px; font-size:.76rem; }
@@ -1350,6 +1351,14 @@ td.time { white-space: nowrap; }
 .recent-event-title > b { font-size:.86rem; font-weight:550; }
 .recent-event-title > small { font-size:.68rem; }
 .compare-object select { width:100%; min-width:0; min-height:36px; border:0; border-bottom:1px solid var(--border); border-radius:0; padding:4px 20px 4px 0; color:var(--text); background:transparent; font:inherit; font-weight:700; }
+.compare-selection { min-width:0; }
+.compare-choice { position:relative; }
+.compare-choice.is-event select { position:absolute; inset:0; height:100%; opacity:0; cursor:pointer; }
+.compare-event-name { display:block; min-height:36px; padding:5px 20px 5px 0; border-bottom:1px solid var(--border); overflow-wrap:anywhere; }
+.compare-event-name::after { content:"⌄"; position:absolute; right:2px; color:var(--muted); }
+.compare-choice:focus-within .compare-event-name { outline:2px solid var(--accent); outline-offset:2px; border-radius:3px; }
+.compare-event-kind { display:block; margin-top:4px; font-size:.7rem; color:var(--muted); font-weight:400; }
+.compare-selection > select:not([hidden]) { color:var(--muted); font-size:.73rem; font-weight:400; }
 .compare-object option { color:var(--text); background:var(--popover); }
 .compare-tools .compare-more { margin-left:auto; }
 @media(max-width:680px) {
@@ -1405,7 +1414,6 @@ td.time { white-space: nowrap; }
 .review-breakdown { margin-bottom:24px; }
 .athlete-contributions { margin-top:20px; }
 .athlete-contributions > summary { cursor:pointer; font-size:.88rem; font-weight:600; padding:12px 0; border-bottom:1px solid var(--border-soft); }
-.stat-definition { margin-top:14px; }
 @media(max-width:680px) {
   .stats-ribbon { margin-bottom:12px; padding-block:9px; }
   .stats-ribbon > div { padding-left:8px; }
@@ -1420,7 +1428,6 @@ td.time { white-space: nowrap; }
 }
 
 /* Results projections: compact local state, fixed labels and bounded raw-record regions. */
-.partial-stat { display:block; margin-top:3px; color:var(--muted); font-size:.66rem; font-weight:400; line-height:1.3; }
 .results-pager, .raw-pager { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:10px 0; }
 .results-pager[hidden] { display:none; }
 .results-pager button, .raw-pager button, .raw-records > button { padding:6px 10px; border:1px solid var(--border); border-radius:5px; background:var(--panel); color:var(--text); font:inherit; font-size:.76rem; cursor:pointer; }
@@ -1445,7 +1452,6 @@ td.time { white-space: nowrap; }
   .raw-records .review-records a { padding:7px 0; font-size:.7rem; }
   .raw-pager { gap:3px; flex-wrap:wrap; }
   .raw-pager button { padding:5px; font-size:.65rem; }
-  .partial-stat { font-size:.6rem; }
   .stats-scroll { max-height:420px; }
   .contribution-table th:first-child { min-width:100px; max-width:122px; }
 }

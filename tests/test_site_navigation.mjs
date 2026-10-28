@@ -8,7 +8,7 @@ const html = await file('web/index.html');
 const resultData = JSON.parse(await file('dist/data/results.json'));
 const currentEvents = resultData.events.filter(e=>e.season==='2026/27');
 const currentCount = currentEvents.reduce((n,e)=>n+e.results.length,0);
-const scripts = (await Promise.all(['ui', 'navigation', 'results-model', 'results-store', 'results', 'portal', 'app'].map(name => file('web/' + name + '.js')))).join('\n');
+const scripts = (await Promise.all(['ui', 'navigation', 'results-model', 'results-store', 'results-compare', 'results', 'portal', 'app'].map(name => file('web/' + name + '.js')))).join('\n');
 async function settled(dom,predicate=()=>!dom.window.document.querySelector('.results-table[aria-busy]')) {
   for(let i=0;i<200;i++){if(predicate())return;await new Promise(r=>setTimeout(r,5));}
   throw new Error('UI did not settle');
@@ -120,7 +120,7 @@ test('results overview links to separate season, cycle and comparison pages with
   assert.doesNotMatch(d.querySelector('.review-nav').textContent, /赛季回顾|周期回顾/);
   assert.ok(d.querySelector('a[href="/results/cycles/milano-2026/"]'));
   assert.ok(d.querySelector('.results-compare-entry'));
-  assert.deepEqual(dom.requests, ['/data/calendar.json', '/data/results/index.json']);
+  assert.deepEqual(dom.requests, ['/data/results/index.json']);
 });
 
 test('event browser retains current and archived scores and legacy result links', async t => {
@@ -303,4 +303,72 @@ test('zero participation stays visible while backend coverage diagnostics stay o
   assert.doesNotMatch(partial.window.document.querySelector('.review-content').textContent,/已收录部分|缺最终分类|最终分类缺失|待核验/);
   assert.ok(resultData.events.some(e=>e.coverage_detail?.missing_classifications>0),
     'coverage diagnostics are still retained in the generated data');
+});
+
+test('event comparison selects exact stations, reuses season summaries, and expands only selected events', async t => {
+  const left = '2025-26-worldtour-montreal-1';
+  const right = '2025-26-worldtour-montreal-2';
+  const dom = await page('/results/compare/?mode=event&left=' + left + '&right=' + right);
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.equal(d.querySelector('[name=left]').value, left);
+  assert.equal(d.querySelector('[name=right]').value, right);
+  assert.equal(d.querySelector('[name=left_season]').value, '2025/26');
+  assert.equal(d.querySelector('.field-kind').hidden, true);
+  assert.equal(d.querySelectorAll('.compare-project').length, 9);
+  assert.equal(dom.requests.filter(path => path.startsWith('/data/results/seasons/')).length, 1);
+  assert.equal(dom.requests.some(path => path.startsWith('/data/results/events/')), false);
+  const events = resultData.events.filter(event => [left, right].includes(event.id));
+  const model = dom.window.SSTS.resultsModel;
+  const expected = [left, right].map(id => model.projectSummary(events.filter(event => event.id === id), ['women', 500]).best.rank);
+  const cells = [...d.querySelector('.compare-project').querySelectorAll('td')];
+  assert.deepEqual(cells.map(cell => Number(cell.querySelector('b').textContent.match(/\d+/)[0])), expected);
+  d.querySelector('.project-toggle').click();
+  await settled(dom, () => !d.querySelector('#project-detail-0').textContent.includes('正在读取'));
+  assert.deepEqual(dom.requests.filter(path => path.startsWith('/data/results/events/')).sort(),
+    [left, right].map(id => '/data/results/events/' + id + '.json').sort());
+});
+
+test('event comparison restores three cross-season objects and supports changing their season', async t => {
+  const ids = ['2026-27-worldtour-vancouver-1', '2025-26-worldtour-montreal-1', '2024-25-worldtour-montreal-1'];
+  const dom = await page('/results/compare/?mode=event&left=' + ids[0] + '&right=' + ids[1] + '&third=' + ids[2]);
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.equal(d.querySelector('.compare-table').dataset.columns, '3');
+  assert.deepEqual(['left', 'right', 'third'].map(name => d.querySelector('[name=' + name + ']').value), ids);
+  const season = d.querySelector('[name=left_season]');
+  season.value = '2023/24';
+  season.dispatchEvent(new dom.window.Event('change', {bubbles: true}));
+  await settled(dom, () => d.querySelector('[name=left]').value.startsWith('2023-24'));
+  const url = new URL(dom.window.location.href);
+  assert.ok(url.searchParams.get('left').startsWith('2023-24'));
+  assert.equal(url.searchParams.has('kind'), false);
+  const restored = await page(url.pathname + url.search);
+  t.after(() => restored.window.close());
+  assert.equal(restored.window.document.querySelector('[name=left]').value, url.searchParams.get('left'));
+});
+
+test('event detail links into comparison and duplicate event choices stay editable', async t => {
+  const id = '2025-26-worldtour-montreal-1';
+  const detail = await page('/results/events/' + id + '/');
+  t.after(() => detail.window.close());
+  assert.equal(detail.window.document.querySelector('.review-to-compare').getAttribute('href'),
+    '/results/compare/?mode=event&left=' + id);
+  const dom = await page('/results/compare/?mode=event&left=' + id + '&right=' + id);
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.match(d.querySelector('.review-notice').textContent, /请选择不同/);
+  assert.equal(d.querySelectorAll('.compare-project').length, 0);
+  const right = d.querySelector('[name=right]');
+  right.value = '2025-26-worldtour-montreal-2';
+  right.dispatchEvent(new dom.window.Event('change', {bubbles: true}));
+  await settled(dom, () => d.querySelectorAll('.compare-project').length === 9);
+  assert.equal(d.querySelector('.review-notice'), null);
+});
+
+test('results pages do not depend on the live calendar', async t => {
+  const dom = await page('/results/', '/data/calendar.json');
+  t.after(() => dom.window.close());
+  assert.ok(dom.window.document.querySelector('.results-recent-list'));
+  assert.deepEqual(dom.requests, ['/data/results/index.json']);
 });
