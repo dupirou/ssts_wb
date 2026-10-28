@@ -118,11 +118,16 @@ def parse_pages(pages, config, source_url, sha256=''):
     for row in infringements:
         if row['format'] == 'relay' or row['infringement_code'] in excluded:
             continue
-        counted[row['athlete_id']] = counted.get(row['athlete_id'], 0) + 1
-    current = {ident: row['station_counts'][after - 1] for ident, row in records.items()
-               if row['station_counts'][after - 1]}
+        if row['helmet_number'] is None:
+            raise ValueError('Individual sanction lacks helmet identifier')
+        key = (row['gender'], row['country'], row['helmet_number'])
+        counted[key] = counted.get(key, 0) + 1
+    current = {(row['gender'], row['country'], row['helmet_number']): row['station_counts'][after - 1]
+               for row in records.values() if row['station_counts'][after - 1]}
     if counted != current:
-        mismatches = {ident: (counted.get(ident, 0), current.get(ident, 0)) for ident in sorted(set(counted) | set(current)) if counted.get(ident, 0) != current.get(ident, 0)}
+        mismatches = {str(key): (counted.get(key, 0), current.get(key, 0))
+                      for key in sorted(set(counted) | set(current))
+                      if counted.get(key, 0) != current.get(key, 0)}
         raise ValueError(f'Eligible infringement rows disagree with official station penalty totals: {mismatches}')
     return dict(schema_version=1, source_url=source_url, source_sha256=sha256,
                 completed_events=after, excluded_codes=excluded,
@@ -160,7 +165,7 @@ def attach_codes(snapshot, report):
                 continue
             for person in heat['participants']:
                 penalty = person.get('penalty')
-                if (person['athlete_id'] == row['athlete_id'] and penalty
+                if (person['country'] == row['country'] and penalty
                         and penalty['code'] == row['status']
                         and (row['helmet_number'] is None
                              or person.get('helmet_number') == row['helmet_number'])):
