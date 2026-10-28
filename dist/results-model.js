@@ -100,15 +100,18 @@
     a_finals: 0,
     top8: 0
   });
+  // A terminal-round DNS can follow a completed earlier race.
+  const startedEvent = (r) =>
+    r.started !== false && (r.status !== 'DNS' || Boolean(r.best_time));
   function rowStatistics(rows) {
     rows = rows.filter((r) => included(r) && r.medal_eligible !== false);
-    const starts = rows.filter((r) => r.status !== 'DNS' && r.started !== false);
+    const starts = rows.filter(startedEvent);
     return {
       events: 0,
       entries: rows.length,
       starts: starts.length,
       medals: [1, 2, 3].map((rank) => rows.filter((r) => medalResult(r) && r.rank === rank).length),
-      a_finals: starts.filter((r) => r.final_group === 'A').length,
+      a_finals: starts.filter((r) => r.final_group === 'A' && r.status !== 'DNS').length,
       top8: rows.filter(
         (r) =>
           r.status === 'classified' &&
@@ -178,7 +181,7 @@
             if (m.rounds?.length) person(m.athlete_id, m.name).relay++;
         } else {
           const p = person(r.athlete_id, r.name);
-          if (r.status !== 'DNS' && r.started !== false) p.starts++;
+          if (startedEvent(r)) p.starts++;
           if (medalResult(r)) p.medals[r.rank - 1]++;
           if (r.final_group === 'A' && r.status !== 'DNS' && r.started !== false) p.finals++;
           if (

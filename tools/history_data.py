@@ -455,7 +455,22 @@ def result_catalog(out, calendar, archive):
                     )
                 )
         for r in snapshot['rankings']['items']:
-            if r['country'] != 'CHN' or r['ranking_type'] != 'event' or r['format'] != 'individual':
+            if r['country'] != 'CHN' or r['ranking_type'] != 'event':
+                continue
+            if r['format'] == 'relay':
+                existing = next((row for row in rows if row['format'] == 'relay'
+                                 and row['gender'] == r['gender'] and row['distance_m'] == r['distance_m']), None)
+                if existing is None:
+                    existing = dict(gender=r['gender'], distance_m=r['distance_m'], format='relay',
+                                    name='China', country='CHN', final_group=None, members=[])
+                    rows.append(existing)
+                existing.update(rank=r['rank'], rank_scope='overall',
+                                status=terminal_status(r.get('official_details', '').split()),
+                                source_url=r['source_url'])
+                if r.get('source_page'):
+                    existing['source_page'] = r['source_page']
+                continue
+            if r['format'] != 'individual':
                 continue
             rows.append(
                 dict(

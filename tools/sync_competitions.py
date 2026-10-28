@@ -167,6 +167,22 @@ def parse_reports(body, config, source_url):
             ),
             None,
         )
+        if heading and heading['format'] == 'relay' and title[1] in ('EVENT CLASSIFICATION', 'FINAL CLASSIFICATION'):
+            header = next((line for line in lines if 'Rank' in line and 'Team' in line), None)
+            if header:
+                recognized = True
+                team_col = header.index('Team')
+                rank_col = header.index('Rank')
+                for line in lines:
+                    team = re.match(r'([A-Z]{3})\s+-\s+(.+)', line[team_col:])
+                    rank = line[rank_col:team_col].strip()
+                    if not team or not rank.isdigit():
+                        continue
+                    country, details = team.groups()
+                    rankings.append(dict(ranking_type='event', **heading, name=country, country=country,
+                                         rank=int(rank), points=None, official_details=details.strip(),
+                                         source_url=source_url, source_page=pages.index(text) + 1))
+                continue
         header = next((line for line in lines if 'Name' in line and 'ISU' in line), None)
         if not heading or not header:
             continue

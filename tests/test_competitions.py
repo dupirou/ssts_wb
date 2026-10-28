@@ -31,6 +31,19 @@ CAN PAGE Kiera F Substitute
 
 
 class CompetitionTests(unittest.TestCase):
+    def test_relay_event_classification_is_distinct_from_world_tour(self):
+        page = """Vancouver 2026
+                  EVENT CLASSIFICATION
+                  Mixed Team Relay
+Group              Rank  Team                       Round Results
+Quarterfinals        11  CHN - People's Republic of China      3  2:51.826
+"""
+        with patch.object(sync, 'pdf_pages', return_value=[page]):
+            _, rankings = sync.parse_reports(b'%PDF', CONFIG, SOURCE)
+        self.assertEqual(len(rankings), 1)
+        row = rankings[0]
+        self.assertEqual((row['ranking_type'], row['country'], row['rank'], row['source_page']),
+                         ('event', 'CHN', 11, 1))
     def test_roster_country_and_substitute_are_distinct(self):
         with patch.object(sync, 'pdf_pages', return_value=[ROSTER]):
             people = sync.parse_entries(b'%PDF', CONFIG)
