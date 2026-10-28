@@ -1,0 +1,191 @@
+test_unknown_duration_omits_estimate_without_losing_official_heat (test_backend.BuildResilienceTests.test_unknown_duration_omits_estimate_without_losing_official_heat) ... ::warning::vancouver: no heat duration model for I/500; estimates omitted
+ok
+test_checker_matches_official_round_shape (test_backend.DataTests.test_checker_matches_official_round_shape) ... ok
+test_china_rows_keep_evidence_when_official_data_arrives (test_backend.DataTests.test_china_rows_keep_evidence_when_official_data_arrives) ... ok
+test_dst_repeated_local_hour_is_rejected (test_backend.DataTests.test_dst_repeated_local_hour_is_rejected) ... ok
+test_meta_refresh_is_day_scoped (test_backend.DataTests.test_meta_refresh_is_day_scoped) ... ok
+test_schedule_and_timezones (test_backend.DataTests.test_schedule_and_timezones) ... ok
+test_verified_heat_provenance_and_prediction (test_backend.DataTests.test_verified_heat_provenance_and_prediction) ... ok
+test_bad_ticket_config_retains_verified_links_and_other_stations_build (test_build_resilience.BuildIsolationTests.test_bad_ticket_config_retains_verified_links_and_other_stations_build) ... ::error::Ticket source rejected; previously published links retained: Invalid ticket source: booking_url
+ok
+test_failing_compiler_leaves_published_tree_unchanged (test_build_resilience.BuildIsolationTests.test_failing_compiler_leaves_published_tree_unchanged) ... ok
+test_invalid_schedule_or_china_record_retains_only_that_station (test_build_resilience.BuildIsolationTests.test_invalid_schedule_or_china_record_retains_only_that_station) ... ::error::vancouver: build input rejected (retained): Invalid official CSV row
+::error::vancouver: build input rejected (retained): China record references unknown round_key
+ok
+test_two_identical_builds_and_removed_schedule_cleanup (test_build_resilience.BuildIsolationTests.test_two_identical_builds_and_removed_schedule_cleanup) ... ok
+test_update_log_is_atomically_promoted_on_its_own_volume (test_build_resilience.BuildIsolationTests.test_update_log_is_atomically_promoted_on_its_own_volume) ... ok
+test_worlds_is_separate_from_seven_world_tour_stages (test_championship.ChampionshipCalendarTests.test_worlds_is_separate_from_seven_world_tour_stages) ... ok
+test_both_isu_date_forms_resolve_to_the_same_local_start (test_check_live.LiveScheduleCheckTests.test_both_isu_date_forms_resolve_to_the_same_local_start) ... ok
+test_moved_missing_and_unpublished_rounds_are_reported (test_check_live.LiveScheduleCheckTests.test_moved_missing_and_unpublished_rounds_are_reported) ... ok
+test_discovery_requires_year_and_host (test_china_sync.ChinaSyncTests.test_discovery_requires_year_and_host) ... ok
+test_final_round_requires_group_evidence (test_china_sync.ChinaSyncTests.test_final_round_requires_group_evidence) ... ok
+test_full_discovery_flow_and_persistent_cache (test_china_sync.ChinaSyncTests.test_full_discovery_flow_and_persistent_cache) ... ok
+test_named_chinese_competitor_and_hkg_exclusion (test_china_sync.ChinaSyncTests.test_named_chinese_competitor_and_hkg_exclusion) ... ok
+test_round_link_mapping_requires_exact_match (test_china_sync.ChinaSyncTests.test_round_link_mapping_requires_exact_match) ... ok
+test_sources_not_yet_published (test_china_sync.ChinaSyncTests.test_sources_not_yet_published) ... ok
+test_station_identity_ignores_accents_but_not_city_or_year (test_china_sync.ChinaSyncTests.test_station_identity_ignores_accents_but_not_city_or_year) ... ok
+test_current_site_transport_decoding_does_not_execute_scripts (test_competitions.CompetitionTests.test_current_site_transport_decoding_does_not_execute_scripts) ... ok
+test_display_names_put_the_surname_last_everywhere (test_competitions.CompetitionTests.test_display_names_put_the_surname_last_everywhere) ... ok
+test_exact_round_mapping_and_provisional_start_list (test_competitions.CompetitionTests.test_exact_round_mapping_and_provisional_start_list) ... ok
+test_new_heat_feed_supplies_existing_highlights_and_corrections (test_competitions.CompetitionTests.test_new_heat_feed_supplies_existing_highlights_and_corrections) ... ok
+test_official_document_discovery (test_competitions.CompetitionTests.test_official_document_discovery) ... ok
+test_ranking_pdf_distance_first_and_tied_ranks (test_competitions.CompetitionTests.test_ranking_pdf_distance_first_and_tied_ranks) ... ok
+test_real_official_single_and_relay_response_shapes (test_competitions.CompetitionTests.test_real_official_single_and_relay_response_shapes) ... ok
+test_relay_teams_carry_their_skaters_once_isu_names_them (test_competitions.CompetitionTests.test_relay_teams_carry_their_skaters_once_isu_names_them) ... ok
+test_roster_country_and_substitute_are_distinct (test_competitions.CompetitionTests.test_roster_country_and_substitute_are_distinct) ... ok
+test_snapshot_no_churn_and_source_failure_retains_data (test_competitions.CompetitionTests.test_snapshot_no_churn_and_source_failure_retains_data) ... ok
+test_wrong_year_and_unrecognized_row_rejected (test_competitions.CompetitionTests.test_wrong_year_and_unrecognized_row_rejected) ... ok
+test_aliases_preserve_one_identity_across_name_order_and_seasons (test_history.HistoryTests.test_aliases_preserve_one_identity_across_name_order_and_seasons) ... ok
+test_classification_uses_final_rank_and_explicit_final_columns (test_history.HistoryTests.test_classification_uses_final_rank_and_explicit_final_columns) ... ok
+test_heat_or_world_tour_standings_are_not_final_classifications (test_history.HistoryTests.test_heat_or_world_tour_standings_are_not_final_classifications) ... ok
+test_relay_counts_once_and_uncollected_events_have_no_results (test_history.HistoryTests.test_relay_counts_once_and_uncollected_events_have_no_results) ... ok
+test_source_and_identity_mismatches_reject_the_event (test_history.HistoryTests.test_source_and_identity_mismatches_reject_the_event) ... ok
+test_unified_index_keeps_final_heat_positions_distinct_from_overall_ranks (test_history.HistoryTests.test_unified_index_keeps_final_heat_positions_distinct_from_overall_ranks) ... ok
+test_current_official_classification_preserves_previous_final_without_inventing_lineup (test_history_api.HistoryApiTests.test_current_official_classification_preserves_previous_final_without_inventing_lineup) ... ok
+test_ioc_finals_follow_physical_columns_instead_of_rank_thresholds (test_history_api.HistoryApiTests.test_ioc_finals_follow_physical_columns_instead_of_rank_thresholds) ... ok
+test_missing_classification_keeps_the_actual_group_rank_and_rejects_other_rounds (test_history_api.HistoryApiTests.test_missing_classification_keeps_the_actual_group_rank_and_rejects_other_rounds) ... ok
+test_insecure_or_lookalike_domains_rejected (test_official_sources.EvidenceHostTests.test_insecure_or_lookalike_domains_rejected) ... ok
+test_official_and_historical_domains (test_official_sources.EvidenceHostTests.test_official_and_historical_domains) ... ok
+test_attach_code_to_verified_athlete_and_round (test_penalty_protocol.PenaltyProtocolTests.test_attach_code_to_verified_athlete_and_round) ... ok
+test_export_restriction_only_on_first_threshold_crossing (test_penalty_protocol.PenaltyProtocolTests.test_export_restriction_only_on_first_threshold_crossing) ... ok
+test_missing_gender_table_is_rejected (test_penalty_protocol.PenaltyProtocolTests.test_missing_gender_table_is_rejected) ... ok
+test_missing_report_or_wrong_city_rejected (test_penalty_protocol.PenaltyProtocolTests.test_missing_report_or_wrong_city_rejected) ... ok
+test_multi_page_gender_table_is_supported (test_penalty_protocol.PenaltyProtocolTests.test_multi_page_gender_table_is_supported) ... ok
+test_official_total_mismatch_rejected (test_penalty_protocol.PenaltyProtocolTests.test_official_total_mismatch_rejected) ... ok
+test_restriction_distance_ranking_and_ambiguity (test_penalty_protocol.PenaltyProtocolTests.test_restriction_distance_ranking_and_ambiguity) ... ok
+test_s6_is_not_the_excluded_st6_and_off_does_not_count (test_penalty_protocol.PenaltyProtocolTests.test_s6_is_not_the_excluded_st6_and_off_does_not_count) ... ok
+test_athletes_get_their_entered_distances (test_predictions.PredictionTests.test_athletes_get_their_entered_distances) ... ok
+test_country_moves_stay_in_same_seeding_row (test_predictions.PredictionTests.test_country_moves_stay_in_same_seeding_row) ... ok
+test_official_group_supersedes_model (test_predictions.PredictionTests.test_official_group_supersedes_model) ... ok
+test_official_table_boundaries (test_predictions.PredictionTests.test_official_table_boundaries) ... ok
+test_only_known_seeds_are_placed_and_the_rest_are_counted (test_predictions.PredictionTests.test_only_known_seeds_are_placed_and_the_rest_are_counted) ... ok
+test_quarterfinal_no_country_separation (test_predictions.PredictionTests.test_quarterfinal_no_country_separation) ... ok
+test_snake_order_and_sizes (test_predictions.PredictionTests.test_snake_order_and_sizes) ... ok
+test_unavoidable_country_clash_is_explicit (test_predictions.PredictionTests.test_unavoidable_country_clash_is_explicit) ... ok
+test_undecided_byes_or_wrong_schedule_block_prediction (test_predictions.PredictionTests.test_undecided_byes_or_wrong_schedule_block_prediction) ... ok
+test_without_distance_entries_nothing_is_predicted (test_predictions.PredictionTests.test_without_distance_entries_nothing_is_predicted) ... ok
+test_built_worker_is_stamped_with_the_shell_version (test_pwa.PwaTests.test_built_worker_is_stamped_with_the_shell_version) ... FAIL
+test_manifest_is_installable (test_pwa.PwaTests.test_manifest_is_installable) ... ok
+test_modules_belong_to_their_route_bundle (test_pwa.PwaTests.test_modules_belong_to_their_route_bundle) ... ok
+test_page_links_manifest_and_registers_worker (test_pwa.PwaTests.test_page_links_manifest_and_registers_worker) ... ok
+test_shortcut_follows_the_next_event (test_pwa.PwaTests.test_shortcut_follows_the_next_event) ... ok
+test_static_security_headers_are_built (test_pwa.PwaTests.test_static_security_headers_are_built) ... ok
+test_build_attaches_understood_rules_to_their_rounds (test_qualification.QualificationRuleTests.test_build_attaches_understood_rules_to_their_rounds) ... ok
+test_chinese_wording_names_the_next_round_and_final_b (test_qualification.QualificationRuleTests.test_chinese_wording_names_the_next_round_and_final_b) ... ok
+test_every_published_wording_has_a_short_form (test_qualification.QualificationRuleTests.test_every_published_wording_has_a_short_form) ... ok
+test_unknown_wording_keeps_its_text_without_a_guess (test_qualification.QualificationRuleTests.test_unknown_wording_keeps_its_text_without_a_guess) ... ok
+test_missing_programme_is_not_published (test_schedule_store.ScheduleStoreTests.test_missing_programme_is_not_published) ... ok
+test_shared_validation_keeps_existing_rejection_semantics (test_schedule_store.ScheduleStoreTests.test_shared_validation_keeps_existing_rejection_semantics) ... ok
+test_incident_create_once_update_then_recover (test_session_incident.IncidentTests.test_incident_create_once_update_then_recover) ... ok
+test_two_previous_unexpected_crashes_required (test_session_incident.IncidentTests.test_two_previous_unexpected_crashes_required) ... ok
+test_all_generated_deep_pages_use_root_assets_and_include_global_navigation (test_site_catalog.SiteCatalogTests.test_all_generated_deep_pages_use_root_assets_and_include_global_navigation) ... ok
+test_directory_deduplicates_rosters_and_results_use_only_official_medal_finals (test_site_catalog.SiteCatalogTests.test_directory_deduplicates_rosters_and_results_use_only_official_medal_finals) ... ok
+test_season_ranks_use_latest_world_tour_table_per_distance (test_site_catalog.SiteCatalogTests.test_season_ranks_use_latest_world_tour_table_per_distance) ... ok
+test_one_station_raising_does_not_stop_the_others (test_stations.FailureIsolationTests.test_one_station_raising_does_not_stop_the_others) ... ::warning::vancouver entries/results sync: rejected: Too many official report documents
+::warning::vancouver prediction sync: rejected: Prediction snapshot identity mismatch
+ok
+test_discovery_matches_dates_city_and_country (test_stations.ScheduleSyncTests.test_discovery_matches_dates_city_and_country) ... ok
+test_new_programme_is_recorded_then_only_rechecked (test_stations.ScheduleSyncTests.test_new_programme_is_recorded_then_only_rechecked) ... ok
+test_real_isu_page_text_parses_to_the_pre_race_programme (test_stations.ScheduleSyncTests.test_real_isu_page_text_parses_to_the_pre_race_programme) ... ok
+test_unpublished_partial_or_foreign_pages_are_refused (test_stations.ScheduleSyncTests.test_unpublished_partial_or_foreign_pages_are_refused) ... ok
+test_every_station_has_a_valid_isu_reference_and_window (test_stations.StationConfigTests.test_every_station_has_a_valid_isu_reference_and_window) ... ok
+test_new_station_programme_is_announced_once (test_stations.StationConfigTests.test_new_station_programme_is_announced_once) ... ok
+test_sources_follow_the_station_and_keep_overrides (test_stations.StationConfigTests.test_sources_follow_the_station_and_keep_overrides) ... ok
+test_unexpected_competition_failure_is_nonzero (test_stations.SyncOutcomeTests.test_unexpected_competition_failure_is_nonzero) ... Traceback (most recent call last):
+  File "C:\Users\Administrator\.codex\visualizations\2026\10\27\01a17d8c-c2b4-7922-91a6-8859c04c093b\ssts-audit-20261028\tools\sync_competitions.py", line 364, in main
+    snapshot, errors = sync_event(station['id'], stations.sources(station))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.codex\visualizations\2026\10\27\01a17d8c-c2b4-7922-91a6-8859c04c093b\ssts-audit-20261028\tests\test_stations.py", line 225, in unreachable
+    raise OSError('network unavailable')
+OSError: network unavailable
+::error::vancouver entries/results sync: unexpected: network unavailable
+Traceback (most recent call last):
+  File "C:\Users\Administrator\.codex\visualizations\2026\10\27\01a17d8c-c2b4-7922-91a6-8859c04c093b\ssts-audit-20261028\tools\sync_competitions.py", line 364, in main
+    snapshot, errors = sync_event(station['id'], stations.sources(station))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.codex\visualizations\2026\10\27\01a17d8c-c2b4-7922-91a6-8859c04c093b\ssts-audit-20261028\tests\test_stations.py", line 225, in unreachable
+    raise OSError('network unavailable')
+OSError: network unavailable
+::error::montreal entries/results sync: unexpected: network unavailable
+ok
+test_unexpected_prediction_failure_is_nonzero (test_stations.SyncOutcomeTests.test_unexpected_prediction_failure_is_nonzero) ... Traceback (most recent call last):
+  File "C:\Users\Administrator\.codex\visualizations\2026\10\27\01a17d8c-c2b4-7922-91a6-8859c04c093b\ssts-audit-20261028\tools\sync_predictions.py", line 366, in main
+    item, errors = sync_event(station['id'], cfg)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1198, in _execute_mock_call
+    raise effect
+OSError: network unavailable
+::error::vancouver prediction sync: unexpected: network unavailable
+ok
+test_byes_top_up_from_world_ranking_and_leave_ties_to_isu (test_sync_predictions.PredictionSourceTests.test_byes_top_up_from_world_ranking_and_leave_ties_to_isu) ... ok
+test_distance_events_are_distinct_from_roster (test_sync_predictions.PredictionSourceTests.test_distance_events_are_distinct_from_roster) ... ok
+test_historic_classification_and_world_ranking_have_distinct_jobs (test_sync_predictions.PredictionSourceTests.test_historic_classification_and_world_ranking_have_distinct_jobs) ... ok
+test_only_exact_distance_rows_enter_and_duplicates_fail (test_sync_predictions.PredictionSourceTests.test_only_exact_distance_rows_enter_and_duplicates_fail) ... ok
+test_published_entries_replace_retained_drafts_without_id_or_order_assumptions (test_sync_predictions.PredictionSourceTests.test_published_entries_replace_retained_drafts_without_id_or_order_assumptions) ... ok
+test_rank_pagination_requires_all_pages_and_identity (test_sync_predictions.PredictionSourceTests.test_rank_pagination_requires_all_pages_and_identity) ... ok
+test_sync_failure_preserves_known_data (test_sync_predictions.PredictionSourceTests.test_sync_failure_preserves_known_data) ... ok
+test_unranked_entrants_follow_ranked_ones_without_a_seed (test_sync_predictions.PredictionSourceTests.test_unranked_entrants_follow_ranked_ones_without_a_seed) ... ok
+test_an_empty_copy_of_a_raced_entry_is_dropped (test_sync_reuse.ReuseTests.test_an_empty_copy_of_a_raced_entry_is_dropped) ... ok
+test_cached_unrecognized_medal_final_is_refetched_and_then_reused (test_sync_reuse.ReuseTests.test_cached_unrecognized_medal_final_is_refetched_and_then_reused) ... ok
+test_completed_discipline_is_not_requested (test_sync_reuse.ReuseTests.test_completed_discipline_is_not_requested) ... ok
+test_disciplines_listed_before_racing_have_no_start_date (test_sync_reuse.ReuseTests.test_disciplines_listed_before_racing_have_no_start_date) ... ok
+test_exact_repeat_rows_collapse_and_one_bad_round_does_not_block_the_rest (test_sync_reuse.ReuseTests.test_exact_repeat_rows_collapse_and_one_bad_round_does_not_block_the_rest) ... ok
+test_frozen_historic_rankings_are_fetched_once (test_sync_reuse.ReuseTests.test_frozen_historic_rankings_are_fetched_once) ... ok
+test_only_unfinished_rounds_are_requested (test_sync_reuse.ReuseTests.test_only_unfinished_rounds_are_requested) ... ok
+test_parsed_entry_pdf_is_not_downloaded_again (test_sync_reuse.ReuseTests.test_parsed_entry_pdf_is_not_downloaded_again) ... ok
+test_published_qualification_rules_are_kept_per_scheduled_round (test_sync_reuse.ReuseTests.test_published_qualification_rules_are_kept_per_scheduled_round) ... ok
+test_recovered_check_clears_the_old_error (test_sync_reuse.ReuseTests.test_recovered_check_clears_the_old_error) ... ok
+test_reject_non_official_and_insecure_links (test_tickets.TicketConfigTests.test_reject_non_official_and_insecure_links) ... ok
+test_seoul_ticket_sources_and_opening (test_tickets.TicketConfigTests.test_seoul_ticket_sources_and_opening) ... ok
+test_bundle_no_longer_trusts_the_compromised_emsign_root (test_tls.TrustStoreTests.test_bundle_no_longer_trusts_the_compromised_emsign_root) ... ok
+test_every_official_fetch_uses_the_certifi_context (test_tls.TrustStoreTests.test_every_official_fetch_uses_the_certifi_context) ... ok
+test_a_main_round_in_the_repechage_session_is_not_called_a_repechage (test_updates.UpdateFeedTests.test_a_main_round_in_the_repechage_session_is_not_called_a_repechage) ... ok
+test_final_results_keep_each_chinese_place (test_updates.UpdateFeedTests.test_final_results_keep_each_chinese_place) ... ok
+test_first_run_announces_published_data_but_not_the_timetable (test_updates.UpdateFeedTests.test_first_run_announces_published_data_but_not_the_timetable) ... ok
+test_groups_then_results_each_announced_once (test_updates.UpdateFeedTests.test_groups_then_results_each_announced_once) ... ok
+test_moved_start_time_and_changed_entries (test_updates.UpdateFeedTests.test_moved_start_time_and_changed_entries) ... ok
+test_old_announcements_expire (test_updates.UpdateFeedTests.test_old_announcements_expire) ... ok
+test_provisional_results_are_not_announced_as_results (test_updates.UpdateFeedTests.test_provisional_results_are_not_announced_as_results) ... ok
+test_results_say_where_each_chinese_skater_went (test_updates.UpdateFeedTests.test_results_say_where_each_chinese_skater_went) ... ok
+
+======================================================================
+FAIL: test_built_worker_is_stamped_with_the_shell_version (test_pwa.PwaTests.test_built_worker_is_stamped_with_the_shell_version)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Administrator\.codex\visualizations\2026\10\27\01a17d8c-c2b4-7922-91a6-8859c04c093b\ssts-audit-20261028\tests\test_pwa.py", line 89, in test_built_worker_is_stamped_with_the_shell_version
+    self.assertEqual(re.search(r"VERSION = '(\w+)'", built)[1], hashlib.sha256(shell).hexdigest()[:12])
+AssertionError: 'aeb740738895' != 'da5756de840b'
+- aeb740738895
++ da5756de840b
+
+
+----------------------------------------------------------------------
+Ran 119 tests in 9.391s
+
+FAILED (failures=1)
+Validated and built vancouver 61 ISU round start times; verified CHN: 41
+Update notices: 147
+Validated and built vancouver 61 ISU round start times; verified CHN: 41
+Update notices: 147
+Validated and built vancouver 61 ISU round start times; verified CHN: 41
+Update notices: 147
+Validated and built vancouver 61 ISU round start times; verified CHN: 41
+Update notices: 147
+Validated and built vancouver 61 ISU round start times; verified CHN: 41
+Update notices: 147
+Update notices: 147
+Validated and built vancouver 61 ISU round start times; verified CHN: 41
+Update notices: 125
+vancouver ISU China heat evidence found: 1 updated: 1
+vancouver ISU China heat evidence found: 0 updated: 0
+Created sync incident 7
+Closed recovered sync incident 7
+montreal {'entries': 0, 'rounds': 0, 'rankings': 0}
+vancouver not updated
+vancouver not updated
