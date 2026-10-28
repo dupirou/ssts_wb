@@ -37,6 +37,7 @@ HEAT_DURATIONS = {
     ('R', 5000): (8.0, 15.0),
 }
 
+
 def read_schedule(station_id, directory=stations.SCHEDULES):
     """A station's stored official programme as Beijing-time rows; [] until ISU publishes one."""
     station = stations.get(station_id)
