@@ -23,6 +23,8 @@ class BuildIsolationTests(unittest.TestCase):
         for cause in ('csv', 'china_auto'):
             with self.subTest(cause=cause), tempfile.TemporaryDirectory() as temp:
                 out = Path(temp) / 'public'
+                (out / 'data').mkdir(parents=True)
+                (out / 'data/vancouver.json').write_bytes((ROOT / 'dist/data/vancouver.json').read_bytes())
 
                 def fail_read(station_id, *args, **kwargs):
                     if cause == 'csv' and station_id == 'vancouver':
