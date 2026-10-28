@@ -5567,9 +5567,31 @@ td.time {
 }
 
 /* Compact official sanction summary; collapsed by default on athlete directory. */
-.penalty-panel { margin-block: 1rem; }
-.penalty-panel summary { cursor: pointer; font-weight: 650; }
-.penalty-list { padding: 0; margin: .75rem 0; list-style: none; }
-.penalty-row { display: grid; grid-template-columns: minmax(0,1fr) auto auto; gap: .7rem; align-items: center; padding: .45rem 0; border-bottom: 1px solid var(--line, rgba(128,128,128,.2)); font-size: .88rem; }
-.penalty-row:last-child { border-bottom: 0; }
-.penalty-restriction { font-size: .8rem; font-weight: 600; }
+.penalty-panel {
+  margin-block: 1rem;
+}
+.penalty-panel summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.penalty-list {
+  padding: 0;
+  margin: 0.75rem 0;
+  list-style: none;
+}
+.penalty-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--line, rgba(128, 128, 128, 0.2));
+  font-size: 0.88rem;
+}
+.penalty-row:last-child {
+  border-bottom: 0;
+}
+.penalty-restriction {
+  font-size: 0.8rem;
+  font-weight: 600;
+}

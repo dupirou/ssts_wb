@@ -33,7 +33,9 @@ def parse_pages(pages, config, source_url, sha256=''):
     if config['city'].casefold() not in text.casefold() or str(config['year']) not in text:
         raise ValueError('Protocol city/year does not match station')
     totals = [(i + 1, page) for i, page in enumerate(pages) if re.search(r'^\s*WORLD TOUR PENALTIES\s*$', page, re.M)]
-    violations = [(i + 1, page) for i, page in enumerate(pages) if re.search(r'^\s*INFRINGEMENT REPORT\s*$', page, re.M)]
+    violations = [
+        (i + 1, page) for i, page in enumerate(pages) if re.search(r'^\s*INFRINGEMENT REPORT\s*$', page, re.M)
+    ]
     if len(totals) != 2 or not violations:
         raise ValueError('Missing or incomplete World Tour penalties or infringement tables')
     completed = set()
@@ -59,8 +61,15 @@ def parse_pages(pages, config, source_url, sha256=''):
             ident = competition_data.athlete_id(name, country, sex)
             if ident in records:
                 raise ValueError('Duplicate official season penalty identity')
-            records[ident] = dict(athlete_id=ident, name=name, country=country, gender=sex,
-                                  helmet_number=int(helmet), station_counts=station_counts, total=total)
+            records[ident] = dict(
+                athlete_id=ident,
+                name=name,
+                country=country,
+                gender=sex,
+                helmet_number=int(helmet),
+                station_counts=station_counts,
+                total=total,
+            )
             found += 1
         if not found:
             raise ValueError(f'Empty official season penalties table on page {page_number}')
@@ -71,7 +80,9 @@ def parse_pages(pages, config, source_url, sha256=''):
         raise ValueError('Unsupported season penalty progress')
     if any(any(v for v in row['station_counts'][after:]) for row in records.values()):
         raise ValueError('Future stations must not contain penalty counts')
-    notes = re.findall(r'This report does not include the following penalties:\s*([^\n]+)', '\n'.join(p for _, p in totals), re.I)
+    notes = re.findall(
+        r'This report does not include the following penalties:\s*([^\n]+)', '\n'.join(p for _, p in totals), re.I
+    )
     if not notes:
         raise ValueError('Official exclusion note is missing')
     excluded = sorted(set(re.findall(r'\b[A-Z]+\d*\b', notes[-1].upper())))
@@ -101,15 +112,24 @@ def parse_pages(pages, config, source_url, sha256=''):
             helmet = int(parts[1]) if parts[1].isdigit() else (int(embedded_helmet[1]) if embedded_helmet else None)
             name = parts[2] if parts[1].isdigit() else (embedded_helmet[2] if embedded_helmet else parts[1])
             sex = gender.lower()
-            ident = (('team-' + country + '-' + sex) if relay else
-                     competition_data.athlete_id(name, country, sex))
-            infringements.append(dict(
-                number=int(serial), race_number=int(race), athlete_id=ident,
-                name=name, country=country, gender=sex, distance_m=int(distance),
-                format='relay' if relay else 'individual', round_label=parts[0],
-                helmet_number=helmet, status=status, infringement_code=code,
-                page=page_number,
-            ))
+            ident = ('team-' + country + '-' + sex) if relay else competition_data.athlete_id(name, country, sex)
+            infringements.append(
+                dict(
+                    number=int(serial),
+                    race_number=int(race),
+                    athlete_id=ident,
+                    name=name,
+                    country=country,
+                    gender=sex,
+                    distance_m=int(distance),
+                    format='relay' if relay else 'individual',
+                    round_label=parts[0],
+                    helmet_number=helmet,
+                    status=status,
+                    infringement_code=code,
+                    page=page_number,
+                )
+            )
     if not infringements or len({(p['race_number'], p['athlete_id']) for p in infringements}) != len(infringements):
         raise ValueError('Incomplete or duplicate official infringement lines')
     if summary_counts and len(summary_counts) != 1:
@@ -125,18 +145,28 @@ def parse_pages(pages, config, source_url, sha256=''):
             raise ValueError('Individual sanction lacks helmet identifier')
         key = (row['gender'], row['country'], row['helmet_number'])
         counted[key] = counted.get(key, 0) + 1
-    current = {(row['gender'], row['country'], row['helmet_number']): row['station_counts'][after - 1]
-               for row in records.values() if row['station_counts'][after - 1]}
+    current = {
+        (row['gender'], row['country'], row['helmet_number']): row['station_counts'][after - 1]
+        for row in records.values()
+        if row['station_counts'][after - 1]
+    }
     if counted != current:
-        mismatches = {str(key): (counted.get(key, 0), current.get(key, 0))
-                      for key in sorted(set(counted) | set(current))
-                      if counted.get(key, 0) != current.get(key, 0)}
+        mismatches = {
+            str(key): (counted.get(key, 0), current.get(key, 0))
+            for key in sorted(set(counted) | set(current))
+            if counted.get(key, 0) != current.get(key, 0)
+        }
         raise ValueError(f'Eligible infringement rows disagree with official station penalty totals: {mismatches}')
-    return dict(schema_version=1, source_url=source_url, source_sha256=sha256,
-                completed_events=after, excluded_codes=excluded,
-                official=[records[k] for k in sorted(records)],
-                infringements=sorted(infringements, key=lambda x: x['number']),
-                pages={'penalties': [i for i, _ in totals], 'infringements': [i for i, _ in violations]})
+    return dict(
+        schema_version=1,
+        source_url=source_url,
+        source_sha256=sha256,
+        completed_events=after,
+        excluded_codes=excluded,
+        official=[records[k] for k in sorted(records)],
+        infringements=sorted(infringements, key=lambda x: x['number']),
+        pages={'penalties': [i for i, _ in totals], 'infringements': [i for i, _ in violations]},
+    )
 
 
 def parse_pdf(body, config, source_url):
@@ -160,27 +190,35 @@ def attach_codes(snapshot, report):
     import copy
 
     updated = copy.deepcopy(snapshot)
-    official_heats = [heat for heat in updated['rounds']['items']
-                      if heat.get('evidence') == 'official_results'
-                      and (heat.get('result_status') or '').lower() == 'official']
+    official_heats = [
+        heat
+        for heat in updated['rounds']['items']
+        if heat.get('evidence') == 'official_results' and (heat.get('result_status') or '').lower() == 'official'
+    ]
     for row in report['infringements']:
         candidates = []
         for heat in official_heats:
-            if (heat['gender'] != row['gender'] or heat['distance_m'] != row['distance_m']
-                    or heat['format'] != row['format']):
+            if (
+                heat['gender'] != row['gender']
+                or heat['distance_m'] != row['distance_m']
+                or heat['format'] != row['format']
+            ):
                 continue
             if not same_round(heat, row['round_label']):
                 continue
             for person in heat['participants']:
                 penalty = person.get('penalty')
-                if (person['country'] == row['country'] and penalty
-                        and penalty['code'] == row['status']
-                        and (row['helmet_number'] is None
-                             or person.get('helmet_number') == row['helmet_number'])):
+                if (
+                    person['country'] == row['country']
+                    and penalty
+                    and penalty['code'] == row['status']
+                    and (row['helmet_number'] is None or person.get('helmet_number') == row['helmet_number'])
+                ):
                     candidates.append(person)
         if len(candidates) != 1:
-            raise ValueError('Cannot match official infringement uniquely: '
-                             + str((row['race_number'], row['country'], row['name'])))
+            raise ValueError(
+                'Cannot match official infringement uniquely: ' + str((row['race_number'], row['country'], row['name']))
+            )
         current = candidates[0]['penalty'].get('infringement_code')
         if current not in (None, row['infringement_code']):
             raise ValueError('Conflicting referee decision for existing heat')
@@ -200,9 +238,12 @@ def export(out, config, source=None):
         if not path.exists():
             break
         value = json.loads(path.read_text(encoding='utf-8'))
-        if (value.get('schema_version') != 1 or value.get('completed_events') != ordinal
-                or not isinstance(value.get('official'), list)
-                or not isinstance(value.get('infringements'), list)):
+        if (
+            value.get('schema_version') != 1
+            or value.get('completed_events') != ordinal
+            or not isinstance(value.get('official'), list)
+            or not isinstance(value.get('infringements'), list)
+        ):
             raise ValueError('Invalid accepted penalty report: ' + station['id'])
         (folder / (station['id'] + '.json')).write_text(
             json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8'
@@ -212,28 +253,47 @@ def export(out, config, source=None):
     entries = []
     if latest:
         for row in latest['official']:
-            previous = sum(row['station_counts'][:latest['completed_events'] - 1])
+            previous = sum(row['station_counts'][: latest['completed_events'] - 1])
             total = row['total']
             threshold = max((limit for limit in (3, 5, 7) if previous < limit <= total), default=0)
             blocked = {3: 1, 5: 2, 7: 3}.get(threshold, 0)
-            next_station = (config['stations'][latest['completed_events']]['id']
-                            if blocked and latest['completed_events'] < len(config['stations']) else None)
+            next_station = (
+                config['stations'][latest['completed_events']]['id']
+                if blocked and latest['completed_events'] < len(config['stations'])
+                else None
+            )
             details = [
-                dict(event_id=station_id, race_number=p['race_number'], distance_m=p['distance_m'],
-                     round_label=p['round_label'], infringement_code=p['infringement_code'],
-                     counted=p['format'] == 'individual' and p['infringement_code'] not in latest['excluded_codes'])
+                dict(
+                    event_id=station_id,
+                    race_number=p['race_number'],
+                    distance_m=p['distance_m'],
+                    round_label=p['round_label'],
+                    infringement_code=p['infringement_code'],
+                    counted=p['format'] == 'individual' and p['infringement_code'] not in latest['excluded_codes'],
+                )
                 for p in latest['infringements']
-                if p['country'] == row['country'] and p['gender'] == row['gender']
+                if p['country'] == row['country']
+                and p['gender'] == row['gender']
                 and p['helmet_number'] == row['helmet_number']
             ]
-            entries.append(dict(
-                athlete_id=row['athlete_id'], name=row['name'], gender=row['gender'], country=row['country'],
-                total=total, station_counts=row['station_counts'][:latest['completed_events']],
-                next_restriction=dict(event_id=next_station, blocked_individual_distances=blocked if next_station else 0),
-                details=details,
-            ))
+            entries.append(
+                dict(
+                    athlete_id=row['athlete_id'],
+                    name=row['name'],
+                    gender=row['gender'],
+                    country=row['country'],
+                    total=total,
+                    station_counts=row['station_counts'][: latest['completed_events']],
+                    next_restriction=dict(
+                        event_id=next_station, blocked_individual_distances=blocked if next_station else 0
+                    ),
+                    details=details,
+                )
+            )
     summary = dict(
-        schema_version=1, season=config['season'], through_event_id=station_id,
+        schema_version=1,
+        season=config['season'],
+        through_event_id=station_id,
         completed_events=latest['completed_events'] if latest else 0,
         source_url=latest['source_url'] if latest else None,
         excluded_codes=latest['excluded_codes'] if latest else [],

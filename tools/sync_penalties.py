@@ -20,8 +20,9 @@ def save_verified(path, payload):
     content = json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + '\n'
     if path.exists() and path.read_text(encoding='utf-8') == content:
         return False
-    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=path.parent,
-                                     prefix='.penalties-', delete=False) as file:
+    with tempfile.NamedTemporaryFile(
+        mode='w', encoding='utf-8', dir=path.parent, prefix='.penalties-', delete=False
+    ) as file:
         temporary = Path(file.name)
         file.write(content)
     try:
@@ -48,8 +49,11 @@ def sync_event(station, fetcher=sync_competitions.fetch, store=STORE, directory=
         return True
     body = fetcher(config['documents_url'])
     docs = sync_competitions.discover_documents(body, config['documents_url'], config)
-    reports = sorted((item for item in docs if item['kind'] == 'reports'),
-                     key=lambda item: item.get('published_at') or '', reverse=True)
+    reports = sorted(
+        (item for item in docs if item['kind'] == 'reports'),
+        key=lambda item: item.get('published_at') or '',
+        reverse=True,
+    )
     for doc in reports[:20]:
         pdf = fetcher(doc['url'])
         try:
@@ -80,7 +84,7 @@ def main():
         if not args.event and not stations.within(station, stations.utc_now(), 14):
             continue
         verified = sync_event(station)
-        print(f"{station['id']} penalty protocol: {'verified' if verified else 'not published'}")
+        print(f'{station["id"]} penalty protocol: {"verified" if verified else "not published"}')
 
 
 if __name__ == '__main__':

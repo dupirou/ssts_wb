@@ -173,58 +173,57 @@
         country,
         sex
       );
-      const penaltyPanel =
-        penaltyIndex?.items?.length
-          ? h(
-              'details',
-              { class: 'panel penalty-panel' },
-              h('summary', {
-                text:
-                  '世巡赛累计判罚 · ' +
-                  penaltyIndex.items.length +
-                  ' 人 · 截至第 ' +
-                  penaltyIndex.completed_events +
-                  ' 站'
-              }),
-              h(
-                'ul',
-                { class: 'penalty-list' },
-                [...penaltyIndex.items]
-                  .sort(
-                    (a, b) =>
-                      Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
-                      b.total - a.total ||
-                      a.name.localeCompare(b.name)
+      const penaltyPanel = penaltyIndex?.items?.length
+        ? h(
+            'details',
+            { class: 'panel penalty-panel' },
+            h('summary', {
+              text:
+                '世巡赛累计判罚 · ' +
+                penaltyIndex.items.length +
+                ' 人 · 截至第 ' +
+                penaltyIndex.completed_events +
+                ' 站'
+            }),
+            h(
+              'ul',
+              { class: 'penalty-list' },
+              [...penaltyIndex.items]
+                .sort(
+                  (a, b) =>
+                    Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
+                    b.total - a.total ||
+                    a.name.localeCompare(b.name)
+                )
+                .map((person) =>
+                  h(
+                    'li',
+                    { class: 'penalty-row' },
+                    h('span', {
+                      text: person.country + ' · ' + person.name
+                    }),
+                    h('b', { class: 'num', text: person.total + ' 次' }),
+                    person.next_restriction?.blocked_individual_distances
+                      ? h('span', {
+                          class: 'penalty-restriction',
+                          text:
+                            '下站限报 ' +
+                            person.next_restriction.blocked_individual_distances +
+                            ' 项'
+                        })
+                      : null
                   )
-                  .map((person) =>
-                    h(
-                      'li',
-                      { class: 'penalty-row' },
-                      h('span', {
-                        text: person.country + ' · ' + person.name
-                      }),
-                      h('b', { class: 'num', text: person.total + ' 次' }),
-                      person.next_restriction?.blocked_individual_distances
-                        ? h('span', {
-                            class: 'penalty-restriction',
-                            text:
-                              '下站限报 ' +
-                              person.next_restriction.blocked_individual_distances +
-                              ' 项'
-                          })
-                        : null
-                    )
-                  )
-              ),
-              h('a', {
-                href: penaltyIndex.source_url,
-                target: '_blank',
-                rel: 'noopener noreferrer',
-                class: 'faint tiny',
-                text: '官方 Protocol'
-              })
-            )
-          : null;
+                )
+            ),
+            h('a', {
+              href: penaltyIndex.source_url,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              class: 'faint tiny',
+              text: '官方 Protocol'
+            })
+          )
+        : null;
       root.replaceChildren(
         header(h, '运动员', calendar.season),
         penaltyPanel,

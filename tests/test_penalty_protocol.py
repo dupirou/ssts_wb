@@ -31,7 +31,9 @@ def fixture():
 
 class PenaltyProtocolTests(unittest.TestCase):
     def report(self, pages=None):
-        return penalty_protocol.parse_pages(pages or fixture(), {'city': 'Vancouver', 'year': 2026}, 'https://isu.example/protocol.pdf')
+        return penalty_protocol.parse_pages(
+            pages or fixture(), {'city': 'Vancouver', 'year': 2026}, 'https://isu.example/protocol.pdf'
+        )
 
     def test_s6_is_not_the_excluded_st6_and_off_does_not_count(self):
         value = self.report()
@@ -64,18 +66,36 @@ class PenaltyProtocolTests(unittest.TestCase):
             ('women', 500, 'Heats', blais, 25, 'CAN'),
             ('men', 1000, 'Rep. Quarterfinals', li, 67, 'CHN'),
         ]
-        snapshot = {'rounds': {'items': [
-            dict(gender=gender, distance_m=distance, format='individual', round_label=round_label,
-                 evidence='official_results', result_status='Official',
-                 participants=[dict(athlete_id=aid, country=country, helmet_number=bib,
-                                    penalty=dict(code='PEN', infringement_code=None))])
-            for gender, distance, round_label, aid, bib, country in items
-        ]}}
+        snapshot = {
+            'rounds': {
+                'items': [
+                    dict(
+                        gender=gender,
+                        distance_m=distance,
+                        format='individual',
+                        round_label=round_label,
+                        evidence='official_results',
+                        result_status='Official',
+                        participants=[
+                            dict(
+                                athlete_id=aid,
+                                country=country,
+                                helmet_number=bib,
+                                penalty=dict(code='PEN', infringement_code=None),
+                            )
+                        ],
+                    )
+                    for gender, distance, round_label, aid, bib, country in items
+                ]
+            }
+        }
         original = copy.deepcopy(snapshot)
         out = penalty_protocol.attach_codes(snapshot, report)
         self.assertEqual(snapshot, original)
-        self.assertEqual([heat['participants'][0]['penalty']['infringement_code'] for heat in out['rounds']['items']],
-                         ['S6', 'OFF', 'S6'])
+        self.assertEqual(
+            [heat['participants'][0]['penalty']['infringement_code'] for heat in out['rounds']['items']],
+            ['S6', 'OFF', 'S6'],
+        )
         out['rounds']['items'][0]['participants'][0]['penalty']['code'] = 'YC'
         with self.assertRaisesRegex(ValueError, 'uniquely'):
             penalty_protocol.attach_codes(out, report)
