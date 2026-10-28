@@ -36,9 +36,10 @@ def parse_pages(pages, config, source_url, sha256=''):
     violations = [
         (i + 1, page) for i, page in enumerate(pages) if re.search(r'^\s*INFRINGEMENT REPORT\s*$', page, re.M)
     ]
-    if len(totals) != 2 or not violations:
+    if len(totals) < 2 or not violations:
         raise ValueError('Missing or incomplete World Tour penalties or infringement tables')
     completed = set()
+    genders = set()
     records = {}
     for page_number, page in totals:
         progress = re.search(r'After\s+(\d+)\s+of\s+7\s+World Tour Events', page, re.I)
@@ -47,6 +48,7 @@ def parse_pages(pages, config, source_url, sha256=''):
             raise ValueError('Missing season penalty gender or progress')
         completed.add(int(progress.group(1)))
         sex = gender.group(1).lower()
+        genders.add(sex)
         found = 0
         for line in page.splitlines():
             match = ROW.match(line)
@@ -73,6 +75,8 @@ def parse_pages(pages, config, source_url, sha256=''):
             found += 1
         if not found:
             raise ValueError(f'Empty official season penalties table on page {page_number}')
+    if genders != {'women', 'men'}:
+        raise ValueError('Official penalties report must include both genders')
     if len(completed) != 1:
         raise ValueError('Season penalties pages disagree about completed events')
     after = completed.pop()
