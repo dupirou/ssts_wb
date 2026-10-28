@@ -20,13 +20,14 @@ jobs:
       - run: python -m pip install -r requirements.txt ruff==0.16.9
       - run: python tools/sync_penalties.py --event vancouver
       - run: ruff format tools/penalty_protocol.py tools/sync_penalties.py tests/test_penalty_protocol.py
+      - run: npm ci --ignore-scripts && npm run format
       - run: bash tools/ci_run.sh build
       - run: bash tools/ci_run.sh test
       - name: Commit only verified data, generated assets, and formatter edits
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/penalties/vancouver.json data/competitions/vancouver.json dist tools/penalty_protocol.py tools/sync_penalties.py tests/test_penalty_protocol.py
+          git add data/penalties/vancouver.json data/competitions/vancouver.json dist tools/penalty_protocol.py tools/sync_penalties.py tests/test_penalty_protocol.py web/app.js web/portal.js web/site.css
           if ! git diff --cached --quiet; then
             git commit -m 'build: verify Vancouver cumulative penalties and referee codes'
             git push origin HEAD:feature/official-penalty-codes-20261028
