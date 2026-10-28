@@ -3,9 +3,11 @@
 
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
+import tempfile
 import competition_data
 import stations
 import sync_schedule
@@ -278,10 +280,8 @@ def manifest_text(text, now):
     return json.dumps(manifest, ensure_ascii=False, indent=2) + '\n'
 
 
-def export(now=None, out=OUT):
+def _compile(now, out, prior, source_log):
     import predict_groups
-
-    now = now or stations.utc_now()
 
     meta = stations.load_meta()
     errors = {}
@@ -290,7 +290,7 @@ def export(now=None, out=OUT):
     except (ValueError, KeyError, TypeError) as exc:
         # Human-maintained links must be validated by tests; a bad edit must not
         # block fresh official results for unrelated stations.
-        old_calendar = OUT / 'data/calendar.json'
+        old_calendar = prior / 'data/calendar.json'
         previous = json.loads(old_calendar.read_text(encoding='utf-8')) if old_calendar.exists() else {}
         ticketing = {
             item['id']: item['ticketing'] for item in previous.get('stations', []) if item.get('ticketing') is not None
@@ -304,9 +304,12 @@ def export(now=None, out=OUT):
             rows = read_schedule(station_id)
             if rows:
                 schedules[station_id] = attach_qualification(attach_china(rows, station_id), station_id)
+            elif (prior / 'data' / (station_id + '.json')).exists():
+                # Deliberately missing stored programme: stale published routes must disappear.
+                errors[station_id] = {'state': 'removed', 'reason': 'Stored schedule no longer exists'}
         except (ValueError, KeyError, TypeError, OSError) as exc:
             # Only a previously published, source-backed station is eligible for fallback.
-            previous_path = OUT / 'data' / (station_id + '.json')
+            previous_path = prior / 'data' / (station_id + '.json')
             state = 'unavailable'
             if previous_path.exists():
                 previous = json.loads(previous_path.read_text(encoding='utf-8'))
@@ -340,7 +343,7 @@ def export(now=None, out=OUT):
         if not rows:
             continue
         if st['id'] in errors:
-            previous_path = OUT / 'data' / (st['id'] + '.json')
+            previous_path = prior / 'data' / (st['id'] + '.json')
             if errors[st['id']]['state'] == 'retained':
                 target_path = out / 'data' / (st['id'] + '.json')
                 if previous_path.resolve() != target_path.resolve():
@@ -441,7 +444,11 @@ def export(now=None, out=OUT):
     import updates
 
     feed = updates.export(
-        out, VENUES, schedules, {k: v.get('last_successful_schedule_check_utc') for k, v in meta.items()}
+        out,
+        VENUES,
+        schedules,
+        {k: v.get('last_successful_schedule_check_utc') for k, v in meta.items()},
+        path=source_log,
     )
     for station_id, rows in schedules.items():
         print(
@@ -456,6 +463,41 @@ def export(now=None, out=OUT):
         encoding='utf-8',
     )
     print('Update notices:', len(feed['events']))
+
+
+def export(now=None, out=OUT):
+    """Generate into a sibling staging directory, then publish only a complete build.
+
+    Existing station snapshots are used only for explicit validated fallback.
+    The update history and public assets are promoted only after compilation succeeds.
+    """
+    import updates
+
+    out = Path(out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    now = now or stations.utc_now()
+    with tempfile.TemporaryDirectory(prefix='.ssts-build-', dir=out.parent) as temp:
+        work = Path(temp)
+        staged = work / 'new_dist'
+        staged.mkdir()
+        staged_log = work / 'updates.json'
+        if updates.LOG.exists():
+            shutil.copyfile(updates.LOG, staged_log)
+        _compile(now, staged, out, staged_log)
+
+        backup = work / 'old_dist'
+        replaced = out.exists()
+        if replaced:
+            os.replace(out, backup)
+        try:
+            os.replace(staged, out)
+            os.replace(staged_log, updates.LOG)
+        except Exception:
+            if out.exists():
+                shutil.rmtree(out)
+            if replaced:
+                os.replace(backup, out)
+            raise
 
 
 if __name__ == '__main__':
