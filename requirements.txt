@@ -1,5 +1,5 @@
 beautifulsoup4>=4.12,<5
 # pypdf parses PDFs downloaded from ISU; 6.14.2 fixes the last known hang on a crafted file.
-pypdf>=6.14.2,<7
+pypdf>=6.21.2,<7
 tzdata
 certifi>=2026.10.19
