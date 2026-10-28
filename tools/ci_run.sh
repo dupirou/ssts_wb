@@ -19,6 +19,7 @@ run_tests() {
 case "${1:-}" in
   schedule) python tools/sync_schedule.py ;;
   competitions) python tools/sync_competitions.py ;;
+  penalties) python tools/sync_penalties.py ;;
   china) python tools/sync_china.py ;;
   predictions) python tools/sync_predictions.py ;;
   build) python tools/build.py ;;
@@ -29,13 +30,14 @@ case "${1:-}" in
     # keep the previous trusted version of the affected source.
     python tools/sync_schedule.py
     python tools/sync_competitions.py
+    python tools/sync_penalties.py
     python tools/sync_china.py
     python tools/sync_predictions.py
     python tools/build.py
     run_tests
     ;;
   *)
-    echo "Usage: bash tools/ci_run.sh {schedule|competitions|china|predictions|build|test|all}" >&2
+    echo "Usage: bash tools/ci_run.sh {schedule|competitions|penalties|china|predictions|build|test|all}" >&2
     exit 2
     ;;
 esac
