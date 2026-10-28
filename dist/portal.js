@@ -208,6 +208,14 @@
             )
           )
         );
+      const restrictionText = (restriction) => {
+        const blocked = restriction?.blocked_individual_distances;
+        if (!blocked) return '';
+        if (restriction.distances_m?.length === 3) return '下站个人单项全部禁赛';
+        if (restriction.distances_m?.length === blocked)
+          return '下站禁报 ' + restriction.distances_m.map((m) => m + 'm').join('、');
+        return '下站禁报排名最高的 ' + blocked + ' 项';
+      };
       const penaltyPanel = penaltyIndex?.items?.length
         ? h(
             'details',
@@ -249,15 +257,7 @@
                         person.next_restriction?.blocked_individual_distances
                           ? h('span', {
                               class: 'penalty-restriction',
-                              text: person.next_restriction.distances_m?.length === 3
-                                ? '下站个人单项全部禁赛'
-                                : person.next_restriction.distances_m?.length ===
-                                    person.next_restriction.blocked_individual_distances
-                                  ? '下站禁报 ' +
-                                    person.next_restriction.distances_m.map((m) => m + 'm').join('、')
-                                  : '下站禁报排名最高的 ' +
-                                    person.next_restriction.blocked_individual_distances +
-                                    ' 项'
+                              text: restrictionText(person.next_restriction)
                             })
                           : null
                       ),
