@@ -4,11 +4,11 @@
 
 ## 冬奥来源
 
-IOC 奥林匹克资料库搜索引擎的索引文本包含官方 event classification：平昌女子、男子 500 米各 3 名中国选手，北京男子 1000 米 3 名及女子 3000 米接力中国队共 10 条名次和状态与基线一致。北京男子 1000 的成绩表标记 `74A v2.0`，报告创建 2022-02-09 22:01，修订说明与刘少林的轮次结果相关；不能将索引抓取日期当作官方修订日期。逐条结果见 [ioc-indexed-sample.json](ioc-indexed-sample.json)。
+IOC 奥林匹克资料库搜索引擎的索引文本包含官方 event classification：两届冬奥共 41 条中国队记录的名次和状态与基线一致，其中 38 条有数值名次，3 条为无数值名次的 PEN。北京男子 1000 的成绩表标记 `74A v2.0`，报告创建 2022-02-09 22:01，修订说明与刘少林的轮次结果相关；不能将索引抓取日期当作官方修订日期。逐条结果见 [ioc-indexed-sample.json](ioc-indexed-sample.json)。
 
 来源为 [2018 IOC 资料库](https://library.olympics.com/Default/digitalCollection/DigitalCollectionAttachmentDownloadHandler.ashx?documentId=173359&parentDocumentId=173345) 和 [2022 IOC 资料库](https://library.olympics.com/Default/digitalCollection/DigitalCollectionAttachmentDownloadHandler.ashx?documentId=1568649&parentDocumentId=1568639)。搜索引擎返回了原报告索引文本，但直接打开链接返回要求 JS 和 Cookie 的 HTML；本次未取得原 PDF 字节、无法计算其哈希，不能声称已保存 PDF 或直接核验全部页面。冬奥会使用官方结果页面作为来源本身正常；资料是否已逐条核对另行记录。
 
-第一轮的 41 条冬奥记录中，本轮对其中 10 条进行了名次和状态的索引文本比对，剩余 31 条、另外 115 条未核名次仍待核。已找到其他官方来源，但尚未建立可逐条重现的完整采集链。未核验不能标为通过。
+第一轮的 41 条冬奥记录已逐条对照索引文本中的名次和状态；另外 115 条未核名次仍待核。已找到其他官方来源，但尚未建立可逐条重现的完整采集链。未核验不能标为通过。
 
 ## 其他发现
 
