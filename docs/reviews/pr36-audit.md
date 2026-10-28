@@ -1,5 +1,7 @@
 # PR #36 整改审计
 
+> 历史审核记录：保留当时的测量与问题。当前行为及文案以 docs/architecture.md、frontend.md、results-contract.md 为准。
+
 基线：`79d920104b6c0dbd1b2554c2517809e2a850dbe6`，依赖 #35 的 `40f886f`。
 
 ## 重构前

@@ -25,9 +25,13 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1]
 CHINA = ROOT / 'data/china.json'
 OUT = ROOT / 'dist'
-SCRIPTS = ('ui.js', 'navigation.js', 'results-model.js', 'results-store.js', 'results.js', 'portal.js', 'app.js')
 BUNDLE = 'site.js'
-SHELL_FILES = ('index.html', BUNDLE, 'site.css', 'manifest.webmanifest')
+BUNDLES = {
+    BUNDLE: ('ui.js', 'navigation.js', 'portal.js', 'app.js'),
+    'results-page.js': ('results-model.js', 'results-store.js', 'results-compare.js', 'results.js'),
+}
+SCRIPTS = tuple(name for scripts in BUNDLES.values() for name in scripts)
+SHELL_FILES = ('index.html', *BUNDLES, 'site.css', 'manifest.webmanifest')
 BJ = ZoneInfo('Asia/Shanghai')
 STAGES = {'Q': 'qualifying', 'R': 'repechage', 'F': 'main'}
 GENDERS = {'W': 'women', 'M': 'men', 'X': 'mixed'}
@@ -373,9 +377,10 @@ def _compile(now, out, prior, source_log):
     for filename in SCRIPTS:
         shutil.copyfile(ROOT / 'web' / filename, out / filename)
     # Plain concatenation keeps source modules testable without extra browser round trips or a bundler dependency.
-    (out / BUNDLE).write_text(
-        ';\n'.join((ROOT / 'web' / name).read_text(encoding='utf-8') for name in SCRIPTS), encoding='utf-8'
-    )
+    for bundle, scripts in BUNDLES.items():
+        (out / bundle).write_text(
+            ';\n'.join((ROOT / 'web' / name).read_text(encoding='utf-8') for name in scripts), encoding='utf-8'
+        )
     shutil.copyfile(ROOT / 'web/site.css', out / 'site.css')
     shutil.copyfile(ROOT / 'web/_headers', out / '_headers')
     shutil.copytree(ROOT / 'web/icons', out / 'icons', dirs_exist_ok=True)
@@ -432,7 +437,14 @@ def _compile(now, out, prior, source_log):
     for page_path in page_paths:
         page_dir = out / page_path
         page_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(out / 'index.html', page_dir / 'index.html')
+        page_html = (out / 'index.html').read_text(encoding='utf-8')
+        if page_path == 'history' or page_path == 'results' or page_path.startswith('results/'):
+            # Discover the route bundle with the shell, without loading it on other pages.
+            page_html = page_html.replace(
+                '<script defer src="/site.js"></script>',
+                '<link rel="preload" href="/results-page.js" as="script">\n<script defer src="/site.js"></script>',
+            )
+        (page_dir / 'index.html').write_text(page_html, encoding='utf-8')
     feed = updates.export(
         out,
         venues,

@@ -7,7 +7,7 @@
 - `/`：当前或下一场赛事与售票信息
 - `/events/`：完整赛季赛历
 - `/events/2026-27/vancouver/`：分站详情（原 `/?station=vancouver` 等链接继续可用）
-- `/results/`：中国队成绩总览、赛事成绩、周期／赛季档案与对比；原 `/history/` 入口继续可用
+- `/results/`：中国队成绩总览、赛事成绩、周期／赛季档案与赛事／赛季／周期对比；原 `/history/` 入口继续可用
 - `/athletes/`：运动员目录与已公布的本赛季世巡赛单项排名
 
 历史成绩截至 2026-10-27：官方目录 76 场均已建档，74 场有中国队成绩，共 1,726 条。只统计个人 500 / 1000 / 1500 米及接力；全能和个人超级 3000 不计，缺接力阵容不影响团队成绩。名次来源不一致时采用当前官网正式最终分类，旧版本保留溯源；72 场成绩完整，剩余四场最终分类缺口和逐季数量见 [历史成绩说明](docs/history.md)。
@@ -70,3 +70,5 @@ ruff format tools tests && ruff check tools tests   # Python 格式与检查（p
 - [docs/deploy.md](docs/deploy.md)：Cloudflare 部署与比赛时段定时同步
 - [docs/isu-seeding-2026-27.md](docs/isu-seeding-2026-27.md)：直通、种子与分组规则（含官方条款出处）
 - [docs/log.md](docs/log.md)：工作日志与核查记录
+
+最近一次代码、界面与文档检查：[赛事对比与加载审查](docs/reviews/event-comparison.md)。

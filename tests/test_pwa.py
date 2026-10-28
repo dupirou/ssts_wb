@@ -60,19 +60,25 @@ class PwaTests(unittest.TestCase):
         html = (ROOT / 'web/index.html').read_text(encoding='utf-8')
         self.assertIn('rel="manifest" href="/manifest.webmanifest"', html)
         self.assertIn('rel="apple-touch-icon"', html)
-        self.assertIn(
-            "serviceWorker.register('/sw.js', {scope: '/'})", (ROOT / 'web/app.js').read_text(encoding='utf-8')
+        self.assertRegex(
+            (ROOT / 'web/app.js').read_text(encoding='utf-8'),
+            r"serviceWorker\.register\('/sw\.js',\s*\{\s*scope:\s*'/'\s*\}\)",
         )
 
-    def test_every_module_is_in_html_and_precache(self):
+    def test_modules_belong_to_their_route_bundle(self):
         html = (ROOT / 'web/index.html').read_text()
         worker = (ROOT / 'web/sw.js').read_text()
         declared = re.findall(r'<script defer src="/([^"]+)"', html)
         self.assertEqual(declared, [build.BUNDLE])
         self.assertIn("'./" + build.BUNDLE + "'", worker)
-        bundle = (ROOT / 'dist' / build.BUNDLE).read_text()
-        for script in build.SCRIPTS:
-            self.assertIn((ROOT / 'web' / script).read_text(), bundle)
+        for name, scripts in build.BUNDLES.items():
+            bundle = (ROOT / 'dist' / name).read_text()
+            for script in scripts:
+                self.assertIn((ROOT / 'web' / script).read_text(), bundle)
+        self.assertNotIn('results-page.js', worker)
+        self.assertIn('results-page.js', build.SHELL_FILES)
+        self.assertNotIn('results-page.js', html)
+        self.assertIn('href="/results-page.js" as="script"', (ROOT / 'dist/results/index.html').read_text())
 
     def test_built_worker_is_stamped_with_the_shell_version(self):
         built = (ROOT / 'dist/sw.js').read_text(encoding='utf-8')
