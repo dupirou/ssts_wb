@@ -67,6 +67,69 @@ export async function syncDecision(env, now) {
   return Math.floor(now / TICK_MS) % 6 === 0 ? 'hourly' : 'skip';
 }
 
+const HEARTBEAT_KEY = 'sync:last_success';
+const SESSION_STALE_MS = 30 * 60_000;
+const DEFAULT_STALE_MS = 36 * HOUR_MS;
+
+async function validHeartbeatToken(request, secret) {
+  if (typeof secret !== 'string' || secret.length < 32) return false;
+  const encoder = new TextEncoder();
+  const digest = async input => new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(input)));
+  const [actual, expected] = await Promise.all([
+    digest(request.headers.get('Authorization') || ''), digest('Bearer ' + secret),
+  ]);
+  let different = 0;
+  for (let i = 0; i < expected.length; i++) different |= actual[i] ^ expected[i];
+  return different === 0;
+}
+
+async function acceptHeartbeat(request, env) {
+  if (request.method !== 'POST') return json({error: 'method_not_allowed'}, 405, false, {Allow: 'POST'});
+  if (!env.HEARTBEAT_SECRET || !env.SYNC_HEALTH_KV) return json({error: 'heartbeat_unavailable'}, 503);
+  if (!(await validHeartbeatToken(request, env.HEARTBEAT_SECRET))) return json({error: 'unauthorized'}, 401);
+  const timestamp = new Date().toISOString();
+  try {
+    await env.SYNC_HEALTH_KV.put(HEARTBEAT_KEY, JSON.stringify({checked_at: timestamp}));
+    return json({status: 'ok', checked_at: timestamp});
+  } catch (error) {
+    console.error(JSON.stringify({event: 'heartbeat_write_error', message: String(error?.message || error)}));
+    return json({error: 'heartbeat_unavailable'}, 503);
+  }
+}
+
+async function freshness(env, dataset) {
+  const original = dataset.checked_at || null;
+  let checked_at = original;
+  let source = 'snapshot';
+  let degraded = false;
+  try {
+    if (!env.SYNC_HEALTH_KV) throw new Error('KV binding not configured');
+    const pulse = await env.SYNC_HEALTH_KV.get(HEARTBEAT_KEY, 'json');
+    if (!pulse || typeof pulse.checked_at !== 'string' || !Number.isFinite(Date.parse(pulse.checked_at))) {
+      throw new Error('No valid heartbeat');
+    }
+    checked_at = pulse.checked_at;
+    source = 'heartbeat';
+  } catch (error) {
+    degraded = true;
+    console.error(JSON.stringify({event: 'heartbeat_read_fallback', message: String(error?.message || error)}));
+  }
+  let threshold = DEFAULT_STALE_MS;
+  if (source === 'heartbeat') {
+    try {
+      if (await syncDecision(env, Date.now()) === 'session') threshold = SESSION_STALE_MS;
+    } catch (error) {
+      degraded = true;
+      console.error(JSON.stringify({event: 'heartbeat_session_fallback', message: String(error?.message || error)}));
+    }
+  }
+  const age = checked_at ? Date.now() - Date.parse(checked_at) : null;
+  return {
+    checked_at, data_checked_at: original, freshness_source: source, freshness_degraded: degraded,
+    stale: dataset.update_status === 'error' || (age !== null && age > threshold),
+  };
+}
+
 async function dispatchSync(env, now) {
   const decision = await syncDecision(env, now);
   if (decision === 'outside_window' || decision === 'skip') return decision;
@@ -78,7 +141,7 @@ async function dispatchSync(env, now) {
     method: 'POST',
     headers: {Authorization: 'Bearer ' + env.GITHUB_DISPATCH_TOKEN, Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'stsswb-cron', 'Content-Type': 'application/json'},
-    body: JSON.stringify({ref: 'main'}),
+    body: JSON.stringify({ref: 'main', inputs: {sync_decision: decision}}),
   });
   if (response.status !== 204) {
     const code = [401, 403].includes(response.status) ? 'github_permission_denied' : 'github_dispatch_failed';
@@ -100,6 +163,7 @@ export default {
 
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === '/internal/heartbeat') return acceptHeartbeat(request, env);
     if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
     const head = request.method === 'HEAD';
     if (!['GET', 'HEAD'].includes(request.method)) {
@@ -141,7 +205,7 @@ export default {
         if (!stored.ok) return json({error: 'data_unavailable'}, 503, head);
         const prediction = await stored.json();
         const items = prediction.items.filter(item => matches(item, url.searchParams));
-        return json({...prediction, total: items.length, items}, 200, head);
+        return json({...prediction, ...await freshness(env, prediction), total: items.length, items}, 200, head);
       }
       const stored = await env.ASSETS.fetch(new URL(`/data/competitions/${eventId}.json`, url));
       if (!stored.ok) return json({error: 'data_unavailable'}, 503, head);
@@ -159,13 +223,11 @@ export default {
         items = items.filter(item => matches(item, url.searchParams));
       }
       const {items: unused, ...meta} = dataset;
-      const age = dataset.checked_at ? Date.now() - Date.parse(dataset.checked_at) : null;
       if (resource === 'results' || resource === 'penalties') {
         meta.status = dataset.items.some(i => i.evidence === 'official_results') ? 'available' : 'not_published';
       }
       return json({schema_version: 1, event_id: eventId, resource, ...meta,
-        stale: dataset.update_status === 'error' || (age !== null && age > 36 * 3600_000),
-        total: items.length, items}, 200, head);
+        ...await freshness(env, dataset), total: items.length, items}, 200, head);
     } catch (error) {
       console.error('Competition snapshot unavailable', error?.message);
       return json({error: 'data_unavailable'}, 503, head);
