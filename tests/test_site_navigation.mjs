@@ -246,7 +246,7 @@ test('cycle comparison distinguishes missing archives and never awards a B-final
   const current = await page('/results/compare/?left=2025%2F26&right=2026%2F27&kind=worldtour&metric=medals');
   t.after(() => current.window.close());
   const relay = current.window.document.querySelectorAll('.compare-project')[3];
-  assert.equal(relay.querySelectorAll('td')[1].textContent, '0 金 · 0 银 · 0 铜1 条成绩已收录部分');
+  assert.equal(relay.querySelectorAll('td')[1].textContent, '0 金 · 0 银 · 0 铜1 条成绩');
   const review = await page('/results/seasons/2025-26/');
   t.after(() => review.window.close());
   assert.equal(review.window.document.querySelector('h1').textContent, '2025/26');
@@ -293,13 +293,14 @@ test('review and compare use summaries, fetch raw evidence only on expansion',as
   assert.ok(d.querySelectorAll('.review-records li').length>0);
 });
 
-test('zero participation, missing classifications and unfinished current scope remain visible',async t=>{
+test('zero participation stays visible while backend coverage diagnostics stay out of the UI',async t=>{
   const empty=resultData.events.find(e=>e.participation==='none');
   assert.ok(empty);
   const dom=await page('/results/events/'+empty.id+'/');t.after(()=>dom.window.close());
   assert.match(dom.window.document.querySelector('.results-table').textContent,/无中国队记录（0）/);
   const partial=await page('/results/cycles/milano-2026/?kind=circuit');t.after(()=>partial.window.close());
-  assert.match(partial.window.document.querySelector('.review-content').textContent,/已收录部分/);
-  const missing=[...partial.window.document.querySelectorAll('.compare-project')].filter(r=>r.textContent.includes('缺最终分类'));
-  assert.ok(missing.length>0);
+  assert.ok(partial.window.document.querySelectorAll('.compare-project').length>0);
+  assert.doesNotMatch(partial.window.document.querySelector('.review-content').textContent,/已收录部分|缺最终分类|最终分类缺失|待核验/);
+  assert.ok(resultData.events.some(e=>e.coverage_detail?.missing_classifications>0),
+    'coverage diagnostics are still retained in the generated data');
 });
