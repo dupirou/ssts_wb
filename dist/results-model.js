@@ -102,7 +102,7 @@
   });
   // A terminal-round DNS can follow a completed earlier race.
   const startedEvent = (r) =>
-    r.started !== false && (r.status !== 'DNS' || Boolean(r.best_time));
+    r.started !== false && (r.status !== 'DNS' || r.started === true || Boolean(r.best_time));
   function rowStatistics(rows) {
     rows = rows.filter((r) => included(r) && r.medal_eligible !== false);
     const starts = rows.filter(startedEvent);

@@ -9,7 +9,7 @@ const index=await file('dist/data/results/index.json');
 // Independent calculation across every real event and aggregate scope.
 function baseline(events){
   const rows=events.flatMap(e=>e.results).filter(r=>r.medal_eligible!==false);
-  const starts=rows.filter(r=>r.started!==false&&(r.status!=='DNS'||Boolean(r.best_time)));
+  const starts=rows.filter(r=>r.started!==false&&(r.status!=='DNS'||r.started===true||Boolean(r.best_time)));
   const medal=r=>r.medal_eligible!==false&&r.medal_verified!==false&&r.status==='classified'&&r.rank!=null&&r.rank>=1&&r.rank<=3&&(r.rank_scope!=='final'||r.final_group==='A');
   return {events:events.length,entries:rows.length,starts:starts.length,
     medals:[1,2,3].map(rank=>rows.filter(r=>medal(r)&&r.rank===rank).length),
@@ -99,4 +99,11 @@ test('terminal DNS after a completed race counts the event start but not a final
   assert.equal(stats.totals.starts,1);
   assert.equal(stats.totals.a_finals,0);
   assert.equal(m.athleteStatistics([event]).find(p=>p.id==='lin').starts,1);
+});
+
+test('recorded prior race start counts even if final round was DNS',()=>{
+  const row={gender:'men',distance_m:1500,format:'individual',athlete_id:'liu',name:'LIU Guanyi',rank:null,final_group:'B',status:'DNS',started:true,best_time:null};
+  const event={results:[row]};
+  assert.equal(m.summarize(event).totals.starts,1);
+  assert.equal(m.athleteStatistics([event])[0].starts,1);
 });
