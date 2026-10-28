@@ -5,7 +5,7 @@ import {JSDOM} from 'jsdom';
 
 const file = async name => readFile(new URL('../' + name, import.meta.url), 'utf8');
 const [html, script, snapshot, schedule, predictions, calendar] = await Promise.all([
-  file('web/index.html'), file('web/app.js'), file('data/competitions/vancouver.json').then(JSON.parse),
+  file('web/index.html'), Promise.all(['navigation', 'portal', 'app'].map(name => file('web/' + name + '.js'))).then(parts => parts.join('\n')), file('data/competitions/vancouver.json').then(JSON.parse),
   file('dist/data/vancouver.json').then(JSON.parse),
   file('dist/data/predictions/vancouver.json').then(JSON.parse),
   file('dist/data/calendar.json').then(JSON.parse),
@@ -220,7 +220,7 @@ test('prediction waits for distance entries, exposes rules and leaves official h
 test('stations without distance entries have no prediction tab', async t => {
   const dom=await page({url:'https://example.test/?station=montreal&view=predictions',view:'schedule'});t.after(()=>dom.window.close());
   const d=dom.window.document;
-  assert.deepEqual([...d.querySelectorAll('[role="tab"]')].map(b=>b.textContent),['赛程','运动员']);
+  assert.deepEqual([...d.querySelectorAll('[role="tab"]')].map(b=>b.textContent),['赛程','报名名单']);
   assert.equal(d.querySelector('#tab-schedule').getAttribute('aria-selected'),'true');
 });
 
@@ -390,7 +390,7 @@ test('what\'s new bar: newest first, results supersede groups, closing remembers
   assert.ok(items[0].classList.contains('is-chn'));
   assert.equal(d.querySelector('.upd-list img'), null);
   assert.match(items[1].textContent, /半决赛 时间调整北京时间 01:40 → 10\/25 周日 凌晨 02:05/);
-  assert.equal(items[0].querySelector('a').getAttribute('href'), '?station=vancouver&day=2026-10-24');
+  assert.equal(items[0].querySelector('a').getAttribute('href'), '/events/2026-27/vancouver/?day=2026-10-24');
   assert.ok(!d.querySelector('.upd-text b'), 'station name is not repeated on its own page');
   const head = d.querySelector('.upd-head');
   assert.equal(d.querySelector('.upd-list').hidden, true);
@@ -456,5 +456,5 @@ test('what\'s new bar announces another station\'s newly published programme wit
   await settle(dom, () => d.querySelector('.updates'));
   const item = d.querySelector('.upd-list li');
   assert.match(item.textContent, /^蒙特利尔站 详细赛程已公布 · 共 62 轮/);
-  assert.equal(item.querySelector('a').getAttribute('href'), '?station=montreal&day=2026-10-30');
+  assert.equal(item.querySelector('a').getAttribute('href'), '/events/2026-27/montreal/?day=2026-10-30');
 });

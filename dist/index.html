@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#070B12">
 <meta name="description" content="2026/27 ISU 短道速滑世巡赛 7 站及2027首尔世锦赛赛程，北京时间、官方报名和分组信息。">
 <title>2026/27 短道速滑｜世巡赛与世锦赛</title>
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="短道赛程">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,11 @@
   if (t === 'light') document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').content = 'default';
 })();
 </script>
-<link rel="stylesheet" href="./site.css">
-<link rel="preload" href="./data/calendar.json" as="fetch" crossorigin>
-<script defer src="./app.js"></script>
+<link rel="stylesheet" href="/site.css">
+<link rel="preload" href="/data/calendar.json" as="fetch" crossorigin>
+<script defer src="/navigation.js"></script>
+<script defer src="/portal.js"></script>
+<script defer src="/app.js"></script>
 </head><body>
 <div class="launch" id="launch" aria-hidden="true">
   <svg class="launch-mark" viewBox="0 0 512 512">
@@ -57,7 +59,7 @@
       <animateMotion path="M0 0A80 80 0 0 0 0 160H160A80 80 0 0 0 160 0Z" dur="1.6s" begin="indefinite" repeatCount="indefinite"/>
     </g>
   </svg>
-  <div class="launch-copy"><b>短道速滑赛程</b><span>2026/27 世巡赛 · 世锦赛</span></div>
+  <div class="launch-copy"><b>短道速滑</b><span>赛事 · 历史 · 运动员</span></div>
   <p class="launch-foot">北京时间 · ISU 官方数据</p>
 </div>
 <script>
@@ -67,15 +69,17 @@ if (document.documentElement.classList.contains('launching') && !matchMedia('(pr
 setTimeout(function () { document.documentElement.classList.add('launched'); }, 8000);
 </script>
 <div class="backdrop" aria-hidden="true"></div>
+<a class="skip-link" href="#app">跳到内容</a>
 <header class="topbar">
-  <a class="brand" href="./" aria-label="短道速滑赛程首页">
+  <a class="brand" href="/" aria-label="短道速滑首页">
     <svg class="brand-mark" viewBox="0 0 40 24" aria-hidden="true"><rect x="2" y="2" width="36" height="20" rx="10" fill="none" stroke="currentColor" stroke-width="2.4"/><circle class="brand-dot" cx="12" cy="2" r="3"/></svg>
-    <span class="brand-text"><b>短道速滑赛程</b><span>2026/27 世巡赛 · 世锦赛</span></span>
+    <span class="brand-text"><b>短道速滑</b><span>赛事 · 成绩 · 运动员</span></span>
   </a>
+  <nav class="site-nav" id="site-nav" aria-label="全站导航"></nav>
   <div class="clocks" id="clocks" aria-live="off"></div>
 </header>
-<main id="app" aria-busy="true">
-  <div class="loading"><span class="loading-ring" aria-hidden="true"></span><p>正在读取赛程数据……</p></div>
+<main id="app" aria-busy="true" tabindex="-1">
+  <div class="loading"><span class="loading-ring" aria-hidden="true"></span><p>正在读取数据……</p></div>
 </main>
-<noscript><p class="noscript">本页需要启用 JavaScript 才能显示赛程。原始数据：<a href="./data/vancouver.json">vancouver.json</a></p></noscript>
+<noscript><p class="noscript">本页需要启用 JavaScript 才能显示赛程。原始数据：<a href="/data/vancouver.json">vancouver.json</a></p></noscript>
 </body></html>
