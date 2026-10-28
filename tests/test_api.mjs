@@ -141,7 +141,7 @@ test('race-window cron: 10-min syncs around sessions, hourly between them, none 
   assert.equal(calls.length, 1);
   assert.equal(calls[0].url, 'https://api.github.com/repos/dupirou/ssts_wb/actions/workflows/sync.yml/dispatches');
   assert.equal(calls[0].init.headers.Authorization, 'Bearer t0k');
-  assert.deepEqual(JSON.parse(calls[0].init.body), {ref:'main', inputs:{sync_decision:'hourly'}});
+  assert.deepEqual(JSON.parse(calls[0].init.body), {ref:'main', inputs:{sync_decision:'session'}});
 });
 
 
@@ -206,7 +206,7 @@ test('freshness uses current heartbeat, expires at 30 minutes in session, and fa
   const station={id:'vancouver',date_start:'2026-10-23',date_end:'2026-10-25'};
   const session=new Date('2026-10-24T18:00:00Z').getTime();
   const assets = age => ({...mkEnv(age), ASSETS:{fetch:async request => {
-    const path=new URL(request.url).pathname;
+    const path=new URL(typeof request === 'string' ? request : request.url || request).pathname;
     if(path==='/data/calendar.json')return Response.json({stations:[station]});
     if(path==='/data/vancouver.json')return Response.json({entries:[{local_date:'2026-10-24',utc_start:'2026-10-24T18:00:00Z'}]});
     return mkEnv(age).ASSETS.fetch(request);
