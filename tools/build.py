@@ -344,7 +344,9 @@ def export(now=None, out=OUT):
         if st['id'] in errors:
             previous_path = OUT / 'data' / (st['id'] + '.json')
             if errors[st['id']]['state'] == 'retained':
-                shutil.copyfile(previous_path, out / 'data' / (st['id'] + '.json'))
+                target_path = out / 'data' / (st['id'] + '.json')
+                if previous_path.resolve() != target_path.resolve():
+                    shutil.copyfile(previous_path, target_path)
             continue
         sync = meta.get(st['id'], {})
         days = {}
