@@ -5567,15 +5567,54 @@ td.time {
 }
 
 /* Official World Tour penalties: compact outer summary, optional per-athlete details. */
-.penalty-panel { margin-block: 1rem; }
-.penalty-panel > summary { cursor: pointer; font-weight: 650; }
-.penalty-list, .penalty-details { padding: 0; list-style: none; }
-.penalty-list { margin: .75rem 0; }
-.penalty-row { border-bottom: 1px solid var(--line, rgba(128,128,128,.2)); }
-.penalty-row:last-child { border-bottom: 0; }
-.penalty-person > summary { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem .75rem; padding: .55rem 0; cursor: pointer; font-size: .88rem; }
-.penalty-person > summary > span:first-child { flex: 1 1 12rem; }
-.penalty-restriction { font-size: .8rem; font-weight: 600; }
-.penalty-details { margin: 0 0 .55rem .7rem; }
-.penalty-details li { display: flex; gap: .7rem; flex-wrap: wrap; align-items: center; padding: .3rem 0; font-size: .8rem; }
-.penalty-details li > span { flex: 1 1 13rem; }
+.penalty-panel {
+  margin-block: 1rem;
+}
+.penalty-panel > summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.penalty-list,
+.penalty-details {
+  padding: 0;
+  list-style: none;
+}
+.penalty-list {
+  margin: 0.75rem 0;
+}
+.penalty-row {
+  border-bottom: 1px solid var(--line, rgba(128, 128, 128, 0.2));
+}
+.penalty-row:last-child {
+  border-bottom: 0;
+}
+.penalty-person > summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+  padding: 0.55rem 0;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+.penalty-person > summary > span:first-child {
+  flex: 1 1 12rem;
+}
+.penalty-restriction {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.penalty-details {
+  margin: 0 0 0.55rem 0.7rem;
+}
+.penalty-details li {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.3rem 0;
+  font-size: 0.8rem;
+}
+.penalty-details li > span {
+  flex: 1 1 13rem;
+}
