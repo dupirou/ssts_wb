@@ -12,6 +12,11 @@ import competition_data
 import stations
 import schedule_store
 import official_sources
+import predict_groups
+import qualification
+import site_catalog
+import history_data
+import updates
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -185,8 +190,6 @@ BOOKING_SITES = {'m.ticketlink.co.kr': 'Ticketlink'}
 
 def attach_qualification(rows, station_id):
     """Each round's published qualification rule ('2Q+6q' and in Chinese), once ISU lists it."""
-    import qualification
-
     rules = competition_data.load_snapshot(station_id)['rounds'].get('rules', {})
     for row in rows:
         rule = qualification.describe(rules.get(row['round_key']))
@@ -264,8 +267,6 @@ def manifest_text(text, now):
 
 
 def _compile(now, out, prior, source_log):
-    import predict_groups
-
     config = stations.load()
     calendar_url = config['calendar_url']
     venues = [tuple(st[field] for field in stations.FIELDS) for st in config['stations']]
@@ -388,11 +389,7 @@ def _compile(now, out, prior, source_log):
     )
     competition_data.export(out, venues, predict_groups.entered_distances, config['season'])
     predict_groups.export(out, venues, schedules)
-    import site_catalog
-
     site_catalog.export(out, season, schedules)
-    import history_data
-
     history_data.export(out, calendar=season)
     try:
         subprocess.run(
@@ -436,8 +433,6 @@ def _compile(now, out, prior, source_log):
         page_dir = out / page_path
         page_dir.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(out / 'index.html', page_dir / 'index.html')
-    import updates
-
     feed = updates.export(
         out,
         venues,
