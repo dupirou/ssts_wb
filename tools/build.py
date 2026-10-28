@@ -10,7 +10,7 @@ import sys
 import tempfile
 import competition_data
 import stations
-import sync_schedule
+import schedule_store
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -53,10 +53,10 @@ CHAMPIONSHIPS = [
 def read_schedule(station_id, directory=stations.SCHEDULES):
     """A station's stored official programme as Beijing-time rows; [] until ISU publishes one."""
     station = stations.get(station_id)
-    data = sync_schedule.read(stations.schedule_path(station_id, directory))
+    data = schedule_store.read(stations.schedule_path(station_id, directory))
     if data is None:
         return []
-    sync_schedule.validate(data, station)
+    schedule_store.validate(data, station)
     tz = ZoneInfo(station['timezone'])
     result = []
     for row in data:
