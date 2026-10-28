@@ -249,10 +249,15 @@
                         person.next_restriction?.blocked_individual_distances
                           ? h('span', {
                               class: 'penalty-restriction',
-                              text:
-                                '下站限报 ' +
-                                person.next_restriction.blocked_individual_distances +
-                                ' 项'
+                              text: person.next_restriction.distances_m?.length === 3
+                                ? '下站个人单项全部禁赛'
+                                : person.next_restriction.distances_m?.length ===
+                                    person.next_restriction.blocked_individual_distances
+                                  ? '下站禁报 ' +
+                                    person.next_restriction.distances_m.map((m) => m + 'm').join('、')
+                                  : '下站禁报排名最高的 ' +
+                                    person.next_restriction.blocked_individual_distances +
+                                    ' 项'
                             })
                           : null
                       ),
