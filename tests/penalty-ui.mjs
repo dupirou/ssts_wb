@@ -49,7 +49,7 @@ test('official cumulative penalties render seven checkpoint cells and preserve r
 
   const rows = [...panel.querySelectorAll('.penalty-person')];
   assert.equal(rows.length, 3);
-  for (const [i, total] of [2, 3, 8].entries()) {
+  for (const [i, total] of [8, 3, 2].entries()) {
     const bar = rows[i].querySelector('[role="progressbar"]');
     assert.equal(bar.getAttribute('aria-valuemin'), '0');
     assert.equal(bar.getAttribute('aria-valuemax'), '7');
