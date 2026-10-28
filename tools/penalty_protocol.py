@@ -237,6 +237,7 @@ def export(out, config, source=None):
     folder.mkdir(parents=True, exist_ok=True)
     latest = None
     station_id = None
+    verified_stations = []
     for ordinal, station in enumerate(config['stations'], 1):
         path = source / (station['id'] + '.json')
         if not path.exists():
@@ -254,6 +255,7 @@ def export(out, config, source=None):
         )
         latest = value
         station_id = station['id']
+        verified_stations.append((station_id, value))
     entries = []
     if latest:
         for row in latest['official']:
@@ -268,17 +270,20 @@ def export(out, config, source=None):
             )
             details = [
                 dict(
-                    event_id=station_id,
+                    event_id=earlier_id,
                     race_number=p['race_number'],
                     distance_m=p['distance_m'],
                     round_label=p['round_label'],
                     infringement_code=p['infringement_code'],
-                    counted=p['format'] == 'individual' and p['infringement_code'] not in latest['excluded_codes'],
+                    counted=p['format'] == 'individual' and p['infringement_code'] not in previous['excluded_codes'],
                 )
-                for p in latest['infringements']
-                if p['country'] == row['country']
-                and p['gender'] == row['gender']
-                and p['helmet_number'] == row['helmet_number']
+                for earlier_id, previous in verified_stations
+                for previous_row in previous['official']
+                if previous_row['athlete_id'] == row['athlete_id']
+                for p in previous['infringements']
+                if p['country'] == previous_row['country']
+                and p['gender'] == previous_row['gender']
+                and p['helmet_number'] == previous_row['helmet_number']
             ]
             entries.append(
                 dict(
