@@ -310,6 +310,41 @@
         country,
         sex
       );
+      // Seven checkpoints represent official cumulative counts; only 3, 5 and 7 trigger restrictions.
+      const penaltyThresholds = [3, 5, 7];
+      const penaltyBar = (person) =>
+        h(
+          'span',
+          { class: 'penalty-meter-wrap' },
+          h(
+            'span',
+            {
+              class: 'penalty-meter',
+              role: 'progressbar',
+              'aria-label': '有效累计判罚',
+              'aria-valuemin': 0,
+              'aria-valuemax': 7,
+              'aria-valuenow': Math.min(person.total, 7),
+              'aria-valuetext': person.total + ' 次有效判罚'
+            },
+            Array.from({ length: 7 }, (_, i) =>
+              h('span', {
+                class:
+                  'penalty-segment' +
+                  (i < person.total ? ' is-filled' : '') +
+                  (penaltyThresholds.includes(i + 1) ? ' is-threshold' : ''),
+                'aria-hidden': 'true'
+              })
+            )
+          ),
+          h(
+            'span',
+            { class: 'penalty-thresholds', 'aria-hidden': 'true' },
+            penaltyThresholds.map((value) =>
+              h('span', { class: 'penalty-threshold penalty-threshold-' + value, text: value })
+            )
+          )
+        );
       const penaltyPanel = penaltyIndex?.items?.length
         ? h(
             'details',
@@ -342,8 +377,12 @@
                       h(
                         'summary',
                         {},
-                        h('span', { text: person.country + ' · ' + person.name }),
-                        h('b', { class: 'num', text: person.total + ' 次' }),
+                        h('span', {
+                          class: 'penalty-name',
+                          text: person.country + ' · ' + person.name
+                        }),
+                        h('b', { class: 'num penalty-count', text: person.total + ' 次' }),
+                        penaltyBar(person),
                         person.next_restriction?.blocked_individual_distances
                           ? h('span', {
                               class: 'penalty-restriction',
