@@ -1688,9 +1688,10 @@
       const hs = r.china.heats;
       // The card above already names the next round; repeat it only when CHN races later.
       const sameRound = r === entries.find(x => x.t > now());
+      const firstEstimate = hs[0]?.estimate?.earliest_beijing;
       fill(box, icon('star', 'ico star-ico'), h('span', {}, h('b', {text: sameRound ? 'CHN ' : 'CHN 下一场 '}),
         phrases(sameRound ? null : eventName(r) + ' ' + roundName(r), '第 ' + hs.map(x => x.number).join('、') + ' 组',
-          '约 ' + hs[0].estimate.earliest_beijing.slice(11, 16) + ' 出场')));
+          firstEstimate ? '约 ' + firstEstimate.slice(11, 16) + ' 出场' : null)));
     });
     return box;
   }
@@ -1914,15 +1915,15 @@
     if (china) {
       for (const heat of r.china.heats) {
         const e = heat.estimate;
-        const from = (bjFirst ? e.earliest_beijing : e.earliest_local).slice(11, 16);
-        const to = (bjFirst ? e.latest_beijing : e.latest_local).slice(11, 16);
+        const from = e ? (bjFirst ? e.earliest_beijing : e.earliest_local).slice(11, 16) : null;
+        const to = e ? (bjFirst ? e.latest_beijing : e.latest_local).slice(11, 16) : null;
         // "约" marks the model estimate; official start times carry no prefix.
         note.append(h('p', {class: 'heat'},
           h('span', {class: 'heat-no', text: '第 ' + heat.number + ' 组'}),
           // A relay lists its skaters only once raced; before that the team name says nothing new.
           h('span', {class: 'athletes'}, r.format === 'relay' && heat.athletes.length < 2 ? null
             : heat.athletes.flatMap((a, i) => [i ? '、' : null, h('span', {class: 'nowrap', text: a})])),
-          h('span', {class: 'est num', title: '按组号估算的出场时间，非官方', text: '约 ' + (from === to ? from : from + '–' + to)})));
+          e ? h('span', {class: 'est num', title: '按组号估算的出场时间，非官方', text: '约 ' + (from === to ? from : from + '–' + to)}) : null));
       }
     }
     updateHeatButton(note, r);
