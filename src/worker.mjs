@@ -176,6 +176,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === '/internal/heartbeat') return acceptHeartbeat(request, env);
+    // Assets normally bypass the Worker under run_worker_first; retained for direct/fallback requests.
     if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
     const head = request.method === 'HEAD';
     if (!['GET', 'HEAD'].includes(request.method)) {

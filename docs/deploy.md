@@ -1,6 +1,6 @@
 # 部署
 
-网站是 Cloudflare Worker `stsswb`（`wrangler.jsonc`）：静态目录 `dist`，资产绑定 `ASSETS`，只有 `/api/*` 先经过 `src/worker.mjs`。不需要数据库或管理员写接口。
+网站是 Cloudflare Worker `stsswb`（`wrangler.jsonc`）：静态目录 `dist`，资产绑定 `ASSETS`，只有 `/api/*` 和内部 `/internal/*` 先经过 `src/worker.mjs`。不需要数据库或管理员写接口。
 
 ## 发布流程
 
@@ -8,7 +8,7 @@
 2. Cloudflare Workers Builds（Git 集成）检测到 `main` 的新提交后部署，部署命令 `npx wrangler@4.151.2 deploy`，构建命令留空（`dist/` 已提交）。
 3. 分支推送同样会生成预览部署（PR 上的 “Workers Builds: stsswb” 检查）。
 
-同步推送遇到 `main` 更新时，先 rebase，再按最新依赖重新构建并通过测试后重试；rebase、构建或测试失败即停止推送。
+同步推送遇到 `main` 更新时，重新获取最新 `main` 并重置当前 CI 工作区，按最新依赖重新抓取、构建与测试，重新提交后最多推送三次；本流程仅在隔离的 Actions 工作区执行，不在开发者本地运行 `git reset --hard`。
 
 没有新提交就不会有新部署；只手动跑 Actions 而数据没变化时，Cloudflare 不会重新部署。
 
@@ -24,11 +24,13 @@ GitHub 自带的定时任务（每天 00:17、12:17 UTC）常常延迟。Worker 
 
 一次性设置（未设置时 Worker 只记日志并跳过，不影响网站）：
 
-1. GitHub → Settings → Developer settings → Fine-grained personal access tokens：只授权 `dupirou/ssts_wb`，权限 **Actions: Read and write**，有效期覆盖赛季。
+1. GitHub → Settings → Developer settings → Fine-grained personal access tokens：只授权 `dupirou/ssts_wb`，仅该仓库的 **Actions: Read and write** 权限（GitHub 当前 fine-grained PAT API 对 workflow dispatch 要求 Actions write）。为 Token 设置明确到期日，录入私有运维记录，建议提前 14 天轮换。
 2. Cloudflare → Workers & Pages → `stsswb` → Settings → Variables and Secrets：添加 Secret `GITHUB_DISPATCH_TOKEN`。
 3. 部署后在 Settings → Trigger events 可见 `*/10 * * * *`；由它触发的 Actions 运行类型为 `workflow_dispatch`。
 
 令牌只存放在 Cloudflare Secret 中，不要写进仓库或聊天记录。
+
+**GITHUB_DISPATCH_TOKEN 轮换：** 在 GitHub 新建只授权本仓库、Actions 写入的 fine-grained PAT，设置独立到期日；在 Cloudflare 的 `stsswb` Worker Secret 中更新 `GITHUB_DISPATCH_TOKEN`，部署并观察下一次 session/hourly Cron 是否返回 `dispatched:*`，确认运行触发成功后吊销旧 Token。若返回 401/403，核查 Repository access、Actions 权限、Token 审批状态与到期日，避免在日志中输出任何令牌。推荐每月检查到期日，至少提前 14 天准备替换。
 
 ## 自定义域名
 
