@@ -122,7 +122,8 @@ def parse_pages(pages, config, source_url, sha256=''):
     current = {ident: row['station_counts'][after - 1] for ident, row in records.items()
                if row['station_counts'][after - 1]}
     if counted != current:
-        raise ValueError('Eligible infringement rows disagree with official station penalty totals')
+        mismatches = {ident: (counted.get(ident, 0), current.get(ident, 0)) for ident in sorted(set(counted) | set(current)) if counted.get(ident, 0) != current.get(ident, 0)}
+        raise ValueError(f'Eligible infringement rows disagree with official station penalty totals: {mismatches}')
     return dict(schema_version=1, source_url=source_url, source_sha256=sha256,
                 completed_events=after, excluded_codes=excluded,
                 official=[records[k] for k in sorted(records)],
