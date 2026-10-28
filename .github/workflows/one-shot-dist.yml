@@ -35,5 +35,5 @@ jobs:
             echo "Generated assets already match HEAD"
             exit 0
           fi
-          git commit -m "build: regenerate verified comparison model and frontend"
+          git commit -m "build: publish verified rank-scope comparison and UI"
           git push origin HEAD:refactor/reliability-observability-20261028
