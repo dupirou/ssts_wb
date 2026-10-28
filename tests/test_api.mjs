@@ -143,3 +143,33 @@ test('race-window cron: 10-min syncs around sessions, hourly between them, none 
   assert.equal(calls[0].init.headers.Authorization, 'Bearer t0k');
   assert.deepEqual(JSON.parse(calls[0].init.body), {ref:'main'});
 });
+
+
+test('calendar failure falls back to hourly dispatch and invalid start times are ignored', async () => {
+  const {syncDecision, inRacingSession} = await import('../src/worker.mjs');
+  const missing = {ASSETS:{fetch:async () => new Response('missing', {status:503})}};
+  assert.equal(await syncDecision(missing,Date.parse('2026-10-24T16:00:00Z')),'hourly');
+  assert.equal(await syncDecision(missing,Date.parse('2026-10-24T16:10:00Z')),'skip');
+  const rows = [
+    {local_date:'2026-10-24',utc_start:'invalid'},
+    {local_date:'2026-10-24',utc_start:'2026-10-24T16:00:00Z'},
+  ];
+  assert.equal(inRacingSession(rows,Date.parse('2026-10-24T16:30:00Z')),true);
+  assert.equal(inRacingSession(rows,Date.parse('2026-10-24T22:00:00Z')),false);
+});
+
+test('403 dispatch is rejected by waitUntil so the failure remains observable', async () => {
+  const previous = globalThis.fetch;
+  const assets = {fetch:async request => {
+    const path = new URL(request.url).pathname;
+    if (path === '/data/calendar.json') return Response.json({stations:[{id:'vancouver',date_start:'2026-10-23',date_end:'2026-10-25'}]});
+    return new Response('not found',{status:404});
+  }};
+  const pending = [];
+  globalThis.fetch = async () => new Response('permission denied',{status:403});
+  try {
+    await worker.scheduled({scheduledTime:Date.parse('2026-10-24T18:00:00Z')},
+      {GITHUB_DISPATCH_TOKEN:'dummy',ASSETS:assets}, {waitUntil:promise => pending.push(promise)});
+    await assert.rejects(Promise.all(pending),/GitHub dispatch failed: 403/);
+  } finally {globalThis.fetch = previous;}
+});

@@ -24,7 +24,7 @@ const SYNC_WORKFLOW = 'sync.yml';
 const HOUR_MS = 3600_000, DAY_MS = 24 * HOUR_MS, TICK_MS = 10 * 60_000;
 
 export function inRaceWindow(stations, now) {
-  // Two days either side of the local dates covers every station timezone plus entry/result publication.
+  // From two days before the first race date through three days after the last.
   return stations.filter(s => now >= Date.parse(s.date_start + 'T00:00:00Z') - 2 * DAY_MS &&
     now < Date.parse(s.date_end + 'T00:00:00Z') + 3 * DAY_MS);
 }
@@ -33,7 +33,12 @@ export function inRaceWindow(stations, now) {
 export function inRacingSession(entries, now) {
   const days = new Map();
   for (const e of entries) {
-    const t = Date.parse(e.utc_start), d = days.get(e.local_date);
+    const t = Date.parse(e.utc_start);
+    if (!Number.isFinite(t)) {
+      console.error(JSON.stringify({event: 'sync_invalid_schedule_time', local_date: e.local_date, utc_start: e.utc_start}));
+      continue;
+    }
+    const d = days.get(e.local_date);
     days.set(e.local_date, d ? [Math.min(d[0], t), Math.max(d[1], t)] : [t, t]);
   }
   return [...days.values()].some(([first, last]) => now >= first - 2 * HOUR_MS && now <= last + 2 * HOUR_MS);
@@ -41,9 +46,18 @@ export function inRacingSession(entries, now) {
 
 export async function syncDecision(env, now) {
   const asset = path => env.ASSETS.fetch(new Request('https://assets.local' + path));
-  const calendar = await asset('/data/calendar.json');
-  if (!calendar.ok) throw new Error('calendar.json unavailable: ' + calendar.status);
-  const active = inRaceWindow((await calendar.json()).stations, now);
+  let active;
+  try {
+    const calendar = await asset('/data/calendar.json');
+    if (!calendar.ok) throw new Error('calendar.json unavailable: ' + calendar.status);
+    const body = await calendar.json();
+    if (!Array.isArray(body.stations)) throw new Error('calendar.json missing stations');
+    active = inRaceWindow(body.stations, now);
+  } catch (error) {
+    console.error(JSON.stringify({event: 'sync_calendar_unavailable', error: String(error?.message || error)}));
+    // Without a calendar, stay on a bounded hourly fallback rather than disabling sync entirely.
+    return Math.floor(now / TICK_MS) % 6 === 0 ? 'hourly' : 'skip';
+  }
   if (!active.length) return 'outside_window';
   for (const station of active) {
     const detail = await asset('/data/' + station.id + '.json');
@@ -57,7 +71,7 @@ async function dispatchSync(env, now) {
   const decision = await syncDecision(env, now);
   if (decision === 'outside_window' || decision === 'skip') return decision;
   if (!env.GITHUB_DISPATCH_TOKEN) {
-    console.warn('Race-window sync skipped: GITHUB_DISPATCH_TOKEN secret is not set');
+    console.error(JSON.stringify({event: 'sync_dispatch_error', code: 'no_token'}));
     return 'no_token';
   }
   const response = await fetch(`https://api.github.com/repos/${SYNC_REPO}/actions/workflows/${SYNC_WORKFLOW}/dispatches`, {
@@ -66,13 +80,22 @@ async function dispatchSync(env, now) {
       'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'stsswb-cron', 'Content-Type': 'application/json'},
     body: JSON.stringify({ref: 'main'}),
   });
-  if (response.status !== 204) throw new Error('GitHub dispatch failed: ' + response.status + ' ' + (await response.text()).slice(0, 200));
+  if (response.status !== 204) {
+    const code = [401, 403].includes(response.status) ? 'github_permission_denied' : 'github_dispatch_failed';
+    console.error(JSON.stringify({event: 'sync_dispatch_error', code, status: response.status}));
+    throw new Error('GitHub dispatch failed: ' + response.status);
+  }
   return 'dispatched:' + decision;
 }
 
 export default {
   async scheduled(controller, env, ctx) {
-    ctx.waitUntil(dispatchSync(env, controller.scheduledTime).then(result => console.log('Race-window sync:', result)));
+    ctx.waitUntil(dispatchSync(env, controller.scheduledTime)
+      .then(result => console.log(JSON.stringify({event: 'sync_dispatch', result})))
+      .catch(error => {
+        console.error(JSON.stringify({event: 'sync_dispatch_exception', message: String(error?.message || error), stack: error?.stack}));
+        throw error;
+      }));
   },
 
   async fetch(request, env) {
