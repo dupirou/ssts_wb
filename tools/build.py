@@ -11,6 +11,7 @@ import tempfile
 import competition_data
 import stations
 import schedule_store
+import official_sources
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -103,14 +104,7 @@ def read_schedule(station_id, directory=stations.SCHEDULES):
 
 
 def valid_evidence(url):
-    parsed = urlsplit(url)
-    return (
-        parsed.scheme == 'https'
-        and parsed.hostname
-        in {'www.isu-skating.com', 'isu-skating.com', 'www.isu.org', 'isu.org', 'shorttrack.sportresult.com'}
-        and not parsed.username
-        and not parsed.password
-    )
+    return official_sources.valid_evidence(url)
 
 
 def attach_china(rows, station_id):
@@ -225,7 +219,7 @@ def load_ticketing():
     for station, item in cfg['stations'].items():
         if station not in by_id or not isinstance(item, dict):
             raise ValueError('Unknown ticket event')
-        for field, hosts in (('isu_url', {'isu-skating.com'}), ('booking_url', set(BOOKING_SITES))):
+        for field, hosts in (('isu_url', official_sources.ISU_OFFICIAL_HOSTS), ('booking_url', set(BOOKING_SITES))):
             u = urlsplit(item.get(field, ''))
             if u.scheme != 'https' or u.hostname not in hosts or u.username or u.password:
                 raise ValueError('Invalid ticket source: ' + field)
