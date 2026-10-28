@@ -93,3 +93,10 @@ test('built index contains no result rows or source document blobs; shards prese
   const indexBytes=Buffer.byteLength(JSON.stringify(index));
   assert.ok(indexBytes<baselineBytes*.2,`${indexBytes}/${baselineBytes}`);
 });
+test('terminal DNS after a completed race counts the event start but not a final start',()=>{
+  const event={results:[{gender:'men',distance_m:1000,format:'individual',athlete_id:'lin',name:'LIN Xiaojun',rank:11,rank_scope:'overall',final_group:'A',status:'DNS',best_time:'1:24.925'},{gender:'men',distance_m:1000,format:'individual',athlete_id:'other',name:'Other',rank:null,status:'DNS'}]};
+  const stats=m.summarize(event);
+  assert.equal(stats.totals.starts,1);
+  assert.equal(stats.totals.a_finals,0);
+  assert.equal(m.athleteStatistics([event]).find(p=>p.id==='lin').starts,1);
+});
