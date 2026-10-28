@@ -35,11 +35,17 @@ test('comparison best rank uses official overall classification, never final-hea
   const classified={...base,rank:8,rank_scope:'overall',final_group:'B'};
   const key=['women',3000];
   const onlyHeats=m.projectSummary([{results:[group],coverage:'partial'}],key);
-  assert.equal(onlyHeats.best,null,'heat winner has no verified final classification');
+  assert.equal(onlyHeats.best.rank_scope,'final','group evidence remains visible with its rank scope');
+  assert.equal(onlyHeats.best.final_group,'A');
+  assert.equal(onlyHeats.best.rank,1);
   assert.equal(onlyHeats.totals.entries,1,'raw race record remains present');
   const combined=m.projectSummary([{results:[group],coverage:'partial'},{results:[classified],coverage:'complete'}],key);
   assert.equal(combined.best.rank,8,'A-final first place must not outrank overall eighth');
   assert.equal(combined.best.rank_scope,'overall');
+  const bFinal={...group,final_group:'B'};
+  const bOnly=m.projectSummary([{results:[bFinal],coverage:'partial'}],key);
+  assert.equal(bOnly.best.final_group,'B','B final first place must stay labelled as a group result');
+  assert.equal(bOnly.best.rank_scope,'final');
   const falselyOverall={...group,rank_scope:'overall'};
   assert.equal(m.projectSummary([{results:[falselyOverall],coverage:'partial'}],key).best,null,
     'classification_missing is never a valid overall best rank');
