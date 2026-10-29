@@ -59,10 +59,7 @@ class SiteCatalogTests(unittest.TestCase):
             season='2026/27',
             stations=[dict(id='one', city='温哥华'), dict(id='two', city='蒙特利尔')],
         )
-        people = [
-            dict(athlete_id=aid, name=aid, country='CHN', gender='men')
-            for aid in ('a', 'b', 'c')
-        ]
+        people = [dict(athlete_id=aid, name=aid, country='CHN', gender='men') for aid in ('a', 'b', 'c')]
 
         def heat(athlete, number, evidence='official_results', format='individual'):
             return dict(
@@ -70,9 +67,7 @@ class SiteCatalogTests(unittest.TestCase):
                 gender='men',
                 evidence=evidence,
                 round='heats',
-                participants=[
-                    dict(athlete_id=athlete, country='CHN', helmet_number=number)
-                ],
+                participants=[dict(athlete_id=athlete, country='CHN', helmet_number=number)],
             )
 
         with tempfile.TemporaryDirectory() as temp:
@@ -92,17 +87,16 @@ class SiteCatalogTests(unittest.TestCase):
             }
             for event_id, rounds in snapshots.items():
                 (directory / (event_id + '.json')).write_text(
-                    json.dumps(dict(
-                        entries=dict(items=people),
-                        rounds=dict(items=rounds),
-                        rankings=dict(items=[]),
-                    ))
+                    json.dumps(
+                        dict(
+                            entries=dict(items=people),
+                            rounds=dict(items=rounds),
+                            rankings=dict(items=[]),
+                        )
+                    )
                 )
             site_catalog.export(out, calendar, {})
-            by_id = {
-                p['id']: p
-                for p in json.loads((out / 'data/athletes.json').read_text())['items']
-            }
+            by_id = {p['id']: p for p in json.loads((out / 'data/athletes.json').read_text())['items']}
             self.assertEqual(
                 by_id['a']['helmet_numbers'],
                 [
@@ -112,7 +106,6 @@ class SiteCatalogTests(unittest.TestCase):
             )
             self.assertNotIn('helmet_numbers', by_id['b'])
             self.assertNotIn('helmet_numbers', by_id['c'])
-
 
     def test_season_ranks_use_latest_world_tour_table_per_distance(self):
         calendar = dict(
