@@ -3536,6 +3536,7 @@
     const route = window.SSTS.navigation.resolve(location);
     window.SSTS.navigation.render(h, icon, route);
     document.body.dataset.page = route.page;
+    // prettier-ignore
     const updates = route.page === 'home'
       ? fetchData('updates.json').catch(() => null)
       : Promise.resolve(null);
@@ -3659,6 +3660,7 @@
     // Installable app with offline fallback; jsdom and plain-http previews skip it.
     if ('serviceWorker' in navigator && isSecureContext)
       navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {});
+    // prettier-ignore
     updates.then((feed) => {
       if (route.page !== 'home') return;
       const popup = updatesDialog(feed, calendar.stations);
