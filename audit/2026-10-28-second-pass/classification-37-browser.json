@@ -1,0 +1,200 @@
+{
+  "browser": "156.0.8078.48",
+  "sizes": [
+    320,
+    390,
+    768,
+    1440
+  ],
+  "metrics": [
+    {
+      "label": "after",
+      "path": "/results/",
+      "width": 390,
+      "ready_ms": 129,
+      "nodes": 53,
+      "rows": 0,
+      "data_bytes": 48281,
+      "script_bytes": 197960,
+      "requests": [
+        "/data/results/index.json"
+      ]
+    },
+    {
+      "label": "after",
+      "path": "/results/events/",
+      "width": 390,
+      "ready_ms": 152,
+      "nodes": 269,
+      "rows": 27,
+      "data_bytes": 59278,
+      "script_bytes": 197960,
+      "requests": [
+        "/data/results/index.json",
+        "/data/results/events/2026-27-worldtour-vancouver-1.json"
+      ]
+    },
+    {
+      "label": "after",
+      "path": "/results/compare/",
+      "width": 390,
+      "ready_ms": 149,
+      "nodes": 236,
+      "rows": 0,
+      "data_bytes": 101667,
+      "script_bytes": 197960,
+      "requests": [
+        "/data/results/index.json",
+        "/data/results/seasons/2024-25.json",
+        "/data/results/seasons/2025-26.json"
+      ]
+    },
+    {
+      "label": "after",
+      "path": "/results/cycles/milano-2026/?kind=circuit",
+      "width": 390,
+      "ready_ms": 170,
+      "nodes": 516,
+      "rows": 0,
+      "data_bytes": 169036,
+      "script_bytes": 197960,
+      "requests": [
+        "/data/results/index.json",
+        "/data/results/seasons/2025-26.json",
+        "/data/results/seasons/2024-25.json",
+        "/data/results/seasons/2023-24.json",
+        "/data/results/seasons/2022-23.json"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "compare",
+      "path": "/results/compare/",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "season",
+      "path": "/results/seasons/2025-26/?kind=circuit",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "events",
+      "path": "/results/events/",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "compare",
+      "path": "/results/compare/",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "season",
+      "path": "/results/seasons/2025-26/?kind=circuit",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "events",
+      "path": "/results/events/",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "compare",
+      "path": "/results/compare/",
+      "width": 768,
+      "passed": true
+    },
+    {
+      "name": "season",
+      "path": "/results/seasons/2025-26/?kind=circuit",
+      "width": 768,
+      "passed": true
+    },
+    {
+      "name": "events",
+      "path": "/results/events/",
+      "width": 768,
+      "passed": true
+    },
+    {
+      "name": "compare",
+      "path": "/results/compare/",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "name": "season",
+      "path": "/results/seasons/2025-26/?kind=circuit",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "name": "events",
+      "path": "/results/events/",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "name": "legacy filters and pagination",
+      "passed": true
+    },
+    {
+      "name": "exact combined filters and page restore",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "exact combined filters and page restore",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "exact combined filters and page restore",
+      "width": 768,
+      "passed": true
+    },
+    {
+      "name": "exact combined filters and page restore",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "name": "delayed raw group cannot overwrite cache-restored selection",
+      "passed": true
+    },
+    {
+      "name": "exact-event comparison, three objects and reload",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "exact-event comparison, three objects and reload",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "exact-event comparison, three objects and reload",
+      "width": 768,
+      "passed": true
+    },
+    {
+      "name": "exact-event comparison, three objects and reload",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "name": "cached search index, filtered deep link and event rows offline",
+      "passed": true
+    },
+    {
+      "name": "PWA visited deep link and expanded raw records offline",
+      "passed": true
+    }
+  ]
+}
