@@ -1644,6 +1644,34 @@
 
   function ticketPanel(st) {
     if (!st.ticketing || phase(st.win || stationWindow(st, null)) === 'done') return null;
+    if (st.ticketing.channels?.length) {
+      const channels = st.ticketing.channels;
+      return h(
+        'section',
+        { class: 'panel ticket-panel', 'aria-label': st.city + '站售票' },
+        h(
+          'div',
+          { class: 'ticket-copy' },
+          h('p', { class: 'eyebrow', text: st.city + '站 · 门票' }),
+          h('h2', { text: '门票已开售' }),
+          h('p', {
+            class: 'ticket-time',
+            text: '大麦提供赛事直达入口；其他为官方公布的售票平台，具体票务状态以平台为准。'
+          })
+        ),
+        h(
+          'div',
+          { class: 'ticket-actions' },
+          ...channels.map((channel) =>
+            external(
+              channel.url,
+              channel.name + (channel.kind === 'event' ? ' 赛事购票' : ' 平台入口')
+            )
+          ),
+          external(st.ticketing.source_url, '售票渠道公告')
+        )
+      );
+    }
     const open = Date.parse(st.ticketing.sale_start);
     const bj = parts(BJ, open),
       local = parts(st.timezone, open);
