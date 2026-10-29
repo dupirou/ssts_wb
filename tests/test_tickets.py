@@ -12,7 +12,7 @@ import build
 class TicketConfigTests(unittest.TestCase):
     def test_seoul_ticket_sources_and_opening(self):
         tickets = build.load_ticketing()
-        self.assertEqual(set(tickets), {'seoul'})
+        self.assertEqual(set(tickets), {'seoul', 'shanghai'})
         self.assertEqual(tickets['seoul']['sale_start'], '2026-10-23T14:00:00+09:00')
         self.assertEqual(tickets['seoul']['booking_url'], 'https://m.ticketlink.co.kr/global/zh/product/66349?null')
         self.assertEqual(tickets['seoul']['booking_name'], 'Ticketlink')
