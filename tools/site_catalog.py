@@ -12,6 +12,22 @@ def export(out: Path, calendar: dict, schedules: dict):
         if not path.exists():
             continue
         snapshot = json.loads(path.read_text(encoding='utf-8'))
+        # Helmet numbers come from official individual heat/start-list rows, not roster entries.
+        # Keep them station-scoped: a later venue can legitimately publish a different number.
+        helmets, conflicts = {}, set()
+        for heat in snapshot['rounds']['items']:
+            if heat.get('format') != 'individual' or heat.get('evidence') not in (
+                'official_results', 'official_start_list'
+            ):
+                continue
+            for participant in heat['participants']:
+                number = participant.get('helmet_number')
+                if type(number) is not int or number <= 0:
+                    continue
+                key = (participant.get('athlete_id'), participant.get('country'), heat.get('gender'))
+                if key in helmets and helmets[key] != number:
+                    conflicts.add(key)
+                helmets[key] = number
         for person in snapshot['entries']['items']:
             aid = person['athlete_id']
             item = people.setdefault(
@@ -21,6 +37,11 @@ def export(out: Path, calendar: dict, schedules: dict):
             if person['name'] != item['name']:
                 item.setdefault('aliases', []).append(person['name'])
             item['events'].append(dict(event_id=event['id'], city=event['city'], season=calendar['season']))
+            key = (aid, person['country'], person['gender'])
+            if key in helmets and key not in conflicts:
+                item.setdefault('helmet_numbers', []).append(
+                    dict(event_id=event['id'], city=event['city'], number=helmets[key])
+                )
         rankings = snapshot.get('rankings', {})
         tables = {}
         for ranking in rankings.get('items', []):
