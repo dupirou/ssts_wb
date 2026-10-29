@@ -693,7 +693,7 @@ h3 {
   color: var(--accent-text);
 }
 
-/* Short ticket notice, linked from both the season page and Seoul details. */
+/* Ticket panels live on the home page; event routes show schedules, not duplicate ticket cards. */
 .ticket-panel {
   display: flex;
   align-items: center;
@@ -790,7 +790,56 @@ h3 {
   box-shadow: none;
 }
 
-/* ---------- what's new: official milestones since the last visit; closable ---------- */
+/* ---------- Home-only updates and ticket alerts, dismissed together ---------- */
+.updates-dialog {
+  width: min(640px, calc(100vw - 28px));
+  max-height: min(78dvh, 720px);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--text);
+  background: var(--popover);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 0.3);
+  overflow: hidden;
+}
+.updates-dialog::backdrop {
+  background: rgb(0 0 0 / 0.58);
+}
+.updates-popup {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.updates-popup-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px 10px 18px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.updates-popup-head h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  font-size: 1.05rem;
+}
+.updates-popup .upd-list {
+  overflow-y: auto;
+  max-height: calc(min(78dvh, 720px) - 66px);
+  padding: 8px 10px 12px;
+  border: 0;
+}
+@media (max-width: 680px) {
+  .updates-dialog {
+    width: calc(100vw - 20px);
+  }
+  .updates-popup-head {
+    padding-left: 14px;
+  }
+}
+
+/* Legacy update list presentation retained for the modal list items. */
 .updates {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

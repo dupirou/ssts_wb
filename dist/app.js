@@ -1247,7 +1247,6 @@
 
     root.replaceChildren(
       head,
-      ...stations.map(ticketPanel).filter(Boolean),
       seasonLine(stations, focus, cal.championships || []),
       stationGrid(stations, focus),
       championshipsCard(cal),
@@ -1812,8 +1811,7 @@
         { class: 'station-hero' },
         copy,
         data ? liveCard(data, station) : pendingCard(win)
-      ),
-      ...(station.ticketing ? [ticketPanel(station)] : [])
+      )
     );
     const competition = competitionPanel(station);
     const schedule = h('section', { class: 'schedule-content' });
@@ -2893,105 +2891,140 @@
         return null;
     }
   }
-  function updatesBar(feed, stations, current) {
+  const TICKET_SEEN_KEY = 'ssts.tickets.seen';
+  function seenTickets() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(TICKET_SEEN_KEY) || '[]');
+      return new Set(Array.isArray(stored) ? stored.filter((id) => typeof id === 'string') : []);
+    } catch (_) {
+      return new Set();
+    }
+  }
+  function ticketAlerts(stations) {
+    const seen = seenTickets();
+    return stations.flatMap((st) => {
+      const ticket = st.ticketing;
+      if (!ticket || phase(stationWindow(st, null)) === 'done') return [];
+      const channel = ticket.channels?.find((item) => item.kind === 'event') || ticket.channels?.[0];
+      const href = channel?.url || ticket.booking_url;
+      if (!href) return [];
+      const onSale = !ticket.sale_start || now() >= Date.parse(ticket.sale_start);
+      const id = st.id + '|' + href + (ticket.sale_start ? (onSale ? '|open' : '|upcoming') : '');
+      if (seen.has(id)) return [];
+      const seller = channel?.name || ticket.booking_name || '售票平台';
+      return [
+        {
+          e: { station: st.id, kind: 'tickets', href },
+          ticketId: id,
+          n: {
+            text: st.city + '站门票' + (onSale ? '已开售' : '开售时间已公布'),
+            alert: true,
+            sub: h('span', { text: seller + (channel?.kind === 'event' ? ' · 赛事购票' : ' · 售票入口') })
+          }
+        }
+      ];
+    });
+  }
+  function updatesDialog(feed, stations) {
     const seen = seenAt();
     const since = Math.max(seen, now() - (seen ? 7 : 3) * DAY);
     const byId = new Map(stations.map((st) => [st.id, st]));
-    const fresh = (feed.events || []).filter(
+    const fresh = (feed?.events || []).filter(
       (e) => byId.has(e.station) && Date.parse(e.at) > since && Date.parse(e.at) <= now()
     );
-    // A round's results supersede its "groups published" line.
+    // Official results replace the matching "groups published" notification.
     const resulted = new Set(fresh.filter((e) => e.kind === 'results').map(roundIdent));
-    const items = fresh
+    const milestones = fresh
       .filter((e) => !(e.kind === 'groups' && resulted.has(roundIdent(e))))
       .map((e) => ({ e, n: notice(e) }))
-      .filter((x) => x.n);
+      .filter((item) => item.n);
+    const tickets = ticketAlerts(stations);
+    const items = [...tickets, ...milestones];
     if (!items.length) return null;
-    const newest = Math.max(...fresh.map((e) => Date.parse(e.at)));
-    const listId = 'updates-list';
-    // On a station's own page its name would only repeat the page title.
-    const where = (e) => (e.station === current ? '' : byId.get(e.station).city + '站');
+    const newest = Math.max(0, ...fresh.map((e) => Date.parse(e.at)));
     const toneOf = (n) => (n.chn ? 'is-chn' : n.gold ? 'is-a' : n.alert ? 'is-alert' : '');
+    const popup = h('dialog', {
+      class: 'updates-dialog',
+      'aria-labelledby': 'updates-dialog-title'
+    });
+    const acknowledge = () => {
+      try {
+        if (newest) localStorage.setItem(SEEN_KEY, String(Math.max(seenAt(), newest)));
+        if (tickets.length) {
+          const acknowledged = seenTickets();
+          tickets.forEach(({ ticketId }) => acknowledged.add(ticketId));
+          localStorage.setItem(TICKET_SEEN_KEY, JSON.stringify([...acknowledged]));
+        }
+      } catch (_) {
+        /* Storage unavailable in private browsing; notifications remain dismissible. */
+      }
+    };
+    const close = () => {
+      acknowledge();
+      popup.close();
+    };
     const list = h(
       'ol',
-      { class: 'upd-list', id: listId, hidden: true },
-      items.map(({ e, n }) =>
-        h(
+      { class: 'upd-list' },
+      items.map(({ e, n }) => {
+        const where = e.kind === 'tickets' ? '' : byId.get(e.station).city + '站';
+        const externalTicket = e.kind === 'tickets';
+        return h(
           'li',
           { class: toneOf(n) },
           h(
             'a',
-            { href: stationHref(e.station, e.local_date) },
+            {
+              href: externalTicket ? e.href : stationHref(e.station, e.local_date),
+              ...(externalTicket ? { target: '_blank', rel: 'noopener noreferrer' } : {})
+            },
             h(
               'span',
               { class: 'upd-text' },
-              where(e) ? h('b', { text: where(e) + ' ' }) : null,
+              where ? h('b', { text: where + ' ' }) : null,
               n.text
             ),
             n.sub && (!Array.isArray(n.sub) || n.sub.length)
               ? h('span', { class: 'upd-sub' }, n.sub)
               : null,
-            h('time', { class: 'upd-when', datetime: e.at, text: ago(Date.parse(e.at)) })
+            e.at ? h('time', { class: 'upd-when', datetime: e.at, text: ago(Date.parse(e.at)) }) : null
           )
-        )
+        );
+      })
+    );
+    popup.append(
+      h(
+        'section',
+        { class: 'updates-popup' },
+        h(
+          'header',
+          { class: 'updates-popup-head' },
+          h('h2', { id: 'updates-dialog-title' }, icon('bell', 'ico ico-sm'), '新动态'),
+          h('span', { class: 'upd-count num', text: String(items.length) }),
+          h(
+            'button',
+            { type: 'button', class: 'upd-close', 'aria-label': '关闭通知并标记为已读', onclick: close },
+            icon('close', 'ico ico-sm')
+          )
+        ),
+        list
       )
     );
-    const lead = items[0];
-    const head = h(
-      'button',
-      { type: 'button', class: 'upd-head', 'aria-expanded': 'false', 'aria-controls': listId },
-      h('span', { class: cls('upd-dot', toneOf(lead.n)), 'aria-hidden': 'true' }),
-      h(
-        'span',
-        { class: 'upd-title' },
-        icon('bell', 'ico ico-sm'),
-        '新动态',
-        items.length > 1 ? h('span', { class: 'upd-count num', text: String(items.length) }) : null
-      ),
-      h('span', {
-        class: 'upd-latest',
-        text: (where(lead.e) ? where(lead.e) + ' · ' : '') + lead.n.text
-      }),
-      h('span', { class: 'upd-when', text: ago(Date.parse(lead.e.at)) }),
-      icon('chev', 'ico ico-sm upd-chev')
-    );
-    const bar = h(
-      'section',
-      { class: 'updates', 'aria-label': '最新动态' },
-      head,
-      h(
-        'button',
-        {
-          type: 'button',
-          class: 'upd-close',
-          'aria-label': '关闭，这些动态不再提醒',
-          onclick: () => {
-            try {
-              localStorage.setItem(SEEN_KEY, String(newest));
-            } catch (_) {
-              /* private mode */
-            }
-            bar.remove();
-          }
-        },
-        icon('close', 'ico ico-sm')
-      ),
-      list
-    );
-    head.addEventListener('click', () => {
-      const open = head.getAttribute('aria-expanded') !== 'true';
-      head.setAttribute('aria-expanded', String(open));
-      list.hidden = !open;
+    popup.addEventListener('close', () => {
+      acknowledge();
+      popup.remove();
     });
-    return bar;
+    popup.addEventListener('click', (event) => {
+      if (event.target === popup) close();
+    });
+    return popup;
   }
-
   /* ---------- boot ---------- */
   try {
     const route = window.SSTS.navigation.resolve(location);
     window.SSTS.navigation.render(h, icon, route);
     document.body.dataset.page = route.page;
-    const updates = ['events', 'event'].includes(route.page)
+    const updates = route.page === 'home'
       ? fetchData('updates.json').catch(() => null)
       : Promise.resolve(null);
     const resultsPage = route.page === 'results';
@@ -3115,8 +3148,12 @@
     if ('serviceWorker' in navigator && isSecureContext)
       navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {});
     updates.then((feed) => {
-      const bar = feed && updatesBar(feed, calendar.stations, requested);
-      if (bar) offline.after(bar);
+      if (route.page !== 'home') return;
+      const popup = updatesDialog(feed, calendar.stations);
+      if (popup) {
+        document.body.append(popup);
+        popup.showModal();
+      }
     });
     // Back-to-top for long phone lists.
     const top = h(

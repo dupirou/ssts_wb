@@ -13,10 +13,11 @@ async function settled(dom,predicate=()=>!dom.window.document.querySelector('.re
   for(let i=0;i<200;i++){if(predicate())return;await new Promise(r=>setTimeout(r,5));}
   throw new Error('UI did not settle');
 }
-async function page(path, fail = '', resultsIndex = null) {
+async function page(path, fail = '', resultsIndex = null, options = {}) {
   const dom = new JSDOM(html, {url: new URL(path, 'https://example.test/').href, runScripts: 'outside-only', pretendToBeVisual: true});
   const w = dom.window;
   dom.requests = [];
+  for (const [key, value] of Object.entries(options.storage || {})) w.localStorage.setItem(key, value);
   w.matchMedia = () => ({matches: false, addEventListener() {}});
   w.HTMLElement.prototype.scrollIntoView = function () {};
   w.HTMLDialogElement.prototype.showModal = function () {this.setAttribute('open', '');};
@@ -25,6 +26,7 @@ async function page(path, fail = '', resultsIndex = null) {
     const url = new URL(input, w.location.href);
     dom.requests.push(url.pathname);
     if (resultsIndex && url.pathname === '/data/results/index.json') return Response.json(resultsIndex);
+    if (options.feed && url.pathname === '/data/updates.json') return Response.json(options.feed);
     if (url.pathname === fail) return new Response('unavailable', {status: 503});
     const api = url.pathname.match(/^\/api\/v1\/events\/([^/]+)\/(entries|rounds|rankings)$/);
     if (api) {
@@ -57,7 +59,7 @@ test('home shows the next event without results or explanatory copy', async t =>
   assert.equal(d.querySelector('a[href="/history/"]'), null);
   assert.doesNotMatch(d.querySelector('#app').textContent, /看当下|更长的赛场|按奥运周期|最新动态/);
   assert.ok(!dom.requests.includes('/data/portal.json'));
-  assert.ok(!dom.requests.includes('/data/updates.json'));
+  assert.ok(dom.requests.includes('/data/updates.json'));
   assert.ok(!dom.requests.some(p => /\/api\/|athletes\.json|competitions\//.test(p)));
   assert.ok(!dom.requests.includes('/data/vancouver.json'));
 });
@@ -73,8 +75,8 @@ test('events page owns the full calendar and produces shareable nested event URL
   assert.equal(d.querySelector('.next-card'), null);
 });
 
-test('Shanghai station links directly to Damai and distinguishes other ticket platforms', async t => {
-  const dom = await page('/events/2026-27/shanghai/?now=2026-10-30T04:00:00Z');
+test('Shanghai ticket links appear on home, not the events overview or station detail', async t => {
+  const dom = await page('/?now=2026-10-30T04:00:00Z');
   t.after(() => dom.window.close());
   const d = dom.window.document;
   const panel = d.querySelector('.ticket-panel[aria-label="上海站售票"]');
@@ -93,11 +95,49 @@ test('Shanghai station links directly to Damai and distinguishes other ticket pl
   assert.ok(byText('售票渠道公告')?.href.includes('english.shanghai.gov.cn'));
   assert.equal(links.length, 5);
   assert.doesNotMatch(panel.textContent, /北京时间.*开售/);
-  const seoul = await page('/events/2026-27/seoul/?now=2026-10-30T04:00:00Z');
-  t.after(() => seoul.window.close());
-  const original = seoul.window.document.querySelector('.ticket-panel[aria-label="首尔站售票"]');
-  assert.ok(original);
-  assert.ok(original.textContent.includes('Ticketlink 订票'));
+  for (const route of ['/events/', '/events/2026-27/shanghai/', '/events/2026-27/seoul/']) {
+    const event = await page(route);
+    t.after(() => event.window.close());
+    assert.equal(event.window.document.querySelectorAll('.ticket-panel').length, 0);
+    assert.ok(!event.requests.includes('/data/updates.json'));
+  }
+});
+
+test('home popup combines official updates and ticket alerts and remembers dismissal', async t => {
+  const feed = {
+    schema_version: 1,
+    events: [{ id: 'test-montreal-entries', station: 'montreal',
+      kind: 'entries', at: '2026-10-29T22:00:00+00:00', count: 197 }]
+  };
+  const url = '/?now=2026-10-30T00:00:00Z';
+  const dom = await page(url, '', null, {feed});
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  for (let i = 0; i < 100 && !d.querySelector('.updates-dialog[open]'); i++) {
+    await new Promise(resolve => setTimeout(resolve, 5));
+  }
+  const popup = d.querySelector('.updates-dialog[open]');
+  assert.ok(popup, 'a new update should open a home modal');
+  assert.match(popup.textContent, /蒙特利尔站.*报名名单已公布/);
+  assert.match(popup.textContent, /上海站门票已开售/);
+  assert.match(popup.textContent, /首尔站门票已开售/);
+  assert.ok([...popup.querySelectorAll('.upd-list a')].some(a =>
+    a.href.includes('m.damai.cn/shows/item.html?itemId=1095988161093')));
+  popup.querySelector('.upd-close').click();
+  assert.ok(Number(dom.window.localStorage.getItem('ssts.updates.seen')) > 0);
+  assert.equal(JSON.parse(dom.window.localStorage.getItem('ssts.tickets.seen')).length, 2);
+  const storage = {
+    'ssts.updates.seen': dom.window.localStorage.getItem('ssts.updates.seen'),
+    'ssts.tickets.seen': dom.window.localStorage.getItem('ssts.tickets.seen')
+  };
+  const revisit = await page(url, '', null, {feed, storage});
+  t.after(() => revisit.window.close());
+  await new Promise(resolve => setTimeout(resolve, 10));
+  assert.equal(revisit.window.document.querySelector('.updates-dialog'), null);
+  const events = await page('/events/?now=2026-10-30T00:00:00Z', '', null, {feed});
+  t.after(() => events.window.close());
+  assert.equal(events.window.document.querySelector('.updates-dialog'), null);
+  assert.ok(!events.requests.includes('/data/updates.json'));
 });
 
 test('legacy and nested event links preserve view and country selection and use root data addresses', async t => {

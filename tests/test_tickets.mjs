@@ -26,8 +26,8 @@ async function render(url) {
   dom.window.close();
   throw new Error('Ticket section did not render');
 }
-test('Seoul ticket links appear on season home and station details', async t => {
-  for (const route of ['/events/?now=2026-10-21T09:00:00Z', '/?station=seoul&now=2026-10-21T09:00:00Z']) {
+test('Seoul ticket links remain on the home page', async t => {
+  for (const route of ['/?now=2026-10-21T09:00:00Z']) {
     await t.test(route, async t => {
       const dom = await render('https://example.test' + route);
       t.after(() => dom.window.close());
@@ -43,25 +43,22 @@ test('Seoul ticket links appear on season home and station details', async t => 
         'https://m.ticketlink.co.kr/global/zh/product/66349?null',
       ]);
       assert.ok(links.every(a => a.target === '_blank' && a.rel.includes('noopener')));
-      assert.equal(d.querySelectorAll('.ticket-panel').length, route.includes('station=') ? 1 : 2);
-      if (route.includes('station=')) {
-        assert.ok(d.querySelector('.section-tabs'), 'ticket notice must not remove station tabs');
-        assert.ok(d.querySelector('.empty-state'), 'unpublished schedule stays unpublished');
-      } else assert.equal(d.querySelectorAll('.st-card').length, 7);
+      assert.equal(d.querySelectorAll('.ticket-panel').length, 2);
+      assert.equal(d.querySelectorAll('.st-card').length, 0);
     });
   }
 });
 
 test('ticket notice says on sale after opening and disappears once Seoul is over', async t => {
   await t.test('on sale', async t => {
-    const dom = await render('https://example.test/?station=seoul&now=2026-10-23T06:00:00Z');
+    const dom = await render('https://example.test/?now=2026-10-23T06:00:00Z');
     t.after(() => dom.window.close());
     const panel = dom.window.document.querySelector('.ticket-panel');
     assert.match(panel.querySelector('h2').textContent, /门票已开售/);
     assert.match(panel.textContent, /已于北京时间 10\/23 周五 下午 13:00 开售/);
   });
   await t.test('after the stage', async t => {
-    const dom = new JSDOM(html, {url: 'https://example.test/events/?now=2026-11-23T00:00:00Z', runScripts: 'outside-only', pretendToBeVisual: true});
+    const dom = new JSDOM(html, {url: 'https://example.test/?now=2026-11-23T00:00:00Z', runScripts: 'outside-only', pretendToBeVisual: true});
     t.after(() => dom.window.close());
     const w = dom.window;
     w.matchMedia = () => ({matches: false, addEventListener() {}});
@@ -72,8 +69,8 @@ test('ticket notice says on sale after opening and disappears once Seoul is over
       return new Response(await file('dist' + pathname));
     };
     w.eval(script);
-    for (let i = 0; i < 100 && !w.document.querySelector('.st-card'); i++) await new Promise(r => setTimeout(r, 5));
-    assert.equal(w.document.querySelectorAll('.st-card').length, 7);
+    for (let i = 0; i < 100 && !w.document.querySelector('.ticket-panel'); i++) await new Promise(r => setTimeout(r, 5));
+    assert.equal(w.document.querySelectorAll('.st-card').length, 0);
     assert.equal(w.document.querySelector('.ticket-panel[aria-label="首尔站售票"]'), null);
     assert.ok(w.document.querySelector('.ticket-panel[aria-label="上海站售票"]'));
   });
