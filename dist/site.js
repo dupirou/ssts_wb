@@ -2227,6 +2227,7 @@
     );
   }
 
+  // prettier-ignore
   function renderStation(cal, station, data) {
     const idx = cal.stations.indexOf(station) + 1;
     setClocks([
@@ -2298,28 +2299,25 @@
       );
       copy.append(syncLine(data));
     }
+    const waiting = data ? null : pendingCard(win);
     root.replaceChildren(
       stationNav(cal, station),
       h(
         'section',
         { class: 'station-hero' },
         copy,
-        data ? liveCard(data, station) : pendingCard(win)
+        data ? liveCard(data, station) : waiting
       )
     );
     const competition = competitionPanel(station);
     const schedule = h('section', { class: 'schedule-content' });
 
     if (!data) {
+      // ISU may publish start lists before its complete programme passes validation.
+      // Show verified round/heat evidence without claiming that the whole schedule is final.
       schedule.append(
         competition.status,
-        h(
-          'section',
-          { class: 'panel empty-state' },
-          trackArt('empty-track', 2),
-          h('h2', { text: '详细赛程尚未录入' }),
-          h('p', {}, officialPage(cal, station))
-        )
+        pendingRoundsPanel(station, (firstStart) => waiting.setOfficialFirstHeat(firstStart))
       );
     } else {
       scheduleView(data, station, schedule, competition.status);
@@ -2359,28 +2357,155 @@
     );
   }
 
+  // prettier-ignore
   function pendingCard(win) {
     const cd = countdown('cd-lg');
-    const ph = phase(win);
-    tick(() => cd.set(win.start - now()));
-    const p = parts(BJ, win.start);
-    return h(
-      'aside',
-      { class: 'live-card' },
-      h('p', {
-        class: 'live-label',
-        text: ph === 'upcoming' ? '距开幕还有' : ph === 'live' ? '本站正在进行' : '本站已结束'
-      }),
-      ph === 'upcoming' ? cd : null,
-      h(
-        'p',
-        { class: 'live-sub' },
+    let start = win.start;
+    let official = false;
+    const label = h('p', { class: 'live-label' });
+    const summary = h('p', { class: 'live-sub' });
+    const card = h('aside', { class: 'live-card' }, label, cd, summary);
+    function refresh() {
+      const ph = phase(win);
+      label.textContent =
+        ph === 'done'
+          ? '本站已结束'
+          : now() >= start
+            ? '本站正在进行'
+            : official
+              ? '距官方首组开赛还有'
+              : '距开幕还有';
+      cd.hidden = ph === 'done' || now() >= start;
+      if (!cd.hidden) cd.set(start - now());
+    }
+    function describe() {
+      const p = parts(BJ, start);
+      fill(
+        summary,
         phrases(
-          '北京时间 ' + md(p.date) + ' ' + wk(p.date) + ' ' + dayPart(p.hm) + ' ' + p.hm + ' 开幕',
-          '按当地 0 点'
+          '北京时间 ' + md(p.date) + ' ' + wk(p.date) + ' ' + dayPart(p.hm) + ' ' + p.hm +
+            (official ? ' 首组开赛' : ' 开幕'),
+          official ? 'ISU 首组计划时间' : '按当地 0 点'
         )
-      )
+      );
+    }
+    card.setOfficialFirstHeat = (instant) => {
+      if (!Number.isFinite(instant) || instant < win.start || instant > win.end) return;
+      start = instant;
+      official = true;
+      describe();
+      refresh();
+    };
+    describe();
+    tick(refresh);
+    return card;
+  }
+
+  // Before a full programme is verified, the published start lists are still useful.
+  // Do not synthesize later rounds, or attach heats to a guessed schedule round_key.
+  // prettier-ignore
+  function pendingRoundsPanel(station, onFirstHeat) {
+    const status = h('p', { class: 'faint tiny', role: 'status', text: '正在读取官方分组…' });
+    const rounds = h('div', { class: 'pending-rounds' });
+    const box = h(
+      'section',
+      { class: 'panel pending-official-rounds' },
+      h('div', { class: 'panel-head' }, h('h2', { text: '已公布的官方分组' })),
+      status,
+      rounds,
+      h('p', { class: 'source-line' }, external(station.source_url, 'ISU 官方赛事页'))
     );
+
+    (async () => {
+      try {
+        const response = await fetch('/api/v1/events/' + encodeURIComponent(station.id) + '/rounds');
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const data = await response.json();
+        if (
+          data.schema_version !== 1 ||
+          data.event_id !== station.id ||
+          data.resource !== 'rounds' ||
+          !Array.isArray(data.items)
+        ) throw new Error('Invalid official rounds response');
+        const byRound = new Map();
+        for (const heat of data.items) {
+          if (!['official_start_list', 'official_results'].includes(heat.evidence)) continue;
+          if (!heat.source_start || !Number.isFinite(Date.parse(heat.source_start))) continue;
+          const key = [heat.gender, heat.distance_m, heat.format, heat.round, heat.group || ''].join('/');
+          if (!byRound.has(key)) byRound.set(key, []);
+          byRound.get(key).push(heat);
+        }
+        if (!byRound.size) {
+          status.textContent = '分组尚未公布；详细赛程也尚未核实。';
+          return;
+        }
+        const published = [...byRound.values()].map((heats) => {
+          heats.sort((a, b) => (a.heat_number || 0) - (b.heat_number || 0));
+          return { heats, first: heats[0], start: Math.min(...heats.map((h) => Date.parse(h.source_start))) };
+        }).sort((a, b) => a.start - b.start);
+        const groupCount = published.reduce((total, item) => total + item.heats.length, 0);
+        status.textContent =
+          '已公布 ' + published.length + ' 个项目轮次、' + groupCount +
+          ' 个小组；时间为 ISU 首组计划开始时间，其他轮次和完整赛程仍以官方后续公布为准。' +
+          (data.stale ? ' 当前显示最近一次已核实的快照。' : '');
+        onFirstHeat?.(published[0].start);
+        fill(
+          rounds,
+          published.map(({ heats, first, start }) => {
+            const p = parts(station.timezone, start);
+            const china = heats.flatMap((heat) =>
+              heat.participants.filter((person) => person.country === 'CHN').map((person) => ({
+                name: person.name,
+                number: heat.heat_number,
+                start: heat.source_start
+              }))
+            );
+            return h(
+              'article',
+              { class: 'competition-heat' },
+              h(
+                'div',
+                { class: 'competition-heat-head' },
+                h('h3', { text: eventName(first) + ' · ' + roundName(first) }),
+                h('span', { class: 'faint tiny', text: heats.length + ' 组' }),
+                h(
+                  'button',
+                  {
+                    type: 'button',
+                    class: 'btn btn-ghost btn-sm',
+                    onclick: () => showCompetition(first, heats)
+                  },
+                  '查看分组'
+                )
+              ),
+              h('p', {
+                class: 'faint tiny',
+                text:
+                  '首组 · 北京 ' + sourceTime(new Date(start).toISOString()) +
+                  ' · ' + station.city + ' ' + md(p.date) + ' ' + p.hm
+              }),
+              china.length
+                ? h(
+                    'p',
+                    { class: 'pending-china' },
+                    icon('star', 'ico ico-xs'),
+                    h('b', { text: 'CHN ' }),
+                    phrases(
+                      ...china.map((person) =>
+                        '第 ' + person.number + ' 组 ' + person.name +
+                        '（北京 ' + sourceTime(person.start) + '）'
+                      )
+                    )
+                  )
+                : null
+            );
+          })
+        );
+      } catch (_) {
+        status.textContent = '官方分组暂时无法读取，请通过 ISU 官方赛事页查看。';
+      }
+    })();
+    return box;
   }
 
   function liveCard(data, station) {

@@ -182,7 +182,8 @@ class StationConfigTests(unittest.TestCase):
         self.assertEqual(vancouver['prediction']['event_id'], 16230)
         montreal = stations.sources(MONTREAL)
         self.assertEqual((montreal['city'], montreal['year']), ('Montreal', 2026))
-        self.assertNotIn('prediction', montreal)
+        self.assertEqual(montreal['prediction']['event_id'], 16272)
+        self.assertTrue(montreal['prediction']['entries_url'].endswith('?tab=entries_16272'))
         self.assertTrue(montreal['documents_url'].endswith('?tab=documents_16272'))
 
     def test_new_station_programme_is_announced_once(self):
