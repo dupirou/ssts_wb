@@ -49550,10 +49550,10 @@
           "format": "individual",
           "name": "Qi Yin",
           "country": "CHN",
-          "rank": null,
+          "rank": 36,
           "rank_scope": "overall",
           "final_group": null,
-          "status": "classified",
+          "status": "PEN",
           "best_time": null,
           "source_page": null,
           "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -49562,7 +49562,14 @@
           "official_skater_id": 7928,
           "medal_eligible": true,
           "race_number": 2,
-          "athlete_id": "isu-7928"
+          "athlete_id": "isu-7928",
+          "previous_api_status": "classified",
+          "rank_evidence_literal": "(36)",
+          "rank_evidence_basis": "user_confirmed_tied_classification",
+          "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617BLR.pdf",
+          "status_evidence_table": "Ladies 1000 m (2)",
+          "status_evidence_kind": "official_search_index",
+          "status_evidence_version": "C74 6.0"
         },
         {
           "gender": "men",
