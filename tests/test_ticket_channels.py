@@ -16,9 +16,7 @@ class TicketChannelsTests(unittest.TestCase):
     def test_shanghai_direct_damai_and_seoul_existing_ticketlink(self):
         result = build.load_ticketing()
         channels = result['shanghai']['channels']
-        self.assertEqual(
-            [c['name'] for c in channels], ['大麦', '久事体育', '携程', 'MAISEAT']
-        )
+        self.assertEqual([c['name'] for c in channels], ['大麦', '久事体育', '携程', 'MAISEAT'])
         self.assertEqual(channels[0]['kind'], 'event')
         self.assertIn('itemId=1095988161093', channels[0]['url'])
         self.assertTrue(all(c['kind'] == 'platform' for c in channels[1:]))
