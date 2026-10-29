@@ -61,4 +61,4 @@ IOC 奥林匹克资料库搜索引擎的索引文本包含官方 event classific
 
 ## 2016/17 明斯克及上海并列判罚名次
 
-按用户确认的括号并列名次口径：明斯克女子 1000 米第一次于淼慧官方 C74 显示 `(32)` PEN，记录并列第 32；上海女子 1500 米李红爽 C74 显示 `(42)` PEN，记录并列第 42。官方索引来源分别为 [明斯克](https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617BLR.pdf) 和 [上海](https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617CHN.pdf)。上海韩天宇、许宏志的 `(53)` PEN 也按用户确认记录并列第 53。明斯克殷琪在 1000 米第二次预赛 PEN 有逐轮证据，但未定位该项目最终分类，暂不填总名次或推断最终状态。原 60 条空分类中已有 9 条核实状态，余 51 条仍待查。
+按用户确认的括号并列名次口径：明斯克女子 1000 米第一次于淼慧官方 C74 显示 `(32)` PEN，记录并列第 32；上海女子 1500 米李红爽 C74 显示 `(42)` PEN，记录并列第 42。官方索引来源分别为 [明斯克](https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617BLR.pdf) 和 [上海](https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617CHN.pdf)。上海韩天宇、许宏志的 `(53)` PEN 也按用户确认记录并列第 53。明斯克殷琪女子 1000 米第二次 C74 最终分类为 `(36)` PEN，已按用户口径记录并列第 36。张维智男子 1500 米 C74 为 `(52)` DNF；用户确认 PEN、DNF 和 YC 的括号数字均按并列名次记录，已记并列第 52。原 60 条空分类中已有 11 条核实状态，余 49 条仍待查。
