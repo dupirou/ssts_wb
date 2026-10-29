@@ -22008,7 +22008,7 @@
           "rank": 33,
           "rank_scope": "overall",
           "final_group": null,
-          "status": "classified",
+          "status": "DNS",
           "best_time": null,
           "source_page": null,
           "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
@@ -22026,10 +22026,12 @@
             "raw_pdf_retrieved": false,
             "revision_order": "unknown",
             "verified_fields": [
-              "rank"
+              "rank",
+              "status"
             ],
             "decision_basis": "user_decision_2026-10-29",
-            "decision_literal": "采用第 33，第 5、PEN"
+            "decision_literal": "采用第 33；退赛了就按最后处理",
+            "status_rule": "terminal_round_status; started retains independently verified event participation"
           }
         },
         {
