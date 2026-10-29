@@ -171,9 +171,9 @@
       "status": "classified",
       "final_group": null
     },
-    "outcome": "status_conflict_requires_version_evidence",
+    "outcome": "user_adjudicated",
     "after": {
-      "rank": null,
+      "rank": 33,
       "rank_scope": "overall",
       "status": "classified",
       "final_group": null
@@ -1734,12 +1734,12 @@
       "status": "classified",
       "final_group": "A"
     },
-    "outcome": "status_conflict_requires_version_evidence",
+    "outcome": "user_adjudicated",
     "after": {
-      "rank": 3,
-      "rank_scope": "final",
-      "status": "classified",
-      "final_group": "A"
+      "rank": 5,
+      "rank_scope": "overall",
+      "status": "PEN",
+      "final_group": null
     }
   },
   {
