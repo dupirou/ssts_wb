@@ -1,0 +1,31 @@
+{
+  "python_tests": {
+    "passed": 121,
+    "failed": 0
+  },
+  "node_tests": {
+    "passed": 89,
+    "failed": 0
+  },
+  "ruff": {
+    "version": "0.16.9",
+    "format": "passed",
+    "lint": "passed"
+  },
+  "syntax": {
+    "python": "passed",
+    "node": "passed"
+  },
+  "deterministic_build": {
+    "files": 246,
+    "timestamped_notices_excluded": true
+  },
+  "independent_reviewed_classification_checks": {
+    "passed": 37,
+    "raw_pdf_records": 24,
+    "official_index_records": 13
+  },
+  "browser_report": "classification-37-browser.json",
+  "production_deployed": false,
+  "pull_requests_merged": false
+}

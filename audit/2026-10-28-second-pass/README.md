@@ -1,4 +1,24 @@
-# 第二轮历史来源审计（未完成）
+# 第二轮历史来源审计
+
+## 当前结论（2026-10-29，37 条专项完成）
+
+原 60 条接口空分类记录此前已处理 23 条；本轮剩余 37 条全部取得对应官方分类证据并修复，没有新增待裁定冲突。完整证据和修复前后值见 [classification-37-progress.json](classification-37-progress.json)，原始待查清单 [pending-classification-37.json](pending-classification-37.json) 作为基线保留，并不表示仍有 37 条未完成。下文早期的待查数量和“未推送”说明是阶段记录，已由本节取代。
+
+37 条包括：24 PEN、5 DNS、1 DNF、1 YC、1 DSQ、5 正常分类的接力；14 条有官方数字名次，23 条官方分类表的名次列为空。最后一条金良为并列第 59/PEN；括号数字沿用用户确定的并列名次口径。24 条保存了原始 PDF 字节和 SHA-256，另 13 条按用户已接受的无冲突官方索引文本取证；不能把后者说成已下载原件。旧官方域名原件通过互联网存档获取，记录捕获 URL、表格版本、页码及 SHA-256。存档捕获日期不等于官方修订日期；若以后出现矛盾的新官方版本，仍应重新对账。
+
+同时修复同距离两场项目的导入编号错误：优先使用官方项目名称的 (1)/(2)，不再用接口排序覆盖它；4 场赛事共 30 条记录修正，官方项目 ID 和运动员对应关系保持原样。记录见 [official-race-number-corrections.json](official-race-number-corrections.json)，新增回归覆盖接口顺序颠倒的情况。
+
+相对修复分支基线 136b0f5：出赛 1742→1737，金牌 85→86（补回 2017 鹿特丹女子接力冠军），银牌 74、铜牌 82 不变，A 决赛 288→289，前八 654→657。8 场赛事、4 个赛季、3 个周期、5 名运动员的统计发生变化；全部差异见 [classification-37-statistics-diff.json](classification-37-statistics-diff.json)。这里是该基线的全档案汇总，不能冒充相对第一轮 main 的累计差异。
+
+验证：完整 Python 121 项、Node 89 项通过；Ruff 0.16.9 的格式和 lint 通过，Python/Node 语法检查通过；246 个构建文件重复构建一致（排除带时间戳的新动态通知）。真实 Chrome 156 在 320/390/768/1440px 的页面、过滤、对比、异步请求竞态及 PWA 离线检查全部通过，见 [classification-37-browser.json](classification-37-browser.json)。后端历史/当前来源的异常拒绝日志来自测试的故障注入用例，不是测试失败。
+
+可重复执行：
+
+```sh
+python audit/2026-10-28-second-pass/verify_classification_37.py /path/to/repair-checkout --evidence-directory /path/to/local-official-pdfs
+```
+
+该检查核对 37 条落盘数据、已有官方项目编号和已取得原件哈希；它不把程序字段比对冒充重新人工阅读官方原件。此前 terminal-only 文件是中间结果，均已由完整分类证据取代。PR #53 保持不变，修复与报告分别更新 Draft #54/#55；未合并、未部署。此次完成的是用户要求的已有差异与这 37 条分类缺口，不声称全库每个字段均经过独立复核。
 
 基线 `dd5adb67c0a71580c2cb70af4bced684cb9c6f5b`；首次审计见 PR #53。修复见 Draft PR #54。用户指定 33 条接力采用 A 决赛名次作为统计及显示名次，2015 埃尔祖鲁姆站采用旧成绩册；这是用户裁定，不是官方修订先后已经查明。记录和修复只在 PR #54，main 暂未更新。
 
