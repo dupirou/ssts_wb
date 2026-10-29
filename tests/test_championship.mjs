@@ -63,5 +63,5 @@ test('Worlds detail uses schedule and roster waiting states without World Tour f
   assert.ok([...d.querySelectorAll('#section-schedule a')].some(a => a.href.includes('isu-skating.com')));
   assert.match(d.querySelector('#section-schedule').textContent, /报名名单/);
   assert.deepEqual(dom.requests.filter(p => p.startsWith('/api/')), []);
-  assert.equal(dom.requests.filter(p => p.startsWith('/data/')).length, 2);
+  assert.equal(dom.requests.filter(p => p.startsWith('/data/')).length, 1);
 });
