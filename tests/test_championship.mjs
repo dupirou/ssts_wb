@@ -43,10 +43,7 @@ test('events page keeps seven World Tour cards and offers a distinct World Champ
   assert.equal(world.querySelector('.btn').getAttribute('href'), '/events/2026-27/worlds-2027/');
   // Separators use a no-break space so they stay at line ends; compare words, not space kinds.
   assert.match(d.querySelector('.season-head .lead').textContent.replace(/\s+/g, ' '), /7 站世巡赛 · 1 场世锦赛/);
-  assert.deepEqual(
-    [...d.querySelectorAll('.ticket-panel')].map(panel => panel.getAttribute('aria-label')),
-    ['首尔站售票', '上海站售票']
-  );
+  assert.equal(d.querySelectorAll('.ticket-panel').length, 0);
 });
 test('Worlds detail uses schedule and roster waiting states without World Tour forecasts or API calls', async t => {
   const dom = await page('/events/2026-27/worlds-2027/');
@@ -66,5 +63,5 @@ test('Worlds detail uses schedule and roster waiting states without World Tour f
   assert.ok([...d.querySelectorAll('#section-schedule a')].some(a => a.href.includes('isu-skating.com')));
   assert.match(d.querySelector('#section-schedule').textContent, /报名名单/);
   assert.deepEqual(dom.requests.filter(p => p.startsWith('/api/')), []);
-  assert.equal(dom.requests.filter(p => p.startsWith('/data/')).length, 2);
+  assert.equal(dom.requests.filter(p => p.startsWith('/data/')).length, 1);
 });
