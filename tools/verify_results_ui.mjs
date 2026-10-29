@@ -27,7 +27,7 @@ async function serve(directory){
 const current=await serve(resolve('dist'));
 const before=process.env.QA_BASELINE?await serve(resolve(process.env.QA_BASELINE)):null;
 const browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE||undefined,headless:true,args:['--no-sandbox']});
-const report={browser:browser.version(),sizes:[390,768,1440],metrics:[],checks:[]};
+const report={browser:browser.version(),sizes:[320,390,768,1440],metrics:[],checks:[]};
 async function pageAt(origin,path,width,worker=false){
   const context=await browser.newContext({viewport:{width,height:844},deviceScaleFactor:1,serviceWorkers:worker?'allow':'block'});
   const page=await context.newPage();

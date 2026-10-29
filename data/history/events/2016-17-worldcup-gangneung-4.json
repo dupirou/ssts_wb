@@ -207,10 +207,10 @@
       "format": "individual",
       "name": "Yutong Han",
       "country": "CHN",
-      "rank": null,
+      "rank": 41,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -219,7 +219,25 @@
       "official_skater_id": 2499,
       "medal_eligible": true,
       "race_number": 2,
-      "athlete_id": "isu-2499"
+      "athlete_id": "isu-2499",
+      "previous_api_status": "",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617KOR.pdf",
+      "status_evidence_table": "C74 Ladies 1000 m (2) 6.0",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 Ladies 1000 m (2) 6.0",
+      "classification_evidence": {
+        "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617KOR.pdf",
+        "locator": "C74 Ladies 1000 m (2) 6.0",
+        "mode": "official_search_index",
+        "raw_pdf_retrieved": false,
+        "literal": "(41) HAN Yutong CHN PEN",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      },
+      "rank_evidence_literal": "(41)",
+      "rank_evidence_basis": "user_confirmed_tied_classification"
     },
     {
       "gender": "men",
@@ -267,10 +285,10 @@
       "format": "individual",
       "name": "Dajing Wu",
       "country": "CHN",
-      "rank": null,
+      "rank": 50,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -279,7 +297,14 @@
       "official_skater_id": 7792,
       "medal_eligible": true,
       "race_number": 1,
-      "athlete_id": "isu-7792"
+      "athlete_id": "isu-7792",
+      "previous_api_status": "classified",
+      "rank_evidence_literal": "(50)",
+      "rank_evidence_basis": "user_confirmed_tied_classification",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617KOR.pdf",
+      "status_evidence_table": "Men 1000 m (1)",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 6.0"
     },
     {
       "gender": "men",

@@ -366,7 +366,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -375,7 +375,12 @@
       "official_skater_id": 6784,
       "medal_eligible": true,
       "race_number": 2,
-      "athlete_id": "skater-long-sun"
+      "athlete_id": "skater-long-sun",
+      "previous_api_status": "classified",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819CAN.pdf",
+      "status_evidence_table": "Men 500 m (2)",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 7.1 REVISED"
     },
     {
       "gender": "women",

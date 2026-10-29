@@ -13,6 +13,11 @@ import import_olympic_history
 
 
 class HistoryApiTests(unittest.TestCase):
+    def test_official_distance_suffix_overrides_reversed_api_order(self):
+        self.assertEqual(import_history_api.official_race_number({'name': 'Men 500 m (2)'}, 1), 2)
+        self.assertEqual(import_history_api.official_race_number({'name': 'Men 500 m (1)'}, 2), 1)
+        self.assertEqual(import_history_api.official_race_number({'name': 'Men 500 m'}, 2), 2)
+
     def test_missing_classification_keeps_the_actual_group_rank_and_rejects_other_rounds(self):
         fixture = json.loads((ROOT / 'tests/fixtures/history-2024-relay-conflict.json').read_text())
 

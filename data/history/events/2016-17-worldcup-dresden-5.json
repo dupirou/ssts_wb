@@ -503,10 +503,10 @@
       "format": "individual",
       "name": "Liang JIN",
       "country": "CHN",
-      "rank": null,
+      "rank": 59,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -514,7 +514,27 @@
       "official_result_id": 3384,
       "official_skater_id": 3044,
       "medal_eligible": true,
-      "athlete_id": "isu-3044"
+      "athlete_id": "isu-3044",
+      "rank_evidence_literal": "(59)",
+      "rank_evidence_basis": "user_confirmed_tied_classification",
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20250120204131if_/https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617GER.pdf",
+      "status_evidence_table": "C74 Men 500 m 7.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Men 500 m 7.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20250120204131if_/https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617GER.pdf",
+        "locator": "C74 Men 500 m 7.0",
+        "page": 72,
+        "sha256": "16592ba053857d42a6dcd3780ac67702291c98118294450b299328e3fdbfa7fc",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "(59) Helmet 207 JIN Liang CHN PEN",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "women",

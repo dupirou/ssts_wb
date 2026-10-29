@@ -204,7 +204,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "DNS",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -213,7 +213,108 @@
       "official_skater_id": 6615,
       "medal_eligible": true,
       "race_number": 2,
-      "athlete_id": "isu-6615"
+      "athlete_id": "isu-6615",
+      "started": false,
+      "last_round": "Heats",
+      "terminal_status_evidence": {
+        "documents": [
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+            "form": {
+              "code": "",
+              "country_code": "",
+              "event_id": 5183,
+              "event_result_id": 5465
+            },
+            "sha256": "074316d6605d2a864132a751da92adede1057c50ca993907657e1c38291bdbd5"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round",
+            "form": {
+              "event_result_id": 5465
+            },
+            "sha256": "eb92d809d75f0125a25c26d59750f991fd436e4544241b7c002ec71a8747389a"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5465,
+              "event_result_round_id": 8636
+            },
+            "sha256": "f1faeadfd86a29b3ef4f161bef39931c1915afba32813426f1c013a4545e3684"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5465,
+              "event_result_round_id": 8640
+            },
+            "sha256": "ef166ea9502bd885194004a7e78a6a4542b7a232e6a83ac3c871fc79f0814a4e"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5465,
+              "event_result_round_id": 8645
+            },
+            "sha256": "d224d2044868e45a6b6e333bd35760ee38786e7ce9d2c2b93ef097d3180cf423"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5465,
+              "event_result_round_id": 8654
+            },
+            "sha256": "d95ca971038d9fbf3a3d8872f36b6ffdc4ab0c993c1d69c9b4624f3eb824ddd2"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5465,
+              "event_result_round_id": 8665
+            },
+            "sha256": "0316d886c09dd488222b9b7522f34ab1336ddbafd21be57d0902c5e3364e5fe7"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5465,
+              "event_result_round_id": 8670
+            },
+            "sha256": "1c6440f42d7edec02cbc0899e189d84f842bd387087459c0de4adac95fa14da5"
+          }
+        ],
+        "verified_fields": [
+          "status",
+          "started",
+          "last_round"
+        ],
+        "numeric_classification_verified": false
+      },
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20230803074537id_/https://shorttrack.sportresult.com/Data/PDFs/WC1920CAN.pdf",
+      "status_evidence_table": "C74 Men 1000 m (2) 6.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Men 1000 m (2) 6.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20230803074537id_/https://shorttrack.sportresult.com/Data/PDFs/WC1920CAN.pdf",
+        "locator": "C74 Men 1000 m (2) 6.0",
+        "page": 84,
+        "sha256": "6efc8537fa9578ff7d06967abf27351ece071bc2550c30eecc2a9fc0195970ba",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 181 SONG Jia Hua CHN DNS; rank empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "men",
@@ -403,7 +504,7 @@
       "official_result_id": 5623,
       "official_skater_id": 2499,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "isu-2499"
     },
     {
@@ -423,7 +524,7 @@
       "official_result_id": 5623,
       "official_skater_id": 8114,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "isu-8114"
     },
     {
@@ -443,7 +544,7 @@
       "official_result_id": 5623,
       "official_skater_id": 8080,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "skater-chutong-zhang"
     },
     {
@@ -463,7 +564,7 @@
       "official_result_id": 5660,
       "official_skater_id": 1876,
       "medal_eligible": true,
-      "race_number": 2,
+      "race_number": 1,
       "athlete_id": "skater-kexin-fan"
     },
     {
@@ -483,7 +584,7 @@
       "official_result_id": 5660,
       "official_skater_id": 8114,
       "medal_eligible": true,
-      "race_number": 2,
+      "race_number": 1,
       "athlete_id": "isu-8114"
     },
     {
@@ -495,7 +596,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -503,8 +604,109 @@
       "official_result_id": 5660,
       "official_skater_id": 5753,
       "medal_eligible": true,
-      "race_number": 2,
-      "athlete_id": "isu-5753"
+      "race_number": 1,
+      "athlete_id": "isu-5753",
+      "started": true,
+      "last_round": "Heats",
+      "terminal_status_evidence": {
+        "documents": [
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+            "form": {
+              "code": "",
+              "country_code": "",
+              "event_id": 5183,
+              "event_result_id": 5660
+            },
+            "sha256": "d537faa9c36b17dcc40f2b0cc5b383675a6173364af84a4b9f7ec7d9f5e3968e"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round",
+            "form": {
+              "event_result_id": 5660
+            },
+            "sha256": "2610096e3fa7152af00a20da8ab8b8bd46792ffd4ceb038ff9054f772866a9c7"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5660,
+              "event_result_round_id": 8907
+            },
+            "sha256": "5a20201b0d150689908fc799fbf0c04a8640660e0cac1432575dc5ea0743ebee"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5660,
+              "event_result_round_id": 8918
+            },
+            "sha256": "d5d79edb77a3733bc737e416f9552ba079c45fc7ed64170de68585e589fee23f"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5660,
+              "event_result_round_id": 8923
+            },
+            "sha256": "e14a8ca24bde9566f76602b9413acbab424f622c91f5f20e1dfe9c67e19406cd"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5660,
+              "event_result_round_id": 8926
+            },
+            "sha256": "3b49e2f8a02f97f7d4a67d056b58c3761bddfa26ac620285001f27a08d81a046"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5660,
+              "event_result_round_id": 8933
+            },
+            "sha256": "381e082057826aa44fd3da34d1e237eb2ddad0da60ead5b9f323542dfa58d4d4"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5660,
+              "event_result_round_id": 8935
+            },
+            "sha256": "c49c8f2e520f3b288a3f1d85bd9c46bdf055472d812a64387a17254f29199323"
+          }
+        ],
+        "verified_fields": [
+          "status",
+          "started",
+          "last_round"
+        ],
+        "numeric_classification_verified": false
+      },
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20230803074537id_/https://shorttrack.sportresult.com/Data/PDFs/WC1920CAN.pdf",
+      "status_evidence_table": "C74 Ladies 1000 m (1) 6.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Ladies 1000 m (1) 6.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20230803074537id_/https://shorttrack.sportresult.com/Data/PDFs/WC1920CAN.pdf",
+        "locator": "C74 Ladies 1000 m (1) 6.0",
+        "page": 24,
+        "sha256": "6efc8537fa9578ff7d06967abf27351ece071bc2550c30eecc2a9fc0195970ba",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 20 QU Chunyu CHN PEN; rank empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "women",
@@ -569,7 +771,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 2,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
@@ -594,8 +796,10 @@
         "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
       },
       "previous_reported_overall_rank": 2,
-      "classification_resolution": "current_official_classification",
-      "classification_selected_at": "2026-10-27T13:55:10.622375+00:00"
+      "classification_resolution": "user_selected_final_a",
+      "classification_selected_at": "2026-10-27T13:55:10.622375+00:00",
+      "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+      "classification_selected_date": "2026-10-28"
     },
     {
       "gender": "men",
@@ -623,7 +827,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 8,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
@@ -648,8 +852,10 @@
         "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
       },
       "previous_reported_overall_rank": 8,
-      "classification_resolution": "current_official_classification",
-      "classification_selected_at": "2026-10-27T13:55:10.622375+00:00"
+      "classification_resolution": "user_selected_final_a",
+      "classification_selected_at": "2026-10-27T13:55:10.622375+00:00",
+      "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+      "classification_selected_date": "2026-10-28"
     }
   ],
   "source": {

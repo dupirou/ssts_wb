@@ -354,7 +354,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "DSQ",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -362,7 +362,25 @@
       "official_result_id": 2907,
       "official_skater_id": 4165,
       "medal_eligible": true,
-      "athlete_id": "isu-4165"
+      "athlete_id": "isu-4165",
+      "official_status_literal": "DQ",
+      "previous_api_status": "",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC2425NED.pdf",
+      "status_evidence_table": "C74 Women 1500 m 1.0; C89I 1.0",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 Women 1500 m 1.0; C89I 1.0",
+      "classification_evidence": {
+        "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC2425NED.pdf",
+        "locator": "C74 Women 1500 m 1.0; C89I 1.0",
+        "mode": "official_search_index",
+        "raw_pdf_retrieved": false,
+        "literal": "122 LI Jinzi CHN DQ; Quarterfinals race 29",
+        "verified_fields": [
+          "rank",
+          "status"
+        ],
+        "normalization": "DQ to existing DSQ code"
+      }
     },
     {
       "gender": "men",

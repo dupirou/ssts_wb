@@ -97,6 +97,7 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   q.dispatchEvent(new dom.window.Event('input'));
   assert.equal(d.querySelectorAll('.directory-card').length, 1);
   assert.match(d.querySelector('.directory-card').textContent, /Kun LI/);
+  assert.match(d.querySelector('.directory-helmet').textContent, /头盔号 #67/);
   assert.equal(d.querySelector('.directory-card a'), null);
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /报名/);
   assert.match(d.querySelector('.directory-rankings').textContent, /本赛季世巡赛排名500m第 16 名/);
@@ -132,7 +133,7 @@ test('event browser retains current and archived scores and legacy result links'
     assert.equal(d.querySelectorAll('.results-table tbody').length, currentEvents.length);
     assert.equal(d.querySelectorAll('.result-row').length, currentCount);
     const relay = [...d.querySelectorAll('tbody[data-event*="vancouver"] .result-row')].find(r => r.textContent.includes('女子 3000m'));
-    assert.match(relay.querySelector('.result-place').textContent, /B组第 1 名/);
+    assert.match(relay.querySelector('.result-place').textContent, /第 5 名/);
     assert.equal(relay.querySelector('.is-medal'), null);
   }
   const detail = await page('/results/events/2025-26-worlds-montreal/');
@@ -426,3 +427,4 @@ test('previous station comparison stays in the same season and sources are group
   assert.equal(row.nextElementSibling.querySelectorAll('.review-records li > a[target]').length, 0);
   assert.ok(row.nextElementSibling.querySelector('.raw-source-group a[target]'));
 });
+

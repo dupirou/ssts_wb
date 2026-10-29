@@ -6,14 +6,14 @@ const m=globalThis.SSTS.resultsModel;
 const file=async name=>JSON.parse(await readFile(new URL('../'+name,import.meta.url),'utf8'));
 const data=await file('dist/data/results.json');
 const index=await file('dist/data/results/index.json');
-// Frozen pre-refactor calculation, tested against every real event and aggregate scope.
+// Independent calculation across every real event and aggregate scope.
 function baseline(events){
   const rows=events.flatMap(e=>e.results).filter(r=>r.medal_eligible!==false);
-  const starts=rows.filter(r=>r.status!=='DNS'&&r.started!==false);
+  const starts=rows.filter(r=>r.started!==false&&(r.status!=='DNS'||r.started===true||Boolean(r.best_time)));
   const medal=r=>r.medal_eligible!==false&&r.medal_verified!==false&&r.status==='classified'&&r.rank!=null&&r.rank>=1&&r.rank<=3&&(r.rank_scope!=='final'||r.final_group==='A');
   return {events:events.length,entries:rows.length,starts:starts.length,
     medals:[1,2,3].map(rank=>rows.filter(r=>medal(r)&&r.rank===rank).length),
-    a_finals:starts.filter(r=>r.final_group==='A').length,
+    a_finals:starts.filter(r=>r.final_group==='A'&&r.status!=='DNS').length,
     top8:rows.filter(r=>r.status==='classified'&&r.rank>=1&&r.rank<=8&&(r.rank_scope!=='final'||r.final_group==='A')).length};
 }
 test('all real event/season/cycle metrics agree with pre-refactor statistics',()=>{
@@ -92,4 +92,18 @@ test('built index contains no result rows or source document blobs; shards prese
   const baselineBytes=Buffer.byteLength(JSON.stringify(data));
   const indexBytes=Buffer.byteLength(JSON.stringify(index));
   assert.ok(indexBytes<baselineBytes*.2,`${indexBytes}/${baselineBytes}`);
+});
+test('terminal DNS after a completed race counts the event start but not a final start',()=>{
+  const event={results:[{gender:'men',distance_m:1000,format:'individual',athlete_id:'lin',name:'LIN Xiaojun',rank:11,rank_scope:'overall',final_group:'A',status:'DNS',best_time:'1:24.925'},{gender:'men',distance_m:1000,format:'individual',athlete_id:'other',name:'Other',rank:null,status:'DNS'}]};
+  const stats=m.summarize(event);
+  assert.equal(stats.totals.starts,1);
+  assert.equal(stats.totals.a_finals,0);
+  assert.equal(m.athleteStatistics([event]).find(p=>p.id==='lin').starts,1);
+});
+
+test('recorded prior race start counts even if final round was DNS',()=>{
+  const row={gender:'men',distance_m:1500,format:'individual',athlete_id:'liu',name:'LIU Guanyi',rank:null,final_group:'B',status:'DNS',started:true,best_time:null};
+  const event={results:[row]};
+  assert.equal(m.summarize(event).totals.starts,1);
+  assert.equal(m.athleteStatistics([event])[0].starts,1);
 });

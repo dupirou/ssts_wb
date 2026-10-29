@@ -123,7 +123,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -131,7 +131,12 @@
       "official_result_id": 3551,
       "official_skater_id": 5859,
       "medal_eligible": true,
-      "athlete_id": "isu-5859"
+      "athlete_id": "isu-5859",
+      "previous_api_status": "classified",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1920GER.pdf",
+      "status_evidence_table": "Men 500 m",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 1.0"
     },
     {
       "gender": "men",
@@ -142,7 +147,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -150,7 +155,12 @@
       "official_result_id": 3551,
       "official_skater_id": 6784,
       "medal_eligible": true,
-      "athlete_id": "skater-long-sun"
+      "athlete_id": "skater-long-sun",
+      "previous_api_status": "classified",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1920GER.pdf",
+      "status_evidence_table": "Men 500 m",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 1.0"
     },
     {
       "gender": "men",
@@ -403,7 +413,7 @@
       "official_result_id": 3816,
       "official_skater_id": 2499,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "isu-2499"
     },
     {
@@ -423,7 +433,7 @@
       "official_result_id": 3816,
       "official_skater_id": 8114,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "isu-8114"
     },
     {
@@ -443,7 +453,7 @@
       "official_result_id": 3816,
       "official_skater_id": 4181,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "isu-4181"
     },
     {
@@ -463,7 +473,7 @@
       "official_result_id": 3844,
       "official_skater_id": 2499,
       "medal_eligible": true,
-      "race_number": 2,
+      "race_number": 1,
       "athlete_id": "isu-2499"
     },
     {
@@ -483,7 +493,7 @@
       "official_result_id": 3844,
       "official_skater_id": 8039,
       "medal_eligible": true,
-      "race_number": 2,
+      "race_number": 1,
       "athlete_id": "skater-yize-zang"
     },
     {
@@ -503,7 +513,7 @@
       "official_result_id": 3844,
       "official_skater_id": 4181,
       "medal_eligible": true,
-      "race_number": 2,
+      "race_number": 1,
       "athlete_id": "isu-4181"
     },
     {
@@ -569,7 +579,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 16,
+      "rank": 2,
       "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
@@ -594,8 +604,10 @@
         "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
       },
       "previous_reported_overall_rank": 16,
-      "classification_resolution": "current_official_classification",
-      "classification_selected_at": "2026-10-27T13:55:10.586803+00:00"
+      "classification_resolution": "user_selected_final_a",
+      "classification_selected_at": "2026-10-27T13:55:10.586803+00:00",
+      "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+      "classification_selected_date": "2026-10-28"
     },
     {
       "gender": "men",
@@ -603,7 +615,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 14,
+      "rank": 4,
       "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
@@ -628,8 +640,10 @@
         "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
       },
       "previous_reported_overall_rank": 14,
-      "classification_resolution": "current_official_classification",
-      "classification_selected_at": "2026-10-27T13:55:10.586803+00:00"
+      "classification_resolution": "user_selected_final_a",
+      "classification_selected_at": "2026-10-27T13:55:10.586803+00:00",
+      "classification_selection_basis": "final_a_heat_rank_treated_as_overall",
+      "classification_selected_date": "2026-10-28"
     },
     {
       "gender": "mixed",

@@ -85,10 +85,10 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 3,
-      "rank_scope": "final",
-      "final_group": "A",
-      "status": "classified",
+      "rank": 5,
+      "rank_scope": "overall",
+      "final_group": null,
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
@@ -96,11 +96,22 @@
       "official_result_id": 4232,
       "official_skater_id": 8088,
       "medal_eligible": true,
-      "classification_missing": true,
       "started": true,
       "members": [],
-      "last_round": "Finals",
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "classification_evidence": {
+        "url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/FCC24.pdf",
+        "locator": "official PDF indexed text line 1461",
+        "mode": "web_cached_pdf_text",
+        "raw_pdf_retrieved": false,
+        "revision_order": "unknown",
+        "verified_fields": [
+          "rank",
+          "status"
+        ],
+        "decision_basis": "user_decision_2026-10-29",
+        "decision_literal": "采用第 33，第 5、PEN"
+      }
     },
     {
       "gender": "women",
@@ -317,8 +328,8 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 1,
-      "rank_scope": "final",
+      "rank": 5,
+      "rank_scope": "overall",
       "final_group": "B",
       "status": "classified",
       "best_time": null,
@@ -332,7 +343,19 @@
       "started": true,
       "members": [],
       "last_round": "Finals",
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "classification_evidence": {
+        "url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/FCC24.pdf",
+        "locator": "official PDF indexed text line 1149",
+        "mode": "web_cached_pdf_text",
+        "raw_pdf_retrieved": false,
+        "revision_order": "unknown",
+        "verified_fields": [
+          "rank"
+        ],
+        "decision_basis": "user_accepts_uncontested_official_index_and_overall_classification"
+      },
+      "final_rank": 1
     },
     {
       "gender": "men",
@@ -341,7 +364,7 @@
       "name": "China",
       "country": "CHN",
       "rank": 2,
-      "rank_scope": "final",
+      "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
       "best_time": null,
@@ -355,7 +378,19 @@
       "started": true,
       "members": [],
       "last_round": "Finals",
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "classification_evidence": {
+        "url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/FCC24.pdf",
+        "locator": "official PDF indexed text line 1306",
+        "mode": "web_cached_pdf_text",
+        "raw_pdf_retrieved": false,
+        "revision_order": "unknown",
+        "verified_fields": [
+          "rank"
+        ],
+        "decision_basis": "user_accepts_uncontested_official_index_and_overall_classification"
+      },
+      "final_rank": 2
     },
     {
       "gender": "women",
@@ -363,7 +398,7 @@
       "format": "individual",
       "name": "Weiying HAO",
       "country": "CHN",
-      "rank": null,
+      "rank": 18,
       "rank_scope": "overall",
       "final_group": null,
       "status": "PEN",
@@ -377,7 +412,18 @@
       "classification_missing": true,
       "started": true,
       "last_round": "Quarterfinals",
-      "athlete_id": "isu-2519"
+      "athlete_id": "isu-2519",
+      "classification_evidence": {
+        "url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/FCC24.pdf",
+        "locator": "official PDF indexed text line 871",
+        "mode": "web_cached_pdf_text",
+        "raw_pdf_retrieved": false,
+        "revision_order": "unknown",
+        "verified_fields": [
+          "rank"
+        ],
+        "decision_basis": "user_accepts_uncontested_official_index_and_overall_classification"
+      }
     },
     {
       "gender": "women",
@@ -385,7 +431,7 @@
       "format": "individual",
       "name": "Jiarui SONG",
       "country": "CHN",
-      "rank": null,
+      "rank": 18,
       "rank_scope": "overall",
       "final_group": null,
       "status": "PEN",
@@ -399,7 +445,18 @@
       "classification_missing": true,
       "started": true,
       "last_round": "Quarterfinals",
-      "athlete_id": "isu-6617"
+      "athlete_id": "isu-6617",
+      "classification_evidence": {
+        "url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/FCC24.pdf",
+        "locator": "official PDF indexed text line 871",
+        "mode": "web_cached_pdf_text",
+        "raw_pdf_retrieved": false,
+        "revision_order": "unknown",
+        "verified_fields": [
+          "rank"
+        ],
+        "decision_basis": "user_accepts_uncontested_official_index_and_overall_classification"
+      }
     },
     {
       "gender": "women",
@@ -407,7 +464,7 @@
       "format": "individual",
       "name": "Jianing ZHANG",
       "country": "CHN",
-      "rank": null,
+      "rank": 13,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -421,7 +478,18 @@
       "classification_missing": true,
       "started": true,
       "last_round": "Quarterfinals",
-      "athlete_id": "isu-8090"
+      "athlete_id": "isu-8090",
+      "classification_evidence": {
+        "url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/FCC24.pdf",
+        "locator": "official PDF indexed text line 871",
+        "mode": "web_cached_pdf_text",
+        "raw_pdf_retrieved": false,
+        "revision_order": "unknown",
+        "verified_fields": [
+          "rank"
+        ],
+        "decision_basis": "user_accepts_uncontested_official_index_and_overall_classification"
+      }
     },
     {
       "gender": "men",
@@ -429,7 +497,7 @@
       "format": "individual",
       "name": "Yuchen ZHONG",
       "country": "CHN",
-      "rank": null,
+      "rank": 16,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -443,7 +511,18 @@
       "classification_missing": true,
       "started": true,
       "last_round": "Quarterfinals",
-      "athlete_id": "isu-8145"
+      "athlete_id": "isu-8145",
+      "classification_evidence": {
+        "url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/FCC24.pdf",
+        "locator": "official PDF indexed text line 1008",
+        "mode": "web_cached_pdf_text",
+        "raw_pdf_retrieved": false,
+        "revision_order": "unknown",
+        "verified_fields": [
+          "rank"
+        ],
+        "decision_basis": "user_accepts_uncontested_official_index_and_overall_classification"
+      }
     },
     {
       "gender": "men",
@@ -452,7 +531,7 @@
       "name": "Wenlong LI",
       "country": "CHN",
       "rank": 4,
-      "rank_scope": "final",
+      "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
       "best_time": null,
@@ -465,7 +544,19 @@
       "classification_missing": true,
       "started": true,
       "last_round": "Finals",
-      "athlete_id": "skater-wenlong-li"
+      "athlete_id": "skater-wenlong-li",
+      "classification_evidence": {
+        "url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/FCC24.pdf",
+        "locator": "official PDF indexed text line 1008",
+        "mode": "web_cached_pdf_text",
+        "raw_pdf_retrieved": false,
+        "revision_order": "unknown",
+        "verified_fields": [
+          "rank"
+        ],
+        "decision_basis": "user_accepts_uncontested_official_index_and_overall_classification"
+      },
+      "final_rank": 4
     }
   ],
   "source": {

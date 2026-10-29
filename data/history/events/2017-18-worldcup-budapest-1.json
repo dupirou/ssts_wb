@@ -115,10 +115,10 @@
       "format": "individual",
       "name": "Yang Zhou",
       "country": "CHN",
-      "rank": null,
+      "rank": 69,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -126,7 +126,28 @@
       "official_result_id": 3915,
       "official_skater_id": 8151,
       "medal_eligible": true,
-      "athlete_id": "isu-8151"
+      "athlete_id": "isu-8151",
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20171010150433id_/http://shorttrack.sportresult.com/Data/PDFs/WC1718HUN.pdf",
+      "status_evidence_table": "C74 Ladies 1500 m 3.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Ladies 1500 m 3.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20171010150433id_/http://shorttrack.sportresult.com/Data/PDFs/WC1718HUN.pdf",
+        "original_url": "http://shorttrack.sportresult.com/Data/PDFs/WC1718HUN.pdf",
+        "locator": "C74 Ladies 1500 m 3.0",
+        "page": 29,
+        "sha256": "8c8d7849d0fcc3bac169a200262f55566242baf149728bdd8f6b7bb7e6a7d782",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "(69) Helmet 137 ZHOU Yang CHN PEN",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      },
+      "rank_evidence_literal": "(69)",
+      "rank_evidence_basis": "user_confirmed_tied_classification"
     },
     {
       "gender": "men",

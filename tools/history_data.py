@@ -17,7 +17,7 @@ STATISTICS_SCOPE = dict(
     include_all_around=False,
     include_super_3000=False,
     relay_lineups_required=False,
-    classification_conflict_policy='current_official_classification',
+    classification_conflict_policy='user_selected_final_a_or_protocol',
 )
 
 
@@ -38,12 +38,14 @@ def coverage_detail(event):
         missing_disciplines=missing,
         classification_conflicts=sum(
             bool(r.get('classification_conflict'))
-            and r.get('classification_resolution') != 'current_official_classification'
+            and r.get('classification_resolution')
+            not in {'current_official_classification', 'user_selected_final_a', 'user_selected_2015_official_protocol'}
             for r in rows
         ),
         resolved_classification_conflicts=sum(
             bool(r.get('classification_conflict'))
-            and r.get('classification_resolution') == 'current_official_classification'
+            and r.get('classification_resolution')
+            in {'current_official_classification', 'user_selected_final_a', 'user_selected_2015_official_protocol'}
             for r in rows
         ),
         missing_classifications=sum(bool(r.get('classification_missing')) for r in rows),
@@ -455,7 +457,40 @@ def result_catalog(out, calendar, archive):
                     )
                 )
         for r in snapshot['rankings']['items']:
-            if r['country'] != 'CHN' or r['ranking_type'] != 'event' or r['format'] != 'individual':
+            if r['country'] != 'CHN' or r['ranking_type'] != 'event':
+                continue
+            if r['format'] == 'relay':
+                existing = next(
+                    (
+                        row
+                        for row in rows
+                        if row['format'] == 'relay'
+                        and row['gender'] == r['gender']
+                        and row['distance_m'] == r['distance_m']
+                    ),
+                    None,
+                )
+                if existing is None:
+                    existing = dict(
+                        gender=r['gender'],
+                        distance_m=r['distance_m'],
+                        format='relay',
+                        name='China',
+                        country='CHN',
+                        final_group=None,
+                        members=[],
+                    )
+                    rows.append(existing)
+                existing.update(
+                    rank=r['rank'],
+                    rank_scope='overall',
+                    status=terminal_status(r.get('official_details', '').split()),
+                    source_url=r['source_url'],
+                )
+                if r.get('source_page'):
+                    existing['source_page'] = r['source_page']
+                continue
+            if r['format'] != 'individual':
                 continue
             rows.append(
                 dict(

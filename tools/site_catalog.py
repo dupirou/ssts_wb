@@ -5,13 +5,32 @@ from pathlib import Path
 
 
 def export(out: Path, calendar: dict, schedules: dict):
-    people, finals, ranking_tables = {}, [], {}
+    people, finals, ranking_tables, helmet_evidence = {}, [], {}, {}
     genders = {'women': '女子', 'men': '男子', 'mixed': '混合'}
     for event in calendar['stations']:
         path = out / 'data/competitions' / (event['id'] + '.json')
         if not path.exists():
             continue
         snapshot = json.loads(path.read_text(encoding='utf-8'))
+        # ISU assigns a single helmet number per athlete for the current season.
+        # Confirm it against official individual heats from every available station;
+        # never let a conflicting station silently overwrite the season number.
+        for heat in snapshot['rounds']['items']:
+            if heat.get('format') != 'individual' or heat.get('evidence') not in (
+                'official_results',
+                'official_start_list',
+            ):
+                continue
+            for participant in heat['participants']:
+                number = participant.get('helmet_number')
+                if type(number) is not int or number <= 0:
+                    continue
+                key = (participant.get('athlete_id'), participant.get('country'), heat.get('gender'))
+                if key[0] is None:
+                    continue
+                evidence = helmet_evidence.setdefault(key, dict(numbers=set(), events=set()))
+                evidence['numbers'].add(number)
+                evidence['events'].add(event['id'])
         for person in snapshot['entries']['items']:
             aid = person['athlete_id']
             item = people.setdefault(
@@ -72,6 +91,12 @@ def export(out: Path, calendar: dict, schedules: dict):
                     podium=podium,
                 )
             )
+    for person in people.values():
+        evidence = helmet_evidence.get((person['id'], person['country'], person['gender']))
+        if evidence and len(evidence['numbers']) == 1:
+            person['helmet_number'] = next(iter(evidence['numbers']))
+            person['helmet_source_events'] = sorted(evidence['events'])
+
     ranking_events = {}
     for table in ranking_tables.values():
         ranking_events[table['event_id']] = dict(event_id=table['event_id'], city=table['city'])

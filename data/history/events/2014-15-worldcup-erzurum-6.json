@@ -296,7 +296,7 @@
       "rank": 16,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -305,7 +305,12 @@
       "official_skater_id": 1134,
       "medal_eligible": true,
       "race_number": 2,
-      "athlete_id": "isu-1134"
+      "athlete_id": "isu-1134",
+      "previous_api_status": "classified",
+      "previous_api_rank": 16,
+      "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+      "selected_official_page": 80,
+      "classification_resolution": "user_selected_2015_official_protocol"
     },
     {
       "gender": "men",
@@ -316,7 +321,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -325,7 +330,12 @@
       "official_skater_id": 2495,
       "medal_eligible": true,
       "race_number": 2,
-      "athlete_id": "isu-2495"
+      "athlete_id": "isu-2495",
+      "previous_api_status": "classified",
+      "previous_api_rank": null,
+      "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+      "selected_official_page": 80,
+      "classification_resolution": "user_selected_2015_official_protocol"
     },
     {
       "gender": "women",
@@ -355,7 +365,7 @@
       "rank": 16,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -363,7 +373,12 @@
       "official_result_id": 6481,
       "official_skater_id": 8151,
       "medal_eligible": true,
-      "athlete_id": "isu-8151"
+      "athlete_id": "isu-8151",
+      "previous_api_status": "classified",
+      "previous_api_rank": 16,
+      "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+      "selected_official_page": 37,
+      "classification_resolution": "user_selected_2015_official_protocol"
     },
     {
       "gender": "women",
@@ -374,7 +389,7 @@
       "rank": 17,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -382,7 +397,12 @@
       "official_result_id": 6481,
       "official_skater_id": 4320,
       "medal_eligible": true,
-      "athlete_id": "isu-4320"
+      "athlete_id": "isu-4320",
+      "previous_api_status": "classified",
+      "previous_api_rank": 17,
+      "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+      "selected_official_page": 37,
+      "classification_resolution": "user_selected_2015_official_protocol"
     },
     {
       "gender": "men",
@@ -431,7 +451,7 @@
       "rank": 18,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "DNF",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -439,7 +459,12 @@
       "official_result_id": 6497,
       "official_skater_id": 8088,
       "medal_eligible": true,
-      "athlete_id": "isu-8088"
+      "athlete_id": "isu-8088",
+      "previous_api_status": "classified",
+      "previous_api_rank": 18,
+      "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+      "selected_official_page": 44,
+      "classification_resolution": "user_selected_2015_official_protocol"
     },
     {
       "gender": "women",
@@ -561,7 +586,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 4,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
@@ -586,8 +611,12 @@
         "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
       },
       "previous_reported_overall_rank": 4,
-      "classification_resolution": "current_official_classification",
-      "classification_selected_at": "2026-10-27T13:55:10.559770+00:00"
+      "classification_resolution": "user_selected_final_a",
+      "classification_selected_at": "2026-10-27T13:55:10.559770+00:00",
+      "classification_selection_basis": "user_selected_2015_official_protocol",
+      "classification_selected_date": "2026-10-28",
+      "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+      "selected_official_page": 90
     },
     {
       "gender": "men",
@@ -595,7 +624,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": 4,
+      "rank": 1,
       "rank_scope": "overall",
       "final_group": "A",
       "status": "classified",
@@ -620,8 +649,12 @@
         "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team"
       },
       "previous_reported_overall_rank": 4,
-      "classification_resolution": "current_official_classification",
-      "classification_selected_at": "2026-10-27T13:55:10.560887+00:00"
+      "classification_resolution": "user_selected_final_a",
+      "classification_selected_at": "2026-10-27T13:55:10.560887+00:00",
+      "classification_selection_basis": "user_selected_2015_official_protocol",
+      "classification_selected_date": "2026-10-28",
+      "selected_official_url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/WC1415TUR.pdf",
+      "selected_official_page": 96
     }
   ],
   "source": {

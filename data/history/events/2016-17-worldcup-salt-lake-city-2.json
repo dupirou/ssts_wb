@@ -188,10 +188,10 @@
       "format": "individual",
       "name": "Ziwei REN",
       "country": "CHN",
-      "rank": null,
+      "rank": 59,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -199,7 +199,27 @@
       "official_result_id": 4019,
       "official_skater_id": 5859,
       "medal_eligible": true,
-      "athlete_id": "isu-5859"
+      "athlete_id": "isu-5859",
+      "previous_api_status": "",
+      "status_evidence_url": "https://teamusa-org-migration.s3.amazonaws.com/US%20Speedskating/Migration/Documents/World%20Cup%20Short%20Track%202016.pdf",
+      "status_evidence_table": "C74 Men 1000m 7.0",
+      "status_evidence_kind": "official_pdf",
+      "status_evidence_version": "C74 Men 1000m 7.0",
+      "classification_evidence": {
+        "url": "https://teamusa-org-migration.s3.amazonaws.com/US%20Speedskating/Migration/Documents/World%20Cup%20Short%20Track%202016.pdf",
+        "locator": "C74 Men 1000m 7.0",
+        "mode": "official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "(59) REN Ziwei CHN PEN",
+        "verified_fields": [
+          "rank",
+          "status"
+        ],
+        "page": 50,
+        "sha256": "174f29936377273d94a2630623fd9f0dba719f4224cfa62ab76cdcea46defa98"
+      },
+      "rank_evidence_literal": "(59)",
+      "rank_evidence_basis": "user_confirmed_tied_classification"
     },
     {
       "gender": "women",
@@ -570,10 +590,10 @@
       "format": "individual",
       "name": "Dajing Wu",
       "country": "CHN",
-      "rank": null,
+      "rank": 55,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -581,7 +601,27 @@
       "official_result_id": 4075,
       "official_skater_id": 7792,
       "medal_eligible": true,
-      "athlete_id": "isu-7792"
+      "athlete_id": "isu-7792",
+      "previous_api_status": "",
+      "status_evidence_url": "https://teamusa-org-migration.s3.amazonaws.com/US%20Speedskating/Migration/Documents/World%20Cup%20Short%20Track%202016.pdf",
+      "status_evidence_table": "C74 Men 500 m 7.0",
+      "status_evidence_kind": "official_pdf",
+      "status_evidence_version": "C74 Men 500 m 7.0",
+      "classification_evidence": {
+        "url": "https://teamusa-org-migration.s3.amazonaws.com/US%20Speedskating/Migration/Documents/World%20Cup%20Short%20Track%202016.pdf",
+        "locator": "C74 Men 500 m 7.0",
+        "mode": "official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "(55) WU Dajing CHN PEN",
+        "verified_fields": [
+          "rank",
+          "status"
+        ],
+        "page": 70,
+        "sha256": "174f29936377273d94a2630623fd9f0dba719f4224cfa62ab76cdcea46defa98"
+      },
+      "rank_evidence_literal": "(55)",
+      "rank_evidence_basis": "user_confirmed_tied_classification"
     },
     {
       "gender": "women",

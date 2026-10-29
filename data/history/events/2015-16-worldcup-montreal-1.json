@@ -372,7 +372,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -381,7 +381,12 @@
       "official_skater_id": 8088,
       "medal_eligible": true,
       "race_number": 2,
-      "athlete_id": "isu-8088"
+      "athlete_id": "isu-8088",
+      "previous_api_status": "classified",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1516CAN1.pdf",
+      "status_evidence_table": "Men 1000 m (2)",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 6.0"
     },
     {
       "gender": "women",
@@ -501,7 +506,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -509,7 +514,12 @@
       "official_result_id": 8299,
       "official_skater_id": 8088,
       "medal_eligible": true,
-      "athlete_id": "isu-8088"
+      "athlete_id": "isu-8088",
+      "previous_api_status": "classified",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1516CAN1.pdf",
+      "status_evidence_table": "Men 1500 m",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 5.1 REVISED"
     },
     {
       "gender": "women",
