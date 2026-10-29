@@ -93,25 +93,27 @@
           : Number.POSITIVE_INFINITY;
       const draw = () => {
         const query = q.value.trim().toLocaleLowerCase();
-        const people = index.items.filter(
-          (p) =>
-            (country.value === 'all' || p.country === country.value) &&
-            (sex.value === 'all' || p.gender === sex.value) &&
-            (!query ||
-              query
-                .split(/\s+/)
-                .every((token) =>
-                  (p.name + ' ' + p.country + ' ' + (p.aliases || []).join(' '))
-                    .toLocaleLowerCase()
-                    .includes(token)
-                ))
-        ).sort((a, b) => {
-          const first = numberOf(a);
-          const second = numberOf(b);
-          return first === second
-            ? a.name.localeCompare(b.name) || a.id.localeCompare(b.id)
-            : first - second;
-        });
+        const people = index.items
+          .filter(
+            (p) =>
+              (country.value === 'all' || p.country === country.value) &&
+              (sex.value === 'all' || p.gender === sex.value) &&
+              (!query ||
+                query
+                  .split(/\s+/)
+                  .every((token) =>
+                    (p.name + ' ' + p.country + ' ' + (p.aliases || []).join(' '))
+                      .toLocaleLowerCase()
+                      .includes(token)
+                  ))
+          )
+          .sort((a, b) => {
+            const first = numberOf(a);
+            const second = numberOf(b);
+            return first === second
+              ? a.name.localeCompare(b.name) || a.id.localeCompare(b.id)
+              : first - second;
+          });
         count.textContent = '显示 ' + people.length + ' 人 · 共 ' + index.items.length + ' 人';
         list.replaceChildren(
           ...people.map((p) =>
