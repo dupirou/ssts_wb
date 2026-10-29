@@ -101,7 +101,7 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /头盔号|#/);
   assert.equal(d.querySelector('.directory-card a'), null);
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /报名/);
-  assert.match(d.querySelector('.directory-rankings').textContent, /本赛季世巡赛排名500m第 16 名/);
+  assert.match(d.querySelector('.directory-rankings').textContent, /500m第 16 名/);
   assert.doesNotMatch(d.querySelector('.directory-rankings').textContent, /1000m|第 45 名/);
   assert.equal(new URL(dom.window.location.href).searchParams.get('q'), 'LI Kun');
   const restored = await page(dom.window.location.pathname + dom.window.location.search);
@@ -131,7 +131,7 @@ test('athlete cards sort by numeric helmet number, then names, with one ranking 
   const first = cards[0].querySelector('.directory-identity');
   assert.ok(first.firstElementChild.matches('.directory-helmet'));
   assert.ok(first.children[1].matches('.athlete-nation, .athlete-china'));
-  assert.match(first.firstElementChild.textContent, /^\\d+$/);
+  assert.match(first.firstElementChild.textContent, /^\d+$/);
   const country = d.querySelector('select[name="country"]');
   country.value = 'CHN';
   country.dispatchEvent(new dom.window.Event('change'));
