@@ -97,7 +97,8 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   q.dispatchEvent(new dom.window.Event('input'));
   assert.equal(d.querySelectorAll('.directory-card').length, 1);
   assert.match(d.querySelector('.directory-card').textContent, /Kun LI/);
-  assert.match(d.querySelector('.directory-helmet').textContent, /头盔号 #67/);
+  assert.equal(d.querySelector('.directory-helmet').textContent, '67');
+  assert.doesNotMatch(d.querySelector('.directory-card').textContent, /头盔号|#/);
   assert.equal(d.querySelector('.directory-card a'), null);
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /报名/);
   assert.match(d.querySelector('.directory-rankings').textContent, /本赛季世巡赛排名500m第 16 名/);
@@ -107,6 +108,39 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   t.after(() => restored.window.close());
   assert.equal(restored.window.document.querySelectorAll('.directory-card').length, 1);
   assert.equal(dom.requests.filter(p => p.includes('/api/')).length, 0);
+});
+
+test('athlete cards sort by numeric helmet number, then names, with one ranking heading', async t => {
+  const dom = await page('/athletes/');
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  const cards = [...d.querySelectorAll('.directory-card')];
+  const number = card => {
+    const el = card.querySelector('.directory-helmet');
+    return el ? Number(el.textContent) : null;
+  };
+  const known = cards.map(number).filter(value => value != null);
+  assert.ok(known.length > 100, 'known official numbers must be displayed');
+  assert.deepEqual(known, [...known].sort((a, b) => a - b));
+  assert.ok(cards.slice(known.length).every(card => number(card) == null), 'unknown numbers sort last');
+  assert.equal(d.querySelectorAll('.directory-ranking-context h2').length, 1);
+  assert.equal(d.querySelector('.directory-ranking-context h2').textContent, '本赛季世巡赛排名');
+  assert.equal(d.querySelectorAll('.directory-rankings h3').length, 0);
+  assert.equal(d.querySelectorAll('.directory-rankings dl').length > 0, true);
+  assert.equal((d.querySelector('#app').textContent.match(/本赛季世巡赛排名/g) || []).length, 1);
+  const first = cards[0].querySelector('.directory-identity');
+  assert.ok(first.firstElementChild.matches('.directory-helmet'));
+  assert.ok(first.children[1].matches('.athlete-nation, .athlete-china'));
+  assert.match(first.firstElementChild.textContent, /^\\d+$/);
+  const country = d.querySelector('select[name="country"]');
+  country.value = 'CHN';
+  country.dispatchEvent(new dom.window.Event('change'));
+  const chinese = [...d.querySelectorAll('.directory-card')];
+  assert.equal(chinese.length, 12);
+  const chinaNumbers = chinese.map(number);
+  assert.deepEqual(chinaNumbers, [...chinaNumbers].sort((a, b) => a - b));
+  assert.equal(chinese[0].querySelector('.directory-helmet').textContent, '4');
+  assert.equal(d.querySelectorAll('.directory-ranking-context h2').length, 1);
 });
 
 test('results overview links to separate season, cycle and comparison pages without dumping scores', async t => {
