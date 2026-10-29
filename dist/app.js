@@ -2905,7 +2905,8 @@
     return stations.flatMap((st) => {
       const ticket = st.ticketing;
       if (!ticket || phase(stationWindow(st, null)) === 'done') return [];
-      const channel = ticket.channels?.find((item) => item.kind === 'event') || ticket.channels?.[0];
+      const channel =
+        ticket.channels?.find((item) => item.kind === 'event') || ticket.channels?.[0];
       const href = channel?.url || ticket.booking_url;
       if (!href) return [];
       const onSale = !ticket.sale_start || now() >= Date.parse(ticket.sale_start);
@@ -2987,7 +2988,9 @@
             n.sub && (!Array.isArray(n.sub) || n.sub.length)
               ? h('span', { class: 'upd-sub' }, n.sub)
               : null,
-            e.at ? h('time', { class: 'upd-when', datetime: e.at, text: ago(Date.parse(e.at)) }) : null
+            e.at
+              ? h('time', { class: 'upd-when', datetime: e.at, text: ago(Date.parse(e.at)) })
+              : null
           )
         );
       })

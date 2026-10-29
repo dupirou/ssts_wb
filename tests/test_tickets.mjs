@@ -58,7 +58,11 @@ test('ticket notice says on sale after opening and disappears once Seoul is over
     assert.match(panel.textContent, /已于北京时间 10\/23 周五 下午 13:00 开售/);
   });
   await t.test('after the stage', async t => {
-    const dom = new JSDOM(html, {url: 'https://example.test/?now=2026-11-23T00:00:00Z', runScripts: 'outside-only', pretendToBeVisual: true});
+    const dom = new JSDOM(html, {
+      url: 'https://example.test/?now=2026-11-23T00:00:00Z',
+      runScripts: 'outside-only',
+      pretendToBeVisual: true
+    });
     t.after(() => dom.window.close());
     const w = dom.window;
     w.matchMedia = () => ({matches: false, addEventListener() {}});
@@ -69,7 +73,8 @@ test('ticket notice says on sale after opening and disappears once Seoul is over
       return new Response(await file('dist' + pathname));
     };
     w.eval(script);
-    for (let i = 0; i < 100 && !w.document.querySelector('.ticket-panel'); i++) await new Promise(r => setTimeout(r, 5));
+    for (let i = 0; i < 100 && !w.document.querySelector('.ticket-panel'); i++)
+      await new Promise(r => setTimeout(r, 5));
     assert.equal(w.document.querySelectorAll('.st-card').length, 0);
     assert.equal(w.document.querySelector('.ticket-panel[aria-label="首尔站售票"]'), null);
     assert.ok(w.document.querySelector('.ticket-panel[aria-label="上海站售票"]'));

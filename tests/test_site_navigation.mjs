@@ -17,7 +17,8 @@ async function page(path, fail = '', resultsIndex = null, options = {}) {
   const dom = new JSDOM(html, {url: new URL(path, 'https://example.test/').href, runScripts: 'outside-only', pretendToBeVisual: true});
   const w = dom.window;
   dom.requests = [];
-  for (const [key, value] of Object.entries(options.storage || {})) w.localStorage.setItem(key, value);
+  for (const [key, value] of Object.entries(options.storage || {}))
+    w.localStorage.setItem(key, value);
   w.matchMedia = () => ({matches: false, addEventListener() {}});
   w.HTMLElement.prototype.scrollIntoView = function () {};
   w.HTMLDialogElement.prototype.showModal = function () {this.setAttribute('open', '');};
