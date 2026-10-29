@@ -42,6 +42,8 @@ for name in ('concentrated-15.json', 'laval-2023-findings.json'):
                 entry['outcome'] = 'already_matches'
             else:
                 entry['outcome'] = 'confirmed_rank_repair'
+                if row.get('rank_scope') == 'final' and row.get('rank') is not None:
+                    row['final_rank'] = row['rank']
                 row.update(rank=rank, rank_scope='overall')
                 row['classification_evidence'] = {
                     'url': evidence['source_url'],
