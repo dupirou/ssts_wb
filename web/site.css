@@ -4416,17 +4416,27 @@ td.time {
   font-size: 0.76rem;
   font-weight: 750;
 }
-.ranking-as-of {
+.directory-identity .directory-helmet {
+  font: 750 0.88rem var(--num);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.directory-ranking-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
   margin-top: 14px;
+}
+.directory-ranking-context h2 {
+  font-size: 0.96rem;
+  font-weight: 700;
 }
 .directory-rankings {
   display: grid;
   gap: 10px;
   border-top: 1px solid var(--border);
   padding-top: 12px;
-}
-.directory-rankings h3 {
-  font-weight: 500;
 }
 .directory-rankings dl {
   display: grid;
