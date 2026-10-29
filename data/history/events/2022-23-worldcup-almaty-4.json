@@ -595,7 +595,7 @@
       "format": "individual",
       "name": "Huiling Jia",
       "country": "CHN",
-      "rank": null,
+      "rank": 33,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -606,10 +606,21 @@
       "official_result_id": 4358,
       "official_skater_id": 3032,
       "medal_eligible": true,
-      "classification_missing": true,
       "started": true,
       "last_round": "Heats",
-      "athlete_id": "isu-3032"
+      "athlete_id": "isu-3032",
+      "classification_evidence": {
+        "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC2223KAZ2.pdf",
+        "locator": "Women 1000 m",
+        "mode": "search_engine_indexed_text",
+        "raw_pdf_retrieved": false,
+        "revision_order": "unknown",
+        "verified_fields": [
+          "rank"
+        ],
+        "decision_basis": "user_decision_2026-10-29",
+        "decision_literal": "采用第 33，第 5、PEN"
+      }
     },
     {
       "gender": "women",

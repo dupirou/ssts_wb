@@ -15419,7 +15419,7 @@
         "missing_disciplines": [],
         "classification_conflicts": 0,
         "resolved_classification_conflicts": 0,
-        "missing_classifications": 8,
+        "missing_classifications": 7,
         "relay_lineups_unavailable": 3,
         "relay_lineups_required": false
       },
@@ -15816,10 +15816,10 @@
           "format": "relay",
           "name": "China",
           "country": "CHN",
-          "rank": 3,
-          "rank_scope": "final",
-          "final_group": "A",
-          "status": "classified",
+          "rank": 5,
+          "rank_scope": "overall",
+          "final_group": null,
+          "status": "PEN",
           "best_time": null,
           "source_page": null,
           "source_url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-team",
@@ -15827,11 +15827,22 @@
           "official_result_id": 4232,
           "official_skater_id": 8088,
           "medal_eligible": true,
-          "classification_missing": true,
           "started": true,
           "members": [],
-          "last_round": "Finals",
-          "lineup_status": "unavailable"
+          "lineup_status": "unavailable",
+          "classification_evidence": {
+            "url": "https://app-prod-isu-stk-archive-westeurope.azurewebsites.net/Data/PDFs/FCC24.pdf",
+            "locator": "official PDF indexed text line 1461",
+            "mode": "web_cached_pdf_text",
+            "raw_pdf_retrieved": false,
+            "revision_order": "unknown",
+            "verified_fields": [
+              "rank",
+              "status"
+            ],
+            "decision_basis": "user_decision_2026-10-29",
+            "decision_literal": "采用第 33，第 5、PEN"
+          }
         },
         {
           "gender": "women",
@@ -16282,7 +16293,7 @@
       "medals": {
         "1": 0,
         "2": 1,
-        "3": 1
+        "3": 0
       }
     },
     {
@@ -21140,7 +21151,7 @@
         "missing_disciplines": [],
         "classification_conflicts": 0,
         "resolved_classification_conflicts": 0,
-        "missing_classifications": 13,
+        "missing_classifications": 12,
         "relay_lineups_unavailable": 3,
         "relay_lineups_required": false
       },
@@ -22279,7 +22290,7 @@
           "format": "individual",
           "name": "Huiling Jia",
           "country": "CHN",
-          "rank": null,
+          "rank": 33,
           "rank_scope": "overall",
           "final_group": null,
           "status": "classified",
@@ -22290,10 +22301,21 @@
           "official_result_id": 4358,
           "official_skater_id": 3032,
           "medal_eligible": true,
-          "classification_missing": true,
           "started": true,
           "last_round": "Heats",
-          "athlete_id": "isu-3032"
+          "athlete_id": "isu-3032",
+          "classification_evidence": {
+            "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC2223KAZ2.pdf",
+            "locator": "Women 1000 m",
+            "mode": "search_engine_indexed_text",
+            "raw_pdf_retrieved": false,
+            "revision_order": "unknown",
+            "verified_fields": [
+              "rank"
+            ],
+            "decision_basis": "user_decision_2026-10-29",
+            "decision_literal": "采用第 33，第 5、PEN"
+          }
         },
         {
           "gender": "women",
