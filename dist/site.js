@@ -3459,7 +3459,11 @@
     };
     const close = () => {
       acknowledge();
-      popup.close();
+      if (typeof popup.close === 'function') popup.close();
+      else {
+        popup.removeAttribute('open');
+        popup.remove();
+      }
     };
     const list = h(
       'ol',
@@ -3657,7 +3661,8 @@
       const popup = updatesDialog(feed, calendar.stations);
       if (popup) {
         document.body.append(popup);
-        popup.showModal();
+        if (typeof popup.showModal === 'function') popup.showModal();
+        else popup.setAttribute('open', '');
       }
     });
     // Back-to-top for long phone lists.
