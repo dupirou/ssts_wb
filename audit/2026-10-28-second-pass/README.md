@@ -66,3 +66,25 @@ IOC 奥林匹克资料库搜索引擎的索引文本包含官方 event classific
 ## 2018 蒙特利尔世锦赛分类
 
 [官方成绩册索引](https://www.shorttrack.swisstiming.com/Data/PDFs/WC18.pdf)的女子 1000 米单项 C74C 1.0 列郭奕含第 40、PEN，曲春雨第 40、YC；女子 3000 米接力 C74 2.0 列中国队第 9、PEN。原接口没有数值和状态，仓库此前默认 classified。三条已按官方索引修复并保留原接口状态；此处只处理 1000 米单项分类，不纳入世锦赛全能或超级 3000。原 60 条空分类中已有 14 条核实状态，余 46 条仍待查。原始 PDF 字节未取得。
+
+## 本地待批量提交：2015/16 蒙特利尔与 2016/17 江陵
+
+官方 [蒙特利尔 C74](https://www.shorttrack.swisstiming.com/Data/PDFs/WC1516CAN1.pdf) 索引显示张洪超男子 1500 米（修订版 5.1）和男子 1000 米第二次均为 PEN、无名次；官方 [江陵 C74](https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617KOR.pdf) 索引显示武大靖男子 1000 米第一次 `(50)` PEN，按已确认口径记并列第 50。三条接口状态为空，仓库原默认 classified。修复及构建结果保存在本地，尚未推送；原始 PDF 字节尚未取得。
+
+## 本地继续核对：卡尔加里和德累斯顿
+
+2018/19 卡尔加里男子 500 米第二次孙龙为 PEN、无数值名次，来源是 [Swiss Timing C74 修订版 7.1](https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819CAN.pdf) 的官方索引文本。2019/20 德累斯顿男子 500 米任子威、孙龙均为 PEN、无数值名次，来源为 [Swiss Timing C74 1.0](https://www.shorttrack.swisstiming.com/Data/PDFs/WC1920GER.pdf) 官方索引文本。三条原接口状态为空，仓库原默认 classified；本地已修正并保留原值，未推送，原始 PDF 字节未保存。已运行历史数据测试 6 项，均通过。
+
+## 本地继续核对：2017/18 上海及 2018/19 都灵
+
+[上海官方 C74 5.0 索引](https://www.shorttrack.swisstiming.com/Data/PDFs/WC1718CHN.pdf)显示范可新女子 1000 米 `(61)`、PEN，按用户口径记录并列第 61。[都灵官方 C74 7.0 索引](https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819ITA.pdf)显示田佳龙男子 1000 米 PEN、无数值名次。两条原接口状态为空而仓库默认 classified；本地已修正并保留原值及来源，尚未推送。官方原始 PDF 字节未保存。蒙特利尔曲春雨条目属于 1000 米第二次，不将发现的第一次比赛表误认为该条。
+
+## 2026-10-29 批量修复与最新范围决定
+
+用户决定来源核对限于已有冲突和待裁定清单，不重复核对无冲突数据。自动跟进已按用户要求关闭，继续在当前会话处理。
+
+对 concentrated-15.json 的 47 条和 laval-2023-findings.json 的 8 条使用 reconcile_classification_conflicts.py 批量精确匹配赛事、性别、距离、运动员和官方项目 ID。53 条补齐或统一总名次：34 条原来没有数值名次，19 条原来只保存决赛组名次。保留 final_group 及原状态，C81 仅证明名次，不补写状态。附加 classification_evidence 记录来源和已核字段；原 API 来源不覆盖。
+
+2 条保留争议：阿拉木图贾慧玲女子 1000 米，官方索引为第 33/DNS、仓库 classified；拉瓦尔中国混合接力，官方索引第 5/PEN、仓库 A 决赛第 3/classified。未取得足够版本证据，不自动覆盖。classification-repair-reconciliation.json 保存完整逐行修复前后值、来源文件哈希和两条未改记录。此处的“2 条”只代表本批 55 条清单，不代表全项目仅剩两条。
+
+本轮完整 Python 120 项、Node 89 项均通过，完整构建通过。Ruff 未执行成功：当前 Python 环境未安装 ruff；本轮尚未重跑真实浏览器验收。既有 8 条本地历史状态修复继续保留。event-summary-diff.json 保存相对修复分支 HEAD 的赛事摘要差异；详细逐行差异见对账文件。
