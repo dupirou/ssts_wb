@@ -97,7 +97,7 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   q.dispatchEvent(new dom.window.Event('input'));
   assert.equal(d.querySelectorAll('.directory-card').length, 1);
   assert.match(d.querySelector('.directory-card').textContent, /Kun LI/);
-  assert.match(d.querySelector('.directory-helmet').textContent, /头盔号：#67（温哥华）/);
+  assert.match(d.querySelector('.directory-helmet').textContent, /头盔号 #67/);
   assert.equal(d.querySelector('.directory-card a'), null);
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /报名/);
   assert.match(d.querySelector('.directory-rankings').textContent, /本赛季世巡赛排名500m第 16 名/);
