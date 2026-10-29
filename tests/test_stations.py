@@ -115,6 +115,36 @@ class ScheduleSyncTests(unittest.TestCase):
         found = sync_schedule.validate(sync_schedule.parse_text(text, vancouver), vancouver)
         self.assertEqual(found, sync_schedule.read(ROOT / 'tests/fixtures/vancouver-2026-schedule.csv'))
 
+    def test_montreal_relay_mislabels_only_at_reviewed_times(self):
+        wrong = {
+            'date': '2026-10-31',
+            'session': 'R',
+            'gender': 'M',
+            'distance': '1500',
+            'kind': 'I',
+            'round': 'S',
+            'group': '-',
+        }
+        rows = [{**wrong, 'time': t} for t in ('10:53', '11:33', '12:03')]
+        fixed = sync_schedule.correct_montreal_round_labels(rows, MONTREAL)
+        self.assertEqual(
+            [(r['time'], r['gender'], r['distance'], r['kind'], r['round']) for r in fixed],
+            [
+                ('10:53', 'M', '1500', 'I', 'S'),
+                ('11:33', 'X', '2000', 'R', 'Q'),
+                ('12:03', 'W', '3000', 'R', 'Q'),
+            ],
+        )
+        self.assertEqual(sync_schedule.correct_montreal_round_labels(fixed, MONTREAL), fixed)
+
+    def test_schedule_parser_accepts_single_digit_hours(self):
+        text = (
+            '30.10.2026\nDay - Qualifying Session\n'
+            '8:45 Women 500 meter Preliminaries\n9:18 Men 500 meter Preliminaries\n'
+        )
+        parsed = sync_schedule.parse_text(text, MONTREAL)
+        self.assertEqual([r['time'] for r in parsed], ['08:45', '09:18'])
+
     def test_discovery_matches_dates_city_and_country(self):
         pages = {
             sync_schedule.EVENTS: '<a href="/en/short-track/events/eventdetail/isu-short-track-world-tour-1/">1</a>'

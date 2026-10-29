@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EVENTS = 'https://www.isu-skating.com/en/short-track/events/'
 HOSTS = {'www.isu-skating.com', 'isu-skating.com'}
 DAY = re.compile(r'(\d{2})\.(\d{2})\.(\d{4})\b')
-TIME = re.compile(r'^([0-2]\d):([0-5]\d)(?:\s+(.*))?$')
+TIME = re.compile(r'^([01]?\d|2[0-3]):([0-5]\d)(?:\s+(.*))?$')
 DIST = re.compile(r'\b(5000|3000|2000|1500|1000|500)\s*(?:m|metre|meter)', re.I)
 MAX_TIME_CHANGES = 10
 # Stop looking once a station's racing is over; start well before ISU usually publishes.
@@ -71,6 +71,23 @@ def event(label, session):
     return {'session': session, 'gender': sex, 'distance': str(distance), 'kind': fmt, 'round': round_, 'group': group}
 
 
+def correct_montreal_round_labels(rows, station):
+    """Retain reviewed relay rounds that ISU's Montreal programme mislabels."""
+    if station['id'] != 'montreal':
+        return rows
+    by_time = {(r['date'], r['time']): r for r in rows}
+    reference = by_time.get(('2026-10-31', '10:53'))
+    mistaken = {'gender': 'M', 'distance': '1500', 'kind': 'I', 'round': 'S'}
+    if not reference or reference['session'] != 'R' or any(reference[k] != v for k, v in mistaken.items()):
+        return rows
+    # Only these two reviewed times are corrected; never reinterpret unrelated rounds.
+    for time, (gender, distance) in {'11:33': ('X', '2000'), '12:03': ('W', '3000')}.items():
+        row = by_time.get(('2026-10-31', time))
+        if row and row['session'] == 'R' and all(row[k] == v for k, v in mistaken.items()):
+            row.update(gender=gender, distance=distance, kind='R', round='Q')
+    return rows
+
+
 def parse_text(text, station):
     allowed = {d.isoformat() for d in stations.dates(station)}
     lines = [re.sub(r'\s+', ' ', line).strip() for line in text.splitlines()]
@@ -102,8 +119,8 @@ def parse_text(text, station):
         name = m.group(3) or (lines[i + 1] if i + 1 < len(lines) else '')
         if not re.search(r'\b(women|men|mixed|ladies)\b', name, re.I):
             continue
-        out.append({'date': day, 'time': m.group(1) + ':' + m.group(2), **event(name, session)})
-    return out
+        out.append({'date': day, 'time': m.group(1).zfill(2) + ':' + m.group(2), **event(name, session)})
+    return correct_montreal_round_labels(out, station)
 
 
 def merge(found, old, station, now):
