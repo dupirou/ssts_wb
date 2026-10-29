@@ -17,7 +17,8 @@ def export(out: Path, calendar: dict, schedules: dict):
         helmets, conflicts = {}, set()
         for heat in snapshot['rounds']['items']:
             if heat.get('format') != 'individual' or heat.get('evidence') not in (
-                'official_results', 'official_start_list'
+                'official_results',
+                'official_start_list',
             ):
                 continue
             for participant in heat['participants']:
