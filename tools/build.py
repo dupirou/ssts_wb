@@ -252,10 +252,7 @@ def load_ticketing():
                     or SHANGHAI_TICKET_CHANNELS[name].get(uri.hostname) != kind
                 ):
                     raise ValueError('Invalid ticket channel URL or type')
-                if kind == 'event' and (
-                    uri.path != '/shows/item.html'
-                    or 'itemId=1095988161093' not in uri.query
-                ):
+                if kind == 'event' and (uri.path != '/shows/item.html' or 'itemId=1095988161093' not in uri.query):
                     raise ValueError('Unverified Damai event URL')
                 seen.add(name)
                 verified.append(dict(name=name, url=channel['url'], kind=kind))
