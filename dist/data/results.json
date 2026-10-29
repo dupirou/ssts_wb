@@ -48903,10 +48903,10 @@
           "format": "individual",
           "name": "Miaohui YU",
           "country": "CHN",
-          "rank": null,
+          "rank": 32,
           "rank_scope": "overall",
           "final_group": null,
-          "status": "classified",
+          "status": "PEN",
           "best_time": null,
           "source_page": null,
           "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -48915,7 +48915,14 @@
           "official_skater_id": 7979,
           "medal_eligible": true,
           "race_number": 1,
-          "athlete_id": "isu-7979"
+          "athlete_id": "isu-7979",
+          "previous_api_status": "classified",
+          "rank_evidence_literal": "(32)",
+          "rank_evidence_basis": "user_confirmed_tied_classification",
+          "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617BLR.pdf",
+          "status_evidence_table": "Ladies 1000 m (1)",
+          "status_evidence_kind": "official_search_index",
+          "status_evidence_version": "C74 5.0"
         },
         {
           "gender": "women",
@@ -51909,10 +51916,10 @@
           "format": "individual",
           "name": "Hongshuang Li",
           "country": "CHN",
-          "rank": null,
+          "rank": 42,
           "rank_scope": "overall",
           "final_group": null,
-          "status": "classified",
+          "status": "PEN",
           "best_time": null,
           "source_page": null,
           "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -51920,7 +51927,14 @@
           "official_result_id": 3912,
           "official_skater_id": 4157,
           "medal_eligible": true,
-          "athlete_id": "isu-4157"
+          "athlete_id": "isu-4157",
+          "previous_api_status": "classified",
+          "rank_evidence_literal": "(42)",
+          "rank_evidence_basis": "user_confirmed_tied_classification",
+          "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617CHN.pdf",
+          "status_evidence_table": "Ladies 1500 m",
+          "status_evidence_kind": "official_search_index",
+          "status_evidence_version": "C74 5.0"
         },
         {
           "gender": "men",
@@ -51947,7 +51961,7 @@
           "format": "individual",
           "name": "Tianyu Han",
           "country": "CHN",
-          "rank": null,
+          "rank": 53,
           "rank_scope": "overall",
           "final_group": null,
           "status": "PEN",
@@ -51963,7 +51977,9 @@
           "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617CHN.pdf",
           "status_evidence_table": "Men 1500 m",
           "status_evidence_kind": "official_search_index",
-          "status_evidence_version": "C74 5.0"
+          "status_evidence_version": "C74 5.0",
+          "rank_evidence_literal": "(53)",
+          "rank_evidence_basis": "user_confirmed_tied_classification"
         },
         {
           "gender": "men",
@@ -51971,7 +51987,7 @@
           "format": "individual",
           "name": "Hongzhi Xu",
           "country": "CHN",
-          "rank": null,
+          "rank": 53,
           "rank_scope": "overall",
           "final_group": null,
           "status": "PEN",
@@ -51987,7 +52003,9 @@
           "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1617CHN.pdf",
           "status_evidence_table": "Men 1500 m",
           "status_evidence_kind": "official_search_index",
-          "status_evidence_version": "C74 5.0"
+          "status_evidence_version": "C74 5.0",
+          "rank_evidence_literal": "(53)",
+          "rank_evidence_basis": "user_confirmed_tied_classification"
         },
         {
           "gender": "women",
