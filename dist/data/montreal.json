@@ -1,0 +1,1722 @@
+{
+  "schema_version": 1,
+  "event_id": "montreal",
+  "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=schedule_16272",
+  "source_timezone": "America/Toronto",
+  "status": "provisional",
+  "source_checked_at": "2026-10-29",
+  "sync": {
+    "last_successful_schedule_check_utc": "2026-10-29T18:24:18+00:00",
+    "source": "official_isu_schedule_html",
+    "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=schedule_16272",
+    "notes": "Full programme verification passed: every discipline reaches its Final A on the station's dates."
+  },
+  "notice": "ISU暂定轮次时间；中国队单组时间仅是非官方模型估算。",
+  "day_counts": {
+    "2026-10-30": 13,
+    "2026-10-31": 24,
+    "2026-11-01": 23
+  },
+  "total_items": 60,
+  "entries": [
+    {
+      "id": "2026-10-30-qualifying-women-500-preliminaries--",
+      "round_key": "2026-10-30/qualifying/women/500/preliminaries/-",
+      "local_date": "2026-10-30",
+      "local_time": "09:00",
+      "local_start": "2026-10-30T09:00:00-04:00",
+      "utc_start": "2026-10-30T13:00:00Z",
+      "beijing_date": "2026-10-30",
+      "beijing_time": "21:00",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "preliminaries",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "3Q+2q",
+        "zh": "每组前 3 名及成绩最好的 2 名第 4 名晋级预赛",
+        "text": "The first, second and third placed skaters from each race and up to a maximum of two fastest fourth place skaters qualify for Heats."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-men-500-preliminaries--",
+      "round_key": "2026-10-30/qualifying/men/500/preliminaries/-",
+      "local_date": "2026-10-30",
+      "local_time": "09:18",
+      "local_start": "2026-10-30T09:18:00-04:00",
+      "utc_start": "2026-10-30T13:18:00Z",
+      "beijing_date": "2026-10-30",
+      "beijing_time": "21:18",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "preliminaries",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 5,
+            "athletes": [
+              "Kun LI"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T09:28:00-04:00",
+              "latest_local": "2026-10-30T09:34:00-04:00",
+              "earliest_beijing": "2026-10-30T21:28:00+08:00",
+              "latest_beijing": "2026-10-30T21:34:00+08:00",
+              "assumed_minutes_per_heat": [
+                2.5,
+                4.0
+              ]
+            }
+          },
+          {
+            "number": 11,
+            "athletes": [
+              "Bohao ZHANG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T09:43:00-04:00",
+              "latest_local": "2026-10-30T09:58:00-04:00",
+              "earliest_beijing": "2026-10-30T21:43:00+08:00",
+              "latest_beijing": "2026-10-30T21:58:00+08:00",
+              "assumed_minutes_per_heat": [
+                2.5,
+                4.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16034&round=22924",
+        "verified_at": "2026-10-29T18:24:28+00:00"
+      },
+      "qualification": {
+        "code": "1Q+9q",
+        "zh": "每组第 1 名及成绩最好的 9 名第 2 名晋级预赛",
+        "text": "The first placed skater from each race and up to a maximum of nine fastest second place skaters qualify for Heats."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-women-1000-preliminaries--",
+      "round_key": "2026-10-30/qualifying/women/1000/preliminaries/-",
+      "local_date": "2026-10-30",
+      "local_time": "10:06",
+      "local_start": "2026-10-30T10:06:00-04:00",
+      "utc_start": "2026-10-30T14:06:00Z",
+      "beijing_date": "2026-10-30",
+      "beijing_time": "22:06",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "preliminaries",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 2,
+            "athletes": [
+              "Jianing ZHANG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T10:09:00-04:00",
+              "latest_local": "2026-10-30T10:11:00-04:00",
+              "earliest_beijing": "2026-10-30T22:09:00+08:00",
+              "latest_beijing": "2026-10-30T22:11:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22932",
+        "verified_at": "2026-10-29T18:24:28+00:00"
+      },
+      "qualification": {
+        "code": "3Q+2q",
+        "zh": "每组前 3 名及成绩最好的 2 名第 4 名晋级预赛",
+        "text": "The first, second and third placed skaters from each race and up to a maximum of two fastest fourth place skaters qualify for Heats."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-men-1000-preliminaries--",
+      "round_key": "2026-10-30/qualifying/men/1000/preliminaries/-",
+      "local_date": "2026-10-30",
+      "local_time": "10:30",
+      "local_start": "2026-10-30T10:30:00-04:00",
+      "utc_start": "2026-10-30T14:30:00Z",
+      "beijing_date": "2026-10-30",
+      "beijing_time": "22:30",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "preliminaries",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 1,
+            "athletes": [
+              "Zixia ZHANG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T10:30:00-04:00",
+              "latest_local": "2026-10-30T10:30:00-04:00",
+              "earliest_beijing": "2026-10-30T22:30:00+08:00",
+              "latest_beijing": "2026-10-30T22:30:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          },
+          {
+            "number": 2,
+            "athletes": [
+              "Bohao ZHANG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T10:33:00-04:00",
+              "latest_local": "2026-10-30T10:35:00-04:00",
+              "earliest_beijing": "2026-10-30T22:33:00+08:00",
+              "latest_beijing": "2026-10-30T22:35:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          },
+          {
+            "number": 4,
+            "athletes": [
+              "Kerui SONG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T10:39:00-04:00",
+              "latest_local": "2026-10-30T10:45:00-04:00",
+              "earliest_beijing": "2026-10-30T22:39:00+08:00",
+              "latest_beijing": "2026-10-30T22:45:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16039&round=22939",
+        "verified_at": "2026-10-29T18:24:28+00:00"
+      },
+      "qualification": {
+        "code": "1Q+9q",
+        "zh": "每组第 1 名及成绩最好的 9 名第 2 名晋级预赛",
+        "text": "The first placed skater from each race and up to a maximum of nine fastest second place skaters qualify for Heats."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-men-1500-heats--",
+      "round_key": "2026-10-30/qualifying/men/1500/heats/-",
+      "local_date": "2026-10-30",
+      "local_time": "11:29",
+      "local_start": "2026-10-30T11:29:00-04:00",
+      "utc_start": "2026-10-30T15:29:00Z",
+      "beijing_date": "2026-10-30",
+      "beijing_time": "23:29",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 1,
+            "athletes": [
+              "Kerui SONG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T11:29:00-04:00",
+              "latest_local": "2026-10-30T11:29:00-04:00",
+              "earliest_beijing": "2026-10-30T23:29:00+08:00",
+              "latest_beijing": "2026-10-30T23:29:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          },
+          {
+            "number": 3,
+            "athletes": [
+              "Bohao ZHANG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T11:37:00-04:00",
+              "latest_local": "2026-10-30T11:43:00-04:00",
+              "earliest_beijing": "2026-10-30T23:37:00+08:00",
+              "latest_beijing": "2026-10-30T23:43:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22947",
+        "verified_at": "2026-10-29T18:24:28+00:00"
+      },
+      "qualification": {
+        "code": "2Q+6q",
+        "zh": "每组前 2 名及成绩最好的 6 名第 3 名晋级1/4决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of six fastest third place skaters qualify for Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-women-500-heats--",
+      "round_key": "2026-10-30/qualifying/women/500/heats/-",
+      "local_date": "2026-10-30",
+      "local_time": "13:15",
+      "local_start": "2026-10-30T13:15:00-04:00",
+      "utc_start": "2026-10-30T17:15:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "01:15",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+2q",
+        "zh": "每组前 2 名及成绩最好的 2 名第 3 名晋级1/4决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-men-500-heats--",
+      "round_key": "2026-10-30/qualifying/men/500/heats/-",
+      "local_date": "2026-10-30",
+      "local_time": "13:39",
+      "local_start": "2026-10-30T13:39:00-04:00",
+      "utc_start": "2026-10-30T17:39:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "01:39",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+2q",
+        "zh": "每组前 2 名及成绩最好的 2 名第 3 名晋级1/4决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-women-1000-heats--",
+      "round_key": "2026-10-30/qualifying/women/1000/heats/-",
+      "local_date": "2026-10-30",
+      "local_time": "14:18",
+      "local_start": "2026-10-30T14:18:00-04:00",
+      "utc_start": "2026-10-30T18:18:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "02:18",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+2q",
+        "zh": "每组前 2 名及成绩最好的 2 名第 3 名晋级1/4决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-men-1000-heats--",
+      "round_key": "2026-10-30/qualifying/men/1000/heats/-",
+      "local_date": "2026-10-30",
+      "local_time": "14:50",
+      "local_start": "2026-10-30T14:50:00-04:00",
+      "utc_start": "2026-10-30T18:50:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "02:50",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+2q",
+        "zh": "每组前 2 名及成绩最好的 2 名第 3 名晋级1/4决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-women-1500-quarterfinal--",
+      "round_key": "2026-10-30/qualifying/women/1500/quarterfinal/-",
+      "local_date": "2026-10-30",
+      "local_time": "15:37",
+      "local_start": "2026-10-30T15:37:00-04:00",
+      "utc_start": "2026-10-30T19:37:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "03:37",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 1,
+            "athletes": [
+              "Yan ZHANG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T15:37:00-04:00",
+              "latest_local": "2026-10-30T15:37:00-04:00",
+              "earliest_beijing": "2026-10-31T03:37:00+08:00",
+              "latest_beijing": "2026-10-31T03:37:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          },
+          {
+            "number": 3,
+            "athletes": [
+              "Jianing ZHANG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T15:45:00-04:00",
+              "latest_local": "2026-10-30T15:51:00-04:00",
+              "earliest_beijing": "2026-10-31T03:45:00+08:00",
+              "latest_beijing": "2026-10-31T03:51:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          },
+          {
+            "number": 4,
+            "athletes": [
+              "Li GONG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T15:49:00-04:00",
+              "latest_local": "2026-10-30T15:58:00-04:00",
+              "earliest_beijing": "2026-10-31T03:49:00+08:00",
+              "latest_beijing": "2026-10-31T03:58:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          },
+          {
+            "number": 6,
+            "athletes": [
+              "Chutong ZHANG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T15:57:00-04:00",
+              "latest_local": "2026-10-30T16:12:00-04:00",
+              "earliest_beijing": "2026-10-31T03:57:00+08:00",
+              "latest_beijing": "2026-10-31T04:12:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16040&round=22954",
+        "verified_at": "2026-10-29T18:24:28+00:00"
+      },
+      "qualification": {
+        "code": "2Q+5q",
+        "zh": "每组前 2 名及成绩最好的 5 名第 3 名晋级半决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of five fastest third place skaters qualify for Semifinals."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-men-1500-quarterfinal--",
+      "round_key": "2026-10-30/qualifying/men/1500/quarterfinal/-",
+      "local_date": "2026-10-30",
+      "local_time": "16:12",
+      "local_start": "2026-10-30T16:12:00-04:00",
+      "utc_start": "2026-10-30T20:12:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "04:12",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+5q",
+        "zh": "每组前 2 名及成绩最好的 5 名第 3 名晋级半决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of five fastest third place skaters qualify for Semifinals."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-mixed-2000-quarterfinal--",
+      "round_key": "2026-10-30/qualifying/mixed/2000/quarterfinal/-",
+      "local_date": "2026-10-30",
+      "local_time": "17:07",
+      "local_start": "2026-10-30T17:07:00-04:00",
+      "utc_start": "2026-10-30T21:07:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "05:07",
+      "session": "qualifying",
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 2,
+            "athletes": [
+              "China"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T17:13:00-04:00",
+              "latest_local": "2026-10-30T17:17:00-04:00",
+              "earliest_beijing": "2026-10-31T05:13:00+08:00",
+              "latest_beijing": "2026-10-31T05:17:00+08:00",
+              "assumed_minutes_per_heat": [
+                6.0,
+                10.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
+        "verified_at": "2026-10-29T18:24:28+00:00"
+      },
+      "qualification": {
+        "code": "2Q",
+        "zh": "每组前 2 名晋级半决赛",
+        "text": "The first and second placed teams from each race qualify for Semifinals."
+      }
+    },
+    {
+      "id": "2026-10-30-qualifying-men-5000-quarterfinal--",
+      "round_key": "2026-10-30/qualifying/men/5000/quarterfinal/-",
+      "local_date": "2026-10-30",
+      "local_time": "17:51",
+      "local_start": "2026-10-30T17:51:00-04:00",
+      "utc_start": "2026-10-30T21:51:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "05:51",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 3,
+            "athletes": [
+              "China"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-30T18:07:00-04:00",
+              "latest_local": "2026-10-30T18:21:00-04:00",
+              "earliest_beijing": "2026-10-31T06:07:00+08:00",
+              "latest_beijing": "2026-10-31T06:21:00+08:00",
+              "assumed_minutes_per_heat": [
+                8.0,
+                15.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16036&round=22962",
+        "verified_at": "2026-10-29T18:24:28+00:00"
+      },
+      "qualification": {
+        "code": "2Q",
+        "zh": "每组前 2 名晋级半决赛",
+        "text": "The first and second placed teams from each race qualify for Semifinals."
+      }
+    },
+    {
+      "id": "2026-10-31-repechage-men-500-heats--",
+      "round_key": "2026-10-31/repechage/men/500/heats/-",
+      "local_date": "2026-10-31",
+      "local_time": "08:45",
+      "local_start": "2026-10-31T08:45:00-04:00",
+      "utc_start": "2026-10-31T12:45:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "20:45",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q+3q",
+        "zh": "每组第 1 名及成绩最好的 3 名第 2 名晋级复活赛1/4决赛",
+        "text": "The first placed skater from each race and up to a maximum of three fastest second place skaters qualify for Rep Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-10-31-repechage-men-1500-heats--",
+      "round_key": "2026-10-31/repechage/men/1500/heats/-",
+      "local_date": "2026-10-31",
+      "local_time": "09:15",
+      "local_start": "2026-10-31T09:15:00-04:00",
+      "utc_start": "2026-10-31T13:15:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "21:15",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+1q",
+        "zh": "每组前 2 名及成绩最好的 1 名第 3 名晋级复活赛1/4决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of one fastest third place skater qualify for Rep Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-10-31-repechage-men-500-quarterfinal--",
+      "round_key": "2026-10-31/repechage/men/500/quarterfinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "09:50",
+      "local_start": "2026-10-31T09:50:00-04:00",
+      "utc_start": "2026-10-31T13:50:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "21:50",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q+4q",
+        "zh": "每组第 1 名及成绩最好的 4 名第 2 名晋级复活赛半决赛",
+        "text": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals."
+      }
+    },
+    {
+      "id": "2026-10-31-repechage-women-1000-quarterfinal--",
+      "round_key": "2026-10-31/repechage/women/1000/quarterfinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "10:08",
+      "local_start": "2026-10-31T10:08:00-04:00",
+      "utc_start": "2026-10-31T14:08:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "22:08",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q+4q",
+        "zh": "每组第 1 名及成绩最好的 4 名第 2 名晋级复活赛半决赛",
+        "text": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals."
+      }
+    },
+    {
+      "id": "2026-10-31-repechage-men-500-semifinal--",
+      "round_key": "2026-10-31/repechage/men/500/semifinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "10:32",
+      "local_start": "2026-10-31T10:32:00-04:00",
+      "utc_start": "2026-10-31T14:32:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "22:32",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q",
+        "zh": "每组第 1 名晋级1/4决赛",
+        "text": "The first placed skater from each race qualify for Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-10-31-repechage-men-1500-semifinal--",
+      "round_key": "2026-10-31/repechage/men/1500/semifinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "10:53",
+      "local_start": "2026-10-31T10:53:00-04:00",
+      "utc_start": "2026-10-31T14:53:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "22:53",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q",
+        "zh": "每组第 1 名晋级半决赛",
+        "text": "The first placed skater from each race qualify for Semifinals."
+      }
+    },
+    {
+      "id": "2026-10-31-repechage-women-1000-semifinal--",
+      "round_key": "2026-10-31/repechage/women/1000/semifinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "11:18",
+      "local_start": "2026-10-31T11:18:00-04:00",
+      "utc_start": "2026-10-31T15:18:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "23:18",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q",
+        "zh": "每组第 1 名晋级1/4决赛",
+        "text": "The first placed skater from each race qualify for Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-10-31-repechage-mixed-2000-quarterfinal--",
+      "round_key": "2026-10-31/repechage/mixed/2000/quarterfinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "11:33",
+      "local_start": "2026-10-31T11:33:00-04:00",
+      "utc_start": "2026-10-31T15:33:00Z",
+      "beijing_date": "2026-10-31",
+      "beijing_time": "23:33",
+      "session": "repechage",
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-repechage-women-3000-quarterfinal--",
+      "round_key": "2026-10-31/repechage/women/3000/quarterfinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "12:03",
+      "local_start": "2026-10-31T12:03:00-04:00",
+      "utc_start": "2026-10-31T16:03:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "00:03",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-men-500-quarterfinal--",
+      "round_key": "2026-10-31/main/men/500/quarterfinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "13:35",
+      "local_start": "2026-10-31T13:35:00-04:00",
+      "utc_start": "2026-10-31T17:35:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "01:35",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+2q",
+        "zh": "每组前 2 名及成绩最好的 2 名第 3 名晋级半决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Semifinals."
+      }
+    },
+    {
+      "id": "2026-10-31-main-women-1000-quarterfinal--",
+      "round_key": "2026-10-31/main/women/1000/quarterfinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "13:48",
+      "local_start": "2026-10-31T13:48:00-04:00",
+      "utc_start": "2026-10-31T17:48:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "01:48",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+2q",
+        "zh": "每组前 2 名及成绩最好的 2 名第 3 名晋级半决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Semifinals."
+      }
+    },
+    {
+      "id": "2026-10-31-main-men-500-semifinal--",
+      "round_key": "2026-10-31/main/men/500/semifinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "14:05",
+      "local_start": "2026-10-31T14:05:00-04:00",
+      "utc_start": "2026-10-31T18:05:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "02:05",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-women-1000-semifinal--",
+      "round_key": "2026-10-31/main/women/1000/semifinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "14:29",
+      "local_start": "2026-10-31T14:29:00-04:00",
+      "utc_start": "2026-10-31T18:29:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "02:29",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-men-500-final-B",
+      "round_key": "2026-10-31/main/men/500/final/B",
+      "local_date": "2026-10-31",
+      "local_time": "14:38",
+      "local_start": "2026-10-31T14:38:00-04:00",
+      "utc_start": "2026-10-31T18:38:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "02:38",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "final",
+      "group": "B",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-men-500-final-A",
+      "round_key": "2026-10-31/main/men/500/final/A",
+      "local_date": "2026-10-31",
+      "local_time": "14:43",
+      "local_start": "2026-10-31T14:43:00-04:00",
+      "utc_start": "2026-10-31T18:43:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "02:43",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "final",
+      "group": "A",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-women-1000-final-B",
+      "round_key": "2026-10-31/main/women/1000/final/B",
+      "local_date": "2026-10-31",
+      "local_time": "14:56",
+      "local_start": "2026-10-31T14:56:00-04:00",
+      "utc_start": "2026-10-31T18:56:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "02:56",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "final",
+      "group": "B",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-women-1000-final-A",
+      "round_key": "2026-10-31/main/women/1000/final/A",
+      "local_date": "2026-10-31",
+      "local_time": "15:02",
+      "local_start": "2026-10-31T15:02:00-04:00",
+      "utc_start": "2026-10-31T19:02:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "03:02",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "final",
+      "group": "A",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-men-1500-semifinal--",
+      "round_key": "2026-10-31/main/men/1500/semifinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "15:28",
+      "local_start": "2026-10-31T15:28:00-04:00",
+      "utc_start": "2026-10-31T19:28:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "03:28",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-women-3000-semifinal--",
+      "round_key": "2026-10-31/main/women/3000/semifinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "15:47",
+      "local_start": "2026-10-31T15:47:00-04:00",
+      "utc_start": "2026-10-31T19:47:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "03:47",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 2,
+            "athletes": [
+              "China"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-10-31T15:54:00-04:00",
+              "latest_local": "2026-10-31T15:59:00-04:00",
+              "earliest_beijing": "2026-11-01T03:54:00+08:00",
+              "latest_beijing": "2026-11-01T03:59:00+08:00",
+              "assumed_minutes_per_heat": [
+                7.0,
+                12.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16038&round=22965",
+        "verified_at": "2026-10-29T18:24:28+00:00"
+      }
+    },
+    {
+      "id": "2026-10-31-main-men-1500-final-B",
+      "round_key": "2026-10-31/main/men/1500/final/B",
+      "local_date": "2026-10-31",
+      "local_time": "16:18",
+      "local_start": "2026-10-31T16:18:00-04:00",
+      "utc_start": "2026-10-31T20:18:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "04:18",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "final",
+      "group": "B",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-men-1500-final-A",
+      "round_key": "2026-10-31/main/men/1500/final/A",
+      "local_date": "2026-10-31",
+      "local_time": "16:25",
+      "local_start": "2026-10-31T16:25:00-04:00",
+      "utc_start": "2026-10-31T20:25:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "04:25",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "final",
+      "group": "A",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-women-3000-final-B",
+      "round_key": "2026-10-31/main/women/3000/final/B",
+      "local_date": "2026-10-31",
+      "local_time": "16:39",
+      "local_start": "2026-10-31T16:39:00-04:00",
+      "utc_start": "2026-10-31T20:39:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "04:39",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "round": "final",
+      "group": "B",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-women-3000-final-A",
+      "round_key": "2026-10-31/main/women/3000/final/A",
+      "local_date": "2026-10-31",
+      "local_time": "16:48",
+      "local_start": "2026-10-31T16:48:00-04:00",
+      "utc_start": "2026-10-31T20:48:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "04:48",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "round": "final",
+      "group": "A",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-10-31-main-men-5000-semifinal--",
+      "round_key": "2026-10-31/main/men/5000/semifinal/-",
+      "local_date": "2026-10-31",
+      "local_time": "17:06",
+      "local_start": "2026-10-31T17:06:00-04:00",
+      "utc_start": "2026-10-31T21:06:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "05:06",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-repechage-women-500-heats--",
+      "round_key": "2026-11-01/repechage/women/500/heats/-",
+      "local_date": "2026-11-01",
+      "local_time": "10:00",
+      "local_start": "2026-11-01T10:00:00-05:00",
+      "utc_start": "2026-11-01T15:00:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "23:00",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "3Q+2q",
+        "zh": "每组前 3 名及成绩最好的 2 名第 4 名晋级复活赛1/4决赛",
+        "text": "The first, second and third placed skaters from each race and up to a maximum of two fastest fourth place skaters qualify for Rep Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-11-01-repechage-men-1000-heats--",
+      "round_key": "2026-11-01/repechage/men/1000/heats/-",
+      "local_date": "2026-11-01",
+      "local_time": "10:06",
+      "local_start": "2026-11-01T10:06:00-05:00",
+      "utc_start": "2026-11-01T15:06:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "23:06",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q+3q",
+        "zh": "每组第 1 名及成绩最好的 3 名第 2 名晋级复活赛1/4决赛",
+        "text": "The first placed skater from each race and up to a maximum of three fastest second place skaters qualify for Rep Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-11-01-repechage-women-500-quarterfinal--",
+      "round_key": "2026-11-01/repechage/women/500/quarterfinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "10:26",
+      "local_start": "2026-11-01T10:26:00-05:00",
+      "utc_start": "2026-11-01T15:26:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "23:26",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q+4q",
+        "zh": "每组第 1 名及成绩最好的 4 名第 2 名晋级复活赛半决赛",
+        "text": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals."
+      }
+    },
+    {
+      "id": "2026-11-01-repechage-men-1000-quarterfinal--",
+      "round_key": "2026-11-01/repechage/men/1000/quarterfinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "10:44",
+      "local_start": "2026-11-01T10:44:00-05:00",
+      "utc_start": "2026-11-01T15:44:00Z",
+      "beijing_date": "2026-11-01",
+      "beijing_time": "23:44",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q+4q",
+        "zh": "每组第 1 名及成绩最好的 4 名第 2 名晋级复活赛半决赛",
+        "text": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals."
+      }
+    },
+    {
+      "id": "2026-11-01-repechage-women-500-semifinal--",
+      "round_key": "2026-11-01/repechage/women/500/semifinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "11:08",
+      "local_start": "2026-11-01T11:08:00-05:00",
+      "utc_start": "2026-11-01T16:08:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "00:08",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q",
+        "zh": "每组第 1 名晋级1/4决赛",
+        "text": "The first placed skater from each race qualify for Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-11-01-repechage-women-1500-quarterfinal--",
+      "round_key": "2026-11-01/repechage/women/1500/quarterfinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "11:29",
+      "local_start": "2026-11-01T11:29:00-05:00",
+      "utc_start": "2026-11-01T16:29:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "00:29",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+4q",
+        "zh": "每组前 2 名及成绩最好的 4 名第 3 名晋级复活赛半决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of four fastest third place skaters qualify for Rep. Semifinals."
+      }
+    },
+    {
+      "id": "2026-11-01-repechage-men-1000-semifinal--",
+      "round_key": "2026-11-01/repechage/men/1000/semifinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "11:54",
+      "local_start": "2026-11-01T11:54:00-05:00",
+      "utc_start": "2026-11-01T16:54:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "00:54",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q",
+        "zh": "每组第 1 名晋级1/4决赛",
+        "text": "The first placed skater from each race qualify for Quarterfinals."
+      }
+    },
+    {
+      "id": "2026-11-01-repechage-women-1500-semifinal--",
+      "round_key": "2026-11-01/repechage/women/1500/semifinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "12:09",
+      "local_start": "2026-11-01T12:09:00-05:00",
+      "utc_start": "2026-11-01T17:09:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "01:09",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "1Q",
+        "zh": "每组第 1 名晋级半决赛",
+        "text": "The first placed skater from each race qualify for Semifinals."
+      }
+    },
+    {
+      "id": "2026-11-01-main-mixed-2000-final-B",
+      "round_key": "2026-11-01/main/mixed/2000/final/B",
+      "local_date": "2026-11-01",
+      "local_time": "13:35",
+      "local_start": "2026-11-01T13:35:00-05:00",
+      "utc_start": "2026-11-01T18:35:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "02:35",
+      "session": "main",
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "round": "final",
+      "group": "B",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-mixed-2000-final-A",
+      "round_key": "2026-11-01/main/mixed/2000/final/A",
+      "local_date": "2026-11-01",
+      "local_time": "13:41",
+      "local_start": "2026-11-01T13:41:00-05:00",
+      "utc_start": "2026-11-01T18:41:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "02:41",
+      "session": "main",
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "round": "final",
+      "group": "A",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-women-500-quarterfinal--",
+      "round_key": "2026-11-01/main/women/500/quarterfinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "14:13",
+      "local_start": "2026-11-01T14:13:00-05:00",
+      "utc_start": "2026-11-01T19:13:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "03:13",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+2q",
+        "zh": "每组前 2 名及成绩最好的 2 名第 3 名晋级半决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Semifinals."
+      }
+    },
+    {
+      "id": "2026-11-01-main-men-1000-quarterfinal--",
+      "round_key": "2026-11-01/main/men/1000/quarterfinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "14:26",
+      "local_start": "2026-11-01T14:26:00-05:00",
+      "utc_start": "2026-11-01T19:26:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "03:26",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      },
+      "qualification": {
+        "code": "2Q+2q",
+        "zh": "每组前 2 名及成绩最好的 2 名第 3 名晋级半决赛",
+        "text": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Semifinals."
+      }
+    },
+    {
+      "id": "2026-11-01-main-women-500-semifinal--",
+      "round_key": "2026-11-01/main/women/500/semifinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "14:43",
+      "local_start": "2026-11-01T14:43:00-05:00",
+      "utc_start": "2026-11-01T19:43:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "03:43",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-men-1000-semifinal--",
+      "round_key": "2026-11-01/main/men/1000/semifinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "15:06",
+      "local_start": "2026-11-01T15:06:00-05:00",
+      "utc_start": "2026-11-01T20:06:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "04:06",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-women-500-final-B",
+      "round_key": "2026-11-01/main/women/500/final/B",
+      "local_date": "2026-11-01",
+      "local_time": "15:15",
+      "local_start": "2026-11-01T15:15:00-05:00",
+      "utc_start": "2026-11-01T20:15:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "04:15",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "final",
+      "group": "B",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-women-500-final-A",
+      "round_key": "2026-11-01/main/women/500/final/A",
+      "local_date": "2026-11-01",
+      "local_time": "15:20",
+      "local_start": "2026-11-01T15:20:00-05:00",
+      "utc_start": "2026-11-01T20:20:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "04:20",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "final",
+      "group": "A",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-men-1000-final-B",
+      "round_key": "2026-11-01/main/men/1000/final/B",
+      "local_date": "2026-11-01",
+      "local_time": "15:34",
+      "local_start": "2026-11-01T15:34:00-05:00",
+      "utc_start": "2026-11-01T20:34:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "04:34",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "final",
+      "group": "B",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-men-1000-final-A",
+      "round_key": "2026-11-01/main/men/1000/final/A",
+      "local_date": "2026-11-01",
+      "local_time": "15:39",
+      "local_start": "2026-11-01T15:39:00-05:00",
+      "utc_start": "2026-11-01T20:39:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "04:39",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "final",
+      "group": "A",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-women-1500-semifinal--",
+      "round_key": "2026-11-01/main/women/1500/semifinal/-",
+      "local_date": "2026-11-01",
+      "local_time": "15:51",
+      "local_start": "2026-11-01T15:51:00-05:00",
+      "utc_start": "2026-11-01T20:51:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "04:51",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-women-1500-final-B",
+      "round_key": "2026-11-01/main/women/1500/final/B",
+      "local_date": "2026-11-01",
+      "local_time": "16:29",
+      "local_start": "2026-11-01T16:29:00-05:00",
+      "utc_start": "2026-11-01T21:29:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "05:29",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "final",
+      "group": "B",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-women-1500-final-A",
+      "round_key": "2026-11-01/main/women/1500/final/A",
+      "local_date": "2026-11-01",
+      "local_time": "16:36",
+      "local_start": "2026-11-01T16:36:00-05:00",
+      "utc_start": "2026-11-01T21:36:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "05:36",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "final",
+      "group": "A",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-men-5000-final-B",
+      "round_key": "2026-11-01/main/men/5000/final/B",
+      "local_date": "2026-11-01",
+      "local_time": "16:49",
+      "local_start": "2026-11-01T16:49:00-05:00",
+      "utc_start": "2026-11-01T21:49:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "05:49",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "round": "final",
+      "group": "B",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-01-main-men-5000-final-A",
+      "round_key": "2026-11-01/main/men/5000/final/A",
+      "local_date": "2026-11-01",
+      "local_time": "17:00",
+      "local_start": "2026-11-01T17:00:00-05:00",
+      "utc_start": "2026-11-01T22:00:00Z",
+      "beijing_date": "2026-11-02",
+      "beijing_time": "06:00",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "round": "final",
+      "group": "A",
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    }
+  ]
+}
