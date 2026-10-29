@@ -60,7 +60,31 @@
       "date_end": "2026-11-29",
       "timezone": "Asia/Shanghai",
       "venue": null,
-      "ticketing": null,
+      "ticketing": {
+        "source_url": "https://english.shanghai.gov.cn/en-SportsEvents/20261023/9dfb6614b78f49cda812aa4f40a7829d.html",
+        "channels": [
+          {
+            "name": "大麦",
+            "url": "https://m.damai.cn/shows/item.html?itemId=1095988161093&from=appshare",
+            "kind": "event"
+          },
+          {
+            "name": "久事体育",
+            "url": "https://www.jussyun.com/",
+            "kind": "platform"
+          },
+          {
+            "name": "携程",
+            "url": "https://www.ctrip.com/",
+            "kind": "platform"
+          },
+          {
+            "name": "MAISEAT",
+            "url": "https://maiseat.com/",
+            "kind": "platform"
+          }
+        ]
+      },
       "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/",
       "detail_status": "not_entered",
       "predictions": false
