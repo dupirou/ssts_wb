@@ -573,7 +573,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "DNS",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -581,7 +581,12 @@
       "official_result_id": 6446,
       "official_skater_id": 6340,
       "medal_eligible": true,
-      "athlete_id": "isu-6340"
+      "athlete_id": "isu-6340",
+      "previous_api_status": "classified",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1516NED.pdf",
+      "status_evidence_table": "Men 500 m",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 8.0"
     },
     {
       "gender": "women",
