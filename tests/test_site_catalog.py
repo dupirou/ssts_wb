@@ -54,6 +54,66 @@ class SiteCatalogTests(unittest.TestCase):
             self.assertEqual(finals[0]['schedule_id'], 'row-a')
             self.assertEqual((directory / 'one.json').read_bytes(), original)
 
+    def test_helmet_numbers_are_official_station_scoped_and_never_guessed(self):
+        calendar = dict(
+            season='2026/27',
+            stations=[dict(id='one', city='温哥华'), dict(id='two', city='蒙特利尔')],
+        )
+        people = [
+            dict(athlete_id=aid, name=aid, country='CHN', gender='men')
+            for aid in ('a', 'b', 'c')
+        ]
+
+        def heat(athlete, number, evidence='official_results', format='individual'):
+            return dict(
+                format=format,
+                gender='men',
+                evidence=evidence,
+                round='heats',
+                participants=[
+                    dict(athlete_id=athlete, country='CHN', helmet_number=number)
+                ],
+            )
+
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            directory = out / 'data/competitions'
+            directory.mkdir(parents=True)
+            snapshots = {
+                'one': [
+                    heat('a', 67),
+                    heat('a', 67, 'official_start_list'),
+                    heat('b', 16),
+                    heat('b', 19),
+                    heat('c', 88, format='relay'),
+                    heat('c', 0),
+                ],
+                'two': [heat('a', 99), heat('c', None)],
+            }
+            for event_id, rounds in snapshots.items():
+                (directory / (event_id + '.json')).write_text(
+                    json.dumps(dict(
+                        entries=dict(items=people),
+                        rounds=dict(items=rounds),
+                        rankings=dict(items=[]),
+                    ))
+                )
+            site_catalog.export(out, calendar, {})
+            by_id = {
+                p['id']: p
+                for p in json.loads((out / 'data/athletes.json').read_text())['items']
+            }
+            self.assertEqual(
+                by_id['a']['helmet_numbers'],
+                [
+                    dict(event_id='one', city='温哥华', number=67),
+                    dict(event_id='two', city='蒙特利尔', number=99),
+                ],
+            )
+            self.assertNotIn('helmet_numbers', by_id['b'])
+            self.assertNotIn('helmet_numbers', by_id['c'])
+
+
     def test_season_ranks_use_latest_world_tour_table_per_distance(self):
         calendar = dict(
             season='2026/27',
