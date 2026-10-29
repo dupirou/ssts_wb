@@ -169,7 +169,7 @@
       "official_result_id": 4858,
       "official_skater_id": 3031,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "isu-3031"
     },
     {
@@ -189,7 +189,7 @@
       "official_result_id": 4858,
       "official_skater_id": 7792,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "isu-7792"
     },
     {
@@ -209,7 +209,7 @@
       "official_result_id": 4858,
       "official_skater_id": 6784,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "skater-long-sun"
     },
     {
@@ -229,7 +229,7 @@
       "official_result_id": 5040,
       "official_skater_id": 7792,
       "medal_eligible": true,
-      "race_number": 2,
+      "race_number": 1,
       "athlete_id": "isu-7792"
     },
     {
@@ -249,7 +249,7 @@
       "official_result_id": 5040,
       "official_skater_id": 5859,
       "medal_eligible": true,
-      "race_number": 2,
+      "race_number": 1,
       "athlete_id": "isu-5859"
     },
     {
@@ -261,7 +261,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -269,8 +269,109 @@
       "official_result_id": 5040,
       "official_skater_id": 3031,
       "medal_eligible": true,
-      "race_number": 2,
-      "athlete_id": "isu-3031"
+      "race_number": 1,
+      "athlete_id": "isu-3031",
+      "started": true,
+      "last_round": "Heats",
+      "terminal_status_evidence": {
+        "documents": [
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+            "form": {
+              "code": "",
+              "country_code": "",
+              "event_id": 5094,
+              "event_result_id": 5040
+            },
+            "sha256": "5305e4206178861dcb473d8bd85f581c0dc50e217ae6ba64bdc082bec689832d"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round",
+            "form": {
+              "event_result_id": 5040
+            },
+            "sha256": "4517095c0969c1b8d4e1212ae4ba32688c5756ba88db81ca003349f87cb976aa"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5040,
+              "event_result_round_id": 7780
+            },
+            "sha256": "aa6eec0ac20cbf1c903dec3aa6b943d5265020964743f44abfbc351c33054b05"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5040,
+              "event_result_round_id": 7798
+            },
+            "sha256": "8758553e5745b5eb58f59f903e617bbec894aef5c1d2b06513123944fcc0e5ea"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5040,
+              "event_result_round_id": 7812
+            },
+            "sha256": "b44532797de3bde3392ef3d3256550d9afe14bf8ff0aa48e47ef39941ebcd5cb"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5040,
+              "event_result_round_id": 7816
+            },
+            "sha256": "31fb3541ab2b5e7b84b16a8eeaa0e71cea2aa55155d480fe21d13352a1f66279"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5040,
+              "event_result_round_id": 7824
+            },
+            "sha256": "5f266986aca02b81e49c60173daa9d4fb06197a2a9922420d349ea50dff0ad7b"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5040,
+              "event_result_round_id": 7825
+            },
+            "sha256": "6cb0063ef1d8e461f79c9218f9e7defbaf0bdd17946d3a06b3c4575b3a207b33"
+          }
+        ],
+        "verified_fields": [
+          "status",
+          "started",
+          "last_round"
+        ],
+        "numeric_classification_verified": false
+      },
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20221220194526id_/https://shorttrack.sportresult.com/Data/PDFs/WC1920CHN.pdf",
+      "status_evidence_table": "C74 Men 500 m (1) 6.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Men 500 m (1) 6.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20221220194526id_/https://shorttrack.sportresult.com/Data/PDFs/WC1920CHN.pdf",
+        "locator": "C74 Men 500 m (1) 6.0",
+        "page": 33,
+        "sha256": "6d1dae82b2cd46185488842bddacd56e295a83f0d5eb1a20bb9e6c855d334f0a",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 73 JIA Haidong CHN PEN; rank empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "men",
@@ -346,7 +447,7 @@
       "official_result_id": 5085,
       "official_skater_id": 1876,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "skater-kexin-fan"
     },
     {
@@ -366,7 +467,7 @@
       "official_result_id": 5085,
       "official_skater_id": 5753,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "isu-5753"
     },
     {
@@ -386,7 +487,7 @@
       "official_result_id": 5085,
       "official_skater_id": 8039,
       "medal_eligible": true,
-      "race_number": 1,
+      "race_number": 2,
       "athlete_id": "skater-yize-zang"
     },
     {
@@ -406,7 +507,7 @@
       "official_result_id": 5114,
       "official_skater_id": 1876,
       "medal_eligible": true,
-      "race_number": 2,
+      "race_number": 1,
       "athlete_id": "skater-kexin-fan"
     },
     {
@@ -426,7 +527,7 @@
       "official_result_id": 5114,
       "official_skater_id": 5753,
       "medal_eligible": true,
-      "race_number": 2,
+      "race_number": 1,
       "athlete_id": "isu-5753"
     },
     {
@@ -446,7 +547,7 @@
       "official_result_id": 5114,
       "official_skater_id": 8080,
       "medal_eligible": true,
-      "race_number": 2,
+      "race_number": 1,
       "athlete_id": "skater-chutong-zhang"
     },
     {
@@ -589,7 +690,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 6,
       "rank_scope": "overall",
       "final_group": "B",
       "status": "classified",
@@ -601,7 +702,26 @@
       "official_skater_id": 8065,
       "medal_eligible": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20221220194526id_/https://shorttrack.sportresult.com/Data/PDFs/WC1920CHN.pdf",
+      "status_evidence_table": "C74 Men 5000 m Relay 4.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Men 5000 m Relay 4.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20221220194526id_/https://shorttrack.sportresult.com/Data/PDFs/WC1920CHN.pdf",
+        "locator": "C74 Men 5000 m Relay 4.0",
+        "page": 99,
+        "sha256": "6d1dae82b2cd46185488842bddacd56e295a83f0d5eb1a20bb9e6c855d334f0a",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "6 CHN - CHINA; QF 1 SF 4 FB 2",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      },
+      "final_rank": 2
     },
     {
       "gender": "mixed",

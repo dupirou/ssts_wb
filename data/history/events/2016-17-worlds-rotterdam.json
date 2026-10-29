@@ -387,10 +387,10 @@
       "format": "individual",
       "name": "Kexin FAN",
       "country": "CHN",
-      "rank": null,
+      "rank": 47,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -398,7 +398,23 @@
       "official_result_id": 4074,
       "official_skater_id": 1876,
       "medal_eligible": true,
-      "athlete_id": "skater-kexin-fan"
+      "athlete_id": "skater-kexin-fan",
+      "previous_api_status": "",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC17.pdf",
+      "status_evidence_table": "C74C Ladies 1000 m 1.0",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74C Ladies 1000 m 1.0",
+      "classification_evidence": {
+        "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC17.pdf",
+        "locator": "C74C Ladies 1000 m 1.0",
+        "mode": "official_search_index",
+        "raw_pdf_retrieved": false,
+        "literal": "47 FAN Kexin CHN PEN",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "men",
@@ -501,9 +517,9 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 1,
       "rank_scope": "overall",
-      "final_group": null,
+      "final_group": "A",
       "status": "classified",
       "best_time": null,
       "source_page": null,
@@ -513,7 +529,24 @@
       "official_skater_id": 8248,
       "medal_eligible": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "final_rank": 1,
+      "previous_api_status": "",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC17.pdf",
+      "status_evidence_table": "C74 Ladies 3000 m Relay 2.0",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 Ladies 3000 m Relay 2.0",
+      "classification_evidence": {
+        "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC17.pdf",
+        "locator": "C74 Ladies 3000 m Relay 2.0",
+        "mode": "official_search_index",
+        "raw_pdf_retrieved": false,
+        "literal": "Final A 1 CHN - CHINA; SF 2; FA 1; 4:14.058",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "men",

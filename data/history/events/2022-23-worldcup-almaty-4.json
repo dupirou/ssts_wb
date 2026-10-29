@@ -526,7 +526,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "DNS",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -534,7 +534,99 @@
       "official_result_id": 4095,
       "official_skater_id": 4247,
       "medal_eligible": true,
-      "athlete_id": "skater-xiaojun-lin"
+      "athlete_id": "skater-xiaojun-lin",
+      "started": false,
+      "last_round": "Quarterfinals",
+      "terminal_status_evidence": {
+        "documents": [
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+            "form": {
+              "code": "",
+              "country_code": "",
+              "event_id": 3719,
+              "event_result_id": 4095
+            },
+            "sha256": "d8564bcf5bc078800e2f195a4ee622ec77f39fa7b9219ac9f1f8e712062c6b18"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round",
+            "form": {
+              "event_result_id": 4095
+            },
+            "sha256": "0e3527bd3592ba3e9917ae5f97e6114c051b195f630c3c093cb867fb8349edef"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 4095,
+              "event_result_round_id": 6394
+            },
+            "sha256": "32a39bea07d863b38813ac8599f4bd7ee632f65a4966cfcee8d03b96bee5d99b"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 4095,
+              "event_result_round_id": 6430
+            },
+            "sha256": "eecf834f9eab06ad923a19c1cb9bc026082828de46612ba54a9b9730e5e37b3b"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 4095,
+              "event_result_round_id": 6446
+            },
+            "sha256": "bdcc817a4e6a677b32c3024c5b18e7268c5150f1c3290d6045e82e43a34fb01c"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 4095,
+              "event_result_round_id": 6452
+            },
+            "sha256": "5ffac693758d5fe09623e9ef2fee420d823333b5a1328700309656e0d2e7d931"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 4095,
+              "event_result_round_id": 6464
+            },
+            "sha256": "1dd4cd6819159e3d326c75705fc92fcb35aa5dddbf562533d9db8401c3292b7a"
+          }
+        ],
+        "verified_fields": [
+          "status",
+          "started",
+          "last_round"
+        ],
+        "numeric_classification_verified": false
+      },
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20230111150944id_/https://shorttrack.sportresult.com/Data/PDFs/WC2223KAZ2.pdf",
+      "status_evidence_table": "C74 Men 1500 m 1.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Men 1500 m 1.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20230111150944id_/https://shorttrack.sportresult.com/Data/PDFs/WC2223KAZ2.pdf",
+        "locator": "C74 Men 1500 m 1.0",
+        "page": 42,
+        "sha256": "0cc9b1b9e2cce00333f155beda68b5fbdf557ac21e586ce860a52f423842be27",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 148 LIN Xiaojun CHN DNS; rank empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "mixed",

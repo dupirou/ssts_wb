@@ -142,7 +142,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -150,7 +150,108 @@
       "official_result_id": 3803,
       "official_skater_id": 8080,
       "medal_eligible": true,
-      "athlete_id": "skater-chutong-zhang"
+      "athlete_id": "skater-chutong-zhang",
+      "started": true,
+      "last_round": "Heats",
+      "terminal_status_evidence": {
+        "documents": [
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+            "form": {
+              "code": "",
+              "country_code": "",
+              "event_id": 5595,
+              "event_result_id": 3803
+            },
+            "sha256": "bf42e26266db044d33f4af60a99759c24b6ce32b15171fe19837083dd5c74b84"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round",
+            "form": {
+              "event_result_id": 3803
+            },
+            "sha256": "d1ab6b9485778271d26cf64b3831122ecdce664026875b826057c20b439ce815"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3803,
+              "event_result_round_id": 5563
+            },
+            "sha256": "f68cff15589baaa879eb0123515f2ff04aadbff232ae160ae32f520ce593d761"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3803,
+              "event_result_round_id": 5587
+            },
+            "sha256": "0360e46e5537bdf84aaf45734171dddcc47dc4d52b520a2ff315cababcc79ba3"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3803,
+              "event_result_round_id": 5596
+            },
+            "sha256": "9a3194ad6c4fa1a9c8e09ee24526166a49a53dc0a01884db4379ea0d224c9158"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3803,
+              "event_result_round_id": 5600
+            },
+            "sha256": "00f51fafb2a60bb4b4df08d8d5389b9bbcdf005e24d6f2886b72bb7bc68d1f60"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3803,
+              "event_result_round_id": 5614
+            },
+            "sha256": "8e20c0c7be6b4947992e7e776cf618793a9f4021fdcf12e0ca4b66ab52b787f6"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3803,
+              "event_result_round_id": 5618
+            },
+            "sha256": "a8d3b641866a3971259e341f2589355c967eb50a3a6f889be17911c7fbb7db91"
+          }
+        ],
+        "verified_fields": [
+          "status",
+          "started",
+          "last_round"
+        ],
+        "numeric_classification_verified": false
+      },
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20241230130308id_/https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819KAZ.pdf",
+      "status_evidence_table": "C74 Ladies 1000 m 7.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Ladies 1000 m 7.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20241230130308id_/https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819KAZ.pdf",
+        "locator": "C74 Ladies 1000 m 7.0",
+        "page": 23,
+        "sha256": "3384174cae18eb15dfcf01c4d3405d040c3610182cce51c5be759c3ec97dc12f",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 140 ZHANG Chutong CHN PEN; rank empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "men",
@@ -452,7 +553,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -461,7 +562,99 @@
       "official_skater_id": 8109,
       "medal_eligible": true,
       "race_number": 2,
-      "athlete_id": "isu-8109"
+      "athlete_id": "isu-8109",
+      "started": true,
+      "last_round": "Quarterfinals",
+      "terminal_status_evidence": {
+        "documents": [
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+            "form": {
+              "code": "",
+              "country_code": "",
+              "event_id": 5595,
+              "event_result_id": 3987
+            },
+            "sha256": "388af3941d9b491211e4c02ef4ed84033762595eef5ce53d35c434678f71d9eb"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round",
+            "form": {
+              "event_result_id": 3987
+            },
+            "sha256": "86062b7c810133a3a6d0e282a8ea7c392761f91672da68a39889153b44a883a3"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3987,
+              "event_result_round_id": 6087
+            },
+            "sha256": "9b5968db7690a8eafa750ed0b4c88bad3d20aef51c43b107def9dbd3648fa95c"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3987,
+              "event_result_round_id": 6125
+            },
+            "sha256": "666d9d12bd9938d80887baf3c48ebc5bdd830763be2bee646b87e4cc82157745"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3987,
+              "event_result_round_id": 6136
+            },
+            "sha256": "b247b6e9b00daf0454ddde99c2ecd13dfe0f8a9c9958d029d3951fc3a78e3896"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3987,
+              "event_result_round_id": 6144
+            },
+            "sha256": "ef77e40b25c01af7fa68935e44f0dd753fc2ce8f351654a3cf25470ec43b7233"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 3987,
+              "event_result_round_id": 6164
+            },
+            "sha256": "2fa08d1535891c015b547cae457122d131a428df9463b07a73c499d230d88efa"
+          }
+        ],
+        "verified_fields": [
+          "status",
+          "started",
+          "last_round"
+        ],
+        "numeric_classification_verified": false
+      },
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20241230130308id_/https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819KAZ.pdf",
+      "status_evidence_table": "C74 Men 1500 m (2) 5.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Men 1500 m (2) 5.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20241230130308id_/https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819KAZ.pdf",
+        "locator": "C74 Men 1500 m (2) 5.0",
+        "page": 75,
+        "sha256": "3384174cae18eb15dfcf01c4d3405d040c3610182cce51c5be759c3ec97dc12f",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 179 ZHANG Weizhi CHN PEN; rank empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "women",

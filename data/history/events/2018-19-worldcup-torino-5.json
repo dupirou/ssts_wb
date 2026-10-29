@@ -656,10 +656,10 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 12,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsksys-team",
@@ -668,7 +668,23 @@
       "official_skater_id": 8059,
       "medal_eligible": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_api_status": "",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819ITA.pdf",
+      "status_evidence_table": "C74 Mixed Gender Relay 4.0",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 Mixed Gender Relay 4.0",
+      "classification_evidence": {
+        "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819ITA.pdf",
+        "locator": "C74 Mixed Gender Relay 4.0",
+        "mode": "official_search_index",
+        "raw_pdf_retrieved": false,
+        "literal": "12 CHN - CHINA; H 1; QF PEN; 2:44.719",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     }
   ],
   "source": {

@@ -196,7 +196,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -205,7 +205,26 @@
       "official_skater_id": 2499,
       "medal_eligible": true,
       "race_number": 2,
-      "athlete_id": "isu-2499"
+      "athlete_id": "isu-2499",
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20160828182429id_/http://shorttrack.sportresult.com/Data/PDFs/WC1415USA.pdf",
+      "status_evidence_table": "STW07000_74A 7.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "STW07000_74A 7.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20160828182429id_/http://shorttrack.sportresult.com/Data/PDFs/WC1415USA.pdf",
+        "original_url": "http://shorttrack.sportresult.com/Data/PDFs/WC1415USA.pdf",
+        "locator": "STW07000_74A 7.0",
+        "page": 72,
+        "sha256": "c3151bcd090153071a984d46c181a3ff66f96ba427c4840c18dce601da94ad97",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 310 HAN Yutong CHN PEN PEN; rank column empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "men",
@@ -316,7 +335,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -325,7 +344,26 @@
       "official_skater_id": 7814,
       "medal_eligible": true,
       "race_number": 2,
-      "athlete_id": "isu-7814"
+      "athlete_id": "isu-7814",
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20160828182429id_/http://shorttrack.sportresult.com/Data/PDFs/WC1415USA.pdf",
+      "status_evidence_table": "STM08000_74A 8.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "STM08000_74A 8.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20160828182429id_/http://shorttrack.sportresult.com/Data/PDFs/WC1415USA.pdf",
+        "original_url": "http://shorttrack.sportresult.com/Data/PDFs/WC1415USA.pdf",
+        "locator": "STM08000_74A 8.0",
+        "page": 82,
+        "sha256": "c3151bcd090153071a984d46c181a3ff66f96ba427c4840c18dce601da94ad97",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 416 XU Hongzhi CHN PEN PEN; rank column empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "women",

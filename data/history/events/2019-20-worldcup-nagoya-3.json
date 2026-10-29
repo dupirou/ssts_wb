@@ -142,7 +142,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "YC",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -150,7 +150,108 @@
       "official_result_id": 5203,
       "official_skater_id": 5859,
       "medal_eligible": true,
-      "athlete_id": "isu-5859"
+      "athlete_id": "isu-5859",
+      "started": true,
+      "last_round": "Heats",
+      "terminal_status_evidence": {
+        "documents": [
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+            "form": {
+              "code": "",
+              "country_code": "",
+              "event_id": 5128,
+              "event_result_id": 5203
+            },
+            "sha256": "c2d180e1b52f12f167e85db48cf3443a831699af6a1b6d66db94b579034fc337"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round",
+            "form": {
+              "event_result_id": 5203
+            },
+            "sha256": "66b3b68e9a513dd991ed1e04a482e5c68f8ce602b334ae141312ac5c2b9b0dd7"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5203,
+              "event_result_round_id": 8108
+            },
+            "sha256": "5a4ef79c9414b32506f7999f01a8bda4d33e5643ccb20b156e27bd51b826cc67"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5203,
+              "event_result_round_id": 8132
+            },
+            "sha256": "6a5dabe6c57bc9f89811c452312e720a7bc7447bc05655174cd2b2a70bd37a40"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5203,
+              "event_result_round_id": 8146
+            },
+            "sha256": "bfcd809f47066d621850fcf5a5464ff0ead0b58aa518e4fffc847aca43504e5c"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5203,
+              "event_result_round_id": 8150
+            },
+            "sha256": "ecf009ee5e1def2de14e5ebaf462fdb8cd0fd7e54f5b5596259ac9b5de9e4b35"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5203,
+              "event_result_round_id": 8157
+            },
+            "sha256": "e9fa7327d3dd4dbb01b82643a98f0c1d3d59e7215f4ed3480691a01fb491f244"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 5203,
+              "event_result_round_id": 8161
+            },
+            "sha256": "0fb2ef74dd3b25c7645da3a875a8da590079396da91a973b6e7f0af29bf8d2fe"
+          }
+        ],
+        "verified_fields": [
+          "status",
+          "started",
+          "last_round"
+        ],
+        "numeric_classification_verified": false
+      },
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20241230130658id_/https://www.shorttrack.swisstiming.com/Data/PDFs/WC1920JPN.pdf",
+      "status_evidence_table": "C74 Men 500 m 6.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Men 500 m 6.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20241230130658id_/https://www.shorttrack.swisstiming.com/Data/PDFs/WC1920JPN.pdf",
+        "locator": "C74 Men 500 m 6.0",
+        "page": 63,
+        "sha256": "a3d9fad9d37fa31511b83710ab25d2d83c4d494390642f8bb2a766d9824e539d",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 8 REN Ziwei CHN YC; rank empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "men",
@@ -496,7 +597,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "DNS",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -504,7 +605,23 @@
       "official_result_id": 5349,
       "official_skater_id": 5753,
       "medal_eligible": true,
-      "athlete_id": "isu-5753"
+      "athlete_id": "isu-5753",
+      "previous_api_status": "",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1920JPN.pdf",
+      "status_evidence_table": "C74 Ladies 500 m 6.0",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 Ladies 500 m 6.0",
+      "classification_evidence": {
+        "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1920JPN.pdf",
+        "locator": "C74 Ladies 500 m 6.0",
+        "mode": "official_search_index",
+        "raw_pdf_retrieved": false,
+        "literal": "20 QU Chunyu CHN DNS; no numeric rank",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "women",

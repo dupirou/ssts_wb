@@ -583,7 +583,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 10,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -595,7 +595,24 @@
       "official_skater_id": 8248,
       "medal_eligible": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_api_status": "",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819GER.pdf",
+      "status_evidence_table": "C74 Ladies 3000 m Relay 3.0",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 Ladies 3000 m Relay 3.0",
+      "classification_evidence": {
+        "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1819GER.pdf",
+        "locator": "C74 Ladies 3000 m Relay 3.0",
+        "mode": "official_search_index",
+        "raw_pdf_retrieved": false,
+        "literal": "Quarterfinals 10 CHN - CHINA; QF 3; 4:10.964",
+        "verified_fields": [
+          "rank",
+          "status"
+        ],
+        "normalization": null
+      }
     },
     {
       "gender": "men",

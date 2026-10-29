@@ -135,6 +135,12 @@ def discipline(meta):
     return dict(gender=gender, distance_m=distance, format='relay' if relay else 'individual')
 
 
+def official_race_number(meta, fallback):
+    """Use the official repeated-distance suffix before API display ordering."""
+    match = re.search(r'\((\d+)\)\s*$', meta['name'])
+    return int(match[1]) if match else fallback
+
+
 def included_meta(meta):
     name = meta['name'].lower()
     if any(label in name for label in ('madison', 'overall', 'all-around', 'allround', 'super final', 'superfinal')):
@@ -576,7 +582,7 @@ def main():
                 docs.extend(c['documents'])
                 for r in c['results']:
                     if len(group) > 1:
-                        r['race_number'] = number
+                        r['race_number'] = official_race_number(m, number)
                     if r['format'] == 'individual':
                         r['athlete_id'] = register_person(registry, r['name'], r['gender'], r['official_skater_id'])
                     else:

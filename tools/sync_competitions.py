@@ -179,9 +179,19 @@ def parse_reports(body, config, source_url):
                     if not team or not rank.isdigit():
                         continue
                     country, details = team.groups()
-                    rankings.append(dict(ranking_type='event', **heading, name=country, country=country,
-                                         rank=int(rank), points=None, official_details=details.strip(),
-                                         source_url=source_url, source_page=pages.index(text) + 1))
+                    rankings.append(
+                        dict(
+                            ranking_type='event',
+                            **heading,
+                            name=country,
+                            country=country,
+                            rank=int(rank),
+                            points=None,
+                            official_details=details.strip(),
+                            source_url=source_url,
+                            source_page=pages.index(text) + 1,
+                        )
+                    )
                 continue
         header = next((line for line in lines if 'Name' in line and 'ISU' in line), None)
         if not heading or not header:

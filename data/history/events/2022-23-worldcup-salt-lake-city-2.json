@@ -144,7 +144,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "DNS",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -153,7 +153,24 @@
       "official_skater_id": 4167,
       "medal_eligible": true,
       "race_number": 1,
-      "athlete_id": "skater-kun-li"
+      "athlete_id": "skater-kun-li",
+      "previous_api_status": "",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC2223USA.pdf",
+      "status_evidence_table": "C74 Men 500 m (1) 1.0",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 Men 500 m (1) 1.0",
+      "classification_evidence": {
+        "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC2223USA.pdf",
+        "locator": "C74 Men 500 m (1) 1.0",
+        "mode": "official_search_index",
+        "raw_pdf_retrieved": false,
+        "literal": "149 LI Kun CHN DNS",
+        "verified_fields": [
+          "rank",
+          "status"
+        ],
+        "normalization": null
+      }
     },
     {
       "gender": "men",

@@ -316,7 +316,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -325,7 +325,26 @@
       "official_skater_id": 1140,
       "medal_eligible": true,
       "race_number": 2,
-      "athlete_id": "isu-1140"
+      "athlete_id": "isu-1140",
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20160829101748id_/http://shorttrack.sportresult.com/Data/PDFs/WC1415CHN.pdf",
+      "status_evidence_table": "STM06000_74A 8.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "STM06000_74A 8.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20160829101748id_/http://shorttrack.sportresult.com/Data/PDFs/WC1415CHN.pdf",
+        "original_url": "http://shorttrack.sportresult.com/Data/PDFs/WC1415CHN.pdf",
+        "locator": "STM06000_74A 8.0",
+        "page": 63,
+        "sha256": "9a157c36fc101a315f22462062873e8b0d4253d139f136c7a86811c16657f4af",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 89 CHEN Guang CHN PEN PEN; rank column empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "women",

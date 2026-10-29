@@ -148,7 +148,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -156,7 +156,26 @@
       "official_result_id": 6501,
       "official_skater_id": 4251,
       "medal_eligible": true,
-      "athlete_id": "isu-4251"
+      "athlete_id": "isu-4251",
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20160810093348id_/http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+      "status_evidence_table": "C74 Ladies 1000 m 6.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Ladies 1000 m 6.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20160810093348id_/http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+        "original_url": "http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+        "locator": "C74 Ladies 1000 m 6.0",
+        "page": 37,
+        "sha256": "9b022be1db112e6dbe9b465adcda2b89a9a6c8d44ac7d92425868fd352d892bf",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 58 LIN Yue CHN PEN; rank column empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "men",
@@ -264,7 +283,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -273,7 +292,26 @@
       "official_skater_id": 4157,
       "medal_eligible": true,
       "race_number": 1,
-      "athlete_id": "isu-4157"
+      "athlete_id": "isu-4157",
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20160810093348id_/http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+      "status_evidence_table": "C74 Ladies 1500 m (1) 5.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Ladies 1500 m (1) 5.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20160810093348id_/http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+        "original_url": "http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+        "locator": "C74 Ladies 1500 m (1) 5.0",
+        "page": 21,
+        "sha256": "9b022be1db112e6dbe9b465adcda2b89a9a6c8d44ac7d92425868fd352d892bf",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 53 LI Hongshuang CHN PEN; rank column empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "women",
@@ -559,7 +597,7 @@
       "rank": null,
       "rank_scope": "overall",
       "final_group": null,
-      "status": "classified",
+      "status": "PEN",
       "best_time": null,
       "source_page": null,
       "source_url": "https://front-api.isu.org/events/get-event-result-fsk-single",
@@ -567,7 +605,127 @@
       "official_result_id": 6566,
       "official_skater_id": 6611,
       "medal_eligible": true,
-      "athlete_id": "isu-6611"
+      "athlete_id": "isu-6611",
+      "started": true,
+      "last_round": "Preliminaries",
+      "terminal_status_evidence": {
+        "documents": [
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-fsk-single",
+            "form": {
+              "code": "",
+              "country_code": "",
+              "event_id": 6674,
+              "event_result_id": 6566
+            },
+            "sha256": "52d85b3339c714048e3e0e470744a789ad415d4a8f59f6995d5cb19618762f04"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round",
+            "form": {
+              "event_result_id": 6566
+            },
+            "sha256": "d7e15d1ce49e73667015abc1e7d768b0b63a6aa86234846e58738651b7635911"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 6566,
+              "event_result_round_id": 10731
+            },
+            "sha256": "1a68f3d53a1830589b385fb2df69235190c1338e93f54e6a1cce7712ba16a35c"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 6566,
+              "event_result_round_id": 10735
+            },
+            "sha256": "9fb79b1aeb37dd82c92983ee9af1dc7557f9efa4527f0c0b6292763153edf501"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 6566,
+              "event_result_round_id": 10738
+            },
+            "sha256": "037669a4b894c744dc87caf766ebf90e98db47af999294aaa2683d6b9a3c61fc"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 6566,
+              "event_result_round_id": 10741
+            },
+            "sha256": "b5549b783423be0694ae73daf050ac84b7403b4903f523ce46fbe1648a468227"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 6566,
+              "event_result_round_id": 10745
+            },
+            "sha256": "7cfb2068f5d38f6a472e269c0dd6f01912b18357ff3da3370ec1b44f1dd4d36d"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 6566,
+              "event_result_round_id": 10749
+            },
+            "sha256": "a405ca115c403063769473e34ccee6a711f139cce8da061ab0e81c89fe2ec4fb"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 6566,
+              "event_result_round_id": 10753
+            },
+            "sha256": "9d6c4a7bd09d1fddfa5d15e44b34b559ac5b2a5c137cf0e22b00b8c21fdbcace"
+          },
+          {
+            "url": "https://front-api.isu.org/events/get-event-result-round-heats-stk-single",
+            "form": {
+              "country_code": "",
+              "event_result_id": 6566,
+              "event_result_round_id": 10755
+            },
+            "sha256": "d70a8957f7aa17b4cd6663bacf524643c0168a9a247de0472cec860d341b27c4"
+          }
+        ],
+        "verified_fields": [
+          "status",
+          "started",
+          "last_round"
+        ],
+        "numeric_classification_verified": false
+      },
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20160810093348id_/http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+      "status_evidence_table": "C74 Men 500 m 8.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Men 500 m 8.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20160810093348id_/http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+        "original_url": "http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+        "locator": "C74 Men 500 m 8.0",
+        "page": 70,
+        "sha256": "9b022be1db112e6dbe9b465adcda2b89a9a6c8d44ac7d92425868fd352d892bf",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "Helmet 165 SONG Haochen CHN PEN; rank column empty",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     },
     {
       "gender": "women",
@@ -595,7 +753,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 12,
       "rank_scope": "overall",
       "final_group": null,
       "status": "classified",
@@ -607,7 +765,26 @@
       "official_skater_id": 8043,
       "medal_eligible": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "previous_api_status": "",
+      "status_evidence_url": "https://web.archive.org/web/20160810093348id_/http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+      "status_evidence_table": "C74 Men 5000 m Relay 4.0",
+      "status_evidence_kind": "archived_official_pdf",
+      "status_evidence_version": "C74 Men 5000 m Relay 4.0",
+      "classification_evidence": {
+        "url": "https://web.archive.org/web/20160810093348id_/http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+        "original_url": "http://shorttrack.sportresult.com/Data/PDFs/WC1516GER.pdf",
+        "locator": "C74 Men 5000 m Relay 4.0",
+        "page": 109,
+        "sha256": "9b022be1db112e6dbe9b465adcda2b89a9a6c8d44ac7d92425868fd352d892bf",
+        "mode": "archived_official_pdf",
+        "raw_pdf_retrieved": true,
+        "literal": "12 CHN - CHINA; H 3 QF 4; 6:42.076",
+        "verified_fields": [
+          "rank",
+          "status"
+        ]
+      }
     }
   ],
   "source": {

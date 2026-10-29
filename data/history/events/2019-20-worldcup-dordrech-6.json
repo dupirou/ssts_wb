@@ -530,7 +530,7 @@
       "format": "relay",
       "name": "China",
       "country": "CHN",
-      "rank": null,
+      "rank": 6,
       "rank_scope": "overall",
       "final_group": "B",
       "status": "classified",
@@ -542,7 +542,25 @@
       "official_skater_id": 8248,
       "medal_eligible": true,
       "members": [],
-      "lineup_status": "unavailable"
+      "lineup_status": "unavailable",
+      "final_rank": 2,
+      "previous_api_status": "",
+      "status_evidence_url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1920NED.pdf",
+      "status_evidence_table": "C74 Ladies 3000 m Relay 4.0",
+      "status_evidence_kind": "official_search_index",
+      "status_evidence_version": "C74 Ladies 3000 m Relay 4.0",
+      "classification_evidence": {
+        "url": "https://www.shorttrack.swisstiming.com/Data/PDFs/WC1920NED.pdf",
+        "locator": "C74 Ladies 3000 m Relay 4.0",
+        "mode": "official_search_index",
+        "raw_pdf_retrieved": false,
+        "literal": "6 CHN - CHINA; QF 1 SF 3 FB 2",
+        "verified_fields": [
+          "rank",
+          "status"
+        ],
+        "normalization": null
+      }
     },
     {
       "gender": "men",
