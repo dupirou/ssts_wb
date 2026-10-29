@@ -54,12 +54,12 @@ class SiteCatalogTests(unittest.TestCase):
             self.assertEqual(finals[0]['schedule_id'], 'row-a')
             self.assertEqual((directory / 'one.json').read_bytes(), original)
 
-    def test_helmet_numbers_are_official_station_scoped_and_never_guessed(self):
+    def test_helmet_numbers_are_season_scoped_and_conflicts_are_not_guessed(self):
         calendar = dict(
             season='2026/27',
             stations=[dict(id='one', city='温哥华'), dict(id='two', city='蒙特利尔')],
         )
-        people = [dict(athlete_id=aid, name=aid, country='CHN', gender='men') for aid in ('a', 'b', 'c')]
+        people = [dict(athlete_id=aid, name=aid, country='CHN', gender='men') for aid in ('a', 'b', 'c', 'd', 'e')]
 
         def heat(athlete, number, evidence='official_results', format='individual'):
             return dict(
@@ -82,8 +82,9 @@ class SiteCatalogTests(unittest.TestCase):
                     heat('b', 19),
                     heat('c', 88, format='relay'),
                     heat('c', 0),
+                    heat('d', 12),
                 ],
-                'two': [heat('a', 99), heat('c', None)],
+                'two': [heat('a', 67), heat('c', None), heat('d', 13), heat('e', 91)],
             }
             for event_id, rounds in snapshots.items():
                 (directory / (event_id + '.json')).write_text(
@@ -97,15 +98,13 @@ class SiteCatalogTests(unittest.TestCase):
                 )
             site_catalog.export(out, calendar, {})
             by_id = {p['id']: p for p in json.loads((out / 'data/athletes.json').read_text())['items']}
-            self.assertEqual(
-                by_id['a']['helmet_numbers'],
-                [
-                    dict(event_id='one', city='温哥华', number=67),
-                    dict(event_id='two', city='蒙特利尔', number=99),
-                ],
-            )
-            self.assertNotIn('helmet_numbers', by_id['b'])
-            self.assertNotIn('helmet_numbers', by_id['c'])
+            self.assertEqual(by_id['a']['helmet_number'], 67)
+            self.assertEqual(by_id['a']['helmet_source_events'], ['one', 'two'])
+            self.assertEqual(by_id['e']['helmet_number'], 91)
+            self.assertEqual(by_id['e']['helmet_source_events'], ['two'])
+            self.assertNotIn('helmet_number', by_id['b'])  # conflicting heats
+            self.assertNotIn('helmet_number', by_id['c'])  # no verified individual heat
+            self.assertNotIn('helmet_number', by_id['d'])  # conflicting stations
 
     def test_season_ranks_use_latest_world_tour_table_per_distance(self):
         calendar = dict(
