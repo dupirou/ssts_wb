@@ -118,7 +118,10 @@
                 h('h2', { text: p.name }),
                 h('small', { class: 'faint', text: p.gender === 'women' ? '女子' : '男子' }),
                 p.helmet_number != null
-                  ? h('small', { class: 'directory-helmet num', text: '头盔号 #' + p.helmet_number })
+                  ? h('small', {
+                      class: 'directory-helmet num',
+                      text: '头盔号 #' + p.helmet_number
+                    })
                   : null
               ),
               p.season_rankings?.length
