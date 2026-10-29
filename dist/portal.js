@@ -87,6 +87,10 @@
       if (['women', 'men'].includes(params.get('gender'))) sex.value = params.get('gender');
       const count = h('p', { class: 'directory-count faint', role: 'status' });
       const list = h('ul', { class: 'directory-grid' });
+      const numberOf = (p) =>
+        Number.isInteger(p.helmet_number) && p.helmet_number > 0
+          ? p.helmet_number
+          : Number.POSITIVE_INFINITY;
       const draw = () => {
         const query = q.value.trim().toLocaleLowerCase();
         const people = index.items.filter(
@@ -101,7 +105,13 @@
                     .toLocaleLowerCase()
                     .includes(token)
                 ))
-        );
+        ).sort((a, b) => {
+          const first = numberOf(a);
+          const second = numberOf(b);
+          return first === second
+            ? a.name.localeCompare(b.name) || a.id.localeCompare(b.id)
+            : first - second;
+        });
         count.textContent = '显示 ' + people.length + ' 人 · 共 ' + index.items.length + ' 人';
         list.replaceChildren(
           ...people.map((p) =>
@@ -111,24 +121,24 @@
               h(
                 'div',
                 { class: 'directory-identity' },
+                Number.isInteger(p.helmet_number) && p.helmet_number > 0
+                  ? h('span', {
+                      class: 'directory-helmet num',
+                      'aria-label': '赛季头盔号 ' + p.helmet_number,
+                      text: String(p.helmet_number)
+                    })
+                  : null,
                 h('span', {
                   class: p.country === 'CHN' ? 'athlete-china' : 'athlete-nation',
                   text: p.country
                 }),
                 h('h2', { text: p.name }),
-                h('small', { class: 'faint', text: p.gender === 'women' ? '女子' : '男子' }),
-                p.helmet_number != null
-                  ? h('small', {
-                      class: 'directory-helmet num',
-                      text: '头盔号 #' + p.helmet_number
-                    })
-                  : null
+                h('small', { class: 'faint', text: p.gender === 'women' ? '女子' : '男子' })
               ),
               p.season_rankings?.length
                 ? h(
                     'section',
-                    { class: 'directory-rankings', 'aria-label': '本赛季世巡赛排名' },
-                    h('h3', { class: 'faint tiny', text: '本赛季世巡赛排名' }),
+                    { class: 'directory-rankings', 'aria-label': '单项排名' },
                     h(
                       'dl',
                       {},
@@ -307,11 +317,18 @@
         header(h, '运动员', calendar.season),
         penaltyPanel,
         form,
-        index.ranking_as_of?.length
-          ? h('p', {
-              class: 'ranking-as-of faint tiny',
-              text: '排名截至' + index.ranking_as_of.map((e) => e.city + '站').join('、')
-            })
+        index.items.some((p) => p.season_rankings?.length)
+          ? h(
+              'div',
+              { class: 'directory-ranking-context' },
+              h('h2', { text: '本赛季世巡赛排名' }),
+              index.ranking_as_of?.length
+                ? h('span', {
+                    class: 'faint tiny',
+                    text: '截至' + index.ranking_as_of.map((e) => e.city + '站').join('、')
+                  })
+                : null
+            )
           : null,
         count,
         list
