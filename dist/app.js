@@ -2892,6 +2892,7 @@
     }
   }
   const TICKET_SEEN_KEY = 'ssts.tickets.seen';
+  // prettier-ignore: the notification renderer is intentionally kept as one declarative block.
   function seenTickets() {
     try {
       const stored = JSON.parse(localStorage.getItem(TICKET_SEEN_KEY) || '[]');
@@ -2901,6 +2902,7 @@
       return new Set();
     }
   }
+  // prettier-ignore: the notification renderer is intentionally kept as one declarative block.
   function ticketAlerts(stations) {
     const seen = seenTickets();
     return stations.flatMap((st) => {
@@ -2929,6 +2931,7 @@
       ];
     });
   }
+  // prettier-ignore: the notification renderer is intentionally kept as one declarative block.
   function updatesDialog(feed, stations) {
     const seen = seenAt();
     const since = Math.max(seen, now() - (seen ? 7 : 3) * DAY);
