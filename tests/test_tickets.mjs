@@ -32,7 +32,7 @@ test('Seoul ticket links appear on season home and station details', async t => 
       const dom = await render('https://example.test' + route);
       t.after(() => dom.window.close());
       const d = dom.window.document;
-      const panel = d.querySelector('.ticket-panel');
+      const panel = d.querySelector('.ticket-panel[aria-label="首尔站售票"]');
       assert.match(panel.textContent, /首尔站/);
       assert.match(panel.textContent, /北京时间 10\/23 周五 下午 13:00 开售/);
       assert.match(panel.textContent, /首尔时间 14:00/);
@@ -43,7 +43,7 @@ test('Seoul ticket links appear on season home and station details', async t => 
         'https://m.ticketlink.co.kr/global/zh/product/66349?null',
       ]);
       assert.ok(links.every(a => a.target === '_blank' && a.rel.includes('noopener')));
-      assert.equal(d.querySelectorAll('.ticket-panel').length, 1);
+      assert.equal(d.querySelectorAll('.ticket-panel').length, route.includes('station=') ? 1 : 2);
       if (route.includes('station=')) {
         assert.ok(d.querySelector('.section-tabs'), 'ticket notice must not remove station tabs');
         assert.ok(d.querySelector('.empty-state'), 'unpublished schedule stays unpublished');
@@ -74,6 +74,7 @@ test('ticket notice says on sale after opening and disappears once Seoul is over
     w.eval(script);
     for (let i = 0; i < 100 && !w.document.querySelector('.st-card'); i++) await new Promise(r => setTimeout(r, 5));
     assert.equal(w.document.querySelectorAll('.st-card').length, 7);
-    assert.equal(w.document.querySelector('.ticket-panel'), null);
+    assert.equal(w.document.querySelector('.ticket-panel[aria-label="首尔站售票"]'), null);
+    assert.ok(w.document.querySelector('.ticket-panel[aria-label="上海站售票"]'));
   });
 });

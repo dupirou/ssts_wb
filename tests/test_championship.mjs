@@ -43,7 +43,10 @@ test('events page keeps seven World Tour cards and offers a distinct World Champ
   assert.equal(world.querySelector('.btn').getAttribute('href'), '/events/2026-27/worlds-2027/');
   // Separators use a no-break space so they stay at line ends; compare words, not space kinds.
   assert.match(d.querySelector('.season-head .lead').textContent.replace(/\s+/g, ' '), /7 站世巡赛 · 1 场世锦赛/);
-  assert.equal(d.querySelectorAll('.ticket-panel').length, 1);
+  assert.deepEqual(
+    [...d.querySelectorAll('.ticket-panel')].map(panel => panel.getAttribute('aria-label')),
+    ['首尔站售票', '上海站售票']
+  );
 });
 test('Worlds detail uses schedule and roster waiting states without World Tour forecasts or API calls', async t => {
   const dom = await page('/events/2026-27/worlds-2027/');
