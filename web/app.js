@@ -2895,7 +2895,8 @@
   function seenTickets() {
     try {
       const stored = JSON.parse(localStorage.getItem(TICKET_SEEN_KEY) || '[]');
-      return new Set(Array.isArray(stored) ? stored.filter((id) => typeof id === 'string') : []);
+      const ids = Array.isArray(stored) ? stored : [];
+      return new Set(ids.filter((id) => typeof id === 'string'));
     } catch (_) {
       return new Set();
     }
@@ -2910,9 +2911,11 @@
       const href = channel?.url || ticket.booking_url;
       if (!href) return [];
       const onSale = !ticket.sale_start || now() >= Date.parse(ticket.sale_start);
-      const id = st.id + '|' + href + (ticket.sale_start ? (onSale ? '|open' : '|upcoming') : '');
+      const salePhase = ticket.sale_start ? (onSale ? 'open' : 'upcoming') : 'available';
+      const id = [st.id, href, salePhase].join('|');
       if (seen.has(id)) return [];
       const seller = channel?.name || ticket.booking_name || '售票平台';
+      const sellerAction = channel?.kind === 'event' ? '赛事购票' : '售票入口';
       return [
         {
           e: { station: st.id, kind: 'tickets', href },
@@ -2920,7 +2923,7 @@
           n: {
             text: st.city + '站门票' + (onSale ? '已开售' : '开售时间已公布'),
             alert: true,
-            sub: h('span', { text: seller + (channel?.kind === 'event' ? ' · 赛事购票' : ' · 售票入口') })
+            sub: h('span', { text: seller + ' · ' + sellerAction })
           }
         }
       ];
@@ -3006,7 +3009,12 @@
           h('span', { class: 'upd-count num', text: String(items.length) }),
           h(
             'button',
-            { type: 'button', class: 'upd-close', 'aria-label': '关闭通知并标记为已读', onclick: close },
+            {
+              type: 'button',
+              class: 'upd-close',
+              'aria-label': '关闭通知并标记为已读',
+              onclick: close
+            },
             icon('close', 'ico ico-sm')
           )
         ),

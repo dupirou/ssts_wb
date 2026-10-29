@@ -12,6 +12,8 @@ async function render(url) {
   const w = dom.window;
   w.matchMedia = () => ({matches: false, addEventListener() {}});
   w.HTMLElement.prototype.scrollIntoView = function () {};
+  w.HTMLDialogElement.prototype.showModal = function () {this.setAttribute('open', '');};
+  w.HTMLDialogElement.prototype.close = function () {this.removeAttribute('open');};
   w.fetch = async input => {
     const pathname = new URL(input, w.location.href).pathname;
     if (pathname === '/data/calendar.json') return Response.json(calendar);
@@ -66,6 +68,8 @@ test('ticket notice says on sale after opening and disappears once Seoul is over
     t.after(() => dom.window.close());
     const w = dom.window;
     w.matchMedia = () => ({matches: false, addEventListener() {}});
+    w.HTMLDialogElement.prototype.showModal = function () {this.setAttribute('open', '');};
+    w.HTMLDialogElement.prototype.close = function () {this.removeAttribute('open');};
     w.fetch = async input => {
       const pathname = new URL(input, w.location.href).pathname;
       if (pathname === '/data/calendar.json') return Response.json(calendar);
