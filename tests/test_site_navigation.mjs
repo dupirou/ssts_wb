@@ -73,6 +73,33 @@ test('events page owns the full calendar and produces shareable nested event URL
   assert.equal(d.querySelector('.next-card'), null);
 });
 
+test('Shanghai station links directly to Damai and distinguishes other ticket platforms', async t => {
+  const dom = await page('/events/2026-27/shanghai/?now=2026-10-30T04:00:00Z');
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  const panel = d.querySelector('.ticket-panel[aria-label="上海站售票"]');
+  assert.ok(panel);
+  assert.match(panel.textContent, /门票已开售/);
+  const links = [...panel.querySelectorAll('a')];
+  const byText = text => links.find(a => a.textContent.includes(text));
+  assert.equal(
+    byText('大麦 赛事购票')?.href,
+    'https://m.damai.cn/shows/item.html?itemId=1095988161093&from=appshare'
+  );
+  for (const name of ['久事体育', '携程', 'MAISEAT']) {
+    assert.ok(byText(name + ' 平台入口'), name + ' must be a platform link');
+    assert.ok(!byText(name + ' 赛事购票'), name + ' has no verified event URL');
+  }
+  assert.ok(byText('售票渠道公告')?.href.includes('english.shanghai.gov.cn'));
+  assert.equal(links.length, 5);
+  assert.doesNotMatch(panel.textContent, /北京时间.*开售/);
+  const seoul = await page('/events/2026-27/seoul/?now=2026-10-30T04:00:00Z');
+  t.after(() => seoul.window.close());
+  const original = seoul.window.document.querySelector('.ticket-panel[aria-label="首尔站售票"]');
+  assert.ok(original);
+  assert.ok(original.textContent.includes('Ticketlink 订票'));
+});
+
 test('legacy and nested event links preserve view and country selection and use root data addresses', async t => {
   for (const route of ['/?station=vancouver&view=athletes&country=KOR', '/events/2026-27/vancouver/?view=athletes&country=KOR']) {
     const dom = await page(route);

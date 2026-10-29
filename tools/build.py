@@ -191,6 +191,14 @@ def attach_china(rows, station_id):
 
 # Booking sites the curated ticket links may point to, with the name shown on the button.
 BOOKING_SITES = {'m.ticketlink.co.kr': 'Ticketlink'}
+# Curated platform domains are not interchangeable with direct event-ticket URLs.
+SHANGHAI_TICKET_CHANNELS = {
+    '大麦': {'m.damai.cn': 'event'},
+    '久事体育': {'www.jussyun.com': 'platform'},
+    '携程': {'www.ctrip.com': 'platform'},
+    'MAISEAT': {'maiseat.com': 'platform'},
+}
+SHANGHAI_TICKET_SOURCE = 'english.shanghai.gov.cn'
 
 
 def attach_qualification(rows, station_id):
@@ -214,6 +222,42 @@ def load_ticketing():
     for station, item in cfg['stations'].items():
         if station not in by_id or not isinstance(item, dict):
             raise ValueError('Unknown ticket event')
+        if 'channels' in item:
+            if station != 'shanghai':
+                raise ValueError('Unsupported ticket channel configuration')
+            source = urlsplit(item.get('source_url', ''))
+            if (
+                source.scheme != 'https'
+                or source.hostname != SHANGHAI_TICKET_SOURCE
+                or source.username
+                or source.password
+            ):
+                raise ValueError('Invalid Shanghai ticket announcement URL')
+            channels = item['channels']
+            if not isinstance(channels, list) or not 1 <= len(channels) <= len(SHANGHAI_TICKET_CHANNELS):
+                raise ValueError('Invalid ticket channels')
+            seen, verified = set(), []
+            for channel in channels:
+                if not isinstance(channel, dict):
+                    raise ValueError('Invalid ticket channel')
+                name = channel.get('name')
+                uri = urlsplit(channel.get('url', ''))
+                kind = channel.get('kind')
+                if (
+                    name not in SHANGHAI_TICKET_CHANNELS
+                    or name in seen
+                    or uri.scheme != 'https'
+                    or uri.username
+                    or uri.password
+                    or SHANGHAI_TICKET_CHANNELS[name].get(uri.hostname) != kind
+                ):
+                    raise ValueError('Invalid ticket channel URL or type')
+                if kind == 'event' and (uri.path != '/shows/item.html' or 'itemId=1095988161093' not in uri.query):
+                    raise ValueError('Unverified Damai event URL')
+                seen.add(name)
+                verified.append(dict(name=name, url=channel['url'], kind=kind))
+            result[station] = dict(source_url=item['source_url'], channels=verified)
+            continue
         for field, hosts in (('isu_url', official_sources.ISU_OFFICIAL_HOSTS), ('booking_url', set(BOOKING_SITES))):
             u = urlsplit(item.get(field, ''))
             if u.scheme != 'https' or u.hostname not in hosts or u.username or u.password:
