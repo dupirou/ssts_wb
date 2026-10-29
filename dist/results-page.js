@@ -1182,11 +1182,7 @@
             const finalRank = r.rank_scope === 'final';
             const rank =
               r.rank == null ? '—' : (finalRank ? r.final_group + '组第 ' : '第 ') + r.rank + ' 名';
-            const tag = [
-              r.status === 'classified' ? '' : r.status
-            ]
-              .filter(Boolean)
-              .join(' · ');
+            const tag = [r.status === 'classified' ? '' : r.status].filter(Boolean).join(' · ');
             body.append(
               h(
                 'tr',
