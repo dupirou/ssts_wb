@@ -1592,8 +1592,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-30T22:11:27+00:00",
-    "updated_at": "2026-10-30T22:11:27+00:00",
+    "checked_at": "2026-10-30T22:21:22+00:00",
+    "updated_at": "2026-10-30T22:21:22+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22960",
@@ -12324,45 +12324,11 @@
         "heat_number": 3,
         "heat_label": "Heat 3",
         "source_start": "2026-10-30T18:10:31.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16036&round=22962",
         "participants": [
-          {
-            "athlete_id": "team-GBR-men",
-            "name": "Great Britain",
-            "country": "GBR",
-            "official_skater_id": 12684,
-            "helmet_number": null,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-85622049b960167a565d",
-                "name": "Albie BARLOW",
-                "official_skater_id": 18327
-              },
-              {
-                "athlete_id": "ath-de020c06bdbb9947dc74",
-                "name": "Adam HILL JNR",
-                "official_skater_id": 2652
-              },
-              {
-                "athlete_id": "ath-2c7bf7881e6dda162f51",
-                "name": "Niall TREACY",
-                "official_skater_id": 7129
-              },
-              {
-                "athlete_id": "ath-a59812c330ba5762181b",
-                "name": "Willem MURRAY",
-                "official_skater_id": 4970
-              }
-            ]
-          },
           {
             "athlete_id": "team-CHN-men",
             "name": "China",
@@ -12370,9 +12336,9 @@
             "official_skater_id": 12683,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "6:58.175",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -12404,9 +12370,9 @@
             "official_skater_id": 12687,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "6:58.256",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -12438,8 +12404,8 @@
             "official_skater_id": 12691,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "7:04.197",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -12464,6 +12430,40 @@
                 "official_skater_id": 5461
               }
             ]
+          },
+          {
+            "athlete_id": "team-GBR-men",
+            "name": "Great Britain",
+            "country": "GBR",
+            "official_skater_id": 12684,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": 4,
+            "result": "7:09.892",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-85622049b960167a565d",
+                "name": "Albie BARLOW",
+                "official_skater_id": 18327
+              },
+              {
+                "athlete_id": "ath-de020c06bdbb9947dc74",
+                "name": "Adam HILL JNR",
+                "official_skater_id": 2652
+              },
+              {
+                "athlete_id": "ath-2c7bf7881e6dda162f51",
+                "name": "Niall TREACY",
+                "official_skater_id": 7129
+              },
+              {
+                "athlete_id": "ath-a59812c330ba5762181b",
+                "name": "Willem MURRAY",
+                "official_skater_id": 4970
+              }
+            ]
           }
         ]
       },
@@ -12479,8 +12479,8 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-10-30T18:15:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-10-30T18:20:35.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16036&round=22962",
