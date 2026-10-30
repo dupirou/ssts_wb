@@ -9,4 +9,7 @@
   Cache-Control: public, max-age=60, must-revalidate
 
 /*.js
-  Cache-Control: public, max-age=300, must-revalidate
+  Cache-Control: no-cache
+
+/site.css
+  Cache-Control: no-cache

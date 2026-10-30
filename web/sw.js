@@ -18,7 +18,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(CACHE)
-      .then((cache) => cache.addAll(SHELL))
+      .then((cache) => cache.addAll(SHELL.map((url) => new Request(url, { cache: 'reload' }))))
       .then(() => self.skipWaiting())
   );
 });
@@ -47,7 +47,8 @@ async function networkFirst(request) {
   const key = cacheKey(request);
   if (!key) return fetch(request);
   const cache = await caches.open(CACHE);
-  const network = fetch(request).then((response) => {
+  const shellAsset = /\.(?:js|css)$/.test(new URL(request.url).pathname);
+  const network = fetch(request, shellAsset ? { cache: 'no-cache' } : {}).then((response) => {
     if (response.ok && response.type === 'basic') cache.put(key, response.clone());
     return response;
   });

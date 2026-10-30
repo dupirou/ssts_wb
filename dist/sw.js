@@ -1,7 +1,7 @@
 /* Offline support for stadium Wi-Fi and the subway: the schedule keeps opening without a network.
    Network first for everything, so nothing goes stale while online; the cache answers only when the
    network fails or takes longer than 4 s. The build stamps VERSION, which retires the old cache. */
-const VERSION = 'e681e338db96';
+const VERSION = 'e8399acba855';
 const CACHE = 'ssts-' + VERSION;
 const SHELL = [
   './',
@@ -18,7 +18,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(CACHE)
-      .then((cache) => cache.addAll(SHELL))
+      .then((cache) => cache.addAll(SHELL.map((url) => new Request(url, { cache: 'reload' }))))
       .then(() => self.skipWaiting())
   );
 });
@@ -47,7 +47,8 @@ async function networkFirst(request) {
   const key = cacheKey(request);
   if (!key) return fetch(request);
   const cache = await caches.open(CACHE);
-  const network = fetch(request).then((response) => {
+  const shellAsset = /\.(?:js|css)$/.test(new URL(request.url).pathname);
+  const network = fetch(request, shellAsset ? { cache: 'no-cache' } : {}).then((response) => {
     if (response.ok && response.type === 'basic') cache.put(key, response.clone());
     return response;
   });

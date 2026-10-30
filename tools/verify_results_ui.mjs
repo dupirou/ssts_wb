@@ -101,6 +101,31 @@ try{
           }
         }
       }
+      if(path.includes('/montreal/')&&width<1180){
+        // A user can keep the previous JS in HTTP cache during a stylesheet upgrade.
+        await page.locator('.heat-list').evaluateAll(lists=>lists.forEach(list=>list.replaceWith(...list.childNodes)));
+        for(const scale of ['100%','125%']){
+          await page.evaluate(scale=>document.documentElement.style.fontSize=scale,scale);
+          const overlapping=await page.locator('.match-row:not(.is-past)').evaluateAll(rows=>rows.some(row=>{
+            const heats=[...row.querySelectorAll('.heat')].map(el=>el.getBoundingClientRect());
+            return heats.some((r,i)=>i>0&&r.top<heats[i-1].bottom-1);
+          }));
+          assert.equal(overlapping,false,`Legacy heat rows overlap: ${width} ${scale}`);
+        }
+        await page.evaluate(()=>document.documentElement.style.fontSize='');
+      }
+      if(path==='/athletes/'&&width<1180){
+        for(const scale of ['100%','125%','150%']){
+          await page.evaluate(scale=>document.documentElement.style.fontSize=scale,scale);
+          const broken=await page.locator('.directory-rankings dl > div').evaluateAll(items=>items.some(item=>{
+            const label=item.querySelector('dt').getBoundingClientRect(),value=item.querySelector('dd').getBoundingClientRect();
+            return Math.abs(label.top-value.top)>4||label.right>value.left||item.scrollWidth>item.clientWidth+1;
+          }));
+          assert.equal(broken,false,`Athlete ranking pair split: ${width} ${scale}`);
+          assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+        }
+        await page.evaluate(()=>document.documentElement.style.fontSize='');
+      }
       if(path==='/events/'){
         const requests=await page.evaluate(()=>performance.getEntriesByType('resource').filter(e=>new URL(e.name).pathname.startsWith('/data/')).map(e=>new URL(e.name).pathname));
         assert.deepEqual(requests,['/data/calendar.json']);
