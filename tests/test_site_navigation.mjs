@@ -40,7 +40,7 @@ async function page(path, fail = '', resultsIndex = null, options = {}) {
   w.eval(scripts);
   for (let i = 0; i < 200; i++) {
     const detail = w.document.querySelector('.section-tabs');
-    const hasProgramme = !!detail?.querySelector('.scroll tbody .match-row');
+    const hasProgramme = !!w.document.querySelector('.scroll tbody .match-row');
     const settled = !detail || !hasProgramme || (dom.requests.some(p => p.endsWith('/rounds')) && !w.document.querySelector('[data-resource][aria-busy]'));
     if (!w.document.querySelector('#app[aria-busy]') && settled) return dom;
     await new Promise(resolve => setTimeout(resolve, 5));
