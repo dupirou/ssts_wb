@@ -5,11 +5,13 @@
     "montreal/round/2026-10-30/qualifying/men/1000/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/5000/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/mixed/2000/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/1000/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/1500/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
     "montreal/round/men/1000/individual/Preliminaries/None/groups": "published",
     "montreal/round/men/1500/individual/Heats/None/groups": "published",
@@ -288,43 +290,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "b6cdc7cc10333ce6",
-      "station": "vancouver",
-      "at": "2026-10-23T17:11:22+00:00",
-      "local_date": "2026-10-24",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 5,
-      "china": [
-        "Kun LI"
-      ]
-    },
-    {
-      "id": "ee0383363d5859ea",
-      "station": "vancouver",
-      "at": "2026-10-23T17:11:22+00:00",
-      "local_date": "2026-10-23",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Ye WANG"
-      ]
-    },
     {
       "id": "b834e80608eed635",
       "station": "vancouver",
@@ -3314,8 +3279,7 @@
       "kind": "groups",
       "heats": 8,
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG"
+        "Bohao ZHANG"
       ]
     },
     {
@@ -3420,6 +3384,50 @@
         "Bohao ZHANG",
         "Kun LI"
       ]
+    },
+    {
+      "id": "54ee74185644dd73",
+      "station": "montreal",
+      "at": "2026-10-30T13:51:20+00:00",
+      "local_date": "2026-10-30",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kun LI"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Kun LI",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "ef18ea9fd03e0d9a",
+      "station": "montreal",
+      "at": "2026-10-30T13:51:20+00:00",
+      "local_date": "2026-10-30",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
     }
   ]
 }
