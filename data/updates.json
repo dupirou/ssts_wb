@@ -16,6 +16,7 @@
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/5000/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/mixed/2000/quarterfinal/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/mixed/2000/quarterfinal/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/1000/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/1000/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/1000/preliminaries/-/groups": "published",
@@ -38,6 +39,7 @@
     "montreal/round/men/500/individual/Preliminaries/None/groups": "published",
     "montreal/round/men/5000/relay/Quarterfinals/None/groups": "published",
     "montreal/round/mixed/2000/relay/Quarterfinals/None/groups": "published",
+    "montreal/round/mixed/2000/relay/Semifinals/None/groups": "published",
     "montreal/round/women/1000/individual/Preliminaries/None/groups": "published",
     "montreal/round/women/1500/individual/Quarterfinals/None/groups": "published",
     "montreal/round/women/3000/relay/Semifinals/None/groups": "published",
@@ -310,36 +312,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "2dce2947b214f33a",
-      "station": "vancouver",
-      "kind": "time_change",
-      "at": "2026-10-24T16:52:48+00:00",
-      "local_date": "2026-10-24",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "previous": "2026-10-25 02:27",
-      "current": "2026-10-25 02:30"
-    },
-    {
-      "id": "42f04b70abc34bd7",
-      "station": "vancouver",
-      "kind": "time_change",
-      "at": "2026-10-24T16:52:48+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "previous": "2026-10-25 05:14",
-      "current": "2026-10-25 05:21"
-    },
     {
       "id": "71f33a56ec681475",
       "station": "vancouver",
@@ -3438,6 +3410,46 @@
         {
           "name": "Yiding ZHU",
           "rank": 3,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "38104f681f4ff47c",
+      "station": "montreal",
+      "at": "2026-10-30T21:41:22+00:00",
+      "local_date": null,
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "China"
+      ]
+    },
+    {
+      "id": "c3e32d547b9fad21",
+      "station": "montreal",
+      "at": "2026-10-30T21:41:22+00:00",
+      "local_date": "2026-10-30",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 1,
           "status": "advanced"
         }
       ]
