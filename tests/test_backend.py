@@ -124,26 +124,34 @@ class DataTests(unittest.TestCase):
                 label += ' ' + r['group']
             fragments += [r['time'], label]
         official = sync_schedule.parse_text('\n'.join(fragments), build.stations.get('vancouver'))
+
+        def compare(found, station, now):
+            action, _, changes = sync_schedule.merge(
+                sync_schedule.validate(found, station),
+                sync_schedule.read(build.stations.schedule_path(station['id'])),
+                station,
+                now,
+            )
+            return action, changes
+
         racing = datetime(2026, 10, 23, 12, tzinfo=timezone.utc)
         self.assertEqual(
-            sync_schedule.compare_and_update(official, build.stations.get('vancouver'), write_file=False, now=racing),
+            compare(official, build.stations.get('vancouver'), now=racing),
             ('unchanged', []),
         )
         moved = [dict(r) for r in official]
         moved[0]['time'] = '08:55'
         self.assertEqual(
-            sync_schedule.compare_and_update(moved, build.stations.get('vancouver'), write_file=False, now=racing),
+            compare(moved, build.stations.get('vancouver'), now=racing),
             ('times', [(1, '09:00', '08:55')]),
         )
         # Once racing has begun a restructured programme needs a person; before, ISU may still revise it.
         official[3]['session'] = 'R'
         with self.assertRaises(ValueError):
-            sync_schedule.compare_and_update(official, build.stations.get('vancouver'), write_file=False, now=racing)
+            compare(official, build.stations.get('vancouver'), now=racing)
         before = datetime(2026, 10, 21, tzinfo=timezone.utc)
         self.assertEqual(
-            sync_schedule.compare_and_update(official, build.stations.get('vancouver'), write_file=False, now=before)[
-                0
-            ],
+            compare(official, build.stations.get('vancouver'), now=before)[0],
             'replaced',
         )
         # A page cut off before the last finals is partial, never a new programme.

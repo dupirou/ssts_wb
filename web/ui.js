@@ -63,5 +63,16 @@
   const findFocus = (events, phase) =>
     events.find((event) => phase(event.win) === 'live') ||
     events.find((event) => phase(event.win) === 'upcoming');
-  site.ui = { h, s, append, fill, select, writeFilters, tableScroll, findFocus };
+  async function requestJSON(url, options = {}) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const response = await fetch(url, { ...options, signal: controller.signal });
+      if (!response.ok) throw new Error('数据请求失败: ' + response.status);
+      return await response.json();
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+  site.ui = { h, s, append, fill, select, writeFilters, tableScroll, findFocus, requestJSON };
 })();

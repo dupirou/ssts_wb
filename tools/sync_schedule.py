@@ -150,14 +150,6 @@ def write(rows, path):
     candidate.replace(path)
 
 
-def compare_and_update(found, station, write_file=True, path=None, now=None):
-    path = path or stations.schedule_path(station['id'])
-    action, rows, changes = merge(validate(found, station), read(path), station, now or stations.utc_now())
-    if rows is not None and write_file:
-        write(rows, path)
-    return action, changes
-
-
 def page_text(html):
     return isu_transport.page_text(html)
 

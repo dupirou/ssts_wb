@@ -103,7 +103,7 @@ class ScheduleSyncTests(unittest.TestCase):
             sync_schedule.sync_station(
                 MONTREAL, lambda url: programme_page('Vancouver / CAN', '23.10-25.10, 2026'), self.before, self.dir, {}
             )
-        self.assertFalse(stations.has_schedule('montreal', self.dir))
+        self.assertFalse(stations.schedule_path('montreal', self.dir).exists())
 
     def test_real_isu_page_text_parses_to_the_pre_race_programme(self):
         # Text of ISU's Vancouver schedule tab as served on 2026-10-21, and the programme it gave.

@@ -15,7 +15,15 @@ const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json
 async function serve(directory){
   const server=createServer(async(req,res)=>{
     try{
-      let path=join(directory,decodeURIComponent(new URL(req.url,'http://localhost').pathname));
+      const pathname=new URL(req.url,'http://localhost').pathname;
+      const api=pathname.match(/^\/api\/v1\/events\/([^/]+)\/(entries|rounds|rankings)$/);
+      if(api){
+        const data=JSON.parse(await readFile(join(directory,'data/competitions',api[1]+'.json')));
+        res.setHeader('Content-Type','application/json');
+        res.end(JSON.stringify({schema_version:1,event_id:api[1],resource:api[2],...data[api[2]]}));
+        return;
+      }
+      let path=join(directory,decodeURIComponent(pathname));
       if((await stat(path)).isDirectory())path=join(path,'index.html');
       res.setHeader('Content-Type',mime[extname(path)]||'application/octet-stream');
       res.end(await readFile(path));
@@ -59,6 +67,21 @@ async function measure(origin,path,width,label,screenshot){
   report.metrics.push({label,path,width,ready_ms:Math.round(median('ready_ms')),nodes:median('nodes'),rows:median('rows'),data_bytes:median('data_bytes'),script_bytes:median('script_bytes'),requests:values[0].data_requests});
 }
 try{
+  // Extend the same server/browser acceptance harness to the non-results routes.
+  for(const width of [320,390,430,768,1024,1440]){
+    for(const path of ['/','/events/','/athletes/','/events/2026-27/montreal/','/events/2026-27/vancouver/']){
+      const {context,page}=await pageAt(current.origin,path,width);
+      await page.emulateMedia({reducedMotion:'reduce'});
+      assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`overflow: ${path} ${width}`);
+      if(path==='/events/'){
+        const requests=await page.evaluate(()=>performance.getEntriesByType('resource').filter(e=>new URL(e.name).pathname.startsWith('/data/')).map(e=>new URL(e.name).pathname));
+        assert.deepEqual(requests,['/data/calendar.json']);
+      }
+      if(width===390||width===768)await page.screenshot({path:join(out,'screenshots',path.replaceAll('/','_')+'-'+width+'.png')});
+      report.checks.push({name:'site responsive',path,width,passed:true});
+      await context.close();
+    }
+  }
   for(const [path,name] of [['/results/','overview'],['/results/events/','events'],['/results/compare/','compare'],['/results/cycles/milano-2026/?kind=circuit','cycle']]){
     if(before)await measure(before.origin,path,390,'before','before-'+name+'-390.png');
     await measure(current.origin,path,390,'after',name+'-390.png');

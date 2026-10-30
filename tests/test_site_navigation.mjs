@@ -26,6 +26,7 @@ async function page(path, fail = '', resultsIndex = null, options = {}) {
   w.fetch = async input => {
     const url = new URL(input, w.location.href);
     dom.requests.push(url.pathname);
+    if (options.penalties && url.pathname === '/data/penalties/index.json') await options.penalties;
     if (resultsIndex && url.pathname === '/data/results/index.json') return Response.json(resultsIndex);
     if (options.feed && url.pathname === '/data/updates.json') return Response.json(options.feed);
     if (options.calendar && url.pathname === '/data/calendar.json') return Response.json(options.calendar);
@@ -76,6 +77,8 @@ test('events page owns the full calendar and produces shareable nested event URL
   assert.equal(d.querySelector('#site-nav [aria-current]').getAttribute('href'), '/events/');
   assert.match(d.querySelector('.st-card').getAttribute('href'), /^\/events\/2026-27\//);
   assert.equal(d.querySelector('.next-card'), null);
+  assert.deepEqual(dom.requests.filter(p => p.startsWith('/data/')), ['/data/calendar.json']);
+  assert.match(d.querySelector('.st-card .st-foot').textContent, /已录入 61 个轮次/);
 });
 
 test('Shanghai ticket links appear on home, not the events overview or station detail', async t => {
@@ -560,7 +563,8 @@ test('verified schedule fetch errors are not relabelled as unpublished', async t
   const card = [...events.window.document.querySelectorAll('.st-card')]
     .find(el => el.getAttribute('href').includes('/montreal/'));
   assert.ok(card);
-  assert.match(card.textContent, /赛程读取失败/);
+  assert.match(card.textContent, /已录入 60 个轮次/);
+  assert.ok(!events.requests.includes('/data/montreal.json'));
   assert.doesNotMatch(card.textContent, /详细赛程待公布/);
 });
 
@@ -570,4 +574,17 @@ test('championship without detailed start time shows dates, not a live countdown
   const d = dom.window.document;
   assert.match(d.querySelector('.live-card').textContent, /比赛日期/);
   assert.equal(d.querySelector('.live-card .countdown'), null);
+});
+
+
+test('athlete directory renders while optional penalties are still pending', async t => {
+  let release;
+  const penalties = new Promise(resolve => {release = resolve;});
+  const dom = await page('/athletes/', '', null, {penalties});
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.ok(d.querySelectorAll('.directory-card').length > 0);
+  assert.equal(d.querySelector('.penalty-panel'), null);
+  release();
+  await settled(dom, () => Boolean(d.querySelector('.penalty-panel')));
 });

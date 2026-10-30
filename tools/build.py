@@ -354,9 +354,13 @@ def _compile(now, out, prior, source_log):
             previous_path = prior / 'data' / (station_id + '.json')
             state = 'unavailable'
             if previous_path.exists():
-                previous = json.loads(previous_path.read_text(encoding='utf-8'))
+                try:
+                    previous = json.loads(previous_path.read_text(encoding='utf-8'))
+                except (OSError, ValueError):
+                    previous = {}
                 if (
-                    previous.get('event_id') == station_id
+                    isinstance(previous, dict)
+                    and previous.get('event_id') == station_id
                     and previous.get('source_checked_at')
                     and previous.get('source_timezone') == st['timezone']
                     and previous.get('status') == 'provisional'
@@ -380,6 +384,15 @@ def _compile(now, out, prior, source_log):
                 source_url=stations.page_url(st) or calendar_url,
                 detail_status='verified' if st['id'] in schedules else 'not_entered',
                 predictions=predict_groups.has_open_items(st['id'], schedules.get(st['id'], [])),
+                schedule_summary=(
+                    dict(
+                        first_start=schedules[st['id']][0]['utc_start'],
+                        last_start=schedules[st['id']][-1]['utc_start'],
+                        total_items=len(schedules[st['id']]),
+                    )
+                    if st['id'] in schedules
+                    else None
+                ),
             )
             for st in config['stations']
         ],
@@ -396,8 +409,9 @@ def _compile(now, out, prior, source_log):
             previous_path = prior / 'data' / (st['id'] + '.json')
             if errors[st['id']]['state'] == 'retained':
                 target_path = out / 'data' / (st['id'] + '.json')
-                if previous_path.resolve() != target_path.resolve():
-                    shutil.copyfile(previous_path, target_path)
+                previous = json.loads(previous_path.read_text(encoding='utf-8'))
+                previous['build_state'] = 'retained'
+                target_path.write_text(json.dumps(previous, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
             continue
         sync = meta.get(st['id'], {})
         days = {}
@@ -446,7 +460,7 @@ def _compile(now, out, prior, source_log):
     competition_data.export(out, venues, predict_groups.entered_distances, config['season'])
     penalty_protocol.export(out, config)
     predict_groups.export(out, venues, schedules)
-    site_catalog.export(out, season, schedules)
+    site_catalog.export(out, season)
     history_data.export(out, calendar=season)
     try:
         subprocess.run(

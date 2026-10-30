@@ -451,20 +451,7 @@
   }
 
   /* ---------- data ---------- */
-  const fetchData = async (file) => {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
-    try {
-      const response = await fetch('/data/' + file, {
-        cache: file === 'calendar.json' ? 'default' : 'no-cache',
-        signal: controller.signal
-      });
-      if (!response.ok) throw new Error('数据请求失败: ' + response.status);
-      return await response.json();
-    } finally {
-      clearTimeout(timeout);
-    }
-  };
+  const fetchData = (file) => window.SSTS.ui.requestJSON('/data/' + file);
   function prepare(data) {
     const stages = new Map();
     for (const r of data.entries) {
@@ -485,6 +472,13 @@
     if (detail && detail.entries.length) {
       const e = detail.entries;
       return { start: e[0].t, end: e[e.length - 1].t + 45 * 60000, exact: true };
+    }
+    if (st.schedule_summary) {
+      return {
+        start: Date.parse(st.schedule_summary.first_start),
+        end: Date.parse(st.schedule_summary.last_start) + 45 * 60000,
+        exact: true
+      };
     }
     return {
       start: zoned(st.date_start, '00:00', st.timezone),
@@ -569,15 +563,10 @@
         );
       slot.querySelector('.athlete-load-error')?.remove();
       const task = (async () => {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 8000);
         try {
-          const response = await fetch(
-            '/api/v1/events/' + encodeURIComponent(station.id) + '/' + resource,
-            { signal: controller.signal }
+          const value = await window.SSTS.ui.requestJSON(
+            '/api/v1/events/' + encodeURIComponent(station.id) + '/' + resource
           );
-          if (!response.ok) throw new Error('请求失败');
-          const value = await response.json();
           if (
             value.schema_version !== 1 ||
             value.event_id !== station.id ||
@@ -639,7 +628,6 @@
           );
           if (resource === 'rounds') status.hidden = false;
         } finally {
-          clearTimeout(timeout);
           pending.delete(resource);
           slot.removeAttribute('aria-busy');
         }
@@ -1221,7 +1209,7 @@
   }
 
   /* ---------- season page ---------- */
-  function renderSeason(cal, details) {
+  function renderSeason(cal, details = {}) {
     setClocks([['北京时间', BJ]]);
     const stations = cal.stations.map((st, i) => ({
       ...st,
@@ -1649,7 +1637,7 @@
               'st-card',
               'is-' + ph,
               st === focus && 'is-focus',
-              st.detail && 'has-detail'
+              (st.detail || st.schedule_summary) && 'has-detail'
             ),
             href: stationHref(st.id),
             style: { '--d': st.n * 50 + 'ms' }
@@ -1690,13 +1678,15 @@
           h(
             'p',
             { class: 'st-foot' },
-            st.detail
+            st.detail || st.schedule_summary
               ? [
                   h(
                     'span',
                     { class: 'ok-text' },
                     icon('check'),
-                    '已录入 ' + st.detail.entries.length + ' 个轮次'
+                    '已录入 ' +
+                      (st.detail?.entries.length ?? st.schedule_summary.total_items) +
+                      ' 个轮次'
                   ),
                   icon('arrow')
                 ]
@@ -1774,7 +1764,7 @@
       { class: 'hero-copy' },
       h('p', {
         class: 'eyebrow',
-        text: '第 ' + idx + ' 站 · ' + cal.season + ' ISU 短道速滑世界巡回赛'
+        text: '第 ' + idx + ' 站 · ' + cal.season + ' 世巡赛'
       }),
       h('h1', {}, station.city + '站', h('small', { text: station.city_en })),
       eventMeta(station, win, false, Boolean(data && data.status === 'provisional')),
@@ -1833,12 +1823,14 @@
 
   function syncLine(data) {
     const at = data.sync && data.sync.last_successful_schedule_check_utc;
-    if (!at)
+    if (!at || data.build_state === 'retained')
       return h(
         'p',
         { class: 'sync sync-bad' },
         icon('alert'),
-        '官方赛程核对尚未成功，当前显示上次可信快照'
+        data.build_state === 'retained'
+          ? '本次更新未通过校验，显示上次赛程'
+          : '官方赛程核对尚未成功，当前显示上次可信快照'
       );
     const t = Date.parse(at);
     const rel = h('span');
@@ -1850,7 +1842,7 @@
       'p',
       { class: 'sync', title: '北京时间 ' + md(p.date) + ' ' + p.hm },
       h('i', { class: 'dot-ok' }),
-      '已与 ISU 官方赛程核对 · ',
+      '赛程已核对 · ',
       rel
     );
   }
@@ -3083,12 +3075,7 @@
       );
     } else if (route.page === 'events') {
       document.title = calendar.season + ' 赛事｜短道速滑';
-      const loaded = await Promise.all(calendar.stations.map(detailFor));
-      const details = {};
-      calendar.stations.forEach((st, i) => {
-        if (loaded[i]) details[st.id] = loaded[i];
-      });
-      renderSeason(calendar, details);
+      renderSeason(calendar);
     } else if (route.page === 'results') {
       document.title = '成绩｜短道速滑';
       if (!window.SSTS.results) {
