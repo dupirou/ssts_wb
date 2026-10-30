@@ -2,6 +2,26 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "384f78a8285dad7e",
+      "station": "montreal",
+      "at": "2026-10-30T20:01:22+00:00",
+      "local_date": "2026-10-30",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 7,
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG",
+        "Long SUN",
+        "Yiding ZHU"
+      ]
+    },
+    {
       "id": "92d0115bfa2f32e6",
       "station": "montreal",
       "at": "2026-10-30T19:31:20+00:00",
@@ -3075,23 +3095,6 @@
           "rank": 1,
           "status": "advanced"
         }
-      ]
-    },
-    {
-      "id": "107438c7dfb50cae",
-      "station": "vancouver",
-      "at": "2026-10-24T01:01:18+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "China"
       ]
     }
   ]
