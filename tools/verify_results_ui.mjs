@@ -101,6 +101,42 @@ try{
       await context.close();
     }
   }
+  // Station acceptance: phone-sized programme cards must be full-width, never a
+  // two-column tablet grid. Keep actual browser screenshots as review evidence.
+  for (const width of [320,390,430]){
+    const path='/events/2026-27/montreal/?day=2026-10-31';
+    const {context,page}=await pageAt(current.origin,path,width);
+    await page.waitForSelector('.scroll tbody .match-row');
+    const layout=await page.locator('.scroll tbody').first().evaluate(el=>{
+      const full=el.getBoundingClientRect();
+      const cards=[...el.children].filter(child=>child.classList.contains('match-row')).slice(0,6);
+      return {full:{x:full.x,width:full.width},cards:cards.map(card=>{
+        const r=card.getBoundingClientRect();
+        return {x:r.x,width:r.width};
+      }),columns:getComputedStyle(el).gridTemplateColumns};
+    });
+    assert.ok(layout.cards.length>=3,'Montreal programme cards must be present');
+    assert.ok(layout.cards.every(card=>Math.abs(card.x-layout.full.x)<=2&&Math.abs(card.width-layout.full.width)<=2),'Mobile schedule cards must be full-width and single-column');
+    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Montreal phone page must not overflow horizontally');
+    if(width===390){
+      await page.screenshot({path:join(out,'screenshots','montreal-top-390.png'),fullPage:false});
+      await page.locator('.schedule-overview > summary').click();
+      await page.waitForSelector('.finals-list li');
+      const medals=await page.locator('.finals-list').evaluate(el=>{
+        const full=el.getBoundingClientRect();
+        const items=[...el.querySelectorAll(':scope > li')].slice(0,5).map(card=>card.getBoundingClientRect());
+        return items.every(r=>Math.abs(r.x-full.x)<=2&&Math.abs(r.width-full.width)<=2);
+      });
+      assert.ok(medals,'Mobile medal cards must also be single-column');
+      await page.locator('.finals-list li').first().scrollIntoViewIfNeeded();
+      await page.screenshot({path:join(out,'screenshots','montreal-medals-390.png'),fullPage:false});
+      await page.locator('.schedule-overview > summary').click();
+    }
+    await page.locator('.scroll tbody .match-row').first().scrollIntoViewIfNeeded();
+    await page.screenshot({path:join(out,'screenshots','montreal-cards-'+width+'.png'),fullPage:false});
+    report.checks.push({name:'Montreal mobile programme single column',width,columns:layout.columns,passed:true});
+    await context.close();
+  }
   // Old links and serialized filters restore actual records, not just controls.
   const {context,page}=await pageAt(current.origin,'/history/?season=all&page=2&gender=women&distance=3000',390);
   const ids=await page.locator('.results-table tbody').evaluateAll(es=>es.map(e=>e.dataset.event));

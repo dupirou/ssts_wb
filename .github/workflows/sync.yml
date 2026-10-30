@@ -120,6 +120,18 @@ jobs:
             done
           fi
 
+      # On source pushes, keep browser screenshots of the actual Montreal phone layout.
+      # Scheduled/dispatch syncs do not repeat this expensive visual acceptance step.
+      - name: Screenshot and verify mobile station cards
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          PLAYWRIGHT_CHROMIUM_EXECUTABLE="$(command -v google-chrome)" node tools/verify_results_ui.mjs
+      - name: Upload phone layout screenshots
+        if: ${{ always() && github.event_name == 'push' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: mobile-station-layout
+          path: artifacts/ui/screenshots/montreal-*.png
       # Success means all four fetchers, build, tests, and publish completed without unexpected failure.
       # Safe source validation refusals remain visible as warnings and never replace accepted data.
       - name: Emit successful sync heartbeat
