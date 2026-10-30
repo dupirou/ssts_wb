@@ -1592,8 +1592,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-30T19:41:18+00:00",
-    "updated_at": "2026-10-30T19:41:18+00:00",
+    "checked_at": "2026-10-30T19:51:18+00:00",
+    "updated_at": "2026-10-30T19:51:18+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16034&round=22924",
@@ -9651,24 +9651,12 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-10-30T15:37:00.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-30T15:37:54.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16040&round=22954",
         "participants": [
-          {
-            "athlete_id": "ath-bee9da3654fa7dbc10d1",
-            "name": "Petra VANKOVA",
-            "country": "CZE",
-            "official_skater_id": 7398,
-            "helmet_number": 33,
-            "starting_position": 2,
-            "rank": 1,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-5a7e933f9339f1d8f8c6",
             "name": "Courtney SARAULT",
@@ -9677,8 +9665,8 @@
             "helmet_number": 1,
             "starting_position": 1,
             "rank": 1,
-            "result": "2:31.540",
-            "qualification": null,
+            "result": "2:31.500",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -9689,8 +9677,8 @@
             "helmet_number": 56,
             "starting_position": 4,
             "rank": 2,
-            "result": "2:31.730",
-            "qualification": null,
+            "result": "2:31.711",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -9701,8 +9689,8 @@
             "helmet_number": 32,
             "starting_position": 5,
             "rank": 3,
-            "result": "2:31.870",
-            "qualification": null,
+            "result": "2:31.850",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -9713,7 +9701,7 @@
             "helmet_number": 24,
             "starting_position": 3,
             "rank": 4,
-            "result": "2:32.810",
+            "result": "2:32.787",
             "qualification": null,
             "penalty": null
           },
@@ -9725,7 +9713,19 @@
             "helmet_number": 83,
             "starting_position": 7,
             "rank": 5,
-            "result": "2:33.670",
+            "result": "2:33.645",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-bee9da3654fa7dbc10d1",
+            "name": "Petra VANKOVA",
+            "country": "CZE",
+            "official_skater_id": 7398,
+            "helmet_number": 33,
+            "starting_position": 2,
+            "rank": 6,
+            "result": "no time",
             "qualification": null,
             "penalty": null
           },
@@ -9736,10 +9736,13 @@
             "official_skater_id": 18274,
             "helmet_number": 64,
             "starting_position": 6,
-            "rank": 6,
-            "result": "2:39.780",
+            "rank": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -9755,9 +9758,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-10-30T15:41:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-30T15:43:42.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16040&round=22954",
         "participants": [
@@ -9768,9 +9771,9 @@
             "official_skater_id": 1231,
             "helmet_number": 4,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "2:36.528",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -9780,9 +9783,9 @@
             "official_skater_id": 6380,
             "helmet_number": 79,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "2:36.599",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -9792,9 +9795,9 @@
             "official_skater_id": 7851,
             "helmet_number": 70,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "2:36.656",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -9804,7 +9807,31 @@
             "official_skater_id": 4137,
             "helmet_number": 31,
             "starting_position": 4,
-            "rank": null,
+            "rank": 4,
+            "result": "2:36.983",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-0741a07ece1921c12d58",
+            "name": "Pauliina KLEVSTUEN",
+            "country": "NOR",
+            "official_skater_id": 3543,
+            "helmet_number": 89,
+            "starting_position": 7,
+            "rank": 5,
+            "result": "2:42.102",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-5a3f248799f00b9b908f",
+            "name": "Lia MEAD",
+            "country": "NZL",
+            "official_skater_id": 17877,
+            "helmet_number": 81,
+            "starting_position": 6,
+            "rank": 6,
             "result": "no time",
             "qualification": null,
             "penalty": null
@@ -9817,33 +9844,12 @@
             "helmet_number": 46,
             "starting_position": 5,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-5a3f248799f00b9b908f",
-            "name": "Lia MEAD",
-            "country": "NZL",
-            "official_skater_id": 17877,
-            "helmet_number": 81,
-            "starting_position": 6,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-0741a07ece1921c12d58",
-            "name": "Pauliina KLEVSTUEN",
-            "country": "NOR",
-            "official_skater_id": 3543,
-            "helmet_number": 89,
-            "starting_position": 7,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -9859,24 +9865,12 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-10-30T15:45:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-10-30T15:50:16.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16040&round=22954",
         "participants": [
-          {
-            "athlete_id": "ath-3e79769fe95fdcfb1c3e",
-            "name": "Gilli KIM",
-            "country": "KOR",
-            "official_skater_id": 3406,
-            "helmet_number": 5,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-f5df095326a0281962ea",
             "name": "Jianing ZHANG",
@@ -9884,6 +9878,18 @@
             "official_skater_id": 8090,
             "helmet_number": 55,
             "starting_position": 2,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-6341667ddb63ec55f914",
+            "name": "Diede VAN OORSCHOT",
+            "country": "NED",
+            "official_skater_id": 7365,
+            "helmet_number": 36,
+            "starting_position": 5,
             "rank": null,
             "result": "no time",
             "qualification": null,
@@ -9914,12 +9920,12 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-6341667ddb63ec55f914",
-            "name": "Diede VAN OORSCHOT",
-            "country": "NED",
-            "official_skater_id": 7365,
-            "helmet_number": 36,
-            "starting_position": 5,
+            "athlete_id": "ath-32780e84744937993fa2",
+            "name": "Ann-Sophie BACHAND",
+            "country": "CAN",
+            "official_skater_id": 457,
+            "helmet_number": 51,
+            "starting_position": 7,
             "rank": null,
             "result": "no time",
             "qualification": null,
@@ -9938,14 +9944,14 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-32780e84744937993fa2",
-            "name": "Ann-Sophie BACHAND",
-            "country": "CAN",
-            "official_skater_id": 457,
-            "helmet_number": 51,
-            "starting_position": 7,
+            "athlete_id": "ath-3e79769fe95fdcfb1c3e",
+            "name": "Gilli KIM",
+            "country": "KOR",
+            "official_skater_id": 3406,
+            "helmet_number": 5,
+            "starting_position": 1,
             "rank": null,
-            "result": "no time",
+            "result": "DNS",
             "qualification": null,
             "penalty": null
           }
