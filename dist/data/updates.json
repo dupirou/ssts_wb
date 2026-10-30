@@ -2,6 +2,47 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "1f50b2115f857271",
+      "station": "montreal",
+      "at": "2026-10-30T20:51:35+00:00",
+      "local_date": "2026-10-30",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG",
+        "Long SUN",
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Kerui SONG",
+          "rank": 5,
+          "status": "out"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Yiding ZHU",
+          "rank": 3,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "8e7b1d2402157fef",
       "station": "montreal",
       "at": "2026-10-30T20:31:23+00:00",
@@ -3091,29 +3132,6 @@
       "format": "individual",
       "previous": "2026-10-25 02:27",
       "current": "2026-10-25 02:30"
-    },
-    {
-      "id": "9a25a0b1690f5509",
-      "station": "vancouver",
-      "at": "2026-10-24T01:41:19+00:00",
-      "local_date": "2026-10-23",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 3,
-          "status": "out"
-        }
-      ]
     }
   ]
 }

@@ -9,6 +9,7 @@
     "montreal/round/2026-10-30/qualifying/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/1500/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/1500/quarterfinal/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/men/1500/quarterfinal/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/500/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/500/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/groups": "published",
@@ -309,29 +310,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "9a25a0b1690f5509",
-      "station": "vancouver",
-      "at": "2026-10-24T01:41:19+00:00",
-      "local_date": "2026-10-23",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 3,
-          "status": "out"
-        }
-      ]
-    },
     {
       "id": "2dce2947b214f33a",
       "station": "vancouver",
@@ -3422,6 +3400,47 @@
       "kind": "groups",
       "heats": 4,
       "china": []
+    },
+    {
+      "id": "1f50b2115f857271",
+      "station": "montreal",
+      "at": "2026-10-30T20:51:35+00:00",
+      "local_date": "2026-10-30",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG",
+        "Long SUN",
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Kerui SONG",
+          "rank": 5,
+          "status": "out"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Yiding ZHU",
+          "rank": 3,
+          "status": "advanced"
+        }
+      ]
     }
   ]
 }

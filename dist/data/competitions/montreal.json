@@ -2255,8 +2255,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-30T20:41:23+00:00",
-    "updated_at": "2026-10-30T20:41:23+00:00",
+    "checked_at": "2026-10-30T20:51:35+00:00",
+    "updated_at": "2026-10-30T20:51:35+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16034&round=22924",
@@ -10355,7 +10355,7 @@
             "starting_position": 6,
             "rank": 3,
             "result": "2:17.049",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -10447,7 +10447,7 @@
             "starting_position": 2,
             "rank": 3,
             "result": "2:20.375",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -10539,7 +10539,7 @@
             "starting_position": 3,
             "rank": 3,
             "result": "2:24.021",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -10631,7 +10631,7 @@
             "starting_position": 2,
             "rank": 3,
             "result": "2:20.829",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -10726,7 +10726,7 @@
             "starting_position": 2,
             "rank": 3,
             "result": "2:21.667",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -10780,8 +10780,8 @@
         "heat_number": 6,
         "heat_label": "Heat 6",
         "source_start": "2026-10-30T16:38:24.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22949",
         "participants": [
@@ -10793,8 +10793,8 @@
             "helmet_number": 16,
             "starting_position": 1,
             "rank": 1,
-            "result": "2:16.380",
-            "qualification": null,
+            "result": "2:16.363",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -10805,8 +10805,8 @@
             "helmet_number": 42,
             "starting_position": 4,
             "rank": 2,
-            "result": "2:16.540",
-            "qualification": null,
+            "result": "2:16.518",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -10817,8 +10817,8 @@
             "helmet_number": 25,
             "starting_position": 2,
             "rank": 3,
-            "result": "2:17.830",
-            "qualification": null,
+            "result": "2:17.819",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -10829,7 +10829,7 @@
             "helmet_number": 41,
             "starting_position": 3,
             "rank": 4,
-            "result": "2:17.870",
+            "result": "2:17.852",
             "qualification": null,
             "penalty": null
           },
@@ -10841,7 +10841,7 @@
             "helmet_number": 115,
             "starting_position": 6,
             "rank": 5,
-            "result": "2:18.440",
+            "result": "2:18.423",
             "qualification": null,
             "penalty": null
           },
@@ -10853,7 +10853,7 @@
             "helmet_number": 57,
             "starting_position": 5,
             "rank": 6,
-            "result": "2:19.010",
+            "result": "2:18.994",
             "qualification": null,
             "penalty": null
           }
@@ -10871,22 +10871,22 @@
         "group": null,
         "heat_number": 7,
         "heat_label": "Heat 7",
-        "source_start": "2026-10-30T16:36:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-30T16:42:50.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22949",
         "participants": [
           {
-            "athlete_id": "ath-e7991c93e1479da1d3f5",
-            "name": "Roberts KRUZBERGS",
-            "country": "LAT",
-            "official_skater_id": 3785,
-            "helmet_number": 10,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "athlete_id": "ath-775d347cc69597e5a04c",
+            "name": "Michal NIEWINSKI",
+            "country": "POL",
+            "official_skater_id": 5097,
+            "helmet_number": 33,
+            "starting_position": 4,
+            "rank": 1,
+            "result": "2:19.165",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -10896,33 +10896,9 @@
             "official_skater_id": 18324,
             "helmet_number": 94,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-287e3f34a4214820bcde",
-            "name": "Antoine GAGNON-LAMARCHE",
-            "country": "CAN",
-            "official_skater_id": 22304,
-            "helmet_number": 64,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-775d347cc69597e5a04c",
-            "name": "Michal NIEWINSKI",
-            "country": "POL",
-            "official_skater_id": 5097,
-            "helmet_number": 33,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "2:19.393",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -10932,9 +10908,9 @@
             "official_skater_id": 1657,
             "helmet_number": 60,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "2:20.583",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -10944,10 +10920,37 @@
             "official_skater_id": 5474,
             "helmet_number": 66,
             "starting_position": 6,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "2:38.811",
+            "qualification": "ADV",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-287e3f34a4214820bcde",
+            "name": "Antoine GAGNON-LAMARCHE",
+            "country": "CAN",
+            "official_skater_id": 22304,
+            "helmet_number": 64,
+            "starting_position": 3,
+            "rank": 5,
+            "result": "2:49.731",
             "qualification": null,
             "penalty": null
+          },
+          {
+            "athlete_id": "ath-e7991c93e1479da1d3f5",
+            "name": "Roberts KRUZBERGS",
+            "country": "LAT",
+            "official_skater_id": 3785,
+            "helmet_number": 10,
+            "starting_position": 1,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
