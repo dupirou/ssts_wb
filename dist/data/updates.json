@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "8e7b1d2402157fef",
+      "station": "montreal",
+      "at": "2026-10-30T20:31:23+00:00",
+      "local_date": "2026-11-01",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": []
+    },
+    {
       "id": "2d6174f06257b293",
       "station": "montreal",
       "at": "2026-10-30T20:21:25+00:00",
@@ -3099,21 +3114,6 @@
           "status": "out"
         }
       ]
-    },
-    {
-      "id": "4c109e8da4df1fbf",
-      "station": "vancouver",
-      "at": "2026-10-24T01:41:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
     }
   ]
 }
