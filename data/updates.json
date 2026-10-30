@@ -16,9 +16,11 @@
     "montreal/round/2026-10-30/qualifying/women/1000/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/1500/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/heats/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/women/500/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
+    "montreal/round/2026-10-31/repechage/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/groups": "published",
     "montreal/round/2026-11-01/repechage/men/1000/heats/-/groups": "published",
     "montreal/round/men/1000/individual/Preliminaries/None/groups": "published",
@@ -298,82 +300,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "8304baf4fc21aeca",
-      "station": "vancouver",
-      "at": "2026-10-23T21:21:22+00:00",
-      "local_date": "2026-10-23",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Bohao ZHANG",
-        "Long SUN",
-        "Zixia ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Bohao ZHANG",
-          "rank": 3,
-          "status": "repechage"
-        },
-        {
-          "name": "Long SUN",
-          "rank": 2,
-          "status": "advanced"
-        },
-        {
-          "name": "Zixia ZHANG",
-          "rank": 3,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "c1433b4cf9362ca1",
-      "station": "vancouver",
-      "at": "2026-10-23T22:01:20+00:00",
-      "local_date": "2026-10-23",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jianing ZHANG",
-          "rank": 3,
-          "status": "repechage"
-        },
-        {
-          "name": "Jiarui SONG",
-          "rank": 4,
-          "status": "advanced"
-        },
-        {
-          "name": "Li GONG",
-          "rank": 3,
-          "status": "repechage"
-        },
-        {
-          "name": "Yan ZHANG",
-          "rank": 4,
-          "status": "repechage"
-        }
-      ]
-    },
     {
       "id": "bbc286d7e91c9b20",
       "station": "vancouver",
@@ -3419,6 +3345,62 @@
         "Jiarui SONG",
         "Ye WANG"
       ]
+    },
+    {
+      "id": "cbf6973e50c2d3af",
+      "station": "montreal",
+      "at": "2026-10-30T17:51:26+00:00",
+      "local_date": "2026-10-30",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Ye WANG"
+      ],
+      "china_results": [
+        {
+          "name": "Chutong ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Jianing ZHANG",
+          "rank": 3,
+          "status": "advanced"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 3,
+          "status": "advanced"
+        },
+        {
+          "name": "Ye WANG",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "f48bc67a52e2c6b3",
+      "station": "montreal",
+      "at": "2026-10-30T17:51:26+00:00",
+      "local_date": "2026-10-31",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": []
     }
   ]
 }
