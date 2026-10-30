@@ -94,13 +94,13 @@ def next_property(body, property_name):
         content = script.get_text()
         for match in re.finditer(r'self\.__next_f\.push\(', content):
             try:
-                frame, _ = decoder.raw_decode(content[match.end():])
+                frame, _ = decoder.raw_decode(content[match.end() :])
             except ValueError:
                 continue
             if len(frame) < 2 or not isinstance(frame[1], str):
                 continue
             pos = frame[1].find(marker)
             if pos >= 0:
-                value, _ = decoder.raw_decode(frame[1][pos + len(marker):])
+                value, _ = decoder.raw_decode(frame[1][pos + len(marker) :])
                 return value
     raise ValueError('Missing ISU ' + property_name)

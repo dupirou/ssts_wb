@@ -493,8 +493,15 @@
     };
   }
   const phase = (w) =>
-    !w.exact ? (now() < w.end ? 'upcoming' : 'done') :
-    now() < w.start ? 'upcoming' : now() < w.end ? 'live' : 'done';
+    !w.exact
+      ? now() < w.end
+        ? 'upcoming'
+        : 'done'
+      : now() < w.start
+        ? 'upcoming'
+        : now() < w.end
+          ? 'live'
+          : 'done';
   function liveIndex(entries) {
     const next = entries.findIndex((r) => r.t > now());
     return next < 0 ? entries.length : next;
@@ -1299,23 +1306,44 @@
     return h(
       'ul',
       { class: 'meta-list meta-inline' },
-      h('li', {}, icon('calendar'),
-        dot(event.date_start) + ' ' + wk(event.date_start) +
-          ' — ' + dot(event.date_end) + ' ' + wk(event.date_end)),
-      h('li', {}, icon('pin'),
-        (includeCity ? event.city + ' · ' : '') + (event.venue || '场馆待公布')),
-      h('li', {}, icon('globe'),
-        utcLabel(event.timezone, win.start) + ' · ' + bjDiff(event.timezone, win.start)),
+      h(
+        'li',
+        {},
+        icon('calendar'),
+        dot(event.date_start) +
+          ' ' +
+          wk(event.date_start) +
+          ' — ' +
+          dot(event.date_end) +
+          ' ' +
+          wk(event.date_end)
+      ),
+      h(
+        'li',
+        {},
+        icon('pin'),
+        (includeCity ? event.city + ' · ' : '') + (event.venue || '场馆待公布')
+      ),
+      h(
+        'li',
+        {},
+        icon('globe'),
+        utcLabel(event.timezone, win.start) + ' · ' + bjDiff(event.timezone, win.start)
+      ),
       provisional ? h('li', { class: 'meta-note' }, icon('alert'), 'ISU 暂定赛程') : null
     );
   }
   function eventResultsLink(event) {
     return event.results_event_id
-      ? h('p', {}, h('a', {
-          class: 'text-link',
-          href: '/results/events/' + encodeURIComponent(event.results_event_id) + '/',
-          text: '中国队成绩 →'
-        }))
+      ? h(
+          'p',
+          {},
+          h('a', {
+            class: 'text-link',
+            href: '/results/events/' + encodeURIComponent(event.results_event_id) + '/',
+            text: '中国队成绩 →'
+          })
+        )
       : null;
   }
 
@@ -1601,19 +1629,18 @@
     for (const st of stations) {
       const ph = phase(st.win);
       const days = Math.max(0, Math.ceil((st.win.start - now()) / DAY));
-      const pill =
-        st.dataError
-          ? h('span', { class: 'pill', text: '赛程读取失败' })
-          : !st.win.exact && now() >= st.win.start && now() < st.win.end
-            ? h('span', { class: 'pill', text: '比赛日期内' })
-            : ph === 'live'
-          ? h('span', { class: 'pill pill-live' }, h('i', { class: 'pulse' }), '进行中')
-          : ph === 'done'
-            ? h('span', { class: 'pill', text: '已结束' })
-            : h('span', {
-                class: cls('pill', st === focus && 'pill-accent'),
-                text: (st === focus ? '下一站 · ' : '') + days + ' 天后'
-              });
+      const pill = st.dataError
+        ? h('span', { class: 'pill', text: '赛程读取失败' })
+        : !st.win.exact && now() >= st.win.start && now() < st.win.end
+          ? h('span', { class: 'pill', text: '比赛日期内' })
+          : ph === 'live'
+            ? h('span', { class: 'pill pill-live' }, h('i', { class: 'pulse' }), '进行中')
+            : ph === 'done'
+              ? h('span', { class: 'pill', text: '已结束' })
+              : h('span', {
+                  class: cls('pill', st === focus && 'pill-accent'),
+                  text: (st === focus ? '下一站 · ' : '') + days + ' 天后'
+                });
       grid.append(
         h(
           'a',
@@ -1836,8 +1863,14 @@
       h('p', { class: 'live-label', text: '详细赛程待公布' }),
       h('p', {
         class: 'live-sub',
-        text: '比赛日期 · ' + dot(event.date_start) + ' — ' + dot(event.date_end) +
-          ' · ' + event.city + '当地时间'
+        text:
+          '比赛日期 · ' +
+          dot(event.date_start) +
+          ' — ' +
+          dot(event.date_end) +
+          ' · ' +
+          event.city +
+          '当地时间'
       })
     );
   }

@@ -492,7 +492,16 @@
       exact: false
     };
   }
-  const phase = (w) => (now() < w.start ? 'upcoming' : now() < w.end ? 'live' : 'done');
+  const phase = (w) =>
+    !w.exact
+      ? now() < w.end
+        ? 'upcoming'
+        : 'done'
+      : now() < w.start
+        ? 'upcoming'
+        : now() < w.end
+          ? 'live'
+          : 'done';
   function liveIndex(entries) {
     const next = entries.findIndex((r) => r.t > now());
     return next < 0 ? entries.length : next;
@@ -656,7 +665,7 @@
     };
   }
 
-  function stationTabs(schedule, competition) {
+  function stationTabs(schedule, competition, hasSchedule = true) {
     const sections = { schedule, athletes: competition.athletes };
     if (competition.predictions) sections.predictions = competition.predictions;
     const labels = { schedule: '赛程', athletes: '报名名单', predictions: '分组预测' };
@@ -723,7 +732,7 @@
     requestAnimationFrame(() =>
       setTimeout(() => {
         if (!interacted) competition.show(selected);
-        competition.startRounds();
+        if (hasSchedule) competition.startRounds();
       }, 0)
     );
     return [nav, ...Object.values(sections)];
@@ -767,6 +776,7 @@
     const body = h('div', { class: 'prediction-body', 'aria-live': 'polite' });
     const reasons = {
       schedule: '轮次赛程待公布',
+      refresh: '预测数据暂时无法核实',
       distance_entries: '单项报名待公布',
       prequalification_tie: '直通名额出现并列，待官方名单',
       prequalification_list: '直通名单待官方公布'
@@ -1216,12 +1226,11 @@
     const stations = cal.stations.map((st, i) => ({
       ...st,
       n: i + 1,
-      win: stationWindow(st, details[st.id]),
-      detail: details[st.id]
+      win: stationWindow(st, details[st.id]?.load_error ? null : details[st.id]),
+      detail: details[st.id]?.load_error ? null : details[st.id],
+      dataError: Boolean(details[st.id]?.load_error)
     }));
-    const focus =
-      stations.find((st) => phase(st.win) === 'live') ||
-      stations.find((st) => phase(st.win) === 'upcoming');
+    const focus = window.SSTS.ui.findFocus(stations, phase);
     const first = stations[0],
       last = stations[stations.length - 1];
     const lastEvent = cal.championships?.at(-1) || last;
@@ -1292,6 +1301,52 @@
     );
   }
 
+  // Shared hero metadata across World Tour stations and championships.
+  function eventMeta(event, win, includeCity = false, provisional = false) {
+    return h(
+      'ul',
+      { class: 'meta-list meta-inline' },
+      h(
+        'li',
+        {},
+        icon('calendar'),
+        dot(event.date_start) +
+          ' ' +
+          wk(event.date_start) +
+          ' — ' +
+          dot(event.date_end) +
+          ' ' +
+          wk(event.date_end)
+      ),
+      h(
+        'li',
+        {},
+        icon('pin'),
+        (includeCity ? event.city + ' · ' : '') + (event.venue || '场馆待公布')
+      ),
+      h(
+        'li',
+        {},
+        icon('globe'),
+        utcLabel(event.timezone, win.start) + ' · ' + bjDiff(event.timezone, win.start)
+      ),
+      provisional ? h('li', { class: 'meta-note' }, icon('alert'), 'ISU 暂定赛程') : null
+    );
+  }
+  function eventResultsLink(event) {
+    return event.results_event_id
+      ? h(
+          'p',
+          {},
+          h('a', {
+            class: 'text-link',
+            href: '/results/events/' + encodeURIComponent(event.results_event_id) + '/',
+            text: '中国队成绩 →'
+          })
+        )
+      : null;
+  }
+
   function renderChampionship(cal, event) {
     setClocks([
       ['北京时间', BJ],
@@ -1303,42 +1358,9 @@
       { class: 'hero-copy' },
       h('p', { class: 'eyebrow', text: cal.season + ' · ISU 短道速滑世界锦标赛' }),
       h('h1', {}, event.title, h('small', { text: event.city_en })),
-      h(
-        'ul',
-        { class: 'meta-list meta-inline' },
-        h(
-          'li',
-          {},
-          icon('calendar'),
-          dot(event.date_start) +
-            ' ' +
-            wk(event.date_start) +
-            ' — ' +
-            dot(event.date_end) +
-            ' ' +
-            wk(event.date_end)
-        ),
-        h('li', {}, icon('pin'), event.city + ' · ' + (event.venue || '场馆待公布')),
-        h(
-          'li',
-          {},
-          icon('globe'),
-          utcLabel(event.timezone, win.start) + ' · ' + bjDiff(event.timezone, win.start)
-        )
-      )
+      eventMeta(event, win, true),
+      eventResultsLink(event)
     );
-    if (event.results_event_id)
-      copy.append(
-        h(
-          'p',
-          {},
-          h('a', {
-            class: 'text-link',
-            href: '/results/events/' + encodeURIComponent(event.results_event_id) + '/',
-            text: '中国队成绩 →'
-          })
-        )
-      );
     const official = () => officialPage(cal, event);
     // Nothing is published for a championship yet, so there is one panel and no tabs to switch.
     const schedule = h(
@@ -1355,7 +1377,7 @@
     );
     root.replaceChildren(
       stationNav(cal, event),
-      h('section', { class: 'station-hero' }, copy, pendingCard(win)),
+      h('section', { class: 'station-hero' }, copy, pendingCard(event)),
       schedule
     );
   }
@@ -1376,7 +1398,7 @@
           'span',
           { class: cls('pill', live ? 'pill-live' : 'pill-accent') },
           live ? h('i', { class: 'pulse' }) : null,
-          live ? '正在进行' : '下一站'
+          live ? '正在进行' : st.detail ? '下一站' : '赛事日期'
         ),
         h('span', { text: st.isChampionship ? '世锦赛' : '第 ' + st.n + ' 站' })
       ),
@@ -1465,11 +1487,11 @@
           item.textContent = '';
         }
       } else {
-        label.textContent = '距开幕还有';
-        item.textContent = '详细赛程待公布 · 按当地 0 点倒计时';
+        label.textContent = st.dataError ? '赛程暂时无法读取' : '详细赛程待公布';
+        item.textContent = '比赛日期：' + dot(st.date_start) + ' — ' + dot(st.date_end);
       }
-      cd.hidden = target < now();
-      cd.set(target - now());
+      cd.hidden = !st.detail || target < now();
+      if (!cd.hidden) cd.set(target - now());
     });
     return h(
       'section',
@@ -1606,16 +1628,19 @@
     const grid = h('div', { class: 'st-grid' });
     for (const st of stations) {
       const ph = phase(st.win);
-      const days = Math.ceil((st.win.start - now()) / DAY);
-      const pill =
-        ph === 'live'
-          ? h('span', { class: 'pill pill-live' }, h('i', { class: 'pulse' }), '进行中')
-          : ph === 'done'
-            ? h('span', { class: 'pill', text: '已结束' })
-            : h('span', {
-                class: cls('pill', st === focus && 'pill-accent'),
-                text: (st === focus ? '下一站 · ' : '') + days + ' 天后'
-              });
+      const days = Math.max(0, Math.ceil((st.win.start - now()) / DAY));
+      const pill = st.dataError
+        ? h('span', { class: 'pill', text: '赛程读取失败' })
+        : !st.win.exact && now() >= st.win.start && now() < st.win.end
+          ? h('span', { class: 'pill', text: '比赛日期内' })
+          : ph === 'live'
+            ? h('span', { class: 'pill pill-live' }, h('i', { class: 'pulse' }), '进行中')
+            : ph === 'done'
+              ? h('span', { class: 'pill', text: '已结束' })
+              : h('span', {
+                  class: cls('pill', st === focus && 'pill-accent'),
+                  text: (st === focus ? '下一站 · ' : '') + days + ' 天后'
+                });
       grid.append(
         h(
           'a',
@@ -1675,7 +1700,7 @@
                   ),
                   icon('arrow')
                 ]
-              : h('span', { text: '详细赛程待公布' })
+              : h('span', { text: st.dataError ? '赛程暂时无法读取' : '详细赛程待公布' })
           )
         )
       );
@@ -1752,46 +1777,9 @@
         text: '第 ' + idx + ' 站 · ' + cal.season + ' ISU 短道速滑世界巡回赛'
       }),
       h('h1', {}, station.city + '站', h('small', { text: station.city_en })),
-      h(
-        'ul',
-        { class: 'meta-list meta-inline' },
-        h(
-          'li',
-          {},
-          icon('calendar'),
-          dot(station.date_start) +
-            ' ' +
-            wk(station.date_start) +
-            ' — ' +
-            dot(station.date_end) +
-            ' ' +
-            wk(station.date_end)
-        ),
-        h('li', {}, icon('pin'), station.venue || '场馆待公布'),
-        h(
-          'li',
-          {},
-          icon('globe'),
-          utcLabel(station.timezone, win.start) + ' · ' + bjDiff(station.timezone, win.start)
-        ),
-        data && data.status === 'provisional'
-          ? h('li', { class: 'meta-note' }, icon('alert'), 'ISU 暂定赛程')
-          : null
-      )
+      eventMeta(station, win, false, Boolean(data && data.status === 'provisional')),
+      eventResultsLink(station)
     );
-    if (station.results_event_id) {
-      copy.append(
-        h(
-          'p',
-          {},
-          h('a', {
-            class: 'text-link',
-            href: '/results/events/' + encodeURIComponent(station.results_event_id) + '/',
-            text: '中国队成绩 →'
-          })
-        )
-      );
-    }
     if (data) {
       copy.append(
         h(
@@ -1805,7 +1793,7 @@
       );
       copy.append(syncLine(data));
     }
-    const waiting = data ? null : pendingCard(win);
+    const waiting = data ? null : pendingCard(station);
     root.replaceChildren(
       stationNav(cal, station),
       h(
@@ -1819,16 +1807,20 @@
     const schedule = h('section', { class: 'schedule-content' });
 
     if (!data) {
-      // ISU may publish start lists before its complete programme passes validation.
-      // Show verified round/heat evidence without claiming that the whole schedule is final.
       schedule.append(
-        competition.status,
-        pendingRoundsPanel(station, (firstStart) => waiting.setOfficialFirstHeat(firstStart))
+        h(
+          'section',
+          { class: 'panel empty-state' },
+          trackArt('empty-track', 2),
+          h('h2', { text: '详细赛程待公布' }),
+          h('p', { class: 'faint', text: 'ISU 官方完整赛程公布并核实后在此显示' }),
+          officialPage(cal, station)
+        )
       );
     } else {
       scheduleView(data, station, schedule, competition.status);
     }
-    root.append(...stationTabs(schedule, competition));
+    root.append(...stationTabs(schedule, competition, Boolean(data)));
   }
 
   const stat = (v, label, className) =>
@@ -1863,155 +1855,24 @@
     );
   }
 
-  // prettier-ignore
-  function pendingCard(win) {
-    const cd = countdown('cd-lg');
-    let start = win.start;
-    let official = false;
-    const label = h('p', { class: 'live-label' });
-    const summary = h('p', { class: 'live-sub' });
-    const card = h('aside', { class: 'live-card' }, label, cd, summary);
-    function refresh() {
-      const ph = phase(win);
-      label.textContent =
-        ph === 'done'
-          ? '本站已结束'
-          : now() >= start
-            ? '本站正在进行'
-            : official
-              ? '距官方首组开赛还有'
-              : '距开幕还有';
-      cd.hidden = ph === 'done' || now() >= start;
-      if (!cd.hidden) cd.set(start - now());
-    }
-    function describe() {
-      const p = parts(BJ, start);
-      fill(
-        summary,
-        phrases(
-          '北京时间 ' + md(p.date) + ' ' + wk(p.date) + ' ' + dayPart(p.hm) + ' ' + p.hm +
-            (official ? ' 首组开赛' : ' 开幕'),
-          official ? 'ISU 首组计划时间' : '按当地 0 点'
-        )
-      );
-    }
-    card.setOfficialFirstHeat = (instant) => {
-      if (!Number.isFinite(instant) || instant < win.start || instant > win.end) return;
-      start = instant;
-      official = true;
-      describe();
-      refresh();
-    };
-    describe();
-    tick(refresh);
-    return card;
-  }
-
-  // Before a full programme is verified, the published start lists are still useful.
-  // Do not synthesize later rounds, or attach heats to a guessed schedule round_key.
-  // prettier-ignore
-  function pendingRoundsPanel(station, onFirstHeat) {
-    const status = h('p', { class: 'faint tiny', role: 'status', text: '正在读取官方分组…' });
-    const rounds = h('div', { class: 'pending-rounds' });
-    const box = h(
-      'section',
-      { class: 'panel pending-official-rounds' },
-      h('div', { class: 'panel-head' }, h('h2', { text: '已公布的官方分组' })),
-      status,
-      rounds,
-      h('p', { class: 'source-line' }, external(station.source_url, 'ISU 官方赛事页'))
+  // An event date does not establish an official first-round starting time.
+  function pendingCard(event) {
+    return h(
+      'aside',
+      { class: 'live-card' },
+      h('p', { class: 'live-label', text: '详细赛程待公布' }),
+      h('p', {
+        class: 'live-sub',
+        text:
+          '比赛日期 · ' +
+          dot(event.date_start) +
+          ' — ' +
+          dot(event.date_end) +
+          ' · ' +
+          event.city +
+          '当地时间'
+      })
     );
-
-    (async () => {
-      try {
-        const response = await fetch('/api/v1/events/' + encodeURIComponent(station.id) + '/rounds');
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        const data = await response.json();
-        if (
-          data.schema_version !== 1 ||
-          data.event_id !== station.id ||
-          data.resource !== 'rounds' ||
-          !Array.isArray(data.items)
-        ) throw new Error('Invalid official rounds response');
-        const byRound = new Map();
-        for (const heat of data.items) {
-          if (!['official_start_list', 'official_results'].includes(heat.evidence)) continue;
-          if (!heat.source_start || !Number.isFinite(Date.parse(heat.source_start))) continue;
-          const key = [heat.gender, heat.distance_m, heat.format, heat.round, heat.group || ''].join('/');
-          if (!byRound.has(key)) byRound.set(key, []);
-          byRound.get(key).push(heat);
-        }
-        if (!byRound.size) {
-          status.textContent = '分组尚未公布；详细赛程也尚未核实。';
-          return;
-        }
-        const published = [...byRound.values()].map((heats) => {
-          heats.sort((a, b) => (a.heat_number || 0) - (b.heat_number || 0));
-          return { heats, first: heats[0], start: Math.min(...heats.map((h) => Date.parse(h.source_start))) };
-        }).sort((a, b) => a.start - b.start);
-        const groupCount = published.reduce((total, item) => total + item.heats.length, 0);
-        status.textContent =
-          '已公布 ' + published.length + ' 个项目轮次、' + groupCount +
-          ' 个小组；时间为 ISU 首组计划开始时间，其他轮次和完整赛程仍以官方后续公布为准。' +
-          (data.stale ? ' 当前显示最近一次已核实的快照。' : '');
-        onFirstHeat?.(published[0].start);
-        fill(
-          rounds,
-          published.map(({ heats, first, start }) => {
-            const p = parts(station.timezone, start);
-            const china = heats.flatMap((heat) =>
-              heat.participants.filter((person) => person.country === 'CHN').map((person) => ({
-                name: person.name,
-                number: heat.heat_number,
-                start: heat.source_start
-              }))
-            );
-            return h(
-              'article',
-              { class: 'competition-heat' },
-              h(
-                'div',
-                { class: 'competition-heat-head' },
-                h('h3', { text: eventName(first) + ' · ' + roundName(first) }),
-                h('span', { class: 'faint tiny', text: heats.length + ' 组' }),
-                h(
-                  'button',
-                  {
-                    type: 'button',
-                    class: 'btn btn-ghost btn-sm',
-                    onclick: () => showCompetition(first, heats)
-                  },
-                  '查看分组'
-                )
-              ),
-              h('p', {
-                class: 'faint tiny',
-                text:
-                  '首组 · 北京 ' + sourceTime(new Date(start).toISOString()) +
-                  ' · ' + station.city + ' ' + md(p.date) + ' ' + p.hm
-              }),
-              china.length
-                ? h(
-                    'p',
-                    { class: 'pending-china' },
-                    icon('star', 'ico ico-xs'),
-                    h('b', { text: 'CHN ' }),
-                    phrases(
-                      ...china.map((person) =>
-                        '第 ' + person.number + ' 组 ' + person.name +
-                        '（北京 ' + sourceTime(person.start) + '）'
-                      )
-                    )
-                  )
-                : null
-            );
-          })
-        );
-      } catch (_) {
-        status.textContent = '官方分组暂时无法读取，请通过 ISU 官方赛事页查看。';
-      }
-    })();
-    return box;
   }
 
   function liveCard(data, station) {
@@ -3182,7 +3043,7 @@
       st.detail_status === 'verified'
         ? fetchData(st.id + '.json')
             .then(prepare)
-            .catch(() => null)
+            .catch(() => ({ load_error: true }))
         : Promise.resolve(null);
     const context = {
       h,
@@ -3210,9 +3071,10 @@
     setClocks([['北京时间', BJ]]);
     if (route.page === 'home') {
       document.title = '短道速滑';
-      const focus =
-        calendar.stations.find((st) => phase(stationWindow(st, null)) === 'live') ||
-        calendar.stations.find((st) => phase(stationWindow(st, null)) === 'upcoming');
+      const focus = window.SSTS.ui.findFocus(
+        calendar.stations.map((st) => ({ ...st, win: stationWindow(st, null) })),
+        phase
+      );
       const detail = focus ? await detailFor(focus) : null;
       await window.SSTS.portal.home(
         context,

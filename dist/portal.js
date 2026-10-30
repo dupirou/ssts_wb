@@ -15,8 +15,9 @@
     const stations = calendar.stations.map((st, i) => ({
       ...st,
       n: i + 1,
-      detail: details[st.id],
-      win: stationWindow(st, details[st.id])
+      detail: details[st.id]?.load_error ? null : details[st.id],
+      dataError: Boolean(details[st.id]?.load_error),
+      win: stationWindow(st, details[st.id]?.load_error ? null : details[st.id])
     }));
     const events = [
       ...stations,
@@ -26,9 +27,7 @@
         win: stationWindow(st, null)
       }))
     ];
-    const focus =
-      events.find((s) => phase(s.win) === 'live') ||
-      events.find((s) => phase(s.win) === 'upcoming');
+    const focus = site.ui.findFocus(events, phase);
     root.replaceChildren(
       header(h, '短道速滑', calendar.season),
       focus
