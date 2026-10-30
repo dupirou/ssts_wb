@@ -15,6 +15,7 @@
     "montreal/round/2026-10-30/qualifying/women/1000/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/1000/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/1500/quarterfinal/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/women/500/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
@@ -297,26 +298,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "7c2154fd95e8657b",
-      "station": "vancouver",
-      "at": "2026-10-23T19:31:25+00:00",
-      "local_date": "2026-10-23",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Yiding ZHU",
-        "Zixia ZHANG"
-      ]
-    },
     {
       "id": "8304baf4fc21aeca",
       "station": "vancouver",
@@ -3417,6 +3398,26 @@
           "rank": 1,
           "status": "advanced"
         }
+      ]
+    },
+    {
+      "id": "7c57914c973ba37c",
+      "station": "montreal",
+      "at": "2026-10-30T17:01:37+00:00",
+      "local_date": "2026-10-30",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Ye WANG"
       ]
     }
   ]
