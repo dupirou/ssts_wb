@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "44d5a0d2eaf9f1cf",
+      "station": "montreal",
+      "at": "2026-10-30T14:11:22+00:00",
+      "local_date": "2026-10-31",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": []
+    },
+    {
       "id": "805515fcf430bbbf",
       "station": "montreal",
       "at": "2026-10-30T14:01:26+00:00",
@@ -3103,26 +3118,6 @@
           "rank": 3,
           "status": "repechage"
         }
-      ]
-    },
-    {
-      "id": "7a3e75c34656a308",
-      "station": "vancouver",
-      "at": "2026-10-23T18:11:21+00:00",
-      "local_date": "2026-10-23",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
       ]
     }
   ]

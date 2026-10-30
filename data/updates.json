@@ -14,6 +14,7 @@
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
+    "montreal/round/2026-10-31/repechage/men/500/heats/-/groups": "published",
     "montreal/round/men/1000/individual/Preliminaries/None/groups": "published",
     "montreal/round/men/1500/individual/Heats/None/groups": "published",
     "montreal/round/men/500/individual/Preliminaries/None/groups": "published",
@@ -291,26 +292,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "7a3e75c34656a308",
-      "station": "vancouver",
-      "at": "2026-10-23T18:11:21+00:00",
-      "local_date": "2026-10-23",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
-      ]
-    },
     {
       "id": "9030982b4e860712",
       "station": "vancouver",
@@ -3414,6 +3395,21 @@
         "Long SUN",
         "Zixia ZHANG"
       ]
+    },
+    {
+      "id": "44d5a0d2eaf9f1cf",
+      "station": "montreal",
+      "at": "2026-10-30T14:11:22+00:00",
+      "local_date": "2026-10-31",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": []
     }
   ]
 }
