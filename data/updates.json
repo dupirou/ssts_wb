@@ -9,7 +9,9 @@
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/5000/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/mixed/2000/quarterfinal/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/women/1000/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/1000/preliminaries/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/women/1000/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/1500/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
@@ -292,59 +294,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "9030982b4e860712",
-      "station": "vancouver",
-      "at": "2026-10-23T18:21:20+00:00",
-      "local_date": "2026-10-23",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Kerui SONG",
-        "Kun LI",
-        "Yiding ZHU"
-      ],
-      "china_results": [
-        {
-          "name": "Kerui SONG",
-          "rank": 5,
-          "status": "out"
-        },
-        {
-          "name": "Kun LI",
-          "rank": 4,
-          "status": "advanced"
-        },
-        {
-          "name": "Yiding ZHU",
-          "rank": 3,
-          "status": "repechage"
-        }
-      ]
-    },
-    {
-      "id": "0f8acc747b3f5acc",
-      "station": "vancouver",
-      "at": "2026-10-23T18:31:21+00:00",
-      "local_date": "2026-10-23",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "Kun LI",
-        "Long SUN"
-      ]
-    },
     {
       "id": "e6c9ef07678cc774",
       "station": "vancouver",
@@ -3410,6 +3359,49 @@
       "kind": "groups",
       "heats": 5,
       "china": []
+    },
+    {
+      "id": "530ea3be3950f77f",
+      "station": "montreal",
+      "at": "2026-10-30T14:31:19+00:00",
+      "local_date": "2026-10-30",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG",
+        "Yan ZHANG"
+      ]
+    },
+    {
+      "id": "c6fe8d9af1cef7db",
+      "station": "montreal",
+      "at": "2026-10-30T14:31:19+00:00",
+      "local_date": "2026-10-30",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
     }
   ]
 }
