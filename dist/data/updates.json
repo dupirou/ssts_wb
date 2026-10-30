@@ -2,6 +2,56 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "c4b62f899b76b03c",
+      "station": "montreal",
+      "at": "2026-10-30T15:21:22+00:00",
+      "local_date": "2026-11-01",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": []
+    },
+    {
+      "id": "6ee7f494bd4cd932",
+      "station": "montreal",
+      "at": "2026-10-30T15:21:22+00:00",
+      "local_date": "2026-10-30",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Kerui SONG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "c6fe8d9af1cef7db",
       "station": "montreal",
       "at": "2026-10-30T14:31:19+00:00",
@@ -3077,38 +3127,6 @@
           "status": "advanced"
         }
       ]
-    },
-    {
-      "id": "7a661a4b6716d55a",
-      "station": "vancouver",
-      "at": "2026-10-23T18:41:23+00:00",
-      "local_date": "2026-10-25",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 5,
-      "china": [
-        "Yiding ZHU"
-      ]
-    },
-    {
-      "id": "e6c9ef07678cc774",
-      "station": "vancouver",
-      "at": "2026-10-23T18:31:21+00:00",
-      "local_date": "2026-10-24",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
     }
   ]
 }

@@ -3,6 +3,7 @@
   "facts": {
     "montreal/entries": "6d94f2316ada41bc",
     "montreal/round/2026-10-30/qualifying/men/1000/preliminaries/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/men/1000/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/500/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/groups": "published",
@@ -17,6 +18,7 @@
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/groups": "published",
+    "montreal/round/2026-11-01/repechage/men/1000/heats/-/groups": "published",
     "montreal/round/men/1000/individual/Preliminaries/None/groups": "published",
     "montreal/round/men/1500/individual/Heats/None/groups": "published",
     "montreal/round/men/500/individual/Preliminaries/None/groups": "published",
@@ -294,38 +296,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "e6c9ef07678cc774",
-      "station": "vancouver",
-      "at": "2026-10-23T18:31:21+00:00",
-      "local_date": "2026-10-24",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
-    },
-    {
-      "id": "7a661a4b6716d55a",
-      "station": "vancouver",
-      "at": "2026-10-23T18:41:23+00:00",
-      "local_date": "2026-10-25",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 5,
-      "china": [
-        "Yiding ZHU"
-      ]
-    },
     {
       "id": "16b1f9033bd45615",
       "station": "vancouver",
@@ -3402,6 +3372,56 @@
           "status": "advanced"
         }
       ]
+    },
+    {
+      "id": "6ee7f494bd4cd932",
+      "station": "montreal",
+      "at": "2026-10-30T15:21:22+00:00",
+      "local_date": "2026-10-30",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Kerui SONG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "c4b62f899b76b03c",
+      "station": "montreal",
+      "at": "2026-10-30T15:21:22+00:00",
+      "local_date": "2026-11-01",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": []
     }
   ]
 }
