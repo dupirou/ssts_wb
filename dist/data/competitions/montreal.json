@@ -2255,8 +2255,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-30T16:21:17+00:00",
-    "updated_at": "2026-10-30T16:21:17+00:00",
+    "checked_at": "2026-10-30T16:31:24+00:00",
+    "updated_at": "2026-10-30T16:31:24+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16034&round=22924",
@@ -8555,7 +8555,13 @@
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-af09f532a44f36881523",
+                "name": "Etienne BASTIER",
+                "official_skater_id": 543
+              }
+            ]
           }
         ]
       },
