@@ -5,6 +5,7 @@
     "montreal/round/2026-10-30/qualifying/men/1000/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/1000/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/1500/heats/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/men/1500/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/500/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/results": "official",
@@ -296,41 +297,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "16b1f9033bd45615",
-      "station": "vancouver",
-      "at": "2026-10-23T19:11:21+00:00",
-      "local_date": "2026-10-23",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Kerui SONG",
-        "Yiding ZHU",
-        "Zixia ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Kerui SONG",
-          "rank": 6,
-          "status": "advanced"
-        },
-        {
-          "name": "Yiding ZHU",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Zixia ZHANG",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
     {
       "id": "7c2154fd95e8657b",
       "station": "vancouver",
@@ -3423,6 +3389,35 @@
       "kind": "groups",
       "heats": 5,
       "china": []
+    },
+    {
+      "id": "1d68d7a696c5ed21",
+      "station": "montreal",
+      "at": "2026-10-30T16:11:19+00:00",
+      "local_date": "2026-10-30",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Kerui SONG",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
     }
   ]
 }
