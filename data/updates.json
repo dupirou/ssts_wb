@@ -2,6 +2,8 @@
   "schema_version": 1,
   "facts": {
     "montreal/entries": "6d94f2316ada41bc",
+    "montreal/round/2026-10-30/qualifying/men/1000/heats/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/men/1000/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/1000/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/1000/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/1500/heats/-/groups": "published",
@@ -302,64 +304,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "2cf35ba0d87ac427",
-      "station": "vancouver",
-      "at": "2026-10-23T23:21:33+00:00",
-      "local_date": "2026-10-23",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Chutong ZHANG",
-          "rank": 2,
-          "status": "advanced"
-        },
-        {
-          "name": "Jianing ZHANG",
-          "rank": 2,
-          "status": "advanced"
-        },
-        {
-          "name": "Li GONG",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Yan ZHANG",
-          "rank": 3,
-          "status": "repechage"
-        }
-      ]
-    },
-    {
-      "id": "87d555214a864347",
-      "station": "vancouver",
-      "at": "2026-10-23T23:31:24+00:00",
-      "local_date": "2026-10-25",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 5,
-      "china": [
-        "Yan ZHANG"
-      ]
-    },
     {
       "id": "287b58b038ffbfb2",
       "station": "vancouver",
@@ -3438,6 +3382,67 @@
         {
           "name": "Yan ZHANG",
           "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "002fba6ba96b0b8c",
+      "station": "montreal",
+      "at": "2026-10-30T19:21:21+00:00",
+      "local_date": "2026-10-30",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG",
+        "Long SUN",
+        "Zixia ZHANG"
+      ]
+    },
+    {
+      "id": "e35390a0b4beff5e",
+      "station": "montreal",
+      "at": "2026-10-30T19:21:21+00:00",
+      "local_date": "2026-10-30",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG",
+        "Long SUN",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Kerui SONG",
+          "rank": 3,
+          "status": "advanced"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": 3,
           "status": "advanced"
         }
       ]
