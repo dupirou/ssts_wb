@@ -4,6 +4,7 @@
     "montreal/entries": "6d94f2316ada41bc",
     "montreal/round/2026-10-30/qualifying/men/1000/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/1500/heats/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/men/500/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/5000/quarterfinal/-/groups": "published",
@@ -290,41 +291,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "b834e80608eed635",
-      "station": "vancouver",
-      "at": "2026-10-23T18:04:35+00:00",
-      "local_date": "2026-10-23",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Yan ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jianing ZHANG",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Jiarui SONG",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Yan ZHANG",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
     {
       "id": "7a3e75c34656a308",
       "station": "vancouver",
@@ -3428,6 +3394,26 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "805515fcf430bbbf",
+      "station": "montreal",
+      "at": "2026-10-30T14:01:26+00:00",
+      "local_date": "2026-10-30",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "Bohao ZHANG",
+        "Kun LI",
+        "Long SUN",
+        "Zixia ZHANG"
+      ]
     }
   ]
 }
