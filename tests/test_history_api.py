@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import sys
 import unittest
+import tempfile
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
@@ -13,6 +15,27 @@ import import_olympic_history
 
 
 class HistoryApiTests(unittest.TestCase):
+    def test_source_cache_reuses_strict_transport_and_cached_response(self):
+        with tempfile.TemporaryDirectory() as temp:
+            cache = import_history_api.SourceCache(temp)
+            with patch.object(import_history_api.isu_transport, 'request_bytes', return_value=b'{}') as fetch:
+                first = cache.read(import_history_api.API + 'example', {'id': 1})
+                self.assertEqual(cache.read(import_history_api.API + 'example', {'id': 1}), first)
+                fetch.assert_called_once_with(
+                    import_history_api.API + 'example',
+                    hosts=import_history_api.SOURCE_HOSTS,
+                    max_bytes=20_000_000,
+                    form={'id': 1},
+                )
+                for url in (
+                    'http://front-api.isu.org/x',
+                    'https://user@front-api.isu.org/x',
+                    'https://front-api.isu.org:8443/x',
+                    'https://other.test/x',
+                ):
+                    with self.assertRaises(ValueError):
+                        cache.read(url)
+
     def test_official_distance_suffix_overrides_reversed_api_order(self):
         self.assertEqual(import_history_api.official_race_number({'name': 'Men 500 m (2)'}, 1), 2)
         self.assertEqual(import_history_api.official_race_number({'name': 'Men 500 m (1)'}, 2), 1)

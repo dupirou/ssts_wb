@@ -3476,7 +3476,8 @@ td.time {
     color: var(--text-2);
   }
   .match-row td.time .dt {
-    display: inline;
+    display: block;
+    white-space: nowrap;
     font-size: 0.7rem;
   }
   .match-row td.time .dt-same {
@@ -3484,6 +3485,7 @@ td.time {
   }
   .match-row td.event-cell {
     grid-area: e;
+    align-self: start;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -3506,6 +3508,33 @@ td.time {
     margin-top: 8px;
     padding-top: 8px;
     border-top: 1px solid var(--border-soft);
+  }
+  /* Put the action beside the round, instead of below the heat list. */
+  .match-row:not(.is-past) {
+    grid-template-areas: 't e g' 's r a' 'n n n';
+  }
+  .match-row:not(.is-past):has(td.group-cell.is-empty) td.event-cell {
+    grid-column: 2 / -1;
+  }
+  .match-row:not(.is-past) td.notes-cell:not(.is-empty) {
+    display: contents;
+  }
+  .match-row:not(.is-past) .notes-cell .competition-open {
+    grid-area: a;
+    margin: 0;
+    padding: 0;
+    min-height: 30px;
+    justify-self: end;
+    white-space: nowrap;
+  }
+  .match-row:not(.is-past) .heat-list:not(:empty) {
+    grid-area: n;
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .match-row .heat-list:empty {
+    display: none;
   }
   .match-row td.group-cell.is-empty,
   .match-row td.notes-cell.is-empty {
@@ -3698,14 +3727,14 @@ td.time {
     height: 22px;
   }
   .hero-copy h1 {
-    font-size: 2.1rem;
+    font-size: 1.85rem;
   }
   .station-hero {
     gap: 14px;
     margin-bottom: 16px;
   }
   .hero-copy {
-    gap: 10px;
+    gap: 8px;
   }
   .section-tabs {
     width: 100%;
@@ -3733,7 +3762,8 @@ td.time {
     font-size: 0.72rem;
   }
   .live-card {
-    padding: 20px 18px;
+    padding: 14px;
+    gap: 8px;
   }
   .cd-lg {
     font-size: 1.8rem;
@@ -4448,8 +4478,8 @@ td.time {
 .directory-card {
   display: grid;
   align-content: start;
-  gap: 12px;
-  padding: 20px;
+  gap: 6px;
+  padding: 12px;
 }
 .directory-identity {
   display: flex;
@@ -4485,10 +4515,11 @@ td.time {
   display: grid;
   gap: 10px;
   border-top: 1px solid var(--border);
-  padding-top: 12px;
+  padding-top: 6px;
 }
 .directory-rankings dl {
   display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   margin: 0;
   font-size: 0.86rem;
@@ -4496,8 +4527,8 @@ td.time {
 .directory-rankings dl > div {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px;
+  align-items: baseline;
+  gap: 2px 5px;
 }
 .directory-rankings dd {
   margin: 0;
@@ -4573,7 +4604,7 @@ td.time {
     min-width: 0;
   }
   .directory-card {
-    padding: 18px;
+    padding: 10px 12px;
   }
   .results-heading {
     margin-bottom: 10px;

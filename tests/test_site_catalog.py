@@ -12,7 +12,7 @@ import site_catalog
 
 
 class SiteCatalogTests(unittest.TestCase):
-    def test_directory_deduplicates_rosters_and_results_use_only_official_medal_finals(self):
+    def test_directory_deduplicates_rosters_without_unused_portal_feed(self):
         calendar = dict(season='2026/27', stations=[dict(id='one', city='甲'), dict(id='two', city='乙')])
         person = dict(athlete_id='a-1', name='Kun LI', country='CHN', gender='men')
         heat = dict(
@@ -22,15 +22,6 @@ class SiteCatalogTests(unittest.TestCase):
             result_status='Official',
             round_key='final-a',
             participants=[dict(person, rank=1, penalty=None)],
-        )
-        row = dict(
-            id='row-a',
-            gender='men',
-            distance_m=500,
-            format='individual',
-            local_date='2026-10-23',
-            utc_start='2026-10-23T16:00:00Z',
-            round_key='final-a',
         )
         with tempfile.TemporaryDirectory() as temp:
             out = Path(temp)
@@ -43,15 +34,12 @@ class SiteCatalogTests(unittest.TestCase):
             for event in calendar['stations']:
                 (directory / (event['id'] + '.json')).write_text(json.dumps(snapshot))
             original = (directory / 'one.json').read_bytes()
-            site_catalog.export(out, calendar, {'one': [row]})
+            site_catalog.export(out, calendar)
             people = json.loads((out / 'data/athletes.json').read_text())['items']
             self.assertEqual(len(people), 1)
             self.assertEqual([e['event_id'] for e in people[0]['events']], ['one', 'two'])
             self.assertNotIn('medals', people[0])
-            finals = json.loads((out / 'data/portal.json').read_text())['finals']
-            self.assertEqual(len(finals), 1)
-            self.assertEqual(finals[0]['podium'][0]['name'], 'Kun LI')
-            self.assertEqual(finals[0]['schedule_id'], 'row-a')
+            self.assertFalse((out / 'data/portal.json').exists())
             self.assertEqual((directory / 'one.json').read_bytes(), original)
 
     def test_helmet_numbers_are_season_scoped_and_conflicts_are_not_guessed(self):
@@ -96,7 +84,7 @@ class SiteCatalogTests(unittest.TestCase):
                         )
                     )
                 )
-            site_catalog.export(out, calendar, {})
+            site_catalog.export(out, calendar)
             by_id = {p['id']: p for p in json.loads((out / 'data/athletes.json').read_text())['items']}
             self.assertEqual(by_id['a']['helmet_number'], 67)
             self.assertEqual(by_id['a']['helmet_source_events'], ['one', 'two'])
@@ -135,7 +123,7 @@ class SiteCatalogTests(unittest.TestCase):
             }.items():
                 snapshot = dict(entries=dict(items=people), rounds=dict(items=[]), rankings=dict(items=ranks))
                 (directory / (event + '.json')).write_text(json.dumps(snapshot))
-            site_catalog.export(out, calendar, {})
+            site_catalog.export(out, calendar)
             index = json.loads((out / 'data/athletes.json').read_text())
             by_id = {p['id']: p for p in index['items']}
             self.assertEqual(

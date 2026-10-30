@@ -4,9 +4,8 @@ import json
 from pathlib import Path
 
 
-def export(out: Path, calendar: dict, schedules: dict):
-    people, finals, ranking_tables, helmet_evidence = {}, [], {}, {}
-    genders = {'women': '女子', 'men': '男子', 'mixed': '混合'}
+def export(out: Path, calendar: dict):
+    people, ranking_tables, helmet_evidence = {}, {}, {}
     for event in calendar['stations']:
         path = out / 'data/competitions' / (event['id'] + '.json')
         if not path.exists():
@@ -55,42 +54,6 @@ def export(out: Path, calendar: dict, schedules: dict):
         for key, items in tables.items():
             if key not in ranking_tables or order > ranking_tables[key]['order']:
                 ranking_tables[key] = dict(order=order, event_id=event['id'], city=event['city'], items=items)
-        rows = {row['round_key']: row for row in schedules.get(event['id'], [])}
-        for heat in snapshot['rounds']['items']:
-            row = rows.get(heat.get('round_key'))
-            if (
-                not row
-                or heat.get('round') != 'final'
-                or heat.get('group') != 'A'
-                or heat.get('evidence') != 'official_results'
-            ):
-                continue
-            if (heat.get('result_status') or '').lower() != 'official':
-                continue
-            podium = sorted(
-                (
-                    dict(rank=p['rank'], name=p['name'], country=p['country'])
-                    for p in heat['participants']
-                    if type(p.get('rank')) is int and 1 <= p['rank'] <= 3 and not p.get('penalty')
-                ),
-                key=lambda p: p['rank'],
-            )
-            if not podium:
-                continue
-            label = genders[row['gender']] + ' ' + str(row['distance_m']) + 'm'
-            if row['format'] == 'relay':
-                label += ' 接力'
-            finals.append(
-                dict(
-                    event_id=event['id'],
-                    city=event['city'],
-                    local_date=row['local_date'],
-                    utc_start=row['utc_start'],
-                    schedule_id=row['id'],
-                    label=label,
-                    podium=podium,
-                )
-            )
     for person in people.values():
         evidence = helmet_evidence.get((person['id'], person['country'], person['gender']))
         if evidence and len(evidence['numbers']) == 1:
@@ -109,9 +72,7 @@ def export(out: Path, calendar: dict, schedules: dict):
     for person in people.values():
         if 'season_rankings' in person:
             person['season_rankings'].sort(key=lambda r: r['distance_m'])
-    finals.sort(key=lambda f: (f['utc_start'], f['event_id']), reverse=True)
     datasets = {
-        'portal.json': dict(schema_version=1, season=calendar['season'], finals=finals[:12]),
         'athletes.json': dict(
             schema_version=1,
             season=calendar['season'],

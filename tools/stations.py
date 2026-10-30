@@ -113,10 +113,6 @@ def schedule_path(station_id, directory=SCHEDULES):
     return directory / f'{station_id}.csv'
 
 
-def has_schedule(station_id, directory=SCHEDULES):
-    return schedule_path(station_id, directory).exists()
-
-
 def load_meta(path=META):
     if not path.exists():
         return {}

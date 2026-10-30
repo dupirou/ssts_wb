@@ -63,7 +63,18 @@
   const findFocus = (events, phase) =>
     events.find((event) => phase(event.win) === 'live') ||
     events.find((event) => phase(event.win) === 'upcoming');
-  site.ui = { h, s, append, fill, select, writeFilters, tableScroll, findFocus };
+  async function requestJSON(url, options = {}) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const response = await fetch(url, { ...options, signal: controller.signal });
+      if (!response.ok) throw new Error('数据请求失败: ' + response.status);
+      return await response.json();
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+  site.ui = { h, s, append, fill, select, writeFilters, tableScroll, findFocus, requestJSON };
 })();
 ;
 /* Shared page addresses and global navigation. Event query links remain valid. */
@@ -189,8 +200,8 @@
       h('p', { class: 'athlete-loading', role: 'status', text: '正在读取运动员名单…' })
     );
     try {
+      const penalties = fetchData('penalties/index.json').catch(() => null);
       const index = await fetchData('athletes.json');
-      const penaltyIndex = await fetchData('penalties/index.json').catch(() => null);
       const form = h('form', {
         class: 'directory-tools',
         role: 'search',
@@ -289,7 +300,11 @@
                           'div',
                           {},
                           h('dt', { text: r.distance_m + 'm' }),
-                          h('dd', { class: 'num', text: '第 ' + r.rank + ' 名' })
+                          h('dd', {
+                            class: 'num',
+                            'aria-label': '第 ' + r.rank + ' 名',
+                            text: r.rank + '名'
+                          })
                         )
                       )
                     )
@@ -302,16 +317,7 @@
           list.append(h('li', { class: 'panel empty-state', text: '没有符合条件的运动员' }));
       };
       const update = () => {
-        const url = new URL(location.href);
-        for (const [name, value] of [
-          ['q', q.value],
-          ['country', country.value],
-          ['gender', sex.value]
-        ]) {
-          if (value && value !== 'all') url.searchParams.set(name, value);
-          else url.searchParams.delete(name);
-        }
-        window.history.replaceState(null, '', url);
+        site.ui.writeFilters([q, country, sex]);
         draw();
       };
       form.addEventListener('submit', (e) => {
@@ -331,133 +337,136 @@
         country,
         sex
       );
-      // Seven checkpoints represent official cumulative counts; only 3, 5 and 7 trigger restrictions.
-      const penaltyThresholds = [3, 5, 7];
-      const penaltyBar = (person) =>
-        h(
-          'span',
-          { class: 'penalty-meter-wrap' },
+      const penaltySlot = h('div');
+      const renderPenalties = (penaltyIndex) => {
+        // Seven checkpoints represent official cumulative counts; only 3, 5 and 7 trigger restrictions.
+        const penaltyThresholds = [3, 5, 7];
+        const penaltyBar = (person) =>
           h(
             'span',
-            {
-              class: 'penalty-meter',
-              role: 'progressbar',
-              'aria-label': '有效累计判罚',
-              'aria-valuemin': 0,
-              'aria-valuemax': 7,
-              'aria-valuenow': Math.min(person.total, 7),
-              'aria-valuetext': person.total + ' 次有效判罚'
-            },
-            Array.from({ length: 7 }, (_, i) =>
-              h('span', {
-                class:
-                  'penalty-segment' +
-                  (i < person.total ? ' is-filled' : '') +
-                  (penaltyThresholds.includes(i + 1) ? ' is-threshold' : ''),
-                'aria-hidden': 'true'
-              })
-            )
-          ),
-          h(
-            'span',
-            { class: 'penalty-thresholds', 'aria-hidden': 'true' },
-            penaltyThresholds.map((value) =>
-              h('span', { class: 'penalty-threshold penalty-threshold-' + value, text: value })
-            )
-          )
-        );
-      const restrictionText = (restriction) => {
-        const blocked = restriction?.blocked_individual_distances;
-        if (!blocked) return '';
-        if (restriction.distances_m?.length === 3) return '下站个人单项全部禁赛';
-        if (restriction.distances_m?.length === blocked)
-          return '下站禁报 ' + restriction.distances_m.map((m) => m + 'm').join('、');
-        return '下站禁报排名最高的 ' + blocked + ' 项';
-      };
-      const penaltyPanel = penaltyIndex?.items?.length
-        ? h(
-            'details',
-            { class: 'panel penalty-panel' },
-            h('summary', {
-              text:
-                '世巡赛累计判罚 · ' +
-                penaltyIndex.items.length +
-                ' 人 · 截至第 ' +
-                penaltyIndex.completed_events +
-                ' 站'
-            }),
+            { class: 'penalty-meter-wrap' },
             h(
-              'ul',
-              { class: 'penalty-list' },
-              [...penaltyIndex.items]
-                .sort(
-                  (a, b) =>
-                    Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
-                    b.total - a.total ||
-                    a.name.localeCompare(b.name)
-                )
-                .map((person) =>
-                  h(
-                    'li',
-                    { class: 'penalty-row' },
+              'span',
+              {
+                class: 'penalty-meter',
+                role: 'progressbar',
+                'aria-label': '有效累计判罚',
+                'aria-valuemin': 0,
+                'aria-valuemax': 7,
+                'aria-valuenow': Math.min(person.total, 7),
+                'aria-valuetext': person.total + ' 次有效判罚'
+              },
+              Array.from({ length: 7 }, (_, i) =>
+                h('span', {
+                  class:
+                    'penalty-segment' +
+                    (i < person.total ? ' is-filled' : '') +
+                    (penaltyThresholds.includes(i + 1) ? ' is-threshold' : ''),
+                  'aria-hidden': 'true'
+                })
+              )
+            ),
+            h(
+              'span',
+              { class: 'penalty-thresholds', 'aria-hidden': 'true' },
+              penaltyThresholds.map((value) =>
+                h('span', { class: 'penalty-threshold penalty-threshold-' + value, text: value })
+              )
+            )
+          );
+        const restrictionText = (restriction) => {
+          const blocked = restriction?.blocked_individual_distances;
+          if (!blocked) return '';
+          if (restriction.distances_m?.length === 3) return '下站个人单项全部禁赛';
+          if (restriction.distances_m?.length === blocked)
+            return '下站禁报 ' + restriction.distances_m.map((m) => m + 'm').join('、');
+          return '下站禁报排名最高的 ' + blocked + ' 项';
+        };
+        return penaltyIndex?.items?.length
+          ? h(
+              'details',
+              { class: 'panel penalty-panel' },
+              h('summary', {
+                text:
+                  '世巡赛累计判罚 · ' +
+                  penaltyIndex.items.length +
+                  ' 人 · 截至第 ' +
+                  penaltyIndex.completed_events +
+                  ' 站'
+              }),
+              h(
+                'ul',
+                { class: 'penalty-list' },
+                [...penaltyIndex.items]
+                  .sort(
+                    (a, b) =>
+                      Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
+                      b.total - a.total ||
+                      a.name.localeCompare(b.name)
+                  )
+                  .map((person) =>
                     h(
-                      'details',
-                      { class: 'penalty-person' },
+                      'li',
+                      { class: 'penalty-row' },
                       h(
-                        'summary',
-                        {},
-                        h('span', {
-                          class: 'penalty-name',
-                          text: person.country + ' · ' + person.name
-                        }),
-                        h('b', { class: 'num penalty-count', text: person.total + ' 次' }),
-                        penaltyBar(person),
-                        person.next_restriction?.blocked_individual_distances
-                          ? h('span', {
-                              class: 'penalty-restriction',
-                              text: restrictionText(person.next_restriction)
-                            })
-                          : null
-                      ),
-                      h(
-                        'ul',
-                        { class: 'penalty-details' },
-                        (person.details || []).map((item) =>
-                          h(
-                            'li',
-                            {},
-                            h('span', {
-                              text:
-                                (calendar.stations.find((st) => st.id === item.event_id)?.city ||
-                                  item.event_id) +
-                                ' · ' +
-                                item.distance_m +
-                                'm ' +
-                                item.round_label
-                            }),
-                            h('b', { class: 'num', text: item.infringement_code }),
-                            !item.counted
-                              ? h('small', { class: 'faint', text: '不计入累计' })
-                              : null
+                        'details',
+                        { class: 'penalty-person' },
+                        h(
+                          'summary',
+                          {},
+                          h('span', {
+                            class: 'penalty-name',
+                            text: person.country + ' · ' + person.name
+                          }),
+                          h('b', { class: 'num penalty-count', text: person.total + ' 次' }),
+                          penaltyBar(person),
+                          person.next_restriction?.blocked_individual_distances
+                            ? h('span', {
+                                class: 'penalty-restriction',
+                                text: restrictionText(person.next_restriction)
+                              })
+                            : null
+                        ),
+                        h(
+                          'ul',
+                          { class: 'penalty-details' },
+                          (person.details || []).map((item) =>
+                            h(
+                              'li',
+                              {},
+                              h('span', {
+                                text:
+                                  (calendar.stations.find((st) => st.id === item.event_id)?.city ||
+                                    item.event_id) +
+                                  ' · ' +
+                                  item.distance_m +
+                                  'm ' +
+                                  item.round_label
+                              }),
+                              h('b', { class: 'num', text: item.infringement_code }),
+                              !item.counted
+                                ? h('small', { class: 'faint', text: '不计入累计' })
+                                : null
+                            )
                           )
                         )
                       )
                     )
                   )
-                )
-            ),
-            h('a', {
-              href: penaltyIndex.source_url,
-              target: '_blank',
-              rel: 'noopener noreferrer',
-              class: 'faint tiny',
-              text: '官方 Protocol'
-            })
-          )
-        : null;
+              ),
+              h('a', {
+                href: penaltyIndex.source_url,
+                target: '_blank',
+                rel: 'noopener noreferrer',
+                class: 'faint tiny',
+                text: '官方 Protocol'
+              })
+            )
+          : null;
+      };
       root.replaceChildren(
         header(h, '运动员', calendar.season),
-        penaltyPanel,
+        penaltySlot,
         form,
         index.items.some((p) => p.season_rankings?.length)
           ? h(
@@ -476,6 +485,9 @@
         list
       );
       draw();
+      penalties.then((index) => {
+        if (penaltySlot.isConnected) site.ui.fill(penaltySlot, renderPenalties(index));
+      });
     } catch (_) {
       root.replaceChildren(
         header(h, '运动员', calendar.season),
@@ -948,20 +960,7 @@
   }
 
   /* ---------- data ---------- */
-  const fetchData = async (file) => {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
-    try {
-      const response = await fetch('/data/' + file, {
-        cache: file === 'calendar.json' ? 'default' : 'no-cache',
-        signal: controller.signal
-      });
-      if (!response.ok) throw new Error('数据请求失败: ' + response.status);
-      return await response.json();
-    } finally {
-      clearTimeout(timeout);
-    }
-  };
+  const fetchData = (file) => window.SSTS.ui.requestJSON('/data/' + file);
   function prepare(data) {
     const stages = new Map();
     for (const r of data.entries) {
@@ -982,6 +981,13 @@
     if (detail && detail.entries.length) {
       const e = detail.entries;
       return { start: e[0].t, end: e[e.length - 1].t + 45 * 60000, exact: true };
+    }
+    if (st.schedule_summary) {
+      return {
+        start: Date.parse(st.schedule_summary.first_start),
+        end: Date.parse(st.schedule_summary.last_start) + 45 * 60000,
+        exact: true
+      };
     }
     return {
       start: zoned(st.date_start, '00:00', st.timezone),
@@ -1066,15 +1072,10 @@
         );
       slot.querySelector('.athlete-load-error')?.remove();
       const task = (async () => {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 8000);
         try {
-          const response = await fetch(
-            '/api/v1/events/' + encodeURIComponent(station.id) + '/' + resource,
-            { signal: controller.signal }
+          const value = await window.SSTS.ui.requestJSON(
+            '/api/v1/events/' + encodeURIComponent(station.id) + '/' + resource
           );
-          if (!response.ok) throw new Error('请求失败');
-          const value = await response.json();
           if (
             value.schema_version !== 1 ||
             value.event_id !== station.id ||
@@ -1136,7 +1137,6 @@
           );
           if (resource === 'rounds') status.hidden = false;
         } finally {
-          clearTimeout(timeout);
           pending.delete(resource);
           slot.removeAttribute('aria-busy');
         }
@@ -1718,7 +1718,7 @@
   }
 
   /* ---------- season page ---------- */
-  function renderSeason(cal, details) {
+  function renderSeason(cal, details = {}) {
     setClocks([['北京时间', BJ]]);
     const stations = cal.stations.map((st, i) => ({
       ...st,
@@ -2146,7 +2146,7 @@
               'st-card',
               'is-' + ph,
               st === focus && 'is-focus',
-              st.detail && 'has-detail'
+              (st.detail || st.schedule_summary) && 'has-detail'
             ),
             href: stationHref(st.id),
             style: { '--d': st.n * 50 + 'ms' }
@@ -2187,13 +2187,15 @@
           h(
             'p',
             { class: 'st-foot' },
-            st.detail
+            st.detail || st.schedule_summary
               ? [
                   h(
                     'span',
                     { class: 'ok-text' },
                     icon('check'),
-                    '已录入 ' + st.detail.entries.length + ' 个轮次'
+                    '已录入 ' +
+                      (st.detail?.entries.length ?? st.schedule_summary.total_items) +
+                      ' 个轮次'
                   ),
                   icon('arrow')
                 ]
@@ -2271,7 +2273,7 @@
       { class: 'hero-copy' },
       h('p', {
         class: 'eyebrow',
-        text: '第 ' + idx + ' 站 · ' + cal.season + ' ISU 短道速滑世界巡回赛'
+        text: '第 ' + idx + ' 站 · ' + cal.season + ' 世巡赛'
       }),
       h('h1', {}, station.city + '站', h('small', { text: station.city_en })),
       eventMeta(station, win, false, Boolean(data && data.status === 'provisional')),
@@ -2330,12 +2332,14 @@
 
   function syncLine(data) {
     const at = data.sync && data.sync.last_successful_schedule_check_utc;
-    if (!at)
+    if (!at || data.build_state === 'retained')
       return h(
         'p',
         { class: 'sync sync-bad' },
         icon('alert'),
-        '官方赛程核对尚未成功，当前显示上次可信快照'
+        data.build_state === 'retained'
+          ? '本次更新未通过校验，显示上次赛程'
+          : '官方赛程核对尚未成功，当前显示上次可信快照'
       );
     const t = Date.parse(at);
     const rel = h('span');
@@ -2347,7 +2351,7 @@
       'p',
       { class: 'sync', title: '北京时间 ' + md(p.date) + ' ' + p.hm },
       h('i', { class: 'dot-ok' }),
-      '已与 ISU 官方赛程核对 · ',
+      '赛程已核对 · ',
       rel
     );
   }
@@ -3018,13 +3022,15 @@
     );
     const heats = officialHeats.get(r.round_key) || [];
     const note = cell(labels[6], 'notes-cell tiny' + (china || heats.length ? '' : ' is-empty'));
+    const heatList = h('div', { class: 'heat-list' });
+    note.append(heatList);
     if (china) {
       for (const heat of r.china.heats) {
         const e = heat.estimate;
         const from = e ? (bjFirst ? e.earliest_beijing : e.earliest_local).slice(11, 16) : null;
         const to = e ? (bjFirst ? e.latest_beijing : e.latest_local).slice(11, 16) : null;
         // "约" marks the model estimate; official start times carry no prefix.
-        note.append(
+        heatList.append(
           h(
             'p',
             { class: 'heat' },
@@ -3580,12 +3586,7 @@
       );
     } else if (route.page === 'events') {
       document.title = calendar.season + ' 赛事｜短道速滑';
-      const loaded = await Promise.all(calendar.stations.map(detailFor));
-      const details = {};
-      calendar.stations.forEach((st, i) => {
-        if (loaded[i]) details[st.id] = loaded[i];
-      });
-      renderSeason(calendar, details);
+      renderSeason(calendar);
     } else if (route.page === 'results') {
       document.title = '成绩｜短道速滑';
       if (!window.SSTS.results) {

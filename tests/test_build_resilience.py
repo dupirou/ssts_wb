@@ -42,11 +42,31 @@ class BuildIsolationTests(unittest.TestCase):
                 with patch.object(build, 'read_schedule', fail_read), patch.object(build, 'attach_china', fail_china):
                     build.export(out=out)
 
-                old = (ROOT / 'dist/data/vancouver.json').read_text(encoding='utf-8')
-                self.assertEqual((out / 'data/vancouver.json').read_text(encoding='utf-8'), old)
+                old = json.loads((ROOT / 'dist/data/vancouver.json').read_text(encoding='utf-8'))
+                old['build_state'] = 'retained'
+                self.assertEqual(json.loads((out / 'data/vancouver.json').read_text(encoding='utf-8')), old)
                 self.assertTrue((out / 'data/competitions/montreal.json').exists())
                 report = json.loads((out / 'data/build_report.json').read_text(encoding='utf-8'))
                 self.assertEqual(report['errors']['vancouver']['state'], 'retained')
+
+    def test_corrupt_previous_snapshot_is_not_a_usable_fallback(self):
+        original_read = build.read_schedule
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp) / 'public'
+            (out / 'data').mkdir(parents=True)
+            (out / 'data/vancouver.json').write_text('{broken')
+
+            def fail_read(station_id, *args, **kwargs):
+                if station_id == 'vancouver':
+                    raise ValueError('Invalid official CSV row')
+                return original_read(station_id, *args, **kwargs)
+
+            with patch.object(build, 'read_schedule', fail_read):
+                build.export(out=out)
+            self.assertFalse((out / 'data/vancouver.json').exists())
+            self.assertTrue((out / 'data/montreal.json').exists())
+            report = json.loads((out / 'data/build_report.json').read_text())
+            self.assertEqual(report['errors']['vancouver']['state'], 'unavailable')
 
     def test_bad_ticket_config_withholds_links_and_other_stations_build(self):
         with tempfile.TemporaryDirectory() as temp:

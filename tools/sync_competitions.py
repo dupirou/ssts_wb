@@ -28,11 +28,6 @@ def allowed(url):
     return isu_transport.allowed(url, HOSTS)
 
 
-class OfficialRedirect(isu_transport.OfficialRedirect):
-    def __init__(self):
-        super().__init__(HOSTS)
-
-
 def fetch(url, form=None):
     return isu_transport.request_bytes(url, hosts=HOSTS, max_bytes=MAX_BYTES, form=form)
 

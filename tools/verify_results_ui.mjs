@@ -15,7 +15,15 @@ const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json
 async function serve(directory){
   const server=createServer(async(req,res)=>{
     try{
-      let path=join(directory,decodeURIComponent(new URL(req.url,'http://localhost').pathname));
+      const pathname=new URL(req.url,'http://localhost').pathname;
+      const api=pathname.match(/^\/api\/v1\/events\/([^/]+)\/(entries|rounds|rankings)$/);
+      if(api){
+        const data=JSON.parse(await readFile(join(directory,'data/competitions',api[1]+'.json')));
+        res.setHeader('Content-Type','application/json');
+        res.end(JSON.stringify({schema_version:1,event_id:api[1],resource:api[2],...data[api[2]]}));
+        return;
+      }
+      let path=join(directory,decodeURIComponent(pathname));
       if((await stat(path)).isDirectory())path=join(path,'index.html');
       res.setHeader('Content-Type',mime[extname(path)]||'application/octet-stream');
       res.end(await readFile(path));
@@ -59,6 +67,49 @@ async function measure(origin,path,width,label,screenshot){
   report.metrics.push({label,path,width,ready_ms:Math.round(median('ready_ms')),nodes:median('nodes'),rows:median('rows'),data_bytes:median('data_bytes'),script_bytes:median('script_bytes'),requests:values[0].data_requests});
 }
 try{
+  // Extend the same server/browser acceptance harness to the non-results routes.
+  for(const width of [320,390,430,768,1024,1440]){
+    for(const path of ['/','/events/','/athletes/','/events/2026-27/montreal/','/events/2026-27/vancouver/']){
+      const {context,page}=await pageAt(current.origin,path,width);
+      await page.emulateMedia({reducedMotion:'reduce'});
+      assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`overflow: ${path} ${width}`);
+      if(path.includes('/montreal/')){
+        await page.waitForSelector('.competition-open');
+        if(width<1180){
+          for(const zone of ['当地','北京']){
+            await page.getByRole('button',{name:zone,exact:true}).click();
+            const dateOverlap=await page.locator('.match-row:not(.is-past)').evaluateAll(rows=>rows.some(row=>{
+              const event=row.querySelector('.event-cell').getBoundingClientRect();
+              const round=row.querySelector('.round-cell').getBoundingClientRect();
+              return [...row.querySelectorAll('.time .dt:not(.dt-same)')].some(date=>{
+                const rect=date.getBoundingClientRect();
+                return rect.width>0 && [event,round].some(other=>rect.left<other.right&&rect.right>other.left+1&&rect.top<other.bottom&&rect.bottom>other.top);
+              });
+            }));
+            assert.equal(dateOverlap,false,`Cross-day date overlaps event or round: ${zone} ${width}`);
+          }
+          const overlap=await page.locator('.match-row:not(.is-past):has(.competition-open)').evaluateAll(rows=>rows.some(row=>{
+            const action=row.querySelector('.competition-open').getBoundingClientRect();
+            const round=row.querySelector('.round-cell').getBoundingClientRect();
+            const heat=row.querySelector('.heat-list:not(:empty)')?.getBoundingClientRect();
+            return round.right>action.left+1 || (heat&&action.bottom>heat.top+1);
+          }));
+          assert.equal(overlap,false,'Round action must fit beside the round and above heat details');
+          if(width===320||width===390){
+            await page.locator('.match-row:not(.is-past):has(.primary-time .dt:not(.dt-same))').first().scrollIntoViewIfNeeded();
+            await page.screenshot({path:join(out,'screenshots','cross-day-'+width+'.png')});
+          }
+        }
+      }
+      if(path==='/events/'){
+        const requests=await page.evaluate(()=>performance.getEntriesByType('resource').filter(e=>new URL(e.name).pathname.startsWith('/data/')).map(e=>new URL(e.name).pathname));
+        assert.deepEqual(requests,['/data/calendar.json']);
+      }
+      if(width===390||width===768)await page.screenshot({path:join(out,'screenshots',path.replaceAll('/','_')+'-'+width+'.png')});
+      report.checks.push({name:'site responsive',path,width,passed:true});
+      await context.close();
+    }
+  }
   for(const [path,name] of [['/results/','overview'],['/results/events/','events'],['/results/compare/','compare'],['/results/cycles/milano-2026/?kind=circuit','cycle']]){
     if(before)await measure(before.origin,path,390,'before','before-'+name+'-390.png');
     await measure(current.origin,path,390,'after',name+'-390.png');

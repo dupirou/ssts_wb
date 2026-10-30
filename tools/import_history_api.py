@@ -10,19 +10,16 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 import hashlib
 import json
-import os
 from pathlib import Path
 import re
-import ssl
 import time
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode, urlsplit
-from urllib.request import Request, urlopen
 
 import history_data
 import isu_results
-import tls
+import isu_transport
 
+SOURCE_HOSTS = {'front-api.isu.org', 'www.isu-skating.com', 'isu-skating.com'}
 API = 'https://front-api.isu.org/events/'
 CITIES = {
     'Montréal': '蒙特利尔',
@@ -73,14 +70,9 @@ class SourceCache:
     def __init__(self, directory):
         self.directory = Path(directory)
         self.directory.mkdir(parents=True, exist_ok=True)
-        self.context = (
-            ssl.create_default_context(cafile=os.environ['SSL_CERT_FILE'])
-            if os.environ.get('SSL_CERT_FILE')
-            else tls.CONTEXT
-        )
 
     def read(self, url, form=None):
-        if urlsplit(url).hostname not in {'front-api.isu.org', 'www.isu-skating.com', 'isu-skating.com'}:
+        if not isu_transport.allowed(url, SOURCE_HOSTS):
             raise ValueError('Unexpected official source host')
         form = dict(sorted((form or {}).items()))
         key = digest(json.dumps([url, form], sort_keys=True).encode())
@@ -88,18 +80,9 @@ class SourceCache:
         if path.exists():
             body = path.read_bytes()
         else:
-            request = Request(
-                url,
-                data=urlencode(form).encode() if form else None,
-                headers={
-                    'User-Agent': 'SSTS-WB/1.0',
-                    **({'Content-Type': 'application/x-www-form-urlencoded'} if form else {}),
-                },
-            )
             for attempt in range(3):
                 try:
-                    with urlopen(request, context=self.context, timeout=25) as response:
-                        body = response.read(20_000_001)
+                    body = isu_transport.request_bytes(url, hosts=SOURCE_HOSTS, max_bytes=20_000_000, form=form or None)
                     break
                 except HTTPError as ex:
                     if ex.code not in {429, 500, 502, 503, 504} or attempt == 2:
