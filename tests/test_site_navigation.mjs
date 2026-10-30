@@ -174,7 +174,7 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /头盔号|#/);
   assert.equal(d.querySelector('.directory-card a'), null);
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /报名/);
-  assert.match(d.querySelector('.directory-rankings').textContent, /500m第 16 名/);
+  assert.match(d.querySelector('.directory-rankings').textContent, /500m16名/);
   assert.doesNotMatch(d.querySelector('.directory-rankings').textContent, /1000m|第 45 名/);
   assert.equal(new URL(dom.window.location.href).searchParams.get('q'), 'LI Kun');
   const restored = await page(dom.window.location.pathname + dom.window.location.search);

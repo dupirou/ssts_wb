@@ -2513,13 +2513,15 @@
     );
     const heats = officialHeats.get(r.round_key) || [];
     const note = cell(labels[6], 'notes-cell tiny' + (china || heats.length ? '' : ' is-empty'));
+    const heatList = h('div', { class: 'heat-list' });
+    note.append(heatList);
     if (china) {
       for (const heat of r.china.heats) {
         const e = heat.estimate;
         const from = e ? (bjFirst ? e.earliest_beijing : e.earliest_local).slice(11, 16) : null;
         const to = e ? (bjFirst ? e.latest_beijing : e.latest_local).slice(11, 16) : null;
         // "约" marks the model estimate; official start times carry no prefix.
-        note.append(
+        heatList.append(
           h(
             'p',
             { class: 'heat' },

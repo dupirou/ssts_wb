@@ -73,6 +73,34 @@ try{
       const {context,page}=await pageAt(current.origin,path,width);
       await page.emulateMedia({reducedMotion:'reduce'});
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`overflow: ${path} ${width}`);
+      if(path.includes('/montreal/')){
+        await page.waitForSelector('.competition-open');
+        if(width<1180){
+          for(const zone of ['当地','北京']){
+            await page.getByRole('button',{name:zone,exact:true}).click();
+            const dateOverlap=await page.locator('.match-row:not(.is-past)').evaluateAll(rows=>rows.some(row=>{
+              const event=row.querySelector('.event-cell').getBoundingClientRect();
+              const round=row.querySelector('.round-cell').getBoundingClientRect();
+              return [...row.querySelectorAll('.time .dt:not(.dt-same)')].some(date=>{
+                const rect=date.getBoundingClientRect();
+                return rect.width>0 && [event,round].some(other=>rect.left<other.right&&rect.right>other.left+1&&rect.top<other.bottom&&rect.bottom>other.top);
+              });
+            }));
+            assert.equal(dateOverlap,false,`Cross-day date overlaps event or round: ${zone} ${width}`);
+          }
+          const overlap=await page.locator('.match-row:not(.is-past):has(.competition-open)').evaluateAll(rows=>rows.some(row=>{
+            const action=row.querySelector('.competition-open').getBoundingClientRect();
+            const round=row.querySelector('.round-cell').getBoundingClientRect();
+            const heat=row.querySelector('.heat-list:not(:empty)')?.getBoundingClientRect();
+            return round.right>action.left+1 || (heat&&action.bottom>heat.top+1);
+          }));
+          assert.equal(overlap,false,'Round action must fit beside the round and above heat details');
+          if(width===320||width===390){
+            await page.locator('.match-row:not(.is-past):has(.primary-time .dt:not(.dt-same))').first().scrollIntoViewIfNeeded();
+            await page.screenshot({path:join(out,'screenshots','cross-day-'+width+'.png')});
+          }
+        }
+      }
       if(path==='/events/'){
         const requests=await page.evaluate(()=>performance.getEntriesByType('resource').filter(e=>new URL(e.name).pathname.startsWith('/data/')).map(e=>new URL(e.name).pathname));
         assert.deepEqual(requests,['/data/calendar.json']);

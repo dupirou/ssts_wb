@@ -41,3 +41,9 @@
 - 未测量公网 Cloudflare/用户移动网络的端到端 LCP；没有将本机耗时宣称为线上提速。
 
 复现：安装 requirements 与 npm 依赖，运行 `python tools/build.py`、`python -m unittest discover -s tests`、`node --test tests/*.mjs`。浏览器检查使用 `node tools/verify_results_ui.mjs`，可通过 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指定 Chromium，`QA_OUT` 指定输出目录。
+
+## 截图反馈补充
+
+分组按钮在手机/平板卡片布局移到轮次行右侧，取消名单下方单独的按钮行；桌面表格和已完成轮次保留原有布局。运动员卡片改为身份一行、三项排名紧凑横排，屏幕阅读器仍读取完整名次。浏览器验收增加按钮与轮次/名单不重叠的检查。
+
+跨日日期在卡片时间栏独占一行，避免固定宽度时间栏的 nowrap 文本侵入项目名称；浏览器验收同时切换北京/当地时区检查日期与项目、轮次的矩形重叠。

@@ -148,7 +148,11 @@
                           'div',
                           {},
                           h('dt', { text: r.distance_m + 'm' }),
-                          h('dd', { class: 'num', text: '第 ' + r.rank + ' 名' })
+                          h('dd', {
+                            class: 'num',
+                            'aria-label': '第 ' + r.rank + ' 名',
+                            text: r.rank + '名'
+                          })
                         )
                       )
                     )
