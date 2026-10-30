@@ -20,6 +20,7 @@
     "montreal/round/2026-10-30/qualifying/women/1000/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/1000/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/1500/quarterfinal/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/women/1500/quarterfinal/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/500/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
@@ -307,29 +308,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "d4bf041655f619e3",
-      "station": "vancouver",
-      "at": "2026-10-24T01:01:18+00:00",
-      "local_date": "2026-10-23",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
     {
       "id": "4c109e8da4df1fbf",
       "station": "vancouver",
@@ -3401,6 +3379,47 @@
         "Kerui SONG",
         "Long SUN",
         "Yiding ZHU"
+      ]
+    },
+    {
+      "id": "2d6174f06257b293",
+      "station": "montreal",
+      "at": "2026-10-30T20:21:25+00:00",
+      "local_date": "2026-10-30",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Chutong ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Jianing ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        }
       ]
     }
   ]
