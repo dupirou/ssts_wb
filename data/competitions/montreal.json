@@ -1592,8 +1592,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-30T14:11:22+00:00",
-    "updated_at": "2026-10-30T14:11:22+00:00",
+    "checked_at": "2026-10-30T14:21:23+00:00",
+    "updated_at": "2026-10-30T14:21:23+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16034&round=22924",
@@ -4035,8 +4035,8 @@
         "heat_number": 2,
         "heat_label": "Heat 2",
         "source_start": "2026-10-30T10:09:52.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22932",
         "participants": [
@@ -4047,9 +4047,9 @@
             "official_skater_id": 8090,
             "helmet_number": 55,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "1:36.577",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4059,9 +4059,9 @@
             "official_skater_id": 5231,
             "helmet_number": 24,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "1:36.710",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4071,9 +4071,9 @@
             "official_skater_id": 17877,
             "helmet_number": 81,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "1:56.034",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4084,9 +4084,12 @@
             "helmet_number": 69,
             "starting_position": 3,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           },
           {
             "athlete_id": "ath-c510d796c94e67b22927",
@@ -4114,9 +4117,9 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-10-30T10:12:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-30T10:13:55.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22932",
         "participants": [
@@ -4127,9 +4130,33 @@
             "official_skater_id": 6603,
             "helmet_number": 32,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "1:36.369",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-51a17d72df4d726dbcde",
+            "name": "Kiek STRAATHOF",
+            "country": "NED",
+            "official_skater_id": 6730,
+            "helmet_number": 80,
+            "starting_position": 5,
+            "rank": 2,
+            "result": "1:36.405",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-718c9eb2f816ecc25ced",
+            "name": "Chien Hua HUANG",
+            "country": "TPE",
+            "official_skater_id": 18356,
+            "helmet_number": 85,
+            "starting_position": 4,
+            "rank": 3,
+            "result": "1:36.487",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4139,9 +4166,9 @@
             "official_skater_id": 7851,
             "helmet_number": 70,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 4,
+            "result": "1:37.350",
+            "qualification": "ADV",
             "penalty": null
           },
           {
@@ -4152,33 +4179,12 @@
             "helmet_number": 58,
             "starting_position": 3,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-718c9eb2f816ecc25ced",
-            "name": "Chien Hua HUANG",
-            "country": "TPE",
-            "official_skater_id": 18356,
-            "helmet_number": 85,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-51a17d72df4d726dbcde",
-            "name": "Kiek STRAATHOF",
-            "country": "NED",
-            "official_skater_id": 6730,
-            "helmet_number": 80,
-            "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -4195,23 +4201,11 @@
         "heat_number": 4,
         "heat_label": "Heat 4",
         "source_start": "2026-10-30T10:15:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22932",
         "participants": [
-          {
-            "athlete_id": "ath-c1d7bd7451e837684ae7",
-            "name": "Anna FALKOWSKA",
-            "country": "POL",
-            "official_skater_id": 1874,
-            "helmet_number": 82,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-856445cfa3a2dc493db7",
             "name": "Minji KIM",
@@ -4219,8 +4213,20 @@
             "official_skater_id": 18348,
             "helmet_number": 78,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "1:36.410",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-c1d7bd7451e837684ae7",
+            "name": "Anna FALKOWSKA",
+            "country": "POL",
+            "official_skater_id": 1874,
+            "helmet_number": 82,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "1:37.010",
             "qualification": null,
             "penalty": null
           },
@@ -4231,6 +4237,18 @@
             "official_skater_id": 4857,
             "helmet_number": 63,
             "starting_position": 3,
+            "rank": 3,
+            "result": "1:37.110",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-a45aacdb0c84739c0ec3",
+            "name": "Zeinep KUMARKAN",
+            "country": "KAZ",
+            "official_skater_id": 3815,
+            "helmet_number": 73,
+            "starting_position": 5,
             "rank": null,
             "result": "no time",
             "qualification": null,
@@ -4244,19 +4262,7 @@
             "helmet_number": 87,
             "starting_position": 4,
             "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-a45aacdb0c84739c0ec3",
-            "name": "Zeinep KUMARKAN",
-            "country": "KAZ",
-            "official_skater_id": 3815,
-            "helmet_number": 73,
-            "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "result": "DNS",
             "qualification": null,
             "penalty": null
           }
