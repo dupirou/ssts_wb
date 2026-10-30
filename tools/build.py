@@ -334,13 +334,11 @@ def _compile(now, out, prior, source_log):
     except (ValueError, KeyError, TypeError) as exc:
         # Human-maintained links must be validated by tests; a bad edit must not
         # block fresh official results for unrelated stations.
-        old_calendar = prior / 'data/calendar.json'
-        previous = json.loads(old_calendar.read_text(encoding='utf-8')) if old_calendar.exists() else {}
-        ticketing = {
-            item['id']: item['ticketing'] for item in previous.get('stations', []) if item.get('ticketing') is not None
-        }
-        errors['ticketing'] = {'state': 'retained', 'reason': str(exc)}
-        print(f'::error::Ticket source rejected; previously published links retained: {exc}', file=sys.stderr)
+        # Fail closed: an invalid human-curated ticket configuration must not
+        # silently republish an expired or wrong event link from a prior build.
+        ticketing = {}
+        errors['ticketing'] = {'state': 'withheld', 'reason': str(exc)}
+        print(f'::error::Ticket source rejected; ticket links withheld: {exc}', file=sys.stderr)
     schedules = {}
     for st in config['stations']:
         station_id = st['id']
@@ -357,7 +355,15 @@ def _compile(now, out, prior, source_log):
             state = 'unavailable'
             if previous_path.exists():
                 previous = json.loads(previous_path.read_text(encoding='utf-8'))
-                if previous.get('event_id') == station_id and isinstance(previous.get('entries'), list):
+                if (
+                    previous.get('event_id') == station_id
+                    and previous.get('source_checked_at')
+                    and previous.get('source_timezone') == st['timezone']
+                    and previous.get('status') == 'provisional'
+                    and isinstance(previous.get('entries'), list)
+                    and previous['entries']
+                    and all(isinstance(row.get('round_key'), str) for row in previous['entries'])
+                ):
                     schedules[station_id] = previous['entries']
                     state = 'retained'
             errors[station_id] = {'state': state, 'reason': str(exc)}

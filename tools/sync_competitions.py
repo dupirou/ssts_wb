@@ -11,14 +11,13 @@ import re
 import sys
 import traceback
 from datetime import datetime, timezone
-from urllib.parse import urljoin, urlsplit, urlencode
-from urllib.request import Request, HTTPRedirectHandler, HTTPSHandler, build_opener
+from urllib.parse import urljoin, urlsplit
 
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
 import competition_data as data
 import stations
-import tls
+import isu_transport
 
 HOSTS = {'isu-skating.com', 'www.isu-skating.com', 'isu-d8g8b4b7ece7aphs.a03.azurefd.net', 'front-api.isu.org'}
 GENDERS = {'M': 'men', 'F': 'women', 'X': 'mixed'}
@@ -26,29 +25,16 @@ MAX_BYTES = 20_000_000
 
 
 def allowed(url):
-    p = urlsplit(url)
-    return p.scheme == 'https' and p.hostname in HOSTS and p.port in (None, 443) and not p.username and not p.password
+    return isu_transport.allowed(url, HOSTS)
 
 
-class OfficialRedirect(HTTPRedirectHandler):
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        if not allowed(newurl):
-            raise ValueError('Non-official redirect refused')
-        return super().redirect_request(req, fp, code, msg, headers, newurl)
+class OfficialRedirect(isu_transport.OfficialRedirect):
+    def __init__(self):
+        super().__init__(HOSTS)
 
 
 def fetch(url, form=None):
-    if not allowed(url):
-        raise ValueError('Non-official source refused')
-    headers = {'User-Agent': 'SSTS-WB/1.0 (+https://github.com/dupirou/ssts_wb)'}
-    if form is not None:
-        headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    request = Request(url, data=urlencode(form).encode() if form is not None else None, headers=headers)
-    with build_opener(HTTPSHandler(context=tls.CONTEXT), OfficialRedirect()).open(request, timeout=25) as response:
-        body = response.read(MAX_BYTES + 1)
-        if len(body) > MAX_BYTES:
-            raise ValueError('Official document exceeds size limit')
-        return body
+    return isu_transport.request_bytes(url, hosts=HOSTS, max_bytes=MAX_BYTES, form=form)
 
 
 # Entries appear about two weeks before a station. Checks then continue for good, as before, so

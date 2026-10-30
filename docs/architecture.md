@@ -39,7 +39,7 @@
 
 | 层 | 职责 |
 |---|---|
-| `data/` 与 Python 同步脚本 | 校验并保存官方快照、身份与来源证据 |
+| `data/` 与 Python 同步脚本 | 校验并保存官方快照、身份与来源证据；复用 `tools/isu_transport.py` 请求和解析入口 |
 | `tools/history_data.py` | 合并历史与当季成绩，保留原始证据 |
 | `web/results-model.js` | 构建和页面共用的纯统计规则 |
 | `tools/build_results.mjs` | 轻量目录、检索索引、赛季摘要、赛事明细 |

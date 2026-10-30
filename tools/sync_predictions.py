@@ -12,14 +12,13 @@ import re
 import sys
 import traceback
 from datetime import datetime, timezone
-from urllib.request import Request, HTTPSHandler, build_opener
 
 from bs4 import BeautifulSoup
 
 import competition_data as data
 import predict_groups
 import stations
-import tls
+import isu_transport
 import sync_competitions as sync
 
 INPUTS = data.ROOT / 'data/prediction_inputs'
@@ -32,40 +31,13 @@ MAX_PAGES = 20
 
 
 def post_json(url, payload):
-    req = Request(
-        url,
-        data=json.dumps(payload).encode('utf-8'),
-        headers={
-            'User-Agent': 'SSTS-WB/1.0 (+https://github.com/dupirou/ssts_wb)',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
+    return isu_transport.request_bytes(
+        url, hosts=sync.HOSTS, max_bytes=sync.MAX_BYTES, json_payload=payload, accept='application/json'
     )
-    with build_opener(HTTPSHandler(context=tls.CONTEXT), sync.OfficialRedirect()).open(req, timeout=25) as response:
-        body = response.read(sync.MAX_BYTES + 1)
-    if len(body) > sync.MAX_BYTES:
-        raise ValueError('ISU response exceeds size limit')
-    return body
 
 
 def property_from_page(body, property_name):
-    """Read one JSON property from Next's quoted server transport; no JS eval."""
-    soup = BeautifulSoup(body, 'html.parser')
-    decoder = json.JSONDecoder()
-    marker = '"' + property_name + '":'
-    for script in soup.find_all('script'):
-        for match in re.finditer(r'self\.__next_f\.push\(', script.get_text()):
-            try:
-                frame, _ = decoder.raw_decode(script.get_text()[match.end() :])
-            except ValueError:
-                continue
-            if len(frame) < 2 or not isinstance(frame[1], str):
-                continue
-            pos = frame[1].find(marker)
-            if pos >= 0:
-                value, _ = decoder.raw_decode(frame[1][pos + len(marker) :])
-                return value
-    raise ValueError('Missing ISU ' + property_name)
+    return isu_transport.next_property(body, property_name)
 
 
 def response(body, endpoint, page=None):

@@ -17,7 +17,7 @@
 | `sync_schedule.py` 官方赛程 | 开赛前 45 天至最后比赛日 | 城市与日期相符；九个项目都排到 A 组决赛；时间在本站日期内、按序、无重复 | `data/schedules/<id>.csv`、`data/sync_meta.json` |
 | `sync_competitions.py` 报名、分组、成绩、排名 | 开赛前 14 天起持续 | 文件与页面标注本站城市和年份 | `data/competitions/<id>.json` |
 | `sync_china.py` 中国队小组 | 开赛前 1 天至赛后 3 天 | 结果页标注本站城市和年份 | `data/china_auto.json` |
-| `sync_predictions.py` 单项报项与排名 | 配置了 `prediction` 的站（目前温哥华），直到各项都有官方分组 | 六个单项各自的官方报项 | `data/prediction_inputs/<id>.json` |
+| `sync_predictions.py` 单项报项与排名 | 配置了 `prediction` 的站（目前温哥华、蒙特利尔），直到各项都有官方分组 | 六个单项各自的官方报项 | `data/prediction_inputs/<id>.json` |
 
 **赛程**：第一次出现完整赛程时直接录入；开赛前可整体替换；开赛后只接受时间变动，一次超过 10 处或轮次结构改变则拒绝并保留原数据。赛事页有 Schedule 标签却读不到轮次，视为失败而不是“未公布”。比赛开始后 ISU 的赛程标签改为在浏览器里加载（页面只有 `loading_schedule`），此时已存的赛程保持不变（结果 `live`）；浏览器所用的 getschedule 接口在比赛中出现过与实际不符的时间，不自动采用，比赛日的改动按官方逐组时间人工核对：`python tools/check_live_schedule.py --station <id>` 只读地列出每轮的已存时间与官方第 1 组计划时间（`moved` / `missing` / `extra` / `no_heats`），见 [log.md](log.md)。
 
@@ -98,3 +98,11 @@
 - 自动抓取只接受各解析器明确允许的 ISU 来源域名与官方接口，不用第三方转载自动确认分组。历史成绩溯源允许 `shorttrack.sportresult.com`：它是早年 ISU 赛事文件使用的官方成绩发布渠道，并非当前 ISU 自有域名；不会因此扩大当前自动抓取与票务链接的允许范围。证据链接与票务的 ISU 官方域名集中在 `tools/official_sources.py`，订票平台仍需独立白名单。
 - 所有抓取使用 certifi 的根证书（`tools/tls.py`），不依赖运行环境里可能过时的系统列表。
 - 页面数据以 DOM 文本节点插入，不作为 HTML 解析；测试同时使用合成夹具和已收录的官方历史记录。
+
+## 数据容错与复用边界
+
+- 四类 ISU 同步器复用 `tools/isu_transport.py` 的域名/跳转校验、大小限制、请求执行、HTML 清洗和 Next.js 数据解码；各自仍需校验赛事身份和响应结构。
+- 主官方逐轮结果由 `sync_competitions.py`/`isu_results.py` 提供。`sync_china.py` 是针对尚无主数据的轮次使用的历史 HTML 来源适配器，不建立第二套前端赛程或改变主数据优先级。
+- 读取已核实赛程失败时只能标记读取错误，不能等同于尚未公布；完全没有官方赛程时只展示比赛日期，不假设零点为开赛时间。
+- 预测输入更新失败时保留带错误状态的历史快照供排查，但不继续公布旧模型分组或沿用未经重新核实的单项报项。票务配置校验失败则暂时隐藏票务链接，不自动恢复旧版购票地址。
+- 已核实的官方赛程、成绩与来源快照仍可在暂时的解析失败期间保留。构建使用临时目录并在失败时回滚；离线 PWA 仍允许读取缓存。

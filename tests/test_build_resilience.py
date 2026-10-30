@@ -48,13 +48,15 @@ class BuildIsolationTests(unittest.TestCase):
                 report = json.loads((out / 'data/build_report.json').read_text(encoding='utf-8'))
                 self.assertEqual(report['errors']['vancouver']['state'], 'retained')
 
-    def test_bad_ticket_config_retains_verified_links_and_other_stations_build(self):
+    def test_bad_ticket_config_withholds_links_and_other_stations_build(self):
         with tempfile.TemporaryDirectory() as temp:
             out = Path(temp) / 'public'
             with patch.object(build, 'load_ticketing', side_effect=ValueError('Invalid ticket source: booking_url')):
                 build.export(out=out)
             report = json.loads((out / 'data/build_report.json').read_text(encoding='utf-8'))
-            self.assertEqual(report['errors']['ticketing']['state'], 'retained')
+            self.assertEqual(report['errors']['ticketing']['state'], 'withheld')
+            calendar = json.loads((out / 'data/calendar.json').read_text(encoding='utf-8'))
+            self.assertTrue(all(st['ticketing'] is None for st in calendar['stations']))
             self.assertTrue((out / 'data/competitions/montreal.json').exists())
             self.assertTrue((out / 'index.html').exists())
 

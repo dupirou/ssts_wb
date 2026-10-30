@@ -119,6 +119,9 @@ def project(event_id, schedule, snapshot, inputs=None):
             entered = lists.get((gender, distance))
             if official:
                 item.update(status='official_available', source_urls=sorted({h['source_url'] for h in official}))
+            elif (inputs or {}).get('update_status') == 'error':
+                # A failed refresh cannot confirm that last week's entry list is still current.
+                item['missing'] = ['refresh']
             elif not target:
                 item['missing'] = ['schedule']
             elif not entered:
@@ -193,7 +196,10 @@ def has_open_items(event_id, schedule):
 def entered_distances(event_id):
     """Individual distances each athlete entered, by athlete_id, from the synced distance entries."""
     found = {}
-    for entered in (load_inputs(event_id) or {}).get('lists', []):
+    inputs = load_inputs(event_id) or {}
+    if inputs.get('update_status') == 'error':
+        return found
+    for entered in inputs.get('lists', []):
         for p in entered['participants']:
             found.setdefault(p['athlete_id'], []).append(entered['distance_m'])
     return {k: sorted(v) for k, v in found.items()}

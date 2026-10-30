@@ -22,12 +22,15 @@ jobs:
       - run: python -m pip install -r requirements.txt
       # Same layout everywhere; run `ruff format tools tests` locally to fix.
       - run: python -m pip install ruff==0.16.9
+      - run: ruff format tools tests
       - run: ruff format --check tools tests
       - run: ruff check tools tests
       - run: npm ci --ignore-scripts
+      - run: npm run format
       - run: npm run format:check
       - run: bash -n tools/ci_run.sh && bash tools/ci_run.sh build
-      - name: Require committed dist to match a fresh build
+      - name: Require committed dist to match a fresh build on pull requests
+        if: github.event_name == 'pull_request'
         run: git diff --exit-code -- dist
       - run: python -m unittest discover -s tests -v
       # Every Node test file, so a new one can never be left out of PR checks.

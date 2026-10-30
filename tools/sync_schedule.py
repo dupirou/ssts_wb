@@ -15,10 +15,9 @@ import re
 import sys
 import traceback
 from pathlib import Path
-from urllib.parse import urljoin, urlsplit
-from urllib.request import Request, urlopen
+from urllib.parse import urljoin
 import stations
-import tls
+import isu_transport
 from schedule_store import FIELDS, IDENTITY, read, validate
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -160,12 +159,7 @@ def compare_and_update(found, station, write_file=True, path=None, now=None):
 
 
 def page_text(html):
-    from bs4 import BeautifulSoup
-
-    soup = BeautifulSoup(html, 'html.parser')
-    for node in soup.select('script,style,nav,footer,header'):
-        node.decompose()
-    return soup.get_text('\n', strip=True)
+    return isu_transport.page_text(html)
 
 
 def identity(text, station):
@@ -177,23 +171,14 @@ def identity(text, station):
 
 
 def fetch(url):
-    p = urlsplit(url)
-    if p.scheme != 'https' or p.hostname not in HOSTS or p.username or p.password:
-        raise ValueError('Non-official source refused')
-    req = Request(
+    return isu_transport.request_bytes(
         url,
-        headers={
-            'User-Agent': 'SSTS-WB-ScheduleChecker/1.0 (+https://github.com/dupirou/ssts_wb)',
-            'Accept': 'text/html',
-        },
-    )
-    with urlopen(req, timeout=25, context=tls.CONTEXT) as response:
-        if urlsplit(response.geturl()).hostname not in HOSTS:
-            raise ValueError('Unexpected external redirect')
-        content = response.read(3_000_001)
-        if len(content) > 3_000_000:
-            raise ValueError('Official page too large')
-        return content.decode('utf-8')
+        hosts=HOSTS,
+        max_bytes=3_000_000,
+        timeout=25,
+        accept='text/html',
+        user_agent='SSTS-WB-ScheduleChecker/1.0 (+https://github.com/dupirou/ssts_wb)',
+    ).decode('utf-8')
 
 
 def discover(station, taken, fetcher=fetch, limit=12):

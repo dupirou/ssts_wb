@@ -123,11 +123,11 @@ try{
       await page.locator('.schedule-overview > summary').click();
       await page.waitForSelector('.finals-list li');
       const medals=await page.locator('.finals-list').evaluate(el=>{
-        const full=el.getBoundingClientRect();
-        const items=[...el.querySelectorAll(':scope > li')].slice(0,5).map(card=>card.getBoundingClientRect());
-        return items.every(r=>Math.abs(r.x-full.x)<=2&&Math.abs(r.width-full.width)<=2);
+        const style=getComputedStyle(el);
+        return style.display==='flex' && el.scrollWidth>=el.clientWidth &&
+          [...el.querySelectorAll(':scope > li')].length>1;
       });
-      assert.ok(medals,'Mobile medal cards must also be single-column');
+      assert.ok(medals,'Medal overview must retain the shared horizontal strip on phones');
       await page.locator('.finals-list li').first().scrollIntoViewIfNeeded();
       await page.screenshot({path:join(out,'screenshots','montreal-medals-390.png'),fullPage:false});
       await page.locator('.schedule-overview > summary').click();

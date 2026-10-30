@@ -8,6 +8,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import certifi
+import isu_transport
 import sync_china
 import sync_competitions
 import sync_predictions
@@ -30,16 +31,8 @@ class TrustStoreTests(unittest.TestCase):
             seen.append(next(h._context for h in handlers if hasattr(h, '_context')))
             raise Stop
 
-        def urlopen(*args, context=None, **kwargs):
-            seen.append(context)
-            raise Stop
-
-        with (
-            patch.object(sync_schedule, 'urlopen', urlopen),
-            patch.object(sync_china, 'urlopen', urlopen),
-            patch.object(sync_competitions, 'build_opener', opener),
-            patch.object(sync_predictions, 'build_opener', opener),
-        ):
+        # Every fetcher must delegate to the same strictly allowlisted transport.
+        with patch.object(isu_transport, 'build_opener', opener):
             for call in (
                 lambda: sync_schedule.fetch('https://www.isu-skating.com/'),
                 lambda: sync_china.fetch_page('https://www.isu-skating.com/'),

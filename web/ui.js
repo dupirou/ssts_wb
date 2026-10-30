@@ -59,5 +59,9 @@
   }
   const tableScroll = (h, table, label, cls = 'stats-scroll') =>
     h('div', { class: cls, tabindex: '0', 'aria-label': label }, table);
-  site.ui = { h, s, append, fill, select, writeFilters, tableScroll };
+  // Shared event choice: prefer a genuinely live event, then the next dated event.
+  const findFocus = (events, phase) =>
+    events.find((event) => phase(event.win) === 'live') ||
+    events.find((event) => phase(event.win) === 'upcoming');
+  site.ui = { h, s, append, fill, select, writeFilters, tableScroll, findFocus };
 })();

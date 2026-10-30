@@ -6,9 +6,9 @@ a published 2025 Gdansk response. Future schema changes must fail closed.
 
 import json
 import re
-from bs4 import BeautifulSoup
 import competition_data as data
 import sync_china
+import isu_transport
 
 API = 'https://front-api.isu.org'
 # Database bookkeeping on each heat row; it says nothing about the skater or the race.
@@ -21,28 +21,15 @@ BOOKKEEPING = {
 
 
 def embedded_results(body):
-    """Decode Next's text transport as data, never evaluate page JavaScript."""
-    soup = BeautifulSoup(body, 'html.parser')
-    decoder = json.JSONDecoder()
-    for script in soup.find_all('script'):
-        text = script.get_text()
-        match = re.search(r'self\.__next_f\.push\(', text)
-        if not match:
-            continue
-        try:
-            frame, _ = decoder.raw_decode(text[match.end() :])
-        except ValueError:
-            continue
-        if len(frame) < 2 or not isinstance(frame[1], str):
-            continue
-        marker = '"eventResultsData":'
-        position = frame[1].find(marker)
-        if position >= 0:
-            found, _ = decoder.raw_decode(frame[1][position + len(marker) :])
-            if not isinstance(found, list):
-                raise ValueError('Unexpected eventResultsData shape')
-            return found
-    return []
+    try:
+        found = isu_transport.next_property(body, 'eventResultsData')
+    except ValueError as exc:
+        if str(exc) == 'Missing ISU eventResultsData':
+            return []
+        raise
+    if not isinstance(found, list):
+        raise ValueError('Unexpected eventResultsData shape')
+    return found
 
 
 def api_data(body):

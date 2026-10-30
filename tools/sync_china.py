@@ -13,11 +13,10 @@ import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit, urlunsplit
-from urllib.request import Request, urlopen
 
 from bs4 import BeautifulSoup
 import build
-import tls
+import isu_transport
 import stations
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,24 +33,19 @@ MAX_BYTES = 2_500_000
 
 
 def allowed(url):
-    p = urlsplit(url)
-    return p.scheme == 'https' and p.hostname in ALLOWED and not p.username and not p.password
+    return isu_transport.allowed(url, ALLOWED)
 
 
 def fetch_page(url):
-    if not allowed(url):
-        raise ValueError('Non-official or insecure source URL: ' + url)
-    request = Request(
+    content = isu_transport.request_bytes(
         url,
-        headers={'User-Agent': 'SSTS-WB-ChinaHeats/1.0 (+https://github.com/dupirou/ssts_wb)', 'Accept': 'text/html'},
+        hosts=ALLOWED,
+        max_bytes=MAX_BYTES,
+        timeout=22,
+        accept='text/html',
+        user_agent='SSTS-WB-ChinaHeats/1.0 (+https://github.com/dupirou/ssts_wb)',
     )
-    with urlopen(request, timeout=22, context=tls.CONTEXT) as response:
-        if not allowed(response.geturl()):
-            raise ValueError('Unexpected external redirect')
-        size = response.read(MAX_BYTES + 1)
-        if len(size) > MAX_BYTES:
-            raise ValueError('ISU page exceeds size bound')
-        return BeautifulSoup(size.decode('utf-8'), 'html.parser')
+    return BeautifulSoup(content.decode('utf-8'), 'html.parser')
 
 
 def is_station(text, station):
@@ -60,9 +54,7 @@ def is_station(text, station):
 
 
 def page_text(soup):
-    for node in soup.select('script,style,nav,footer,header'):
-        node.decompose()
-    return soup.get_text('\n', strip=True)
+    return isu_transport.page_text(soup)
 
 
 def discover_event(index_soup, station, base=INDEX):
@@ -253,6 +245,14 @@ def sync(station_id, event_url=None, dry_run=False, fetcher=fetch_page, now=None
     if not rows:
         print(station_id, 'has no official programme yet')
         return 0
+    # The primary official heat feed is authoritative. The legacy HTML adapter
+    # only visits rounds that still lack published, validated heat evidence.
+    import competition_data
+
+    _, covered = competition_data.china_evidence(competition_data.load_snapshot(station_id))
+    if {r['round_key'] for r in rows} <= covered:
+        print(station_id, 'all rounds covered by primary official heat feed')
+        return 0
     config = json.loads(CONFIG.read_text(encoding='utf-8'))
     if config.get('schema_version') != 2:
         raise ValueError('Invalid results source configuration')
@@ -280,9 +280,6 @@ def sync(station_id, event_url=None, dry_run=False, fetcher=fetch_page, now=None
         raise ValueError('Invalid stored results')
     # Rounds the official results feed already covers take precedence in build, and
     # rounds already confirmed here do not change: neither page is requested again.
-    import competition_data
-
-    _, covered = competition_data.china_evidence(competition_data.load_snapshot(station_id))
     settled = covered | {x['round_key'] for x in existing['heats']}
     for disc, disc_url in categories.items():
         disc_page = fetcher(disc_url)

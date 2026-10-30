@@ -37,6 +37,12 @@ jobs:
           cache: npm
       - name: Install parser
         run: python -m pip install -r requirements.txt ruff==0.16.9
+      # Format the reviewed batch once, before building, instead of committing per-file edits.
+      - name: Normalize source before validation and publication
+        run: |
+          npm ci --ignore-scripts
+          npm run format
+          ruff format tools tests
       # Each sync writes only data it has fully validated; a rejected station keeps its last verified data.
       - name: Find stations' ISU pages and check their official programmes
         id: sync_schedule
@@ -90,7 +96,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           stage_updates() {
-            git add dist
+            git add dist web tools tests
             git add data/competitions data/prediction_inputs data/updates.json
             if [ -d data/penalties ]; then git add data/penalties; fi
             git add data/stations.json data/schedules data/sync_meta.json data/china_auto.json

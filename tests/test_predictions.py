@@ -117,6 +117,15 @@ class PredictionTests(unittest.TestCase):
         self.assertEqual(result['checked_at'], '2026-10-23T01:00:00+00:00')
         self.assertEqual(data.china_evidence(data.empty_snapshot('vancouver'))[0], [])
 
+    def test_failed_refresh_does_not_publish_obsolete_predicted_groups(self):
+        inp = inputs(41)
+        inp['update_status'] = 'error'
+        result = project(inp)
+        self.assertTrue(result['stale'])
+        self.assertEqual(result['items'][0]['status'], 'waiting_for_data')
+        self.assertEqual(result['items'][0]['missing'], ['refresh'])
+        self.assertEqual(result['items'][0]['groups'], [])
+
     def test_without_distance_entries_nothing_is_predicted(self):
         result = project(None)
         self.assertTrue(

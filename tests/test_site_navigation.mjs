@@ -28,6 +28,7 @@ async function page(path, fail = '', resultsIndex = null, options = {}) {
     dom.requests.push(url.pathname);
     if (resultsIndex && url.pathname === '/data/results/index.json') return Response.json(resultsIndex);
     if (options.feed && url.pathname === '/data/updates.json') return Response.json(options.feed);
+    if (options.calendar && url.pathname === '/data/calendar.json') return Response.json(options.calendar);
     if (url.pathname === fail) return new Response('unavailable', {status: 503});
     const api = url.pathname.match(/^\/api\/v1\/events\/([^/]+)\/(entries|rounds|rankings)$/);
     if (api) {
@@ -39,7 +40,8 @@ async function page(path, fail = '', resultsIndex = null, options = {}) {
   w.eval(scripts);
   for (let i = 0; i < 200; i++) {
     const detail = w.document.querySelector('.section-tabs');
-    const settled = !detail || (dom.requests.some(p => p.endsWith('/rounds')) && !w.document.querySelector('[data-resource][aria-busy]'));
+    const hasProgramme = !!detail?.querySelector('.scroll tbody .match-row');
+    const settled = !detail || !hasProgramme || (dom.requests.some(p => p.endsWith('/rounds')) && !w.document.querySelector('[data-resource][aria-busy]'));
     if (!w.document.querySelector('#app[aria-busy]') && settled) return dom;
     await new Promise(resolve => setTimeout(resolve, 5));
   }
@@ -530,3 +532,42 @@ test('previous station comparison stays in the same season and sources are group
   assert.ok(row.nextElementSibling.querySelector('.raw-source-group a[target]'));
 });
 
+
+test('a date-only station has no invented midnight countdown or alternate rounds renderer', async t => {
+  const calendar = JSON.parse(await file('dist/data/calendar.json'));
+  const st = calendar.stations.find(s => s.id === 'vancouver');
+  st.detail_status = 'not_entered';
+  const dom = await page('/events/2026-27/vancouver/?now=2026-10-22T12:00:00Z', '', null, {calendar});
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.match(d.querySelector('.live-card').textContent, /详细赛程待公布|比赛日期/);
+  assert.equal(d.querySelector('.live-card .countdown'), null);
+  assert.equal(d.querySelector('.pending-official-rounds'), null);
+  assert.ok(!dom.requests.some(p => p.endsWith('/rounds')));
+  assert.match(d.querySelector('.schedule-content').textContent, /详细赛程待公布/);
+});
+
+test('verified schedule fetch errors are not relabelled as unpublished', async t => {
+  const dom = await page('/?now=2026-10-30T04:00:00Z', '/data/montreal.json');
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.match(d.querySelector('.next-card').textContent, /赛程暂时无法读取/);
+  assert.doesNotMatch(d.querySelector('.next-card').textContent, /按当地 0 点/);
+  assert.equal(d.querySelector('.next-card .countdown').hidden, true);
+
+  const events = await page('/events/', '/data/montreal.json');
+  t.after(() => events.window.close());
+  const card = [...events.window.document.querySelectorAll('.st-card')]
+    .find(el => el.getAttribute('href').includes('/montreal/'));
+  assert.ok(card);
+  assert.match(card.textContent, /赛程读取失败/);
+  assert.doesNotMatch(card.textContent, /详细赛程待公布/);
+});
+
+test('championship without detailed start time shows dates, not a live countdown', async t => {
+  const dom = await page('/events/2026-27/worlds-2027/');
+  t.after(() => dom.window.close());
+  const d = dom.window.document;
+  assert.match(d.querySelector('.live-card').textContent, /比赛日期/);
+  assert.equal(d.querySelector('.live-card .countdown'), null);
+});
