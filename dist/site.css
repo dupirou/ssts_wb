@@ -3765,28 +3765,16 @@ td.time {
   .rb-track {
     height: 40px;
   }
-  /* Medal board becomes a swipeable strip on phones. */
+  /* All phone-sized medal cards use the same full-width, single-column layout. */
   .finals-list {
-    display: flex;
-    overflow-x: auto;
-    scrollbar-width: none;
-    margin: 0 -16px;
-    padding: 0 16px 2px;
-    scroll-snap-type: x proximity;
-    scroll-padding-left: 16px;
-  }
-  .finals-list::-webkit-scrollbar {
-    display: none;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
   }
   .finals-list li {
-    flex: 0 0 132px;
-    scroll-snap-align: start;
+    min-width: 0;
   }
   .finals-list button {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    padding: 9px 12px;
+    white-space: normal;
   }
 
   /* Sticky bar: day tabs scroll inside; filters open as a bottom sheet. */
@@ -3861,9 +3849,12 @@ td.time {
     flex-basis: 100%;
   }
 
-  tbody {
+  .scroll tbody {
     grid-template-columns: minmax(0, 1fr);
     gap: 5px;
+  }
+  .prediction-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
   /* Denser cards: a three-day list is long on a phone, so each round takes two tight lines. */
   .match-row {
