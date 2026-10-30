@@ -1592,8 +1592,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-30T21:21:26+00:00",
-    "updated_at": "2026-10-30T21:21:26+00:00",
+    "checked_at": "2026-10-30T21:31:19+00:00",
+    "updated_at": "2026-10-30T21:31:19+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16034&round=22924",
@@ -11641,45 +11641,11 @@
         "heat_number": 3,
         "heat_label": "Heat 3",
         "source_start": "2026-10-30T17:20:40.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
         "participants": [
-          {
-            "athlete_id": "team-CAN-mixed",
-            "name": "Canada",
-            "country": "CAN",
-            "official_skater_id": 12668,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-295c31a30610e64d9499",
-                "name": "Mathieu PELLETIER",
-                "official_skater_id": 5474
-              },
-              {
-                "athlete_id": "ath-5a7cd29016a92caa9dfb",
-                "name": "Claudia GAGNON",
-                "official_skater_id": 2052
-              },
-              {
-                "athlete_id": "ath-6a55e9fb6f1aecd29288",
-                "name": "Steven DUBOIS",
-                "official_skater_id": 1701
-              },
-              {
-                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
-                "name": "Courtney SARAULT",
-                "official_skater_id": 6159
-              }
-            ]
-          },
           {
             "athlete_id": "team-CHN-mixed",
             "name": "China",
@@ -11687,9 +11653,9 @@
             "official_skater_id": 12669,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "2:38.599",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -11715,14 +11681,48 @@
             ]
           },
           {
+            "athlete_id": "team-CAN-mixed",
+            "name": "Canada",
+            "country": "CAN",
+            "official_skater_id": 12668,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "2:38.695",
+            "qualification": "Q",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-295c31a30610e64d9499",
+                "name": "Mathieu PELLETIER",
+                "official_skater_id": 5474
+              },
+              {
+                "athlete_id": "ath-5a7cd29016a92caa9dfb",
+                "name": "Claudia GAGNON",
+                "official_skater_id": 2052
+              },
+              {
+                "athlete_id": "ath-6a55e9fb6f1aecd29288",
+                "name": "Steven DUBOIS",
+                "official_skater_id": 1701
+              },
+              {
+                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+                "name": "Courtney SARAULT",
+                "official_skater_id": 6159
+              }
+            ]
+          },
+          {
             "athlete_id": "team-HUN-mixed",
             "name": "Hungary",
             "country": "HUN",
             "official_skater_id": 12673,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "2:38.782",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -11763,45 +11763,11 @@
         "heat_number": 4,
         "heat_label": "Heat 4",
         "source_start": "2026-10-30T17:22:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
         "participants": [
-          {
-            "athlete_id": "team-POL-mixed",
-            "name": "Poland",
-            "country": "POL",
-            "official_skater_id": 12679,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-19acc54c4991181cfe31",
-                "name": "Kornelia WOZNIAK",
-                "official_skater_id": 7784
-              },
-              {
-                "athlete_id": "ath-7a90548f25275fc9709d",
-                "name": "Gabriela TOPOLSKA",
-                "official_skater_id": 7104
-              },
-              {
-                "athlete_id": "ath-775d347cc69597e5a04c",
-                "name": "Michal NIEWINSKI",
-                "official_skater_id": 5097
-              },
-              {
-                "athlete_id": "ath-ad9946db70088f23d4ac",
-                "name": "Felix PIGEON",
-                "official_skater_id": 5581
-              }
-            ]
-          },
           {
             "athlete_id": "team-ITA-mixed",
             "name": "Italy",
@@ -11809,8 +11775,8 @@
             "official_skater_id": 12674,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "2:41.090",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -11843,8 +11809,8 @@
             "official_skater_id": 12672,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "2:43.750",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -11877,8 +11843,8 @@
             "official_skater_id": 12670,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "2:47.780",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -11901,6 +11867,40 @@
                 "athlete_id": "ath-f48b158cdb376de3796f",
                 "name": "Radek FAJKUS",
                 "official_skater_id": 1870
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-POL-mixed",
+            "name": "Poland",
+            "country": "POL",
+            "official_skater_id": 12679,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 4,
+            "result": "2:52.700",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-19acc54c4991181cfe31",
+                "name": "Kornelia WOZNIAK",
+                "official_skater_id": 7784
+              },
+              {
+                "athlete_id": "ath-7a90548f25275fc9709d",
+                "name": "Gabriela TOPOLSKA",
+                "official_skater_id": 7104
+              },
+              {
+                "athlete_id": "ath-775d347cc69597e5a04c",
+                "name": "Michal NIEWINSKI",
+                "official_skater_id": 5097
+              },
+              {
+                "athlete_id": "ath-ad9946db70088f23d4ac",
+                "name": "Felix PIGEON",
+                "official_skater_id": 5581
               }
             ]
           }
