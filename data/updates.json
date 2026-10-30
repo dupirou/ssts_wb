@@ -7,6 +7,7 @@
     "montreal/round/2026-10-30/qualifying/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/1500/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/500/heats/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/men/500/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/5000/quarterfinal/-/groups": "published",
@@ -300,35 +301,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "bbc286d7e91c9b20",
-      "station": "vancouver",
-      "at": "2026-10-23T22:31:23+00:00",
-      "local_date": "2026-10-23",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Kun LI",
-        "Long SUN"
-      ],
-      "china_results": [
-        {
-          "name": "Kun LI",
-          "rank": 3,
-          "status": "repechage"
-        },
-        {
-          "name": "Long SUN",
-          "rank": 2,
-          "status": "advanced"
-        }
-      ]
-    },
     {
       "id": "14cfed3dcc8298c1",
       "station": "vancouver",
@@ -3401,6 +3373,47 @@
       "kind": "groups",
       "heats": 4,
       "china": []
+    },
+    {
+      "id": "61c02ca70827244a",
+      "station": "montreal",
+      "at": "2026-10-30T18:11:25+00:00",
+      "local_date": "2026-10-30",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kun LI",
+        "Long SUN",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Kun LI",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": 3,
+          "status": "out"
+        }
+      ]
     }
   ]
 }

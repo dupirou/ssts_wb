@@ -2,6 +2,47 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "61c02ca70827244a",
+      "station": "montreal",
+      "at": "2026-10-30T18:11:25+00:00",
+      "local_date": "2026-10-30",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kun LI",
+        "Long SUN",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Kun LI",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": 3,
+          "status": "out"
+        }
+      ]
+    },
+    {
       "id": "f48bc67a52e2c6b3",
       "station": "montreal",
       "at": "2026-10-30T17:51:26+00:00",
@@ -3073,35 +3114,6 @@
       "kind": "groups",
       "heats": 4,
       "china": []
-    },
-    {
-      "id": "bbc286d7e91c9b20",
-      "station": "vancouver",
-      "at": "2026-10-23T22:31:23+00:00",
-      "local_date": "2026-10-23",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Kun LI",
-        "Long SUN"
-      ],
-      "china_results": [
-        {
-          "name": "Kun LI",
-          "rank": 3,
-          "status": "repechage"
-        },
-        {
-          "name": "Long SUN",
-          "rank": 2,
-          "status": "advanced"
-        }
-      ]
     }
   ]
 }
