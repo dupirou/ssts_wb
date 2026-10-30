@@ -1592,8 +1592,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-30T18:41:20+00:00",
-    "updated_at": "2026-10-30T18:41:20+00:00",
+    "checked_at": "2026-10-30T18:51:27+00:00",
+    "updated_at": "2026-10-30T18:51:27+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16034&round=22924",
@@ -5105,7 +5105,7 @@
             "starting_position": 4,
             "rank": 3,
             "result": "1:30.848",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -5265,7 +5265,7 @@
             "starting_position": 3,
             "rank": 3,
             "result": "1:30.772",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -5466,9 +5466,9 @@
         "group": null,
         "heat_number": 6,
         "heat_label": "Heat 6",
-        "source_start": "2026-10-30T14:33:00.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-30T14:36:03.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22933",
         "participants": [
@@ -5480,8 +5480,8 @@
             "helmet_number": 7,
             "starting_position": 1,
             "rank": 1,
-            "result": "1:34.830",
-            "qualification": null,
+            "result": "1:34.843",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -5492,8 +5492,8 @@
             "helmet_number": 13,
             "starting_position": 2,
             "rank": 2,
-            "result": "1:35.060",
-            "qualification": null,
+            "result": "1:35.042",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -5504,7 +5504,7 @@
             "helmet_number": 81,
             "starting_position": 5,
             "rank": 3,
-            "result": "1:36.140",
+            "result": "1:36.123",
             "qualification": null,
             "penalty": null
           },
@@ -5515,8 +5515,8 @@
             "official_skater_id": 7365,
             "helmet_number": 36,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "2:14.449",
             "qualification": null,
             "penalty": null
           },
@@ -5527,8 +5527,8 @@
             "official_skater_id": 457,
             "helmet_number": 51,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "2:29.344",
             "qualification": null,
             "penalty": null
           }
@@ -5546,22 +5546,34 @@
         "group": null,
         "heat_number": 7,
         "heat_label": "Heat 7",
-        "source_start": "2026-10-30T14:36:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-30T14:42:30.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22933",
         "participants": [
           {
-            "athlete_id": "ath-3e79769fe95fdcfb1c3e",
-            "name": "Gilli KIM",
-            "country": "KOR",
-            "official_skater_id": 3406,
-            "helmet_number": 5,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "athlete_id": "ath-df765364c74846f50d97",
+            "name": "Rina YAMANA",
+            "country": "JPN",
+            "official_skater_id": 7851,
+            "helmet_number": 70,
+            "starting_position": 5,
+            "rank": 1,
+            "result": "1:32.902",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-17bef77a0c55039c04d3",
+            "name": "Annabelle GREEN",
+            "country": "GBR",
+            "official_skater_id": 2321,
+            "helmet_number": 61,
+            "starting_position": 4,
+            "rank": 2,
+            "result": "1:32.977",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -5571,7 +5583,19 @@
             "official_skater_id": 687,
             "helmet_number": 16,
             "starting_position": 2,
-            "rank": null,
+            "rank": 3,
+            "result": "2:16.221",
+            "qualification": "ADV",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-3e79769fe95fdcfb1c3e",
+            "name": "Gilli KIM",
+            "country": "KOR",
+            "official_skater_id": 3406,
+            "helmet_number": 5,
+            "starting_position": 1,
+            "rank": 4,
             "result": "no time",
             "qualification": null,
             "penalty": null
@@ -5584,33 +5608,12 @@
             "helmet_number": 32,
             "starting_position": 3,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-17bef77a0c55039c04d3",
-            "name": "Annabelle GREEN",
-            "country": "GBR",
-            "official_skater_id": 2321,
-            "helmet_number": 61,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-df765364c74846f50d97",
-            "name": "Rina YAMANA",
-            "country": "JPN",
-            "official_skater_id": 7851,
-            "helmet_number": 70,
-            "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -5626,12 +5629,24 @@
         "group": null,
         "heat_number": 8,
         "heat_label": "Heat 8",
-        "source_start": "2026-10-30T14:39:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-30T14:47:19.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22933",
         "participants": [
+          {
+            "athlete_id": "ath-856445cfa3a2dc493db7",
+            "name": "Minji KIM",
+            "country": "KOR",
+            "official_skater_id": 18348,
+            "helmet_number": 78,
+            "starting_position": 3,
+            "rank": 1,
+            "result": "1:30.450",
+            "qualification": "Q",
+            "penalty": null
+          },
           {
             "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
             "name": "Florence BRUNELLE",
@@ -5639,9 +5654,9 @@
             "official_skater_id": 924,
             "helmet_number": 10,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "1:30.634",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -5651,21 +5666,9 @@
             "official_skater_id": 2861,
             "helmet_number": 21,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-856445cfa3a2dc493db7",
-            "name": "Minji KIM",
-            "country": "KOR",
-            "official_skater_id": 18348,
-            "helmet_number": 78,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "1:30.642",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -5675,8 +5678,8 @@
             "official_skater_id": 8090,
             "helmet_number": 55,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "1:30.965",
             "qualification": null,
             "penalty": null
           },
@@ -5687,8 +5690,8 @@
             "official_skater_id": 2330,
             "helmet_number": 59,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "1:31.187",
             "qualification": null,
             "penalty": null
           }

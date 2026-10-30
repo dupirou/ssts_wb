@@ -2,6 +2,47 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "830700f1bf5b6d07",
+      "station": "montreal",
+      "at": "2026-10-30T18:51:27+00:00",
+      "local_date": "2026-10-30",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 4,
+          "status": "out"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "61c02ca70827244a",
       "station": "montreal",
       "at": "2026-10-30T18:11:25+00:00",
@@ -3099,21 +3140,6 @@
           "status": "repechage"
         }
       ]
-    },
-    {
-      "id": "14cfed3dcc8298c1",
-      "station": "vancouver",
-      "at": "2026-10-23T23:21:33+00:00",
-      "local_date": "2026-10-24",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": []
     }
   ]
 }
