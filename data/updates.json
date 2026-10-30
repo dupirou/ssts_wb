@@ -15,6 +15,7 @@
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/5000/quarterfinal/-/groups": "published",
+    "montreal/round/2026-10-30/qualifying/men/5000/quarterfinal/-/results": "official",
     "montreal/round/2026-10-30/qualifying/mixed/2000/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/mixed/2000/quarterfinal/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/1000/heats/-/groups": "published",
@@ -27,6 +28,7 @@
     "montreal/round/2026-10-30/qualifying/women/500/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
+    "montreal/round/2026-10-31/main/men/5000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/groups": "published",
@@ -312,48 +314,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "71f33a56ec681475",
-      "station": "vancouver",
-      "at": "2026-10-24T18:21:20+00:00",
-      "local_date": "2026-10-24",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Kun LI"
-      ],
-      "china_results": [
-        {
-          "name": "Kun LI",
-          "rank": 2,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "430630aaa749c7f4",
-      "station": "vancouver",
-      "at": "2026-10-24T18:31:23+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": [
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
-      ]
-    },
     {
       "id": "a11256f5a366703d",
       "station": "vancouver",
@@ -3441,6 +3401,46 @@
       "repechage": false,
       "gender": "mixed",
       "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "b25995193b070234",
+      "station": "montreal",
+      "at": "2026-10-30T22:31:23+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "China"
+      ]
+    },
+    {
+      "id": "e527f8c43480711e",
+      "station": "montreal",
+      "at": "2026-10-30T22:31:23+00:00",
+      "local_date": "2026-10-30",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
       "format": "relay",
       "kind": "results",
       "china": [

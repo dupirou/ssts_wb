@@ -1592,8 +1592,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-30T22:21:22+00:00",
-    "updated_at": "2026-10-30T22:21:22+00:00",
+    "checked_at": "2026-10-30T22:31:23+00:00",
+    "updated_at": "2026-10-30T22:31:23+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22960",
@@ -1604,6 +1604,7 @@
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16035&round=22918",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16035&round=22919",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16036&round=22962",
+      "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16036&round=22963",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22932",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22933",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22934",
@@ -12480,8 +12481,8 @@
         "heat_number": 4,
         "heat_label": "Heat 4",
         "source_start": "2026-10-30T18:20:35.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16036&round=22962",
         "participants": [
@@ -12492,9 +12493,9 @@
             "official_skater_id": 12682,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "6:52.582",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -12520,36 +12521,36 @@
             ]
           },
           {
-            "athlete_id": "team-ITA-men",
-            "name": "Italy",
-            "country": "ITA",
-            "official_skater_id": 12686,
+            "athlete_id": "team-KAZ-men",
+            "name": "Kazakhstan",
+            "country": "KAZ",
+            "official_skater_id": 12688,
             "helmet_number": null,
-            "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "starting_position": 4,
+            "rank": 2,
+            "result": "6:52.967",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
-                "athlete_id": "ath-050bd069f71a453ce726",
-                "name": "Daniele ZAMPEDRI",
-                "official_skater_id": 8033
+                "athlete_id": "ath-64a844d676fa24746b6b",
+                "name": "Aibek NASSEN",
+                "official_skater_id": 5039
               },
               {
-                "athlete_id": "ath-0b75c8b148a940d59dbb",
-                "name": "Thomas NADALINI",
-                "official_skater_id": 4990
+                "athlete_id": "ath-fb6dcea2bdcd0fe4c3be",
+                "name": "Aibek TEMIRKHAN",
+                "official_skater_id": 6991
               },
               {
-                "athlete_id": "ath-bf93d274dece11d17ae7",
-                "name": "Lorenzo PREVITALI",
-                "official_skater_id": 5703
+                "athlete_id": "ath-a21e5100fc37bb837ec4",
+                "name": "Bogdan VEKHOV",
+                "official_skater_id": 18324
               },
               {
-                "athlete_id": "ath-d92eaba24dcaf8aca602",
-                "name": "Luca SPECHENHAUSER",
-                "official_skater_id": 6644
+                "athlete_id": "ath-2fb137b7530e2d3409db",
+                "name": "Gleb IVCHENKO",
+                "official_skater_id": 2905
               }
             ]
           },
@@ -12560,8 +12561,8 @@
             "official_skater_id": 12693,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "6:54.218",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -12588,38 +12589,182 @@
             ]
           },
           {
+            "athlete_id": "team-ITA-men",
+            "name": "Italy",
+            "country": "ITA",
+            "official_skater_id": 12686,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": 4,
+            "result": "7:07.395",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-050bd069f71a453ce726",
+                "name": "Daniele ZAMPEDRI",
+                "official_skater_id": 8033
+              },
+              {
+                "athlete_id": "ath-0b75c8b148a940d59dbb",
+                "name": "Thomas NADALINI",
+                "official_skater_id": 4990
+              },
+              {
+                "athlete_id": "ath-bf93d274dece11d17ae7",
+                "name": "Lorenzo PREVITALI",
+                "official_skater_id": 5703
+              },
+              {
+                "athlete_id": "ath-d92eaba24dcaf8aca602",
+                "name": "Luca SPECHENHAUSER",
+                "official_skater_id": 6644
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-20607",
+        "gender": "men",
+        "distance_m": 5000,
+        "format": "relay",
+        "round_key": "2026-10-31/main/men/5000/semifinal/-",
+        "local_date": "2026-10-31",
+        "round": "semifinal",
+        "round_label": "Semifinals",
+        "group": null,
+        "heat_number": 1,
+        "heat_label": "Heat 1",
+        "source_start": "2026-10-31T17:06:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": false,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16036&round=22963",
+        "participants": [
+          {
+            "athlete_id": "team-CAN-men",
+            "name": "Canada",
+            "country": "CAN",
+            "official_skater_id": 12682,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-KOR-men",
+            "name": "Republic of Korea",
+            "country": "KOR",
+            "official_skater_id": 12689,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
             "athlete_id": "team-KAZ-men",
             "name": "Kazakhstan",
             "country": "KAZ",
             "official_skater_id": 12688,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-POL-men",
+            "name": "Poland",
+            "country": "POL",
+            "official_skater_id": 12692,
             "helmet_number": null,
             "starting_position": 4,
             "rank": null,
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-64a844d676fa24746b6b",
-                "name": "Aibek NASSEN",
-                "official_skater_id": 5039
-              },
-              {
-                "athlete_id": "ath-fb6dcea2bdcd0fe4c3be",
-                "name": "Aibek TEMIRKHAN",
-                "official_skater_id": 6991
-              },
-              {
-                "athlete_id": "ath-a21e5100fc37bb837ec4",
-                "name": "Bogdan VEKHOV",
-                "official_skater_id": 18324
-              },
-              {
-                "athlete_id": "ath-2fb137b7530e2d3409db",
-                "name": "Gleb IVCHENKO",
-                "official_skater_id": 2905
-              }
-            ]
+            "members": []
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-20608",
+        "gender": "men",
+        "distance_m": 5000,
+        "format": "relay",
+        "round_key": "2026-10-31/main/men/5000/semifinal/-",
+        "local_date": "2026-10-31",
+        "round": "semifinal",
+        "round_label": "Semifinals",
+        "group": null,
+        "heat_number": 2,
+        "heat_label": "Heat 2",
+        "source_start": "2026-10-31T17:14:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": true,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16036&round=22963",
+        "participants": [
+          {
+            "athlete_id": "team-CHN-men",
+            "name": "China",
+            "country": "CHN",
+            "official_skater_id": 12683,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-NED-men",
+            "name": "Netherlands",
+            "country": "NED",
+            "official_skater_id": 12690,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-JPN-men",
+            "name": "Japan",
+            "country": "JPN",
+            "official_skater_id": 12687,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-HUN-men",
+            "name": "Hungary",
+            "country": "HUN",
+            "official_skater_id": 12685,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
           }
         ]
       },
