@@ -2626,6 +2626,7 @@ td.time {
   vertical-align: 1px;
 }
 .round-name {
+  white-space: nowrap;
   color: var(--text-2);
   font-weight: 600;
 }
@@ -2698,6 +2699,10 @@ td.time {
   font-weight: 700;
   color: var(--text);
   white-space: nowrap;
+}
+.heat .athletes .nowrap {
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .athletes {
   color: var(--text);
@@ -3510,16 +3515,16 @@ td.time {
     border-top: 1px solid var(--border-soft);
   }
   /* Put the action beside the round, instead of below the heat list. */
-  .match-row:not(.is-past) {
+  .match-row:not(.is-past):has(.heat-list) {
     grid-template-areas: 't e g' 's r a' 'n n n';
   }
-  .match-row:not(.is-past):has(td.group-cell.is-empty) td.event-cell {
+  .match-row:not(.is-past):has(.heat-list):has(td.group-cell.is-empty) td.event-cell {
     grid-column: 2 / -1;
   }
-  .match-row:not(.is-past) td.notes-cell:not(.is-empty) {
+  .match-row:not(.is-past) td.notes-cell:has(> .heat-list):not(.is-empty) {
     display: contents;
   }
-  .match-row:not(.is-past) .notes-cell .competition-open {
+  .match-row:not(.is-past) .notes-cell:has(> .heat-list) .competition-open {
     grid-area: a;
     margin: 0;
     padding: 0;
@@ -4482,10 +4487,13 @@ td.time {
   padding: 12px;
 }
 .directory-identity {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  gap: 4px 6px;
   align-items: baseline;
+}
+.directory-identity:not(:has(.directory-helmet)) {
+  grid-template-columns: auto minmax(0, 1fr) auto;
 }
 .directory-identity h2 {
   font-size: 1rem;
@@ -4518,17 +4526,18 @@ td.time {
   padding-top: 6px;
 }
 .directory-rankings dl {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
   margin: 0;
   font-size: 0.86rem;
 }
 .directory-rankings dl > div {
-  display: flex;
-  flex-wrap: wrap;
+  display: inline-flex;
+  flex: 0 0 auto;
   align-items: baseline;
-  gap: 2px 5px;
+  gap: 5px;
+  white-space: nowrap;
 }
 .directory-rankings dd {
   margin: 0;
