@@ -32,6 +32,7 @@
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/results": "official",
+    "montreal/round/2026-10-31/repechage/men/1500/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/results": "official",
     "montreal/round/2026-10-31/repechage/men/500/quarterfinal/-/groups": "published",
@@ -320,24 +321,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "71af636bfb949063",
-      "station": "vancouver",
-      "at": "2026-10-24T19:41:25+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "Bohao ZHANG",
-        "Kun LI"
-      ]
-    },
     {
       "id": "0c3da637a1645d8d",
       "station": "vancouver",
@@ -3285,7 +3268,7 @@
         {
           "name": "Kerui SONG",
           "rank": 5,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Long SUN",
@@ -3444,6 +3427,23 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "64519fe08bad686d",
+      "station": "montreal",
+      "at": "2026-10-31T14:01:25+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": [
+        "Kerui SONG"
+      ]
     }
   ]
 }

@@ -2,6 +2,23 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "64519fe08bad686d",
+      "station": "montreal",
+      "at": "2026-10-31T14:01:25+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": [
+        "Kerui SONG"
+      ]
+    },
+    {
       "id": "95895cb4c85b90ac",
       "station": "montreal",
       "at": "2026-10-31T13:51:17+00:00",
@@ -174,7 +191,7 @@
         {
           "name": "Kerui SONG",
           "rank": 5,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Long SUN",
@@ -3106,24 +3123,6 @@
           "rank": 2,
           "status": "advanced"
         }
-      ]
-    },
-    {
-      "id": "71af636bfb949063",
-      "station": "vancouver",
-      "at": "2026-10-24T19:41:25+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "Bohao ZHANG",
-        "Kun LI"
       ]
     }
   ]
