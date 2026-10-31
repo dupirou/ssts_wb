@@ -71,21 +71,29 @@ def event(label, session):
 
 
 def correct_montreal_round_labels(rows, station):
-    """Retain reviewed relay rounds that ISU's Montreal programme mislabels."""
+    """Correct Montreal's three repeated, mislabelled repechage rounds.
+
+    The ISU event tab calls all three men's 1500 m repechage semifinals.
+    Its 29 October news programme confirms the quarterfinal, semifinal and
+    mixed relay semifinal at these times. Do not alter unrelated source rows.
+    """
     if station['id'] != 'montreal':
         return rows
-    by_time = {(r['date'], r['time']): r for r in rows}
-    reference = by_time.get(('2026-10-31', '10:53'))
     mistaken = {'gender': 'M', 'distance': '1500', 'kind': 'I', 'round': 'S'}
-    if not reference or reference['session'] != 'R' or any(reference[k] != v for k, v in mistaken.items()):
-        return rows
-    # Only these two reviewed times are corrected; never reinterpret unrelated rounds.
-    for time, (gender, distance) in {'11:33': ('X', '2000'), '12:03': ('W', '3000')}.items():
-        row = by_time.get(('2026-10-31', time))
-        if row and row['session'] == 'R' and all(row[k] == v for k, v in mistaken.items()):
-            row.update(gender=gender, distance=distance, kind='R', round='Q')
+    reviewed = {
+        '10:53': {'gender': 'M', 'distance': '1500', 'kind': 'I', 'round': 'Q'},
+        '11:33': {'gender': 'M', 'distance': '1500', 'kind': 'I', 'round': 'S'},
+        '12:03': {'gender': 'X', 'distance': '2000', 'kind': 'R', 'round': 'S'},
+    }
+    for row in rows:
+        if row['date'] != '2026-10-31' or row['session'] != 'R':
+            continue
+        expected = reviewed.get(row['time'])
+        if expected and (
+            all(row[k] == v for k, v in mistaken.items()) or all(row[k] == v for k, v in expected.items())
+        ):
+            row.update(expected)
     return rows
-
 
 def parse_text(text, station):
     allowed = {d.isoformat() for d in stations.dates(station)}

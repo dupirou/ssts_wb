@@ -115,7 +115,7 @@ class ScheduleSyncTests(unittest.TestCase):
         found = sync_schedule.validate(sync_schedule.parse_text(text, vancouver), vancouver)
         self.assertEqual(found, sync_schedule.read(ROOT / 'tests/fixtures/vancouver-2026-schedule.csv'))
 
-    def test_montreal_relay_mislabels_only_at_reviewed_times(self):
+    def test_montreal_repechage_mislabels_only_at_reviewed_times(self):
         wrong = {
             'date': '2026-10-31',
             'session': 'R',
@@ -125,17 +125,41 @@ class ScheduleSyncTests(unittest.TestCase):
             'round': 'S',
             'group': '-',
         }
-        rows = [{**wrong, 'time': t} for t in ('10:53', '11:33', '12:03')]
+        rows = [{**wrong, 'time': t} for t in ('10:53', '11:33', '12:03', '12:20')]
         fixed = sync_schedule.correct_montreal_round_labels(rows, MONTREAL)
         self.assertEqual(
             [(r['time'], r['gender'], r['distance'], r['kind'], r['round']) for r in fixed],
             [
-                ('10:53', 'M', '1500', 'I', 'S'),
-                ('11:33', 'X', '2000', 'R', 'Q'),
-                ('12:03', 'W', '3000', 'R', 'Q'),
+                ('10:53', 'M', '1500', 'I', 'Q'),
+                ('11:33', 'M', '1500', 'I', 'S'),
+                ('12:03', 'X', '2000', 'R', 'S'),
+                ('12:20', 'M', '1500', 'I', 'S'),
             ],
         )
         self.assertEqual(sync_schedule.correct_montreal_round_labels(fixed, MONTREAL), fixed)
+        # A partly corrected source must still allow the other reviewed corrections.
+        partly_fixed = [{**wrong, 'time': t} for t in ('10:53', '11:33', '12:03')]
+        partly_fixed[0]['round'] = 'Q'
+        self.assertEqual(sync_schedule.correct_montreal_round_labels(partly_fixed, MONTREAL), fixed[:3])
+        self.assertEqual(
+            sync_schedule.correct_montreal_round_labels([{**wrong, 'time': '12:03'}], stations.get('vancouver')),
+            [{**wrong, 'time': '12:03'}],
+        )
+
+    def test_montreal_repechage_matches_official_isu_news_programme(self):
+        # https://www.isu-skating.com/en/short-track/news/isu-short-track-world-tour-montreal-schedule/
+        rows = sync_schedule.read(stations.schedule_path('montreal'))
+        by_time = {r['time']: r for r in rows if r['date'] == '2026-10-31' and r['session'] == 'R'}
+        expected = {
+            '10:53': ('M', '1500', 'I', 'Q'),
+            '11:33': ('M', '1500', 'I', 'S'),
+            '12:03': ('X', '2000', 'R', 'S'),
+        }
+        for time, labels in expected.items():
+            with self.subTest(time=time):
+                self.assertEqual(tuple(by_time[time][key] for key in ('gender', 'distance', 'kind', 'round')), labels)
+        schedule = build.read_schedule('montreal')
+        self.assertTrue(any(r['round_key'] == '2026-10-31/repechage/mixed/2000/semifinal/-' for r in schedule))
 
     def test_schedule_parser_accepts_single_digit_hours(self):
         text = (
