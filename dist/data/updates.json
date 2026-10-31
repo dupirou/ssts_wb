@@ -2,6 +2,38 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "194981941eec3927",
+      "station": "montreal",
+      "at": "2026-10-31T20:31:21+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Long SUN",
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 2
+        },
+        {
+          "name": "Long SUN",
+          "rank": 3
+        },
+        {
+          "name": "Yiding ZHU",
+          "rank": 6
+        }
+      ]
+    },
+    {
       "id": "890d11d459a5b55f",
       "station": "montreal",
       "at": "2026-10-31T20:01:30+00:00",
@@ -3168,28 +3200,6 @@
       "kind": "results",
       "china": [],
       "china_results": []
-    },
-    {
-      "id": "edded1a8c7110e92",
-      "station": "vancouver",
-      "at": "2026-10-25T02:21:18+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 1
-        }
-      ]
     }
   ]
 }
