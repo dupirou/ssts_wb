@@ -2,6 +2,59 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "4b985a31cb6fe9be",
+      "station": "montreal",
+      "at": "2026-10-31T14:21:17+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kun LI",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Kun LI",
+          "rank": 4,
+          "status": "out"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "127036e0a02d70f9",
+      "station": "montreal",
+      "at": "2026-10-31T14:21:17+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Bohao ZHANG",
+        "Zixia ZHANG"
+      ]
+    },
+    {
       "id": "64519fe08bad686d",
       "station": "montreal",
       "at": "2026-10-31T14:01:25+00:00",
@@ -3067,60 +3120,6 @@
         {
           "name": "Kun LI",
           "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "548d2431ab979f13",
-      "station": "vancouver",
-      "at": "2026-10-24T20:01:17+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
-      ]
-    },
-    {
-      "id": "0c3da637a1645d8d",
-      "station": "vancouver",
-      "at": "2026-10-24T20:01:17+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jianing ZHANG",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Li GONG",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Yan ZHANG",
-          "rank": 2,
           "status": "advanced"
         }
       ]
