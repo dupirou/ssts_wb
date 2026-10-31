@@ -2,6 +2,97 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "7686e7581c588732",
+      "station": "montreal",
+      "at": "2026-10-31T18:41:20+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Long SUN"
+      ],
+      "china_results": [
+        {
+          "name": "Long SUN",
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "id": "6407391e092396e3",
+      "station": "montreal",
+      "at": "2026-10-31T18:41:20+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG"
+      ]
+    },
+    {
+      "id": "446a752ba8137764",
+      "station": "montreal",
+      "at": "2026-10-31T18:41:20+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "236b1718624f8e24",
+      "station": "montreal",
+      "at": "2026-10-31T18:41:20+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 3,
+          "status": "final_b"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 4,
+          "status": "final_b"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 5,
+          "status": "final_b"
+        }
+      ]
+    },
+    {
       "id": "f48c71edc0b65470",
       "station": "montreal",
       "at": "2026-10-31T18:21:16+00:00",
@@ -270,7 +361,7 @@
         {
           "name": "Jianing ZHANG",
           "rank": 1,
-          "status": "advanced"
+          "status": "final_b"
         }
       ]
     },
@@ -3044,75 +3135,6 @@
       "repechage": false,
       "gender": "women",
       "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "7aaf8dee5ad6a245",
-      "station": "vancouver",
-      "at": "2026-10-25T00:41:19+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "22051aa414bbc8ab",
-      "station": "vancouver",
-      "at": "2026-10-25T00:21:18+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "f94f40819d9da143",
-      "station": "vancouver",
-      "at": "2026-10-25T00:11:23+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jiarui SONG"
-      ],
-      "china_results": [
-        {
-          "name": "Jiarui SONG",
-          "rank": null,
-          "penalty": "PEN",
-          "status": "out"
-        }
-      ]
-    },
-    {
-      "id": "b1d5a149a82dee10",
-      "station": "vancouver",
-      "at": "2026-10-25T00:11:23+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
       "format": "individual",
       "kind": "results",
       "china": [],
