@@ -29,6 +29,8 @@
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-31/main/men/1500/semifinal/-/groups": "published",
+    "montreal/round/2026-10-31/main/men/500/final/A/groups": "published",
+    "montreal/round/2026-10-31/main/men/500/final/B/groups": "published",
     "montreal/round/2026-10-31/main/men/500/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/main/men/500/quarterfinal/-/results": "official",
     "montreal/round/2026-10-31/main/men/500/semifinal/-/groups": "published",
@@ -341,36 +343,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "165e0f4bc9cfc90a",
-      "station": "vancouver",
-      "at": "2026-10-25T00:11:23+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
-    {
-      "id": "5106f46b7d39548c",
-      "station": "vancouver",
-      "at": "2026-10-25T00:11:23+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
     {
       "id": "b1d5a149a82dee10",
       "station": "vancouver",
@@ -3454,6 +3426,38 @@
           "rank": 4,
           "status": "final_b"
         }
+      ]
+    },
+    {
+      "id": "5e4e619791363f14",
+      "station": "montreal",
+      "at": "2026-10-31T18:21:16+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "f48c71edc0b65470",
+      "station": "montreal",
+      "at": "2026-10-31T18:21:16+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "Long SUN"
       ]
     }
   ]

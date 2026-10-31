@@ -2,6 +2,38 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "f48c71edc0b65470",
+      "station": "montreal",
+      "at": "2026-10-31T18:21:16+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "Long SUN"
+      ]
+    },
+    {
+      "id": "5e4e619791363f14",
+      "station": "montreal",
+      "at": "2026-10-31T18:21:16+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
       "id": "df8c543823af8cd6",
       "station": "montreal",
       "at": "2026-10-31T18:11:15+00:00",
@@ -3085,36 +3117,6 @@
       "kind": "results",
       "china": [],
       "china_results": []
-    },
-    {
-      "id": "5106f46b7d39548c",
-      "station": "vancouver",
-      "at": "2026-10-25T00:11:23+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
-    {
-      "id": "165e0f4bc9cfc90a",
-      "station": "vancouver",
-      "at": "2026-10-25T00:11:23+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
     }
   ]
 }
