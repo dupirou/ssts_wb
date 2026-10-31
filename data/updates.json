@@ -39,6 +39,7 @@
     "montreal/round/2026-10-31/main/men/500/semifinal/-/results": "official",
     "montreal/round/2026-10-31/main/men/5000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/1000/final/A/groups": "published",
+    "montreal/round/2026-10-31/main/women/1000/final/A/results": "official",
     "montreal/round/2026-10-31/main/women/1000/final/B/groups": "published",
     "montreal/round/2026-10-31/main/women/1000/final/B/results": "official",
     "montreal/round/2026-10-31/main/women/1000/quarterfinal/-/groups": "published",
@@ -349,36 +350,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "3c20e91c3d5ff7ab",
-      "station": "vancouver",
-      "at": "2026-10-25T01:21:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Yiding ZHU",
-        "Zixia ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Yiding ZHU",
-          "rank": 6,
-          "status": "advanced"
-        },
-        {
-          "name": "Zixia ZHANG",
-          "rank": null,
-          "penalty": "PEN",
-          "status": "out"
-        }
-      ]
-    },
     {
       "id": "f71fba0c7a725bae",
       "station": "vancouver",
@@ -3517,6 +3488,38 @@
         {
           "name": "Li GONG",
           "rank": 4
+        }
+      ]
+    },
+    {
+      "id": "57d8e8ca0084d5d1",
+      "station": "montreal",
+      "at": "2026-10-31T19:11:19+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Hanne DESMET",
+          "country": "BEL"
         }
       ]
     }

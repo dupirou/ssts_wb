@@ -2,6 +2,38 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "57d8e8ca0084d5d1",
+      "station": "montreal",
+      "at": "2026-10-31T19:11:19+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Hanne DESMET",
+          "country": "BEL"
+        }
+      ]
+    },
+    {
       "id": "d238604bb2647d33",
       "station": "montreal",
       "at": "2026-10-31T19:01:21+00:00",
@@ -3141,36 +3173,6 @@
       "kind": "groups",
       "heats": 1,
       "china": []
-    },
-    {
-      "id": "3c20e91c3d5ff7ab",
-      "station": "vancouver",
-      "at": "2026-10-25T01:21:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Yiding ZHU",
-        "Zixia ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Yiding ZHU",
-          "rank": 6,
-          "status": "advanced"
-        },
-        {
-          "name": "Zixia ZHANG",
-          "rank": null,
-          "penalty": "PEN",
-          "status": "out"
-        }
-      ]
     }
   ]
 }
