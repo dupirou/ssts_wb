@@ -3,7 +3,7 @@
   "event_id": "vancouver",
   "entries": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-10-31T00:01:24+00:00",
     "updated_at": "2026-10-20T08:52:40+00:00",
     "source_urls": [
@@ -2180,7 +2180,7 @@
   },
   "rounds": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-10-31T00:01:24+00:00",
     "updated_at": "2026-10-27T03:25:30+00:00",
     "source_urls": [
@@ -21487,11 +21487,12 @@
       "2026-10-25/repechage/women/500/heats/-": "The first and second placed skaters from each race and up to a maximum of two fastest third place skaters qualify for Rep Quarterfinals.",
       "2026-10-25/repechage/women/500/quarterfinal/-": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals.",
       "2026-10-25/repechage/women/500/semifinal/-": "The first placed skater from each race qualify for Quarterfinals."
-    }
+    },
+    "error": "Previously published data absent; retained last snapshot"
   },
   "rankings": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-10-31T00:01:24+00:00",
     "updated_at": "2026-10-26T18:01:20+00:00",
     "source_urls": [
@@ -28823,6 +28824,7 @@
         "official_details": "70                                                          70   0:42.697",
         "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/f287f824479994deccf3aa5b8feffb7cf74f956138eef0e11eda96ad535b31c9.pdf"
       }
-    ]
+    ],
+    "error": "Previously published data absent; retained last snapshot"
   }
 }
