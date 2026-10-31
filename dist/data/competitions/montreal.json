@@ -2255,8 +2255,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-31T19:51:19+00:00",
-    "updated_at": "2026-10-31T19:51:19+00:00",
+    "checked_at": "2026-10-31T20:01:30+00:00",
+    "updated_at": "2026-10-31T20:01:30+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22960",
@@ -2282,6 +2282,7 @@
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22937",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22938",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16038&round=22965",
+      "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16038&round=22966",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16039&round=22939",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16039&round=22940",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16039&round=22941",
@@ -17110,8 +17111,8 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-10-31T15:46:39.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16038&round=22965",
         "participants": [
@@ -17122,9 +17123,9 @@
             "official_skater_id": 12698,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "4:11.071",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -17156,9 +17157,9 @@
             "official_skater_id": 12702,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "4:11.189",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -17184,49 +17185,15 @@
             ]
           },
           {
-            "athlete_id": "team-POL-women",
-            "name": "Poland",
-            "country": "POL",
-            "official_skater_id": 12703,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-c1d7bd7451e837684ae7",
-                "name": "Anna FALKOWSKA",
-                "official_skater_id": 1874
-              },
-              {
-                "athlete_id": "ath-19acc54c4991181cfe31",
-                "name": "Kornelia WOZNIAK",
-                "official_skater_id": 7784
-              },
-              {
-                "athlete_id": "ath-d1ae30d3ef9795ec186b",
-                "name": "Nikola MAZUR",
-                "official_skater_id": 4662
-              },
-              {
-                "athlete_id": "ath-7a90548f25275fc9709d",
-                "name": "Gabriela TOPOLSKA",
-                "official_skater_id": 7104
-              }
-            ]
-          },
-          {
             "athlete_id": "team-KAZ-women",
             "name": "Kazakhstan",
             "country": "KAZ",
             "official_skater_id": 12700,
             "helmet_number": null,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "4:12.493",
+            "qualification": "QB",
             "penalty": null,
             "members": [
               {
@@ -17252,14 +17219,48 @@
             ]
           },
           {
+            "athlete_id": "team-POL-women",
+            "name": "Poland",
+            "country": "POL",
+            "official_skater_id": 12703,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": 4,
+            "result": "4:13.060",
+            "qualification": "QB",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-c1d7bd7451e837684ae7",
+                "name": "Anna FALKOWSKA",
+                "official_skater_id": 1874
+              },
+              {
+                "athlete_id": "ath-19acc54c4991181cfe31",
+                "name": "Kornelia WOZNIAK",
+                "official_skater_id": 7784
+              },
+              {
+                "athlete_id": "ath-d1ae30d3ef9795ec186b",
+                "name": "Nikola MAZUR",
+                "official_skater_id": 4662
+              },
+              {
+                "athlete_id": "ath-7a90548f25275fc9709d",
+                "name": "Gabriela TOPOLSKA",
+                "official_skater_id": 7104
+              }
+            ]
+          },
+          {
             "athlete_id": "team-JPN-women",
             "name": "Japan",
             "country": "JPN",
             "official_skater_id": 12699,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 5,
+            "result": "4:18.359",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -17299,11 +17300,167 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-10-31T15:53:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-31T15:53:54.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16038&round=22965",
+        "participants": [
+          {
+            "athlete_id": "team-CAN-women",
+            "name": "Canada",
+            "country": "CAN",
+            "official_skater_id": 12695,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 1,
+            "result": "4:07.953",
+            "qualification": "Q",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+                "name": "Courtney SARAULT",
+                "official_skater_id": 6159
+              },
+              {
+                "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+                "name": "Florence BRUNELLE",
+                "official_skater_id": 924
+              },
+              {
+                "athlete_id": "ath-5a7cd29016a92caa9dfb",
+                "name": "Claudia GAGNON",
+                "official_skater_id": 2052
+              },
+              {
+                "athlete_id": "ath-32780e84744937993fa2",
+                "name": "Ann-Sophie BACHAND",
+                "official_skater_id": 457
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-KOR-women",
+            "name": "Republic of Korea",
+            "country": "KOR",
+            "official_skater_id": 12701,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": 2,
+            "result": "4:07.990",
+            "qualification": "Q",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-9a1085a18fd120284e04",
+                "name": "Geonhee KIM",
+                "official_skater_id": 3404
+              },
+              {
+                "athlete_id": "ath-8361e1c91aab972b6ca4",
+                "name": "Sukhee SHIM",
+                "official_skater_id": 6380
+              },
+              {
+                "athlete_id": "ath-fd0ac8fcf99b108ede4f",
+                "name": "Ji Hyun CHOI",
+                "official_skater_id": 1227
+              },
+              {
+                "athlete_id": "ath-27654e207b20ca51c8bf",
+                "name": "Minjeong CHOI",
+                "official_skater_id": 1231
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-CHN-women",
+            "name": "China",
+            "country": "CHN",
+            "official_skater_id": 12696,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": 3,
+            "result": "4:08.406",
+            "qualification": "QB",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-387545148a759a14a937",
+                "name": "Jiarui SONG",
+                "official_skater_id": 6617
+              },
+              {
+                "athlete_id": "ath-c9d7d5a38485bd9c344f",
+                "name": "Yan ZHANG",
+                "official_skater_id": 19401
+              },
+              {
+                "athlete_id": "ath-7526110b176497878d3f",
+                "name": "Li GONG",
+                "official_skater_id": 2262
+              },
+              {
+                "athlete_id": "ath-08caea4ad943373c94ab",
+                "name": "Chutong ZHANG",
+                "official_skater_id": 8080
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-FRA-women",
+            "name": "France",
+            "country": "FRA",
+            "official_skater_id": 12697,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": 4,
+            "result": "4:10.945",
+            "qualification": "QB",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-8e82dc2af25e8e98a240",
+                "name": "Cloe OLLIVIER",
+                "official_skater_id": 5231
+              },
+              {
+                "athlete_id": "ath-257fbdf229c3007f9a9f",
+                "name": "Aurelie LEVEQUE",
+                "official_skater_id": 4137
+              },
+              {
+                "athlete_id": "ath-8a1d16baa2b5cd400e4d",
+                "name": "Eva GRENOUILLOUX",
+                "official_skater_id": 2330
+              },
+              {
+                "athlete_id": "ath-4fe64c204a3ae6446d70",
+                "name": "Berenice COMBY",
+                "official_skater_id": 1318
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-20613",
+        "gender": "women",
+        "distance_m": 3000,
+        "format": "relay",
+        "round_key": "2026-10-31/main/women/3000/final/A",
+        "local_date": "2026-10-31",
+        "round": "final",
+        "round_label": "Finals",
+        "group": "A",
+        "heat_number": null,
+        "heat_label": "Final",
+        "source_start": "2026-10-31T16:45:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": false,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16038&round=22966",
         "participants": [
           {
             "athlete_id": "team-CAN-women",
@@ -17319,10 +17476,10 @@
             "members": []
           },
           {
-            "athlete_id": "team-KOR-women",
-            "name": "Republic of Korea",
-            "country": "KOR",
-            "official_skater_id": 12701,
+            "athlete_id": "team-ITA-women",
+            "name": "Italy",
+            "country": "ITA",
+            "official_skater_id": 12698,
             "helmet_number": null,
             "starting_position": 2,
             "rank": null,
@@ -17332,12 +17489,71 @@
             "members": []
           },
           {
+            "athlete_id": "team-KOR-women",
+            "name": "Republic of Korea",
+            "country": "KOR",
+            "official_skater_id": 12701,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-NED-women",
+            "name": "Netherlands",
+            "country": "NED",
+            "official_skater_id": 12702,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-20614",
+        "gender": "women",
+        "distance_m": 3000,
+        "format": "relay",
+        "round_key": "2026-10-31/main/women/3000/final/B",
+        "local_date": "2026-10-31",
+        "round": "final",
+        "round_label": "Finals",
+        "group": "B",
+        "heat_number": null,
+        "heat_label": "Final B",
+        "source_start": "2026-10-31T16:39:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": true,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16038&round=22966",
+        "participants": [
+          {
             "athlete_id": "team-CHN-women",
             "name": "China",
             "country": "CHN",
             "official_skater_id": 12696,
             "helmet_number": null,
-            "starting_position": 3,
+            "starting_position": 1,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-KAZ-women",
+            "name": "Kazakhstan",
+            "country": "KAZ",
+            "official_skater_id": 12700,
+            "helmet_number": null,
+            "starting_position": 2,
             "rank": null,
             "result": "no time",
             "qualification": null,
@@ -17349,6 +17565,19 @@
             "name": "France",
             "country": "FRA",
             "official_skater_id": 12697,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-POL-women",
+            "name": "Poland",
+            "country": "POL",
+            "official_skater_id": 12703,
             "helmet_number": null,
             "starting_position": 4,
             "rank": null,
