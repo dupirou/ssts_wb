@@ -2,6 +2,40 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "54365e77af08e9cc",
+      "station": "montreal",
+      "at": "2026-10-31T16:01:31+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 3,
+      "china": [
+        "Bohao ZHANG",
+        "Long SUN",
+        "Yiding ZHU"
+      ]
+    },
+    {
+      "id": "223188171026a3c2",
+      "station": "montreal",
+      "at": "2026-10-31T16:01:31+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
       "id": "843019b1a2426c63",
       "station": "montreal",
       "at": "2026-10-31T15:41:33+00:00",
@@ -3059,36 +3093,6 @@
       "kind": "groups",
       "heats": 1,
       "china": []
-    },
-    {
-      "id": "89e41fc40c34433e",
-      "station": "vancouver",
-      "at": "2026-10-24T21:41:17+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
-    {
-      "id": "2bd182e9cde4595e",
-      "station": "vancouver",
-      "at": "2026-10-24T21:41:17+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "results",
-      "china": [],
-      "china_results": []
     }
   ]
 }
