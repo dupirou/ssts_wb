@@ -2,6 +2,38 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "24fa9904928bb895",
+      "station": "montreal",
+      "at": "2026-10-31T18:51:22+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Maxime LAOUN",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Thomas NADALINI",
+          "country": "ITA"
+        }
+      ]
+    },
+    {
       "id": "7686e7581c588732",
       "station": "montreal",
       "at": "2026-10-31T18:41:20+00:00",
@@ -3124,21 +3156,6 @@
       "china": [
         "Yiding ZHU"
       ]
-    },
-    {
-      "id": "bd7d818fcec65f74",
-      "station": "vancouver",
-      "at": "2026-10-25T00:41:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
     }
   ]
 }

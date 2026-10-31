@@ -30,6 +30,7 @@
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-31/main/men/1500/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/men/500/final/A/groups": "published",
+    "montreal/round/2026-10-31/main/men/500/final/A/results": "official",
     "montreal/round/2026-10-31/main/men/500/final/B/groups": "published",
     "montreal/round/2026-10-31/main/men/500/final/B/results": "official",
     "montreal/round/2026-10-31/main/men/500/quarterfinal/-/groups": "published",
@@ -347,21 +348,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "bd7d818fcec65f74",
-      "station": "vancouver",
-      "at": "2026-10-25T00:41:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
     {
       "id": "38805c93e79ae8c2",
       "station": "vancouver",
@@ -3483,6 +3469,38 @@
         {
           "name": "Long SUN",
           "rank": 5
+        }
+      ]
+    },
+    {
+      "id": "24fa9904928bb895",
+      "station": "montreal",
+      "at": "2026-10-31T18:51:22+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Maxime LAOUN",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Thomas NADALINI",
+          "country": "ITA"
         }
       ]
     }
