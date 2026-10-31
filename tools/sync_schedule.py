@@ -95,6 +95,7 @@ def correct_montreal_round_labels(rows, station):
             row.update(expected)
     return rows
 
+
 def parse_text(text, station):
     allowed = {d.isoformat() for d in stations.dates(station)}
     lines = [re.sub(r'\s+', ' ', line).strip() for line in text.splitlines()]

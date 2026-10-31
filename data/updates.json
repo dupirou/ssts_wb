@@ -32,6 +32,7 @@
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/groups": "published",
+    "montreal/round/2026-10-31/repechage/mixed/2000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/women/1000/quarterfinal/-/groups": "published",
     "montreal/round/2026-11-01/repechage/men/1000/heats/-/groups": "published",
     "montreal/round/2026-11-01/repechage/women/1500/quarterfinal/-/groups": "published",
@@ -76,11 +77,13 @@
     "montreal/time/2026-10-31/main/women/3000/final/B": "2026-11-01 04:39",
     "montreal/time/2026-10-31/main/women/3000/semifinal/-": "2026-11-01 03:47",
     "montreal/time/2026-10-31/repechage/men/1500/heats/-": "2026-10-31 21:15",
-    "montreal/time/2026-10-31/repechage/men/1500/semifinal/-": "2026-10-31 22:53",
+    "montreal/time/2026-10-31/repechage/men/1500/quarterfinal/-": "2026-10-31 22:53",
+    "montreal/time/2026-10-31/repechage/men/1500/semifinal/-": "2026-10-31 23:33",
     "montreal/time/2026-10-31/repechage/men/500/heats/-": "2026-10-31 20:45",
     "montreal/time/2026-10-31/repechage/men/500/quarterfinal/-": "2026-10-31 21:50",
     "montreal/time/2026-10-31/repechage/men/500/semifinal/-": "2026-10-31 22:32",
     "montreal/time/2026-10-31/repechage/mixed/2000/quarterfinal/-": "2026-10-31 23:33",
+    "montreal/time/2026-10-31/repechage/mixed/2000/semifinal/-": "2026-11-01 00:03",
     "montreal/time/2026-10-31/repechage/women/1000/quarterfinal/-": "2026-10-31 22:08",
     "montreal/time/2026-10-31/repechage/women/1000/semifinal/-": "2026-10-31 23:18",
     "montreal/time/2026-10-31/repechage/women/3000/quarterfinal/-": "2026-11-01 00:03",
@@ -314,39 +317,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "a11256f5a366703d",
-      "station": "vancouver",
-      "at": "2026-10-24T18:31:23+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": [
-        "Bohao ZHANG",
-        "Kun LI"
-      ]
-    },
-    {
-      "id": "faab35caa2e330b1",
-      "station": "vancouver",
-      "at": "2026-10-24T18:31:23+00:00",
-      "local_date": "2026-10-24",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
     {
       "id": "b1b9ba843a85f2af",
       "station": "vancouver",
@@ -2806,6 +2776,21 @@
       ]
     },
     {
+      "id": "2b37c6e8d9f38ff8",
+      "station": "montreal",
+      "kind": "time_change",
+      "at": "2026-10-30T00:01:10+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "previous": "2026-10-31 22:53",
+      "current": "2026-10-31 23:33"
+    },
+    {
       "id": "54ee74185644dd73",
       "station": "montreal",
       "at": "2026-10-30T13:51:20+00:00",
@@ -3452,6 +3437,23 @@
           "rank": 1,
           "status": "advanced"
         }
+      ]
+    },
+    {
+      "id": "07191c62c33f911e",
+      "station": "montreal",
+      "at": "2026-10-31T05:38:43+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "China"
       ]
     }
   ]
