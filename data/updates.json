@@ -32,6 +32,8 @@
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/groups": "published",
+    "montreal/round/2026-10-31/repechage/men/500/heats/-/results": "official",
+    "montreal/round/2026-10-31/repechage/men/500/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/mixed/2000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/women/1000/quarterfinal/-/groups": "published",
     "montreal/round/2026-11-01/repechage/men/1000/heats/-/groups": "published",
@@ -317,40 +319,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "b1b9ba843a85f2af",
-      "station": "vancouver",
-      "at": "2026-10-24T19:01:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 5,
-      "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Yiding ZHU"
-      ]
-    },
-    {
-      "id": "f7de470cc53680d8",
-      "station": "vancouver",
-      "at": "2026-10-24T19:01:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
     {
       "id": "2985d158912be898",
       "station": "vancouver",
@@ -3089,12 +3057,12 @@
         {
           "name": "Bohao ZHANG",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Kun LI",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Long SUN",
@@ -3104,7 +3072,7 @@
         {
           "name": "Zixia ZHANG",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         }
       ]
     },
@@ -3455,6 +3423,40 @@
       "china": [
         "China"
       ]
+    },
+    {
+      "id": "508d631a0599b002",
+      "station": "montreal",
+      "at": "2026-10-31T13:21:30+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "Bohao ZHANG",
+        "Kun LI",
+        "Zixia ZHANG"
+      ]
+    },
+    {
+      "id": "e25b02975f75ac4a",
+      "station": "montreal",
+      "at": "2026-10-31T13:21:30+00:00",
+      "local_date": "2026-10-31",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
     }
   ]
 }

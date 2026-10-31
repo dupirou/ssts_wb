@@ -2,6 +2,40 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "e25b02975f75ac4a",
+      "station": "montreal",
+      "at": "2026-10-31T13:21:30+00:00",
+      "local_date": "2026-10-31",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "508d631a0599b002",
+      "station": "montreal",
+      "at": "2026-10-31T13:21:30+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "Bohao ZHANG",
+        "Kun LI",
+        "Zixia ZHANG"
+      ]
+    },
+    {
       "id": "07191c62c33f911e",
       "station": "montreal",
       "at": "2026-10-31T05:38:43+00:00",
@@ -371,12 +405,12 @@
         {
           "name": "Bohao ZHANG",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Kun LI",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Long SUN",
@@ -386,7 +420,7 @@
         {
           "name": "Zixia ZHANG",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         }
       ]
     },
@@ -3104,40 +3138,6 @@
           "rank": 1,
           "status": "advanced"
         }
-      ]
-    },
-    {
-      "id": "f7de470cc53680d8",
-      "station": "vancouver",
-      "at": "2026-10-24T19:01:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "b1b9ba843a85f2af",
-      "station": "vancouver",
-      "at": "2026-10-24T19:01:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 5,
-      "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Yiding ZHU"
       ]
     }
   ]
