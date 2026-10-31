@@ -28,7 +28,10 @@
     "montreal/round/2026-10-30/qualifying/women/500/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
+    "montreal/round/2026-10-31/main/men/1500/final/A/groups": "published",
+    "montreal/round/2026-10-31/main/men/1500/final/B/groups": "published",
     "montreal/round/2026-10-31/main/men/1500/semifinal/-/groups": "published",
+    "montreal/round/2026-10-31/main/men/1500/semifinal/-/results": "official",
     "montreal/round/2026-10-31/main/men/500/final/A/groups": "published",
     "montreal/round/2026-10-31/main/men/500/final/A/results": "official",
     "montreal/round/2026-10-31/main/men/500/final/B/groups": "published",
@@ -350,59 +353,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "f71fba0c7a725bae",
-      "station": "vancouver",
-      "at": "2026-10-25T01:21:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
-    {
-      "id": "1acb292d86be7de2",
-      "station": "vancouver",
-      "at": "2026-10-25T01:31:18+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 4,
-          "status": "final_b"
-        }
-      ]
-    },
-    {
-      "id": "a6fdc00ab2fc0df8",
-      "station": "vancouver",
-      "at": "2026-10-25T01:31:18+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
     {
       "id": "b888d9b850340d0f",
       "station": "vancouver",
@@ -3521,6 +3471,75 @@
           "name": "Hanne DESMET",
           "country": "BEL"
         }
+      ]
+    },
+    {
+      "id": "9010836c148684e5",
+      "station": "montreal",
+      "at": "2026-10-31T19:51:19+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "980fbf1ea5e47e8b",
+      "station": "montreal",
+      "at": "2026-10-31T19:51:19+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Long SUN",
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 4,
+          "status": "final_b"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 3,
+          "status": "final_b"
+        },
+        {
+          "name": "Yiding ZHU",
+          "rank": 5,
+          "status": "final_b"
+        }
+      ]
+    },
+    {
+      "id": "e67cb9795528b9f7",
+      "station": "montreal",
+      "at": "2026-10-31T19:51:19+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "Bohao ZHANG",
+        "Long SUN",
+        "Yiding ZHU"
       ]
     }
   ]
