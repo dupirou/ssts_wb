@@ -30,6 +30,7 @@
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-31/main/men/500/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/main/men/5000/semifinal/-/groups": "published",
+    "montreal/round/2026-10-31/main/women/1000/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/results": "official",
@@ -46,6 +47,7 @@
     "montreal/round/2026-10-31/repechage/women/1000/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/women/1000/quarterfinal/-/results": "official",
     "montreal/round/2026-10-31/repechage/women/1000/semifinal/-/groups": "published",
+    "montreal/round/2026-10-31/repechage/women/1000/semifinal/-/results": "official",
     "montreal/round/2026-11-01/repechage/men/1000/heats/-/groups": "published",
     "montreal/round/2026-11-01/repechage/women/1500/quarterfinal/-/groups": "published",
     "montreal/round/2026-11-01/repechage/women/500/quarterfinal/-/groups": "published",
@@ -329,43 +331,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "ed4d2028f4582630",
-      "station": "vancouver",
-      "at": "2026-10-24T21:11:22+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
-      ]
-    },
-    {
-      "id": "4869aa539a814c08",
-      "station": "vancouver",
-      "at": "2026-10-24T21:21:25+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "Yiding ZHU",
-        "Zixia ZHANG"
-      ]
-    },
     {
       "id": "2bd182e9cde4595e",
       "station": "vancouver",
@@ -3409,6 +3374,49 @@
           "name": "Kerui SONG",
           "rank": 4,
           "status": "out"
+        }
+      ]
+    },
+    {
+      "id": "2c8b7b27ae069249",
+      "station": "montreal",
+      "at": "2026-10-31T15:41:33+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG",
+        "Yan ZHANG"
+      ]
+    },
+    {
+      "id": "843019b1a2426c63",
+      "station": "montreal",
+      "at": "2026-10-31T15:41:33+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 1,
+          "status": "advanced"
         }
       ]
     }
