@@ -31,6 +31,7 @@
     "montreal/round/2026-10-31/main/men/5000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/groups": "published",
+    "montreal/round/2026-10-31/repechage/men/1500/heats/-/results": "official",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/results": "official",
     "montreal/round/2026-10-31/repechage/men/500/quarterfinal/-/groups": "published",
@@ -319,35 +320,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "2985d158912be898",
-      "station": "vancouver",
-      "at": "2026-10-24T19:31:27+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Bohao ZHANG",
-        "Kun LI"
-      ],
-      "china_results": [
-        {
-          "name": "Bohao ZHANG",
-          "rank": 2,
-          "status": "advanced"
-        },
-        {
-          "name": "Kun LI",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
     {
       "id": "71af636bfb949063",
       "station": "vancouver",
@@ -3453,6 +3425,21 @@
       "repechage": true,
       "gender": "men",
       "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "95895cb4c85b90ac",
+      "station": "montreal",
+      "at": "2026-10-31T13:51:17+00:00",
+      "local_date": "2026-10-31",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
       "format": "individual",
       "kind": "results",
       "china": [],
