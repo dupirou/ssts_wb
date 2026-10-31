@@ -40,6 +40,7 @@
     "montreal/round/2026-10-31/main/men/5000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/1000/final/A/groups": "published",
     "montreal/round/2026-10-31/main/women/1000/final/B/groups": "published",
+    "montreal/round/2026-10-31/main/women/1000/final/B/results": "official",
     "montreal/round/2026-10-31/main/women/1000/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/1000/quarterfinal/-/results": "official",
     "montreal/round/2026-10-31/main/women/1000/semifinal/-/groups": "published",
@@ -348,23 +349,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "38805c93e79ae8c2",
-      "station": "vancouver",
-      "at": "2026-10-25T01:21:19+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": [
-        "Yiding ZHU"
-      ]
-    },
     {
       "id": "3c20e91c3d5ff7ab",
       "station": "vancouver",
@@ -3501,6 +3485,38 @@
           "rank": 3,
           "name": "Thomas NADALINI",
           "country": "ITA"
+        }
+      ]
+    },
+    {
+      "id": "d238604bb2647d33",
+      "station": "montreal",
+      "at": "2026-10-31T19:01:21+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 1
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 3
+        },
+        {
+          "name": "Li GONG",
+          "rank": 4
         }
       ]
     }

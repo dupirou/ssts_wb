@@ -2,6 +2,38 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "d238604bb2647d33",
+      "station": "montreal",
+      "at": "2026-10-31T19:01:21+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 1
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 3
+        },
+        {
+          "name": "Li GONG",
+          "rank": 4
+        }
+      ]
+    },
+    {
       "id": "24fa9904928bb895",
       "station": "montreal",
       "at": "2026-10-31T18:51:22+00:00",
@@ -3138,23 +3170,6 @@
           "penalty": "PEN",
           "status": "out"
         }
-      ]
-    },
-    {
-      "id": "38805c93e79ae8c2",
-      "station": "vancouver",
-      "at": "2026-10-25T01:21:19+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": [
-        "Yiding ZHU"
       ]
     }
   ]
