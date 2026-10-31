@@ -28,6 +28,7 @@
     "montreal/round/2026-10-30/qualifying/women/500/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
+    "montreal/round/2026-10-31/main/men/500/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/main/men/5000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/groups": "published",
@@ -326,41 +327,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "3da9481e588c9514",
-      "station": "vancouver",
-      "at": "2026-10-24T20:51:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Yiding ZHU"
-      ],
-      "china_results": [
-        {
-          "name": "Bohao ZHANG",
-          "rank": 2,
-          "status": "advanced"
-        },
-        {
-          "name": "Kerui SONG",
-          "rank": 6,
-          "status": "out"
-        },
-        {
-          "name": "Yiding ZHU",
-          "rank": 2,
-          "status": "advanced"
-        }
-      ]
-    },
     {
       "id": "af9e7849d771d6a4",
       "station": "vancouver",
@@ -3450,6 +3416,24 @@
       "heats": 2,
       "china": [
         "Jianing ZHANG"
+      ]
+    },
+    {
+      "id": "72631a50c1d5690f",
+      "station": "montreal",
+      "at": "2026-10-31T15:01:20+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "Bohao ZHANG",
+        "Long SUN"
       ]
     }
   ]
