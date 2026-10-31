@@ -40,6 +40,7 @@
     "montreal/round/2026-10-31/repechage/men/500/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/mixed/2000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/women/1000/quarterfinal/-/groups": "published",
+    "montreal/round/2026-10-31/repechage/women/1000/quarterfinal/-/results": "official",
     "montreal/round/2026-11-01/repechage/men/1000/heats/-/groups": "published",
     "montreal/round/2026-11-01/repechage/women/1500/quarterfinal/-/groups": "published",
     "montreal/round/2026-11-01/repechage/women/500/quarterfinal/-/groups": "published",
@@ -323,35 +324,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "aeb431d947aa7740",
-      "station": "vancouver",
-      "at": "2026-10-24T20:11:21+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Bohao ZHANG",
-        "Kun LI"
-      ],
-      "china_results": [
-        {
-          "name": "Bohao ZHANG",
-          "rank": 2,
-          "status": "out"
-        },
-        {
-          "name": "Kun LI",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
     {
       "id": "d1e12686ee50b698",
       "station": "vancouver",
@@ -3442,6 +3414,29 @@
         {
           "name": "Zixia ZHANG",
           "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "c12c6ed837b8a948",
+      "station": "montreal",
+      "at": "2026-10-31T14:41:18+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 1,
           "status": "advanced"
         }
       ]
