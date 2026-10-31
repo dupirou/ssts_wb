@@ -2,6 +2,61 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "6d682efdb22cff27",
+      "station": "montreal",
+      "at": "2026-10-31T16:31:18+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "China"
+      ]
+    },
+    {
+      "id": "3a8905fb9f388f1b",
+      "station": "montreal",
+      "at": "2026-10-31T16:31:18+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "25c075202343ede5",
+      "station": "montreal",
+      "at": "2026-10-31T16:31:18+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
       "id": "54365e77af08e9cc",
       "station": "montreal",
       "at": "2026-10-31T16:01:31+00:00",
@@ -3028,71 +3083,6 @@
       "china": [
         "Jiarui SONG"
       ]
-    },
-    {
-      "id": "690a73ff0475d9a8",
-      "station": "vancouver",
-      "at": "2026-10-24T23:21:17+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
-    },
-    {
-      "id": "4479773c3bca70bb",
-      "station": "vancouver",
-      "at": "2026-10-24T23:21:17+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Kun LI",
-        "Long SUN",
-        "Zixia ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Kun LI",
-          "rank": 4,
-          "status": "repechage"
-        },
-        {
-          "name": "Long SUN",
-          "rank": 5,
-          "status": "out"
-        },
-        {
-          "name": "Zixia ZHANG",
-          "rank": 3,
-          "status": "out"
-        }
-      ]
-    },
-    {
-      "id": "aeacc7cfda163a68",
-      "station": "vancouver",
-      "at": "2026-10-24T21:41:17+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
     }
   ]
 }

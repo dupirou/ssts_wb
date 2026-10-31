@@ -2255,11 +2255,12 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-31T16:21:24+00:00",
-    "updated_at": "2026-10-31T16:21:24+00:00",
+    "checked_at": "2026-10-31T16:31:18+00:00",
+    "updated_at": "2026-10-31T16:31:18+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22960",
+      "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22961",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16034&round=22924",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16034&round=22925",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16034&round=22926",
@@ -15247,8 +15248,8 @@
         "heat_number": 2,
         "heat_label": "Heat 2",
         "source_start": "2026-10-31T12:19:15.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22960",
         "participants": [
@@ -15259,9 +15260,9 @@
             "official_skater_id": 12669,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "2:40.096",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -15293,9 +15294,9 @@
             "official_skater_id": 12674,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "2:40.238",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -15321,49 +15322,15 @@
             ]
           },
           {
-            "athlete_id": "team-BEL-mixed",
-            "name": "Belgium",
-            "country": "BEL",
-            "official_skater_id": 12667,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-4c7366f027ce91fd36df",
-                "name": "Tineke DEN DULK",
-                "official_skater_id": 1545
-              },
-              {
-                "athlete_id": "ath-9868a34ec503aeddc132",
-                "name": "Adriaan DEWAGTERE",
-                "official_skater_id": 1569
-              },
-              {
-                "athlete_id": "ath-3bd809dcd4f058d4b540",
-                "name": "Hanne DESMET",
-                "official_skater_id": 1566
-              },
-              {
-                "athlete_id": "ath-4612366d70789756190f",
-                "name": "Ward PETRE",
-                "official_skater_id": 5520
-              }
-            ]
-          },
-          {
             "athlete_id": "team-JPN-mixed",
             "name": "Japan",
             "country": "JPN",
             "official_skater_id": 12675,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "2:40.592",
+            "qualification": "QB",
             "penalty": null,
             "members": [
               {
@@ -15387,6 +15354,184 @@
                 "official_skater_id": 4995
               }
             ]
+          },
+          {
+            "athlete_id": "team-BEL-mixed",
+            "name": "Belgium",
+            "country": "BEL",
+            "official_skater_id": 12667,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": 4,
+            "result": "2:51.220",
+            "qualification": "QB",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-4c7366f027ce91fd36df",
+                "name": "Tineke DEN DULK",
+                "official_skater_id": 1545
+              },
+              {
+                "athlete_id": "ath-9868a34ec503aeddc132",
+                "name": "Adriaan DEWAGTERE",
+                "official_skater_id": 1569
+              },
+              {
+                "athlete_id": "ath-3bd809dcd4f058d4b540",
+                "name": "Hanne DESMET",
+                "official_skater_id": 1566
+              },
+              {
+                "athlete_id": "ath-4612366d70789756190f",
+                "name": "Ward PETRE",
+                "official_skater_id": 5520
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-20601",
+        "gender": "mixed",
+        "distance_m": 2000,
+        "format": "relay",
+        "round_key": "2026-11-01/main/mixed/2000/final/A",
+        "local_date": "2026-11-01",
+        "round": "final",
+        "round_label": "Finals",
+        "group": "A",
+        "heat_number": null,
+        "heat_label": "Final",
+        "source_start": "2026-11-01T13:40:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": true,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22961",
+        "participants": [
+          {
+            "athlete_id": "team-CAN-mixed",
+            "name": "Canada",
+            "country": "CAN",
+            "official_skater_id": 12668,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-CHN-mixed",
+            "name": "China",
+            "country": "CHN",
+            "official_skater_id": 12669,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-NED-mixed",
+            "name": "Netherlands",
+            "country": "NED",
+            "official_skater_id": 12678,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-ITA-mixed",
+            "name": "Italy",
+            "country": "ITA",
+            "official_skater_id": 12674,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-20602",
+        "gender": "mixed",
+        "distance_m": 2000,
+        "format": "relay",
+        "round_key": "2026-11-01/main/mixed/2000/final/B",
+        "local_date": "2026-11-01",
+        "round": "final",
+        "round_label": "Finals",
+        "group": "B",
+        "heat_number": null,
+        "heat_label": "Final B",
+        "source_start": "2026-11-01T13:35:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": false,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22961",
+        "participants": [
+          {
+            "athlete_id": "team-POL-mixed",
+            "name": "Poland",
+            "country": "POL",
+            "official_skater_id": 12679,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-JPN-mixed",
+            "name": "Japan",
+            "country": "JPN",
+            "official_skater_id": 12675,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-KOR-mixed",
+            "name": "Republic of Korea",
+            "country": "KOR",
+            "official_skater_id": 12677,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-BEL-mixed",
+            "name": "Belgium",
+            "country": "BEL",
+            "official_skater_id": 12667,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": []
           }
         ]
       },

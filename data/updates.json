@@ -46,10 +46,13 @@
     "montreal/round/2026-10-31/repechage/men/500/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/semifinal/-/results": "official",
     "montreal/round/2026-10-31/repechage/mixed/2000/semifinal/-/groups": "published",
+    "montreal/round/2026-10-31/repechage/mixed/2000/semifinal/-/results": "official",
     "montreal/round/2026-10-31/repechage/women/1000/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/women/1000/quarterfinal/-/results": "official",
     "montreal/round/2026-10-31/repechage/women/1000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/women/1000/semifinal/-/results": "official",
+    "montreal/round/2026-11-01/main/mixed/2000/final/A/groups": "published",
+    "montreal/round/2026-11-01/main/mixed/2000/final/B/groups": "published",
     "montreal/round/2026-11-01/repechage/men/1000/heats/-/groups": "published",
     "montreal/round/2026-11-01/repechage/women/1500/quarterfinal/-/groups": "published",
     "montreal/round/2026-11-01/repechage/women/500/quarterfinal/-/groups": "published",
@@ -333,71 +336,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "aeacc7cfda163a68",
-      "station": "vancouver",
-      "at": "2026-10-24T21:41:17+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
-    {
-      "id": "4479773c3bca70bb",
-      "station": "vancouver",
-      "at": "2026-10-24T23:21:17+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Kun LI",
-        "Long SUN",
-        "Zixia ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Kun LI",
-          "rank": 4,
-          "status": "repechage"
-        },
-        {
-          "name": "Long SUN",
-          "rank": 5,
-          "status": "out"
-        },
-        {
-          "name": "Zixia ZHANG",
-          "rank": 3,
-          "status": "out"
-        }
-      ]
-    },
-    {
-      "id": "690a73ff0475d9a8",
-      "station": "vancouver",
-      "at": "2026-10-24T23:21:17+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
-    },
     {
       "id": "021b431d2c6a0a94",
       "station": "vancouver",
@@ -3424,6 +3362,61 @@
         "Bohao ZHANG",
         "Long SUN",
         "Yiding ZHU"
+      ]
+    },
+    {
+      "id": "25c075202343ede5",
+      "station": "montreal",
+      "at": "2026-10-31T16:31:18+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "3a8905fb9f388f1b",
+      "station": "montreal",
+      "at": "2026-10-31T16:31:18+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "6d682efdb22cff27",
+      "station": "montreal",
+      "at": "2026-10-31T16:31:18+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "China"
       ]
     }
   ]
