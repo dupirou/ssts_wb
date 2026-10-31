@@ -29,6 +29,7 @@
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-31/main/men/1500/final/A/groups": "published",
+    "montreal/round/2026-10-31/main/men/1500/final/A/results": "official",
     "montreal/round/2026-10-31/main/men/1500/final/B/groups": "published",
     "montreal/round/2026-10-31/main/men/1500/final/B/results": "official",
     "montreal/round/2026-10-31/main/men/1500/semifinal/-/groups": "published",
@@ -357,21 +358,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "ccfc7291bd7e7087",
-      "station": "vancouver",
-      "at": "2026-10-25T02:31:22+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
     {
       "id": "83d9e9be074e7ee6",
       "station": "vancouver",
@@ -3554,6 +3540,38 @@
         {
           "name": "Yiding ZHU",
           "rank": 6
+        }
+      ]
+    },
+    {
+      "id": "44a0f5e6b23426e5",
+      "station": "montreal",
+      "at": "2026-10-31T20:41:19+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
         }
       ]
     }
