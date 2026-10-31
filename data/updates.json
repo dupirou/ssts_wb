@@ -30,6 +30,8 @@
     "montreal/round/2026-10-30/qualifying/women/500/preliminaries/-/results": "official",
     "montreal/round/2026-10-31/main/men/1500/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/men/500/quarterfinal/-/groups": "published",
+    "montreal/round/2026-10-31/main/men/500/quarterfinal/-/results": "official",
+    "montreal/round/2026-10-31/main/men/500/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/men/5000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/1000/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
@@ -336,58 +338,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "021b431d2c6a0a94",
-      "station": "vancouver",
-      "at": "2026-10-24T23:41:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "Jiarui SONG"
-      ]
-    },
-    {
-      "id": "35f76879ef7e140e",
-      "station": "vancouver",
-      "at": "2026-10-24T23:41:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jiarui SONG",
-          "rank": 4,
-          "status": "advanced"
-        },
-        {
-          "name": "Li GONG",
-          "rank": 3,
-          "status": "repechage"
-        },
-        {
-          "name": "Yan ZHANG",
-          "rank": 3,
-          "status": "repechage"
-        }
-      ]
-    },
     {
       "id": "2bb5a9a20265c7b5",
       "station": "vancouver",
@@ -3417,6 +3367,52 @@
       "heats": 1,
       "china": [
         "China"
+      ]
+    },
+    {
+      "id": "683df8ee2aede69d",
+      "station": "montreal",
+      "at": "2026-10-31T17:51:24+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Long SUN"
+      ]
+    },
+    {
+      "id": "f990da47660fa508",
+      "station": "montreal",
+      "at": "2026-10-31T17:51:24+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Long SUN"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 3,
+          "status": "repechage"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 2,
+          "status": "advanced"
+        }
       ]
     }
   ]

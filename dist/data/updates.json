@@ -2,6 +2,52 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "f990da47660fa508",
+      "station": "montreal",
+      "at": "2026-10-31T17:51:24+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Long SUN"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 3,
+          "status": "repechage"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "683df8ee2aede69d",
+      "station": "montreal",
+      "at": "2026-10-31T17:51:24+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Long SUN"
+      ]
+    },
+    {
       "id": "6d682efdb22cff27",
       "station": "montreal",
       "at": "2026-10-31T16:31:18+00:00",
@@ -3031,58 +3077,6 @@
       "kind": "results",
       "china": [],
       "china_results": []
-    },
-    {
-      "id": "35f76879ef7e140e",
-      "station": "vancouver",
-      "at": "2026-10-24T23:41:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jiarui SONG",
-          "rank": 4,
-          "status": "advanced"
-        },
-        {
-          "name": "Li GONG",
-          "rank": 3,
-          "status": "repechage"
-        },
-        {
-          "name": "Yan ZHANG",
-          "rank": 3,
-          "status": "repechage"
-        }
-      ]
-    },
-    {
-      "id": "021b431d2c6a0a94",
-      "station": "vancouver",
-      "at": "2026-10-24T23:41:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "Jiarui SONG"
-      ]
     }
   ]
 }
