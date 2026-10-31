@@ -2,6 +2,52 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "86315334a6d45b80",
+      "station": "montreal",
+      "at": "2026-10-31T14:51:23+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Jianing ZHANG"
+      ]
+    },
+    {
+      "id": "8622057f42da4d05",
+      "station": "montreal",
+      "at": "2026-10-31T14:51:23+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 4,
+          "status": "advanced"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": 3,
+          "status": "out"
+        }
+      ]
+    },
+    {
       "id": "c12c6ed837b8a948",
       "station": "montreal",
       "at": "2026-10-31T14:41:18+00:00",
@@ -3079,43 +3125,6 @@
           "rank": 2,
           "status": "advanced"
         }
-      ]
-    },
-    {
-      "id": "36285acbe02b6940",
-      "station": "vancouver",
-      "at": "2026-10-24T20:51:19+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "Bohao ZHANG",
-        "Yiding ZHU"
-      ]
-    },
-    {
-      "id": "d1e12686ee50b698",
-      "station": "vancouver",
-      "at": "2026-10-24T20:11:21+00:00",
-      "local_date": "2026-10-24",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "Kun LI",
-        "Long SUN",
-        "Zixia ZHANG"
       ]
     }
   ]
