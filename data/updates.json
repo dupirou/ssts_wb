@@ -32,8 +32,11 @@
     "montreal/round/2026-10-31/main/men/500/quarterfinal/-/groups": "published",
     "montreal/round/2026-10-31/main/men/500/quarterfinal/-/results": "official",
     "montreal/round/2026-10-31/main/men/500/semifinal/-/groups": "published",
+    "montreal/round/2026-10-31/main/men/500/semifinal/-/results": "official",
     "montreal/round/2026-10-31/main/men/5000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/1000/quarterfinal/-/groups": "published",
+    "montreal/round/2026-10-31/main/women/1000/quarterfinal/-/results": "official",
+    "montreal/round/2026-10-31/main/women/1000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/main/women/3000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/results": "official",
@@ -338,51 +341,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "2bb5a9a20265c7b5",
-      "station": "vancouver",
-      "at": "2026-10-24T23:51:18+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "53b7c8b952d2e9b6",
-      "station": "vancouver",
-      "at": "2026-10-24T23:51:18+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
-    {
-      "id": "8dd02772df131aeb",
-      "station": "vancouver",
-      "at": "2026-10-24T23:51:18+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
     {
       "id": "165e0f4bc9cfc90a",
       "station": "vancouver",
@@ -3412,6 +3370,89 @@
           "name": "Long SUN",
           "rank": 2,
           "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "271120a01ddc8dbc",
+      "station": "montreal",
+      "at": "2026-10-31T18:11:15+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG"
+      ]
+    },
+    {
+      "id": "cde1752460d0bd36",
+      "station": "montreal",
+      "at": "2026-10-31T18:11:15+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 3,
+          "status": "advanced"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 3,
+          "status": "out"
+        }
+      ]
+    },
+    {
+      "id": "df8c543823af8cd6",
+      "station": "montreal",
+      "at": "2026-10-31T18:11:15+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Long SUN"
+      ],
+      "china_results": [
+        {
+          "name": "Long SUN",
+          "rank": 4,
+          "status": "final_b"
         }
       ]
     }
