@@ -1592,8 +1592,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-10-31T15:21:22+00:00",
-    "updated_at": "2026-10-31T15:21:22+00:00",
+    "checked_at": "2026-10-31T15:31:18+00:00",
+    "updated_at": "2026-10-31T15:31:18+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22960",
@@ -1621,7 +1621,8 @@
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22947",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22948",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22949",
-      "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22950"
+      "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22950",
+      "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22951"
     ],
     "items": [
       {
@@ -7566,8 +7567,8 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-10-31T11:28:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-10-31T11:29:57.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16037&round=22935",
@@ -11493,7 +11494,7 @@
             "starting_position": 7,
             "rank": 3,
             "result": "2:26.569",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -11585,7 +11586,7 @@
             "starting_position": 2,
             "rank": 3,
             "result": "2:18.914",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -11677,7 +11678,7 @@
             "starting_position": 3,
             "rank": 3,
             "result": "2:19.979",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -11731,8 +11732,8 @@
         "heat_number": 4,
         "heat_label": "Heat 4",
         "source_start": "2026-10-31T11:18:31.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22950",
         "participants": [
@@ -11743,9 +11744,21 @@
             "official_skater_id": 16355,
             "helmet_number": 28,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 1,
+            "result": "2:26.106",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-5412f5778387aad9a803",
+            "name": "Shuta MATSUZU",
+            "country": "JPN",
+            "official_skater_id": 4633,
+            "helmet_number": 89,
+            "starting_position": 2,
+            "rank": 2,
+            "result": "2:26.440",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -11755,9 +11768,9 @@
             "official_skater_id": 2986,
             "helmet_number": 81,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "2:26.657",
+            "qualification": "ADV",
             "penalty": null
           },
           {
@@ -11767,8 +11780,20 @@
             "official_skater_id": 22306,
             "helmet_number": 65,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "2:26.787",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-9f8261b4f03d9bcbec9a",
+            "name": "Fre VAN DAMME",
+            "country": "BEL",
+            "official_skater_id": 7327,
+            "helmet_number": 57,
+            "starting_position": 4,
+            "rank": 5,
+            "result": "2:29.361",
             "qualification": null,
             "penalty": null
           },
@@ -11780,33 +11805,12 @@
             "helmet_number": 47,
             "starting_position": 6,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-5412f5778387aad9a803",
-            "name": "Shuta MATSUZU",
-            "country": "JPN",
-            "official_skater_id": 4633,
-            "helmet_number": 89,
-            "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-9f8261b4f03d9bcbec9a",
-            "name": "Fre VAN DAMME",
-            "country": "BEL",
-            "official_skater_id": 7327,
-            "helmet_number": 57,
-            "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -11822,12 +11826,24 @@
         "group": null,
         "heat_number": 5,
         "heat_label": "Heat 5",
-        "source_start": "2026-10-31T11:19:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-10-31T11:25:02.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22950",
         "participants": [
+          {
+            "athlete_id": "ath-287e3f34a4214820bcde",
+            "name": "Antoine GAGNON-LAMARCHE",
+            "country": "CAN",
+            "official_skater_id": 22304,
+            "helmet_number": 64,
+            "starting_position": 4,
+            "rank": 1,
+            "result": "2:24.836",
+            "qualification": "Q",
+            "penalty": null
+          },
           {
             "athlete_id": "ath-6be3e556e39507d16dc3",
             "name": "Kay HUISMAN",
@@ -11835,9 +11851,9 @@
             "official_skater_id": 2780,
             "helmet_number": 41,
             "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 2,
+            "result": "2:24.925",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -11847,9 +11863,9 @@
             "official_skater_id": 22908,
             "helmet_number": 88,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 3,
+            "result": "2:25.018",
+            "qualification": "q",
             "penalty": null
           },
           {
@@ -11859,6 +11875,166 @@
             "official_skater_id": 18320,
             "helmet_number": 68,
             "starting_position": 3,
+            "rank": 4,
+            "result": "2:25.175",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-dc0c79c56cc790edd7de",
+            "name": "David WU JIA WEI",
+            "country": "HUN",
+            "official_skater_id": 7798,
+            "helmet_number": 83,
+            "starting_position": 5,
+            "rank": 5,
+            "result": "2:26.017",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-f48b158cdb376de3796f",
+            "name": "Radek FAJKUS",
+            "country": "CZE",
+            "official_skater_id": 1870,
+            "helmet_number": 71,
+            "starting_position": 6,
+            "rank": 6,
+            "result": "2:28.146",
+            "qualification": null,
+            "penalty": null
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-20569",
+        "gender": "men",
+        "distance_m": 1500,
+        "format": "individual",
+        "round_key": "2026-10-31/repechage/men/1500/semifinal/-",
+        "local_date": "2026-10-31",
+        "round": "semifinal",
+        "round_label": "Rep. Semifinals",
+        "group": null,
+        "heat_number": 1,
+        "heat_label": "Heat 1",
+        "source_start": "2026-10-31T11:43:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": false,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22951",
+        "participants": [
+          {
+            "athlete_id": "ath-386e02e7887f7b96867e",
+            "name": "Benjamin SULLIVAN",
+            "country": "USA",
+            "official_skater_id": 19467,
+            "helmet_number": 113,
+            "starting_position": 1,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-2c7bf7881e6dda162f51",
+            "name": "Niall TREACY",
+            "country": "GBR",
+            "official_skater_id": 7129,
+            "helmet_number": 20,
+            "starting_position": 2,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-33b1d9336d95c0415bd3",
+            "name": "Wonjun MOON",
+            "country": "HUN",
+            "official_skater_id": 16355,
+            "helmet_number": 28,
+            "starting_position": 3,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-6be3e556e39507d16dc3",
+            "name": "Kay HUISMAN",
+            "country": "NED",
+            "official_skater_id": 2780,
+            "helmet_number": 41,
+            "starting_position": 4,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-c717ef5022b3c1c56264",
+            "name": "Zhanshuo LOU",
+            "country": "HKG",
+            "official_skater_id": 4367,
+            "helmet_number": 45,
+            "starting_position": 5,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-ed4d41133f871dbcd2f6",
+            "name": "Niels KINGMA",
+            "country": "NED",
+            "official_skater_id": 3494,
+            "helmet_number": 99,
+            "starting_position": 6,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-e0867fdf3c14aab30440",
+            "name": "Lucas WAREHAM",
+            "country": "AUS",
+            "official_skater_id": 7625,
+            "helmet_number": 50,
+            "starting_position": 7,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-20570",
+        "gender": "men",
+        "distance_m": 1500,
+        "format": "individual",
+        "round_key": "2026-10-31/repechage/men/1500/semifinal/-",
+        "local_date": "2026-10-31",
+        "round": "semifinal",
+        "round_label": "Rep. Semifinals",
+        "group": null,
+        "heat_number": 2,
+        "heat_label": "Heat 2",
+        "source_start": "2026-10-31T11:47:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": false,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16041&round=22951",
+        "participants": [
+          {
+            "athlete_id": "ath-1c1b62eec955b1a55394",
+            "name": "Jesper SCHMITZ",
+            "country": "NED",
+            "official_skater_id": 18268,
+            "helmet_number": 100,
+            "starting_position": 1,
             "rank": null,
             "result": "no time",
             "qualification": null,
@@ -11870,6 +12046,30 @@
             "country": "CAN",
             "official_skater_id": 22304,
             "helmet_number": 64,
+            "starting_position": 2,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-83cf68476818bb34df2a",
+            "name": "Brendan COREY",
+            "country": "AUS",
+            "official_skater_id": 1342,
+            "helmet_number": 18,
+            "starting_position": 3,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-c56914a18481d4557bba",
+            "name": "Marcus HOWARD",
+            "country": "USA",
+            "official_skater_id": 2734,
+            "helmet_number": 110,
             "starting_position": 4,
             "rank": null,
             "result": "no time",
@@ -11877,11 +12077,11 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-dc0c79c56cc790edd7de",
-            "name": "David WU JIA WEI",
-            "country": "HUN",
-            "official_skater_id": 7798,
-            "helmet_number": 83,
+            "athlete_id": "ath-5412f5778387aad9a803",
+            "name": "Shuta MATSUZU",
+            "country": "JPN",
+            "official_skater_id": 4633,
+            "helmet_number": 89,
             "starting_position": 5,
             "rank": null,
             "result": "no time",
@@ -11889,12 +12089,24 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-f48b158cdb376de3796f",
-            "name": "Radek FAJKUS",
-            "country": "CZE",
-            "official_skater_id": 1870,
-            "helmet_number": 71,
+            "athlete_id": "ath-91511b3c9de89e30bfa8",
+            "name": "Peter JASZAPATI",
+            "country": "HUN",
+            "official_skater_id": 2986,
+            "helmet_number": 81,
             "starting_position": 6,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-ff0e797c67667f8c165e",
+            "name": "Musashi KAKINAMI",
+            "country": "JPN",
+            "official_skater_id": 22908,
+            "helmet_number": 88,
+            "starting_position": 7,
             "rank": null,
             "result": "no time",
             "qualification": null,

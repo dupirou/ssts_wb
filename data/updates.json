@@ -34,6 +34,8 @@
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/1500/heats/-/results": "official",
     "montreal/round/2026-10-31/repechage/men/1500/quarterfinal/-/groups": "published",
+    "montreal/round/2026-10-31/repechage/men/1500/quarterfinal/-/results": "official",
+    "montreal/round/2026-10-31/repechage/men/1500/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/groups": "published",
     "montreal/round/2026-10-31/repechage/men/500/heats/-/results": "official",
     "montreal/round/2026-10-31/repechage/men/500/quarterfinal/-/groups": "published",
@@ -327,70 +329,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "af9e7849d771d6a4",
-      "station": "vancouver",
-      "at": "2026-10-24T21:01:21+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jianing ZHANG",
-          "rank": 5,
-          "status": "out"
-        },
-        {
-          "name": "Li GONG",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Yan ZHANG",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "8590c12af474b842",
-      "station": "vancouver",
-      "at": "2026-10-24T21:11:22+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Bohao ZHANG",
-        "Yiding ZHU"
-      ],
-      "china_results": [
-        {
-          "name": "Bohao ZHANG",
-          "rank": 4,
-          "status": "out"
-        },
-        {
-          "name": "Yiding ZHU",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
     {
       "id": "ed4d2028f4582630",
       "station": "vancouver",
@@ -3434,6 +3372,44 @@
       "china": [
         "Bohao ZHANG",
         "Long SUN"
+      ]
+    },
+    {
+      "id": "04086892636f467d",
+      "station": "montreal",
+      "at": "2026-10-31T15:31:18+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
+      "id": "0bb81f9cebc2d6fb",
+      "station": "montreal",
+      "at": "2026-10-31T15:31:18+00:00",
+      "local_date": "2026-10-31",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Kerui SONG"
+      ],
+      "china_results": [
+        {
+          "name": "Kerui SONG",
+          "rank": 4,
+          "status": "out"
+        }
       ]
     }
   ]
