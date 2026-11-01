@@ -2,6 +2,41 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "4037be829f2e31c8",
+      "station": "montreal",
+      "at": "2026-11-01T17:31:24+00:00",
+      "local_date": "2026-11-01",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "3d73745926a08b6c",
+      "station": "montreal",
+      "at": "2026-11-01T17:31:24+00:00",
+      "local_date": "2026-11-01",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 3,
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Li GONG",
+        "Yan ZHANG"
+      ]
+    },
+    {
       "id": "feab66c272adbd46",
       "station": "montreal",
       "at": "2026-11-01T17:11:23+00:00",
@@ -3109,65 +3144,6 @@
       "kind": "groups",
       "heats": 2,
       "china": []
-    },
-    {
-      "id": "8b04e839b93ff0d4",
-      "station": "vancouver",
-      "at": "2026-10-26T00:21:20+00:00",
-      "local_date": "2026-10-25",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Long SUN"
-      ],
-      "china_results": [
-        {
-          "name": "Long SUN",
-          "rank": null,
-          "penalty": "PEN",
-          "status": "out"
-        }
-      ]
-    },
-    {
-      "id": "1dbc5d84a9f0acae",
-      "station": "vancouver",
-      "at": "2026-10-26T00:21:20+00:00",
-      "local_date": "2026-10-25",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Ye WANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jianing ZHANG",
-          "rank": 3,
-          "status": "final_b"
-        },
-        {
-          "name": "Jiarui SONG",
-          "rank": 5,
-          "status": "final_b"
-        },
-        {
-          "name": "Ye WANG",
-          "rank": 4,
-          "status": "final_b"
-        }
-      ]
     }
   ]
 }
