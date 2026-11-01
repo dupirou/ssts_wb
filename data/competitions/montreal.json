@@ -1592,8 +1592,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-01T21:01:20+00:00",
-    "updated_at": "2026-11-01T21:01:20+00:00",
+    "checked_at": "2026-11-01T21:11:23+00:00",
+    "updated_at": "2026-11-01T21:11:23+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22960",
@@ -16891,7 +16891,7 @@
             "starting_position": 2,
             "rank": 3,
             "result": "2:32.050",
-            "qualification": "p",
+            "qualification": "QB",
             "penalty": null
           },
           {
@@ -16960,8 +16960,8 @@
         "heat_number": 2,
         "heat_label": "Heat 2",
         "source_start": "2026-11-01T15:56:52.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16040&round=22957",
         "participants": [
@@ -16973,20 +16973,8 @@
             "helmet_number": 1,
             "starting_position": 2,
             "rank": 1,
-            "result": "2:31.180",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-7526110b176497878d3f",
-            "name": "Li GONG",
-            "country": "CHN",
-            "official_skater_id": 2262,
-            "helmet_number": 19,
-            "starting_position": 3,
-            "rank": 2,
-            "result": "2:32.280",
-            "qualification": null,
+            "result": "2:31.140",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -16996,9 +16984,9 @@
             "official_skater_id": 687,
             "helmet_number": 16,
             "starting_position": 4,
-            "rank": 3,
-            "result": "2:32.750",
-            "qualification": null,
+            "rank": 2,
+            "result": "2:32.731",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -17008,9 +16996,9 @@
             "official_skater_id": 6380,
             "helmet_number": 79,
             "starting_position": 5,
-            "rank": 4,
-            "result": "2:34.440",
-            "qualification": null,
+            "rank": 3,
+            "result": "2:34.414",
+            "qualification": "QB",
             "penalty": null
           },
           {
@@ -17020,9 +17008,9 @@
             "official_skater_id": 1534,
             "helmet_number": 49,
             "starting_position": 6,
-            "rank": 5,
-            "result": "2:53.750",
-            "qualification": null,
+            "rank": 4,
+            "result": "2:53.714",
+            "qualification": "ADV",
             "penalty": null
           },
           {
@@ -17032,10 +17020,25 @@
             "official_skater_id": 7365,
             "helmet_number": 36,
             "starting_position": 7,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
+            "rank": 5,
+            "result": "2:56.548",
+            "qualification": "ADV",
             "penalty": null
+          },
+          {
+            "athlete_id": "ath-7526110b176497878d3f",
+            "name": "Li GONG",
+            "country": "CHN",
+            "official_skater_id": 2262,
+            "helmet_number": 19,
+            "starting_position": 3,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           },
           {
             "athlete_id": "ath-f5df095326a0281962ea",
@@ -17045,9 +17048,12 @@
             "helmet_number": 55,
             "starting_position": 1,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -17064,23 +17070,11 @@
         "heat_number": 3,
         "heat_label": "Heat 3",
         "source_start": "2026-11-01T15:59:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16040&round=22957",
         "participants": [
-          {
-            "athlete_id": "ath-08caea4ad943373c94ab",
-            "name": "Chutong ZHANG",
-            "country": "CHN",
-            "official_skater_id": 8080,
-            "helmet_number": 11,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-990ecbf9d406d93654b3",
             "name": "Xandra VELZEBOER",
@@ -17088,20 +17082,8 @@
             "official_skater_id": 7447,
             "helmet_number": 3,
             "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-32780e84744937993fa2",
-            "name": "Ann-Sophie BACHAND",
-            "country": "CAN",
-            "official_skater_id": 457,
-            "helmet_number": 51,
-            "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 1,
+            "result": "2:28.340",
             "qualification": null,
             "penalty": null
           },
@@ -17112,8 +17094,20 @@
             "official_skater_id": 2861,
             "helmet_number": 21,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "2:28.470",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-32780e84744937993fa2",
+            "name": "Ann-Sophie BACHAND",
+            "country": "CAN",
+            "official_skater_id": 457,
+            "helmet_number": 51,
+            "starting_position": 3,
+            "rank": 3,
+            "result": "2:29.430",
             "qualification": null,
             "penalty": null
           },
@@ -17124,8 +17118,20 @@
             "official_skater_id": 446,
             "helmet_number": 71,
             "starting_position": 5,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "2:29.810",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-08caea4ad943373c94ab",
+            "name": "Chutong ZHANG",
+            "country": "CHN",
+            "official_skater_id": 8080,
+            "helmet_number": 11,
+            "starting_position": 1,
+            "rank": 5,
+            "result": "2:29.960",
             "qualification": null,
             "penalty": null
           },
@@ -17136,8 +17142,8 @@
             "official_skater_id": 924,
             "helmet_number": 10,
             "starting_position": 6,
-            "rank": null,
-            "result": "no time",
+            "rank": 6,
+            "result": "2:38.140",
             "qualification": null,
             "penalty": null
           },
@@ -17148,8 +17154,8 @@
             "official_skater_id": 7851,
             "helmet_number": 70,
             "starting_position": 7,
-            "rank": null,
-            "result": "no time",
+            "rank": 7,
+            "result": "2:53.770",
             "qualification": null,
             "penalty": null
           }
