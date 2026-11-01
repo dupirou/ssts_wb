@@ -2,6 +2,45 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "4c55af48427268ea",
+      "station": "montreal",
+      "at": "2026-11-01T18:51:25+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 3
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Netherlands",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Canada",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "China",
+          "country": "CHN"
+        }
+      ]
+    },
+    {
       "id": "862d63344a1753ed",
       "station": "montreal",
       "at": "2026-11-01T18:41:23+00:00",
@@ -3129,21 +3168,6 @@
         "Jiarui SONG",
         "Ye WANG"
       ]
-    },
-    {
-      "id": "5c3722945abc9022",
-      "station": "vancouver",
-      "at": "2026-10-26T00:31:21+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
     }
   ]
 }

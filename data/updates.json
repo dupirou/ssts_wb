@@ -80,6 +80,7 @@
     "montreal/round/2026-11-01/main/men/5000/final/A/groups": "published",
     "montreal/round/2026-11-01/main/men/5000/final/B/groups": "published",
     "montreal/round/2026-11-01/main/mixed/2000/final/A/groups": "published",
+    "montreal/round/2026-11-01/main/mixed/2000/final/A/results": "official",
     "montreal/round/2026-11-01/main/mixed/2000/final/B/groups": "published",
     "montreal/round/2026-11-01/main/mixed/2000/final/B/results": "official",
     "montreal/round/2026-11-01/main/women/1500/semifinal/-/groups": "published",
@@ -378,21 +379,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "5c3722945abc9022",
-      "station": "vancouver",
-      "at": "2026-10-26T00:31:21+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
     {
       "id": "89194a778b608901",
       "station": "vancouver",
@@ -3521,6 +3507,45 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "4c55af48427268ea",
+      "station": "montreal",
+      "at": "2026-11-01T18:51:25+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 3
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Netherlands",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Canada",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "China",
+          "country": "CHN"
+        }
+      ]
     }
   ]
 }
