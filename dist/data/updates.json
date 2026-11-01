@@ -1696,6 +1696,81 @@
       ]
     },
     {
+      "id": "bdbb053ed9d4e9e2",
+      "station": "montreal",
+      "kind": "time_change",
+      "at": "2026-10-30T00:01:10+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "previous": "2026-11-02 02:41",
+      "current": "2026-11-02 02:40"
+    },
+    {
+      "id": "89e3a5650227e92f",
+      "station": "montreal",
+      "kind": "time_change",
+      "at": "2026-10-30T00:01:10+00:00",
+      "local_date": "2026-11-01",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "previous": "2026-11-01 23:06",
+      "current": "2026-11-01 23:15"
+    },
+    {
+      "id": "7b5e296b4fee2a89",
+      "station": "montreal",
+      "kind": "time_change",
+      "at": "2026-10-30T00:01:10+00:00",
+      "local_date": "2026-11-01",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "previous": "2026-11-01 23:26",
+      "current": "2026-11-01 23:35"
+    },
+    {
+      "id": "79c6dcae02120a25",
+      "station": "montreal",
+      "kind": "time_change",
+      "at": "2026-10-30T00:01:10+00:00",
+      "local_date": "2026-11-01",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "previous": "2026-11-02 00:29",
+      "current": "2026-11-02 00:38"
+    },
+    {
+      "id": "2ed493a799efebbd",
+      "station": "montreal",
+      "kind": "time_change",
+      "at": "2026-10-30T00:01:10+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "previous": "2026-11-02 06:00",
+      "current": "2026-11-02 05:57"
+    },
+    {
       "id": "2b37c6e8d9f38ff8",
       "station": "montreal",
       "kind": "time_change",
@@ -3126,109 +3201,6 @@
       "heats": 2,
       "china": [
         "Yiding ZHU"
-      ]
-    },
-    {
-      "id": "5b768d2afd13efb1",
-      "station": "vancouver",
-      "at": "2026-10-25T20:31:21+00:00",
-      "local_date": "2026-10-25",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Ye WANG"
-      ]
-    },
-    {
-      "id": "8eb9a837be87271e",
-      "station": "vancouver",
-      "at": "2026-10-25T20:21:23+00:00",
-      "local_date": "2026-10-25",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Kun LI",
-        "Yiding ZHU"
-      ],
-      "china_results": [
-        {
-          "name": "Kun LI",
-          "rank": null,
-          "penalty": "PEN",
-          "status": "out"
-        },
-        {
-          "name": "Yiding ZHU",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "af3516b059addac4",
-      "station": "vancouver",
-      "at": "2026-10-25T20:01:23+00:00",
-      "local_date": "2026-10-25",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
-    },
-    {
-      "id": "e13a353aaf003d50",
-      "station": "vancouver",
-      "at": "2026-10-25T19:51:20+00:00",
-      "local_date": "2026-10-25",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "a82c39706e84ffa9",
-      "station": "vancouver",
-      "at": "2026-10-25T19:31:21+00:00",
-      "local_date": "2026-10-25",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Yiding ZHU"
-      ],
-      "china_results": [
-        {
-          "name": "Yiding ZHU",
-          "rank": 1,
-          "status": "advanced"
-        }
       ]
     }
   ]

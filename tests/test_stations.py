@@ -194,7 +194,8 @@ class ScheduleSyncTests(unittest.TestCase):
         for identity, (_, confirmed, date, time) in expected.items():
             with self.subTest(identity=identity):
                 row = next(
-                    r for r in stored
+                    r
+                    for r in stored
                     if r['date'] == '2026-11-01'
                     and tuple(r[k] for k in ('session', 'gender', 'distance', 'kind', 'round', 'group')) == identity
                 )
@@ -206,8 +207,18 @@ class ScheduleSyncTests(unittest.TestCase):
                 compiled = next(r for r in built if r['round_key'] == key)
                 self.assertEqual((compiled['beijing_date'], compiled['beijing_time']), (date, time))
                 self.assertTrue(compiled['local_start'].endswith('-05:00'))
-        unrelated = [dict(date='2026-11-01', time='10:06', session='F', gender='M',
-                          distance='1000', kind='I', round='H', group='-')]
+        unrelated = [
+            dict(
+                date='2026-11-01',
+                time='10:06',
+                session='F',
+                gender='M',
+                distance='1000',
+                kind='I',
+                round='H',
+                group='-',
+            )
+        ]
         self.assertEqual(sync_schedule.correct_montreal_programme(unrelated, MONTREAL), unrelated)
 
     def test_schedule_parser_accepts_single_digit_hours(self):
