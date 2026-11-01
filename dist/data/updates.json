@@ -2,6 +2,38 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "c63f13418866f383",
+      "station": "montreal",
+      "at": "2026-11-01T20:51:22+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Mathieu PELLETIER",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Michal NIEWINSKI",
+          "country": "POL"
+        }
+      ]
+    },
+    {
       "id": "fc52bec46df168af",
       "station": "montreal",
       "at": "2026-11-01T20:41:24+00:00",
@@ -3183,21 +3215,6 @@
           "rank": 3
         }
       ]
-    },
-    {
-      "id": "ec722e66eae687c8",
-      "station": "vancouver",
-      "at": "2026-10-26T02:41:23+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "results",
-      "china": [],
-      "china_results": []
     }
   ]
 }

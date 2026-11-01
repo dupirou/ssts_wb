@@ -77,6 +77,7 @@
     "montreal/round/2026-10-31/repechage/women/1000/semifinal/-/groups": "published",
     "montreal/round/2026-10-31/repechage/women/1000/semifinal/-/results": "official",
     "montreal/round/2026-11-01/main/men/1000/final/A/groups": "published",
+    "montreal/round/2026-11-01/main/men/1000/final/A/results": "official",
     "montreal/round/2026-11-01/main/men/1000/final/B/groups": "published",
     "montreal/round/2026-11-01/main/men/1000/final/B/results": "official",
     "montreal/round/2026-11-01/main/men/1000/quarterfinal/-/groups": "published",
@@ -392,21 +393,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "ec722e66eae687c8",
-      "station": "vancouver",
-      "at": "2026-10-26T02:41:23+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
     {
       "id": "bd8909f080c9695f",
       "station": "vancouver",
@@ -3589,6 +3575,38 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "c63f13418866f383",
+      "station": "montreal",
+      "at": "2026-11-01T20:51:22+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Mathieu PELLETIER",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Michal NIEWINSKI",
+          "country": "POL"
+        }
+      ]
     }
   ]
 }
