@@ -2,6 +2,45 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "d2118f3a1b574e86",
+      "station": "montreal",
+      "at": "2026-11-01T22:21:28+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 2
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Canada",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "China",
+          "country": "CHN"
+        },
+        {
+          "rank": 3,
+          "name": "Republic of Korea",
+          "country": "KOR"
+        }
+      ]
+    },
+    {
       "id": "d7c31fe57ea84151",
       "station": "montreal",
       "at": "2026-11-01T22:11:21+00:00",
@@ -3229,23 +3268,6 @@
       "kind": "groups",
       "heats": 1,
       "china": []
-    },
-    {
-      "id": "3ff2c078e5a93a2d",
-      "station": "vancouver",
-      "at": "2026-10-27T03:25:30+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": [
-        "Jianing ZHANG"
-      ]
     }
   ]
 }
