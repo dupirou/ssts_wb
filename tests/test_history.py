@@ -67,11 +67,20 @@ class HistoryTests(unittest.TestCase):
         original = copy.deepcopy(archive)
         calendar = json.loads((ROOT / 'dist/data/calendar.json').read_text())
         index = history_data.result_catalog(ROOT / 'dist', calendar, archive)
-        self.assertEqual(len(index['events']), len(archive['events']) + 1)
+        # Each World Tour station becomes a separate event when Chinese final
+        # classifications arrive. The current season is not limited to Vancouver.
+        archived_ids = {event['id'] for event in archive['events']}
+        indexed_ids = [event['id'] for event in index['events']]
+        self.assertTrue(archived_ids.issubset(indexed_ids))
+        self.assertEqual(len(indexed_ids), len(set(indexed_ids)))
+        current_events = [event for event in index['events'] if event['season'] == calendar['season']]
+        self.assertGreaterEqual(len(current_events), 1)
+        self.assertLessEqual(len(current_events), len(calendar['stations']))
+        self.assertTrue(all(event['results'] for event in current_events))
         alps = next(c for c in index['cycles'] if '2026/27' in c['seasons'])
         self.assertEqual((alps['id'], alps['label']), ('cycle-2030', '阿尔卑斯周期'))
         self.assertEqual(archive, original)
-        current = next(e for e in index['events'] if e['season'] == '2026/27')
+        current = next(e for e in current_events if e['id'] == '2026-27-worldtour-vancouver-1')
         self.assertTrue(all(r['country'] == 'CHN' for e in index['events'] for r in e['results']))
         relay = next(r for r in current['results'] if r['gender'] == 'women' and r['format'] == 'relay')
         self.assertEqual((relay['rank'], relay['rank_scope'], relay['final_group']), (5, 'overall', 'B'))
