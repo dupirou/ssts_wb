@@ -1592,8 +1592,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-01T22:01:30+00:00",
-    "updated_at": "2026-11-01T22:01:30+00:00",
+    "checked_at": "2026-11-01T22:11:21+00:00",
+    "updated_at": "2026-11-01T22:11:21+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22960",
@@ -19626,11 +19626,79 @@
         "heat_number": null,
         "heat_label": "Final B",
         "source_start": "2026-11-01T16:56:30.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16036&round=22964",
         "participants": [
+          {
+            "athlete_id": "team-JPN-men",
+            "name": "Japan",
+            "country": "JPN",
+            "official_skater_id": 12687,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 1,
+            "result": "7:13.384",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-26292f2efadb197ddb94",
+                "name": "Kazuki YOSHINAGA",
+                "official_skater_id": 7960
+              },
+              {
+                "athlete_id": "ath-dae50584eb222f8f7725",
+                "name": "Shogo MIYATA",
+                "official_skater_id": 4847
+              },
+              {
+                "athlete_id": "ath-c28e18c99f0af84ca8d0",
+                "name": "Takumi WADA",
+                "official_skater_id": 7563
+              },
+              {
+                "athlete_id": "ath-ff0e797c67667f8c165e",
+                "name": "Musashi KAKINAMI",
+                "official_skater_id": 22908
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-KAZ-men",
+            "name": "Kazakhstan",
+            "country": "KAZ",
+            "official_skater_id": 12688,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": 2,
+            "result": "7:13.431",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-a21e5100fc37bb837ec4",
+                "name": "Bogdan VEKHOV",
+                "official_skater_id": 18324
+              },
+              {
+                "athlete_id": "ath-fb6dcea2bdcd0fe4c3be",
+                "name": "Aibek TEMIRKHAN",
+                "official_skater_id": 6991
+              },
+              {
+                "athlete_id": "ath-64a844d676fa24746b6b",
+                "name": "Aibek NASSEN",
+                "official_skater_id": 5039
+              },
+              {
+                "athlete_id": "ath-2fb137b7530e2d3409db",
+                "name": "Gleb IVCHENKO",
+                "official_skater_id": 2905
+              }
+            ]
+          },
           {
             "athlete_id": "team-HUN-men",
             "name": "Hungary",
@@ -19638,8 +19706,8 @@
             "official_skater_id": 12685,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "7:28.250",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -19673,9 +19741,12 @@
             "helmet_number": null,
             "starting_position": 3,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            },
             "members": [
               {
                 "athlete_id": "ath-cf536d673d68730e75f0",
@@ -19696,74 +19767,6 @@
                 "athlete_id": "ath-ad9946db70088f23d4ac",
                 "name": "Felix PIGEON",
                 "official_skater_id": 5581
-              }
-            ]
-          },
-          {
-            "athlete_id": "team-KAZ-men",
-            "name": "Kazakhstan",
-            "country": "KAZ",
-            "official_skater_id": 12688,
-            "helmet_number": null,
-            "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-a21e5100fc37bb837ec4",
-                "name": "Bogdan VEKHOV",
-                "official_skater_id": 18324
-              },
-              {
-                "athlete_id": "ath-fb6dcea2bdcd0fe4c3be",
-                "name": "Aibek TEMIRKHAN",
-                "official_skater_id": 6991
-              },
-              {
-                "athlete_id": "ath-64a844d676fa24746b6b",
-                "name": "Aibek NASSEN",
-                "official_skater_id": 5039
-              },
-              {
-                "athlete_id": "ath-2fb137b7530e2d3409db",
-                "name": "Gleb IVCHENKO",
-                "official_skater_id": 2905
-              }
-            ]
-          },
-          {
-            "athlete_id": "team-JPN-men",
-            "name": "Japan",
-            "country": "JPN",
-            "official_skater_id": 12687,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-26292f2efadb197ddb94",
-                "name": "Kazuki YOSHINAGA",
-                "official_skater_id": 7960
-              },
-              {
-                "athlete_id": "ath-dae50584eb222f8f7725",
-                "name": "Shogo MIYATA",
-                "official_skater_id": 4847
-              },
-              {
-                "athlete_id": "ath-c28e18c99f0af84ca8d0",
-                "name": "Takumi WADA",
-                "official_skater_id": 7563
-              },
-              {
-                "athlete_id": "ath-ff0e797c67667f8c165e",
-                "name": "Musashi KAKINAMI",
-                "official_skater_id": 22908
               }
             ]
           }

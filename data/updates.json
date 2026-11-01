@@ -86,6 +86,7 @@
     "montreal/round/2026-11-01/main/men/1000/semifinal/-/results": "official",
     "montreal/round/2026-11-01/main/men/5000/final/A/groups": "published",
     "montreal/round/2026-11-01/main/men/5000/final/B/groups": "published",
+    "montreal/round/2026-11-01/main/men/5000/final/B/results": "official",
     "montreal/round/2026-11-01/main/mixed/2000/final/A/groups": "published",
     "montreal/round/2026-11-01/main/mixed/2000/final/A/results": "official",
     "montreal/round/2026-11-01/main/mixed/2000/final/B/groups": "published",
@@ -398,38 +399,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "3a03e7d1e1252b48",
-      "station": "vancouver",
-      "at": "2026-10-27T03:25:30+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": [],
-      "podium": [
-        {
-          "rank": 1,
-          "name": "Xandra VELZEBOER",
-          "country": "NED"
-        },
-        {
-          "rank": 2,
-          "name": "Courtney SARAULT",
-          "country": "CAN"
-        },
-        {
-          "rank": 3,
-          "name": "Selma POUTSMA",
-          "country": "NED"
-        }
-      ]
-    },
     {
       "id": "3ff2c078e5a93a2d",
       "station": "vancouver",
@@ -3660,6 +3629,21 @@
           "country": "ITA"
         }
       ]
+    },
+    {
+      "id": "d7c31fe57ea84151",
+      "station": "montreal",
+      "at": "2026-11-01T22:11:21+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [],
+      "china_results": []
     }
   ]
 }
