@@ -2,6 +2,62 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "e379b5fefe5e6b77",
+      "station": "montreal",
+      "at": "2026-11-01T19:41:18+00:00",
+      "local_date": "2026-11-01",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
+      "id": "4d31fae137600427",
+      "station": "montreal",
+      "at": "2026-11-01T19:41:18+00:00",
+      "local_date": "2026-11-01",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Kerui SONG",
+        "Long SUN",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 4,
+          "status": "repechage"
+        },
+        {
+          "name": "Kerui SONG",
+          "rank": 4,
+          "status": "out"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": 4,
+          "status": "out"
+        }
+      ]
+    },
+    {
       "id": "aa06b60b9f7ef06a",
       "station": "montreal",
       "at": "2026-11-01T19:31:25+00:00",
@@ -3146,36 +3202,6 @@
       "kind": "groups",
       "heats": 1,
       "china": []
-    },
-    {
-      "id": "951939b7b42befe8",
-      "station": "vancouver",
-      "at": "2026-10-26T01:01:28+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
-    {
-      "id": "7b5c166707da9ba9",
-      "station": "vancouver",
-      "at": "2026-10-26T01:01:28+00:00",
-      "local_date": "2026-10-25",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
     }
   ]
 }
