@@ -2,6 +2,38 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "f95f6573102d132a",
+      "station": "montreal",
+      "at": "2026-11-01T15:41:16+00:00",
+      "local_date": "2026-11-01",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "3566584ebc9fcaec",
+      "station": "montreal",
+      "at": "2026-11-01T15:41:16+00:00",
+      "local_date": "2026-11-01",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "Bohao ZHANG"
+      ]
+    },
+    {
       "id": "fd4462c10345e222",
       "station": "montreal",
       "at": "2026-11-01T01:59:26+00:00",
@@ -1297,7 +1329,7 @@
         {
           "name": "Bohao ZHANG",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Kerui SONG",
@@ -3169,38 +3201,6 @@
           "rank": 1,
           "status": "advanced"
         }
-      ]
-    },
-    {
-      "id": "a95eeb5ea1b04377",
-      "station": "vancouver",
-      "at": "2026-10-25T20:31:21+00:00",
-      "local_date": "2026-10-25",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "97b6681f4d172a16",
-      "station": "vancouver",
-      "at": "2026-10-25T20:31:21+00:00",
-      "local_date": "2026-10-25",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "Yiding ZHU"
       ]
     }
   ]
