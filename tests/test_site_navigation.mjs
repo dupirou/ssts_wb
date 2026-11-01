@@ -354,7 +354,17 @@ test('cycle comparison distinguishes missing archives and never awards a B-final
   const current = await page('/results/compare/?left=2025%2F26&right=2026%2F27&kind=worldtour&metric=medals');
   t.after(() => current.window.close());
   const relay = current.window.document.querySelectorAll('.compare-project')[3];
-  assert.equal(relay.querySelectorAll('td')[1].textContent, '0 金 · 0 银 · 0 铜1 条成绩');
+  // Results grow as additional World Tour stations finish; compare against the
+  // source records instead of freezing Vancouver's first published result count.
+  const womenRelays = currentEvents.map(e => ({
+    results: e.results.filter(r => r.gender === 'women' && r.format === 'relay')
+  }));
+  const stats = current.window.SSTS.resultsModel.statistics(womenRelays);
+  const count = womenRelays.reduce((total, e) => total + e.results.length, 0);
+  assert.equal(
+    relay.querySelectorAll('td')[1].textContent,
+    `${stats.medals[0]} 金 · ${stats.medals[1]} 银 · ${stats.medals[2]} 铜${count} 条成绩`
+  );
   const review = await page('/results/seasons/2025-26/');
   t.after(() => review.window.close());
   assert.equal(review.window.document.querySelector('h1').textContent, '2025/26');
