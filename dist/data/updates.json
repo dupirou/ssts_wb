@@ -2,6 +2,28 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "0708ce8c1a16b635",
+      "station": "montreal",
+      "at": "2026-11-01T21:41:22+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Yan ZHANG",
+          "rank": 6
+        }
+      ]
+    },
+    {
       "id": "e4e44ee1a0760acc",
       "station": "montreal",
       "at": "2026-11-01T21:21:26+00:00",
@@ -3224,38 +3246,6 @@
       "kind": "groups",
       "heats": 1,
       "china": []
-    },
-    {
-      "id": "10bdab45a019bbe2",
-      "station": "vancouver",
-      "at": "2026-10-27T03:25:30+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "results",
-      "china": [],
-      "china_results": [],
-      "podium": [
-        {
-          "rank": 1,
-          "name": "Netherlands",
-          "country": "NED"
-        },
-        {
-          "rank": 2,
-          "name": "Republic of Korea",
-          "country": "KOR"
-        },
-        {
-          "rank": 3,
-          "name": "Poland",
-          "country": "POL"
-        }
-      ]
     }
   ]
 }
