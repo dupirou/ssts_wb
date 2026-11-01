@@ -850,6 +850,65 @@
   ],
   "events": [
     {
+      "id": "2026-27-worldtour-montreal-2",
+      "season": "2026/27",
+      "kind": "worldtour",
+      "title": "世巡赛第 2 站 · 蒙特利尔",
+      "date_start": "2026-10-30",
+      "date_end": "2026-11-01",
+      "coverage": "partial",
+      "coverage_detail": {
+        "unverified_programme": true
+      },
+      "source": {
+        "url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16038&round=22966"
+      },
+      "results": [
+        {
+          "gender": "women",
+          "distance_m": 3000,
+          "format": "relay",
+          "name": "China",
+          "country": "CHN",
+          "rank": 1,
+          "rank_scope": "final",
+          "final_group": "B",
+          "status": "classified",
+          "members": [
+            {
+              "name": "Jiarui SONG",
+              "athlete_id": "isu-6617",
+              "rounds": [
+                "FB"
+              ]
+            },
+            {
+              "name": "Chutong ZHANG",
+              "athlete_id": "skater-chutong-zhang",
+              "rounds": [
+                "FB"
+              ]
+            },
+            {
+              "name": "Yan ZHANG",
+              "athlete_id": "isu-19401",
+              "rounds": [
+                "FB"
+              ]
+            },
+            {
+              "name": "Li GONG",
+              "athlete_id": "skater-li-gong",
+              "rounds": [
+                "FB"
+              ]
+            }
+          ],
+          "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16038&round=22966"
+        }
+      ]
+    },
+    {
       "id": "2026-27-worldtour-vancouver-1",
       "season": "2026/27",
       "kind": "worldtour",

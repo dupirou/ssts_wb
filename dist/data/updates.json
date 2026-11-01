@@ -2,6 +2,122 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "fd4462c10345e222",
+      "station": "montreal",
+      "at": "2026-11-01T01:59:26+00:00",
+      "local_date": "2026-10-31",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "b10fe762b4920c1b",
+      "station": "montreal",
+      "at": "2026-11-01T01:59:26+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "China"
+      ],
+      "china_results": [
+        {
+          "name": "China",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "id": "684c853c4959a415",
+      "station": "montreal",
+      "at": "2026-11-01T01:59:26+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "5fed2c016780c7f7",
+      "station": "montreal",
+      "at": "2026-11-01T01:59:26+00:00",
+      "local_date": "2026-10-31",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Italy",
+          "country": "ITA"
+        },
+        {
+          "rank": 2,
+          "name": "Republic of Korea",
+          "country": "KOR"
+        },
+        {
+          "rank": 3,
+          "name": "Netherlands",
+          "country": "NED"
+        }
+      ]
+    },
+    {
+      "id": "1c75a89e4db8eb9a",
+      "station": "montreal",
+      "at": "2026-11-01T01:59:26+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "China"
+      ]
+    },
+    {
+      "id": "04b50d427531bb55",
+      "station": "vancouver",
+      "kind": "rankings",
+      "at": "2026-11-01T01:59:16+00:00",
+      "changed": true
+    },
+    {
       "id": "44a0f5e6b23426e5",
       "station": "montreal",
       "at": "2026-10-31T20:41:19+00:00",
@@ -3111,109 +3227,6 @@
         {
           "name": "Yiding ZHU",
           "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "94632c670cb7678e",
-      "station": "vancouver",
-      "at": "2026-10-25T19:31:21+00:00",
-      "local_date": "2026-10-25",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": [
-        "Kun LI",
-        "Yiding ZHU"
-      ]
-    },
-    {
-      "id": "b6817c37aa041db9",
-      "station": "vancouver",
-      "at": "2026-10-25T19:01:20+00:00",
-      "local_date": "2026-10-25",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "39905bb161074a1e",
-      "station": "vancouver",
-      "at": "2026-10-25T19:01:20+00:00",
-      "local_date": "2026-10-25",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": []
-    },
-    {
-      "id": "9786a3dae4d0feb8",
-      "station": "vancouver",
-      "at": "2026-10-25T03:01:25+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
-    {
-      "id": "8a47d517c775fe66",
-      "station": "vancouver",
-      "at": "2026-10-25T03:01:25+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 1,
-      "china": [
-        "China"
-      ]
-    },
-    {
-      "id": "83d9e9be074e7ee6",
-      "station": "vancouver",
-      "at": "2026-10-25T03:01:25+00:00",
-      "local_date": "2026-10-24",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 2,
           "status": "advanced"
         }
       ]
