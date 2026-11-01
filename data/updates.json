@@ -91,6 +91,7 @@
     "montreal/round/2026-11-01/main/mixed/2000/final/B/groups": "published",
     "montreal/round/2026-11-01/main/mixed/2000/final/B/results": "official",
     "montreal/round/2026-11-01/main/women/1500/final/A/groups": "published",
+    "montreal/round/2026-11-01/main/women/1500/final/A/results": "official",
     "montreal/round/2026-11-01/main/women/1500/final/B/groups": "published",
     "montreal/round/2026-11-01/main/women/1500/final/B/results": "official",
     "montreal/round/2026-11-01/main/women/1500/semifinal/-/groups": "published",
@@ -397,21 +398,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "158754f1b269fa59",
-      "station": "vancouver",
-      "at": "2026-10-27T03:25:30+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
     {
       "id": "3a03e7d1e1252b48",
       "station": "vancouver",
@@ -3640,6 +3626,38 @@
         {
           "name": "Yan ZHANG",
           "rank": 6
+        }
+      ]
+    },
+    {
+      "id": "016d075408f3840c",
+      "station": "montreal",
+      "at": "2026-11-01T22:01:30+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Elisa CONFORTOLA",
+          "country": "ITA"
+        },
+        {
+          "rank": 2,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "rank": 3,
+          "name": "Gloria IORIATTI",
+          "country": "ITA"
         }
       ]
     }

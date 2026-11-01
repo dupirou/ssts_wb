@@ -3,7 +3,7 @@
   "event_id": "montreal",
   "entries": {
     "status": "available",
-    "update_status": "error",
+    "update_status": "ok",
     "checked_at": "2026-11-01T01:59:26+00:00",
     "updated_at": "2026-10-22T16:01:26+00:00",
     "source_urls": [
@@ -2250,14 +2250,13 @@
         "participation": "substitute"
       }
     ],
-    "published_at": "2026-10-22",
-    "error": "unexpected: documents: HTTP Error 503: Service Unavailable; rejected: results: Source is not labelled with the expected city and year"
+    "published_at": "2026-10-22"
   },
   "rounds": {
     "status": "available",
-    "update_status": "error",
-    "checked_at": "2026-11-01T21:41:22+00:00",
-    "updated_at": "2026-11-01T21:41:22+00:00",
+    "update_status": "ok",
+    "checked_at": "2026-11-01T22:01:30+00:00",
+    "updated_at": "2026-11-01T22:01:30+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22959",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16033&round=22960",
@@ -17841,33 +17840,21 @@
         "group": "A",
         "heat_number": null,
         "heat_label": "Final",
-        "source_start": "2026-11-01T16:33:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-01T16:40:17.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16040&round=22958",
         "participants": [
           {
-            "athlete_id": "ath-990ecbf9d406d93654b3",
-            "name": "Xandra VELZEBOER",
-            "country": "NED",
-            "official_skater_id": 7447,
-            "helmet_number": 3,
-            "starting_position": 1,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-5a7e933f9339f1d8f8c6",
-            "name": "Courtney SARAULT",
-            "country": "CAN",
-            "official_skater_id": 6159,
-            "helmet_number": 1,
-            "starting_position": 2,
-            "rank": null,
-            "result": "no time",
+            "athlete_id": "ath-10b4e338d1b0cc128837",
+            "name": "Elisa CONFORTOLA",
+            "country": "ITA",
+            "official_skater_id": 1324,
+            "helmet_number": 8,
+            "starting_position": 5,
+            "rank": 1,
+            "result": "2:22.683",
             "qualification": null,
             "penalty": null
           },
@@ -17878,8 +17865,8 @@
             "official_skater_id": 1231,
             "helmet_number": 4,
             "starting_position": 3,
-            "rank": null,
-            "result": "no time",
+            "rank": 2,
+            "result": "2:22.741",
             "qualification": null,
             "penalty": null
           },
@@ -17890,44 +17877,8 @@
             "official_skater_id": 2861,
             "helmet_number": 21,
             "starting_position": 4,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-10b4e338d1b0cc128837",
-            "name": "Elisa CONFORTOLA",
-            "country": "ITA",
-            "official_skater_id": 1324,
-            "helmet_number": 8,
-            "starting_position": 5,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-f7571561174376f54f0b",
-            "name": "Chiara BETTI",
-            "country": "ITA",
-            "official_skater_id": 687,
-            "helmet_number": 16,
-            "starting_position": 6,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-6015217f50457d7cc862",
-            "name": "Zoe Florence DELTRAP",
-            "country": "NED",
-            "official_skater_id": 1534,
-            "helmet_number": 49,
-            "starting_position": 7,
-            "rank": null,
-            "result": "no time",
+            "rank": 3,
+            "result": "2:23.168",
             "qualification": null,
             "penalty": null
           },
@@ -17938,8 +17889,44 @@
             "official_skater_id": 924,
             "helmet_number": 10,
             "starting_position": 8,
-            "rank": null,
-            "result": "no time",
+            "rank": 4,
+            "result": "2:23.186",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+            "name": "Courtney SARAULT",
+            "country": "CAN",
+            "official_skater_id": 6159,
+            "helmet_number": 1,
+            "starting_position": 2,
+            "rank": 5,
+            "result": "2:23.395",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-f7571561174376f54f0b",
+            "name": "Chiara BETTI",
+            "country": "ITA",
+            "official_skater_id": 687,
+            "helmet_number": 16,
+            "starting_position": 6,
+            "rank": 6,
+            "result": "2:33.002",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-990ecbf9d406d93654b3",
+            "name": "Xandra VELZEBOER",
+            "country": "NED",
+            "official_skater_id": 7447,
+            "helmet_number": 3,
+            "starting_position": 1,
+            "rank": 7,
+            "result": "3:23.570",
             "qualification": null,
             "penalty": null
           },
@@ -17951,9 +17938,27 @@
             "helmet_number": 36,
             "starting_position": 9,
             "rank": null,
-            "result": "no time",
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
+          },
+          {
+            "athlete_id": "ath-6015217f50457d7cc862",
+            "name": "Zoe Florence DELTRAP",
+            "country": "NED",
+            "official_skater_id": 1534,
+            "helmet_number": 49,
+            "starting_position": 7,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -20144,7 +20149,28 @@
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-98d77949cb6eb84d0b02",
+                "name": "Teun BOER",
+                "official_skater_id": 783
+              },
+              {
+                "athlete_id": "ath-ed4d41133f871dbcd2f6",
+                "name": "Niels KINGMA",
+                "official_skater_id": 3494
+              },
+              {
+                "athlete_id": "ath-6be3e556e39507d16dc3",
+                "name": "Kay HUISMAN",
+                "official_skater_id": 2780
+              },
+              {
+                "athlete_id": "ath-3c121028999cfe671647",
+                "name": "Jens VAN 'T WOUT",
+                "official_skater_id": 7375
+              }
+            ]
           },
           {
             "athlete_id": "team-KOR-men",
@@ -20157,7 +20183,28 @@
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-7c9576fc5f305230747a",
+                "name": "Dong Min SHIN",
+                "official_skater_id": 6390
+              },
+              {
+                "athlete_id": "ath-312405ae84ff65c4ae3a",
+                "name": "Taesung KIM",
+                "official_skater_id": 3473
+              },
+              {
+                "athlete_id": "ath-d17ee33a3816179f80fc",
+                "name": "Seochan BAE",
+                "official_skater_id": 22070
+              },
+              {
+                "athlete_id": "ath-c9500eb167ae2d20c117",
+                "name": "Gyuho LEE",
+                "official_skater_id": 22072
+              }
+            ]
           },
           {
             "athlete_id": "team-CHN-men",
@@ -20170,7 +20217,28 @@
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-799c7f543fce635aeeb8",
+                "name": "Zixia ZHANG",
+                "official_skater_id": 20586
+              },
+              {
+                "athlete_id": "ath-49a455de09fadeaad9c9",
+                "name": "Bohao ZHANG",
+                "official_skater_id": 8078
+              },
+              {
+                "athlete_id": "ath-adac927b0b3d0c45aeb4",
+                "name": "Kerui SONG",
+                "official_skater_id": 18320
+              },
+              {
+                "athlete_id": "ath-78a6ed2c7eac904f5ca0",
+                "name": "Long SUN",
+                "official_skater_id": 6784
+              }
+            ]
           },
           {
             "athlete_id": "team-CAN-men",
@@ -20183,7 +20251,28 @@
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-2f5775133539f6a7e0f7",
+                "name": "Felix ROUSSEL",
+                "official_skater_id": 5998
+              },
+              {
+                "athlete_id": "ath-fc00bf7d3e213bcf4f68",
+                "name": "Maxime LAOUN",
+                "official_skater_id": 3951
+              },
+              {
+                "athlete_id": "ath-295c31a30610e64d9499",
+                "name": "Mathieu PELLETIER",
+                "official_skater_id": 5474
+              },
+              {
+                "athlete_id": "ath-6a55e9fb6f1aecd29288",
+                "name": "Steven DUBOIS",
+                "official_skater_id": 1701
+              }
+            ]
           }
         ]
       },
@@ -20199,37 +20288,45 @@
         "group": "B",
         "heat_number": null,
         "heat_label": "Final B",
-        "source_start": "2026-11-01T16:49:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-01T16:56:30.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2-montreal/?tab=results_16272&type=16036&round=22964",
         "participants": [
           {
-            "athlete_id": "team-JPN-men",
-            "name": "Japan",
-            "country": "JPN",
-            "official_skater_id": 12687,
+            "athlete_id": "team-HUN-men",
+            "name": "Hungary",
+            "country": "HUN",
+            "official_skater_id": 12685,
             "helmet_number": null,
-            "starting_position": 1,
+            "starting_position": 4,
             "rank": null,
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
-          },
-          {
-            "athlete_id": "team-KAZ-men",
-            "name": "Kazakhstan",
-            "country": "KAZ",
-            "official_skater_id": 12688,
-            "helmet_number": null,
-            "starting_position": 2,
-            "rank": null,
-            "result": "no time",
-            "qualification": null,
-            "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-dca7784fc8fdf2fbec50",
+                "name": "Daniel TIBORCZ",
+                "official_skater_id": 7047
+              },
+              {
+                "athlete_id": "ath-dc0c79c56cc790edd7de",
+                "name": "David WU JIA WEI",
+                "official_skater_id": 7798
+              },
+              {
+                "athlete_id": "ath-91511b3c9de89e30bfa8",
+                "name": "Peter JASZAPATI",
+                "official_skater_id": 2986
+              },
+              {
+                "athlete_id": "ath-33b1d9336d95c0415bd3",
+                "name": "Wonjun MOON",
+                "official_skater_id": 16355
+              }
+            ]
           },
           {
             "athlete_id": "team-POL-men",
@@ -20242,20 +20339,96 @@
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-cf536d673d68730e75f0",
+                "name": "Krzysztof MADRY",
+                "official_skater_id": 4451
+              },
+              {
+                "athlete_id": "ath-775d347cc69597e5a04c",
+                "name": "Michal NIEWINSKI",
+                "official_skater_id": 5097
+              },
+              {
+                "athlete_id": "ath-b398294b57be8d0bdfb8",
+                "name": "Franciszek IZBICKI",
+                "official_skater_id": 18242
+              },
+              {
+                "athlete_id": "ath-ad9946db70088f23d4ac",
+                "name": "Felix PIGEON",
+                "official_skater_id": 5581
+              }
+            ]
           },
           {
-            "athlete_id": "team-HUN-men",
-            "name": "Hungary",
-            "country": "HUN",
-            "official_skater_id": 12685,
+            "athlete_id": "team-KAZ-men",
+            "name": "Kazakhstan",
+            "country": "KAZ",
+            "official_skater_id": 12688,
             "helmet_number": null,
-            "starting_position": 4,
+            "starting_position": 2,
             "rank": null,
             "result": "no time",
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-a21e5100fc37bb837ec4",
+                "name": "Bogdan VEKHOV",
+                "official_skater_id": 18324
+              },
+              {
+                "athlete_id": "ath-fb6dcea2bdcd0fe4c3be",
+                "name": "Aibek TEMIRKHAN",
+                "official_skater_id": 6991
+              },
+              {
+                "athlete_id": "ath-64a844d676fa24746b6b",
+                "name": "Aibek NASSEN",
+                "official_skater_id": 5039
+              },
+              {
+                "athlete_id": "ath-2fb137b7530e2d3409db",
+                "name": "Gleb IVCHENKO",
+                "official_skater_id": 2905
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-JPN-men",
+            "name": "Japan",
+            "country": "JPN",
+            "official_skater_id": 12687,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": null,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-26292f2efadb197ddb94",
+                "name": "Kazuki YOSHINAGA",
+                "official_skater_id": 7960
+              },
+              {
+                "athlete_id": "ath-dae50584eb222f8f7725",
+                "name": "Shogo MIYATA",
+                "official_skater_id": 4847
+              },
+              {
+                "athlete_id": "ath-c28e18c99f0af84ca8d0",
+                "name": "Takumi WADA",
+                "official_skater_id": 7563
+              },
+              {
+                "athlete_id": "ath-ff0e797c67667f8c165e",
+                "name": "Musashi KAKINAMI",
+                "official_skater_id": 22908
+              }
+            ]
           }
         ]
       },
@@ -20970,16 +21143,14 @@
       "2026-11-01/repechage/women/500/heats/-": "The first, second and third placed skaters from each race and up to a maximum of two fastest fourth place skaters qualify for Rep Quarterfinals.",
       "2026-11-01/repechage/women/500/quarterfinal/-": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals.",
       "2026-11-01/repechage/women/500/semifinal/-": "The first placed skater from each race qualify for Quarterfinals."
-    },
-    "error": "unexpected: documents: HTTP Error 503: Service Unavailable; rejected: results: Source is not labelled with the expected city and year"
+    }
   },
   "rankings": {
     "status": "not_published",
-    "update_status": "error",
+    "update_status": "ok",
     "checked_at": "2026-11-01T01:59:26+00:00",
     "updated_at": null,
     "source_urls": [],
-    "items": [],
-    "error": "unexpected: documents: HTTP Error 503: Service Unavailable; rejected: results: Source is not labelled with the expected city and year"
+    "items": []
   }
 }
