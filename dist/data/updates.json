@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "862d63344a1753ed",
+      "station": "montreal",
+      "at": "2026-11-01T18:41:23+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
       "id": "4037be829f2e31c8",
       "station": "montreal",
       "at": "2026-11-01T17:31:24+00:00",
@@ -3128,21 +3143,6 @@
       "format": "individual",
       "kind": "groups",
       "heats": 1,
-      "china": []
-    },
-    {
-      "id": "9c8eba61e3d8bedc",
-      "station": "vancouver",
-      "at": "2026-10-26T00:21:20+00:00",
-      "local_date": "2026-10-25",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
       "china": []
     }
   ]
