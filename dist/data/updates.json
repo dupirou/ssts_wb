@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "580ebf20979f9727",
+      "station": "montreal",
+      "at": "2026-11-01T15:51:24+00:00",
+      "local_date": "2026-11-01",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
       "id": "f95f6573102d132a",
       "station": "montreal",
       "at": "2026-11-01T15:41:16+00:00",
@@ -3178,29 +3193,6 @@
       "heats": 2,
       "china": [
         "Yan ZHANG"
-      ]
-    },
-    {
-      "id": "3c35ff466a195dda",
-      "station": "vancouver",
-      "at": "2026-10-25T21:11:20+00:00",
-      "local_date": "2026-10-25",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Yan ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Yan ZHANG",
-          "rank": 1,
-          "status": "advanced"
-        }
       ]
     }
   ]
