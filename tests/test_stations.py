@@ -126,7 +126,7 @@ class ScheduleSyncTests(unittest.TestCase):
             'group': '-',
         }
         rows = [{**wrong, 'time': t} for t in ('10:53', '11:33', '12:03', '12:20')]
-        fixed = sync_schedule.correct_montreal_round_labels(rows, MONTREAL)
+        fixed = sync_schedule.correct_montreal_programme(rows, MONTREAL)
         self.assertEqual(
             [(r['time'], r['gender'], r['distance'], r['kind'], r['round']) for r in fixed],
             [
@@ -136,13 +136,13 @@ class ScheduleSyncTests(unittest.TestCase):
                 ('12:20', 'M', '1500', 'I', 'S'),
             ],
         )
-        self.assertEqual(sync_schedule.correct_montreal_round_labels(fixed, MONTREAL), fixed)
+        self.assertEqual(sync_schedule.correct_montreal_programme(fixed, MONTREAL), fixed)
         # A partly corrected source must still allow the other reviewed corrections.
         partly_fixed = [{**wrong, 'time': t} for t in ('10:53', '11:33', '12:03')]
         partly_fixed[0]['round'] = 'Q'
-        self.assertEqual(sync_schedule.correct_montreal_round_labels(partly_fixed, MONTREAL), fixed[:3])
+        self.assertEqual(sync_schedule.correct_montreal_programme(partly_fixed, MONTREAL), fixed[:3])
         self.assertEqual(
-            sync_schedule.correct_montreal_round_labels([{**wrong, 'time': '12:03'}], stations.get('vancouver')),
+            sync_schedule.correct_montreal_programme([{**wrong, 'time': '12:03'}], stations.get('vancouver')),
             [{**wrong, 'time': '12:03'}],
         )
 
@@ -160,6 +160,55 @@ class ScheduleSyncTests(unittest.TestCase):
                 self.assertEqual(tuple(by_time[time][key] for key in ('gender', 'distance', 'kind', 'round')), labels)
         schedule = build.read_schedule('montreal')
         self.assertTrue(any(r['round_key'] == '2026-10-31/repechage/mixed/2000/semifinal/-' for r in schedule))
+
+    def test_montreal_official_first_heat_times_override_provisional_times(self):
+        # ISU results start lists on 1 November 2026 (local clock, EST UTC-5).
+        expected = {
+            ('R', 'M', '1000', 'I', 'H', '-'): ('10:06', '10:15', '2026-11-01', '23:15'),
+            ('R', 'W', '500', 'I', 'Q', '-'): ('10:26', '10:35', '2026-11-01', '23:35'),
+            ('R', 'W', '1500', 'I', 'Q', '-'): ('11:29', '11:38', '2026-11-02', '00:38'),
+            ('F', 'X', '2000', 'R', 'F', 'A'): ('13:41', '13:40', '2026-11-02', '02:40'),
+            ('F', 'M', '5000', 'R', 'F', 'A'): ('17:00', '16:57', '2026-11-02', '05:57'),
+        }
+        rows = [
+            dict(
+                date='2026-11-01',
+                time=original,
+                session=identity[0],
+                gender=identity[1],
+                distance=identity[2],
+                kind=identity[3],
+                round=identity[4],
+                group=identity[5],
+            )
+            for identity, (original, _, _, _) in expected.items()
+        ]
+        corrected = sync_schedule.correct_montreal_programme(rows, MONTREAL)
+        for row in corrected:
+            identity = tuple(row[k] for k in ('session', 'gender', 'distance', 'kind', 'round', 'group'))
+            self.assertEqual(row['time'], expected[identity][1])
+        self.assertEqual(sync_schedule.correct_montreal_programme(corrected, MONTREAL), corrected)
+        # The revised CSV feeds the build and converts correctly across the DST change.
+        stored = sync_schedule.read(stations.schedule_path('montreal'))
+        built = build.read_schedule('montreal')
+        for identity, (_, confirmed, date, time) in expected.items():
+            with self.subTest(identity=identity):
+                row = next(
+                    r for r in stored
+                    if r['date'] == '2026-11-01'
+                    and tuple(r[k] for k in ('session', 'gender', 'distance', 'kind', 'round', 'group')) == identity
+                )
+                self.assertEqual(row['time'], confirmed)
+                stage = {'R': 'repechage', 'F': 'main'}[identity[0]]
+                gender = {'M': 'men', 'W': 'women', 'X': 'mixed'}[identity[1]]
+                round_name = {'H': 'heats', 'Q': 'quarterfinal', 'F': 'final'}[identity[4]]
+                key = f'2026-11-01/{stage}/{gender}/{identity[2]}/{round_name}/{identity[5]}'
+                compiled = next(r for r in built if r['round_key'] == key)
+                self.assertEqual((compiled['beijing_date'], compiled['beijing_time']), (date, time))
+                self.assertTrue(compiled['local_start'].endswith('-05:00'))
+        unrelated = [dict(date='2026-11-01', time='10:06', session='F', gender='M',
+                          distance='1000', kind='I', round='H', group='-')]
+        self.assertEqual(sync_schedule.correct_montreal_programme(unrelated, MONTREAL), unrelated)
 
     def test_schedule_parser_accepts_single_digit_hours(self):
         text = (

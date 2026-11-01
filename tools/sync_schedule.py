@@ -70,12 +70,13 @@ def event(label, session):
     return {'session': session, 'gender': sex, 'distance': str(distance), 'kind': fmt, 'round': round_, 'group': group}
 
 
-def correct_montreal_round_labels(rows, station):
-    """Correct Montreal's three repeated, mislabelled repechage rounds.
+def correct_montreal_programme(rows, station):
+    """Apply only reviewed Montreal label and official first-heat time corrections.
 
-    The ISU event tab calls all three men's 1500 m repechage semifinals.
-    Its 29 October news programme confirms the quarterfinal, semifinal and
-    mixed relay semifinal at these times. Do not alter unrelated source rows.
+    ISU's 29 Oct programme confirms the three 31 Oct repechage round labels.
+    The 1 Nov start-list heat timestamps give local first-heat times: unlike the
+    provisional event programme, these are specific to published race groups.
+    Do not extrapolate unlisted round times or alter other stations.
     """
     if station['id'] != 'montreal':
         return rows
@@ -93,6 +94,23 @@ def correct_montreal_round_labels(rows, station):
             all(row[k] == v for k, v in mistaken.items()) or all(row[k] == v for k, v in expected.items())
         ):
             row.update(expected)
+    # ISU event-result start lists (round IDs 22940, 22919, 22955, 22961, 22964).
+    # Values are original provisional start and the reviewed local first-heat start.
+    # The ISU API encodes these local clock times with a Z suffix; they are NOT UTC.
+    reviewed_starts = {
+        ('R', 'M', '1000', 'I', 'H', '-'): ('10:06', '10:15'),
+        ('R', 'W', '500', 'I', 'Q', '-'): ('10:26', '10:35'),
+        ('R', 'W', '1500', 'I', 'Q', '-'): ('11:29', '11:38'),
+        ('F', 'X', '2000', 'R', 'F', 'A'): ('13:41', '13:40'),
+        ('F', 'M', '5000', 'R', 'F', 'A'): ('17:00', '16:57'),
+    }
+    for row in rows:
+        if row['date'] != '2026-11-01':
+            continue
+        key = tuple(row[k] for k in ('session', 'gender', 'distance', 'kind', 'round', 'group'))
+        correction = reviewed_starts.get(key)
+        if correction and row['time'] == correction[0]:
+            row['time'] = correction[1]
     return rows
 
 
@@ -128,7 +146,7 @@ def parse_text(text, station):
         if not re.search(r'\b(women|men|mixed|ladies)\b', name, re.I):
             continue
         out.append({'date': day, 'time': m.group(1).zfill(2) + ':' + m.group(2), **event(name, session)})
-    return correct_montreal_round_labels(out, station)
+    return correct_montreal_programme(out, station)
 
 
 def merge(found, old, station, now):
