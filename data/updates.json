@@ -90,6 +90,7 @@
     "montreal/round/2026-11-01/main/mixed/2000/final/B/results": "official",
     "montreal/round/2026-11-01/main/women/1500/semifinal/-/groups": "published",
     "montreal/round/2026-11-01/main/women/500/final/A/groups": "published",
+    "montreal/round/2026-11-01/main/women/500/final/A/results": "official",
     "montreal/round/2026-11-01/main/women/500/final/B/groups": "published",
     "montreal/round/2026-11-01/main/women/500/final/B/results": "official",
     "montreal/round/2026-11-01/main/women/500/quarterfinal/-/groups": "published",
@@ -390,34 +391,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "1e525ef0dec85498",
-      "station": "vancouver",
-      "at": "2026-10-26T02:11:20+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Chutong ZHANG",
-        "Li GONG"
-      ],
-      "china_results": [
-        {
-          "name": "Chutong ZHANG",
-          "rank": 1
-        },
-        {
-          "name": "Li GONG",
-          "rank": null,
-          "penalty": "PEN"
-        }
-      ]
-    },
     {
       "id": "1ad59ac797c1c2fb",
       "station": "vancouver",
@@ -3583,6 +3556,45 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "50b322282221d639",
+      "station": "montreal",
+      "at": "2026-11-01T20:31:28+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Ye WANG"
+      ],
+      "china_results": [
+        {
+          "name": "Ye WANG",
+          "rank": 5
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Xandra VELZEBOER",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Danae BLAIS",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        }
+      ]
     }
   ]
 }
