@@ -90,7 +90,10 @@
     "montreal/round/2026-11-01/main/mixed/2000/final/A/results": "official",
     "montreal/round/2026-11-01/main/mixed/2000/final/B/groups": "published",
     "montreal/round/2026-11-01/main/mixed/2000/final/B/results": "official",
+    "montreal/round/2026-11-01/main/women/1500/final/A/groups": "published",
+    "montreal/round/2026-11-01/main/women/1500/final/B/groups": "published",
     "montreal/round/2026-11-01/main/women/1500/semifinal/-/groups": "published",
+    "montreal/round/2026-11-01/main/women/1500/semifinal/-/results": "official",
     "montreal/round/2026-11-01/main/women/500/final/A/groups": "published",
     "montreal/round/2026-11-01/main/women/500/final/A/results": "official",
     "montreal/round/2026-11-01/main/women/500/final/B/groups": "published",
@@ -393,41 +396,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "bd8909f080c9695f",
-      "station": "vancouver",
-      "at": "2026-10-26T02:51:17+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 3
-        }
-      ]
-    },
-    {
-      "id": "638f7a2dce5814ad",
-      "station": "vancouver",
-      "kind": "rankings",
-      "at": "2026-10-26T18:01:20+00:00"
-    },
-    {
-      "id": "6f108a9a0736a5fa",
-      "station": "vancouver",
-      "kind": "rankings",
-      "at": "2026-10-26T18:01:20+00:00",
-      "changed": true
-    },
     {
       "id": "10bdab45a019bbe2",
       "station": "vancouver",
@@ -3605,6 +3573,82 @@
           "rank": 3,
           "name": "Michal NIEWINSKI",
           "country": "POL"
+        }
+      ]
+    },
+    {
+      "id": "773903fb7a5d428d",
+      "station": "montreal",
+      "at": "2026-11-01T21:21:26+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "9af8621ae1ed8340",
+      "station": "montreal",
+      "at": "2026-11-01T21:21:26+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "Yan ZHANG"
+      ]
+    },
+    {
+      "id": "e4e44ee1a0760acc",
+      "station": "montreal",
+      "at": "2026-11-01T21:21:26+00:00",
+      "local_date": "2026-11-01",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Chutong ZHANG",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        },
+        {
+          "name": "Jianing ZHANG",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        },
+        {
+          "name": "Li GONG",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 5,
+          "status": "final_b"
         }
       ]
     }
