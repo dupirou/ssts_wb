@@ -78,6 +78,7 @@
     "montreal/round/2026-10-31/repechage/women/1000/semifinal/-/results": "official",
     "montreal/round/2026-11-01/main/men/1000/final/A/groups": "published",
     "montreal/round/2026-11-01/main/men/1000/final/B/groups": "published",
+    "montreal/round/2026-11-01/main/men/1000/final/B/results": "official",
     "montreal/round/2026-11-01/main/men/1000/quarterfinal/-/groups": "published",
     "montreal/round/2026-11-01/main/men/1000/quarterfinal/-/results": "official",
     "montreal/round/2026-11-01/main/men/1000/semifinal/-/groups": "published",
@@ -391,28 +392,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "1ad59ac797c1c2fb",
-      "station": "vancouver",
-      "at": "2026-10-26T02:21:18+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jianing ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jianing ZHANG",
-          "rank": 5
-        }
-      ]
-    },
     {
       "id": "ec722e66eae687c8",
       "station": "vancouver",
@@ -3595,6 +3574,21 @@
           "country": "CAN"
         }
       ]
+    },
+    {
+      "id": "fc52bec46df168af",
+      "station": "montreal",
+      "at": "2026-11-01T20:41:24+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
     }
   ]
 }
