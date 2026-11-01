@@ -85,6 +85,8 @@
     "montreal/round/2026-11-01/main/mixed/2000/final/B/results": "official",
     "montreal/round/2026-11-01/main/women/1500/semifinal/-/groups": "published",
     "montreal/round/2026-11-01/main/women/500/quarterfinal/-/groups": "published",
+    "montreal/round/2026-11-01/main/women/500/quarterfinal/-/results": "official",
+    "montreal/round/2026-11-01/main/women/500/semifinal/-/groups": "published",
     "montreal/round/2026-11-01/repechage/men/1000/heats/-/groups": "published",
     "montreal/round/2026-11-01/repechage/men/1000/heats/-/results": "official",
     "montreal/round/2026-11-01/repechage/men/1000/quarterfinal/-/groups": "published",
@@ -379,57 +381,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "89194a778b608901",
-      "station": "vancouver",
-      "at": "2026-10-26T00:31:21+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Ye WANG"
-      ]
-    },
-    {
-      "id": "6983e04fbed133e2",
-      "station": "vancouver",
-      "at": "2026-10-26T01:01:28+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Ye WANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jianing ZHANG",
-          "rank": 1
-        },
-        {
-          "name": "Jiarui SONG",
-          "rank": 5
-        },
-        {
-          "name": "Ye WANG",
-          "rank": 4
-        }
-      ]
-    },
     {
       "id": "7b5c166707da9ba9",
       "station": "vancouver",
@@ -3544,6 +3495,65 @@
           "rank": 3,
           "name": "China",
           "country": "CHN"
+        }
+      ]
+    },
+    {
+      "id": "486a8396cfbd7404",
+      "station": "montreal",
+      "at": "2026-11-01T19:31:25+00:00",
+      "local_date": "2026-11-01",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Chutong ZHANG",
+        "Ye WANG"
+      ]
+    },
+    {
+      "id": "aa06b60b9f7ef06a",
+      "station": "montreal",
+      "at": "2026-11-01T19:31:25+00:00",
+      "local_date": "2026-11-01",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Ye WANG"
+      ],
+      "china_results": [
+        {
+          "name": "Chutong ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Jianing ZHANG",
+          "rank": 4,
+          "status": "out"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Ye WANG",
+          "rank": 3,
+          "status": "advanced"
         }
       ]
     }
