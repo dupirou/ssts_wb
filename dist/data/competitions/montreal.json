@@ -3,7 +3,7 @@
   "event_id": "montreal",
   "entries": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-11-01T01:59:26+00:00",
     "updated_at": "2026-10-22T16:01:26+00:00",
     "source_urls": [
@@ -2250,11 +2250,12 @@
         "participation": "substitute"
       }
     ],
-    "published_at": "2026-10-22"
+    "published_at": "2026-10-22",
+    "error": "unexpected: documents: HTTP Error 503: Service Unavailable; rejected: results: Source is not labelled with the expected city and year"
   },
   "rounds": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-11-01T21:41:22+00:00",
     "updated_at": "2026-11-01T21:41:22+00:00",
     "source_urls": [
@@ -20969,14 +20970,16 @@
       "2026-11-01/repechage/women/500/heats/-": "The first, second and third placed skaters from each race and up to a maximum of two fastest fourth place skaters qualify for Rep Quarterfinals.",
       "2026-11-01/repechage/women/500/quarterfinal/-": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals.",
       "2026-11-01/repechage/women/500/semifinal/-": "The first placed skater from each race qualify for Quarterfinals."
-    }
+    },
+    "error": "unexpected: documents: HTTP Error 503: Service Unavailable; rejected: results: Source is not labelled with the expected city and year"
   },
   "rankings": {
     "status": "not_published",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-11-01T01:59:26+00:00",
     "updated_at": null,
     "source_urls": [],
-    "items": []
+    "items": [],
+    "error": "unexpected: documents: HTTP Error 503: Service Unavailable; rejected: results: Source is not labelled with the expected city and year"
   }
 }
