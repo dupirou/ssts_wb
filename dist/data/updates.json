@@ -2,6 +2,68 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "cdaea6dda5675c6c",
+      "station": "montreal",
+      "at": "2026-11-01T19:51:20+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "B",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "429497f86dbddc4c",
+      "station": "montreal",
+      "at": "2026-11-01T19:51:20+00:00",
+      "local_date": "2026-11-01",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Ye WANG"
+      ],
+      "china_results": [
+        {
+          "name": "Chutong ZHANG",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        },
+        {
+          "name": "Ye WANG",
+          "rank": 3,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "3fcab647d029f831",
+      "station": "montreal",
+      "at": "2026-11-01T19:51:20+00:00",
+      "local_date": "2026-11-01",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": [
+        "Ye WANG"
+      ]
+    },
+    {
       "id": "e379b5fefe5e6b77",
       "station": "montreal",
       "at": "2026-11-01T19:41:18+00:00",
@@ -3157,51 +3219,6 @@
       "kind": "results",
       "china": [],
       "china_results": []
-    },
-    {
-      "id": "9146c137429f0770",
-      "station": "vancouver",
-      "at": "2026-10-26T01:21:22+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "751c4e4a839fa63b",
-      "station": "vancouver",
-      "at": "2026-10-26T01:11:22+00:00",
-      "local_date": null,
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "c8b180ce9cef9df7",
-      "station": "vancouver",
-      "at": "2026-10-26T01:01:28+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
     }
   ]
 }
