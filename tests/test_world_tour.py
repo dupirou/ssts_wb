@@ -16,7 +16,8 @@ class WorldTourTests(unittest.TestCase):
         rows = [
             dict(
                 gender=g.title(),
-                discipline_distance=str(d),
+                discipline_distance='',
+                name=f'World Tour Classification by discipline {g.title()} {d} m',
                 type='WCD',
                 season_name='2026/2027',
                 season_id=47,
@@ -44,12 +45,17 @@ class WorldTourTests(unittest.TestCase):
             world.catalog(payload(rows[:-1]), '2026/2027', 47)
         with self.assertRaisesRegex(ValueError, 'Ambiguous'):
             world.catalog(payload(rows + [rows[0]]), '2026/2027', 47)
+        wrong_gender = [dict(row) for row in rows]
+        wrong_gender[0]['gender'] = 'Women'
+        with self.assertRaisesRegex(ValueError, 'conflicts'):
+            world.catalog(payload(wrong_gender), '2026/2027', 47)
 
     def test_official_ids_and_failed_sync_preserve_previous(self):
         metas = [
             dict(
                 gender=g.title(),
-                discipline_distance=str(d),
+                discipline_distance='',
+                name=f'World Tour Classification by discipline {g.title()} {d} m',
                 type='WCD',
                 season_name='2026/2027',
                 season_id=47,

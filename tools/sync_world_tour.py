@@ -5,6 +5,7 @@ Reuse the verified ISU pagination and response contracts in sync_predictions.
 """
 
 import json
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -23,9 +24,22 @@ def catalog(body, season_name, season_id):
         raise ValueError('Incomplete World Tour catalogue')
     found = {}
     for row in value['data']:
+        # In 2026/27 WCD lists leave discipline_distance blank. Their full
+        # ISU titles still identify each distance; require both fields to agree.
+        named = re.fullmatch(
+            r'World Tour Classification by discipline (Men|Women) (500|1000|1500) m',
+            row.get('name') or '',
+        )
+        if not named:
+            continue
         gender = {'Men': 'men', 'Women': 'women'}.get(row.get('gender'))
-        distance = row.get('discipline_distance')
-        key = (gender, int(distance)) if gender and str(distance) in ('500', '1000', '1500') else None
+        distance = int(named[2])
+        if row.get('gender') != named[1] or str(row.get('discipline_distance') or '') not in (
+            '',
+            str(distance),
+        ):
+            raise ValueError('ISU WCD list name conflicts with discipline fields')
+        key = (gender, distance)
         if (
             key not in DISTANCES
             or row.get('type') != 'WCD'
