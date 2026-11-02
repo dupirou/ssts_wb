@@ -1179,9 +1179,7 @@
               (a.rank ?? 999) - (b.rank ?? 999)
           );
           for (const r of sorted) {
-            const finalRank = r.rank_scope === 'final';
-            const rank =
-              r.rank == null ? '—' : (finalRank ? r.final_group + '组第 ' : '第 ') + r.rank + ' 名';
+            const rank = resultRank(r);
             const tag = [r.status === 'classified' ? '' : r.status].filter(Boolean).join(' · ');
             body.append(
               h(
@@ -1274,11 +1272,14 @@
     distance +
     ' 米' +
     (distance >= 2000 ? '接力' : '');
-  const resultPlace = (r) =>
-    (r.rank == null
-      ? '—'
-      : (r.rank_scope === 'final' ? r.final_group + '组第 ' : '第 ') + r.rank + ' 名') +
-    (r.status === 'classified' ? '' : ' · ' + r.status);
+  const resultRank = (r) => {
+    if (r.rank == null) return '—';
+    const place = (r.rank_scope === 'final' ? r.final_group + '组第 ' : '第 ') + r.rank + ' 名';
+    return r.rank_basis === 'verified_final_groups' && r.final_group === 'B'
+      ? place + '（B组第 ' + r.group_rank + '）'
+      : place;
+  };
+  const resultPlace = (r) => resultRank(r) + (r.status === 'classified' ? '' : ' · ' + r.status);
   const seasonId = (value) => value.replace('/', '-');
   const seasonValue = (value) => value.replace(/^(\d{4})-(\d{2})$/, '$1/$2');
   const eventLink = (e, query = '') => '/results/events/' + encodeURIComponent(e.id) + '/' + query;

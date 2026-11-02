@@ -433,9 +433,9 @@ def result_catalog(out, calendar, archive):
         for key, finals in grouped.items():
             if len(finals.get('A', [])) == 1 and len(finals.get('B', [])) == 1:
                 a_final = finals['A'][0]
-                if len(a_final['participants']) >= 4 and len(
-                    {p['athlete_id'] for p in a_final['participants']}
-                ) == len(a_final['participants']):
+                if len(a_final['participants']) >= 4 and len({p['athlete_id'] for p in a_final['participants']}) == len(
+                    a_final['participants']
+                ):
                     offsets[key] = len(a_final['participants'])
         for heat in heats:
             disc = (heat['gender'], heat['distance_m'], heat['format'])

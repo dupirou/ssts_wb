@@ -539,8 +539,7 @@
       ? place + '（B组第 ' + r.group_rank + '）'
       : place;
   };
-  const resultPlace = (r) =>
-    resultRank(r) + (r.status === 'classified' ? '' : ' · ' + r.status);
+  const resultPlace = (r) => resultRank(r) + (r.status === 'classified' ? '' : ' · ' + r.status);
   const seasonId = (value) => value.replace('/', '-');
   const seasonValue = (value) => value.replace(/^(\d{4})-(\d{2})$/, '$1/$2');
   const eventLink = (e, query = '') => '/results/events/' + encodeURIComponent(e.id) + '/' + query;
