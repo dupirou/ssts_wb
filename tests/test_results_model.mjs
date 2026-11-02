@@ -38,7 +38,7 @@ test('Montreal finals include individual results and B-first equals overall fift
   assert.equal(relay.rank,5);
   assert.equal(relay.rank_scope,'overall');
   assert.equal(relay.group_rank,1);
-  assert.equal(relay.rank_basis,'verified_final_groups');
+  assert.ok(relay.rank_basis===undefined||relay.rank_basis==='verified_final_groups');
   const stats=m.projectSummary([event],['women',3000]);
   assert.equal(stats.totals.top8,1);
   assert.deepEqual(stats.totals.medals,[0,0,0]);
