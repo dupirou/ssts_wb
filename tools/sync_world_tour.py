@@ -56,9 +56,23 @@ def catalog(body, season_name, season_id):
                 if row.get('discipline_id') == 3
             }
         )
+        candidates = sorted({
+            (
+                str(row.get('gender')),
+                str(row.get('discipline_distance')),
+                str(row.get('name')),
+                str(row.get('team_type')),
+                str(row.get('level_name')),
+            )
+            for row in value['data']
+            if row.get('type') == 'WCD'
+            and row.get('season_name') == season_name
+            and row.get('team_type') == 'Singles'
+        })
         raise ValueError(
             'Six senior individual World Tour lists required; '
-            f'matched={sorted(found)}, official_catalogue={observed[:20]}'
+            f'matched={sorted(found)}, official_catalogue={observed[:20]}, '
+            f'WCD_distances={candidates[:25]}'
         )
     return found
 
