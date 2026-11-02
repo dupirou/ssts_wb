@@ -43,17 +43,19 @@ def catalog(body, season_name, season_id):
             raise ValueError('Ambiguous current-season World Tour list')
         found[key] = row
     if set(found) != DISTANCES:
-        observed = sorted({
-            (
-                str(row.get('season_name')),
-                str(row.get('season_id')),
-                str(row.get('type')),
-                str(row.get('level_name')),
-                str(row.get('team_type')),
-            )
-            for row in value['data']
-            if row.get('discipline_id') == 3
-        })
+        observed = sorted(
+            {
+                (
+                    str(row.get('season_name')),
+                    str(row.get('season_id')),
+                    str(row.get('type')),
+                    str(row.get('level_name')),
+                    str(row.get('team_type')),
+                )
+                for row in value['data']
+                if row.get('discipline_id') == 3
+            }
+        )
         raise ValueError(
             'Six senior individual World Tour lists required; '
             f'matched={sorted(found)}, official_catalogue={observed[:20]}'
@@ -109,9 +111,7 @@ def collect(calendar, sender=sync_predictions.post_json, directory=competition_d
             if known is None or known[2] != gender:
                 continue
             athlete_id, country, _ = known
-            matched.append(
-                dict(athlete_id=athlete_id, country=country, rank=place['rank'], points=place['points'])
-            )
+            matched.append(dict(athlete_id=athlete_id, country=country, rank=place['rank'], points=place['points']))
         if not matched or len({p['athlete_id'] for p in matched}) != len(matched):
             raise ValueError('No unique official skater identities for a published distance list')
         tables.append(

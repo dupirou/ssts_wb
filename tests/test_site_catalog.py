@@ -139,20 +139,41 @@ class SiteCatalogTests(unittest.TestCase):
             out = Path(temp)
             folder = out / 'data/competitions'
             folder.mkdir(parents=True)
-            (folder / 'one.json').write_text(json.dumps(dict(
-                entries=dict(items=[entrant]), rounds=dict(items=[]),
-                rankings=dict(items=[dict(athlete_id='sun', gender='men', distance_m=1000,
-                                          ranking_type='world_tour', format='individual', rank=20)]),
-            )))
+            (folder / 'one.json').write_text(
+                json.dumps(
+                    dict(
+                        entries=dict(items=[entrant]),
+                        rounds=dict(items=[]),
+                        rankings=dict(
+                            items=[
+                                dict(
+                                    athlete_id='sun',
+                                    gender='men',
+                                    distance_m=1000,
+                                    ranking_type='world_tour',
+                                    format='individual',
+                                    rank=20,
+                                )
+                            ]
+                        ),
+                    )
+                )
+            )
             tables = [
-                dict(gender=g, distance_m=d, list_id=n, items=(
-                    [dict(athlete_id='sun', country='CHN', rank=11, points=50)]
-                    if (g, d) == ('men', 1000) else []
-                ))
+                dict(
+                    gender=g,
+                    distance_m=d,
+                    list_id=n,
+                    items=(
+                        [dict(athlete_id='sun', country='CHN', rank=11, points=50)] if (g, d) == ('men', 1000) else []
+                    ),
+                )
                 for n, (g, d) in enumerate((g, d) for g in ('men', 'women') for d in (500, 1000, 1500))
             ]
             official = dict(
-                schema_version=1, season='2026/27', tables=tables,
+                schema_version=1,
+                season='2026/27',
+                tables=tables,
                 source_url='https://www.isu-skating.com/en/short-track/world-standings/',
                 checked_at='2026-11-02T02:00:00+00:00',
             )

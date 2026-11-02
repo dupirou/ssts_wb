@@ -242,6 +242,13 @@
                   penaltyIndex.completed_events +
                   ' 站'
               }),
+              calendar.stations.filter((st) => Date.parse(st.date_end + 'T23:59:59Z') < Date.now())
+                .length > penaltyIndex.completed_events
+                ? h('p', {
+                    class: 'faint tiny',
+                    text: '后续已结束分站的官方 Protocol 尚未收录。这里只显示已核实的累计判罚；比赛结果里的 PEN 不直接计入累计。'
+                  })
+                : null,
               h(
                 'ul',
                 { class: 'penalty-list' },
@@ -321,12 +328,25 @@
               'div',
               { class: 'directory-ranking-context' },
               h('h2', { text: '本赛季世巡赛排名' }),
-              index.ranking_as_of?.length
-                ? h('span', {
-                    class: 'faint tiny',
-                    text: '截至' + index.ranking_as_of.map((e) => e.city + '站').join('、')
-                  })
-                : null
+              index.ranking_context
+                ? h(
+                    'span',
+                    { class: 'faint tiny' },
+                    'ISU 赛季榜 · 同步于 ' + index.ranking_context.synced_at.slice(0, 10),
+                    ' · ',
+                    h('a', {
+                      href: index.ranking_context.source_url,
+                      target: '_blank',
+                      rel: 'noopener noreferrer',
+                      text: '官方来源'
+                    })
+                  )
+                : index.ranking_as_of?.length
+                  ? h('span', {
+                      class: 'faint tiny',
+                      text: '截至' + index.ranking_as_of.map((e) => e.city + '站').join('、')
+                    })
+                  : null
             )
           : null,
         count,

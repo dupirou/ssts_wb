@@ -242,8 +242,8 @@
                   penaltyIndex.completed_events +
                   ' 站'
               }),
-              calendar.stations.filter((st) => Date.parse(st.date_end + 'T23:59:59Z') < Date.now()).length >
-              penaltyIndex.completed_events
+              calendar.stations.filter((st) => Date.parse(st.date_end + 'T23:59:59Z') < Date.now())
+                .length > penaltyIndex.completed_events
                 ? h('p', {
                     class: 'faint tiny',
                     text: '后续已结束分站的官方 Protocol 尚未收录。这里只显示已核实的累计判罚；比赛结果里的 PEN 不直接计入累计。'
