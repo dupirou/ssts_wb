@@ -886,14 +886,18 @@
     // Rank feeds contain one record per project. A single card belongs to
     // one verified athlete ID and can show several distance classifications.
     const people = ranking
-      ? [...dataset.items.reduce((byId, record, index) => {
-          const key = record.athlete_id
-            ? [record.country, record.gender, record.athlete_id].join('|')
-            : 'unknown-ranking-' + index;
-          if (!byId.has(key)) byId.set(key, { ...record, rankings: [] });
-          byId.get(key).rankings.push(record);
-          return byId;
-        }, new Map()).values()]
+      ? [
+          ...dataset.items
+            .reduce((byId, record, index) => {
+              const key = record.athlete_id
+                ? [record.country, record.gender, record.athlete_id].join('|')
+                : 'unknown-ranking-' + index;
+              if (!byId.has(key)) byId.set(key, { ...record, rankings: [] });
+              byId.get(key).rankings.push(record);
+              return byId;
+            }, new Map())
+            .values()
+        ]
       : dataset.items;
     const china = people.filter((p) => p.country === 'CHN').length;
     const summary = h(
@@ -992,11 +996,12 @@
                           { class: 'athlete-rank-group' },
                           h('span', {
                             class: 'athlete-rank-kind',
-                            text: {
-                              event: '单站排名',
-                              world_tour: '世巡赛积分',
-                              world: '世界排名'
-                            }[type] || type
+                            text:
+                              {
+                                event: '单站排名',
+                                world_tour: '世巡赛积分',
+                                world: '世界排名'
+                              }[type] || type
                           }),
                           h(
                             'div',
@@ -1005,8 +1010,7 @@
                               .filter((r) => r.ranking_type === type)
                               .sort(
                                 (a, b) =>
-                                  a.distance_m - b.distance_m ||
-                                  a.format.localeCompare(b.format)
+                                  a.distance_m - b.distance_m || a.format.localeCompare(b.format)
                               )
                               .map((r) =>
                                 h(

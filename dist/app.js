@@ -883,7 +883,22 @@
   }
 
   function athleteList(dataset, title, ranking = false) {
-    const people = dataset.items;
+    // Rank feeds contain one record per project. A single card belongs to
+    // one verified athlete ID and can show several distance classifications.
+    const people = ranking
+      ? [
+          ...dataset.items
+            .reduce((byId, record, index) => {
+              const key = record.athlete_id
+                ? [record.country, record.gender, record.athlete_id].join('|')
+                : 'unknown-ranking-' + index;
+              if (!byId.has(key)) byId.set(key, { ...record, rankings: [] });
+              byId.get(key).rankings.push(record);
+              return byId;
+            }, new Map())
+            .values()
+        ]
+      : dataset.items;
     const china = people.filter((p) => p.country === 'CHN').length;
     const summary = h(
       'summary',
@@ -891,12 +906,12 @@
       h('b', { text: title }),
       h('span', {
         class: 'faint num',
-        text: people.length ? people.length + (ranking ? ' 条' : ' 人') : '待公布'
+        text: people.length ? people.length + ' 人' : '待公布'
       }),
       china
         ? h('span', {
             class: 'athlete-china num',
-            text: 'CHN ' + china + (ranking ? ' 条' : ' 人')
+            text: 'CHN ' + china + ' 人'
           })
         : null,
       dataset.stale && people.length ? h('small', { class: 'pill', text: '待更新' }) : null
@@ -941,11 +956,12 @@
       if (ranking)
         selected.sort(
           (a, b) =>
-            a.ranking_type.localeCompare(b.ranking_type) ||
-            a.distance_m - b.distance_m ||
-            a.rank - b.rank
+            Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
+            a.country.localeCompare(b.country) ||
+            a.name.localeCompare(b.name) ||
+            String(a.athlete_id || '').localeCompare(String(b.athlete_id || ''))
         );
-      count.textContent = '显示 ' + selected.length + (ranking ? ' 条' : ' 人');
+      count.textContent = '显示 ' + selected.length + ' 人';
       fill(
         list,
         selected.map((p) =>
@@ -954,26 +970,68 @@
             {
               class: cls('athlete-card', p.country === 'CHN' && 'is-china'),
               id: ranking ? null : 'athlete-' + p.athlete_id,
-              dataset: { country: p.country }
+              dataset: { country: p.country, ...(ranking ? { athleteId: p.athlete_id } : {}) }
             },
             h('span', { class: 'athlete-nation', text: p.country }),
             ranking
               ? [
-                  h('b', { class: 'athlete-name', text: p.name }),
                   h(
-                    'span',
-                    { class: 'athlete-caption' },
-                    { event: '单站排名', world_tour: '世巡赛积分', world: '世界排名' }[
-                      p.ranking_type
-                    ] || p.ranking_type,
-                    ' · ' +
-                      (gender[p.gender] || '') +
-                      ' ' +
-                      p.distance_m +
-                      'm · 第 ' +
-                      p.rank +
-                      ' 名',
-                    p.points != null ? ' · ' + p.points + ' 分' : null
+                    'b',
+                    { class: 'athlete-name' },
+                    p.name,
+                    h('small', { class: 'athlete-events', text: gender[p.gender] || '' })
+                  ),
+                  h(
+                    'div',
+                    { class: 'athlete-rank-groups' },
+                    [...new Set(p.rankings.map((r) => r.ranking_type))]
+                      .sort(
+                        (a, b) =>
+                          ['event', 'world_tour', 'world'].indexOf(a) -
+                          ['event', 'world_tour', 'world'].indexOf(b)
+                      )
+                      .map((type) =>
+                        h(
+                          'div',
+                          { class: 'athlete-rank-group' },
+                          h('span', {
+                            class: 'athlete-rank-kind',
+                            text:
+                              {
+                                event: '单站排名',
+                                world_tour: '世巡赛积分',
+                                world: '世界排名'
+                              }[type] || type
+                          }),
+                          h(
+                            'div',
+                            { class: 'athlete-rank-values' },
+                            p.rankings
+                              .filter((r) => r.ranking_type === type)
+                              .sort(
+                                (a, b) =>
+                                  a.distance_m - b.distance_m || a.format.localeCompare(b.format)
+                              )
+                              .map((r) =>
+                                h(
+                                  'span',
+                                  { class: 'athlete-rank-item' },
+                                  h('b', {
+                                    class: 'num',
+                                    text: r.distance_m + 'm' + (r.format === 'relay' ? '接力' : '')
+                                  }),
+                                  h('span', {
+                                    class: 'num',
+                                    text: r.rank == null ? '—' : '第 ' + r.rank + ' 名'
+                                  }),
+                                  r.points != null
+                                    ? h('small', { class: 'num', text: r.points + ' 分' })
+                                    : null
+                                )
+                              )
+                          )
+                        )
+                      )
                   )
                 ]
               : h(
