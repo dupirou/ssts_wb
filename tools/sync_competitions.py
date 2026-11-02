@@ -234,7 +234,6 @@ def parse_reports(body, config, source_url):
     return [], sorted(output.values(), key=lambda i: i['id'])
 
 
-
 def collect_event_classifications(body, config, api_fetcher, heats, problems):
     """Import the ISU event classification after its Final A is official.
 
@@ -259,8 +258,7 @@ def collect_event_classifications(body, config, api_fetcher, heats, problems):
     events = isu_results.embedded_results(body)
     for event in events:
         if event.get('discipline_id') != 3 or (
-            config.get('isu_event_id') is not None
-            and str(event.get('event_id')) != str(config['isu_event_id'])
+            config.get('isu_event_id') is not None and str(event.get('event_id')) != str(config['isu_event_id'])
         ):
             continue
         disc = discipline(event['name'])
@@ -274,10 +272,7 @@ def collect_event_classifications(body, config, api_fetcher, heats, problems):
             raise ValueError('Duplicate official classification discipline')
         seen.add(eid)
         endpoint = '/events/get-event-result-fsk-single'
-        source_url = (
-            'https://www.isu-skating.com/en/short-track/events/classification/'
-            + slug + '/' + eid + '/'
-        )
+        source_url = 'https://www.isu-skating.com/en/short-track/events/classification/' + slug + '/' + eid + '/'
         try:
             fetched = isu_results.api_data(
                 api_fetcher(
@@ -310,7 +305,7 @@ def collect_event_classifications(body, config, api_fetcher, heats, problems):
                 athlete = data.athlete_id(name, 'CHN', disc['gender'])
                 parsed.append(
                     dict(
-                        id=f"event/{disc['gender']}/{disc['distance_m']}/{athlete}",
+                        id=f'event/{disc["gender"]}/{disc["distance_m"]}/{athlete}',
                         athlete_id=athlete,
                         ranking_type='event',
                         **disc,
@@ -337,8 +332,9 @@ def collect_event_classifications(body, config, api_fetcher, heats, problems):
                 raise ValueError('Official classification omits Chinese skaters with recorded results')
             results.extend(parsed)
         except ValueError as exc:
-            problems.append(f"{event['name']} classification: {exc}")
+            problems.append(f'{event["name"]} classification: {exc}')
     return results
+
 
 def update_dataset(dataset, items, urls, now, published_at=None):
     if not items:
@@ -417,9 +413,7 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
         ]
         problems, rules = [], {}
         proposed_rounds += isu_results.collect(body, config, api_fetcher, schedule, known, problems, rules)
-        proposed_rankings += collect_event_classifications(
-            body, config, api_fetcher, proposed_rounds + known, problems
-        )
+        proposed_rankings += collect_event_classifications(body, config, api_fetcher, proposed_rounds + known, problems)
         # Rules of rounds not re-requested this time (finished disciplines) keep their last text.
         merged_rules = dict(sorted({**snapshot['rounds'].get('rules', {}), **rules}.items()))
         if merged_rules:

@@ -70,10 +70,14 @@ Quarterfinals        11  CHN - People's Republic of China      3  2:51.826
                 (104, 'Bohao ZHANG', 19),
             ]
         ]
-        config = dict(CONFIG, isu_event_id=16272, results_url=(
-            'https://www.isu-skating.com/en/short-track/events/eventdetail/'
-            'isu-short-track-world-tour-2-montreal/?tab=results_16272'
-        ))
+        config = dict(
+            CONFIG,
+            isu_event_id=16272,
+            results_url=(
+                'https://www.isu-skating.com/en/short-track/events/eventdetail/'
+                'isu-short-track-world-tour-2-montreal/?tab=results_16272'
+            ),
+        )
         calls = []
 
         def api_fetcher(endpoint, form):
@@ -82,14 +86,24 @@ Quarterfinals        11  CHN - People's Republic of China      3  2:51.826
 
         official = [
             dict(
-                gender='men', distance_m=1000, format='individual', round='final', group='A',
-                evidence='official_results', result_status='Official', participants=[],
+                gender='men',
+                distance_m=1000,
+                format='individual',
+                round='final',
+                group='A',
+                evidence='official_results',
+                result_status='Official',
+                participants=[],
             ),
             dict(
-                gender='men', distance_m=1000, format='individual', round='quarterfinal', group=None,
-                evidence='official_results', result_status='Official', participants=[
-                    dict(country='CHN', athlete_id=data.athlete_id('Long SUN', 'CHN', 'men'))
-                ],
+                gender='men',
+                distance_m=1000,
+                format='individual',
+                round='quarterfinal',
+                group=None,
+                evidence='official_results',
+                result_status='Official',
+                participants=[dict(country='CHN', athlete_id=data.athlete_id('Long SUN', 'CHN', 'men'))],
             ),
         ]
         page = json.dumps([event])
@@ -116,39 +130,83 @@ Quarterfinals        11  CHN - People's Republic of China      3  2:51.826
         # Reuse the real collector's confirmed final to trigger classification ingestion
         # without any PDF report, and retain the trusted rows if the next API response is bad.
         from unittest.mock import patch
-        fake_event = dict(discipline_id=3, event_id=16272, event_result_id=16039,
-                          start_date='2026-10-30', name='Men 1000 m', discipline_type='Singles')
-        fake_final = dict(
-            id='isu-heat-test', gender='men', distance_m=1000, format='individual',
-            round='final', group='A', evidence='official_results', result_status='Official',
-            participants=[],
-            source_url='https://www.isu-skating.com/source'
+
+        fake_event = dict(
+            discipline_id=3,
+            event_id=16272,
+            event_result_id=16039,
+            start_date='2026-10-30',
+            name='Men 1000 m',
+            discipline_type='Singles',
         )
+        fake_final = dict(
+            id='isu-heat-test',
+            gender='men',
+            distance_m=1000,
+            format='individual',
+            round='final',
+            group='A',
+            evidence='official_results',
+            result_status='Official',
+            participants=[],
+            source_url='https://www.isu-skating.com/source',
+        )
+
         def fetch(url, form=None):
             if 'documents' in url:
                 return b'<h1>Montreal 2026</h1>'
             return ('<h1>Montreal 2026</h1>').encode()
+
         def classification(endpoint, form):
-            return json.dumps(dict(status=200, data=[
-                dict(event_id=16272, event_result_id=16039, started_for_nf_code='CHN',
-                     skaters_id=123, skaters=dict(full_name='Long SUN'), final_rank=16, final_result='')
-            ])).encode()
+            return json.dumps(
+                dict(
+                    status=200,
+                    data=[
+                        dict(
+                            event_id=16272,
+                            event_result_id=16039,
+                            started_for_nf_code='CHN',
+                            skaters_id=123,
+                            skaters=dict(full_name='Long SUN'),
+                            final_rank=16,
+                            final_result='',
+                        )
+                    ],
+                )
+            ).encode()
+
         config = dict(CONFIG, city='Montreal', isu_event_id=16272)
         with tempfile.TemporaryDirectory() as directory:
-            with patch.object(api, 'embedded_results', return_value=[fake_event]), patch.object(api, 'collect', return_value=[fake_final]):
+            with (
+                patch.object(api, 'embedded_results', return_value=[fake_event]),
+                patch.object(api, 'collect', return_value=[fake_final]),
+            ):
                 result, errors = sync.sync_event(
-                    'montreal', config, fetcher=fetch, api_fetcher=classification,
-                    now='2026-11-02T05:00:00+00:00', directory=Path(directory)
+                    'montreal',
+                    config,
+                    fetcher=fetch,
+                    api_fetcher=classification,
+                    now='2026-11-02T05:00:00+00:00',
+                    directory=Path(directory),
                 )
             self.assertFalse(errors)
             self.assertEqual(result['rankings']['items'][0]['rank'], 16)
             self.assertEqual(result['rankings']['items'][0]['ranking_type'], 'event')
-            with patch.object(api, 'embedded_results', return_value=[fake_event]), patch.object(api, 'collect', return_value=[fake_final]):
+            with (
+                patch.object(api, 'embedded_results', return_value=[fake_event]),
+                patch.object(api, 'collect', return_value=[fake_final]),
+            ):
+
                 def malformed(endpoint, form):
                     raise ValueError('unrecognized official schema')
+
                 revised, errors = sync.sync_event(
-                    'montreal', config, fetcher=fetch, api_fetcher=malformed,
-                    now='2026-11-02T06:00:00+00:00', directory=Path(directory)
+                    'montreal',
+                    config,
+                    fetcher=fetch,
+                    api_fetcher=malformed,
+                    now='2026-11-02T06:00:00+00:00',
+                    directory=Path(directory),
                 )
             self.assertEqual(revised['rankings']['items'], result['rankings']['items'])
             self.assertEqual(revised['rankings']['status'], 'available')

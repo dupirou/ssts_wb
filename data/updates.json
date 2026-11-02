@@ -2,6 +2,7 @@
   "schema_version": 1,
   "facts": {
     "montreal/entries": "6d94f2316ada41bc",
+    "montreal/rankings": "2f765f5ab3ca14e4",
     "montreal/round/2026-10-30/qualifying/men/1000/heats/-/groups": "published",
     "montreal/round/2026-10-30/qualifying/men/1000/heats/-/results": "official",
     "montreal/round/2026-10-30/qualifying/men/1000/preliminaries/-/groups": "published",
@@ -400,21 +401,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "424eb8aef7c26b42",
-      "station": "vancouver",
-      "at": "2026-10-27T03:25:30+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
     {
       "id": "590cde07a4cf6571",
       "station": "vancouver",
@@ -3667,6 +3653,12 @@
           "country": "KOR"
         }
       ]
+    },
+    {
+      "id": "085f7ea93bacbe8b",
+      "station": "montreal",
+      "kind": "rankings",
+      "at": "2026-11-02T04:19:52+00:00"
     }
   ]
 }
