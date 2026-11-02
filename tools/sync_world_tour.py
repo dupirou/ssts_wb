@@ -7,7 +7,6 @@ Reuse the verified ISU pagination and response contracts in sync_predictions.
 import json
 import sys
 from datetime import datetime, timezone
-from pathlib import Path
 
 import competition_data
 import stations
@@ -44,7 +43,21 @@ def catalog(body, season_name, season_id):
             raise ValueError('Ambiguous current-season World Tour list')
         found[key] = row
     if set(found) != DISTANCES:
-        raise ValueError('Six senior individual World Tour lists required')
+        observed = sorted({
+            (
+                str(row.get('season_name')),
+                str(row.get('season_id')),
+                str(row.get('type')),
+                str(row.get('level_name')),
+                str(row.get('team_type')),
+            )
+            for row in value['data']
+            if row.get('discipline_id') == 3
+        })
+        raise ValueError(
+            'Six senior individual World Tour lists required; '
+            f'matched={sorted(found)}, official_catalogue={observed[:20]}'
+        )
     return found
 
 
