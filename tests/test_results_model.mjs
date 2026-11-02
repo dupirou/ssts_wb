@@ -29,6 +29,21 @@ test('all real event/season/cycle metrics agree with pre-refactor statistics',()
     assert.deepEqual(m.athleteStatistics(events.map(e=>({...e,summary:m.summarize(e)}))),m.athleteStatistics(events));
   }
 });
+test('Montreal finals include individual results and B-first equals overall fifth without gold',()=>{
+  const event=data.events.find(e=>e.id==='2026-27-worldtour-montreal-2');
+  assert.ok(event,'Montreal result event is published');
+  const singles=event.results.filter(r=>r.format==='individual');
+  assert.ok(singles.length>=9,'official individual finals must appear without a PDF ranking');
+  const relay=event.results.find(r=>r.gender==='women'&&r.distance_m===3000);
+  assert.equal(relay.rank,5);
+  assert.equal(relay.rank_scope,'overall');
+  assert.equal(relay.group_rank,1);
+  assert.equal(relay.rank_basis,'verified_final_groups');
+  const stats=m.projectSummary([event],['women',3000]);
+  assert.equal(stats.totals.top8,1);
+  assert.deepEqual(stats.totals.medals,[0,0,0]);
+  assert.equal(stats.best.rank,5);
+});
 test('comparison best rank uses official overall classification, never final-heat place',()=>{
   const base={gender:'women',distance_m:3000,format:'relay',name:'China',status:'classified',medal_eligible:true};
   const group={...base,rank:1,rank_scope:'final',final_group:'A',classification_missing:true};

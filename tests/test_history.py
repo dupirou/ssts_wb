@@ -40,6 +40,82 @@ class HistoryTests(unittest.TestCase):
         self.assertTrue(all('results' not in e for e in archive['pending']))
         self.assertTrue(all(r['country'] == 'CHN' for e in archive['events'] for r in e['results']))
 
+    def test_montreal_final_results_share_overall_rank_conventions(self):
+        archive = history_data.load()
+        calendar = json.loads((ROOT / 'dist/data/calendar.json').read_text())
+        index = history_data.result_catalog(ROOT / 'dist', calendar, archive)
+        montreal = next(e for e in index['events'] if e['id'] == '2026-27-worldtour-montreal-2')
+        results = montreal['results']
+        singles = [r for r in results if r['format'] == 'individual']
+        self.assertGreaterEqual(len(singles), 9)
+        wang = next(r for r in singles if r['name'] == 'Ye WANG' and r['distance_m'] == 500)
+        self.assertEqual((wang['rank'], wang['rank_scope'], wang['final_group']), (5, 'overall', 'A'))
+        jianing = next(r for r in singles if r['name'] == 'Jianing ZHANG' and r['distance_m'] == 1000)
+        self.assertEqual((jianing['rank'], jianing['rank_scope'], jianing['group_rank']), (6, 'overall', 1))
+        relay = next(r for r in results if r['format'] == 'relay' and r['gender'] == 'women')
+        self.assertEqual(
+            (relay['rank'], relay['rank_scope'], relay['final_group'], relay['group_rank']),
+            (5, 'overall', 'B', 1),
+        )
+        self.assertEqual(relay['rank_basis'], 'verified_final_groups')
+        self.assertEqual(len([r for r in results if r['gender'] == 'women' and r['distance_m'] == 3000]), 1)
+        self.assertEqual(
+            len({(r['gender'], r['distance_m'], r.get('athlete_id', 'team')) for r in results}),
+            len(results),
+        )
+        self.assertTrue(all(r['source_url'].startswith('https://www.isu-skating.com/') for r in results))
+
+    def test_published_classification_replaces_derived_final_rank_without_duplicates(self):
+        import tempfile
+
+        archive = history_data.load()
+        calendar = json.loads((ROOT / 'dist/data/calendar.json').read_text())
+        live = json.loads((ROOT / 'dist/data/competitions/montreal.json').read_text())
+        live['rankings']['items'] = [
+            dict(
+                country='CHN',
+                gender='women',
+                distance_m=3000,
+                format='relay',
+                ranking_type='event',
+                name='CHN',
+                rank=5,
+                official_details='',
+                source_url='https://www.isu-skating.com/official-classification',
+            ),
+            dict(
+                country='CHN',
+                gender='women',
+                distance_m=1000,
+                format='individual',
+                ranking_type='event',
+                athlete_id=next(
+                    p['athlete_id']
+                    for h in live['rounds']['items']
+                    for p in h['participants']
+                    if p['name'] == 'Jianing ZHANG' and h['distance_m'] == 1000
+                ),
+                name='Jianing ZHANG',
+                rank=6,
+                official_details='',
+                source_url='https://www.isu-skating.com/official-classification',
+            ),
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory) / 'data/competitions'
+            folder.mkdir(parents=True)
+            (folder / 'montreal.json').write_text(json.dumps(live), encoding='utf-8')
+            index = history_data.result_catalog(Path(directory), calendar, archive)
+        records = next(e for e in index['events'] if e['id'] == '2026-27-worldtour-montreal-2')['results']
+        relay = next(r for r in records if r['format'] == 'relay' and r['gender'] == 'women')
+        single = next(r for r in records if r['name'] == 'Jianing ZHANG' and r['distance_m'] == 1000)
+        self.assertEqual((relay['rank'], single['rank']), (5, 6))
+        self.assertNotIn('rank_basis', relay)
+        self.assertNotIn('rank_basis', single)
+        self.assertEqual(relay['group_rank'], 1)
+        self.assertEqual(single['group_rank'], 1)
+        self.assertEqual(len([r for r in records if r['name'] == 'Jianing ZHANG' and r['distance_m'] == 1000]), 1)
+
     def test_source_and_identity_mismatches_reject_the_event(self):
         catalog = json.loads((history_data.DIRECTORY / 'catalog.json').read_text())
         meta = next(e for e in catalog['events'] if e['coverage'] == 'complete')

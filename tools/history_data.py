@@ -422,40 +422,61 @@ def result_catalog(out, calendar, archive):
             and h.get('evidence') == 'official_results'
             and str(h.get('result_status', '')).lower() == 'official'
         ]
+        # Final-group places are different from published overall classifications.
+        # With BOTH official finals recorded, a B place follows every A finalist,
+        # even an A-finalist with PEN. Keep the source of this conversion explicit.
+        grouped = {}
         for heat in heats:
+            key = (heat['gender'], heat['distance_m'], heat['format'])
+            grouped.setdefault(key, {}).setdefault(heat['group'], []).append(heat)
+        offsets = {}
+        for key, finals in grouped.items():
+            if len(finals.get('A', [])) == 1 and len(finals.get('B', [])) == 1:
+                a_final = finals['A'][0]
+                if len(a_final['participants']) >= 4 and len(
+                    {p['athlete_id'] for p in a_final['participants']}
+                ) == len(a_final['participants']):
+                    offsets[key] = len(a_final['participants'])
+        for heat in heats:
+            disc = (heat['gender'], heat['distance_m'], heat['format'])
             for p in heat['participants']:
                 if p['country'] != 'CHN':
                     continue
-                final_groups[(p['athlete_id'], heat['gender'], heat['distance_m'])] = heat['group']
-                if heat['format'] != 'relay' or p.get('rank') is None:
-                    continue
-                members = [
-                    dict(
-                        name=m['name'],
-                        athlete_id=person(m, genders.get(m['athlete_id'], heat['gender']))
-                        if genders.get(m['athlete_id'], heat['gender']) != 'mixed'
-                        else m['athlete_id'],
-                        rounds=['F' + heat['group']],
-                    )
-                    for m in p.get('members', [])
-                ]
-                rows.append(
-                    dict(
-                        gender=heat['gender'],
-                        distance_m=heat['distance_m'],
-                        format='relay',
-                        name='China',
-                        country='CHN',
-                        rank=p['rank'],
-                        rank_scope='final',
-                        final_group=heat['group'],
-                        status=p.get('penalty', {}).get('code', 'classified')
-                        if p.get('penalty')
-                        else terminal_status([p.get('result') or '']),
-                        members=members,
-                        source_url=heat['source_url'],
-                    )
+                group = heat['group']
+                final_groups[(p['athlete_id'], heat['gender'], heat['distance_m'])] = group
+                group_rank = p.get('rank')
+                derived = disc in offsets and group_rank is not None
+                place = group_rank + (offsets[disc] if group == 'B' else 0) if derived else group_rank
+                status = p['penalty']['code'] if p.get('penalty') else terminal_status([p.get('result') or ''])
+                row = dict(
+                    gender=heat['gender'],
+                    distance_m=heat['distance_m'],
+                    format=heat['format'],
+                    name='China' if heat['format'] == 'relay' else p['name'],
+                    country='CHN',
+                    rank=place,
+                    rank_scope='overall' if derived else 'final',
+                    final_group=group,
+                    group_rank=group_rank,
+                    status=status,
+                    source_url=heat['source_url'],
                 )
+                if derived:
+                    row['rank_basis'] = 'verified_final_groups'
+                if heat['format'] == 'individual':
+                    row['athlete_id'] = person(p, heat['gender'])
+                else:
+                    row['members'] = [
+                        dict(
+                            name=m['name'],
+                            athlete_id=person(m, genders.get(m['athlete_id'], heat['gender']))
+                            if genders.get(m['athlete_id'], heat['gender']) != 'mixed'
+                            else m['athlete_id'],
+                            rounds=['F' + group],
+                        )
+                        for m in p.get('members', [])
+                    ]
+                rows.append(row)
         for r in snapshot['rankings']['items']:
             if r['country'] != 'CHN' or r['ranking_type'] != 'event':
                 continue
@@ -487,26 +508,43 @@ def result_catalog(out, calendar, archive):
                     status=terminal_status(r.get('official_details', '').split()),
                     source_url=r['source_url'],
                 )
+                existing.pop('rank_basis', None)
                 if r.get('source_page'):
                     existing['source_page'] = r['source_page']
                 continue
             if r['format'] != 'individual':
                 continue
-            rows.append(
-                dict(
+            aid = person(r, r['gender'])
+            existing = next(
+                (
+                    row
+                    for row in rows
+                    if row['format'] == 'individual'
+                    and row['athlete_id'] == aid
+                    and row['gender'] == r['gender']
+                    and row['distance_m'] == r['distance_m']
+                ),
+                None,
+            )
+            if existing is None:
+                existing = dict(
                     gender=r['gender'],
                     distance_m=r['distance_m'],
                     format='individual',
                     name=r['name'],
-                    athlete_id=person(r, r['gender']),
+                    athlete_id=aid,
                     country='CHN',
-                    rank=r['rank'],
-                    rank_scope='overall',
                     final_group=final_groups.get((r['athlete_id'], r['gender'], r['distance_m'])),
-                    status=terminal_status(r.get('official_details', '').split()),
-                    source_url=r['source_url'],
                 )
+                rows.append(existing)
+            existing.update(
+                rank=r['rank'],
+                rank_scope='overall',
+                name=r['name'],
+                status=terminal_status(r.get('official_details', '').split()),
+                source_url=r['source_url'],
             )
+            existing.pop('rank_basis', None)
         if rows:
             events.append(
                 dict(
