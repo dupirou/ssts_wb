@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 
-def export(out: Path, calendar: dict):
+def export(out: Path, calendar: dict, standings_path=None):
     people, ranking_tables, helmet_evidence = {}, {}, {}
     for event in calendar['stations']:
         path = out / 'data/competitions' / (event['id'] + '.json')
@@ -69,6 +69,29 @@ def export(out: Path, calendar: dict):
                 person.setdefault('season_rankings', []).append(
                     dict(distance_m=ranking['distance_m'], rank=ranking['rank'])
                 )
+    # Published WCD season standings supersede the older per-station
+    # snapshots atomically. A station event classification is NOT a WCD rank.
+    standings_path = standings_path or Path(__file__).resolve().parents[1] / 'data/world_tour_rankings.json'
+    ranking_context = None
+    if standings_path.exists():
+        official = json.loads(standings_path.read_text(encoding='utf-8'))
+        if official.get('schema_version') != 1 or official.get('season') != calendar['season']:
+            raise ValueError('Current World Tour standings season/schema mismatch')
+        tables = official.get('tables', [])
+        expected = {(g, d) for g in ('men', 'women') for d in (500, 1000, 1500)}
+        if len(tables) != 6 or {(t['gender'], t['distance_m']) for t in tables} != expected:
+            raise ValueError('Incomplete official World Tour individual ranking set')
+        for person in people.values():
+            person.pop('season_rankings', None)
+        ranking_events = {}
+        for table in tables:
+            for record in table['items']:
+                person = people.get(record['athlete_id'])
+                if person and person['gender'] == table['gender'] and person['country'] == record['country']:
+                    person.setdefault('season_rankings', []).append(
+                        dict(distance_m=table['distance_m'], rank=record['rank'])
+                    )
+        ranking_context = dict(source_url=official['source_url'], synced_at=official['checked_at'])
     for person in people.values():
         if 'season_rankings' in person:
             person['season_rankings'].sort(key=lambda r: r['distance_m'])
@@ -77,6 +100,7 @@ def export(out: Path, calendar: dict):
             schema_version=1,
             season=calendar['season'],
             ranking_as_of=list(ranking_events.values()),
+            ranking_context=ranking_context,
             items=sorted(people.values(), key=lambda p: (p['name'].casefold(), p['id'])),
         ),
     }

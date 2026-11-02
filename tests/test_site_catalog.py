@@ -34,7 +34,7 @@ class SiteCatalogTests(unittest.TestCase):
             for event in calendar['stations']:
                 (directory / (event['id'] + '.json')).write_text(json.dumps(snapshot))
             original = (directory / 'one.json').read_bytes()
-            site_catalog.export(out, calendar)
+            site_catalog.export(out, calendar, standings_path=out / 'nonexistent-wcd.json')
             people = json.loads((out / 'data/athletes.json').read_text())['items']
             self.assertEqual(len(people), 1)
             self.assertEqual([e['event_id'] for e in people[0]['events']], ['one', 'two'])
@@ -84,7 +84,7 @@ class SiteCatalogTests(unittest.TestCase):
                         )
                     )
                 )
-            site_catalog.export(out, calendar)
+            site_catalog.export(out, calendar, standings_path=out / 'nonexistent-wcd.json')
             by_id = {p['id']: p for p in json.loads((out / 'data/athletes.json').read_text())['items']}
             self.assertEqual(by_id['a']['helmet_number'], 67)
             self.assertEqual(by_id['a']['helmet_source_events'], ['one', 'two'])
@@ -123,7 +123,7 @@ class SiteCatalogTests(unittest.TestCase):
             }.items():
                 snapshot = dict(entries=dict(items=people), rounds=dict(items=[]), rankings=dict(items=ranks))
                 (directory / (event + '.json')).write_text(json.dumps(snapshot))
-            site_catalog.export(out, calendar)
+            site_catalog.export(out, calendar, standings_path=out / 'nonexistent-wcd.json')
             index = json.loads((out / 'data/athletes.json').read_text())
             by_id = {p['id']: p for p in index['items']}
             self.assertEqual(
@@ -131,6 +131,38 @@ class SiteCatalogTests(unittest.TestCase):
             )
             self.assertNotIn('season_rankings', by_id['b'])
             self.assertEqual({r['event_id'] for r in index['ranking_as_of']}, {'old', 'new'})
+
+    def test_official_current_season_rankings_supersede_station_snapshots(self):
+        calendar = dict(season='2026/27', stations=[dict(id='one', city='温哥华')])
+        entrant = dict(athlete_id='sun', name='Long SUN', country='CHN', gender='men')
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            folder = out / 'data/competitions'
+            folder.mkdir(parents=True)
+            (folder / 'one.json').write_text(json.dumps(dict(
+                entries=dict(items=[entrant]), rounds=dict(items=[]),
+                rankings=dict(items=[dict(athlete_id='sun', gender='men', distance_m=1000,
+                                          ranking_type='world_tour', format='individual', rank=20)]),
+            )))
+            tables = [
+                dict(gender=g, distance_m=d, list_id=n, items=(
+                    [dict(athlete_id='sun', country='CHN', rank=11, points=50)]
+                    if (g, d) == ('men', 1000) else []
+                ))
+                for n, (g, d) in enumerate((g, d) for g in ('men', 'women') for d in (500, 1000, 1500))
+            ]
+            official = dict(
+                schema_version=1, season='2026/27', tables=tables,
+                source_url='https://www.isu-skating.com/en/short-track/world-standings/',
+                checked_at='2026-11-02T02:00:00+00:00',
+            )
+            path = out / 'world-tour.json'
+            path.write_text(json.dumps(official))
+            site_catalog.export(out, calendar, standings_path=path)
+            value = json.loads((out / 'data/athletes.json').read_text())
+            self.assertEqual(value['items'][0]['season_rankings'], [dict(distance_m=1000, rank=11)])
+            self.assertEqual(value['ranking_as_of'], [])
+            self.assertEqual(value['ranking_context']['synced_at'], official['checked_at'])
 
     def test_all_generated_deep_pages_use_root_assets_and_include_global_navigation(self):
         for route in (

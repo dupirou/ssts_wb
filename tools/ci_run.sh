@@ -22,6 +22,7 @@ case "${1:-}" in
   penalties) python tools/sync_penalties.py ;;
   china) python tools/sync_china.py ;;
   predictions) python tools/sync_predictions.py ;;
+  standings) python tools/sync_world_tour.py ;;
   build) python tools/build.py ;;
   test) run_tests ;;
   all)
@@ -33,11 +34,12 @@ case "${1:-}" in
     python tools/sync_penalties.py
     python tools/sync_china.py
     python tools/sync_predictions.py
+    python tools/sync_world_tour.py
     python tools/build.py
     run_tests
     ;;
   *)
-    echo "Usage: bash tools/ci_run.sh {schedule|competitions|penalties|china|predictions|build|test|all}" >&2
+    echo "Usage: bash tools/ci_run.sh {schedule|competitions|penalties|china|predictions|standings|build|test|all}" >&2
     exit 2
     ;;
 esac

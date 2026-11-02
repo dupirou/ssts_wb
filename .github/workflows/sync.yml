@@ -64,6 +64,10 @@ jobs:
         id: sync_predictions
         continue-on-error: true
         run: bash tools/ci_run.sh predictions
+      - name: Refresh official World Tour season distance rankings
+        id: sync_standings
+        continue-on-error: true
+        run: bash tools/ci_run.sh standings
       - name: Summarize each sync outcome
         if: always()
         env:
@@ -72,6 +76,7 @@ jobs:
           COMPETITIONS: ${{ steps.sync_competitions.outcome }}
           PENALTIES: ${{ steps.sync_penalties.outcome }}
           PREDICTIONS: ${{ steps.sync_predictions.outcome }}
+          STANDINGS: ${{ steps.sync_standings.outcome }}
         run: |
           {
             echo '## ISU sync outcomes'
@@ -82,6 +87,7 @@ jobs:
             printf '| competitions | %s |\\n' "$COMPETITIONS"
             printf '| penalties | %s |\\n' "$PENALTIES"
             printf '| predictions | %s |\\n' "$PREDICTIONS"
+            printf '| standings | %s |\\n' "$STANDINGS"
             echo 'Safe validation refusals exit 0 and appear as warnings in the step log; unexpected failures exit nonzero.'
           } >> "$GITHUB_STEP_SUMMARY"
       - name: Compile static site
@@ -98,6 +104,7 @@ jobs:
           stage_updates() {
             git add dist web tools tests
             git add data/competitions data/prediction_inputs data/updates.json
+            if [ -f data/world_tour_rankings.json ]; then git add data/world_tour_rankings.json; fi
             if [ -d data/penalties ]; then git add data/penalties; fi
             git add data/stations.json data/schedules data/sync_meta.json data/china_auto.json
           }
@@ -147,6 +154,7 @@ jobs:
               steps.sync_competitions.outcome == 'success' &&
               steps.sync_penalties.outcome == 'success' &&
               steps.sync_predictions.outcome == 'success' &&
+              steps.sync_standings.outcome == 'success' &&
               steps.build_site.outcome == 'success' &&
               steps.test_site.outcome == 'success' &&
               steps.publish.outcome == 'success' }}
@@ -176,8 +184,9 @@ jobs:
           COMPETITIONS: ${{ steps.sync_competitions.outcome }}
           PENALTIES: ${{ steps.sync_penalties.outcome }}
           PREDICTIONS: ${{ steps.sync_predictions.outcome }}
+          STANDINGS: ${{ steps.sync_standings.outcome }}
         run: |
-          for outcome in "$SCHEDULE" "$CHINA" "$COMPETITIONS" "$PENALTIES" "$PREDICTIONS"; do
+          for outcome in "$SCHEDULE" "$CHINA" "$COMPETITIONS" "$PENALTIES" "$PREDICTIONS" "$STANDINGS"; do
             if [ "$outcome" != success ]; then
               echo "::error::Unexpected sync failure: at least one script did not complete successfully"
               exit 1
@@ -191,5 +200,6 @@ jobs:
               steps.sync_schedule.outcome != 'success' ||
               steps.sync_china.outcome != 'success' ||
               steps.sync_competitions.outcome != 'success' ||
-              steps.sync_predictions.outcome != 'success' }}
+              steps.sync_predictions.outcome != 'success' ||
+              steps.sync_standings.outcome != 'success' }}
         run: python tools/session_incident.py
