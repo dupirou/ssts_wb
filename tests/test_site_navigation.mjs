@@ -174,8 +174,15 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /头盔号|#/);
   assert.equal(d.querySelector('.directory-card a'), null);
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /报名/);
-  assert.match(d.querySelector('.directory-rankings').textContent, /500m16名/);
-  assert.doesNotMatch(d.querySelector('.directory-rankings').textContent, /1000m|第 45 名/);
+  // ISU updates WCD standings after each station; the card must agree
+  // with the currently published season index, not a frozen Vancouver rank.
+  const currentDirectory = JSON.parse(await file('dist/data/athletes.json'));
+  const kun = currentDirectory.items.find(p => p.name === 'Kun LI');
+  assert.ok(kun?.season_rankings?.length);
+  assert.equal(
+    d.querySelector('.directory-rankings').textContent,
+    kun.season_rankings.map(r => `${r.distance_m}m${r.rank}名`).join('')
+  );
   assert.equal(new URL(dom.window.location.href).searchParams.get('q'), 'LI Kun');
   const restored = await page(dom.window.location.pathname + dom.window.location.search);
   t.after(() => restored.window.close());
