@@ -1,13 +1,11 @@
 {
   "schema_version": 1,
   "season": "2026/27",
-  "ranking_as_of": [
-    {
-      "event_id": "vancouver",
-      "city": "温哥华"
-    }
-  ],
-  "ranking_context": null,
+  "ranking_as_of": [],
+  "ranking_context": {
+    "source_url": "https://www.isu-skating.com/en/short-track/world-standings/",
+    "synced_at": "2026-11-02T05:05:00+00:00"
+  },
   "items": [
     {
       "id": "ath-de020c06bdbb9947dc74",
@@ -230,11 +228,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 16
+          "rank": 24
         },
         {
           "distance_m": 1500,
-          "rank": 10
+          "rank": 13
         }
       ]
     },
@@ -281,6 +279,12 @@
       "helmet_number": 15,
       "helmet_source_events": [
         "montreal"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 500,
+          "rank": 22
+        }
       ]
     },
     {
@@ -322,6 +326,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1500,
+          "rank": 19
+        }
       ]
     },
     {
@@ -349,7 +359,7 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 18
+          "rank": 26
         }
       ]
     },
@@ -374,6 +384,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1000,
+          "rank": 23
+        }
       ]
     },
     {
@@ -459,7 +475,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 15
+          "rank": 20
         }
       ]
     },
@@ -529,11 +545,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 12
+          "rank": 19
         },
         {
           "distance_m": 1500,
-          "rank": 8
+          "rank": 11
         }
       ]
     },
@@ -562,7 +578,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 12
+          "rank": 17
         }
       ]
     },
@@ -632,7 +648,7 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 14
+          "rank": 15
         },
         {
           "distance_m": 1500,
@@ -661,6 +677,20 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 500,
+          "rank": 19
+        },
+        {
+          "distance_m": 1000,
+          "rank": 23
+        },
+        {
+          "distance_m": 1500,
+          "rank": 12
+        }
       ]
     },
     {
@@ -687,11 +717,11 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 9
+          "rank": 13
         },
         {
           "distance_m": 1000,
-          "rank": 7
+          "rank": 14
         }
       ]
     },
@@ -716,6 +746,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1000,
+          "rank": 28
+        }
       ]
     },
     {
@@ -778,8 +814,16 @@
       ],
       "season_rankings": [
         {
+          "distance_m": 500,
+          "rank": 14
+        },
+        {
+          "distance_m": 1000,
+          "rank": 19
+        },
+        {
           "distance_m": 1500,
-          "rank": 13
+          "rank": 7
         }
       ]
     },
@@ -875,7 +919,7 @@
         },
         {
           "distance_m": 1500,
-          "rank": 9
+          "rank": 16
         }
       ]
     },
@@ -904,7 +948,7 @@
       "season_rankings": [
         {
           "distance_m": 1500,
-          "rank": 19
+          "rank": 25
         }
       ]
     },
@@ -933,11 +977,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 18
+          "rank": 27
         },
         {
           "distance_m": 1500,
-          "rank": 17
+          "rank": 14
         }
       ]
     },
@@ -993,11 +1037,11 @@
         },
         {
           "distance_m": 1000,
-          "rank": 6
+          "rank": 2
         },
         {
           "distance_m": 1500,
-          "rank": 1
+          "rank": 2
         }
       ]
     },
@@ -1056,12 +1100,16 @@
       ],
       "season_rankings": [
         {
+          "distance_m": 500,
+          "rank": 6
+        },
+        {
           "distance_m": 1000,
-          "rank": 14
+          "rank": 7
         },
         {
           "distance_m": 1500,
-          "rank": 18
+          "rank": 24
         }
       ]
     },
@@ -1157,7 +1205,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 11
+          "rank": 17
         }
       ]
     },
@@ -1186,11 +1234,11 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 20
+          "rank": 25
         },
         {
           "distance_m": 1000,
-          "rank": 17
+          "rank": 21
         }
       ]
     },
@@ -1215,6 +1263,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1500,
+          "rank": 17
+        }
       ]
     },
     {
@@ -1259,8 +1313,16 @@
       ],
       "season_rankings": [
         {
+          "distance_m": 500,
+          "rank": 25
+        },
+        {
+          "distance_m": 1000,
+          "rank": 10
+        },
+        {
           "distance_m": 1500,
-          "rank": 9
+          "rank": 5
         }
       ]
     },
@@ -1324,11 +1386,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 8
+          "rank": 15
         },
         {
           "distance_m": 1500,
-          "rank": 16
+          "rank": 4
         }
       ]
     },
@@ -1423,7 +1485,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 18
+          "rank": 23
         }
       ]
     },
@@ -1448,6 +1510,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 500,
+          "rank": 21
+        }
       ]
     },
     {
@@ -1474,12 +1542,16 @@
       ],
       "season_rankings": [
         {
+          "distance_m": 500,
+          "rank": 4
+        },
+        {
           "distance_m": 1000,
-          "rank": 11
+          "rank": 6
         },
         {
           "distance_m": 1500,
-          "rank": 5
+          "rank": 3
         }
       ]
     },
@@ -1508,11 +1580,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 8
+          "rank": 3
+        },
+        {
+          "distance_m": 1000,
+          "rank": 9
         },
         {
           "distance_m": 1500,
-          "rank": 12
+          "rank": 6
         }
       ]
     },
@@ -1608,7 +1684,7 @@
         },
         {
           "distance_m": 1000,
-          "rank": 4
+          "rank": 3
         }
       ]
     },
@@ -1637,11 +1713,11 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 5
+          "rank": 10
         },
         {
           "distance_m": 1000,
-          "rank": 9
+          "rank": 14
         }
       ]
     },
@@ -1688,11 +1764,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 5
+          "rank": 12
         },
         {
           "distance_m": 1500,
-          "rank": 7
+          "rank": 15
         }
       ]
     },
@@ -1744,15 +1820,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 19
+          "rank": 24
         },
         {
           "distance_m": 1000,
-          "rank": 3
+          "rank": 5
         },
         {
           "distance_m": 1500,
-          "rank": 4
+          "rank": 3
         }
       ]
     },
@@ -1799,6 +1875,12 @@
       "helmet_number": 98,
       "helmet_source_events": [
         "montreal"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1500,
+          "rank": 23
+        }
       ]
     },
     {
@@ -1826,15 +1908,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 14
+          "rank": 16
         },
         {
           "distance_m": 1000,
-          "rank": 20
+          "rank": 6
         },
         {
           "distance_m": 1500,
-          "rank": 2
+          "rank": 5
         }
       ]
     },
@@ -1863,7 +1945,7 @@
       "season_rankings": [
         {
           "distance_m": 1500,
-          "rank": 17
+          "rank": 23
         }
       ]
     },
@@ -1936,6 +2018,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1500,
+          "rank": 26
+        }
       ]
     },
     {
@@ -1963,7 +2051,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 1
+          "rank": 2
         },
         {
           "distance_m": 1000,
@@ -2000,11 +2088,11 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 5
+          "rank": 10
         },
         {
           "distance_m": 1500,
-          "rank": 12
+          "rank": 20
         }
       ]
     },
@@ -2029,6 +2117,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1500,
+          "rank": 16
+        }
       ]
     },
     {
@@ -2052,6 +2146,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 500,
+          "rank": 19
+        }
       ]
     },
     {
@@ -2079,11 +2179,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 6
+          "rank": 9
+        },
+        {
+          "distance_m": 1000,
+          "rank": 13
         },
         {
           "distance_m": 1500,
-          "rank": 5
+          "rank": 9
         }
       ]
     },
@@ -2112,11 +2216,11 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 10
+          "rank": 13
         },
         {
           "distance_m": 1000,
-          "rank": 10
+          "rank": 8
         }
       ]
     },
@@ -2180,15 +2284,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 6
+          "rank": 11
         },
         {
           "distance_m": 1000,
-          "rank": 5
+          "rank": 12
         },
         {
           "distance_m": 1500,
-          "rank": 2
+          "rank": 7
         }
       ]
     },
@@ -2276,6 +2380,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 500,
+          "rank": 21
+        }
       ]
     },
     {
@@ -2334,11 +2444,11 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 7
+          "rank": 8
         },
         {
           "distance_m": 1500,
-          "rank": 18
+          "rank": 25
         }
       ]
     },
@@ -2367,11 +2477,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 19
+          "rank": 28
+        },
+        {
+          "distance_m": 1000,
+          "rank": 26
         },
         {
           "distance_m": 1500,
-          "rank": 11
+          "rank": 13
         }
       ]
     },
@@ -2396,6 +2510,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1000,
+          "rank": 20
+        }
       ]
     },
     {
@@ -2419,6 +2539,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1000,
+          "rank": 25
+        }
       ]
     },
     {
@@ -2492,12 +2618,16 @@
       ],
       "season_rankings": [
         {
+          "distance_m": 500,
+          "rank": 18
+        },
+        {
           "distance_m": 1000,
           "rank": 4
         },
         {
           "distance_m": 1500,
-          "rank": 21
+          "rank": 18
         }
       ]
     },
@@ -2549,7 +2679,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 16
+          "rank": 24
         }
       ]
     },
@@ -2578,11 +2708,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 12
+          "rank": 11
         },
         {
           "distance_m": 1500,
-          "rank": 15
+          "rank": 21
         }
       ]
     },
@@ -2669,11 +2799,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 18
+          "rank": 12
         },
         {
           "distance_m": 1000,
-          "rank": 20
+          "rank": 17
+        },
+        {
+          "distance_m": 1500,
+          "rank": 15
         }
       ]
     },
@@ -2748,11 +2882,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 8
+          "rank": 7
         },
         {
           "distance_m": 1500,
-          "rank": 21
+          "rank": 10
         }
       ]
     },
@@ -2909,6 +3043,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1500,
+          "rank": 20
+        }
       ]
     },
     {
@@ -2936,7 +3076,7 @@
       "season_rankings": [
         {
           "distance_m": 1500,
-          "rank": 15
+          "rank": 17
         }
       ]
     },
@@ -2964,7 +3104,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 21
+          "rank": 26
         }
       ]
     },
@@ -2993,7 +3133,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 14
+          "rank": 18
         }
       ]
     },
@@ -3045,7 +3185,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 17
+          "rank": 22
         }
       ]
     },
@@ -3097,7 +3237,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 8
+          "rank": 7
+        },
+        {
+          "distance_m": 1000,
+          "rank": 5
+        },
+        {
+          "distance_m": 1500,
+          "rank": 28
         }
       ]
     },
@@ -3172,7 +3320,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 2
+          "rank": 1
         },
         {
           "distance_m": 1000,
@@ -3201,6 +3349,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 500,
+          "rank": 16
+        }
       ]
     },
     {
@@ -3251,11 +3405,11 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 13
+          "rank": 14
         },
         {
           "distance_m": 1000,
-          "rank": 6
+          "rank": 2
         },
         {
           "distance_m": 1500,
@@ -3288,7 +3442,7 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 11
+          "rank": 18
         }
       ]
     },
@@ -3316,7 +3470,7 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 19
+          "rank": 27
         }
       ]
     },
@@ -3363,7 +3517,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 13
+          "rank": 8
         },
         {
           "distance_m": 1000,
@@ -3371,7 +3525,7 @@
         },
         {
           "distance_m": 1500,
-          "rank": 3
+          "rank": 1
         }
       ]
     },
@@ -3398,6 +3552,10 @@
         "vancouver"
       ],
       "season_rankings": [
+        {
+          "distance_m": 1000,
+          "rank": 20
+        },
         {
           "distance_m": 1500,
           "rank": 11
@@ -3488,11 +3646,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 19
+          "rank": 21
         },
         {
           "distance_m": 1500,
-          "rank": 13
+          "rank": 18
         }
       ]
     },
@@ -3544,7 +3702,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 20
+          "rank": 29
         }
       ]
     },
@@ -3573,7 +3731,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 16
+          "rank": 15
         }
       ]
     },
@@ -3724,7 +3882,7 @@
       "season_rankings": [
         {
           "distance_m": 1500,
-          "rank": 20
+          "rank": 26
         }
       ]
     },
@@ -3884,6 +4042,16 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 1000,
+          "rank": 18
+        },
+        {
+          "distance_m": 1500,
+          "rank": 21
+        }
       ]
     },
     {
@@ -3928,8 +4096,12 @@
       ],
       "season_rankings": [
         {
+          "distance_m": 1000,
+          "rank": 17
+        },
+        {
           "distance_m": 1500,
-          "rank": 8
+          "rank": 12
         }
       ]
     },
@@ -3958,15 +4130,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 15
+          "rank": 23
         },
         {
           "distance_m": 1000,
-          "rank": 16
+          "rank": 24
         },
         {
           "distance_m": 1500,
-          "rank": 16
+          "rank": 24
         }
       ]
     },
@@ -4064,7 +4236,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 3
+          "rank": 7
         }
       ]
     },
@@ -4093,11 +4265,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 3
+          "rank": 8
         },
         {
           "distance_m": 1500,
-          "rank": 10
+          "rank": 8
         }
       ]
     },
@@ -4126,15 +4298,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 17
+          "rank": 15
         },
         {
           "distance_m": 1000,
-          "rank": 10
+          "rank": 9
         },
         {
           "distance_m": 1500,
-          "rank": 3
+          "rank": 2
         }
       ]
     },
@@ -4216,11 +4388,11 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 4
+          "rank": 5
         },
         {
           "distance_m": 1000,
-          "rank": 17
+          "rank": 25
         }
       ]
     },
@@ -4262,11 +4434,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 7
+          "rank": 10
         },
         {
           "distance_m": 1500,
-          "rank": 6
+          "rank": 8
         }
       ]
     },
@@ -4291,6 +4463,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 500,
+          "rank": 27
+        }
       ]
     },
     {
@@ -4314,6 +4492,12 @@
       "helmet_source_events": [
         "montreal",
         "vancouver"
+      ],
+      "season_rankings": [
+        {
+          "distance_m": 500,
+          "rank": 26
+        }
       ]
     },
     {
@@ -4377,11 +4561,11 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 10
+          "rank": 6
         },
         {
           "distance_m": 1000,
-          "rank": 15
+          "rank": 11
         }
       ]
     },
@@ -4409,8 +4593,12 @@
       ],
       "season_rankings": [
         {
+          "distance_m": 500,
+          "rank": 9
+        },
+        {
           "distance_m": 1000,
-          "rank": 2
+          "rank": 4
         },
         {
           "distance_m": 1500,
@@ -4553,7 +4741,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 7
+          "rank": 12
         }
       ]
     },
@@ -4719,11 +4907,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 9
+          "rank": 16
         },
         {
           "distance_m": 1500,
-          "rank": 14
+          "rank": 22
         }
       ]
     },
@@ -4756,7 +4944,11 @@
         },
         {
           "distance_m": 1000,
-          "rank": 2
+          "rank": 3
+        },
+        {
+          "distance_m": 1500,
+          "rank": 14
         }
       ]
     },
@@ -4785,7 +4977,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 13
+          "rank": 16
+        },
+        {
+          "distance_m": 1500,
+          "rank": 22
         }
       ]
     },
@@ -4837,7 +5033,7 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 9
+          "rank": 5
         }
       ]
     },
@@ -4866,7 +5062,7 @@
       "season_rankings": [
         {
           "distance_m": 1500,
-          "rank": 7
+          "rank": 9
         }
       ]
     },
@@ -4959,11 +5155,15 @@
       "season_rankings": [
         {
           "distance_m": 500,
-          "rank": 12
+          "rank": 20
+        },
+        {
+          "distance_m": 1000,
+          "rank": 22
         },
         {
           "distance_m": 1500,
-          "rank": 20
+          "rank": 27
         }
       ]
     },
@@ -4992,11 +5192,11 @@
       "season_rankings": [
         {
           "distance_m": 1000,
-          "rank": 15
+          "rank": 22
         },
         {
           "distance_m": 1500,
-          "rank": 14
+          "rank": 10
         }
       ]
     }
