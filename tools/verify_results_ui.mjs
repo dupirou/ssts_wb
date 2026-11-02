@@ -69,7 +69,9 @@ async function measure(origin,path,width,label,screenshot){
 try{
   // Extend the same server/browser acceptance harness to the non-results routes.
   for(const width of [320,390,430,768,1024,1440]){
-    for(const path of ['/','/events/','/athletes/','/events/2026-27/montreal/','/events/2026-27/vancouver/']){
+    // Freeze the race-day preview for layout checks; after the event ends there
+    // are naturally no upcoming match rows, but the responsive layout still matters.
+    for(const path of ['/','/events/','/athletes/','/events/2026-27/montreal/?now=2026-10-30T12:00:00Z','/events/2026-27/vancouver/']){
       const {context,page}=await pageAt(current.origin,path,width);
       await page.emulateMedia({reducedMotion:'reduce'});
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`overflow: ${path} ${width}`);
