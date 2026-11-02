@@ -164,8 +164,10 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual((mixed['rank'], mixed['rank_scope'], mixed['source_page']), (11, 'overall', 105))
         individual = next(r for r in current['results'] if r['format'] == 'individual')
         self.assertEqual(individual['rank_scope'], 'overall')
-        kun = next(r for r in current['results'] if r['name'] == 'LI Kun')
-        self.assertEqual(kun['athlete_id'], 'skater-kun-li')
+        # The ISU classification API may supply "Kun LI" while a PDF used
+        # "LI Kun"; verify the stable athlete identity, not source name order.
+        kun = next(r for r in current['results'] if r.get('athlete_id') == 'skater-kun-li')
+        self.assertEqual(kun['gender'], 'men')
 
 
 if __name__ == '__main__':
