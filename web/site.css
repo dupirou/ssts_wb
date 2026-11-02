@@ -2966,6 +2966,41 @@ td.time {
 .athlete-card.is-china .athlete-nation {
   color: var(--red-text);
 }
+.athlete-rank-groups {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 5px;
+  margin-top: 4px;
+  min-width: 0;
+}
+.athlete-rank-group,
+.athlete-rank-values {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  min-width: 0;
+}
+.athlete-rank-group {
+  gap: 3px 10px;
+}
+.athlete-rank-kind {
+  font-size: 0.72rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.athlete-rank-values {
+  gap: 3px 12px;
+}
+.athlete-rank-item {
+  display: inline-flex;
+  gap: 5px;
+  font-size: 0.76rem;
+  white-space: nowrap;
+}
+.athlete-rank-item > small {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
 .athlete-caption {
   grid-column: 1 / -1;
   display: flex;

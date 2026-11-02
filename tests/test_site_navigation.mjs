@@ -162,6 +162,68 @@ test('legacy and nested event links preserve view and country selection and use 
   }
 });
 
+test('station ranking cards merge distances and types by athlete identity', async t => {
+  for (const station of ['montreal', 'vancouver']) {
+    const dom = await page('/events/2026-27/' + station + '/?view=athletes');
+    t.after(() => dom.window.close());
+    const d = dom.window.document;
+    await settled(dom, () => Boolean(d.querySelector('[data-resource="rankings"] .athlete-panel')));
+    const panel = d.querySelector('[data-resource="rankings"] .athlete-panel');
+    panel.open = true;
+    panel.dispatchEvent(new dom.window.Event('toggle'));
+    await settled(dom, () => panel.querySelectorAll('.athlete-card').length > 0);
+
+    const records = JSON.parse(await file('dist/data/competitions/' + station + '.json')).rankings.items;
+    const china = records.filter(r => r.country === 'CHN');
+    const unique = new Set(china.map(r => [r.country, r.gender, r.athlete_id].join('|')));
+    const cards = [...panel.querySelectorAll('.athlete-card')];
+    assert.equal(cards.length, unique.size, station + ': one card per athlete');
+    assert.equal(panel.querySelectorAll('.athlete-rank-item').length, china.length);
+    assert.equal(panel.querySelector('.athlete-tools [role="status"]').textContent, '显示 ' + unique.size + ' 人');
+    assert.equal(new Set(cards.map(c => c.dataset.athleteId)).size, cards.length);
+
+    const athlete = china.find(r => china.filter(x => x.athlete_id === r.athlete_id).length > 1);
+    assert.ok(athlete, station + ': a skater ranks in multiple distances');
+    const card = cards.find(c => c.dataset.athleteId === athlete.athlete_id);
+    const ranks = china.filter(r => r.athlete_id === athlete.athlete_id);
+    assert.ok(card);
+    assert.equal(card.querySelectorAll('.athlete-name').length, 1);
+    assert.equal(card.querySelectorAll('.athlete-rank-item').length, ranks.length);
+    for (const rank of ranks) {
+      assert.ok(
+        [...card.querySelectorAll('.athlete-rank-item')].some(node =>
+          node.textContent.includes(rank.distance_m + 'm') &&
+          node.textContent.includes(rank.rank == null ? '—' : '第 ' + rank.rank + ' 名')
+        ),
+        station + ': missing ' + rank.distance_m + 'm for ' + athlete.name
+      );
+    }
+    assert.equal(
+      card.querySelectorAll('.athlete-rank-kind').length,
+      new Set(ranks.map(r => r.ranking_type)).size
+    );
+
+    const sex = panel.querySelector('select[aria-label="排名性别"]');
+    sex.value = 'women';
+    sex.dispatchEvent(new dom.window.Event('change'));
+    assert.equal(
+      panel.querySelectorAll('.athlete-card').length,
+      new Set(china.filter(r => r.gender === 'women').map(r => r.athlete_id)).size
+    );
+    const country = panel.querySelector('select[aria-label="排名国家或地区"]');
+    country.value = 'all';
+    country.dispatchEvent(new dom.window.Event('change'));
+    assert.equal(
+      panel.querySelectorAll('.athlete-card').length,
+      new Set(
+        records
+          .filter(r => r.gender === 'women')
+          .map(r => [r.country, r.gender, r.athlete_id].join('|'))
+      ).size
+    );
+  }
+});
+
 test('the athlete directory filters real roster data, tolerates name order, and shares its search', async t => {
   const dom = await page('/athletes/');
   t.after(() => dom.window.close());
