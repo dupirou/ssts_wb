@@ -2,6 +2,13 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "3e42c5847cc89449",
+      "station": "montreal",
+      "kind": "rankings",
+      "at": "2026-11-03T17:01:35+00:00",
+      "changed": true
+    },
+    {
       "id": "72689e12eca8bf4d",
       "station": "montreal",
       "kind": "rankings",
@@ -3219,21 +3226,6 @@
           "country": "KOR"
         }
       ]
-    },
-    {
-      "id": "65d350b01892f64e",
-      "station": "vancouver",
-      "at": "2026-10-27T03:25:30+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
     }
   ]
 }
