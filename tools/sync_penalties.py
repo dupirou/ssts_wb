@@ -59,10 +59,12 @@ def sync_event(station, fetcher=sync_competitions.fetch, store=STORE, directory=
         try:
             accepted = penalty_protocol.parse_pdf(pdf, config, doc['url'])
         except ValueError as exc:
-            # A classification PDF is not a Protocol and need not carry C98P.
-            if 'Missing or incomplete World Tour penalties' in str(exc):
-                continue
-            raise
+            # Official report publication may precede a fully parseable C89I2
+            # table. Reject that candidate, retain the last verified Protocol
+            # and keep unrelated station/site synchronizations running.
+            # I/O/programming errors still propagate and fail CI.
+            print(f'::warning::{event_id} official penalty report rejected ({doc["url"]}): {exc}')
+            continue
         if accepted['completed_events'] != idx:
             raise ValueError('Protocol world-tour index differs from the station sequence')
         patched = penalty_protocol.attach_codes(current, accepted)

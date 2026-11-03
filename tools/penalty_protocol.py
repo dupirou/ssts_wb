@@ -140,7 +140,21 @@ def parse_pages(pages, config, source_url, sha256=''):
         raise ValueError('Infringement report summary pages disagree')
     observed_pen = sum(p['status'] == 'PEN' for p in infringements)
     if summary_counts and observed_pen != next(iter(summary_counts)):
-        raise ValueError('Infringement report PEN rows disagree with official summary')
+        # Preserve strict validation while surfacing PDF column extraction gaps.
+        expected_pen = next(iter(summary_counts))
+        unparsed = [
+            line.strip()[:180]
+            for _, page in violations
+            for line in page.splitlines()
+            if re.search(r'\bPEN\b', line)
+            and not INFRINGEMENT.match(line)
+            and not re.search(r'^\s*Summary:', line)
+        ][:6]
+        raise ValueError(
+            'Infringement report PEN rows disagree with official summary: '
+            f'parsed={observed_pen}, official={expected_pen}, '
+            f'unparsed_samples={unparsed}'
+        )
     counted = {}
     for row in infringements:
         if row['format'] == 'relay' or row['infringement_code'] in excluded:
