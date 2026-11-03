@@ -149,25 +149,34 @@ class PenaltyProtocolTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             store = Path(temp)
             with (
-                patch.object(sync_penalties.stations, 'sources',
-                             return_value={'documents_url': 'https://isu.example/docs'}),
-                patch.object(sync_penalties.stations, 'stations',
-                             return_value=[{'id': 'vancouver'}, station]),
-                patch.object(sync_penalties.competition_data, 'load_snapshot',
-                             return_value={'schema_version': 1, 'rounds': {'items': []}}),
-                patch.object(sync_penalties.sync_competitions, 'discover_documents',
-                             return_value=[{
-                                 'kind': 'reports',
-                                 'url': 'https://isu.example/official-protocol.pdf',
-                                 'published_at': '2026-11-02',
-                             }]),
+                patch.object(
+                    sync_penalties.stations, 'sources', return_value={'documents_url': 'https://isu.example/docs'}
+                ),
+                patch.object(sync_penalties.stations, 'stations', return_value=[{'id': 'vancouver'}, station]),
+                patch.object(
+                    sync_penalties.competition_data,
+                    'load_snapshot',
+                    return_value={'schema_version': 1, 'rounds': {'items': []}},
+                ),
+                patch.object(
+                    sync_penalties.sync_competitions,
+                    'discover_documents',
+                    return_value=[
+                        {
+                            'kind': 'reports',
+                            'url': 'https://isu.example/official-protocol.pdf',
+                            'published_at': '2026-11-02',
+                        }
+                    ],
+                ),
                 patch.object(sync_penalties.penalty_protocol, 'parse_pdf', return_value=accepted),
-                patch.object(sync_penalties.penalty_protocol, 'attach_codes',
-                             side_effect=ValueError('Cannot match official infringement uniquely')),
+                patch.object(
+                    sync_penalties.penalty_protocol,
+                    'attach_codes',
+                    side_effect=ValueError('Cannot match official infringement uniquely'),
+                ),
             ):
-                self.assertFalse(sync_penalties.sync_event(
-                    station, fetcher=lambda url: b'%PDF-sample', store=store
-                ))
+                self.assertFalse(sync_penalties.sync_event(station, fetcher=lambda url: b'%PDF-sample', store=store))
             self.assertFalse((store / 'montreal.json').exists())
 
     def test_missing_gender_table_is_rejected(self):
