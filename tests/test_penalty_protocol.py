@@ -80,12 +80,13 @@ class PenaltyProtocolTests(unittest.TestCase):
                 patch.object(sync_penalties.stations, 'stations', return_value=[{'id': 'vancouver'}, station]),
                 patch.object(sync_penalties.competition_data, 'load_snapshot', return_value=current),
                 patch.object(sync_penalties.sync_competitions, 'discover_documents', return_value=docs),
-                patch.object(sync_penalties.penalty_protocol, 'parse_pdf',
-                             side_effect=ValueError('Infringement report PEN rows disagree with official summary')),
+                patch.object(
+                    sync_penalties.penalty_protocol,
+                    'parse_pdf',
+                    side_effect=ValueError('Infringement report PEN rows disagree with official summary'),
+                ),
             ):
-                self.assertFalse(
-                    sync_penalties.sync_event(station, fetcher=lambda url: b'%PDF-sample', store=store)
-                )
+                self.assertFalse(sync_penalties.sync_event(station, fetcher=lambda url: b'%PDF-sample', store=store))
             self.assertFalse((store / 'montreal.json').exists())
 
     def test_rejected_latest_protocol_can_fall_back_to_another_verified_candidate(self):
@@ -99,24 +100,25 @@ class PenaltyProtocolTests(unittest.TestCase):
         ]
         current = dict(schema_version=1, rounds=dict(items=[]))
         accepted = dict(schema_version=1, completed_events=2, official=[], infringements=[])
+
         def parse(pdf, config, url):
             if url.endswith('latest.pdf'):
                 raise ValueError('Unverified infringement summary')
             return accepted
+
         with tempfile.TemporaryDirectory() as temp:
             store = Path(temp)
             with (
-                patch.object(sync_penalties.stations, 'sources',
-                             return_value={'documents_url': 'https://isu.example/docs'}),
+                patch.object(
+                    sync_penalties.stations, 'sources', return_value={'documents_url': 'https://isu.example/docs'}
+                ),
                 patch.object(sync_penalties.stations, 'stations', return_value=[{'id': 'vancouver'}, station]),
                 patch.object(sync_penalties.competition_data, 'load_snapshot', return_value=current),
                 patch.object(sync_penalties.sync_competitions, 'discover_documents', return_value=docs),
                 patch.object(sync_penalties.penalty_protocol, 'parse_pdf', side_effect=parse),
                 patch.object(sync_penalties.penalty_protocol, 'attach_codes', return_value=current),
             ):
-                self.assertTrue(
-                    sync_penalties.sync_event(station, fetcher=lambda url: b'%PDF-sample', store=store)
-                )
+                self.assertTrue(sync_penalties.sync_event(station, fetcher=lambda url: b'%PDF-sample', store=store))
             self.assertEqual(json.loads((store / 'montreal.json').read_text()), accepted)
 
     def test_missing_gender_table_is_rejected(self):

@@ -146,9 +146,7 @@ def parse_pages(pages, config, source_url, sha256=''):
             line.strip()[:180]
             for _, page in violations
             for line in page.splitlines()
-            if re.search(r'\bPEN\b', line)
-            and not INFRINGEMENT.match(line)
-            and not re.search(r'^\s*Summary:', line)
+            if re.search(r'\bPEN\b', line) and not INFRINGEMENT.match(line) and not re.search(r'^\s*Summary:', line)
         ][:6]
         raise ValueError(
             'Infringement report PEN rows disagree with official summary: '
