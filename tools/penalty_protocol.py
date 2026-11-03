@@ -18,7 +18,8 @@ STATUSES = {'PEN', 'YC', 'RC'}
 MAX_PDF_BYTES = 20_000_000
 ROW = re.compile(r'^\s*(\d+)\s{2,}(.+?)\s{2,}([A-Z]{3})\s+((?:\d+|-)(?:\s+(?:\d+|-)){7})\s*$')
 INFRINGEMENT = re.compile(
-    r'^\s*(\d+)\s+(\d+)\s+(Women|Men|Mixed)\s+(\d+)\s*m(\s+Relay)?\s{2,}(.+)$',
+    r'^\s*(\d+)\s+(\d+)\s+(Women|Men|Mixed)\s+'
+    r'(?:(\d+)\s*m(\s+Relay)?|(Team\s+Relay))\s{2,}(.+)$',
     re.I,
 )
 
@@ -100,7 +101,11 @@ def parse_pages(pages, config, source_url, sha256=''):
             found = INFRINGEMENT.match(line)
             if not found:
                 continue
-            serial, race, gender, distance, relay, remainder = found.groups()
+            serial, race, gender, distance, relay, team_relay, remainder = found.groups()
+            if team_relay and gender.lower() != 'mixed':
+                raise ValueError('Team Relay without a valid mixed discipline')
+            is_relay = bool(relay or team_relay)
+            meters = 2000 if team_relay else int(distance)
             parts = re.split(r'\s{2,}', remainder.strip())
             member = next((i for i, value in enumerate(parts) if re.fullmatch(r'[A-Z]{3}', value) and i >= 2), None)
             if member is None or member + 1 >= len(parts):
@@ -116,7 +121,7 @@ def parse_pages(pages, config, source_url, sha256=''):
             helmet = int(parts[1]) if parts[1].isdigit() else (int(embedded_helmet[1]) if embedded_helmet else None)
             name = parts[2] if parts[1].isdigit() else (embedded_helmet[2] if embedded_helmet else parts[1])
             sex = gender.lower()
-            ident = ('team-' + country + '-' + sex) if relay else competition_data.athlete_id(name, country, sex)
+            ident = ('team-' + country + '-' + sex) if is_relay else competition_data.athlete_id(name, country, sex)
             infringements.append(
                 dict(
                     number=int(serial),
@@ -125,8 +130,8 @@ def parse_pages(pages, config, source_url, sha256=''):
                     name=name,
                     country=country,
                     gender=sex,
-                    distance_m=int(distance),
-                    format='relay' if relay else 'individual',
+                    distance_m=meters,
+                    format='relay' if is_relay else 'individual',
                     round_label=parts[0],
                     helmet_number=helmet,
                     status=status,

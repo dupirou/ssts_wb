@@ -45,6 +45,25 @@ class PenaltyProtocolTests(unittest.TestCase):
         self.assertEqual(sum(p['total'] for p in value['official']), 2)
         self.assertEqual({p['infringement_code'] for p in value['infringements']}, {'S6', 'OFF'})
 
+    def test_mixed_team_relay_sanctions_count_in_c89i2_but_not_season_total(self):
+        # Montreal calls the discipline "Mixed Team Relay" without "2000 m".
+        pages = fixture()
+        added = (
+            '34         89 Mixed Team Relay           Quarterfinals               '
+            'Kazakhstan                           KAZ      PEN       C2\n'
+            '36         92 Mixed Team Relay           Quarterfinals               '
+            'Germany                              GER      PEN       S6\n'
+        )
+        pages[2] = pages[2].replace('Summary: PEN: 3', added + 'Summary: PEN: 5')
+        report = self.report(pages)
+        relays = [r for r in report['infringements'] if r['format'] == 'relay']
+        self.assertEqual(len(report['infringements']), 5)
+        self.assertEqual(
+            [(r['race_number'], r['athlete_id'], r['distance_m'], r['infringement_code']) for r in relays],
+            [(89, 'team-KAZ-mixed', 2000, 'C2'), (92, 'team-GER-mixed', 2000, 'S6')],
+        )
+        self.assertEqual(sum(r['total'] for r in report['official']), 2)
+
     def test_multi_page_gender_table_is_supported(self):
         pages = fixture()
         extra = (
