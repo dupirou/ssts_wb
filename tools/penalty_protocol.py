@@ -237,8 +237,36 @@ def attach_codes(snapshot, report):
                 ):
                     candidates.append(person)
         if len(candidates) != 1:
+            nearby = [
+                (
+                    heat.get('round_label') or heat.get('round'),
+                    heat.get('group'),
+                    [
+                        (person.get('name'), person.get('helmet_number'), person.get('penalty'))
+                        for person in heat['participants']
+                        if person.get('country') == row['country']
+                    ],
+                )
+                for heat in official_heats
+                if heat['gender'] == row['gender']
+                and heat['distance_m'] == row['distance_m']
+                and heat['format'] == row['format']
+                and any(person.get('country') == row['country'] for person in heat['participants'])
+            ][:8]
             raise ValueError(
-                'Cannot match official infringement uniquely: ' + str((row['race_number'], row['country'], row['name']))
+                'Cannot match official infringement uniquely: '
+                + str(
+                    (
+                        row['race_number'],
+                        row['country'],
+                        row['name'],
+                        row['round_label'],
+                        row['distance_m'],
+                        row['helmet_number'],
+                        'candidates=' + str(len(candidates)),
+                        'nearby=' + str(nearby),
+                    )
+                )
             )
         current = candidates[0]['penalty'].get('infringement_code')
         if current not in (None, row['infringement_code']):

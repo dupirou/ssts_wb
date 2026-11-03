@@ -58,16 +58,18 @@ def sync_event(station, fetcher=sync_competitions.fetch, store=STORE, directory=
         pdf = fetcher(doc['url'])
         try:
             accepted = penalty_protocol.parse_pdf(pdf, config, doc['url'])
+            if accepted['completed_events'] != idx:
+                raise ValueError('Protocol world-tour index differs from the station sequence')
+            # C89I2 text can be verified even when live heat feeds cannot yet
+            # identify the corresponding racer. Both checks must pass before
+            # this source becomes an accepted, publishable Protocol.
+            patched = penalty_protocol.attach_codes(current, accepted)
         except ValueError as exc:
-            # Official report publication may precede a fully parseable C89I2
-            # table. Reject that candidate, retain the last verified Protocol
-            # and keep unrelated station/site synchronizations running.
-            # I/O/programming errors still propagate and fail CI.
+            # Unverified source content is a rejected candidate, not a
+            # programming/network crash. Keep last accepted station data and
+            # continue checking other reports/stations.
             print(f'::warning::{event_id} official penalty report rejected ({doc["url"]}): {exc}')
             continue
-        if accepted['completed_events'] != idx:
-            raise ValueError('Protocol world-tour index differs from the station sequence')
-        patched = penalty_protocol.attach_codes(current, accepted)
         # No partial publication: the document and its linked round codes are both validated first.
         save_verified(path, accepted)
         if patched != current:
