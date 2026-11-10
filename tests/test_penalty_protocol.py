@@ -179,6 +179,76 @@ class PenaltyProtocolTests(unittest.TestCase):
                 self.assertFalse(sync_penalties.sync_event(station, fetcher=lambda url: b'%PDF-sample', store=store))
             self.assertFalse((store / 'montreal.json').exists())
 
+    def test_verified_protocol_can_remain_authoritative_when_a_heat_is_missing(self):
+        import sync_penalties
+        from unittest.mock import patch
+
+        report = self.report()
+        station = {'id': 'vancouver'}
+        snapshot = {
+            'schema_version': 1,
+            'rounds': {
+                'items': [
+                    dict(
+                        gender='women',
+                        distance_m=1000,
+                        format='individual',
+                        round_label='Semifinals',
+                        evidence='official_results',
+                        result_status='Official',
+                        participants=[
+                            dict(
+                                athlete_id=competition_data.athlete_id('SONG Jiarui', 'CHN', 'women'),
+                                country='CHN',
+                                helmet_number=54,
+                                penalty=dict(code='PEN', infringement_code=None),
+                            )
+                        ],
+                    ),
+                ]
+            },
+        }
+        original = copy.deepcopy(snapshot)
+        missing = []
+        patched = penalty_protocol.attach_codes(snapshot, report, unmatched=missing)
+        self.assertEqual(snapshot, original)
+        self.assertEqual(patched['rounds']['items'][0]['participants'][0]['penalty']['infringement_code'], 'S6')
+        self.assertEqual({r['race_number'] for r in missing}, {145, 177})
+        self.assertEqual(sum(p['total'] for p in report['official']), 2)
+        self.assertEqual(len(report['infringements']), 3)
+
+        # A completely verified C98P/C89I2 report can now be stored even if
+        # the corresponding ISU results omit one or more sanctioned athletes.
+        with tempfile.TemporaryDirectory() as temp:
+            store = Path(temp)
+            with (
+                patch.object(sync_penalties.stations, 'sources', return_value={'documents_url': 'https://isu.example/docs'}),
+                patch.object(sync_penalties.stations, 'stations', return_value=[station]),
+                patch.object(sync_penalties.competition_data, 'load_snapshot', return_value=original),
+                patch.object(sync_penalties.competition_data, 'write_snapshot') as writer,
+                patch.object(
+                    sync_penalties.sync_competitions,
+                    'discover_documents',
+                    return_value=[dict(kind='reports', url='https://isu.example/protocol.pdf', published_at='2026-10-26')],
+                ),
+                patch.object(sync_penalties.penalty_protocol, 'parse_pdf', return_value=report),
+            ):
+                self.assertTrue(sync_penalties.sync_event(station, fetcher=lambda url: b'%PDF-test', store=store))
+                writer.assert_called_once()
+                written = writer.call_args.args[0]
+                self.assertEqual(
+                    written['rounds']['items'][0]['participants'][0]['penalty']['infringement_code'],
+                    'S6',
+                )
+                self.assertEqual(len(written['rounds']['items']), 1)
+                self.assertEqual(json.loads((store / 'vancouver.json').read_text()), report)
+
+        # If a sanction matches multiple official rows, it is still rejected.
+        duplicate = copy.deepcopy(snapshot)
+        duplicate['rounds']['items'].append(copy.deepcopy(duplicate['rounds']['items'][0]))
+        with self.assertRaisesRegex(ValueError, 'uniquely'):
+            penalty_protocol.attach_codes(duplicate, report, unmatched=[])
+
     def test_missing_gender_table_is_rejected(self):
         pages = fixture()
         pages[1] = pages[1].replace('Men\n', 'Women\n')

@@ -278,10 +278,19 @@ test('athlete cards sort by numeric helmet number, then names, with one ranking 
   country.value = 'CHN';
   country.dispatchEvent(new dom.window.Event('change'));
   const chinese = [...d.querySelectorAll('.directory-card')];
-  assert.equal(chinese.length, 12);
+  // The roster grows as the next station publishes entries; compare against
+  // the current generated index instead of freezing Vancouver's 12 skaters.
+  const index = JSON.parse(await file('dist/data/athletes.json'));
+  const expected = index.items.filter(p => p.country === 'CHN');
+  assert.equal(chinese.length, expected.length);
+  assert.deepEqual(
+    chinese.map(card => card.querySelector('.directory-identity h2').textContent).sort(),
+    expected.map(p => p.name).sort()
+  );
   const chinaNumbers = chinese.map(number);
   assert.deepEqual(chinaNumbers, [...chinaNumbers].sort((a, b) => a - b));
-  assert.equal(chinese[0].querySelector('.directory-helmet').textContent, '4');
+  const lowest = Math.min(...expected.map(p => p.helmet_number ?? Infinity));
+  assert.equal(Number(chinese[0].querySelector('.directory-helmet').textContent), lowest);
   assert.equal(d.querySelectorAll('.directory-ranking-context h2').length, 1);
 });
 

@@ -206,8 +206,14 @@ def same_round(heat, label):
     return clean((heat.get('round_label') or heat.get('round') or '').replace('-', ' ')) == clean(label)
 
 
-def attach_codes(snapshot, report):
-    """Return a verified copy with referee codes linked to official result rows."""
+def attach_codes(snapshot, report, *, unmatched=None):
+    """Link proven referee codes to official heats; keep unlinked Protocol rows separate.
+
+    With unmatched supplied, a zero-match official referee decision is reported
+    to the caller rather than fabricated as a heat result. Ambiguous matches
+    and conflicting linked codes remain errors. The C98P/C89I2 tables must
+    already pass parse_pages' independent count and identity validation.
+    """
     import copy
 
     updated = copy.deepcopy(snapshot)
@@ -237,6 +243,9 @@ def attach_codes(snapshot, report):
                 ):
                     candidates.append(person)
         if len(candidates) != 1:
+            if not candidates and unmatched is not None:
+                unmatched.append(row)
+                continue
             nearby = [
                 (
                     heat.get('round_label') or heat.get('round'),

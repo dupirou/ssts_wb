@@ -32,6 +32,27 @@ def save_verified(path, payload):
     return True
 
 
+def link_referee_codes(current, accepted, event_id):
+    """Keep verified Protocol totals even when ISU heat results omit a sanction.
+
+    We never attach an inferred code. Missing links are diagnostic; duplicate
+    or conflicting links still cause the candidate to be rejected.
+    """
+    unmatched = []
+    patched = penalty_protocol.attach_codes(current, accepted, unmatched=unmatched)
+    if unmatched:
+        examples = [
+            (r['race_number'], r['country'], r['name'], r['round_label'], r['distance_m'])
+            for r in unmatched[:5]
+        ]
+        print(
+            f'::warning::{event_id} official Protocol verified but '
+            f'{len(unmatched)} referee decisions have no matching published heat: '
+            f'{examples}; season totals are taken from C98P, no heat penalties inferred'
+        )
+    return patched
+
+
 def sync_event(station, fetcher=sync_competitions.fetch, store=STORE, directory=competition_data.DATA):
     """Only accepted protocol, official heat identities, and station order can update data."""
     event_id = station['id']
@@ -43,7 +64,7 @@ def sync_event(station, fetcher=sync_competitions.fetch, store=STORE, directory=
         accepted = json.loads(path.read_text(encoding='utf-8'))
         if accepted.get('schema_version') != 1 or accepted.get('completed_events') != idx:
             raise ValueError('Invalid stored season penalty snapshot')
-        patched = penalty_protocol.attach_codes(current, accepted)
+        patched = link_referee_codes(current, accepted, event_id)
         if patched != current:
             competition_data.write_snapshot(patched, directory)
         return True
@@ -60,10 +81,10 @@ def sync_event(station, fetcher=sync_competitions.fetch, store=STORE, directory=
             accepted = penalty_protocol.parse_pdf(pdf, config, doc['url'])
             if accepted['completed_events'] != idx:
                 raise ValueError('Protocol world-tour index differs from the station sequence')
-            # C89I2 text can be verified even when live heat feeds cannot yet
-            # identify the corresponding racer. Both checks must pass before
-            # this source becomes an accepted, publishable Protocol.
-            patched = penalty_protocol.attach_codes(current, accepted)
+            # The official C98P cumulative table and C89I2 referee decisions
+            # are validated by parse_pdf. Link identifiable heats independently;
+            # an ISU heat omission must not suppress those official totals.
+            patched = link_referee_codes(current, accepted, event_id)
         except ValueError as exc:
             # Unverified source content is a rejected candidate, not a
             # programming/network crash. Keep last accepted station data and
