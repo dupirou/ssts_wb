@@ -42,8 +42,7 @@ def link_referee_codes(current, accepted, event_id):
     patched = penalty_protocol.attach_codes(current, accepted, unmatched=unmatched)
     if unmatched:
         examples = [
-            (r['race_number'], r['country'], r['name'], r['round_label'], r['distance_m'])
-            for r in unmatched[:5]
+            (r['race_number'], r['country'], r['name'], r['round_label'], r['distance_m']) for r in unmatched[:5]
         ]
         print(
             f'::warning::{event_id} official Protocol verified but '

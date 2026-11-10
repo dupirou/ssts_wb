@@ -2,6 +2,13 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "1740a65057ff9ba7",
+      "station": "seoul",
+      "kind": "entries",
+      "at": "2026-11-10T19:57:19+00:00",
+      "count": 151
+    },
+    {
       "id": "3e42c5847cc89449",
       "station": "montreal",
       "kind": "rankings",
@@ -3194,38 +3201,6 @@
       "kind": "groups",
       "heats": 1,
       "china": []
-    },
-    {
-      "id": "8c49d464dbe26e2d",
-      "station": "vancouver",
-      "at": "2026-10-27T03:25:30+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": [],
-      "podium": [
-        {
-          "rank": 1,
-          "name": "Jens VAN 'T WOUT",
-          "country": "NED"
-        },
-        {
-          "rank": 2,
-          "name": "Thomas NADALINI",
-          "country": "ITA"
-        },
-        {
-          "rank": 3,
-          "name": "Seochan BAE",
-          "country": "KOR"
-        }
-      ]
     }
   ]
 }

@@ -194,6 +194,7 @@
     "montreal/time/2026-11-01/repechage/women/500/heats/-": "2026-11-01 23:00",
     "montreal/time/2026-11-01/repechage/women/500/quarterfinal/-": "2026-11-01 23:35",
     "montreal/time/2026-11-01/repechage/women/500/semifinal/-": "2026-11-02 00:08",
+    "seoul/entries": "b9eda815ecb867ce",
     "vancouver/entries": "62b849c64f7acf93",
     "vancouver/rankings": "00542daf7690fce9",
     "vancouver/round/2026-10-23/qualifying/men/1000/heats/-/groups": "published",
@@ -401,38 +402,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "8c49d464dbe26e2d",
-      "station": "vancouver",
-      "at": "2026-10-27T03:25:30+00:00",
-      "local_date": "2026-10-25",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": [],
-      "podium": [
-        {
-          "rank": 1,
-          "name": "Jens VAN 'T WOUT",
-          "country": "NED"
-        },
-        {
-          "rank": 2,
-          "name": "Thomas NADALINI",
-          "country": "ITA"
-        },
-        {
-          "rank": 3,
-          "name": "Seochan BAE",
-          "country": "KOR"
-        }
-      ]
-    },
     {
       "id": "94ab220f497ed2b3",
       "station": "vancouver",
@@ -3626,6 +3595,13 @@
       "kind": "rankings",
       "at": "2026-11-03T17:01:35+00:00",
       "changed": true
+    },
+    {
+      "id": "1740a65057ff9ba7",
+      "station": "seoul",
+      "kind": "entries",
+      "at": "2026-11-10T19:57:19+00:00",
+      "count": 151
     }
   ]
 }

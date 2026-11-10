@@ -222,14 +222,18 @@ class PenaltyProtocolTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             store = Path(temp)
             with (
-                patch.object(sync_penalties.stations, 'sources', return_value={'documents_url': 'https://isu.example/docs'}),
+                patch.object(
+                    sync_penalties.stations, 'sources', return_value={'documents_url': 'https://isu.example/docs'}
+                ),
                 patch.object(sync_penalties.stations, 'stations', return_value=[station]),
                 patch.object(sync_penalties.competition_data, 'load_snapshot', return_value=original),
                 patch.object(sync_penalties.competition_data, 'write_snapshot') as writer,
                 patch.object(
                     sync_penalties.sync_competitions,
                     'discover_documents',
-                    return_value=[dict(kind='reports', url='https://isu.example/protocol.pdf', published_at='2026-10-26')],
+                    return_value=[
+                        dict(kind='reports', url='https://isu.example/protocol.pdf', published_at='2026-10-26')
+                    ],
                 ),
                 patch.object(sync_penalties.penalty_protocol, 'parse_pdf', return_value=report),
             ):
