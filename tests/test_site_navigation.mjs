@@ -288,7 +288,9 @@ test('athlete cards sort by numeric helmet number, then names, with one ranking 
     expected.map(p => p.name).sort()
   );
   const chinaNumbers = chinese.map(number);
-  assert.deepEqual(chinaNumbers, [...chinaNumbers].sort((a, b) => a - b));
+  const numbered = chinaNumbers.filter(value => value != null);
+  assert.deepEqual(numbered, [...numbered].sort((a, b) => a - b));
+  assert.ok(chinaNumbers.slice(numbered.length).every(value => value == null));
   const lowest = Math.min(...expected.map(p => p.helmet_number ?? Infinity));
   assert.equal(Number(chinese[0].querySelector('.directory-helmet').textContent), lowest);
   assert.equal(d.querySelectorAll('.directory-ranking-context h2').length, 1);
