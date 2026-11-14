@@ -12,7 +12,6 @@
     matchesProject,
     medalResult,
     normalizeKind,
-    kindMatches,
     scopeEvents,
     scopeCoverage,
     statistics,

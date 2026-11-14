@@ -82,12 +82,12 @@ jobs:
             echo '## ISU sync outcomes'
             echo '| Step | Outcome |'
             echo '| --- | --- |'
-            printf '| schedule | %s |\\n' "$SCHEDULE"
-            printf '| china | %s |\\n' "$CHINA"
-            printf '| competitions | %s |\\n' "$COMPETITIONS"
-            printf '| penalties | %s |\\n' "$PENALTIES"
-            printf '| predictions | %s |\\n' "$PREDICTIONS"
-            printf '| standings | %s |\\n' "$STANDINGS"
+            printf '| schedule | %s |\n' "$SCHEDULE"
+            printf '| china | %s |\n' "$CHINA"
+            printf '| competitions | %s |\n' "$COMPETITIONS"
+            printf '| penalties | %s |\n' "$PENALTIES"
+            printf '| predictions | %s |\n' "$PREDICTIONS"
+            printf '| standings | %s |\n' "$STANDINGS"
             echo 'Safe validation refusals exit 0 and appear as warnings in the step log; unexpected failures exit nonzero.'
           } >> "$GITHUB_STEP_SUMMARY"
       - name: Compile static site
