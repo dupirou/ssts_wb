@@ -2,8 +2,10 @@
 """Build static pages and validated ISU data; never manufacture unverified competition facts."""
 
 import hashlib
+import html
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -17,6 +19,7 @@ import predict_groups
 import qualification
 import site_catalog
 import history_data
+import localize
 import updates
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -286,6 +289,57 @@ def season_text(text):
     return text.replace('{{SEASON}}', config['season']).replace('{{DESCRIPTION}}', description)
 
 
+def page_head(page_html, title, description=None):
+    """Give a built page its own title, description and share-card text.
+
+    The app sets the title again once it runs; crawlers and link previews only read this markup."""
+    title = html.escape(title, quote=True)
+    if description:
+        page_html = re.sub(
+            r'<meta name="description" content="[^"]*">',
+            lambda _: f'<meta name="description" content="{html.escape(description, quote=True)}">',
+            page_html,
+            count=1,
+        )
+    shown = re.search(r'<meta name="description" content="([^"]*)">', page_html)[1]
+    card = (
+        f'<title>{title}</title>\n'
+        f'<meta property="og:type" content="website">\n'
+        f'<meta property="og:site_name" content="短道速滑">\n'
+        f'<meta property="og:title" content="{title}">\n'
+        f'<meta property="og:description" content="{shown}">'
+    )
+    return re.sub(r'<title>[^<]*</title>', lambda _: card, page_html, count=1)
+
+
+def page_titles(config, results_index):
+    """Title and description for every built path; matches what the app shows after loading."""
+    season = config['season']
+    span = lambda e: f'{e["date_start"][5:].replace("-", ".")}–{e["date_end"][5:].replace("-", ".")}'
+    results = '中国短道速滑队历届世巡赛、世锦赛与冬奥会成绩，可按赛事、赛季和奥运周期查看与对比。'
+    pages = {
+        'events': (f'{season} 赛事｜短道速滑', None),
+        'athletes': ('运动员｜短道速滑', f'{season} 赛季短道速滑世巡赛运动员名单、头盔号与单项排名。'),
+    }
+    prefix = 'events/' + season.replace('/', '-') + '/'
+    for st in config['stations']:
+        pages[prefix + st['id']] = (
+            f'{st["city"]}站赛程｜{season} 短道速滑世界巡回赛',
+            f'{season} 短道速滑世巡赛{st["city"]}站（{span(st)}）：北京时间赛程、报名名单、分组与成绩。',
+        )
+    for c in config['championships']:
+        pages[prefix + c['id']] = (
+            f'{c["title"]}｜{c["date_start"][:4]} 短道速滑赛程',
+            f'{c["date_start"][:4]} {c["title"]}（{c["city"]}，{span(c)}）：北京时间赛程与中国队参赛信息。',
+        )
+    for event in results_index['events']:
+        pages['results/events/' + event['id']] = (
+            f'{event["season"]} {event["title"]} 中国队成绩｜短道速滑',
+            f'{event["season"]} {event["title"]}中国队各项目名次与官方成绩来源。',
+        )
+    return pages, ('成绩｜短道速滑', results)
+
+
 def next_event(now):
     """The stage, then championship, whose last local day has not ended yet; None after the season."""
     for event in stations.load()['stations'] + stations.load()['championships']:
@@ -433,8 +487,10 @@ def _compile(now, out, prior, source_log):
         (out / 'data' / (st['id'] + '.json')).write_text(
             json.dumps(schedule, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
         )
+    # The home page gets its share-card markup here, so the service worker version covers the published file.
+    shell_html = season_text((ROOT / 'web/index.html').read_text(encoding='utf-8'))
     (out / 'index.html').write_text(
-        season_text((ROOT / 'web/index.html').read_text(encoding='utf-8')), encoding='utf-8'
+        page_head(shell_html, re.search(r'<title>([^<]*)</title>', shell_html)[1]), encoding='utf-8'
     )
     (out / 'manifest.webmanifest').write_text(
         manifest_text((ROOT / 'web/manifest.webmanifest').read_text(encoding='utf-8'), now), encoding='utf-8'
@@ -462,6 +518,8 @@ def _compile(now, out, prior, source_log):
     predict_groups.export(out, venues, schedules)
     site_catalog.export(out, season)
     history_data.export(out, calendar=season)
+    # Statistics and identity matching above ran on ISU's spelling; from here on the files are for readers.
+    localize.apply(sorted((out / 'data').rglob('*.json')))
     try:
         subprocess.run(
             ['node', str(ROOT / 'tools/build_results.mjs'), str(out), config['season']],
@@ -500,10 +558,12 @@ def _compile(now, out, prior, source_log):
             for event in config['stations'] + config['championships']
         ]
     )
+    titles, results_title = page_titles(config, results_index)
     for page_path in page_paths:
         page_dir = out / page_path
         page_dir.mkdir(parents=True, exist_ok=True)
-        page_html = (out / 'index.html').read_text(encoding='utf-8')
+        in_results = page_path == 'history' or page_path == 'results' or page_path.startswith('results/')
+        page_html = page_head(shell_html, *titles.get(page_path, results_title if in_results else (None, None)))
         if page_path == 'history' or page_path == 'results' or page_path.startswith('results/'):
             # Discover the route bundle with the shell, without loading it on other pages.
             page_html = page_html.replace(
@@ -518,6 +578,7 @@ def _compile(now, out, prior, source_log):
         {k: v.get('last_successful_schedule_check_utc') for k, v in meta.items()},
         path=source_log,
     )
+    localize.apply([out / 'data/updates.json'])
     for station_id, rows in schedules.items():
         print(
             'Validated and built',

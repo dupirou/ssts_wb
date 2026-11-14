@@ -78,7 +78,11 @@ test('built real snapshot and unconfigured event empty states are served', async
   const source = JSON.parse(await readFile(new URL('../data/competitions/vancouver.json',import.meta.url),'utf8'));
   assert.equal(result.total,source.entries.items.filter(p=>p.country==='CHN').length);
   assert.equal(result.status,'available');
-  assert.equal((await (await request('/api/v1/events/seoul/rounds',realEnv)).json()).status,'not_published');
+  // Whichever stations ISU has not published yet: a named station would fail the day its data arrives.
+  const index=await (await request('/api/v1/events',realEnv)).json();
+  for (const event of index.events.filter(e=>e.rounds==='not_published')) {
+    assert.equal((await (await request(`/api/v1/events/${event.id}/rounds`,realEnv)).json()).status,'not_published');
+  }
   const projected=await (await request('/api/v1/events/vancouver/predictions?gender=women&distance_m=500',realEnv)).json();
   assert.equal(projected.evidence,'model_prediction_not_official');
   assert.equal(projected.total,1);
@@ -87,8 +91,11 @@ test('built real snapshot and unconfigured event empty states are served', async
   assert.deepEqual(await (await request('/api/v1/events/vancouver/predictions?country=CHN',realEnv)).json(),
     {error:'invalid_filter',field:'country'});
   assert.equal(await (await request('/api/v1/events/vancouver/predictions',realEnv,'HEAD')).text(),'');
-  const seoul=await (await request('/api/v1/events/seoul/predictions',realEnv)).json();
-  assert.ok(seoul.items.every(p=>p.missing.includes('schedule')));
+  const calendar=JSON.parse(await readFile(new URL('../dist/data/calendar.json',import.meta.url),'utf8'));
+  for (const station of calendar.stations.filter(st=>st.detail_status!=='verified')) {
+    const waiting=await (await request(`/api/v1/events/${station.id}/predictions`,realEnv)).json();
+    assert.ok(waiting.items.every(p=>p.missing.includes('schedule')),station.id);
+  }
 });
 
 test('race-window cron: 10-min syncs around sessions, hourly between them, none outside windows', async () => {

@@ -412,6 +412,11 @@ def result_catalog(out, calendar, archive):
         if not path.exists():
             continue
         snapshot = json.loads(path.read_text())
+        # A snapshot that was already published carries Chinese display names; match on ISU's spelling.
+        people_in = [p for h in snapshot['rounds']['items'] for p in h['participants']]
+        for item in people_in + [m for p in people_in for m in p.get('members', [])] + snapshot['rankings']['items']:
+            if 'name_latin' in item:
+                item['name'] = item.pop('name_latin')
         genders = {p['athlete_id']: p['gender'] for p in snapshot.get('entries', {}).get('items', [])}
         rows, final_groups = [], {}
         heats = [

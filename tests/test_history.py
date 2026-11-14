@@ -93,7 +93,7 @@ class HistoryTests(unittest.TestCase):
                     p['athlete_id']
                     for h in live['rounds']['items']
                     for p in h['participants']
-                    if p['name'] == 'Jianing ZHANG' and h['distance_m'] == 1000
+                    if p.get('name_latin', p['name']) == 'Jianing ZHANG' and h['distance_m'] == 1000
                 ),
                 name='Jianing ZHANG',
                 rank=6,

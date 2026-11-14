@@ -35,6 +35,10 @@
 
 **单项报项**：从 Entries 标签读取六个单项各自的选手名单，按 ISU 选手 ID 匹配上赛季单项世巡赛排名（WCD）与世界排名（WRD）；上赛季榜单只抓一次，缓存在 `historic_rankings.json`。同一份报项也给运动员名单加上每人报的单项（`entries[].distances`）。
 
+## 中文显示名
+
+`data/` 和所有同步、身份匹配、统计都使用 ISU 的拼写。`tools/localize.py` 在构建的最后一步改写 `dist/data` 下的 JSON：`data/athlete_names_zh.json` 列出的中国队运动员换成中文名（原拼写保留在 `name_latin` 或 `aliases`），接力队名换成中文国家名加“队”。同名但不属于中国队的运动员会让构建报错，而不是被误改。更新通知在生成后单独处理一次。
+
 ## 售票
 
 `data/tickets.json` 按分站登记人工核对的售票信息：`sale_start`（带该站当地 UTC 偏移）、ISU 售票说明 `isu_url` 和订票链接 `booking_url`。订票域名必须在 `tools/build.py` 的 `BOOKING_SITES` 白名单中，按钮名称也取自那里；新增售票平台只需加一行。分站结束后售票卡自动消失。
@@ -44,6 +48,10 @@
 只有某个具体轮次（`round_key`）的官方分组里出现 CHN，才在赛程中高亮该轮次。来源依次是官方分组接口、`data/china_auto.json`（自动导入）和 `data/china.json`（人工覆盖，优先）。CHN、HKG、TPE 严格区分；不根据报名或上一轮晋级推断下一轮。
 
 每个中国队小组的出场时间是按组号与单组时长上下限估算的区间，页面写成“约 00:02–00:04”，与官方轮次开始时间区分。
+
+## 成绩摘要
+
+`tools/build_results.mjs` 给成绩目录的每场赛事和对应的赛历分站附上 `china_summary`（奖牌数、A 组决赛人／队次、前 8 名、获奖项目），首页和成绩总览用它显示一行摘要。
 
 ## 首轮分组预测
 

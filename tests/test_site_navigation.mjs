@@ -231,7 +231,8 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   q.value = 'LI Kun';
   q.dispatchEvent(new dom.window.Event('input'));
   assert.equal(d.querySelectorAll('.directory-card').length, 1);
-  assert.match(d.querySelector('.directory-card').textContent, /Kun LI/);
+  assert.match(d.querySelector('.directory-card').textContent, /李坤/);
+  assert.doesNotMatch(d.querySelector('.directory-card').textContent, /Kun LI/);
   assert.equal(d.querySelector('.directory-helmet').textContent, '67');
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /头盔号|#/);
   assert.equal(d.querySelector('.directory-card a'), null);
@@ -239,7 +240,7 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   // ISU updates WCD standings after each station; the card must agree
   // with the currently published season index, not a frozen Vancouver rank.
   const currentDirectory = JSON.parse(await file('dist/data/athletes.json'));
-  const kun = currentDirectory.items.find(p => p.name === 'Kun LI');
+  const kun = currentDirectory.items.find(p => p.name_latin === 'Kun LI');
   assert.ok(kun?.season_rankings?.length);
   assert.equal(
     d.querySelector('.directory-rankings').textContent,
@@ -261,10 +262,18 @@ test('athlete cards sort by numeric helmet number, then names, with one ranking 
     const el = card.querySelector('.directory-helmet');
     return el ? Number(el.textContent) : null;
   };
-  const known = cards.map(number).filter(value => value != null);
-  assert.ok(known.length > 100, 'known official numbers must be displayed');
-  assert.deepEqual(known, [...known].sort((a, b) => a - b));
-  assert.ok(cards.slice(known.length).every(card => number(card) == null), 'unknown numbers sort last');
+  // The Chinese team leads; within it and within everyone else, known numbers ascend and unknown ones follow.
+  const home = cards.filter(card => card.querySelector('.athlete-china') != null);
+  assert.ok(home.length > 0);
+  assert.deepEqual(cards.slice(0, home.length), home);
+  let shown = 0;
+  for (const group of [home, cards.slice(home.length)]) {
+    const known = group.map(number).filter(value => value != null);
+    shown += known.length;
+    assert.deepEqual(known, [...known].sort((a, b) => a - b));
+    assert.ok(group.slice(known.length).every(card => number(card) == null), 'unknown numbers sort last');
+  }
+  assert.ok(shown > 100, 'known official numbers must be displayed');
   assert.equal(d.querySelectorAll('.directory-ranking-context h2').length, 1);
   assert.equal(d.querySelector('.directory-ranking-context h2').textContent, '本赛季世巡赛排名');
   assert.equal(d.querySelectorAll('.directory-rankings h3').length, 0);
@@ -341,7 +350,7 @@ test('unified filters share selected season, discipline, event and actual relay 
   assert.match(first.textContent, /世锦赛 · 蒙特利尔/);
   assert.match(first.querySelector('.result-place').textContent, /第 3 名/);
   const final = [...first.querySelectorAll('.result-lineup p')].find(p => p.textContent.startsWith('A 决赛'));
-  assert.match(final.textContent, /Li GONG/);
+  assert.match(final.textContent, /公俐/);
   assert.doesNotMatch(final.textContent, /Jingru YANG/);
   const type = d.querySelector('select[name="kind"]'); type.value = 'worlds';
   type.dispatchEvent(new dom.window.Event('change', {bubbles:true}));
@@ -386,7 +395,7 @@ test('after the World Tour, the homepage points to the upcoming championship', a
 
 
 test('comparison preserves official PEN places, expands contributing results and shares metric choices', async t => {
-  const dom = await page('/results/compare/');
+  const dom = await page('/results/compare/?kind=worlds');
   t.after(() => dom.window.close());
   const d = dom.window.document;
   assert.equal(d.querySelectorAll('.compare-project').length, 9);
@@ -425,7 +434,7 @@ test('comparison preserves official PEN places, expands contributing results and
 });
 
 test('cycle comparison distinguishes missing archives and never awards a B-final winner gold', async t => {
-  const empty = await page('/results/compare/?mode=cycle&left=cycle-2030&right=milano-2026');
+  const empty = await page('/results/compare/?mode=cycle&left=cycle-2030&right=milano-2026&kind=worlds');
   t.after(() => empty.window.close());
   const d = empty.window.document;
   for (const row of d.querySelectorAll('.compare-project')) assert.equal(row.querySelector('td').textContent, '未收录');
@@ -572,8 +581,14 @@ test('results pages do not depend on the live calendar', async t => {
 });
 
 test('comparison defaults follow recorded scopes and preserve explicit shared selections', async t => {
-  const worlds = await page('/results/compare/');
+  const worlds = await page('/results/compare/?kind=worlds');
   const circuit = await page('/results/compare/?kind=circuit');
+  // With nothing chosen, the page opens on the kind of event raced most recently.
+  const recent = await page('/results/compare/');
+  t.after(() => recent.window.close());
+  const latest = JSON.parse(await file('dist/data/results/index.json')).events[0].kind;
+  assert.equal(recent.window.document.querySelector('[name="kind"]').value,
+    ['worldcup', 'worldtour'].includes(latest) ? 'circuit' : latest);
   const explicit = await page('/results/compare/?left=2023%2F24&right=2026%2F27');
   for (const dom of [worlds, circuit, explicit]) t.after(() => dom.window.close());
   const selected = dom => ['left', 'right'].map(name => dom.window.document.querySelector(`[name="${name}"]`).value);

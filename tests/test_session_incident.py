@@ -1,4 +1,4 @@
-"""Session incident tracking uses only completed prior session runs."""
+"""Incident tracking counts every kind of completed sync run."""
 
 import sys
 import unittest
@@ -9,28 +9,25 @@ import session_incident as incident
 
 
 class IncidentTests(unittest.TestCase):
-    def test_two_previous_unexpected_crashes_required(self):
+    def test_two_previous_failures_required_whatever_the_trigger(self):
+        run = lambda n, title, conclusion: dict(id=n, display_title=title, status='completed', conclusion=conclusion)
         runs = [
-            dict(id=3, display_title=incident.SESSION_RUN, status='completed'),
-            dict(id=2, display_title=incident.SESSION_RUN, status='completed'),
-            dict(id=1, display_title=incident.SESSION_RUN, status='completed'),
+            run(4, 'ISU sync (hourly)', 'failure'),
+            run(3, 'ISU sync (periodic)', 'failure'),
+            run(2, 'ISU sync (session)', 'failure'),
+            run(1, 'ISU sync (hourly)', 'success'),
         ]
-
-        def jobs(run_id):
-            return [{'steps': [dict(name=incident.GATE, conclusion='failure' if run_id != 1 else 'success')]}]
-
-        self.assertFalse(incident.previous_crashes(runs, jobs, 3))
-        runs[2]['display_title'] = 'ISU sync (hourly)'
-        self.assertFalse(incident.previous_crashes(runs, jobs, 3))
-        runs[2]['display_title'] = incident.SESSION_RUN
-        self.assertTrue(
-            incident.previous_crashes(runs, lambda _: [{'steps': [dict(name=incident.GATE, conclusion='failure')]}], 3)
-        )
+        self.assertTrue(incident.previous_failures(runs, 4))
+        runs[1]['conclusion'] = 'success'
+        self.assertFalse(incident.previous_failures(runs, 4))
+        runs[1].update(conclusion=None, status='in_progress')
+        self.assertFalse(incident.previous_failures(runs, 4))
+        self.assertFalse(incident.previous_failures(runs[:2], 4))
 
     def test_incident_create_once_update_then_recover(self):
         state = {
             'issues': [],
-            'runs': [dict(id=n, display_title=incident.SESSION_RUN, status='completed') for n in (3, 2, 1)],
+            'runs': [dict(id=n, status='completed', conclusion='failure') for n in (3, 2, 1)],
         }
         calls = []
 
@@ -38,10 +35,8 @@ class IncidentTests(unittest.TestCase):
             calls.append((method, path, payload))
             if path.endswith('/issues?state=all&per_page=100'):
                 return state['issues']
-            if path.endswith('/runs?event=workflow_dispatch&per_page=100'):
+            if path.endswith('/runs?per_page=100'):
                 return {'workflow_runs': state['runs']}
-            if '/jobs?' in path:
-                return {'jobs': [{'steps': [dict(name=incident.GATE, conclusion='failure')]}]}
             if method == 'POST':
                 item = dict(number=7, state='open', title=incident.TITLE, body=payload['body'])
                 state['issues'].append(item)

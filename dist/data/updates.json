@@ -52,18 +52,21 @@
       "podium": [
         {
           "rank": 1,
-          "name": "Canada",
-          "country": "CAN"
+          "name": "加拿大队",
+          "country": "CAN",
+          "name_latin": "Canada"
         },
         {
           "rank": 2,
-          "name": "China",
-          "country": "CHN"
+          "name": "中国队",
+          "country": "CHN",
+          "name_latin": "China"
         },
         {
           "rank": 3,
-          "name": "Republic of Korea",
-          "country": "KOR"
+          "name": "韩国队",
+          "country": "KOR",
+          "name_latin": "Republic of Korea"
         }
       ]
     },
@@ -127,12 +130,13 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Yan ZHANG"
+        "张延"
       ],
       "china_results": [
         {
-          "name": "Yan ZHANG",
-          "rank": 6
+          "name": "张延",
+          "rank": 6,
+          "name_latin": "Yan ZHANG"
         }
       ]
     },
@@ -149,34 +153,38 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
+        "张楚桐",
+        "张珈宁",
+        "公俐",
+        "张延"
       ],
       "china_results": [
         {
-          "name": "Chutong ZHANG",
+          "name": "张楚桐",
           "rank": null,
           "penalty": "PEN",
-          "status": "out"
+          "status": "out",
+          "name_latin": "Chutong ZHANG"
         },
         {
-          "name": "Jianing ZHANG",
+          "name": "张珈宁",
           "rank": null,
           "penalty": "PEN",
-          "status": "out"
+          "status": "out",
+          "name_latin": "Jianing ZHANG"
         },
         {
-          "name": "Li GONG",
+          "name": "公俐",
           "rank": null,
           "penalty": "PEN",
-          "status": "out"
+          "status": "out",
+          "name_latin": "Li GONG"
         },
         {
-          "name": "Yan ZHANG",
+          "name": "张延",
           "rank": 5,
-          "status": "final_b"
+          "status": "final_b",
+          "name_latin": "Yan ZHANG"
         }
       ]
     },
@@ -194,7 +202,7 @@
       "kind": "groups",
       "heats": 1,
       "china": [
-        "Yan ZHANG"
+        "张延"
       ]
     },
     {
@@ -272,12 +280,13 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Ye WANG"
+        "王晔"
       ],
       "china_results": [
         {
-          "name": "Ye WANG",
-          "rank": 5
+          "name": "王晔",
+          "rank": 5,
+          "name_latin": "Ye WANG"
         }
       ],
       "podium": [
@@ -386,20 +395,22 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Chutong ZHANG",
-        "Ye WANG"
+        "张楚桐",
+        "王晔"
       ],
       "china_results": [
         {
-          "name": "Chutong ZHANG",
+          "name": "张楚桐",
           "rank": null,
           "penalty": "PEN",
-          "status": "out"
+          "status": "out",
+          "name_latin": "Chutong ZHANG"
         },
         {
-          "name": "Ye WANG",
+          "name": "王晔",
           "rank": 3,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Ye WANG"
         }
       ]
     },
@@ -417,7 +428,7 @@
       "kind": "groups",
       "heats": 1,
       "china": [
-        "Ye WANG"
+        "王晔"
       ]
     },
     {
@@ -448,31 +459,35 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Long SUN",
-        "Zixia ZHANG"
+        "张柏浩",
+        "宋柯睿",
+        "孙龙",
+        "张子夏"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 4,
-          "status": "repechage"
+          "status": "repechage",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Kerui SONG",
+          "name": "宋柯睿",
           "rank": 4,
-          "status": "out"
+          "status": "out",
+          "name_latin": "Kerui SONG"
         },
         {
-          "name": "Long SUN",
+          "name": "孙龙",
           "rank": 3,
-          "status": "out"
+          "status": "out",
+          "name_latin": "Long SUN"
         },
         {
-          "name": "Zixia ZHANG",
+          "name": "张子夏",
           "rank": 4,
-          "status": "out"
+          "status": "out",
+          "name_latin": "Zixia ZHANG"
         }
       ]
     },
@@ -489,31 +504,35 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Ye WANG"
+        "张楚桐",
+        "张珈宁",
+        "宋佳蕊",
+        "王晔"
       ],
       "china_results": [
         {
-          "name": "Chutong ZHANG",
+          "name": "张楚桐",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Chutong ZHANG"
         },
         {
-          "name": "Jianing ZHANG",
+          "name": "张珈宁",
           "rank": 4,
-          "status": "out"
+          "status": "out",
+          "name_latin": "Jianing ZHANG"
         },
         {
-          "name": "Jiarui SONG",
+          "name": "宋佳蕊",
           "rank": 3,
-          "status": "out"
+          "status": "out",
+          "name_latin": "Jiarui SONG"
         },
         {
-          "name": "Ye WANG",
+          "name": "王晔",
           "rank": 3,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Ye WANG"
         }
       ]
     },
@@ -531,8 +550,8 @@
       "kind": "groups",
       "heats": 2,
       "china": [
-        "Chutong ZHANG",
-        "Ye WANG"
+        "张楚桐",
+        "王晔"
       ]
     },
     {
@@ -559,18 +578,21 @@
       "podium": [
         {
           "rank": 1,
-          "name": "Netherlands",
-          "country": "NED"
+          "name": "荷兰队",
+          "country": "NED",
+          "name_latin": "Netherlands"
         },
         {
           "rank": 2,
-          "name": "Canada",
-          "country": "CAN"
+          "name": "加拿大队",
+          "country": "CAN",
+          "name_latin": "Canada"
         },
         {
           "rank": 3,
-          "name": "China",
-          "country": "CHN"
+          "name": "中国队",
+          "country": "CHN",
+          "name_latin": "China"
         }
       ]
     },
@@ -618,10 +640,10 @@
       "kind": "groups",
       "heats": 3,
       "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
+        "张楚桐",
+        "张珈宁",
+        "公俐",
+        "张延"
       ]
     },
     {
@@ -638,10 +660,10 @@
       "kind": "groups",
       "heats": 4,
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Long SUN",
-        "Zixia ZHANG"
+        "张柏浩",
+        "宋柯睿",
+        "孙龙",
+        "张子夏"
       ]
     },
     {
@@ -703,10 +725,10 @@
       "kind": "groups",
       "heats": 4,
       "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Ye WANG"
+        "张楚桐",
+        "张珈宁",
+        "宋佳蕊",
+        "王晔"
       ]
     },
     {
@@ -722,13 +744,14 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG"
+        "张柏浩"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
         }
       ]
     },
@@ -745,13 +768,14 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG"
+        "张柏浩"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
         }
       ]
     },
@@ -769,7 +793,7 @@
       "kind": "groups",
       "heats": 2,
       "china": [
-        "Bohao ZHANG"
+        "张柏浩"
       ]
     },
     {
@@ -831,7 +855,7 @@
       "kind": "groups",
       "heats": 6,
       "china": [
-        "Bohao ZHANG"
+        "张柏浩"
       ]
     },
     {
@@ -911,18 +935,21 @@
       "podium": [
         {
           "rank": 1,
-          "name": "Italy",
-          "country": "ITA"
+          "name": "意大利队",
+          "country": "ITA",
+          "name_latin": "Italy"
         },
         {
           "rank": 2,
-          "name": "Republic of Korea",
-          "country": "KOR"
+          "name": "韩国队",
+          "country": "KOR",
+          "name_latin": "Republic of Korea"
         },
         {
           "rank": 3,
-          "name": "Netherlands",
-          "country": "NED"
+          "name": "荷兰队",
+          "country": "NED",
+          "name_latin": "Netherlands"
         }
       ]
     },
@@ -995,22 +1022,25 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Long SUN",
-        "Yiding ZHU"
+        "张柏浩",
+        "孙龙",
+        "朱祎玎"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
-          "rank": 2
+          "name": "张柏浩",
+          "rank": 2,
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Long SUN",
-          "rank": 3
+          "name": "孙龙",
+          "rank": 3,
+          "name_latin": "Long SUN"
         },
         {
-          "name": "Yiding ZHU",
-          "rank": 6
+          "name": "朱祎玎",
+          "rank": 6,
+          "name_latin": "Yiding ZHU"
         }
       ]
     },
@@ -1083,9 +1113,9 @@
       "kind": "groups",
       "heats": 1,
       "china": [
-        "Bohao ZHANG",
-        "Long SUN",
-        "Yiding ZHU"
+        "张柏浩",
+        "孙龙",
+        "朱祎玎"
       ]
     },
     {
@@ -1101,25 +1131,28 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Long SUN",
-        "Yiding ZHU"
+        "张柏浩",
+        "孙龙",
+        "朱祎玎"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 4,
-          "status": "final_b"
+          "status": "final_b",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Long SUN",
+          "name": "孙龙",
           "rank": 3,
-          "status": "final_b"
+          "status": "final_b",
+          "name_latin": "Long SUN"
         },
         {
-          "name": "Yiding ZHU",
+          "name": "朱祎玎",
           "rank": 5,
-          "status": "final_b"
+          "status": "final_b",
+          "name_latin": "Yiding ZHU"
         }
       ]
     },
@@ -1183,22 +1216,25 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG"
+        "张珈宁",
+        "宋佳蕊",
+        "公俐"
       ],
       "china_results": [
         {
-          "name": "Jianing ZHANG",
-          "rank": 1
+          "name": "张珈宁",
+          "rank": 1,
+          "name_latin": "Jianing ZHANG"
         },
         {
-          "name": "Jiarui SONG",
-          "rank": 3
+          "name": "宋佳蕊",
+          "rank": 3,
+          "name_latin": "Jiarui SONG"
         },
         {
-          "name": "Li GONG",
-          "rank": 4
+          "name": "公俐",
+          "rank": 4,
+          "name_latin": "Li GONG"
         }
       ]
     },
@@ -1247,12 +1283,13 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Long SUN"
+        "孙龙"
       ],
       "china_results": [
         {
-          "name": "Long SUN",
-          "rank": 5
+          "name": "孙龙",
+          "rank": 5,
+          "name_latin": "Long SUN"
         }
       ]
     },
@@ -1270,9 +1307,9 @@
       "kind": "groups",
       "heats": 1,
       "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG"
+        "张珈宁",
+        "宋佳蕊",
+        "公俐"
       ]
     },
     {
@@ -1303,25 +1340,28 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG"
+        "张珈宁",
+        "宋佳蕊",
+        "公俐"
       ],
       "china_results": [
         {
-          "name": "Jianing ZHANG",
+          "name": "张珈宁",
           "rank": 3,
-          "status": "final_b"
+          "status": "final_b",
+          "name_latin": "Jianing ZHANG"
         },
         {
-          "name": "Jiarui SONG",
+          "name": "宋佳蕊",
           "rank": 4,
-          "status": "final_b"
+          "status": "final_b",
+          "name_latin": "Jiarui SONG"
         },
         {
-          "name": "Li GONG",
+          "name": "公俐",
           "rank": 5,
-          "status": "final_b"
+          "status": "final_b",
+          "name_latin": "Li GONG"
         }
       ]
     },
@@ -1339,7 +1379,7 @@
       "kind": "groups",
       "heats": 1,
       "china": [
-        "Long SUN"
+        "孙龙"
       ]
     },
     {
@@ -1370,13 +1410,14 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Long SUN"
+        "孙龙"
       ],
       "china_results": [
         {
-          "name": "Long SUN",
+          "name": "孙龙",
           "rank": 4,
-          "status": "final_b"
+          "status": "final_b",
+          "name_latin": "Long SUN"
         }
       ]
     },
@@ -1393,31 +1434,35 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
+        "张珈宁",
+        "宋佳蕊",
+        "公俐",
+        "张延"
       ],
       "china_results": [
         {
-          "name": "Jianing ZHANG",
+          "name": "张珈宁",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Jianing ZHANG"
         },
         {
-          "name": "Jiarui SONG",
+          "name": "宋佳蕊",
           "rank": 3,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Jiarui SONG"
         },
         {
-          "name": "Li GONG",
+          "name": "公俐",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Li GONG"
         },
         {
-          "name": "Yan ZHANG",
+          "name": "张延",
           "rank": 3,
-          "status": "out"
+          "status": "out",
+          "name_latin": "Yan ZHANG"
         }
       ]
     },
@@ -1435,9 +1480,9 @@
       "kind": "groups",
       "heats": 2,
       "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG"
+        "张珈宁",
+        "宋佳蕊",
+        "公俐"
       ]
     },
     {
@@ -1453,19 +1498,21 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Long SUN"
+        "张柏浩",
+        "孙龙"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 3,
-          "status": "repechage"
+          "status": "repechage",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Long SUN",
+          "name": "孙龙",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Long SUN"
         }
       ]
     },
@@ -1483,7 +1530,7 @@
       "kind": "groups",
       "heats": 2,
       "china": [
-        "Long SUN"
+        "孙龙"
       ]
     },
     {
@@ -1555,9 +1602,9 @@
       "kind": "groups",
       "heats": 3,
       "china": [
-        "Bohao ZHANG",
-        "Long SUN",
-        "Yiding ZHU"
+        "张柏浩",
+        "孙龙",
+        "朱祎玎"
       ]
     },
     {
@@ -1588,13 +1635,14 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Jianing ZHANG"
+        "张珈宁"
       ],
       "china_results": [
         {
-          "name": "Jianing ZHANG",
+          "name": "张珈宁",
           "rank": 1,
-          "status": "final_b"
+          "status": "final_b",
+          "name_latin": "Jianing ZHANG"
         }
       ]
     },
@@ -1612,10 +1660,10 @@
       "kind": "groups",
       "heats": 4,
       "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
+        "张珈宁",
+        "宋佳蕊",
+        "公俐",
+        "张延"
       ]
     },
     {
@@ -1631,13 +1679,14 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Kerui SONG"
+        "宋柯睿"
       ],
       "china_results": [
         {
-          "name": "Kerui SONG",
+          "name": "宋柯睿",
           "rank": 4,
-          "status": "out"
+          "status": "out",
+          "name_latin": "Kerui SONG"
         }
       ]
     },
@@ -1670,8 +1719,8 @@
       "kind": "groups",
       "heats": 4,
       "china": [
-        "Bohao ZHANG",
-        "Long SUN"
+        "张柏浩",
+        "孙龙"
       ]
     },
     {
@@ -1688,7 +1737,7 @@
       "kind": "groups",
       "heats": 2,
       "china": [
-        "Jianing ZHANG"
+        "张珈宁"
       ]
     },
     {
@@ -1704,19 +1753,21 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Zixia ZHANG"
+        "张柏浩",
+        "张子夏"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 4,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Zixia ZHANG",
+          "name": "张子夏",
           "rank": 3,
-          "status": "out"
+          "status": "out",
+          "name_latin": "Zixia ZHANG"
         }
       ]
     },
@@ -1733,13 +1784,14 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Jianing ZHANG"
+        "张珈宁"
       ],
       "china_results": [
         {
-          "name": "Jianing ZHANG",
+          "name": "张珈宁",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Jianing ZHANG"
         }
       ]
     },
@@ -1756,25 +1808,28 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Kun LI",
-        "Zixia ZHANG"
+        "张柏浩",
+        "李坤",
+        "张子夏"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Kun LI",
+          "name": "李坤",
           "rank": 4,
-          "status": "out"
+          "status": "out",
+          "name_latin": "Kun LI"
         },
         {
-          "name": "Zixia ZHANG",
+          "name": "张子夏",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
         }
       ]
     },
@@ -1792,8 +1847,8 @@
       "kind": "groups",
       "heats": 2,
       "china": [
-        "Bohao ZHANG",
-        "Zixia ZHANG"
+        "张柏浩",
+        "张子夏"
       ]
     },
     {
@@ -1810,7 +1865,7 @@
       "kind": "groups",
       "heats": 5,
       "china": [
-        "Kerui SONG"
+        "宋柯睿"
       ]
     },
     {
@@ -1857,9 +1912,9 @@
       "kind": "groups",
       "heats": 6,
       "china": [
-        "Bohao ZHANG",
-        "Kun LI",
-        "Zixia ZHANG"
+        "张柏浩",
+        "李坤",
+        "张子夏"
       ]
     },
     {
@@ -1972,31 +2027,35 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Long SUN",
-        "Yiding ZHU"
+        "张柏浩",
+        "宋柯睿",
+        "孙龙",
+        "朱祎玎"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Kerui SONG",
+          "name": "宋柯睿",
           "rank": 5,
-          "status": "repechage"
+          "status": "repechage",
+          "name_latin": "Kerui SONG"
         },
         {
-          "name": "Long SUN",
+          "name": "孙龙",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Long SUN"
         },
         {
-          "name": "Yiding ZHU",
+          "name": "朱祎玎",
           "rank": 3,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Yiding ZHU"
         }
       ]
     },
@@ -2028,31 +2087,35 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
+        "张楚桐",
+        "张珈宁",
+        "公俐",
+        "张延"
       ],
       "china_results": [
         {
-          "name": "Chutong ZHANG",
+          "name": "张楚桐",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Chutong ZHANG"
         },
         {
-          "name": "Jianing ZHANG",
+          "name": "张珈宁",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Jianing ZHANG"
         },
         {
-          "name": "Li GONG",
+          "name": "公俐",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Li GONG"
         },
         {
-          "name": "Yan ZHANG",
+          "name": "张延",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Yan ZHANG"
         }
       ]
     },
@@ -2070,10 +2133,10 @@
       "kind": "groups",
       "heats": 7,
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Long SUN",
-        "Yiding ZHU"
+        "张柏浩",
+        "宋柯睿",
+        "孙龙",
+        "朱祎玎"
       ]
     },
     {
@@ -2105,7 +2168,7 @@
       "kind": "groups",
       "heats": 6,
       "china": [
-        "Jianing ZHANG"
+        "张珈宁"
       ]
     },
     {
@@ -2121,31 +2184,35 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Long SUN",
-        "Zixia ZHANG"
+        "张柏浩",
+        "宋柯睿",
+        "孙龙",
+        "张子夏"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 3,
-          "status": "repechage"
+          "status": "repechage",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Kerui SONG",
+          "name": "宋柯睿",
           "rank": 3,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Kerui SONG"
         },
         {
-          "name": "Long SUN",
+          "name": "孙龙",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Long SUN"
         },
         {
-          "name": "Zixia ZHANG",
+          "name": "张子夏",
           "rank": 3,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
         }
       ]
     },
@@ -2163,10 +2230,10 @@
       "kind": "groups",
       "heats": 8,
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Long SUN",
-        "Zixia ZHANG"
+        "张柏浩",
+        "宋柯睿",
+        "孙龙",
+        "张子夏"
       ]
     },
     {
@@ -2182,31 +2249,35 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
+        "张珈宁",
+        "宋佳蕊",
+        "公俐",
+        "张延"
       ],
       "china_results": [
         {
-          "name": "Jianing ZHANG",
+          "name": "张珈宁",
           "rank": 4,
-          "status": "repechage"
+          "status": "repechage",
+          "name_latin": "Jianing ZHANG"
         },
         {
-          "name": "Jiarui SONG",
+          "name": "宋佳蕊",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Jiarui SONG"
         },
         {
-          "name": "Li GONG",
+          "name": "公俐",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Li GONG"
         },
         {
-          "name": "Yan ZHANG",
+          "name": "张延",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Yan ZHANG"
         }
       ]
     },
@@ -2223,31 +2294,35 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Kun LI",
-        "Long SUN",
-        "Zixia ZHANG"
+        "张柏浩",
+        "李坤",
+        "孙龙",
+        "张子夏"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 3,
-          "status": "repechage"
+          "status": "repechage",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Kun LI",
+          "name": "李坤",
           "rank": 3,
-          "status": "repechage"
+          "status": "repechage",
+          "name_latin": "Kun LI"
         },
         {
-          "name": "Long SUN",
+          "name": "孙龙",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Long SUN"
         },
         {
-          "name": "Zixia ZHANG",
+          "name": "张子夏",
           "rank": 3,
-          "status": "repechage"
+          "status": "repechage",
+          "name_latin": "Zixia ZHANG"
         }
       ]
     },
@@ -2279,31 +2354,35 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Ye WANG"
+        "张楚桐",
+        "张珈宁",
+        "宋佳蕊",
+        "王晔"
       ],
       "china_results": [
         {
-          "name": "Chutong ZHANG",
+          "name": "张楚桐",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Chutong ZHANG"
         },
         {
-          "name": "Jianing ZHANG",
+          "name": "张珈宁",
           "rank": 3,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Jianing ZHANG"
         },
         {
-          "name": "Jiarui SONG",
+          "name": "宋佳蕊",
           "rank": 3,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Jiarui SONG"
         },
         {
-          "name": "Ye WANG",
+          "name": "王晔",
           "rank": 2,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Ye WANG"
         }
       ]
     },
@@ -2321,10 +2400,10 @@
       "kind": "groups",
       "heats": 8,
       "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Ye WANG"
+        "张楚桐",
+        "张珈宁",
+        "宋佳蕊",
+        "王晔"
       ]
     },
     {
@@ -2340,19 +2419,21 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG"
+        "张柏浩",
+        "宋柯睿"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Kerui SONG",
+          "name": "宋柯睿",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Kerui SONG"
         }
       ]
     },
@@ -2384,25 +2465,28 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Zixia ZHANG"
+        "张柏浩",
+        "宋柯睿",
+        "张子夏"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Kerui SONG",
+          "name": "宋柯睿",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Kerui SONG"
         },
         {
-          "name": "Zixia ZHANG",
+          "name": "张子夏",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
         }
       ]
     },
@@ -2419,13 +2503,14 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Jianing ZHANG"
+        "张珈宁"
       ],
       "china_results": [
         {
-          "name": "Jianing ZHANG",
+          "name": "张珈宁",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Jianing ZHANG"
         }
       ]
     },
@@ -2443,10 +2528,10 @@
       "kind": "groups",
       "heats": 8,
       "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
+        "张珈宁",
+        "宋佳蕊",
+        "公俐",
+        "张延"
       ]
     },
     {
@@ -2478,10 +2563,10 @@
       "kind": "groups",
       "heats": 8,
       "china": [
-        "Bohao ZHANG",
-        "Kun LI",
-        "Long SUN",
-        "Zixia ZHANG"
+        "张柏浩",
+        "李坤",
+        "孙龙",
+        "张子夏"
       ]
     },
     {
@@ -2512,19 +2597,21 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Bohao ZHANG",
-        "Kun LI"
+        "张柏浩",
+        "李坤"
       ],
       "china_results": [
         {
-          "name": "Bohao ZHANG",
+          "name": "张柏浩",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
         },
         {
-          "name": "Kun LI",
+          "name": "李坤",
           "rank": 1,
-          "status": "advanced"
+          "status": "advanced",
+          "name_latin": "Kun LI"
         }
       ]
     },
@@ -2632,8 +2719,8 @@
       "kind": "groups",
       "heats": 11,
       "china": [
-        "Bohao ZHANG",
-        "Kun LI"
+        "张柏浩",
+        "李坤"
       ]
     },
     {
@@ -2682,9 +2769,9 @@
       "kind": "groups",
       "heats": 11,
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Zixia ZHANG"
+        "张柏浩",
+        "宋柯睿",
+        "张子夏"
       ]
     },
     {
@@ -2701,7 +2788,7 @@
       "kind": "groups",
       "heats": 6,
       "china": [
-        "Jianing ZHANG"
+        "张珈宁"
       ]
     },
     {
@@ -2735,8 +2822,8 @@
       "kind": "groups",
       "heats": 8,
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG"
+        "张柏浩",
+        "宋柯睿"
       ]
     },
     {
@@ -2753,10 +2840,10 @@
       "kind": "groups",
       "heats": 7,
       "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
+        "张楚桐",
+        "张珈宁",
+        "公俐",
+        "张延"
       ]
     },
     {
@@ -2798,8 +2885,8 @@
       "kind": "groups",
       "heats": 11,
       "china": [
-        "Bohao ZHANG",
-        "Kun LI"
+        "张柏浩",
+        "李坤"
       ]
     },
     {
@@ -2850,7 +2937,7 @@
       "kind": "groups",
       "heats": 6,
       "china": [
-        "Jianing ZHANG"
+        "张珈宁"
       ]
     },
     {
@@ -2867,10 +2954,10 @@
       "kind": "groups",
       "heats": 7,
       "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
+        "张楚桐",
+        "张珈宁",
+        "公俐",
+        "张延"
       ]
     },
     {
@@ -2904,9 +2991,9 @@
       "kind": "groups",
       "heats": 11,
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Zixia ZHANG"
+        "张柏浩",
+        "宋柯睿",
+        "张子夏"
       ]
     },
     {
@@ -2938,8 +3025,8 @@
       "kind": "groups",
       "heats": 8,
       "china": [
-        "Bohao ZHANG",
-        "Kerui SONG"
+        "张柏浩",
+        "宋柯睿"
       ]
     },
     {
@@ -2955,12 +3042,13 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Jianing ZHANG"
+        "张珈宁"
       ],
       "china_results": [
         {
-          "name": "Jianing ZHANG",
-          "rank": 5
+          "name": "张珈宁",
+          "rank": 5,
+          "name_latin": "Jianing ZHANG"
         }
       ],
       "podium": [
@@ -3069,18 +3157,21 @@
       "podium": [
         {
           "rank": 1,
-          "name": "Republic of Korea",
-          "country": "KOR"
+          "name": "韩国队",
+          "country": "KOR",
+          "name_latin": "Republic of Korea"
         },
         {
           "rank": 2,
-          "name": "Canada",
-          "country": "CAN"
+          "name": "加拿大队",
+          "country": "CAN",
+          "name_latin": "Canada"
         },
         {
           "rank": 3,
-          "name": "China",
-          "country": "CHN"
+          "name": "中国队",
+          "country": "CHN",
+          "name_latin": "China"
         }
       ]
     },
@@ -3097,12 +3188,13 @@
       "format": "individual",
       "kind": "results",
       "china": [
-        "Yiding ZHU"
+        "朱祎玎"
       ],
       "china_results": [
         {
-          "name": "Yiding ZHU",
-          "rank": 7
+          "name": "朱祎玎",
+          "rank": 7,
+          "name_latin": "Yiding ZHU"
         }
       ],
       "podium": [
@@ -3184,7 +3276,7 @@
       "kind": "groups",
       "heats": 1,
       "china": [
-        "Yiding ZHU"
+        "朱祎玎"
       ]
     },
     {

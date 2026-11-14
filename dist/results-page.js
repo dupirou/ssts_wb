@@ -475,7 +475,8 @@
         ['circuit', '世界杯 / 世巡赛'],
         ['fourcontinents', '四大洲']
       ],
-      normalizeKind(params.get('kind'))
+      // Without a choice in the URL, start from the kind of event raced most recently.
+      normalizeKind(params.get('kind') || index.events[0]?.kind)
     );
     const metric = select(
       h,
@@ -1644,31 +1645,39 @@
         h(
           'ul',
           { class: 'results-index-list results-recent-list' },
-          index.events
-            .slice(0, 3)
-            .map((e) =>
+          index.events.slice(0, 3).map((e) =>
+            h(
+              'li',
+              {},
               h(
-                'li',
-                {},
+                'a',
+                { href: eventLink(e) },
                 h(
-                  'a',
-                  { href: eventLink(e) },
-                  h(
-                    'time',
-                    { datetime: e.date_end },
-                    h('b', { class: 'num', text: e.date_end.slice(5).replace('-', '.') }),
-                    h('small', { text: e.date_end.slice(0, 4) })
-                  ),
-                  h(
-                    'span',
-                    { class: 'recent-event-title' },
-                    h('b', { text: e.title }),
-                    h('small', { class: 'faint', text: e.season })
-                  ),
-                  h('span', { 'aria-hidden': 'true', text: '↗' })
-                )
+                  'time',
+                  { datetime: e.date_end },
+                  h('b', { class: 'num', text: e.date_end.slice(5).replace('-', '.') }),
+                  h('small', { text: e.date_end.slice(0, 4) })
+                ),
+                h(
+                  'span',
+                  { class: 'recent-event-title' },
+                  h('b', { text: e.title }),
+                  h('small', {
+                    class: 'faint',
+                    text: [
+                      e.season,
+                      e.china_summary &&
+                        (site.ui.chinaRecap(e.china_summary).medals ||
+                          'A 组决赛 ' + e.china_summary.a_finals)
+                    ]
+                      .filter(Boolean)
+                      .join(' · ')
+                  })
+                ),
+                h('span', { 'aria-hidden': 'true', text: '↗' })
               )
             )
+          )
         )
       ),
       h(

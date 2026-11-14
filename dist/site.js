@@ -74,7 +74,43 @@
       clearTimeout(timeout);
     }
   }
-  site.ui = { h, s, append, fill, select, writeFilters, tableScroll, findFocus, requestJSON };
+  // One event's Chinese-team recap, from the compact summary the build attaches to lists.
+  const MEDALS = ['金', '银', '铜'];
+  const GENDERS = { women: '女子', men: '男子', mixed: '混合' };
+  function chinaRecap(summary) {
+    const medals = summary.medals
+      .map((count, i) => (count ? count + ' ' + MEDALS[i] : null))
+      .filter(Boolean)
+      .join(' ');
+    return {
+      medals,
+      podium: summary.podium.map(({ project, rank }) => {
+        const [gender, distance] = project.split('-');
+        return (
+          MEDALS[rank - 1] +
+          '牌 ' +
+          GENDERS[gender] +
+          ' ' +
+          distance +
+          ' 米' +
+          (distance >= 2000 ? '接力' : '')
+        );
+      }),
+      finals: 'A 组决赛 ' + summary.a_finals + ' · 前 8 名 ' + summary.top8
+    };
+  }
+  site.ui = {
+    h,
+    s,
+    append,
+    fill,
+    select,
+    writeFilters,
+    tableScroll,
+    findFocus,
+    requestJSON,
+    chinaRecap
+  };
 })();
 ;
 /* Shared page addresses and global navigation. Event query links remain valid. */
@@ -180,6 +216,9 @@
       }))
     ];
     const focus = site.ui.findFocus(events, phase);
+    // Between stations the home page would otherwise forget the one that just finished.
+    const last = stations.filter((st) => st.china_summary && phase(st.win) === 'done').at(-1);
+    const recap = last && site.ui.chinaRecap(last.china_summary);
     root.replaceChildren(
       header(h, '短道速滑', calendar.season),
       focus
@@ -190,6 +229,34 @@
             h('h2', { text: '本赛季比赛已结束' }),
             h('a', { class: 'btn', href: '/events/' }, '查看赛事')
           ),
+      recap
+        ? h(
+            'section',
+            { class: 'panel ticket-panel last-station', 'aria-label': last.city + '站中国队成绩' },
+            h(
+              'div',
+              { class: 'ticket-copy' },
+              h('p', { class: 'eyebrow', text: '上一站 · ' + last.city + '站 · 中国队' }),
+              h('h2', { text: recap.medals || '未获奖牌' }),
+              recap.podium.length
+                ? h('p', { class: 'ticket-time', text: recap.podium.join(' · ') })
+                : null,
+              h('p', { class: 'ticket-time', text: recap.finals })
+            ),
+            h(
+              'div',
+              { class: 'ticket-actions' },
+              h(
+                'a',
+                {
+                  class: 'btn btn-ghost',
+                  href: '/results/events/' + encodeURIComponent(last.results_event_id) + '/'
+                },
+                '查看成绩'
+              )
+            )
+          )
+        : null,
       ...stations.map(ticketPanel).filter(Boolean)
     );
   }
@@ -253,7 +320,8 @@
                 query
                   .split(/\s+/)
                   .every((token) =>
-                    (p.name + ' ' + p.country + ' ' + (p.aliases || []).join(' '))
+                    [p.name, p.name_latin, p.country, ...(p.aliases || [])]
+                      .join(' ')
                       .toLocaleLowerCase()
                       .includes(token)
                   ))
@@ -261,8 +329,12 @@
           .sort((a, b) => {
             const first = numberOf(a);
             const second = numberOf(b);
+            // The Chinese team leads the directory; everyone else follows by helmet number.
+            const home = Number(b.country === 'CHN') - Number(a.country === 'CHN');
+            if (home) return home;
             return first === second
-              ? a.name.localeCompare(b.name) || a.id.localeCompare(b.id)
+              ? (a.name_latin || a.name).localeCompare(b.name_latin || b.name) ||
+                  a.id.localeCompare(b.id)
               : first - second;
           });
         count.textContent = '显示 ' + people.length + ' 人 · 共 ' + index.items.length + ' 人';
@@ -409,7 +481,7 @@
                     (a, b) =>
                       Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
                       b.total - a.total ||
-                      a.name.localeCompare(b.name)
+                      (a.name_latin || a.name).localeCompare(b.name_latin || b.name)
                   )
                   .map((person) =>
                     h(
@@ -1054,6 +1126,7 @@
 
   /* ---------- athlete entries and official competition details ---------- */
   const officialHeats = new Map();
+  let scheduleEntries = [];
   function competitionPanel(station) {
     const athletes = h('div', { class: 'athlete-data' });
     const predictions = h('div', { class: 'athlete-data' });
@@ -1487,7 +1560,7 @@
           (a, b) =>
             Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
             a.country.localeCompare(b.country) ||
-            a.name.localeCompare(b.name) ||
+            (a.name_latin || a.name).localeCompare(b.name_latin || b.name) ||
             String(a.athlete_id || '').localeCompare(String(b.athlete_id || ''))
         );
       count.textContent = '显示 ' + selected.length + ' 人';
@@ -1878,6 +1951,13 @@
 
   // Shared hero metadata across World Tour stations and championships.
   function eventMeta(event, win, includeCity = false, provisional = false) {
+    const over = now() > win.end;
+    // Clocks can change during an event (Montreal, 1 November): describe the offset in force now.
+    const at = Math.min(Math.max(now(), win.start), win.end);
+    // "To be announced" only makes sense before the event; afterwards an unknown venue is left out.
+    const place = [includeCity ? event.city : null, event.venue || (over ? null : '场馆待公布')]
+      .filter(Boolean)
+      .join(' · ');
     return h(
       'ul',
       { class: 'meta-list meta-inline' },
@@ -1893,19 +1973,9 @@
           ' ' +
           wk(event.date_end)
       ),
-      h(
-        'li',
-        {},
-        icon('pin'),
-        (includeCity ? event.city + ' · ' : '') + (event.venue || '场馆待公布')
-      ),
-      h(
-        'li',
-        {},
-        icon('globe'),
-        utcLabel(event.timezone, win.start) + ' · ' + bjDiff(event.timezone, win.start)
-      ),
-      provisional ? h('li', { class: 'meta-note' }, icon('alert'), 'ISU 暂定赛程') : null
+      place ? h('li', {}, icon('pin'), place) : null,
+      h('li', {}, icon('globe'), utcLabel(event.timezone, at) + ' · ' + bjDiff(event.timezone, at)),
+      provisional && !over ? h('li', { class: 'meta-note' }, icon('alert'), 'ISU 暂定赛程') : null
     );
   }
   function eventResultsLink(event) {
@@ -1963,6 +2033,8 @@
     const cd = countdown('cd-xl');
     const label = h('p', { class: 'next-label' });
     const item = h('p', { class: 'next-item' });
+    // During a session the countdown points at the next round; say what is on the ice now.
+    const current = h('p', { class: 'next-now', hidden: true });
     const main = h(
       'div',
       { class: 'next-main' },
@@ -2003,10 +2075,14 @@
           'li',
           {},
           icon('globe'),
-          '当地' + bjDiff(st.timezone, st.win.start).replace('与北京时间相同', '与北京同时区')
+          '当地' +
+            bjDiff(st.timezone, Math.min(Math.max(now(), st.win.start), st.win.end)).replace(
+              '与北京时间相同',
+              '与北京同时区'
+            )
         )
       ),
-      h('div', { class: 'next-count' }, label, cd, item)
+      h('div', { class: 'next-count' }, current, label, cd, item)
     );
     if (st.detail) {
       main.append(
@@ -2040,6 +2116,7 @@
         )
       );
     }
+    if (st.detail) main.append(chinaLine(st.detail.entries));
     main.append(
       h(
         'a',
@@ -2061,6 +2138,10 @@
           label.textContent = '全部轮次已按计划开赛';
           item.textContent = '';
         }
+        // The round that started last, while its session is still running (rounds follow within the hour).
+        const on = i > 0 && now() - e[i - 1].t < 60 * 60000 ? e[i - 1] : null;
+        current.hidden = !on;
+        if (on) current.textContent = '正在进行 · ' + eventName(on) + ' ' + roundName(on);
       } else {
         label.textContent = st.dataError ? '赛程暂时无法读取' : '详细赛程待公布';
         item.textContent = '比赛日期：' + dot(st.date_start) + ' — ' + dot(st.date_end);
@@ -2594,6 +2675,7 @@
 
   function scheduleView(data, station, host, competitionStatus) {
     const entries = data.entries;
+    scheduleEntries = entries;
     const days = raceDays(entries);
     const blank = { day: 'all', gender: 'all', stage: 'all', china: false };
     const state = { ...blank, zone: storedZone() };
@@ -3139,10 +3221,25 @@
     return tr;
   }
 
-  function updateHeatButton(note, r) {
+  // ISU's programme lists every possible round; with few entries an early one is not raced.
+  // Once a later round of the same event has official heats, a round without any was skipped.
+  const roundSkipped = (r, entries) =>
+    !officialHeats.has(r.round_key) &&
+    entries.some(
+      (x) =>
+        x.t > r.t &&
+        x.gender === r.gender &&
+        x.distance_m === r.distance_m &&
+        x.format === r.format &&
+        officialHeats.has(x.round_key)
+    );
+  function updateHeatButton(note, r, entries = scheduleEntries) {
     note.querySelector('.competition-open')?.remove();
+    note.querySelector('.round-skipped')?.remove();
     const heats = officialHeats.get(r.round_key) || [];
-    note.classList.toggle('is-empty', !isChina(r) && !heats.length);
+    const skipped = roundSkipped(r, entries);
+    note.classList.toggle('is-empty', !isChina(r) && !heats.length && !skipped);
+    if (skipped) note.append(h('span', { class: 'round-skipped', text: '未举行' }));
     if (heats.length)
       note.append(
         h(

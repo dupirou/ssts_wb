@@ -28,6 +28,9 @@
       }))
     ];
     const focus = site.ui.findFocus(events, phase);
+    // Between stations the home page would otherwise forget the one that just finished.
+    const last = stations.filter((st) => st.china_summary && phase(st.win) === 'done').at(-1);
+    const recap = last && site.ui.chinaRecap(last.china_summary);
     root.replaceChildren(
       header(h, '短道速滑', calendar.season),
       focus
@@ -38,6 +41,34 @@
             h('h2', { text: '本赛季比赛已结束' }),
             h('a', { class: 'btn', href: '/events/' }, '查看赛事')
           ),
+      recap
+        ? h(
+            'section',
+            { class: 'panel ticket-panel last-station', 'aria-label': last.city + '站中国队成绩' },
+            h(
+              'div',
+              { class: 'ticket-copy' },
+              h('p', { class: 'eyebrow', text: '上一站 · ' + last.city + '站 · 中国队' }),
+              h('h2', { text: recap.medals || '未获奖牌' }),
+              recap.podium.length
+                ? h('p', { class: 'ticket-time', text: recap.podium.join(' · ') })
+                : null,
+              h('p', { class: 'ticket-time', text: recap.finals })
+            ),
+            h(
+              'div',
+              { class: 'ticket-actions' },
+              h(
+                'a',
+                {
+                  class: 'btn btn-ghost',
+                  href: '/results/events/' + encodeURIComponent(last.results_event_id) + '/'
+                },
+                '查看成绩'
+              )
+            )
+          )
+        : null,
       ...stations.map(ticketPanel).filter(Boolean)
     );
   }
@@ -101,7 +132,8 @@
                 query
                   .split(/\s+/)
                   .every((token) =>
-                    (p.name + ' ' + p.country + ' ' + (p.aliases || []).join(' '))
+                    [p.name, p.name_latin, p.country, ...(p.aliases || [])]
+                      .join(' ')
                       .toLocaleLowerCase()
                       .includes(token)
                   ))
@@ -109,8 +141,12 @@
           .sort((a, b) => {
             const first = numberOf(a);
             const second = numberOf(b);
+            // The Chinese team leads the directory; everyone else follows by helmet number.
+            const home = Number(b.country === 'CHN') - Number(a.country === 'CHN');
+            if (home) return home;
             return first === second
-              ? a.name.localeCompare(b.name) || a.id.localeCompare(b.id)
+              ? (a.name_latin || a.name).localeCompare(b.name_latin || b.name) ||
+                  a.id.localeCompare(b.id)
               : first - second;
           });
         count.textContent = '显示 ' + people.length + ' 人 · 共 ' + index.items.length + ' 人';
@@ -257,7 +293,7 @@
                     (a, b) =>
                       Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
                       b.total - a.total ||
-                      a.name.localeCompare(b.name)
+                      (a.name_latin || a.name).localeCompare(b.name_latin || b.name)
                   )
                   .map((person) =>
                     h(

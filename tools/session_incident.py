@@ -1,7 +1,9 @@
-"""Create one GitHub incident only after three consecutive session-sync crashes.
+"""Create one GitHub incident only after three consecutive failed sync runs.
 
-The previous attempts are read from Actions step outcomes; no state is committed
-to main and no daily build is triggered merely to count failures.
+Every kind of run counts (race-session, hourly, the twice-daily schedule and source pushes), and
+so does any failed step: a crashed fetcher, a failing test or a rejected publish all stop the
+site from updating. The previous attempts are read from the Actions run list; no state is
+committed to main.
 """
 
 import json
@@ -10,22 +12,18 @@ import sys
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-TITLE = 'ISU session sync: consecutive unexpected errors'
-GATE = 'Fail job when any synchronization crashed'
-SESSION_RUN = 'ISU sync (session)'
+TITLE = 'ISU sync: consecutive failed runs'
 
 
-def previous_crashes(runs, get_jobs, current_run, count=2):
-    """Read preceding session runs in newest-first order; any healthy session resets the streak."""
+def previous_failures(runs, current_run, count=2):
+    """Read preceding runs in newest-first order; any successful run resets the streak."""
     outcomes = []
     for run in runs:
-        if run['id'] == current_run or run.get('display_title') != SESSION_RUN:
+        if run['id'] == current_run:
             continue
         if run.get('status') != 'completed':
-            return False  # Never skip an incomplete earlier session.
-        jobs = get_jobs(run['id'])
-        steps = [step for job in jobs for step in job.get('steps', []) if step['name'] == GATE]
-        outcomes.append(any(step.get('conclusion') == 'failure' for step in steps))
+            return False  # Never skip an incomplete earlier run.
+        outcomes.append(run.get('conclusion') == 'failure')
         if len(outcomes) == count:
             return all(outcomes)
     return False
@@ -61,15 +59,12 @@ def track(repo, run_id, failed, token, get=api):
             get('PATCH', prefix + f'/issues/{incident["number"]}', token, {'state': 'closed'})
             print('Closed recovered sync incident', incident['number'])
         return 'healthy'
-    runs = get('GET', prefix + '/actions/workflows/sync.yml/runs?event=workflow_dispatch&per_page=100', token)[
-        'workflow_runs'
-    ]
-    get_jobs = lambda rid: get('GET', prefix + f'/actions/runs/{rid}/jobs?per_page=100', token)['jobs']
-    if not previous_crashes(runs, get_jobs, run_id):
-        print('Session sync error; fewer than three consecutive unexpected failures')
+    runs = get('GET', prefix + '/actions/workflows/sync.yml/runs?per_page=100', token)['workflow_runs']
+    if not previous_failures(runs, run_id):
+        print('Sync run failed; fewer than three consecutive failures')
         return 'below_threshold'
     link = f'https://github.com/{repo}/actions/runs/{run_id}'
-    body = 'Three or more consecutive race-session sync runs had unexpected failures.\n\n'
+    body = 'Three or more consecutive sync runs failed, so the site is not being updated.\n\n'
     body += f'Latest affected run: {link}\n\nValidation refusals are not counted.'
     if incident:
         if incident.get('body') == body and incident['state'] == 'open':
@@ -90,7 +85,7 @@ def main():
     try:
         track(repo, run_id, failed, token)
     except (OSError, ValueError, KeyError, RuntimeError) as error:
-        print(f'::error::Unable to assess session sync incident: {error}', file=sys.stderr)
+        print(f'::error::Unable to assess sync incident: {error}', file=sys.stderr)
         return 1
     return 0
 

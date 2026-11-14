@@ -83,7 +83,9 @@ def display_snapshot(event_id):
     snapshot = load_snapshot(event_id)
     names = display_names(snapshot, distance_entrants(event_id))
     people = [p for h in snapshot['rounds']['items'] for p in h['participants']]
-    for person in snapshot['entries']['items'] + people + [m for p in people for m in p.get('members', [])]:
+    # Classification rows repeat the athlete under yet another spelling ('KERUI SONG'); rename them too.
+    ranked = [r for r in snapshot['rankings']['items'] if r.get('athlete_id')]
+    for person in snapshot['entries']['items'] + people + [m for p in people for m in p.get('members', [])] + ranked:
         person['name'] = names.get(person['athlete_id'], person['name'])
     return snapshot
 

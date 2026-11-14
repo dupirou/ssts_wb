@@ -3,6 +3,7 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 from unittest.mock import patch
 
@@ -441,6 +442,20 @@ Quarterfinals        11  CHN - People's Republic of China      3  2:51.826
         self.assertIsNone(data.surname_last('KUHNT TORZEWSKI PAULA'))
         self.assertTrue(data.given_first('Ching Shun Nicole LAW'))
         self.assertFalse(data.given_first('SONG KERUI'))
+
+    def test_published_classifications_use_the_same_display_name(self):
+        person = lambda name: dict(athlete_id=data.athlete_id(name, 'CHN', 'men'), name=name)
+        obj = data.empty_snapshot('montreal')
+        obj['entries']['items'] = [person('SONG KERUI')]
+        obj['rounds']['items'] = [dict(participants=[person('Kerui SONG')])]
+        # ISU's classification writes the same skater given-name first in capitals.
+        obj['rankings']['items'] = [person('KERUI SONG'), dict(name='China', country='CHN')]
+        with (
+            mock.patch.object(data, 'load_snapshot', return_value=obj),
+            mock.patch.object(data, 'distance_entrants', return_value=[]),
+        ):
+            shown = data.display_snapshot('montreal')
+        self.assertEqual([r['name'] for r in shown['rankings']['items']], ['Kerui SONG', 'China'])
 
 
 if __name__ == '__main__':
