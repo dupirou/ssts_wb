@@ -17,6 +17,7 @@ import predict_groups
 import qualification
 import site_catalog
 import history_data
+import localize
 import updates
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -462,6 +463,8 @@ def _compile(now, out, prior, source_log):
     predict_groups.export(out, venues, schedules)
     site_catalog.export(out, season)
     history_data.export(out, calendar=season)
+    # Statistics and identity matching above ran on ISU's spelling; from here on the files are for readers.
+    localize.apply(sorted((out / 'data').rglob('*.json')))
     try:
         subprocess.run(
             ['node', str(ROOT / 'tools/build_results.mjs'), str(out), config['season']],
@@ -518,6 +521,7 @@ def _compile(now, out, prior, source_log):
         {k: v.get('last_successful_schedule_check_utc') for k, v in meta.items()},
         path=source_log,
     )
+    localize.apply([out / 'data/updates.json'])
     for station_id, rows in schedules.items():
         print(
             'Validated and built',

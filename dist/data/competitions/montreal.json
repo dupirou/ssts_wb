@@ -375,30 +375,32 @@
       {
         "id": "ath-872b8b25f1eda8723e33",
         "athlete_id": "ath-872b8b25f1eda8723e33",
-        "name": "Kun LI",
+        "name": "李坤",
         "country": "CHN",
         "gender": "men",
         "participation": "active",
         "distances": [
           500
-        ]
+        ],
+        "name_latin": "Kun LI"
       },
       {
         "id": "ath-adac927b0b3d0c45aeb4",
         "athlete_id": "ath-adac927b0b3d0c45aeb4",
-        "name": "Kerui SONG",
+        "name": "宋柯睿",
         "country": "CHN",
         "gender": "men",
         "participation": "active",
         "distances": [
           1000,
           1500
-        ]
+        ],
+        "name_latin": "Kerui SONG"
       },
       {
         "id": "ath-78a6ed2c7eac904f5ca0",
         "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-        "name": "Long SUN",
+        "name": "孙龙",
         "country": "CHN",
         "gender": "men",
         "participation": "active",
@@ -406,12 +408,13 @@
           500,
           1000,
           1500
-        ]
+        ],
+        "name_latin": "Long SUN"
       },
       {
         "id": "ath-49a455de09fadeaad9c9",
         "athlete_id": "ath-49a455de09fadeaad9c9",
-        "name": "Bohao ZHANG",
+        "name": "张柏浩",
         "country": "CHN",
         "gender": "men",
         "participation": "active",
@@ -419,82 +422,89 @@
           500,
           1000,
           1500
-        ]
+        ],
+        "name_latin": "Bohao ZHANG"
       },
       {
         "id": "ath-799c7f543fce635aeeb8",
         "athlete_id": "ath-799c7f543fce635aeeb8",
-        "name": "Zixia ZHANG",
+        "name": "张子夏",
         "country": "CHN",
         "gender": "men",
         "participation": "active",
         "distances": [
           500,
           1000
-        ]
+        ],
+        "name_latin": "Zixia ZHANG"
       },
       {
         "id": "ath-33784c1a829757d78105",
         "athlete_id": "ath-33784c1a829757d78105",
-        "name": "Yiding ZHU",
+        "name": "朱祎玎",
         "country": "CHN",
         "gender": "men",
         "participation": "active",
         "distances": [
           1500
-        ]
+        ],
+        "name_latin": "Yiding ZHU"
       },
       {
         "id": "ath-7526110b176497878d3f",
         "athlete_id": "ath-7526110b176497878d3f",
-        "name": "Li GONG",
+        "name": "公俐",
         "country": "CHN",
         "gender": "women",
         "participation": "active",
         "distances": [
           1000,
           1500
-        ]
+        ],
+        "name_latin": "Li GONG"
       },
       {
         "id": "ath-387545148a759a14a937",
         "athlete_id": "ath-387545148a759a14a937",
-        "name": "Jiarui SONG",
+        "name": "宋佳蕊",
         "country": "CHN",
         "gender": "women",
         "participation": "active",
         "distances": [
           500,
           1000
-        ]
+        ],
+        "name_latin": "Jiarui SONG"
       },
       {
         "id": "ath-cc55f03a16f76d5efb7e",
         "athlete_id": "ath-cc55f03a16f76d5efb7e",
-        "name": "Ye WANG",
+        "name": "王晔",
         "country": "CHN",
         "gender": "women",
         "participation": "active",
         "distances": [
           500
-        ]
+        ],
+        "name_latin": "Ye WANG"
       },
       {
         "id": "ath-08caea4ad943373c94ab",
         "athlete_id": "ath-08caea4ad943373c94ab",
-        "name": "Chutong ZHANG",
+        "name": "张楚桐",
         "country": "CHN",
         "gender": "women",
         "participation": "active",
         "distances": [
           500,
           1500
-        ]
+        ],
+        "name_latin": "Chutong ZHANG"
       },
       {
         "id": "ath-f5df095326a0281962ea",
         "athlete_id": "ath-f5df095326a0281962ea",
-        "name": "Jianing ZHANG",
+        "name": "张珈宁",
         "country": "CHN",
         "gender": "women",
         "participation": "active",
@@ -502,19 +512,21 @@
           500,
           1000,
           1500
-        ]
+        ],
+        "name_latin": "Jianing ZHANG"
       },
       {
         "id": "ath-c9d7d5a38485bd9c344f",
         "athlete_id": "ath-c9d7d5a38485bd9c344f",
-        "name": "Yan ZHANG",
+        "name": "张延",
         "country": "CHN",
         "gender": "women",
         "participation": "active",
         "distances": [
           1000,
           1500
-        ]
+        ],
+        "name_latin": "Yan ZHANG"
       },
       {
         "id": "ath-f48b158cdb376de3796f",
@@ -2878,7 +2890,7 @@
           },
           {
             "athlete_id": "ath-387545148a759a14a937",
-            "name": "Jiarui SONG",
+            "name": "宋佳蕊",
             "country": "CHN",
             "official_skater_id": 6617,
             "helmet_number": 54,
@@ -2886,7 +2898,8 @@
             "rank": 3,
             "result": "42.953",
             "qualification": "q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jiarui SONG"
           },
           {
             "athlete_id": "ath-cdc04f60f74742612112",
@@ -3026,7 +3039,7 @@
           },
           {
             "athlete_id": "ath-cc55f03a16f76d5efb7e",
-            "name": "Ye WANG",
+            "name": "王晔",
             "country": "CHN",
             "official_skater_id": 7613,
             "helmet_number": 40,
@@ -3034,7 +3047,8 @@
             "rank": 2,
             "result": "42.860",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Ye WANG"
           },
           {
             "athlete_id": "ath-950324020eca0420a24c",
@@ -3118,7 +3132,7 @@
           },
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -3126,7 +3140,8 @@
             "rank": 3,
             "result": "43.576",
             "qualification": "ADV",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jianing ZHANG"
           },
           {
             "athlete_id": "ath-3612b246d8bc6f06f928",
@@ -3260,7 +3275,7 @@
         "participants": [
           {
             "athlete_id": "ath-08caea4ad943373c94ab",
-            "name": "Chutong ZHANG",
+            "name": "张楚桐",
             "country": "CHN",
             "official_skater_id": 8080,
             "helmet_number": 11,
@@ -3268,7 +3283,8 @@
             "rank": 1,
             "result": "43.370",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Chutong ZHANG"
           },
           {
             "athlete_id": "ath-7a90548f25275fc9709d",
@@ -3904,7 +3920,7 @@
           },
           {
             "athlete_id": "ath-387545148a759a14a937",
-            "name": "Jiarui SONG",
+            "name": "宋佳蕊",
             "country": "CHN",
             "official_skater_id": 6617,
             "helmet_number": 54,
@@ -3912,11 +3928,12 @@
             "rank": 3,
             "result": "43.536",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jiarui SONG"
           },
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -3924,7 +3941,8 @@
             "rank": 4,
             "result": "43.985",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jianing ZHANG"
           },
           {
             "athlete_id": "ath-d07ff35989421c041f6e",
@@ -3972,7 +3990,7 @@
           },
           {
             "athlete_id": "ath-08caea4ad943373c94ab",
-            "name": "Chutong ZHANG",
+            "name": "张楚桐",
             "country": "CHN",
             "official_skater_id": 8080,
             "helmet_number": 11,
@@ -3980,11 +3998,12 @@
             "rank": 2,
             "result": "42.692",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Chutong ZHANG"
           },
           {
             "athlete_id": "ath-cc55f03a16f76d5efb7e",
-            "name": "Ye WANG",
+            "name": "王晔",
             "country": "CHN",
             "official_skater_id": 7613,
             "helmet_number": 40,
@@ -3992,7 +4011,8 @@
             "rank": 3,
             "result": "42.736",
             "qualification": "q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Ye WANG"
           },
           {
             "athlete_id": "ath-513b3ec2cc3a073a75d3",
@@ -4212,7 +4232,7 @@
           },
           {
             "athlete_id": "ath-cc55f03a16f76d5efb7e",
-            "name": "Ye WANG",
+            "name": "王晔",
             "country": "CHN",
             "official_skater_id": 7613,
             "helmet_number": 40,
@@ -4220,7 +4240,8 @@
             "rank": 3,
             "result": "42.987",
             "qualification": "q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Ye WANG"
           },
           {
             "athlete_id": "ath-f7571561174376f54f0b",
@@ -4236,7 +4257,7 @@
           },
           {
             "athlete_id": "ath-08caea4ad943373c94ab",
-            "name": "Chutong ZHANG",
+            "name": "张楚桐",
             "country": "CHN",
             "official_skater_id": 8080,
             "helmet_number": 11,
@@ -4247,7 +4268,8 @@
             "penalty": {
               "code": "PEN",
               "infringement_code": "S1"
-            }
+            },
+            "name_latin": "Chutong ZHANG"
           }
         ]
       },
@@ -4399,7 +4421,7 @@
           },
           {
             "athlete_id": "ath-cc55f03a16f76d5efb7e",
-            "name": "Ye WANG",
+            "name": "王晔",
             "country": "CHN",
             "official_skater_id": 7613,
             "helmet_number": 40,
@@ -4407,7 +4429,8 @@
             "rank": 5,
             "result": "42.671",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Ye WANG"
           }
         ]
       },
@@ -4739,7 +4762,7 @@
         "participants": [
           {
             "athlete_id": "ath-872b8b25f1eda8723e33",
-            "name": "Kun LI",
+            "name": "李坤",
             "country": "CHN",
             "official_skater_id": 4167,
             "helmet_number": 67,
@@ -4747,7 +4770,8 @@
             "rank": 1,
             "result": "41.930",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Kun LI"
           },
           {
             "athlete_id": "ath-fb6dcea2bdcd0fe4c3be",
@@ -5281,7 +5305,7 @@
         "participants": [
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -5289,7 +5313,8 @@
             "rank": 1,
             "result": "41.722",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-27143c296ec97522a767",
@@ -5853,7 +5878,7 @@
           },
           {
             "athlete_id": "ath-872b8b25f1eda8723e33",
-            "name": "Kun LI",
+            "name": "李坤",
             "country": "CHN",
             "official_skater_id": 4167,
             "helmet_number": 67,
@@ -5861,7 +5886,8 @@
             "rank": 3,
             "result": "41.135",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Kun LI"
           },
           {
             "athlete_id": "ath-a4c9e0fa92c31f6f11ce",
@@ -5933,7 +5959,7 @@
           },
           {
             "athlete_id": "ath-799c7f543fce635aeeb8",
-            "name": "Zixia ZHANG",
+            "name": "张子夏",
             "country": "CHN",
             "official_skater_id": 20586,
             "helmet_number": 69,
@@ -5941,7 +5967,8 @@
             "rank": 3,
             "result": "40.735",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Zixia ZHANG"
           },
           {
             "athlete_id": "ath-dca7784fc8fdf2fbec50",
@@ -5989,7 +6016,7 @@
         "participants": [
           {
             "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-            "name": "Long SUN",
+            "name": "孙龙",
             "country": "CHN",
             "official_skater_id": 6784,
             "helmet_number": 4,
@@ -5997,7 +6024,8 @@
             "rank": 1,
             "result": "40.852",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Long SUN"
           },
           {
             "athlete_id": "ath-c56914a18481d4557bba",
@@ -6333,7 +6361,7 @@
           },
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -6341,7 +6369,8 @@
             "rank": 3,
             "result": "41.641",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-27143c296ec97522a767",
@@ -6401,7 +6430,7 @@
           },
           {
             "athlete_id": "ath-799c7f543fce635aeeb8",
-            "name": "Zixia ZHANG",
+            "name": "张子夏",
             "country": "CHN",
             "official_skater_id": 20586,
             "helmet_number": 69,
@@ -6409,7 +6438,8 @@
             "rank": 2,
             "result": "41.654",
             "qualification": "q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Zixia ZHANG"
           },
           {
             "athlete_id": "ath-26292f2efadb197ddb94",
@@ -6588,7 +6618,7 @@
           },
           {
             "athlete_id": "ath-872b8b25f1eda8723e33",
-            "name": "Kun LI",
+            "name": "李坤",
             "country": "CHN",
             "official_skater_id": 4167,
             "helmet_number": 67,
@@ -6596,7 +6626,8 @@
             "rank": 4,
             "result": "42.681",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Kun LI"
           },
           {
             "athlete_id": "ath-a4c9e0fa92c31f6f11ce",
@@ -6792,7 +6823,7 @@
         "participants": [
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -6800,7 +6831,8 @@
             "rank": 1,
             "result": "41.231",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-775d347cc69597e5a04c",
@@ -6896,7 +6928,7 @@
           },
           {
             "athlete_id": "ath-799c7f543fce635aeeb8",
-            "name": "Zixia ZHANG",
+            "name": "张子夏",
             "country": "CHN",
             "official_skater_id": 20586,
             "helmet_number": 69,
@@ -6904,11 +6936,12 @@
             "rank": 3,
             "result": "42.184",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Zixia ZHANG"
           },
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -6916,7 +6949,8 @@
             "rank": 4,
             "result": "44.729",
             "qualification": "ADV",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-d17ee33a3816179f80fc",
@@ -7287,7 +7321,7 @@
           },
           {
             "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-            "name": "Long SUN",
+            "name": "孙龙",
             "country": "CHN",
             "official_skater_id": 6784,
             "helmet_number": 4,
@@ -7295,11 +7329,12 @@
             "rank": 2,
             "result": "40.452",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Long SUN"
           },
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -7307,7 +7342,8 @@
             "rank": 3,
             "result": "40.629",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-775d347cc69597e5a04c",
@@ -7403,7 +7439,7 @@
           },
           {
             "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-            "name": "Long SUN",
+            "name": "孙龙",
             "country": "CHN",
             "official_skater_id": 6784,
             "helmet_number": 4,
@@ -7411,7 +7447,8 @@
             "rank": 4,
             "result": "40.644",
             "qualification": "QB",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Long SUN"
           },
           {
             "athlete_id": "ath-6be3e556e39507d16dc3",
@@ -7658,7 +7695,7 @@
           },
           {
             "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-            "name": "Long SUN",
+            "name": "孙龙",
             "country": "CHN",
             "official_skater_id": 6784,
             "helmet_number": 4,
@@ -7666,7 +7703,8 @@
             "rank": 5,
             "result": "41.504",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Long SUN"
           }
         ]
       },
@@ -7770,7 +7808,7 @@
         "participants": [
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -7778,7 +7816,8 @@
             "rank": 1,
             "result": "1:36.577",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jianing ZHANG"
           },
           {
             "athlete_id": "ath-8e82dc2af25e8e98a240",
@@ -8164,7 +8203,7 @@
           },
           {
             "athlete_id": "ath-c9d7d5a38485bd9c344f",
-            "name": "Yan ZHANG",
+            "name": "张延",
             "country": "CHN",
             "official_skater_id": 19401,
             "helmet_number": 56,
@@ -8172,7 +8211,8 @@
             "rank": 2,
             "result": "1:30.742",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Yan ZHANG"
           },
           {
             "athlete_id": "ath-950324020eca0420a24c",
@@ -8244,7 +8284,7 @@
           },
           {
             "athlete_id": "ath-387545148a759a14a937",
-            "name": "Jiarui SONG",
+            "name": "宋佳蕊",
             "country": "CHN",
             "official_skater_id": 6617,
             "helmet_number": 54,
@@ -8252,7 +8292,8 @@
             "rank": 2,
             "result": "1:30.923",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jiarui SONG"
           },
           {
             "athlete_id": "ath-d7393090231b3ef25ede",
@@ -8324,7 +8365,7 @@
           },
           {
             "athlete_id": "ath-7526110b176497878d3f",
-            "name": "Li GONG",
+            "name": "公俐",
             "country": "CHN",
             "official_skater_id": 2262,
             "helmet_number": 19,
@@ -8332,7 +8373,8 @@
             "rank": 2,
             "result": "1:30.723",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Li GONG"
           },
           {
             "athlete_id": "ath-cdc04f60f74742612112",
@@ -8751,7 +8793,7 @@
           },
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -8759,7 +8801,8 @@
             "rank": 4,
             "result": "1:30.965",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jianing ZHANG"
           },
           {
             "athlete_id": "ath-8a1d16baa2b5cd400e4d",
@@ -9150,7 +9193,7 @@
         "participants": [
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -9158,7 +9201,8 @@
             "rank": 1,
             "result": "1:35.489",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jianing ZHANG"
           },
           {
             "athlete_id": "ath-2aff26915e477356a31f",
@@ -9218,7 +9262,7 @@
         "participants": [
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -9226,7 +9270,8 @@
             "rank": 1,
             "result": "1:33.052",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jianing ZHANG"
           },
           {
             "athlete_id": "ath-d1ae30d3ef9795ec186b",
@@ -9473,7 +9518,7 @@
           },
           {
             "athlete_id": "ath-7526110b176497878d3f",
-            "name": "Li GONG",
+            "name": "公俐",
             "country": "CHN",
             "official_skater_id": 2262,
             "helmet_number": 19,
@@ -9481,7 +9526,8 @@
             "rank": 2,
             "result": "1:31.846",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Li GONG"
           },
           {
             "athlete_id": "ath-df765364c74846f50d97",
@@ -9565,7 +9611,7 @@
           },
           {
             "athlete_id": "ath-c9d7d5a38485bd9c344f",
-            "name": "Yan ZHANG",
+            "name": "张延",
             "country": "CHN",
             "official_skater_id": 19401,
             "helmet_number": 56,
@@ -9573,7 +9619,8 @@
             "rank": 3,
             "result": "1:30.919",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Yan ZHANG"
           },
           {
             "athlete_id": "ath-8361e1c91aab972b6ca4",
@@ -9633,7 +9680,7 @@
           },
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -9641,11 +9688,12 @@
             "rank": 2,
             "result": "1:30.021",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jianing ZHANG"
           },
           {
             "athlete_id": "ath-387545148a759a14a937",
-            "name": "Jiarui SONG",
+            "name": "宋佳蕊",
             "country": "CHN",
             "official_skater_id": 6617,
             "helmet_number": 54,
@@ -9653,7 +9701,8 @@
             "rank": 3,
             "result": "1:30.305",
             "qualification": "q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jiarui SONG"
           },
           {
             "athlete_id": "ath-51a17d72df4d726dbcde",
@@ -9740,7 +9789,7 @@
           },
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -9748,7 +9797,8 @@
             "rank": 3,
             "result": "1:31.338",
             "qualification": "QB",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jianing ZHANG"
           },
           {
             "athlete_id": "ath-990ecbf9d406d93654b3",
@@ -9764,7 +9814,7 @@
           },
           {
             "athlete_id": "ath-7526110b176497878d3f",
-            "name": "Li GONG",
+            "name": "公俐",
             "country": "CHN",
             "official_skater_id": 2262,
             "helmet_number": 19,
@@ -9772,7 +9822,8 @@
             "rank": 5,
             "result": "1:31.569",
             "qualification": "QB",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Li GONG"
           }
         ]
       },
@@ -9832,7 +9883,7 @@
           },
           {
             "athlete_id": "ath-387545148a759a14a937",
-            "name": "Jiarui SONG",
+            "name": "宋佳蕊",
             "country": "CHN",
             "official_skater_id": 6617,
             "helmet_number": 54,
@@ -9840,7 +9891,8 @@
             "rank": 4,
             "result": "1:30.392",
             "qualification": "QB",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jiarui SONG"
           },
           {
             "athlete_id": "ath-513b3ec2cc3a073a75d3",
@@ -9956,7 +10008,7 @@
         "participants": [
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -9964,7 +10016,8 @@
             "rank": 1,
             "result": "1:34.034",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jianing ZHANG"
           },
           {
             "athlete_id": "ath-990ecbf9d406d93654b3",
@@ -9980,7 +10033,7 @@
           },
           {
             "athlete_id": "ath-387545148a759a14a937",
-            "name": "Jiarui SONG",
+            "name": "宋佳蕊",
             "country": "CHN",
             "official_skater_id": 6617,
             "helmet_number": 54,
@@ -9988,11 +10041,12 @@
             "rank": 3,
             "result": "1:34.151",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jiarui SONG"
           },
           {
             "athlete_id": "ath-7526110b176497878d3f",
-            "name": "Li GONG",
+            "name": "公俐",
             "country": "CHN",
             "official_skater_id": 2262,
             "helmet_number": 19,
@@ -10000,7 +10054,8 @@
             "rank": 4,
             "result": "1:34.431",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Li GONG"
           },
           {
             "athlete_id": "ath-513b3ec2cc3a073a75d3",
@@ -10036,7 +10091,7 @@
         "participants": [
           {
             "athlete_id": "ath-799c7f543fce635aeeb8",
-            "name": "Zixia ZHANG",
+            "name": "张子夏",
             "country": "CHN",
             "official_skater_id": 20586,
             "helmet_number": 69,
@@ -10044,7 +10099,8 @@
             "rank": 1,
             "result": "1:29.853",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Zixia ZHANG"
           },
           {
             "athlete_id": "ath-4b56413b1bd7406aff55",
@@ -10116,7 +10172,7 @@
         "participants": [
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -10124,7 +10180,8 @@
             "rank": 1,
             "result": "1:28.583",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-26292f2efadb197ddb94",
@@ -10279,7 +10336,7 @@
         "participants": [
           {
             "athlete_id": "ath-adac927b0b3d0c45aeb4",
-            "name": "Kerui SONG",
+            "name": "宋柯睿",
             "country": "CHN",
             "official_skater_id": 18320,
             "helmet_number": 68,
@@ -10287,7 +10344,8 @@
             "rank": 1,
             "result": "1:27.341",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Kerui SONG"
           },
           {
             "athlete_id": "ath-af09f532a44f36881523",
@@ -11556,7 +11614,7 @@
           },
           {
             "athlete_id": "ath-799c7f543fce635aeeb8",
-            "name": "Zixia ZHANG",
+            "name": "张子夏",
             "country": "CHN",
             "official_skater_id": 20586,
             "helmet_number": 69,
@@ -11564,7 +11622,8 @@
             "rank": 3,
             "result": "1:39.182",
             "qualification": "ADV",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Zixia ZHANG"
           },
           {
             "athlete_id": "ath-e7991c93e1479da1d3f5",
@@ -11627,7 +11686,7 @@
           },
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -11635,7 +11694,8 @@
             "rank": 3,
             "result": "1:26.147",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-312405ae84ff65c4ae3a",
@@ -11695,7 +11755,7 @@
           },
           {
             "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-            "name": "Long SUN",
+            "name": "孙龙",
             "country": "CHN",
             "official_skater_id": 6784,
             "helmet_number": 4,
@@ -11703,7 +11763,8 @@
             "rank": 2,
             "result": "1:30.281",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Long SUN"
           },
           {
             "athlete_id": "ath-dd44b2a84774da47ab8d",
@@ -11787,7 +11848,7 @@
           },
           {
             "athlete_id": "ath-adac927b0b3d0c45aeb4",
-            "name": "Kerui SONG",
+            "name": "宋柯睿",
             "country": "CHN",
             "official_skater_id": 18320,
             "helmet_number": 68,
@@ -11795,7 +11856,8 @@
             "rank": 3,
             "result": "1:26.025",
             "qualification": "q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Kerui SONG"
           },
           {
             "athlete_id": "ath-cedc15305e504b579972",
@@ -11923,7 +11985,7 @@
         "participants": [
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -11931,7 +11993,8 @@
             "rank": 1,
             "result": "1:29.896",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-49385aad096bc1c84902",
@@ -12465,7 +12528,7 @@
         "participants": [
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -12473,7 +12536,8 @@
             "rank": 1,
             "result": "1:26.905",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-ed4d41133f871dbcd2f6",
@@ -12569,7 +12633,7 @@
           },
           {
             "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-            "name": "Long SUN",
+            "name": "孙龙",
             "country": "CHN",
             "official_skater_id": 6784,
             "helmet_number": 4,
@@ -12577,11 +12641,12 @@
             "rank": 3,
             "result": "1:26.608",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Long SUN"
           },
           {
             "athlete_id": "ath-799c7f543fce635aeeb8",
-            "name": "Zixia ZHANG",
+            "name": "张子夏",
             "country": "CHN",
             "official_skater_id": 20586,
             "helmet_number": 69,
@@ -12589,7 +12654,8 @@
             "rank": 4,
             "result": "1:26.901",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Zixia ZHANG"
           },
           {
             "athlete_id": "ath-26292f2efadb197ddb94",
@@ -12661,7 +12727,7 @@
           },
           {
             "athlete_id": "ath-adac927b0b3d0c45aeb4",
-            "name": "Kerui SONG",
+            "name": "宋柯睿",
             "country": "CHN",
             "official_skater_id": 18320,
             "helmet_number": 68,
@@ -12669,7 +12735,8 @@
             "rank": 4,
             "result": "1:28.056",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Kerui SONG"
           },
           {
             "athlete_id": "ath-2c7bf7881e6dda162f51",
@@ -12741,7 +12808,7 @@
           },
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -12749,7 +12816,8 @@
             "rank": 4,
             "result": "1:23.779",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-83cf68476818bb34df2a",
@@ -13289,7 +13357,7 @@
         "participants": [
           {
             "athlete_id": "ath-adac927b0b3d0c45aeb4",
-            "name": "Kerui SONG",
+            "name": "宋柯睿",
             "country": "CHN",
             "official_skater_id": 18320,
             "helmet_number": 68,
@@ -13297,7 +13365,8 @@
             "rank": 1,
             "result": "2:24.047",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Kerui SONG"
           },
           {
             "athlete_id": "ath-bf93d274dece11d17ae7",
@@ -13393,7 +13462,7 @@
         "participants": [
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -13401,7 +13470,8 @@
             "rank": 1,
             "result": "2:23.153",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-c9500eb167ae2d20c117",
@@ -14495,7 +14565,7 @@
           },
           {
             "athlete_id": "ath-33784c1a829757d78105",
-            "name": "Yiding ZHU",
+            "name": "朱祎玎",
             "country": "CHN",
             "official_skater_id": 8157,
             "helmet_number": 70,
@@ -14503,7 +14573,8 @@
             "rank": 3,
             "result": "2:20.375",
             "qualification": "q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Yiding ZHU"
           },
           {
             "athlete_id": "ath-ff0e797c67667f8c165e",
@@ -14703,7 +14774,7 @@
           },
           {
             "athlete_id": "ath-adac927b0b3d0c45aeb4",
-            "name": "Kerui SONG",
+            "name": "宋柯睿",
             "country": "CHN",
             "official_skater_id": 18320,
             "helmet_number": 68,
@@ -14711,7 +14782,8 @@
             "rank": 5,
             "result": "2:33.602",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Kerui SONG"
           },
           {
             "athlete_id": "ath-bf93d274dece11d17ae7",
@@ -14750,7 +14822,7 @@
         "participants": [
           {
             "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-            "name": "Long SUN",
+            "name": "孙龙",
             "country": "CHN",
             "official_skater_id": 6784,
             "helmet_number": 4,
@@ -14758,7 +14830,8 @@
             "rank": 1,
             "result": "2:21.423",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Long SUN"
           },
           {
             "athlete_id": "ath-ebed38a356cd59f7d6e4",
@@ -14854,7 +14927,7 @@
           },
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -14862,7 +14935,8 @@
             "rank": 2,
             "result": "2:16.518",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-472493cfd4ab7c1d5088",
@@ -15436,7 +15510,7 @@
           },
           {
             "athlete_id": "ath-adac927b0b3d0c45aeb4",
-            "name": "Kerui SONG",
+            "name": "宋柯睿",
             "country": "CHN",
             "official_skater_id": 18320,
             "helmet_number": 68,
@@ -15444,7 +15518,8 @@
             "rank": 4,
             "result": "2:25.175",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Kerui SONG"
           },
           {
             "athlete_id": "ath-dc0c79c56cc790edd7de",
@@ -15724,7 +15799,7 @@
           },
           {
             "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-            "name": "Long SUN",
+            "name": "孙龙",
             "country": "CHN",
             "official_skater_id": 6784,
             "helmet_number": 4,
@@ -15732,7 +15807,8 @@
             "rank": 3,
             "result": "2:17.726",
             "qualification": "QB",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Long SUN"
           },
           {
             "athlete_id": "ath-d17ee33a3816179f80fc",
@@ -15748,7 +15824,7 @@
           },
           {
             "athlete_id": "ath-33784c1a829757d78105",
-            "name": "Yiding ZHU",
+            "name": "朱祎玎",
             "country": "CHN",
             "official_skater_id": 8157,
             "helmet_number": 70,
@@ -15756,7 +15832,8 @@
             "rank": 5,
             "result": "2:18.114",
             "qualification": "qB",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Yiding ZHU"
           },
           {
             "athlete_id": "ath-ebed38a356cd59f7d6e4",
@@ -15840,7 +15917,7 @@
           },
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -15848,7 +15925,8 @@
             "rank": 4,
             "result": "2:24.806",
             "qualification": "QB",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-c9500eb167ae2d20c117",
@@ -16131,7 +16209,7 @@
           },
           {
             "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
+            "name": "张柏浩",
             "country": "CHN",
             "official_skater_id": 8078,
             "helmet_number": 42,
@@ -16139,11 +16217,12 @@
             "rank": 2,
             "result": "2:34.061",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Bohao ZHANG"
           },
           {
             "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-            "name": "Long SUN",
+            "name": "孙龙",
             "country": "CHN",
             "official_skater_id": 6784,
             "helmet_number": 4,
@@ -16151,7 +16230,8 @@
             "rank": 3,
             "result": "2:34.308",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Long SUN"
           },
           {
             "athlete_id": "ath-1c1b62eec955b1a55394",
@@ -16179,7 +16259,7 @@
           },
           {
             "athlete_id": "ath-33784c1a829757d78105",
-            "name": "Yiding ZHU",
+            "name": "朱祎玎",
             "country": "CHN",
             "official_skater_id": 8157,
             "helmet_number": 70,
@@ -16187,7 +16267,8 @@
             "rank": 6,
             "result": "2:34.860",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Yiding ZHU"
           },
           {
             "athlete_id": "ath-004f41356e1cb251e66b",
@@ -16235,7 +16316,7 @@
           },
           {
             "athlete_id": "ath-c9d7d5a38485bd9c344f",
-            "name": "Yan ZHANG",
+            "name": "张延",
             "country": "CHN",
             "official_skater_id": 19401,
             "helmet_number": 56,
@@ -16243,7 +16324,8 @@
             "rank": 2,
             "result": "2:31.711",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Yan ZHANG"
           },
           {
             "athlete_id": "ath-ca017e1d514c206e3241",
@@ -16437,7 +16519,7 @@
         "participants": [
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -16445,7 +16527,8 @@
             "rank": 1,
             "result": "2:25.822",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Jianing ZHANG"
           },
           {
             "athlete_id": "ath-32780e84744937993fa2",
@@ -16553,7 +16636,7 @@
           },
           {
             "athlete_id": "ath-7526110b176497878d3f",
-            "name": "Li GONG",
+            "name": "公俐",
             "country": "CHN",
             "official_skater_id": 2262,
             "helmet_number": 19,
@@ -16561,7 +16644,8 @@
             "rank": 2,
             "result": "2:23.617",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Li GONG"
           },
           {
             "athlete_id": "ath-d7393090231b3ef25ede",
@@ -16749,7 +16833,7 @@
         "participants": [
           {
             "athlete_id": "ath-08caea4ad943373c94ab",
-            "name": "Chutong ZHANG",
+            "name": "张楚桐",
             "country": "CHN",
             "official_skater_id": 8080,
             "helmet_number": 11,
@@ -16757,7 +16841,8 @@
             "rank": 1,
             "result": "2:26.469",
             "qualification": "Q",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Chutong ZHANG"
           },
           {
             "athlete_id": "ath-4ee0f4f305dd7e06cf81",
@@ -17572,7 +17657,7 @@
           },
           {
             "athlete_id": "ath-c9d7d5a38485bd9c344f",
-            "name": "Yan ZHANG",
+            "name": "张延",
             "country": "CHN",
             "official_skater_id": 19401,
             "helmet_number": 56,
@@ -17580,7 +17665,8 @@
             "rank": 5,
             "result": "2:32.240",
             "qualification": "qB",
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Yan ZHANG"
           },
           {
             "athlete_id": "ath-ca017e1d514c206e3241",
@@ -17691,7 +17777,7 @@
           },
           {
             "athlete_id": "ath-7526110b176497878d3f",
-            "name": "Li GONG",
+            "name": "公俐",
             "country": "CHN",
             "official_skater_id": 2262,
             "helmet_number": 19,
@@ -17702,11 +17788,12 @@
             "penalty": {
               "code": "PEN",
               "infringement_code": "S2"
-            }
+            },
+            "name_latin": "Li GONG"
           },
           {
             "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
+            "name": "张珈宁",
             "country": "CHN",
             "official_skater_id": 8090,
             "helmet_number": 55,
@@ -17717,7 +17804,8 @@
             "penalty": {
               "code": "PEN",
               "infringement_code": "S6"
-            }
+            },
+            "name_latin": "Jianing ZHANG"
           }
         ]
       },
@@ -17813,7 +17901,7 @@
           },
           {
             "athlete_id": "ath-08caea4ad943373c94ab",
-            "name": "Chutong ZHANG",
+            "name": "张楚桐",
             "country": "CHN",
             "official_skater_id": 8080,
             "helmet_number": 11,
@@ -17824,7 +17912,8 @@
             "penalty": {
               "code": "PEN",
               "infringement_code": "S8"
-            }
+            },
+            "name_latin": "Chutong ZHANG"
           }
         ]
       },
@@ -18042,7 +18131,7 @@
           },
           {
             "athlete_id": "ath-c9d7d5a38485bd9c344f",
-            "name": "Yan ZHANG",
+            "name": "张延",
             "country": "CHN",
             "official_skater_id": 19401,
             "helmet_number": 56,
@@ -18050,7 +18139,8 @@
             "rank": 6,
             "result": "2:39.047",
             "qualification": null,
-            "penalty": null
+            "penalty": null,
+            "name_latin": "Yan ZHANG"
           },
           {
             "athlete_id": "ath-8361e1c91aab972b6ca4",
@@ -18086,7 +18176,7 @@
         "participants": [
           {
             "athlete_id": "team-NED-mixed",
-            "name": "Netherlands",
+            "name": "荷兰队",
             "country": "NED",
             "official_skater_id": 12678,
             "helmet_number": null,
@@ -18116,11 +18206,12 @@
                 "name": "Kay HUISMAN",
                 "official_skater_id": 2780
               }
-            ]
+            ],
+            "name_latin": "Netherlands"
           },
           {
             "athlete_id": "team-BEL-mixed",
-            "name": "Belgium",
+            "name": "比利时队",
             "country": "BEL",
             "official_skater_id": 12667,
             "helmet_number": null,
@@ -18150,11 +18241,12 @@
                 "name": "Tineke DEN DULK",
                 "official_skater_id": 1545
               }
-            ]
+            ],
+            "name_latin": "Belgium"
           },
           {
             "athlete_id": "team-KAZ-mixed",
-            "name": "Kazakhstan",
+            "name": "哈萨克斯坦队",
             "country": "KAZ",
             "official_skater_id": 12676,
             "helmet_number": null,
@@ -18187,7 +18279,8 @@
                 "name": "Bogdan VEKHOV",
                 "official_skater_id": 18324
               }
-            ]
+            ],
+            "name_latin": "Kazakhstan"
           }
         ]
       },
@@ -18211,7 +18304,7 @@
         "participants": [
           {
             "athlete_id": "team-KOR-mixed",
-            "name": "Republic of Korea",
+            "name": "韩国队",
             "country": "KOR",
             "official_skater_id": 12677,
             "helmet_number": null,
@@ -18241,11 +18334,12 @@
                 "name": "Seochan BAE",
                 "official_skater_id": 22070
               }
-            ]
+            ],
+            "name_latin": "Republic of Korea"
           },
           {
             "athlete_id": "team-JPN-mixed",
-            "name": "Japan",
+            "name": "日本队",
             "country": "JPN",
             "official_skater_id": 12675,
             "helmet_number": null,
@@ -18275,11 +18369,12 @@
                 "name": "Shogo MIYATA",
                 "official_skater_id": 4847
               }
-            ]
+            ],
+            "name_latin": "Japan"
           },
           {
             "athlete_id": "team-FRA-mixed",
-            "name": "France",
+            "name": "法国队",
             "country": "FRA",
             "official_skater_id": 12671,
             "helmet_number": null,
@@ -18309,7 +18404,8 @@
                 "name": "Etienne BASTIER",
                 "official_skater_id": 543
               }
-            ]
+            ],
+            "name_latin": "France"
           }
         ]
       },
@@ -18333,7 +18429,7 @@
         "participants": [
           {
             "athlete_id": "team-CHN-mixed",
-            "name": "China",
+            "name": "中国队",
             "country": "CHN",
             "official_skater_id": 12669,
             "helmet_number": null,
@@ -18345,29 +18441,34 @@
             "members": [
               {
                 "athlete_id": "ath-799c7f543fce635aeeb8",
-                "name": "Zixia ZHANG",
-                "official_skater_id": 20586
+                "name": "张子夏",
+                "official_skater_id": 20586,
+                "name_latin": "Zixia ZHANG"
               },
               {
                 "athlete_id": "ath-c9d7d5a38485bd9c344f",
-                "name": "Yan ZHANG",
-                "official_skater_id": 19401
+                "name": "张延",
+                "official_skater_id": 19401,
+                "name_latin": "Yan ZHANG"
               },
               {
                 "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-                "name": "Long SUN",
-                "official_skater_id": 6784
+                "name": "孙龙",
+                "official_skater_id": 6784,
+                "name_latin": "Long SUN"
               },
               {
                 "athlete_id": "ath-08caea4ad943373c94ab",
-                "name": "Chutong ZHANG",
-                "official_skater_id": 8080
+                "name": "张楚桐",
+                "official_skater_id": 8080,
+                "name_latin": "Chutong ZHANG"
               }
-            ]
+            ],
+            "name_latin": "China"
           },
           {
             "athlete_id": "team-CAN-mixed",
-            "name": "Canada",
+            "name": "加拿大队",
             "country": "CAN",
             "official_skater_id": 12668,
             "helmet_number": null,
@@ -18397,11 +18498,12 @@
                 "name": "Courtney SARAULT",
                 "official_skater_id": 6159
               }
-            ]
+            ],
+            "name_latin": "Canada"
           },
           {
             "athlete_id": "team-HUN-mixed",
-            "name": "Hungary",
+            "name": "匈牙利队",
             "country": "HUN",
             "official_skater_id": 12673,
             "helmet_number": null,
@@ -18431,7 +18533,8 @@
                 "name": "Wonjun MOON",
                 "official_skater_id": 16355
               }
-            ]
+            ],
+            "name_latin": "Hungary"
           }
         ]
       },
@@ -18455,7 +18558,7 @@
         "participants": [
           {
             "athlete_id": "team-ITA-mixed",
-            "name": "Italy",
+            "name": "意大利队",
             "country": "ITA",
             "official_skater_id": 12674,
             "helmet_number": null,
@@ -18485,11 +18588,12 @@
                 "name": "Lorenzo PREVITALI",
                 "official_skater_id": 5703
               }
-            ]
+            ],
+            "name_latin": "Italy"
           },
           {
             "athlete_id": "team-CZE-mixed",
-            "name": "Czechia",
+            "name": "捷克队",
             "country": "CZE",
             "official_skater_id": 12670,
             "helmet_number": null,
@@ -18519,11 +18623,12 @@
                 "name": "Radek FAJKUS",
                 "official_skater_id": 1870
               }
-            ]
+            ],
+            "name_latin": "Czechia"
           },
           {
             "athlete_id": "team-POL-mixed",
-            "name": "Poland",
+            "name": "波兰队",
             "country": "POL",
             "official_skater_id": 12679,
             "helmet_number": null,
@@ -18553,11 +18658,12 @@
                 "name": "Felix PIGEON",
                 "official_skater_id": 5581
               }
-            ]
+            ],
+            "name_latin": "Poland"
           },
           {
             "athlete_id": "team-GER-mixed",
-            "name": "Germany",
+            "name": "德国队",
             "country": "GER",
             "official_skater_id": 12672,
             "helmet_number": null,
@@ -18590,7 +18696,8 @@
                 "name": "Betty MOESKE",
                 "official_skater_id": 4857
               }
-            ]
+            ],
+            "name_latin": "Germany"
           }
         ]
       },
@@ -18614,7 +18721,7 @@
         "participants": [
           {
             "athlete_id": "team-CAN-mixed",
-            "name": "Canada",
+            "name": "加拿大队",
             "country": "CAN",
             "official_skater_id": 12668,
             "helmet_number": null,
@@ -18644,11 +18751,12 @@
                 "name": "Danae BLAIS",
                 "official_skater_id": 743
               }
-            ]
+            ],
+            "name_latin": "Canada"
           },
           {
             "athlete_id": "team-NED-mixed",
-            "name": "Netherlands",
+            "name": "荷兰队",
             "country": "NED",
             "official_skater_id": 12678,
             "helmet_number": null,
@@ -18678,11 +18786,12 @@
                 "name": "Xandra VELZEBOER",
                 "official_skater_id": 7447
               }
-            ]
+            ],
+            "name_latin": "Netherlands"
           },
           {
             "athlete_id": "team-POL-mixed",
-            "name": "Poland",
+            "name": "波兰队",
             "country": "POL",
             "official_skater_id": 12679,
             "helmet_number": null,
@@ -18712,11 +18821,12 @@
                 "name": "Michal NIEWINSKI",
                 "official_skater_id": 5097
               }
-            ]
+            ],
+            "name_latin": "Poland"
           },
           {
             "athlete_id": "team-KOR-mixed",
-            "name": "Republic of Korea",
+            "name": "韩国队",
             "country": "KOR",
             "official_skater_id": 12677,
             "helmet_number": null,
@@ -18746,11 +18856,12 @@
                 "name": "Sukhee SHIM",
                 "official_skater_id": 6380
               }
-            ]
+            ],
+            "name_latin": "Republic of Korea"
           },
           {
             "athlete_id": "team-CZE-mixed",
-            "name": "Czechia",
+            "name": "捷克队",
             "country": "CZE",
             "official_skater_id": 12670,
             "helmet_number": null,
@@ -18780,7 +18891,8 @@
                 "name": "Radek FAJKUS",
                 "official_skater_id": 1870
               }
-            ]
+            ],
+            "name_latin": "Czechia"
           }
         ]
       },
@@ -18804,7 +18916,7 @@
         "participants": [
           {
             "athlete_id": "team-CHN-mixed",
-            "name": "China",
+            "name": "中国队",
             "country": "CHN",
             "official_skater_id": 12669,
             "helmet_number": null,
@@ -18816,29 +18928,34 @@
             "members": [
               {
                 "athlete_id": "ath-f5df095326a0281962ea",
-                "name": "Jianing ZHANG",
-                "official_skater_id": 8090
+                "name": "张珈宁",
+                "official_skater_id": 8090,
+                "name_latin": "Jianing ZHANG"
               },
               {
                 "athlete_id": "ath-c9d7d5a38485bd9c344f",
-                "name": "Yan ZHANG",
-                "official_skater_id": 19401
+                "name": "张延",
+                "official_skater_id": 19401,
+                "name_latin": "Yan ZHANG"
               },
               {
                 "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-                "name": "Long SUN",
-                "official_skater_id": 6784
+                "name": "孙龙",
+                "official_skater_id": 6784,
+                "name_latin": "Long SUN"
               },
               {
                 "athlete_id": "ath-49a455de09fadeaad9c9",
-                "name": "Bohao ZHANG",
-                "official_skater_id": 8078
+                "name": "张柏浩",
+                "official_skater_id": 8078,
+                "name_latin": "Bohao ZHANG"
               }
-            ]
+            ],
+            "name_latin": "China"
           },
           {
             "athlete_id": "team-ITA-mixed",
-            "name": "Italy",
+            "name": "意大利队",
             "country": "ITA",
             "official_skater_id": 12674,
             "helmet_number": null,
@@ -18868,11 +18985,12 @@
                 "name": "Thomas NADALINI",
                 "official_skater_id": 4990
               }
-            ]
+            ],
+            "name_latin": "Italy"
           },
           {
             "athlete_id": "team-JPN-mixed",
-            "name": "Japan",
+            "name": "日本队",
             "country": "JPN",
             "official_skater_id": 12675,
             "helmet_number": null,
@@ -18902,11 +19020,12 @@
                 "name": "Haruna NAGAMORI",
                 "official_skater_id": 4995
               }
-            ]
+            ],
+            "name_latin": "Japan"
           },
           {
             "athlete_id": "team-BEL-mixed",
-            "name": "Belgium",
+            "name": "比利时队",
             "country": "BEL",
             "official_skater_id": 12667,
             "helmet_number": null,
@@ -18936,7 +19055,8 @@
                 "name": "Ward PETRE",
                 "official_skater_id": 5520
               }
-            ]
+            ],
+            "name_latin": "Belgium"
           }
         ]
       },
@@ -18960,7 +19080,7 @@
         "participants": [
           {
             "athlete_id": "team-NED-mixed",
-            "name": "Netherlands",
+            "name": "荷兰队",
             "country": "NED",
             "official_skater_id": 12678,
             "helmet_number": null,
@@ -18990,11 +19110,12 @@
                 "name": "Zoe Florence DELTRAP",
                 "official_skater_id": 1534
               }
-            ]
+            ],
+            "name_latin": "Netherlands"
           },
           {
             "athlete_id": "team-CAN-mixed",
-            "name": "Canada",
+            "name": "加拿大队",
             "country": "CAN",
             "official_skater_id": 12668,
             "helmet_number": null,
@@ -19024,11 +19145,12 @@
                 "name": "Courtney SARAULT",
                 "official_skater_id": 6159
               }
-            ]
+            ],
+            "name_latin": "Canada"
           },
           {
             "athlete_id": "team-CHN-mixed",
-            "name": "China",
+            "name": "中国队",
             "country": "CHN",
             "official_skater_id": 12669,
             "helmet_number": null,
@@ -19040,29 +19162,34 @@
             "members": [
               {
                 "athlete_id": "ath-7526110b176497878d3f",
-                "name": "Li GONG",
-                "official_skater_id": 2262
+                "name": "公俐",
+                "official_skater_id": 2262,
+                "name_latin": "Li GONG"
               },
               {
                 "athlete_id": "ath-49a455de09fadeaad9c9",
-                "name": "Bohao ZHANG",
-                "official_skater_id": 8078
+                "name": "张柏浩",
+                "official_skater_id": 8078,
+                "name_latin": "Bohao ZHANG"
               },
               {
                 "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-                "name": "Long SUN",
-                "official_skater_id": 6784
+                "name": "孙龙",
+                "official_skater_id": 6784,
+                "name_latin": "Long SUN"
               },
               {
                 "athlete_id": "ath-08caea4ad943373c94ab",
-                "name": "Chutong ZHANG",
-                "official_skater_id": 8080
+                "name": "张楚桐",
+                "official_skater_id": 8080,
+                "name_latin": "Chutong ZHANG"
               }
-            ]
+            ],
+            "name_latin": "China"
           },
           {
             "athlete_id": "team-ITA-mixed",
-            "name": "Italy",
+            "name": "意大利队",
             "country": "ITA",
             "official_skater_id": 12674,
             "helmet_number": null,
@@ -19092,7 +19219,8 @@
                 "name": "Thomas NADALINI",
                 "official_skater_id": 4990
               }
-            ]
+            ],
+            "name_latin": "Italy"
           }
         ]
       },
@@ -19116,7 +19244,7 @@
         "participants": [
           {
             "athlete_id": "team-KOR-mixed",
-            "name": "Republic of Korea",
+            "name": "韩国队",
             "country": "KOR",
             "official_skater_id": 12677,
             "helmet_number": null,
@@ -19146,11 +19274,12 @@
                 "name": "Minji KIM",
                 "official_skater_id": 18348
               }
-            ]
+            ],
+            "name_latin": "Republic of Korea"
           },
           {
             "athlete_id": "team-POL-mixed",
-            "name": "Poland",
+            "name": "波兰队",
             "country": "POL",
             "official_skater_id": 12679,
             "helmet_number": null,
@@ -19180,11 +19309,12 @@
                 "name": "Gabriela TOPOLSKA",
                 "official_skater_id": 7104
               }
-            ]
+            ],
+            "name_latin": "Poland"
           },
           {
             "athlete_id": "team-BEL-mixed",
-            "name": "Belgium",
+            "name": "比利时队",
             "country": "BEL",
             "official_skater_id": 12667,
             "helmet_number": null,
@@ -19214,11 +19344,12 @@
                 "name": "Hanne DESMET",
                 "official_skater_id": 1566
               }
-            ]
+            ],
+            "name_latin": "Belgium"
           },
           {
             "athlete_id": "team-JPN-mixed",
-            "name": "Japan",
+            "name": "日本队",
             "country": "JPN",
             "official_skater_id": 12675,
             "helmet_number": null,
@@ -19248,7 +19379,8 @@
                 "name": "Musashi KAKINAMI",
                 "official_skater_id": 22908
               }
-            ]
+            ],
+            "name_latin": "Japan"
           }
         ]
       },
@@ -19272,7 +19404,7 @@
         "participants": [
           {
             "athlete_id": "team-KOR-men",
-            "name": "Republic of Korea",
+            "name": "韩国队",
             "country": "KOR",
             "official_skater_id": 12689,
             "helmet_number": null,
@@ -19302,11 +19434,12 @@
                 "name": "Dong Min SHIN",
                 "official_skater_id": 6390
               }
-            ]
+            ],
+            "name_latin": "Republic of Korea"
           },
           {
             "athlete_id": "team-POL-men",
-            "name": "Poland",
+            "name": "波兰队",
             "country": "POL",
             "official_skater_id": 12692,
             "helmet_number": null,
@@ -19336,11 +19469,12 @@
                 "name": "Michal NIEWINSKI",
                 "official_skater_id": 5097
               }
-            ]
+            ],
+            "name_latin": "Poland"
           },
           {
             "athlete_id": "team-USA-men",
-            "name": "United States of America",
+            "name": "美国队",
             "country": "USA",
             "official_skater_id": 12694,
             "helmet_number": null,
@@ -19370,7 +19504,8 @@
                 "name": "Benjamin SULLIVAN",
                 "official_skater_id": 19467
               }
-            ]
+            ],
+            "name_latin": "United States of America"
           }
         ]
       },
@@ -19394,7 +19529,7 @@
         "participants": [
           {
             "athlete_id": "team-NED-men",
-            "name": "Netherlands",
+            "name": "荷兰队",
             "country": "NED",
             "official_skater_id": 12690,
             "helmet_number": null,
@@ -19424,11 +19559,12 @@
                 "name": "Teun BOER",
                 "official_skater_id": 783
               }
-            ]
+            ],
+            "name_latin": "Netherlands"
           },
           {
             "athlete_id": "team-HUN-men",
-            "name": "Hungary",
+            "name": "匈牙利队",
             "country": "HUN",
             "official_skater_id": 12685,
             "helmet_number": null,
@@ -19458,11 +19594,12 @@
                 "name": "Wonjun MOON",
                 "official_skater_id": 16355
               }
-            ]
+            ],
+            "name_latin": "Hungary"
           },
           {
             "athlete_id": "team-BEL-men",
-            "name": "Belgium",
+            "name": "比利时队",
             "country": "BEL",
             "official_skater_id": 12681,
             "helmet_number": null,
@@ -19492,7 +19629,8 @@
                 "name": "Ward PETRE",
                 "official_skater_id": 5520
               }
-            ]
+            ],
+            "name_latin": "Belgium"
           }
         ]
       },
@@ -19516,7 +19654,7 @@
         "participants": [
           {
             "athlete_id": "team-CHN-men",
-            "name": "China",
+            "name": "中国队",
             "country": "CHN",
             "official_skater_id": 12683,
             "helmet_number": null,
@@ -19528,29 +19666,34 @@
             "members": [
               {
                 "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-                "name": "Long SUN",
-                "official_skater_id": 6784
+                "name": "孙龙",
+                "official_skater_id": 6784,
+                "name_latin": "Long SUN"
               },
               {
                 "athlete_id": "ath-799c7f543fce635aeeb8",
-                "name": "Zixia ZHANG",
-                "official_skater_id": 20586
+                "name": "张子夏",
+                "official_skater_id": 20586,
+                "name_latin": "Zixia ZHANG"
               },
               {
                 "athlete_id": "ath-adac927b0b3d0c45aeb4",
-                "name": "Kerui SONG",
-                "official_skater_id": 18320
+                "name": "宋柯睿",
+                "official_skater_id": 18320,
+                "name_latin": "Kerui SONG"
               },
               {
                 "athlete_id": "ath-49a455de09fadeaad9c9",
-                "name": "Bohao ZHANG",
-                "official_skater_id": 8078
+                "name": "张柏浩",
+                "official_skater_id": 8078,
+                "name_latin": "Bohao ZHANG"
               }
-            ]
+            ],
+            "name_latin": "China"
           },
           {
             "athlete_id": "team-JPN-men",
-            "name": "Japan",
+            "name": "日本队",
             "country": "JPN",
             "official_skater_id": 12687,
             "helmet_number": null,
@@ -19580,11 +19723,12 @@
                 "name": "Shogo MIYATA",
                 "official_skater_id": 4847
               }
-            ]
+            ],
+            "name_latin": "Japan"
           },
           {
             "athlete_id": "team-NOR-men",
-            "name": "Norway",
+            "name": "挪威队",
             "country": "NOR",
             "official_skater_id": 12691,
             "helmet_number": null,
@@ -19614,11 +19758,12 @@
                 "name": "Fredrik PEDERSEN",
                 "official_skater_id": 5461
               }
-            ]
+            ],
+            "name_latin": "Norway"
           },
           {
             "athlete_id": "team-GBR-men",
-            "name": "Great Britain",
+            "name": "英国队",
             "country": "GBR",
             "official_skater_id": 12684,
             "helmet_number": null,
@@ -19648,7 +19793,8 @@
                 "name": "Willem MURRAY",
                 "official_skater_id": 4970
               }
-            ]
+            ],
+            "name_latin": "Great Britain"
           }
         ]
       },
@@ -19672,7 +19818,7 @@
         "participants": [
           {
             "athlete_id": "team-CAN-men",
-            "name": "Canada",
+            "name": "加拿大队",
             "country": "CAN",
             "official_skater_id": 12682,
             "helmet_number": null,
@@ -19702,11 +19848,12 @@
                 "name": "Maxime LAOUN",
                 "official_skater_id": 3951
               }
-            ]
+            ],
+            "name_latin": "Canada"
           },
           {
             "athlete_id": "team-KAZ-men",
-            "name": "Kazakhstan",
+            "name": "哈萨克斯坦队",
             "country": "KAZ",
             "official_skater_id": 12688,
             "helmet_number": null,
@@ -19736,11 +19883,12 @@
                 "name": "Gleb IVCHENKO",
                 "official_skater_id": 2905
               }
-            ]
+            ],
+            "name_latin": "Kazakhstan"
           },
           {
             "athlete_id": "team-TUR-men",
-            "name": "Turkiye",
+            "name": "土耳其队",
             "country": "TUR",
             "official_skater_id": 12693,
             "helmet_number": null,
@@ -19770,11 +19918,12 @@
                 "name": "Furkan AKAR",
                 "official_skater_id": 226
               }
-            ]
+            ],
+            "name_latin": "Turkiye"
           },
           {
             "athlete_id": "team-ITA-men",
-            "name": "Italy",
+            "name": "意大利队",
             "country": "ITA",
             "official_skater_id": 12686,
             "helmet_number": null,
@@ -19804,7 +19953,8 @@
                 "name": "Luca SPECHENHAUSER",
                 "official_skater_id": 6644
               }
-            ]
+            ],
+            "name_latin": "Italy"
           }
         ]
       },
@@ -19828,7 +19978,7 @@
         "participants": [
           {
             "athlete_id": "team-KOR-men",
-            "name": "Republic of Korea",
+            "name": "韩国队",
             "country": "KOR",
             "official_skater_id": 12689,
             "helmet_number": null,
@@ -19858,11 +20008,12 @@
                 "name": "Taesung KIM",
                 "official_skater_id": 3473
               }
-            ]
+            ],
+            "name_latin": "Republic of Korea"
           },
           {
             "athlete_id": "team-CAN-men",
-            "name": "Canada",
+            "name": "加拿大队",
             "country": "CAN",
             "official_skater_id": 12682,
             "helmet_number": null,
@@ -19892,11 +20043,12 @@
                 "name": "Maxime LAOUN",
                 "official_skater_id": 3951
               }
-            ]
+            ],
+            "name_latin": "Canada"
           },
           {
             "athlete_id": "team-KAZ-men",
-            "name": "Kazakhstan",
+            "name": "哈萨克斯坦队",
             "country": "KAZ",
             "official_skater_id": 12688,
             "helmet_number": null,
@@ -19926,11 +20078,12 @@
                 "name": "Gleb IVCHENKO",
                 "official_skater_id": 2905
               }
-            ]
+            ],
+            "name_latin": "Kazakhstan"
           },
           {
             "athlete_id": "team-POL-men",
-            "name": "Poland",
+            "name": "波兰队",
             "country": "POL",
             "official_skater_id": 12692,
             "helmet_number": null,
@@ -19960,7 +20113,8 @@
                 "name": "Michal NIEWINSKI",
                 "official_skater_id": 5097
               }
-            ]
+            ],
+            "name_latin": "Poland"
           }
         ]
       },
@@ -19984,7 +20138,7 @@
         "participants": [
           {
             "athlete_id": "team-NED-men",
-            "name": "Netherlands",
+            "name": "荷兰队",
             "country": "NED",
             "official_skater_id": 12690,
             "helmet_number": null,
@@ -20014,11 +20168,12 @@
                 "name": "Jesper SCHMITZ",
                 "official_skater_id": 18268
               }
-            ]
+            ],
+            "name_latin": "Netherlands"
           },
           {
             "athlete_id": "team-CHN-men",
-            "name": "China",
+            "name": "中国队",
             "country": "CHN",
             "official_skater_id": 12683,
             "helmet_number": null,
@@ -20030,29 +20185,34 @@
             "members": [
               {
                 "athlete_id": "ath-799c7f543fce635aeeb8",
-                "name": "Zixia ZHANG",
-                "official_skater_id": 20586
+                "name": "张子夏",
+                "official_skater_id": 20586,
+                "name_latin": "Zixia ZHANG"
               },
               {
                 "athlete_id": "ath-adac927b0b3d0c45aeb4",
-                "name": "Kerui SONG",
-                "official_skater_id": 18320
+                "name": "宋柯睿",
+                "official_skater_id": 18320,
+                "name_latin": "Kerui SONG"
               },
               {
                 "athlete_id": "ath-49a455de09fadeaad9c9",
-                "name": "Bohao ZHANG",
-                "official_skater_id": 8078
+                "name": "张柏浩",
+                "official_skater_id": 8078,
+                "name_latin": "Bohao ZHANG"
               },
               {
                 "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-                "name": "Long SUN",
-                "official_skater_id": 6784
+                "name": "孙龙",
+                "official_skater_id": 6784,
+                "name_latin": "Long SUN"
               }
-            ]
+            ],
+            "name_latin": "China"
           },
           {
             "athlete_id": "team-JPN-men",
-            "name": "Japan",
+            "name": "日本队",
             "country": "JPN",
             "official_skater_id": 12687,
             "helmet_number": null,
@@ -20082,11 +20242,12 @@
                 "name": "Shogo MIYATA",
                 "official_skater_id": 4847
               }
-            ]
+            ],
+            "name_latin": "Japan"
           },
           {
             "athlete_id": "team-HUN-men",
-            "name": "Hungary",
+            "name": "匈牙利队",
             "country": "HUN",
             "official_skater_id": 12685,
             "helmet_number": null,
@@ -20116,7 +20277,8 @@
                 "name": "David WU JIA WEI",
                 "official_skater_id": 7798
               }
-            ]
+            ],
+            "name_latin": "Hungary"
           }
         ]
       },
@@ -20140,7 +20302,7 @@
         "participants": [
           {
             "athlete_id": "team-CAN-men",
-            "name": "Canada",
+            "name": "加拿大队",
             "country": "CAN",
             "official_skater_id": 12682,
             "helmet_number": null,
@@ -20170,11 +20332,12 @@
                 "name": "Steven DUBOIS",
                 "official_skater_id": 1701
               }
-            ]
+            ],
+            "name_latin": "Canada"
           },
           {
             "athlete_id": "team-CHN-men",
-            "name": "China",
+            "name": "中国队",
             "country": "CHN",
             "official_skater_id": 12683,
             "helmet_number": null,
@@ -20186,29 +20349,34 @@
             "members": [
               {
                 "athlete_id": "ath-799c7f543fce635aeeb8",
-                "name": "Zixia ZHANG",
-                "official_skater_id": 20586
+                "name": "张子夏",
+                "official_skater_id": 20586,
+                "name_latin": "Zixia ZHANG"
               },
               {
                 "athlete_id": "ath-49a455de09fadeaad9c9",
-                "name": "Bohao ZHANG",
-                "official_skater_id": 8078
+                "name": "张柏浩",
+                "official_skater_id": 8078,
+                "name_latin": "Bohao ZHANG"
               },
               {
                 "athlete_id": "ath-adac927b0b3d0c45aeb4",
-                "name": "Kerui SONG",
-                "official_skater_id": 18320
+                "name": "宋柯睿",
+                "official_skater_id": 18320,
+                "name_latin": "Kerui SONG"
               },
               {
                 "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-                "name": "Long SUN",
-                "official_skater_id": 6784
+                "name": "孙龙",
+                "official_skater_id": 6784,
+                "name_latin": "Long SUN"
               }
-            ]
+            ],
+            "name_latin": "China"
           },
           {
             "athlete_id": "team-KOR-men",
-            "name": "Republic of Korea",
+            "name": "韩国队",
             "country": "KOR",
             "official_skater_id": 12689,
             "helmet_number": null,
@@ -20238,11 +20406,12 @@
                 "name": "Gyuho LEE",
                 "official_skater_id": 22072
               }
-            ]
+            ],
+            "name_latin": "Republic of Korea"
           },
           {
             "athlete_id": "team-NED-men",
-            "name": "Netherlands",
+            "name": "荷兰队",
             "country": "NED",
             "official_skater_id": 12690,
             "helmet_number": null,
@@ -20272,7 +20441,8 @@
                 "name": "Jens VAN 'T WOUT",
                 "official_skater_id": 7375
               }
-            ]
+            ],
+            "name_latin": "Netherlands"
           }
         ]
       },
@@ -20296,7 +20466,7 @@
         "participants": [
           {
             "athlete_id": "team-JPN-men",
-            "name": "Japan",
+            "name": "日本队",
             "country": "JPN",
             "official_skater_id": 12687,
             "helmet_number": null,
@@ -20326,11 +20496,12 @@
                 "name": "Musashi KAKINAMI",
                 "official_skater_id": 22908
               }
-            ]
+            ],
+            "name_latin": "Japan"
           },
           {
             "athlete_id": "team-KAZ-men",
-            "name": "Kazakhstan",
+            "name": "哈萨克斯坦队",
             "country": "KAZ",
             "official_skater_id": 12688,
             "helmet_number": null,
@@ -20360,11 +20531,12 @@
                 "name": "Gleb IVCHENKO",
                 "official_skater_id": 2905
               }
-            ]
+            ],
+            "name_latin": "Kazakhstan"
           },
           {
             "athlete_id": "team-HUN-men",
-            "name": "Hungary",
+            "name": "匈牙利队",
             "country": "HUN",
             "official_skater_id": 12685,
             "helmet_number": null,
@@ -20394,11 +20566,12 @@
                 "name": "Wonjun MOON",
                 "official_skater_id": 16355
               }
-            ]
+            ],
+            "name_latin": "Hungary"
           },
           {
             "athlete_id": "team-POL-men",
-            "name": "Poland",
+            "name": "波兰队",
             "country": "POL",
             "official_skater_id": 12692,
             "helmet_number": null,
@@ -20431,7 +20604,8 @@
                 "name": "Felix PIGEON",
                 "official_skater_id": 5581
               }
-            ]
+            ],
+            "name_latin": "Poland"
           }
         ]
       },
@@ -20455,7 +20629,7 @@
         "participants": [
           {
             "athlete_id": "team-ITA-women",
-            "name": "Italy",
+            "name": "意大利队",
             "country": "ITA",
             "official_skater_id": 12698,
             "helmet_number": null,
@@ -20485,11 +20659,12 @@
                 "name": "Margherita BETTI",
                 "official_skater_id": 690
               }
-            ]
+            ],
+            "name_latin": "Italy"
           },
           {
             "athlete_id": "team-NED-women",
-            "name": "Netherlands",
+            "name": "荷兰队",
             "country": "NED",
             "official_skater_id": 12702,
             "helmet_number": null,
@@ -20519,11 +20694,12 @@
                 "name": "Xandra VELZEBOER",
                 "official_skater_id": 7447
               }
-            ]
+            ],
+            "name_latin": "Netherlands"
           },
           {
             "athlete_id": "team-KAZ-women",
-            "name": "Kazakhstan",
+            "name": "哈萨克斯坦队",
             "country": "KAZ",
             "official_skater_id": 12700,
             "helmet_number": null,
@@ -20553,11 +20729,12 @@
                 "name": "Zeinep KUMARKAN",
                 "official_skater_id": 3815
               }
-            ]
+            ],
+            "name_latin": "Kazakhstan"
           },
           {
             "athlete_id": "team-POL-women",
-            "name": "Poland",
+            "name": "波兰队",
             "country": "POL",
             "official_skater_id": 12703,
             "helmet_number": null,
@@ -20587,11 +20764,12 @@
                 "name": "Gabriela TOPOLSKA",
                 "official_skater_id": 7104
               }
-            ]
+            ],
+            "name_latin": "Poland"
           },
           {
             "athlete_id": "team-JPN-women",
-            "name": "Japan",
+            "name": "日本队",
             "country": "JPN",
             "official_skater_id": 12699,
             "helmet_number": null,
@@ -20621,7 +20799,8 @@
                 "name": "Wakaba KENJO",
                 "official_skater_id": 18322
               }
-            ]
+            ],
+            "name_latin": "Japan"
           }
         ]
       },
@@ -20645,7 +20824,7 @@
         "participants": [
           {
             "athlete_id": "team-CAN-women",
-            "name": "Canada",
+            "name": "加拿大队",
             "country": "CAN",
             "official_skater_id": 12695,
             "helmet_number": null,
@@ -20675,11 +20854,12 @@
                 "name": "Ann-Sophie BACHAND",
                 "official_skater_id": 457
               }
-            ]
+            ],
+            "name_latin": "Canada"
           },
           {
             "athlete_id": "team-KOR-women",
-            "name": "Republic of Korea",
+            "name": "韩国队",
             "country": "KOR",
             "official_skater_id": 12701,
             "helmet_number": null,
@@ -20709,11 +20889,12 @@
                 "name": "Minjeong CHOI",
                 "official_skater_id": 1231
               }
-            ]
+            ],
+            "name_latin": "Republic of Korea"
           },
           {
             "athlete_id": "team-CHN-women",
-            "name": "China",
+            "name": "中国队",
             "country": "CHN",
             "official_skater_id": 12696,
             "helmet_number": null,
@@ -20725,29 +20906,34 @@
             "members": [
               {
                 "athlete_id": "ath-387545148a759a14a937",
-                "name": "Jiarui SONG",
-                "official_skater_id": 6617
+                "name": "宋佳蕊",
+                "official_skater_id": 6617,
+                "name_latin": "Jiarui SONG"
               },
               {
                 "athlete_id": "ath-c9d7d5a38485bd9c344f",
-                "name": "Yan ZHANG",
-                "official_skater_id": 19401
+                "name": "张延",
+                "official_skater_id": 19401,
+                "name_latin": "Yan ZHANG"
               },
               {
                 "athlete_id": "ath-7526110b176497878d3f",
-                "name": "Li GONG",
-                "official_skater_id": 2262
+                "name": "公俐",
+                "official_skater_id": 2262,
+                "name_latin": "Li GONG"
               },
               {
                 "athlete_id": "ath-08caea4ad943373c94ab",
-                "name": "Chutong ZHANG",
-                "official_skater_id": 8080
+                "name": "张楚桐",
+                "official_skater_id": 8080,
+                "name_latin": "Chutong ZHANG"
               }
-            ]
+            ],
+            "name_latin": "China"
           },
           {
             "athlete_id": "team-FRA-women",
-            "name": "France",
+            "name": "法国队",
             "country": "FRA",
             "official_skater_id": 12697,
             "helmet_number": null,
@@ -20777,7 +20963,8 @@
                 "name": "Berenice COMBY",
                 "official_skater_id": 1318
               }
-            ]
+            ],
+            "name_latin": "France"
           }
         ]
       },
@@ -20801,7 +20988,7 @@
         "participants": [
           {
             "athlete_id": "team-ITA-women",
-            "name": "Italy",
+            "name": "意大利队",
             "country": "ITA",
             "official_skater_id": 12698,
             "helmet_number": null,
@@ -20831,11 +21018,12 @@
                 "name": "Margherita BETTI",
                 "official_skater_id": 690
               }
-            ]
+            ],
+            "name_latin": "Italy"
           },
           {
             "athlete_id": "team-KOR-women",
-            "name": "Republic of Korea",
+            "name": "韩国队",
             "country": "KOR",
             "official_skater_id": 12701,
             "helmet_number": null,
@@ -20865,11 +21053,12 @@
                 "name": "Minji KIM",
                 "official_skater_id": 18348
               }
-            ]
+            ],
+            "name_latin": "Republic of Korea"
           },
           {
             "athlete_id": "team-NED-women",
-            "name": "Netherlands",
+            "name": "荷兰队",
             "country": "NED",
             "official_skater_id": 12702,
             "helmet_number": null,
@@ -20899,11 +21088,12 @@
                 "name": "Zoe Florence DELTRAP",
                 "official_skater_id": 1534
               }
-            ]
+            ],
+            "name_latin": "Netherlands"
           },
           {
             "athlete_id": "team-CAN-women",
-            "name": "Canada",
+            "name": "加拿大队",
             "country": "CAN",
             "official_skater_id": 12695,
             "helmet_number": null,
@@ -20936,7 +21126,8 @@
                 "name": "Claudia GAGNON",
                 "official_skater_id": 2052
               }
-            ]
+            ],
+            "name_latin": "Canada"
           }
         ]
       },
@@ -20960,7 +21151,7 @@
         "participants": [
           {
             "athlete_id": "team-CHN-women",
-            "name": "China",
+            "name": "中国队",
             "country": "CHN",
             "official_skater_id": 12696,
             "helmet_number": null,
@@ -20972,29 +21163,34 @@
             "members": [
               {
                 "athlete_id": "ath-387545148a759a14a937",
-                "name": "Jiarui SONG",
-                "official_skater_id": 6617
+                "name": "宋佳蕊",
+                "official_skater_id": 6617,
+                "name_latin": "Jiarui SONG"
               },
               {
                 "athlete_id": "ath-08caea4ad943373c94ab",
-                "name": "Chutong ZHANG",
-                "official_skater_id": 8080
+                "name": "张楚桐",
+                "official_skater_id": 8080,
+                "name_latin": "Chutong ZHANG"
               },
               {
                 "athlete_id": "ath-c9d7d5a38485bd9c344f",
-                "name": "Yan ZHANG",
-                "official_skater_id": 19401
+                "name": "张延",
+                "official_skater_id": 19401,
+                "name_latin": "Yan ZHANG"
               },
               {
                 "athlete_id": "ath-7526110b176497878d3f",
-                "name": "Li GONG",
-                "official_skater_id": 2262
+                "name": "公俐",
+                "official_skater_id": 2262,
+                "name_latin": "Li GONG"
               }
-            ]
+            ],
+            "name_latin": "China"
           },
           {
             "athlete_id": "team-KAZ-women",
-            "name": "Kazakhstan",
+            "name": "哈萨克斯坦队",
             "country": "KAZ",
             "official_skater_id": 12700,
             "helmet_number": null,
@@ -21024,11 +21220,12 @@
                 "name": "Guldana ZHALMUKHAN",
                 "official_skater_id": 8073
               }
-            ]
+            ],
+            "name_latin": "Kazakhstan"
           },
           {
             "athlete_id": "team-FRA-women",
-            "name": "France",
+            "name": "法国队",
             "country": "FRA",
             "official_skater_id": 12697,
             "helmet_number": null,
@@ -21061,11 +21258,12 @@
                 "name": "Cloe OLLIVIER",
                 "official_skater_id": 5231
               }
-            ]
+            ],
+            "name_latin": "France"
           },
           {
             "athlete_id": "team-POL-women",
-            "name": "Poland",
+            "name": "波兰队",
             "country": "POL",
             "official_skater_id": 12703,
             "helmet_number": null,
@@ -21098,7 +21296,8 @@
                 "name": "Anna FALKOWSKA",
                 "official_skater_id": 1874
               }
-            ]
+            ],
+            "name_latin": "Poland"
           }
         ]
       }
@@ -21534,12 +21733,13 @@
         "gender": "men",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Bohao ZHANG",
+        "name": "张柏浩",
         "country": "CHN",
         "rank": 14,
         "points": null,
         "official_details": "1:23.779",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16039/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16039/",
+        "name_latin": "Bohao ZHANG"
       },
       {
         "id": "event/men/1000/ath-4b56413b1bd7406aff55",
@@ -21646,12 +21846,13 @@
         "gender": "men",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Long SUN",
+        "name": "孙龙",
         "country": "CHN",
         "rank": 11,
         "points": null,
         "official_details": "1:26.608",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16039/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16039/",
+        "name_latin": "Long SUN"
       },
       {
         "id": "event/men/1000/ath-78b1997e73d6897f4a5d",
@@ -21674,12 +21875,13 @@
         "gender": "men",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Zixia ZHANG",
+        "name": "张子夏",
         "country": "CHN",
         "rank": 16,
         "points": null,
         "official_details": "1:26.901",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16039/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16039/",
+        "name_latin": "Zixia ZHANG"
       },
       {
         "id": "event/men/1000/ath-7c9576fc5f305230747a",
@@ -21870,12 +22072,13 @@
         "gender": "men",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Kerui SONG",
+        "name": "宋柯睿",
         "country": "CHN",
         "rank": 15,
         "points": null,
         "official_details": "1:26.025",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16039/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16039/",
+        "name_latin": "Kerui SONG"
       },
       {
         "id": "event/men/1000/ath-add78a12fa310b75e8b7",
@@ -22444,12 +22647,13 @@
         "gender": "men",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Yiding ZHU",
+        "name": "朱祎玎",
         "country": "CHN",
         "rank": 13,
         "points": null,
         "official_details": "2:18.114",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16041/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16041/",
+        "name_latin": "Yiding ZHU"
       },
       {
         "id": "event/men/1500/ath-33b1d9336d95c0415bd3",
@@ -22556,12 +22760,13 @@
         "gender": "men",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Bohao ZHANG",
+        "name": "张柏浩",
         "country": "CHN",
         "rank": 9,
         "points": null,
         "official_details": "2:16.518",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16041/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16041/",
+        "name_latin": "Bohao ZHANG"
       },
       {
         "id": "event/men/1500/ath-4bb46ec7315811614931",
@@ -22668,12 +22873,13 @@
         "gender": "men",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Long SUN",
+        "name": "孙龙",
         "country": "CHN",
         "rank": 10,
         "points": null,
         "official_details": "2:17.726",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16041/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16041/",
+        "name_latin": "Long SUN"
       },
       {
         "id": "event/men/1500/ath-78b1997e73d6897f4a5d",
@@ -22822,12 +23028,13 @@
         "gender": "men",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Kerui SONG",
+        "name": "宋柯睿",
         "country": "CHN",
         "rank": 35,
         "points": null,
         "official_details": "2:24.047",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16041/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16041/",
+        "name_latin": "Kerui SONG"
       },
       {
         "id": "event/men/1500/ath-add78a12fa310b75e8b7",
@@ -23452,12 +23659,13 @@
         "gender": "men",
         "distance_m": 500,
         "format": "individual",
-        "name": "Bohao ZHANG",
+        "name": "张柏浩",
         "country": "CHN",
         "rank": 12,
         "points": null,
         "official_details": "40.629",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16034/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16034/",
+        "name_latin": "Bohao ZHANG"
       },
       {
         "id": "event/men/500/ath-4b56413b1bd7406aff55",
@@ -23592,12 +23800,13 @@
         "gender": "men",
         "distance_m": 500,
         "format": "individual",
-        "name": "Long SUN",
+        "name": "孙龙",
         "country": "CHN",
         "rank": 10,
         "points": null,
         "official_details": "40.452",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16034/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16034/",
+        "name_latin": "Long SUN"
       },
       {
         "id": "event/men/500/ath-78b1997e73d6897f4a5d",
@@ -23620,12 +23829,13 @@
         "gender": "men",
         "distance_m": 500,
         "format": "individual",
-        "name": "Zixia ZHANG",
+        "name": "张子夏",
         "country": "CHN",
         "rank": 25,
         "points": null,
         "official_details": "40.735",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16034/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16034/",
+        "name_latin": "Zixia ZHANG"
       },
       {
         "id": "event/men/500/ath-7c9576fc5f305230747a",
@@ -23690,12 +23900,13 @@
         "gender": "men",
         "distance_m": 500,
         "format": "individual",
-        "name": "Kun LI",
+        "name": "李坤",
         "country": "CHN",
         "rank": 37,
         "points": null,
         "official_details": "41.135",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16034/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16034/",
+        "name_latin": "Kun LI"
       },
       {
         "id": "event/men/500/ath-8b4c3622c4d3c048c739",
@@ -24683,12 +24894,13 @@
         "gender": "women",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Jiarui SONG",
+        "name": "宋佳蕊",
         "country": "CHN",
         "rank": 8,
         "points": null,
         "official_details": "1:30.305",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16037/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16037/",
+        "name_latin": "Jiarui SONG"
       },
       {
         "id": "event/women/1000/ath-3bd809dcd4f058d4b540",
@@ -24893,12 +25105,13 @@
         "gender": "women",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Li GONG",
+        "name": "公俐",
         "country": "CHN",
         "rank": 9,
         "points": null,
         "official_details": "1:30.723",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16037/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16037/",
+        "name_latin": "Li GONG"
       },
       {
         "id": "event/women/1000/ath-7a90548f25275fc9709d",
@@ -25075,12 +25288,13 @@
         "gender": "women",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Yan ZHANG",
+        "name": "张延",
         "country": "CHN",
         "rank": 12,
         "points": null,
         "official_details": "1:30.742",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16037/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16037/",
+        "name_latin": "Yan ZHANG"
       },
       {
         "id": "event/women/1000/ath-ca017e1d514c206e3241",
@@ -25187,12 +25401,13 @@
         "gender": "women",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Jianing ZHANG",
+        "name": "张珈宁",
         "country": "CHN",
         "rank": 6,
         "points": null,
         "official_details": "1:30.021",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16037/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16037/",
+        "name_latin": "Jianing ZHANG"
       },
       {
         "id": "event/women/1000/ath-f7571561174376f54f0b",
@@ -25243,12 +25458,13 @@
         "gender": "women",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Chutong ZHANG",
+        "name": "张楚桐",
         "country": "CHN",
         "rank": 20,
         "points": null,
         "official_details": "2:26.469",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16040/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16040/",
+        "name_latin": "Chutong ZHANG"
       },
       {
         "id": "event/women/1500/ath-10b4e338d1b0cc128837",
@@ -25551,12 +25767,13 @@
         "gender": "women",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Li GONG",
+        "name": "公俐",
         "country": "CHN",
         "rank": 21,
         "points": null,
         "official_details": "2:23.617",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16040/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16040/",
+        "name_latin": "Li GONG"
       },
       {
         "id": "event/women/1500/ath-7a90548f25275fc9709d",
@@ -25719,12 +25936,13 @@
         "gender": "women",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Yan ZHANG",
+        "name": "张延",
         "country": "CHN",
         "rank": 15,
         "points": null,
         "official_details": "2:31.711",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16040/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16040/",
+        "name_latin": "Yan ZHANG"
       },
       {
         "id": "event/women/1500/ath-ca017e1d514c206e3241",
@@ -25831,12 +26049,13 @@
         "gender": "women",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Jianing ZHANG",
+        "name": "张珈宁",
         "country": "CHN",
         "rank": 19,
         "points": null,
         "official_details": "2:25.822",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16040/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16040/",
+        "name_latin": "Jianing ZHANG"
       },
       {
         "id": "event/women/1500/ath-f7571561174376f54f0b",
@@ -26022,12 +26241,13 @@
         "gender": "women",
         "distance_m": 500,
         "format": "individual",
-        "name": "Chutong ZHANG",
+        "name": "张楚桐",
         "country": "CHN",
         "rank": 10,
         "points": null,
         "official_details": "42.692",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16035/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16035/",
+        "name_latin": "Chutong ZHANG"
       },
       {
         "id": "event/women/500/ath-17bef77a0c55039c04d3",
@@ -26134,12 +26354,13 @@
         "gender": "women",
         "distance_m": 500,
         "format": "individual",
-        "name": "Jiarui SONG",
+        "name": "宋佳蕊",
         "country": "CHN",
         "rank": 12,
         "points": null,
         "official_details": "42.953",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16035/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16035/",
+        "name_latin": "Jiarui SONG"
       },
       {
         "id": "event/women/500/ath-3bd809dcd4f058d4b540",
@@ -26540,12 +26761,13 @@
         "gender": "women",
         "distance_m": 500,
         "format": "individual",
-        "name": "Ye WANG",
+        "name": "王晔",
         "country": "CHN",
         "rank": 5,
         "points": null,
         "official_details": "42.671",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16035/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16035/",
+        "name_latin": "Ye WANG"
       },
       {
         "id": "event/women/500/ath-cdc04f60f74742612112",
@@ -26624,12 +26846,13 @@
         "gender": "women",
         "distance_m": 500,
         "format": "individual",
-        "name": "Jianing ZHANG",
+        "name": "张珈宁",
         "country": "CHN",
         "rank": 15,
         "points": null,
         "official_details": "43.576",
-        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16035/"
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-2-montreal/16035/",
+        "name_latin": "Jianing ZHANG"
       },
       {
         "id": "event/women/500/ath-f7571561174376f54f0b",
@@ -26820,12 +27043,13 @@
         "gender": "men",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Bohao ZHANG",
+        "name": "张柏浩",
         "country": "CHN",
         "rank": 23,
         "points": 12,
         "official_details": "12                                                 12   1:23.779",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Bohao ZHANG"
       },
       {
         "id": "world_tour/men/1000/ath-6a55e9fb6f1aecd29288",
@@ -26876,12 +27100,13 @@
         "gender": "men",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Long SUN",
+        "name": "孙龙",
         "country": "CHN",
         "rank": 17,
         "points": 29,
         "official_details": "5      24                                                 29   1:26.608",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Long SUN"
       },
       {
         "id": "world_tour/men/1000/ath-799c7f543fce635aeeb8",
@@ -26890,12 +27115,13 @@
         "gender": "men",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Zixia ZHANG",
+        "name": "张子夏",
         "country": "CHN",
         "rank": 22,
         "points": 14,
         "official_details": "14                                                 14   1:26.901",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Zixia ZHANG"
       },
       {
         "id": "world_tour/men/1000/ath-7c9576fc5f305230747a",
@@ -26988,12 +27214,13 @@
         "gender": "men",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Kerui SONG",
+        "name": "宋柯睿",
         "country": "CHN",
         "rank": 20,
         "points": 16,
         "official_details": "16                                                 16   1:26.025",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Kerui SONG"
       },
       {
         "id": "world_tour/men/1000/ath-d17ee33a3816179f80fc",
@@ -27184,12 +27411,13 @@
         "gender": "men",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Yiding ZHU",
+        "name": "朱祎玎",
         "country": "CHN",
         "rank": 9,
         "points": 58,
         "official_details": "40      18                                                 58   2:18.114",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Yiding ZHU"
       },
       {
         "id": "world_tour/men/1500/ath-33b1d9336d95c0415bd3",
@@ -27254,12 +27482,13 @@
         "gender": "men",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Bohao ZHANG",
+        "name": "张柏浩",
         "country": "CHN",
         "rank": 12,
         "points": 32,
         "official_details": "32                                                 32   2:16.518",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Bohao ZHANG"
       },
       {
         "id": "world_tour/men/1500/ath-6be3e556e39507d16dc3",
@@ -27310,12 +27539,13 @@
         "gender": "men",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Long SUN",
+        "name": "孙龙",
         "country": "CHN",
         "rank": 15,
         "points": 28,
         "official_details": "28                                                 28   2:17.726",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Long SUN"
       },
       {
         "id": "world_tour/men/1500/ath-799c7f543fce635aeeb8",
@@ -27324,12 +27554,13 @@
         "gender": "men",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Zixia ZHANG",
+        "name": "张子夏",
         "country": "CHN",
         "rank": 27,
         "points": 5,
         "official_details": "5                                                          5   2:17.281",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Zixia ZHANG"
       },
       {
         "id": "world_tour/men/1500/ath-7c9576fc5f305230747a",
@@ -27562,12 +27793,13 @@
         "gender": "men",
         "distance_m": 500,
         "format": "individual",
-        "name": "Bohao ZHANG",
+        "name": "张柏浩",
         "country": "CHN",
         "rank": 19,
         "points": 20,
         "official_details": "20                                                 20   0:40.629",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Bohao ZHANG"
       },
       {
         "id": "world_tour/men/500/ath-4b56413b1bd7406aff55",
@@ -27646,12 +27878,13 @@
         "gender": "men",
         "distance_m": 500,
         "format": "individual",
-        "name": "Long SUN",
+        "name": "孙龙",
         "country": "CHN",
         "rank": 12,
         "points": 36,
         "official_details": "8      28                                                 36   0:40.452",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Long SUN"
       },
       {
         "id": "world_tour/men/500/ath-799c7f543fce635aeeb8",
@@ -27660,12 +27893,13 @@
         "gender": "men",
         "distance_m": 500,
         "format": "individual",
-        "name": "Zixia ZHANG",
+        "name": "张子夏",
         "country": "CHN",
         "rank": 20,
         "points": 20,
         "official_details": "20                                                         20   0:40.880",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Zixia ZHANG"
       },
       {
         "id": "world_tour/men/500/ath-7c9576fc5f305230747a",
@@ -27716,12 +27950,13 @@
         "gender": "men",
         "distance_m": 500,
         "format": "individual",
-        "name": "Kun LI",
+        "name": "李坤",
         "country": "CHN",
         "rank": 24,
         "points": 12,
         "official_details": "12                                                         12   0:41.046",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Kun LI"
       },
       {
         "id": "world_tour/men/500/ath-98d77949cb6eb84d0b02",
@@ -28332,12 +28567,13 @@
         "gender": "women",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Jiarui SONG",
+        "name": "宋佳蕊",
         "country": "CHN",
         "rank": 8,
         "points": 64,
         "official_details": "28      36                                                  64   1:30.305",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Jiarui SONG"
       },
       {
         "id": "world_tour/women/1000/ath-3bd809dcd4f058d4b540",
@@ -28458,12 +28694,13 @@
         "gender": "women",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Li GONG",
+        "name": "公俐",
         "country": "CHN",
         "rank": 11,
         "points": 52,
         "official_details": "20      32                                                  52   1:30.723",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Li GONG"
       },
       {
         "id": "world_tour/women/1000/ath-7a90548f25275fc9709d",
@@ -28570,12 +28807,13 @@
         "gender": "women",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Yan ZHANG",
+        "name": "张延",
         "country": "CHN",
         "rank": 16,
         "points": 38,
         "official_details": "18      20                                                  38   1:30.742",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Yan ZHANG"
       },
       {
         "id": "world_tour/women/1000/ath-cdc04f60f74742612112",
@@ -28626,12 +28864,13 @@
         "gender": "women",
         "distance_m": 1000,
         "format": "individual",
-        "name": "Jianing ZHANG",
+        "name": "张珈宁",
         "country": "CHN",
         "rank": 13,
         "points": 44,
         "official_details": "44                                                  44   1:30.021",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Jianing ZHANG"
       },
       {
         "id": "world_tour/women/1000/ath-f7571561174376f54f0b",
@@ -28668,12 +28907,13 @@
         "gender": "women",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Chutong ZHANG",
+        "name": "张楚桐",
         "country": "CHN",
         "rank": 16,
         "points": 37,
         "official_details": "32       5                                                 37   2:26.469",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Chutong ZHANG"
       },
       {
         "id": "world_tour/women/1500/ath-10b4e338d1b0cc128837",
@@ -28864,12 +29104,13 @@
         "gender": "women",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Li GONG",
+        "name": "公俐",
         "country": "CHN",
         "rank": 21,
         "points": 18,
         "official_details": "14       4                                                 18   2:23.617",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Li GONG"
       },
       {
         "id": "world_tour/women/1500/ath-8361e1c91aab972b6ca4",
@@ -28948,12 +29189,13 @@
         "gender": "women",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Yan ZHANG",
+        "name": "张延",
         "country": "CHN",
         "rank": 22,
         "points": 14,
         "official_details": "14                                                 14   2:31.711",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Yan ZHANG"
       },
       {
         "id": "world_tour/women/1500/ath-ca017e1d514c206e3241",
@@ -29004,12 +29246,13 @@
         "gender": "women",
         "distance_m": 1500,
         "format": "individual",
-        "name": "Jianing ZHANG",
+        "name": "张珈宁",
         "country": "CHN",
         "rank": 9,
         "points": 56,
         "official_details": "50       6                                                 56   2:25.822",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Jianing ZHANG"
       },
       {
         "id": "world_tour/women/1500/ath-f7571561174376f54f0b",
@@ -29172,12 +29415,13 @@
         "gender": "women",
         "distance_m": 500,
         "format": "individual",
-        "name": "Chutong ZHANG",
+        "name": "张楚桐",
         "country": "CHN",
         "rank": 11,
         "points": 52,
         "official_details": "24      28                                                  52   0:42.692",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Chutong ZHANG"
       },
       {
         "id": "world_tour/women/500/ath-163dd693903350859073",
@@ -29242,12 +29486,13 @@
         "gender": "women",
         "distance_m": 500,
         "format": "individual",
-        "name": "Jiarui SONG",
+        "name": "宋佳蕊",
         "country": "CHN",
         "rank": 13,
         "points": 48,
         "official_details": "28      20                                                  48   0:42.953",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Jiarui SONG"
       },
       {
         "id": "world_tour/women/500/ath-3bd809dcd4f058d4b540",
@@ -29410,12 +29655,13 @@
         "gender": "women",
         "distance_m": 500,
         "format": "individual",
-        "name": "Ye WANG",
+        "name": "王晔",
         "country": "CHN",
         "rank": 5,
         "points": 82,
         "official_details": "32      50                                                  82   0:42.671",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Ye WANG"
       },
       {
         "id": "world_tour/women/500/ath-cdc04f60f74742612112",
@@ -29480,12 +29726,13 @@
         "gender": "women",
         "distance_m": 500,
         "format": "individual",
-        "name": "Jianing ZHANG",
+        "name": "张珈宁",
         "country": "CHN",
         "rank": 9,
         "points": 58,
         "official_details": "44      14                                                  58   0:43.289",
-        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
+        "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf",
+        "name_latin": "Jianing ZHANG"
       },
       {
         "id": "world_tour/women/500/ath-f7571561174376f54f0b",

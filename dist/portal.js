@@ -101,7 +101,8 @@
                 query
                   .split(/\s+/)
                   .every((token) =>
-                    (p.name + ' ' + p.country + ' ' + (p.aliases || []).join(' '))
+                    [p.name, p.name_latin, p.country, ...(p.aliases || [])]
+                      .join(' ')
                       .toLocaleLowerCase()
                       .includes(token)
                   ))
@@ -110,7 +111,8 @@
             const first = numberOf(a);
             const second = numberOf(b);
             return first === second
-              ? a.name.localeCompare(b.name) || a.id.localeCompare(b.id)
+              ? (a.name_latin || a.name).localeCompare(b.name_latin || b.name) ||
+                  a.id.localeCompare(b.id)
               : first - second;
           });
         count.textContent = '显示 ' + people.length + ' 人 · 共 ' + index.items.length + ' 人';
@@ -257,7 +259,7 @@
                     (a, b) =>
                       Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
                       b.total - a.total ||
-                      a.name.localeCompare(b.name)
+                      (a.name_latin || a.name).localeCompare(b.name_latin || b.name)
                   )
                   .map((person) =>
                     h(

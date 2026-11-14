@@ -231,7 +231,8 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   q.value = 'LI Kun';
   q.dispatchEvent(new dom.window.Event('input'));
   assert.equal(d.querySelectorAll('.directory-card').length, 1);
-  assert.match(d.querySelector('.directory-card').textContent, /Kun LI/);
+  assert.match(d.querySelector('.directory-card').textContent, /李坤/);
+  assert.doesNotMatch(d.querySelector('.directory-card').textContent, /Kun LI/);
   assert.equal(d.querySelector('.directory-helmet').textContent, '67');
   assert.doesNotMatch(d.querySelector('.directory-card').textContent, /头盔号|#/);
   assert.equal(d.querySelector('.directory-card a'), null);
@@ -239,7 +240,7 @@ test('the athlete directory filters real roster data, tolerates name order, and 
   // ISU updates WCD standings after each station; the card must agree
   // with the currently published season index, not a frozen Vancouver rank.
   const currentDirectory = JSON.parse(await file('dist/data/athletes.json'));
-  const kun = currentDirectory.items.find(p => p.name === 'Kun LI');
+  const kun = currentDirectory.items.find(p => p.name_latin === 'Kun LI');
   assert.ok(kun?.season_rankings?.length);
   assert.equal(
     d.querySelector('.directory-rankings').textContent,
@@ -341,7 +342,7 @@ test('unified filters share selected season, discipline, event and actual relay 
   assert.match(first.textContent, /世锦赛 · 蒙特利尔/);
   assert.match(first.querySelector('.result-place').textContent, /第 3 名/);
   const final = [...first.querySelectorAll('.result-lineup p')].find(p => p.textContent.startsWith('A 决赛'));
-  assert.match(final.textContent, /Li GONG/);
+  assert.match(final.textContent, /公俐/);
   assert.doesNotMatch(final.textContent, /Jingru YANG/);
   const type = d.querySelector('select[name="kind"]'); type.value = 'worlds';
   type.dispatchEvent(new dom.window.Event('change', {bubbles:true}));

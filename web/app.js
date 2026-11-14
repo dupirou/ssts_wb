@@ -958,7 +958,7 @@
           (a, b) =>
             Number(b.country === 'CHN') - Number(a.country === 'CHN') ||
             a.country.localeCompare(b.country) ||
-            a.name.localeCompare(b.name) ||
+            (a.name_latin || a.name).localeCompare(b.name_latin || b.name) ||
             String(a.athlete_id || '').localeCompare(String(b.athlete_id || ''))
         );
       count.textContent = '显示 ' + selected.length + ' 人';
