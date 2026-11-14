@@ -525,6 +525,7 @@
 
   /* ---------- athlete entries and official competition details ---------- */
   const officialHeats = new Map();
+  let scheduleEntries = [];
   function competitionPanel(station) {
     const athletes = h('div', { class: 'athlete-data' });
     const predictions = h('div', { class: 'athlete-data' });
@@ -1349,6 +1350,13 @@
 
   // Shared hero metadata across World Tour stations and championships.
   function eventMeta(event, win, includeCity = false, provisional = false) {
+    const over = now() > win.end;
+    // Clocks can change during an event (Montreal, 1 November): describe the offset in force now.
+    const at = Math.min(Math.max(now(), win.start), win.end);
+    // "To be announced" only makes sense before the event; afterwards an unknown venue is left out.
+    const place = [includeCity ? event.city : null, event.venue || (over ? null : '场馆待公布')]
+      .filter(Boolean)
+      .join(' · ');
     return h(
       'ul',
       { class: 'meta-list meta-inline' },
@@ -1364,19 +1372,9 @@
           ' ' +
           wk(event.date_end)
       ),
-      h(
-        'li',
-        {},
-        icon('pin'),
-        (includeCity ? event.city + ' · ' : '') + (event.venue || '场馆待公布')
-      ),
-      h(
-        'li',
-        {},
-        icon('globe'),
-        utcLabel(event.timezone, win.start) + ' · ' + bjDiff(event.timezone, win.start)
-      ),
-      provisional ? h('li', { class: 'meta-note' }, icon('alert'), 'ISU 暂定赛程') : null
+      place ? h('li', {}, icon('pin'), place) : null,
+      h('li', {}, icon('globe'), utcLabel(event.timezone, at) + ' · ' + bjDiff(event.timezone, at)),
+      provisional && !over ? h('li', { class: 'meta-note' }, icon('alert'), 'ISU 暂定赛程') : null
     );
   }
   function eventResultsLink(event) {
@@ -1474,7 +1472,11 @@
           'li',
           {},
           icon('globe'),
-          '当地' + bjDiff(st.timezone, st.win.start).replace('与北京时间相同', '与北京同时区')
+          '当地' +
+            bjDiff(st.timezone, Math.min(Math.max(now(), st.win.start), st.win.end)).replace(
+              '与北京时间相同',
+              '与北京同时区'
+            )
         )
       ),
       h('div', { class: 'next-count' }, label, cd, item)
@@ -2065,6 +2067,7 @@
 
   function scheduleView(data, station, host, competitionStatus) {
     const entries = data.entries;
+    scheduleEntries = entries;
     const days = raceDays(entries);
     const blank = { day: 'all', gender: 'all', stage: 'all', china: false };
     const state = { ...blank, zone: storedZone() };
@@ -2610,10 +2613,25 @@
     return tr;
   }
 
-  function updateHeatButton(note, r) {
+  // ISU's programme lists every possible round; with few entries an early one is not raced.
+  // Once a later round of the same event has official heats, a round without any was skipped.
+  const roundSkipped = (r, entries) =>
+    !officialHeats.has(r.round_key) &&
+    entries.some(
+      (x) =>
+        x.t > r.t &&
+        x.gender === r.gender &&
+        x.distance_m === r.distance_m &&
+        x.format === r.format &&
+        officialHeats.has(x.round_key)
+    );
+  function updateHeatButton(note, r, entries = scheduleEntries) {
     note.querySelector('.competition-open')?.remove();
+    note.querySelector('.round-skipped')?.remove();
     const heats = officialHeats.get(r.round_key) || [];
-    note.classList.toggle('is-empty', !isChina(r) && !heats.length);
+    const skipped = roundSkipped(r, entries);
+    note.classList.toggle('is-empty', !isChina(r) && !heats.length && !skipped);
+    if (skipped) note.append(h('span', { class: 'round-skipped', text: '未举行' }));
     if (heats.length)
       note.append(
         h(

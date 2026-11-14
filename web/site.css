@@ -3156,6 +3156,10 @@ td.time {
   font-size: 0.82rem;
   font-weight: 600;
 }
+.round-skipped {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
 .competition-dialog {
   width: min(640px, calc(100% - 24px));
   max-height: calc(100dvh - 40px);
@@ -3350,7 +3354,7 @@ td.time {
     padding: 0;
     border: 0;
   }
-  .match-row.is-past td.notes-cell:not(:has(.competition-open)) {
+  .match-row.is-past td.notes-cell:not(:has(.competition-open, .round-skipped)) {
     display: none;
   }
 }
