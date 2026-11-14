@@ -192,14 +192,10 @@ jobs:
               exit 1
             fi
           done
-      - name: Track consecutive session crashes
-        if: ${{ always() && inputs.sync_decision == 'session' }}
+      # Any failed step counts, whatever triggered the run: a failing test blocks publication too.
+      - name: Track consecutive failed runs
+        if: always()
         env:
           GH_TOKEN: ${{ github.token }}
-          SYNC_FAILED: ${{ steps.sync_penalties.outcome != 'success' ||
-              steps.sync_schedule.outcome != 'success' ||
-              steps.sync_china.outcome != 'success' ||
-              steps.sync_competitions.outcome != 'success' ||
-              steps.sync_predictions.outcome != 'success' ||
-              steps.sync_standings.outcome != 'success' }}
+          SYNC_FAILED: ${{ job.status != 'success' }}
         run: python tools/session_incident.py
