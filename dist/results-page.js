@@ -475,7 +475,8 @@
         ['circuit', '世界杯 / 世巡赛'],
         ['fourcontinents', '四大洲']
       ],
-      normalizeKind(params.get('kind'))
+      // Without a choice in the URL, start from the kind of event raced most recently.
+      normalizeKind(params.get('kind') || index.events[0]?.kind)
     );
     const metric = select(
       h,

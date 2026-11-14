@@ -141,6 +141,9 @@
           .sort((a, b) => {
             const first = numberOf(a);
             const second = numberOf(b);
+            // The Chinese team leads the directory; everyone else follows by helmet number.
+            const home = Number(b.country === 'CHN') - Number(a.country === 'CHN');
+            if (home) return home;
             return first === second
               ? (a.name_latin || a.name).localeCompare(b.name_latin || b.name) ||
                   a.id.localeCompare(b.id)
