@@ -1,7 +1,9 @@
 # 审查记录索引
 
-审查是特定时间的快照，现行行为以 [架构](../architecture.md)、[前端](../frontend.md)、[成绩契约](../results-contract.md) 和 [历史成绩](../history.md) 为准。
+审查是特定时间的快照，现行行为以 [架构](../architecture.md)、[前端](../frontend.md)、[成绩契约](../results-contract.md) 和 [历史成绩](../history.md) 为准。按时间从新到旧排列。
 
+- [代码与界面检查](code-ui-audit-20261030.md)：2026-10-30 对同步、构建、API 与各页面的重复代码、加载等待和移动端布局检查及处理结果。
+- [运动员目录与卡片信息层级检查](athlete-directory-hierarchy-20261029.md)：2026-10-29 的目录号码排序、重复标题与全站卡片层级整改。
 - [赛事对比与加载审查](event-comparison.md)：2026-10-28 的产品、架构、加载量和验证结果；附手机及桌面截图。
 - PR #36 历史验收（2026-10-28）：成绩搜索、按需加载、响应式和离线测试。完整原始材料固定保存在合并前的 Git 版本中：[审计](https://github.com/dupirou/ssts_wb/blob/84038025de49a05f7e951293924f86d18aaaa536/docs/reviews/pr36-audit.md)、[最终验收](https://github.com/dupirou/ssts_wb/blob/84038025de49a05f7e951293924f86d18aaaa536/docs/reviews/pr36-final.md)、[上一轮报告和截图](https://github.com/dupirou/ssts_wb/tree/84038025de49a05f7e951293924f86d18aaaa536/docs/reviews/pr36)。旧报告的数量、性能测量和产品文案不代表当前状态。
 

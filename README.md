@@ -36,15 +36,20 @@ Worker stsswb：静态文件 + 只读 /api/v1（src/worker.mjs）
 | `data/stations.json` | 唯一的分站配置：日期、时区、场馆、ISU 赛事页 |
 | `data/schedules/` `data/competitions/` | 已核对的官方赛程、报名、分组与成绩 |
 | `data/history/` | 中国队历史赛事索引、固定运动员身份与官方最终成绩 |
-| `data/prediction_inputs/` | 单项报项与上赛季单项排名（预测和运动员报项用） |
+| `data/prediction_inputs/` `data/prediction_tables.json` | 单项报项、上赛季单项排名与预测用表（预测和运动员报项用） |
+| `data/penalties/` | 各站官方 Protocol 核验后的世巡赛累计判罚快照 |
+| `data/world_tour_rankings.json` | 本赛季世巡赛单项排名的最近一次可信快照 |
+| `data/tickets.json` | 人工核对的各站售票信息 |
 | `data/china*.json` | 中国队分组证据（自动导入与人工覆盖） |
 | `data/updates.json` | 已通知过的“新动态” |
+| `data/*_sources.json` `data/sync_meta.json` | 官方来源登记与同步状态 |
 | `tools/` | 同步脚本（`sync_*.py`）、构建（`build.py`）、预测、图标渲染 |
 | `web/` | 前端源文件；`dist/` 为构建产物，不要手改 |
 | `tools/site_catalog.py` | 从快照生成赛果摘要、运动员索引与本赛季世巡赛排名 |
 | `src/worker.mjs` | Cloudflare Worker：API 与比赛时段定时触发 |
 | `tests/` | Python 与 Node 测试 |
 | `docs/` | 详细说明（见下） |
+| `audit/` | 历史成绩来源审计的证据与复核脚本（存档，不参与构建） |
 
 ## 本地运行
 
@@ -73,8 +78,10 @@ ruff format --check tools tests && ruff check tools tests
 - [docs/deploy.md](docs/deploy.md)：Cloudflare 部署与比赛时段定时同步
 - [docs/isu-seeding-2026-27.md](docs/isu-seeding-2026-27.md)：直通、种子与分组规则（含官方条款出处）
 - [docs/results-contract.md](docs/results-contract.md)：成绩模块、统计与数据契约
+- [docs/penalties-contract.md](docs/penalties-contract.md)：世巡赛累计判罚的官方依据、核验规则与数据契约
 - [docs/frontend-roadmap.md](docs/frontend-roadmap.md)：待实施的前端维护事项
 - [docs/log.md](docs/log.md)：历史工作日志与来源核查
 - [docs/reviews/README.md](docs/reviews/README.md)：历史审查与验证记录索引
+- [audit/2026-10-28-second-pass/README.md](audit/2026-10-28-second-pass/README.md)：第二轮历史来源审计结论与证据清单
 
-最近一次代码、界面与文档检查：[赛事对比与加载审查](docs/reviews/event-comparison.md)。
+最近一次代码与界面检查：[代码与界面检查（2026-10-30）](docs/reviews/code-ui-audit-20261030.md)。
