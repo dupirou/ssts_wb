@@ -132,7 +132,7 @@ try{
         const requests=await page.evaluate(()=>performance.getEntriesByType('resource').filter(e=>new URL(e.name).pathname.startsWith('/data/')).map(e=>new URL(e.name).pathname));
         assert.deepEqual(requests,['/data/calendar.json']);
       }
-      if(width===390||width===768)await page.screenshot({path:join(out,'screenshots',path.replaceAll('/','_')+'-'+width+'.png')});
+      if(width===390||width===768)await page.screenshot({path:join(out,'screenshots',path.replace(/[^A-Za-z0-9._-]+/g,'_')+'-'+width+'.png')});
       report.checks.push({name:'site responsive',path,width,passed:true});
       await context.close();
     }
