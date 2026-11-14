@@ -40,6 +40,7 @@ Worker stsswb：静态文件 + 只读 /api/v1（src/worker.mjs）
 | `data/penalties/` | 各站官方 Protocol 核验后的世巡赛累计判罚快照 |
 | `data/world_tour_rankings.json` | 本赛季世巡赛单项排名的最近一次可信快照 |
 | `data/tickets.json` | 人工核对的各站售票信息 |
+| `data/athlete_names_zh.json` | 中国队运动员中文名，只在发布时替换显示 |
 | `data/china*.json` | 中国队分组证据（自动导入与人工覆盖） |
 | `data/updates.json` | 已通知过的“新动态” |
 | `data/*_sources.json` `data/sync_meta.json` | 官方来源登记与同步状态 |
@@ -76,6 +77,7 @@ ruff format --check tools tests && ruff check tools tests
 - [docs/history.md](docs/history.md)：中国队历史成绩收录、导入与覆盖范围
 - [docs/frontend.md](docs/frontend.md)：页面结构、视觉规则、文案约定
 - [docs/deploy.md](docs/deploy.md)：Cloudflare 部署与比赛时段定时同步
+- [docs/maintenance.md](docs/maintenance.md)：需要人工维护的数据、换赛季步骤与密钥
 - [docs/isu-seeding-2026-27.md](docs/isu-seeding-2026-27.md)：直通、种子与分组规则（含官方条款出处）
 - [docs/results-contract.md](docs/results-contract.md)：成绩模块、统计与数据契约
 - [docs/penalties-contract.md](docs/penalties-contract.md)：世巡赛累计判罚的官方依据、核验规则与数据契约
