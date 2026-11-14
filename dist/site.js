@@ -74,7 +74,43 @@
       clearTimeout(timeout);
     }
   }
-  site.ui = { h, s, append, fill, select, writeFilters, tableScroll, findFocus, requestJSON };
+  // One event's Chinese-team recap, from the compact summary the build attaches to lists.
+  const MEDALS = ['金', '银', '铜'];
+  const GENDERS = { women: '女子', men: '男子', mixed: '混合' };
+  function chinaRecap(summary) {
+    const medals = summary.medals
+      .map((count, i) => (count ? count + ' ' + MEDALS[i] : null))
+      .filter(Boolean)
+      .join(' ');
+    return {
+      medals,
+      podium: summary.podium.map(({ project, rank }) => {
+        const [gender, distance] = project.split('-');
+        return (
+          MEDALS[rank - 1] +
+          '牌 ' +
+          GENDERS[gender] +
+          ' ' +
+          distance +
+          ' 米' +
+          (distance >= 2000 ? '接力' : '')
+        );
+      }),
+      finals: 'A 组决赛 ' + summary.a_finals + ' · 前 8 名 ' + summary.top8
+    };
+  }
+  site.ui = {
+    h,
+    s,
+    append,
+    fill,
+    select,
+    writeFilters,
+    tableScroll,
+    findFocus,
+    requestJSON,
+    chinaRecap
+  };
 })();
 ;
 /* Shared page addresses and global navigation. Event query links remain valid. */
@@ -180,6 +216,9 @@
       }))
     ];
     const focus = site.ui.findFocus(events, phase);
+    // Between stations the home page would otherwise forget the one that just finished.
+    const last = stations.filter((st) => st.china_summary && phase(st.win) === 'done').at(-1);
+    const recap = last && site.ui.chinaRecap(last.china_summary);
     root.replaceChildren(
       header(h, '短道速滑', calendar.season),
       focus
@@ -190,6 +229,34 @@
             h('h2', { text: '本赛季比赛已结束' }),
             h('a', { class: 'btn', href: '/events/' }, '查看赛事')
           ),
+      recap
+        ? h(
+            'section',
+            { class: 'panel ticket-panel last-station', 'aria-label': last.city + '站中国队成绩' },
+            h(
+              'div',
+              { class: 'ticket-copy' },
+              h('p', { class: 'eyebrow', text: '上一站 · ' + last.city + '站 · 中国队' }),
+              h('h2', { text: recap.medals || '未获奖牌' }),
+              recap.podium.length
+                ? h('p', { class: 'ticket-time', text: recap.podium.join(' · ') })
+                : null,
+              h('p', { class: 'ticket-time', text: recap.finals })
+            ),
+            h(
+              'div',
+              { class: 'ticket-actions' },
+              h(
+                'a',
+                {
+                  class: 'btn btn-ghost',
+                  href: '/results/events/' + encodeURIComponent(last.results_event_id) + '/'
+                },
+                '查看成绩'
+              )
+            )
+          )
+        : null,
       ...stations.map(ticketPanel).filter(Boolean)
     );
   }
@@ -1963,6 +2030,8 @@
     const cd = countdown('cd-xl');
     const label = h('p', { class: 'next-label' });
     const item = h('p', { class: 'next-item' });
+    // During a session the countdown points at the next round; say what is on the ice now.
+    const current = h('p', { class: 'next-now', hidden: true });
     const main = h(
       'div',
       { class: 'next-main' },
@@ -2010,7 +2079,7 @@
             )
         )
       ),
-      h('div', { class: 'next-count' }, label, cd, item)
+      h('div', { class: 'next-count' }, current, label, cd, item)
     );
     if (st.detail) {
       main.append(
@@ -2044,6 +2113,7 @@
         )
       );
     }
+    if (st.detail) main.append(chinaLine(st.detail.entries));
     main.append(
       h(
         'a',
@@ -2065,6 +2135,10 @@
           label.textContent = '全部轮次已按计划开赛';
           item.textContent = '';
         }
+        // The round that started last, while its session is still running (rounds follow within the hour).
+        const on = i > 0 && now() - e[i - 1].t < 60 * 60000 ? e[i - 1] : null;
+        current.hidden = !on;
+        if (on) current.textContent = '正在进行 · ' + eventName(on) + ' ' + roundName(on);
       } else {
         label.textContent = st.dataError ? '赛程暂时无法读取' : '详细赛程待公布';
         item.textContent = '比赛日期：' + dot(st.date_start) + ' — ' + dot(st.date_end);

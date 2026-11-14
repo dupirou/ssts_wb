@@ -1159,6 +1159,11 @@ h3 {
   font-size: 0.95rem;
   color: var(--text);
 }
+.next-now {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--red);
+}
 .day-chips {
   list-style: none;
   margin: 4px 0 0;

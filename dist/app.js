@@ -1432,6 +1432,8 @@
     const cd = countdown('cd-xl');
     const label = h('p', { class: 'next-label' });
     const item = h('p', { class: 'next-item' });
+    // During a session the countdown points at the next round; say what is on the ice now.
+    const current = h('p', { class: 'next-now', hidden: true });
     const main = h(
       'div',
       { class: 'next-main' },
@@ -1479,7 +1481,7 @@
             )
         )
       ),
-      h('div', { class: 'next-count' }, label, cd, item)
+      h('div', { class: 'next-count' }, current, label, cd, item)
     );
     if (st.detail) {
       main.append(
@@ -1513,6 +1515,7 @@
         )
       );
     }
+    if (st.detail) main.append(chinaLine(st.detail.entries));
     main.append(
       h(
         'a',
@@ -1534,6 +1537,10 @@
           label.textContent = '全部轮次已按计划开赛';
           item.textContent = '';
         }
+        // The round that started last, while its session is still running (rounds follow within the hour).
+        const on = i > 0 && now() - e[i - 1].t < 60 * 60000 ? e[i - 1] : null;
+        current.hidden = !on;
+        if (on) current.textContent = '正在进行 · ' + eventName(on) + ' ' + roundName(on);
       } else {
         label.textContent = st.dataError ? '赛程暂时无法读取' : '详细赛程待公布';
         item.textContent = '比赛日期：' + dot(st.date_start) + ' — ' + dot(st.date_end);

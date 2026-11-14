@@ -23,7 +23,14 @@ for (const event of catalog.events) {
   events.push({...meta,source:{url:meta.source.url,kind:meta.source.kind},record_count:results.length,detail_file});
   searchEvents.push({id:event.id,search_rows});
   if (!seasons.has(event.season)) seasons.set(event.season,[]);
-  seasons.get(event.season).push({id:event.id,summary:model.summarize(event)});
+  const summary = model.summarize(event);
+  seasons.get(event.season).push({id:event.id,summary});
+  // Enough for a one-line recap on lists and the home page, without loading the season file.
+  if (summary.totals.entries) events.at(-1).china_summary = {
+    medals:summary.totals.medals,a_finals:summary.totals.a_finals,top8:summary.totals.top8,
+    podium:Object.entries(summary.projects).flatMap(([project,{totals}])=>
+      totals.medals.flatMap((count,i)=>Array.from({length:count},()=>({project,rank:i+1})))),
+  };
 }
 for (const [season,items] of seasons) await write('seasons/' + season.replace('/','-') + '.json',{schema_version:2,season,items});
 // Join current calendar events only when season, type and both dates identify one result.
@@ -36,6 +43,7 @@ for (const [stations, kind] of [[calendar.stations || [], 'worldtour'], [calenda
     const matchingStations = stations.filter(item => item.date_start === station.date_start && item.date_end === station.date_end);
     if (matches.length !== 1 || matchingStations.length !== 1) continue;
     station.results_event_id = matches[0].id;
+    if (matches[0].china_summary) station.china_summary = matches[0].china_summary;
     matches[0].schedule_path = '/events/' + calendar.season.replace('/', '-') + '/' + station.id + '/';
   }
 }

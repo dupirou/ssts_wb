@@ -74,5 +74,41 @@
       clearTimeout(timeout);
     }
   }
-  site.ui = { h, s, append, fill, select, writeFilters, tableScroll, findFocus, requestJSON };
+  // One event's Chinese-team recap, from the compact summary the build attaches to lists.
+  const MEDALS = ['金', '银', '铜'];
+  const GENDERS = { women: '女子', men: '男子', mixed: '混合' };
+  function chinaRecap(summary) {
+    const medals = summary.medals
+      .map((count, i) => (count ? count + ' ' + MEDALS[i] : null))
+      .filter(Boolean)
+      .join(' ');
+    return {
+      medals,
+      podium: summary.podium.map(({ project, rank }) => {
+        const [gender, distance] = project.split('-');
+        return (
+          MEDALS[rank - 1] +
+          '牌 ' +
+          GENDERS[gender] +
+          ' ' +
+          distance +
+          ' 米' +
+          (distance >= 2000 ? '接力' : '')
+        );
+      }),
+      finals: 'A 组决赛 ' + summary.a_finals + ' · 前 8 名 ' + summary.top8
+    };
+  }
+  site.ui = {
+    h,
+    s,
+    append,
+    fill,
+    select,
+    writeFilters,
+    tableScroll,
+    findFocus,
+    requestJSON,
+    chinaRecap
+  };
 })();
