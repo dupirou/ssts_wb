@@ -14,7 +14,7 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- DOM helpers ---------- */
-  const { h, s, append, fill } = window.SSTS.ui;
+  const { h, s, fill } = window.SSTS.ui;
   const external = (href, ...kids) =>
     h(
       'a',
@@ -3226,6 +3226,7 @@
       passive: true
     });
   } catch (e) {
+    console.error(e);
     root.replaceChildren(
       h(
         'div',
