@@ -2,6 +2,8 @@
 
 import csv
 import re
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 import stations
@@ -69,3 +71,61 @@ def read(path):
         return None
     with Path(path).open(encoding='utf-8', newline='') as f:
         return list(csv.DictReader(f))
+
+
+BJ = ZoneInfo('Asia/Shanghai')
+STAGES = {'Q': 'qualifying', 'R': 'repechage', 'F': 'main'}
+GENDERS = {'W': 'women', 'M': 'men', 'X': 'mixed'}
+ROUNDS = {'P': 'preliminaries', 'H': 'heats', 'Q': 'quarterfinal', 'S': 'semifinal', 'F': 'final'}
+
+
+def read_schedule(station_id, directory=stations.SCHEDULES):
+    """A station's stored official programme as Beijing-time rows; [] until ISU publishes one."""
+    station = stations.get(station_id)
+    data = read(stations.schedule_path(station_id, directory))
+    if data is None:
+        return []
+    validate(data, station)
+    tz = ZoneInfo(station['timezone'])
+    result = []
+    for row in data:
+        d, t = row['date'], row['time']
+        st, sex, typ, rnd = row['session'], row['gender'], row['kind'], row['round']
+        dist, group = int(row['distance']), row['group']
+        naive = datetime.strptime(f'{d} {t}', '%Y-%m-%d %H:%M')
+        local = naive.replace(tzinfo=tz)
+        other = naive.replace(tzinfo=tz, fold=1)
+        if local.utcoffset() != other.utcoffset():
+            # A backward clock transition maps a local time to two different UTC instants.
+            if all(
+                value.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) == naive for value in (local, other)
+            ):
+                raise ValueError('Ambiguous daylight-saving fold in station start time: ' + d + ' ' + t)
+        if local.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) != naive:
+            raise ValueError("Start time does not exist in the station's timezone: " + d + ' ' + t)
+        utc = local.astimezone(timezone.utc)
+        bj = utc.astimezone(BJ)
+        key = '/'.join((d, STAGES[st], GENDERS[sex], str(dist), ROUNDS[rnd], group))
+        result.append(
+            {
+                'id': key.replace('/', '-'),
+                'round_key': key,
+                'local_date': d,
+                'local_time': t,
+                'local_start': local.isoformat(),
+                'utc_start': utc.isoformat().replace('+00:00', 'Z'),
+                'beijing_date': bj.strftime('%Y-%m-%d'),
+                'beijing_time': bj.strftime('%H:%M'),
+                'session': STAGES[st],
+                'gender': GENDERS[sex],
+                'distance_m': dist,
+                'format': 'relay' if typ == 'R' else 'individual',
+                'round': ROUNDS[rnd],
+                'group': None if group == '-' else group,
+                'status': 'scheduled',
+                'china': {'status': 'unknown', 'heats': []},
+            }
+        )
+    if len({r['round_key'] for r in result}) != len(result):
+        raise ValueError('Ambiguous duplicated official round')
+    return result

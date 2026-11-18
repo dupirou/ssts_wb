@@ -4,7 +4,6 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 run_tests() {
-  npm ci --ignore-scripts
   npm run format:check
   python -m unittest discover -s tests -v
   node --test tests/*.mjs
@@ -24,7 +23,8 @@ case "${1:-}" in
   predictions) python tools/sync_predictions.py ;;
   standings) python tools/sync_world_tour.py ;;
   build) python tools/build.py ;;
-  test) run_tests ;;
+  test) npm ci --ignore-scripts; run_tests ;;
+  test-installed) run_tests ;;
   all)
     python -m pip install -r requirements.txt
     # An unexpected error aborts publication. Safe source refusals exit 0 and
@@ -36,10 +36,11 @@ case "${1:-}" in
     python tools/sync_predictions.py
     python tools/sync_world_tour.py
     python tools/build.py
+    npm ci --ignore-scripts
     run_tests
     ;;
   *)
-    echo "Usage: bash tools/ci_run.sh {schedule|competitions|penalties|china|predictions|standings|build|test|all}" >&2
+    echo "Usage: bash tools/ci_run.sh {schedule|competitions|penalties|china|predictions|standings|build|test|test-installed|all}" >&2
     exit 2
     ;;
 esac

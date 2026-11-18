@@ -57,6 +57,36 @@ async function page({data = snapshot, fails = () => false, view = 'athletes', de
 }
 const change = (dom, el, value) => {el.value=value;el.dispatchEvent(new dom.window.Event('change'));};
 
+test('live rounds refresh on a visible race page and resume after returning', async t => {
+  let clock = Date.parse(schedule.entries[0].utc_start), refresh, hidden = false;
+  const dom = await page({view:'schedule', before(w) {
+    w.Date.now = () => clock;
+    Object.defineProperty(w.document, 'hidden', {get: () => hidden});
+    const interval = w.setInterval.bind(w);
+    w.setInterval = (fn, ms) => {
+      if (ms === 600000) { refresh = fn; return 0; }
+      return interval(fn, ms);
+    };
+  }});
+  t.after(() => dom.window.close());
+  const count = () => dom.requests.filter(path => path.endsWith('/rounds')).length;
+  assert.equal(count(), 1);
+  clock += 600000;
+  hidden = true;
+  refresh();
+  assert.equal(count(), 1);
+  hidden = false;
+  dom.window.document.dispatchEvent(new dom.window.Event('visibilitychange'));
+  await settle(dom, () => count() === 2 && !dom.window.document.querySelector('[data-resource=rounds][aria-busy]'));
+  clock += 600000;
+  refresh();
+  assert.equal(count(), 3);
+  await settle(dom, () => !dom.window.document.querySelector('[data-resource=rounds][aria-busy]'));
+  clock += 10 * 86400000;
+  refresh();
+  assert.equal(count(), 3);
+});
+
 test('CHN rows list each heat once with an approximate time and open the official groups', async t => {
   const dom = await page({view:'schedule'});t.after(()=>dom.window.close());
   const d = dom.window.document;

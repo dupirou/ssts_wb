@@ -147,12 +147,18 @@ class ReuseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Duplicate competitor'):
             api.heat_items([heat], event, meta, CONFIG['results_url'] + '&type=11&round=21')
 
-    def test_completed_discipline_is_not_requested(self):
-        known = [stored(1), stored(2, round_='final', group='A')]
-        fetch = Recorder()
+    def test_late_round_is_fetched_after_official_final(self):
+        known = [stored(22, round_='final', group='A')]
+        calls = []
+
+        def fetch(endpoint, form):
+            calls.append((endpoint, form.get('event_result_round_id')))
+            return HeatFeed()(endpoint, form)
+
         rounds = api.collect(results_page([EVENT]), CONFIG, fetch, known=known)
-        self.assertEqual(fetch.calls, [])
-        self.assertEqual({r['id'] for r in rounds}, {'isu-heat-1', 'isu-heat-2'})
+        self.assertEqual([rid for _, rid in calls], [None, '21'])
+        self.assertIn(known[0], rounds)
+        self.assertTrue(any(r['source_url'].endswith('&round=21') for r in rounds))
 
     def test_cached_unrecognized_medal_final_is_refetched_and_then_reused(self):
         heats = api.api_data((ROOT / 'tests/fixtures/gdansk-2025-heats-sample.json').read_bytes())
@@ -180,7 +186,7 @@ class ReuseTests(unittest.TestCase):
         self.assertTrue(api.settled(repaired))
         calls.clear()
         self.assertEqual(api.collect(results_page([event]), CONFIG, fetch, schedule, repaired), repaired)
-        self.assertEqual(calls, [])
+        self.assertEqual(calls, ['/events/get-event-result-round'])
 
     def test_only_unfinished_rounds_are_requested(self):
         meta = lambda rid: dict(event_result_id=11, event_id=5, event_result_round_id=rid, name='Heats')

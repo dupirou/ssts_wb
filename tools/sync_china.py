@@ -15,7 +15,7 @@ from pathlib import Path
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
 from bs4 import BeautifulSoup
-import build
+from schedule_store import read_schedule
 import isu_transport
 import stations
 
@@ -241,7 +241,7 @@ def collect_one(soup, url, discipline, round_info, rows, now, station):
 def sync(station_id, event_url=None, dry_run=False, fetcher=fetch_page, now=None):
     timestamp = now or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     station = stations.get(station_id)
-    rows = build.read_schedule(station_id)
+    rows = read_schedule(station_id)
     if not rows:
         print(station_id, 'has no official programme yet')
         return 0
@@ -309,6 +309,8 @@ def sync(station_id, event_url=None, dry_run=False, fetcher=fetch_page, now=None
     result = {'schema_version': 1, 'heats': sorted(merged.values(), key=lambda x: x['round_key'])}
     if changed and not dry_run:
         # Validate whole candidate against existing schedule before committing.
+        import build
+
         original = build.CHINA
         try:
             build.CHINA = AUTO
@@ -316,7 +318,7 @@ def sync(station_id, event_url=None, dry_run=False, fetcher=fetch_page, now=None
             temp = AUTO.with_suffix('.candidate.json')
             temp.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
             build.CHINA = temp
-            build.attach_china(build.read_schedule(station_id), station_id)
+            build.attach_china(read_schedule(station_id), station_id)
             temp.replace(AUTO)
         finally:
             build.CHINA = original

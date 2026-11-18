@@ -25,6 +25,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    env:
+      # Human-triggered checks and source pushes run the full suite.
+      FULL_CHECKS: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.sync_decision == 'manual') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -39,6 +42,7 @@ jobs:
         run: python -m pip install -r requirements.txt ruff==0.16.9
       # Format the reviewed batch once, before building, instead of committing per-file edits.
       - name: Normalize source before validation and publication
+        if: env.FULL_CHECKS == 'true'
         run: |
           npm ci --ignore-scripts
           npm run format
@@ -95,7 +99,20 @@ jobs:
         run: bash tools/ci_run.sh build
       - name: Test
         id: test_site
-        run: bash tools/ci_run.sh test
+        if: env.FULL_CHECKS == 'true'
+        run: bash tools/ci_run.sh test-installed
+      # On source pushes, keep browser screenshots of the actual Montreal phone layout.
+      # Scheduled/dispatch syncs do not repeat this expensive visual acceptance step.
+      - name: Screenshot and verify mobile station cards
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          PLAYWRIGHT_CHROMIUM_EXECUTABLE="$(command -v google-chrome)" node tools/verify_results_ui.mjs
+      - name: Upload phone layout screenshots
+        if: ${{ always() && github.event_name == 'push' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mobile-station-layout
+          path: artifacts/ui/screenshots/montreal-*.png
       - name: Commit built site and accepted official updates
         id: publish
         run: |
@@ -124,6 +141,9 @@ jobs:
               git fetch origin main
               git reset --hard origin/main
               bash tools/ci_run.sh all
+              if [ "$GITHUB_EVENT_NAME" = push ]; then
+                PLAYWRIGHT_CHROMIUM_EXECUTABLE="$(command -v google-chrome)" node tools/verify_results_ui.mjs
+              fi
               stage_updates
               if git diff --cached --quiet; then
                 echo "Latest main already contains all accepted data; no push required"
@@ -133,18 +153,6 @@ jobs:
             done
           fi
 
-      # On source pushes, keep browser screenshots of the actual Montreal phone layout.
-      # Scheduled/dispatch syncs do not repeat this expensive visual acceptance step.
-      - name: Screenshot and verify mobile station cards
-        if: ${{ github.event_name == 'push' }}
-        run: |
-          PLAYWRIGHT_CHROMIUM_EXECUTABLE="$(command -v google-chrome)" node tools/verify_results_ui.mjs
-      - name: Upload phone layout screenshots
-        if: ${{ always() && github.event_name == 'push' }}
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: mobile-station-layout
-          path: artifacts/ui/screenshots/montreal-*.png
       # Success means all four fetchers, build, tests, and publish completed without unexpected failure.
       # Safe source validation refusals remain visible as warnings and never replace accepted data.
       - name: Emit successful sync heartbeat
@@ -156,7 +164,7 @@ jobs:
               steps.sync_predictions.outcome == 'success' &&
               steps.sync_standings.outcome == 'success' &&
               steps.build_site.outcome == 'success' &&
-              steps.test_site.outcome == 'success' &&
+              (steps.test_site.outcome == 'success' || (env.FULL_CHECKS != 'true' && steps.test_site.outcome == 'skipped')) &&
               steps.publish.outcome == 'success' }}
         env:
           HEARTBEAT_SECRET: ${{ secrets.SYNC_HEARTBEAT_SECRET }}

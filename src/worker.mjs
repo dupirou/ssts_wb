@@ -223,10 +223,10 @@ export default {
         const items = prediction.items.filter(item => matches(item, url.searchParams));
         return json({...prediction, ...await freshness(env, prediction), total: items.length, items}, 200, head);
       }
-      const stored = await env.ASSETS.fetch(new URL(`/data/competitions/${eventId}.json`, url));
+      const kind = ['results','penalties'].includes(resource) ? 'rounds' : resource;
+      const stored = await env.ASSETS.fetch(new URL(`/data/competitions/${eventId}/${kind}.json`, url));
       if (!stored.ok) return json({error: 'data_unavailable'}, 503, head);
-      const snapshot = await stored.json();
-      const dataset = snapshot[['results','penalties'].includes(resource) ? 'rounds' : resource];
+      const dataset = await stored.json();
       let items = dataset.items;
       if (resource === 'rounds') {
         items = items.filter(item => item.participants.some(p => matches(item, url.searchParams, p)));

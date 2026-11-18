@@ -13,7 +13,7 @@ import tempfile
 import competition_data
 import penalty_protocol
 import stations
-import schedule_store
+from schedule_store import BJ, read_schedule
 import official_sources
 import predict_groups
 import qualification
@@ -21,7 +21,7 @@ import site_catalog
 import history_data
 import localize
 import updates
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
@@ -36,10 +36,6 @@ BUNDLES = {
 }
 SCRIPTS = tuple(name for scripts in BUNDLES.values() for name in scripts)
 SHELL_FILES = ('index.html', *BUNDLES, 'site.css', 'manifest.webmanifest')
-BJ = ZoneInfo('Asia/Shanghai')
-STAGES = {'Q': 'qualifying', 'R': 'repechage', 'F': 'main'}
-GENDERS = {'W': 'women', 'M': 'men', 'X': 'mixed'}
-ROUNDS = {'P': 'preliminaries', 'H': 'heats', 'Q': 'quarterfinal', 'S': 'semifinal', 'F': 'final'}
 # Initial engineering assumptions only, not calibrated ISU data (min, max minutes / heat).
 HEAT_DURATIONS = {
     ('I', 500): (2.5, 4.0),
@@ -49,58 +45,6 @@ HEAT_DURATIONS = {
     ('R', 3000): (7.0, 12.0),
     ('R', 5000): (8.0, 15.0),
 }
-
-
-def read_schedule(station_id, directory=stations.SCHEDULES):
-    """A station's stored official programme as Beijing-time rows; [] until ISU publishes one."""
-    station = stations.get(station_id)
-    data = schedule_store.read(stations.schedule_path(station_id, directory))
-    if data is None:
-        return []
-    schedule_store.validate(data, station)
-    tz = ZoneInfo(station['timezone'])
-    result = []
-    for row in data:
-        d, t = row['date'], row['time']
-        st, sex, typ, rnd = row['session'], row['gender'], row['kind'], row['round']
-        dist, group = int(row['distance']), row['group']
-        naive = datetime.strptime(f'{d} {t}', '%Y-%m-%d %H:%M')
-        local = naive.replace(tzinfo=tz)
-        other = naive.replace(tzinfo=tz, fold=1)
-        if local.utcoffset() != other.utcoffset():
-            # A backward clock transition maps a local time to two different UTC instants.
-            if all(
-                value.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) == naive for value in (local, other)
-            ):
-                raise ValueError('Ambiguous daylight-saving fold in station start time: ' + d + ' ' + t)
-        if local.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) != naive:
-            raise ValueError("Start time does not exist in the station's timezone: " + d + ' ' + t)
-        utc = local.astimezone(timezone.utc)
-        bj = utc.astimezone(BJ)
-        key = '/'.join((d, STAGES[st], GENDERS[sex], str(dist), ROUNDS[rnd], group))
-        result.append(
-            {
-                'id': key.replace('/', '-'),
-                'round_key': key,
-                'local_date': d,
-                'local_time': t,
-                'local_start': local.isoformat(),
-                'utc_start': utc.isoformat().replace('+00:00', 'Z'),
-                'beijing_date': bj.strftime('%Y-%m-%d'),
-                'beijing_time': bj.strftime('%H:%M'),
-                'session': STAGES[st],
-                'gender': GENDERS[sex],
-                'distance_m': dist,
-                'format': 'relay' if typ == 'R' else 'individual',
-                'round': ROUNDS[rnd],
-                'group': None if group == '-' else group,
-                'status': 'scheduled',
-                'china': {'status': 'unknown', 'heats': []},
-            }
-        )
-    if len({r['round_key'] for r in result}) != len(result):
-        raise ValueError('Ambiguous duplicated official round')
-    return result
 
 
 def valid_evidence(url):
@@ -520,6 +464,16 @@ def _compile(now, out, prior, source_log):
     history_data.export(out, calendar=season)
     # Statistics and identity matching above ran on ISU's spelling; from here on the files are for readers.
     localize.apply(sorted((out / 'data').rglob('*.json')))
+    # Preserve the whole-event download while serving API requests from compact, localized resources.
+    for event_id, *_ in venues:
+        directory = out / 'data/competitions'
+        snapshot = json.loads((directory / f'{event_id}.json').read_text(encoding='utf-8'))
+        event_dir = directory / event_id
+        event_dir.mkdir()
+        for kind in competition_data.KINDS:
+            (event_dir / f'{kind}.json').write_text(
+                json.dumps(snapshot[kind], ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8'
+            )
     try:
         subprocess.run(
             ['node', str(ROOT / 'tools/build_results.mjs'), str(out), config['season']],

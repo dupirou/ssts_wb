@@ -2479,6 +2479,19 @@
       scheduleView(data, station, schedule, competition.status);
     }
     root.append(...stationTabs(schedule, competition, Boolean(data)));
+    if (data) {
+      const sessions = raceDays(data.entries).map(({ items }) => ({
+        start: items[0].t - 2 * 3600000,
+        end: items.at(-1).t + 2 * 3600000
+      }));
+      const refresh = () => {
+        const time = now();
+        if (!document.hidden && sessions.some(({ start, end }) => time >= start && time <= end))
+          competition.load('rounds');
+      };
+      setInterval(refresh, 10 * 60000);
+      document.addEventListener('visibilitychange', refresh);
+    }
   }
 
   const stat = (v, label, className) =>

@@ -5,6 +5,8 @@ Only official published rows are imported. A roster never confirms a heat.
 Document URL discovery is repeated each run so replacement PDFs are picked up.
 """
 
+from schedule_store import read_schedule
+
 import argparse
 import io
 import re
@@ -401,13 +403,12 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
         except Exception as exc:
             errors.append(('rejected: ' if isinstance(exc, ValueError) else 'unexpected: ') + 'reports: ' + str(exc))
     try:
-        import build
         import isu_results
 
         body = fetcher(config['results_url'])
         assert_identity(BeautifulSoup(body, 'html.parser').get_text(' ', strip=True), config)
         api_fetcher = api_fetcher or (lambda endpoint, form: fetch(isu_results.API + endpoint, form))
-        schedule = build.read_schedule(event_id)
+        schedule = read_schedule(event_id)
         known = [
             i for i in snapshot['rounds']['items'] if i.get('evidence') in ('official_results', 'official_start_list')
         ]

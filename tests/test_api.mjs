@@ -17,7 +17,9 @@ function envFor(obj = snapshot) {
   return {ASSETS:{async fetch(request) {
     const path = new URL(typeof request === 'string' ? request : request.url || request).pathname;
     if (path.endsWith('/index.json')) return Response.json({schema_version:1, events:[{id:'vancouver'}]});
-    if (path === '/data/competitions/vancouver.json') return Response.json(obj);
+    for (const kind of ['entries','rounds','rankings']) {
+      if (path === `/data/competitions/vancouver/${kind}.json`) return Response.json(obj[kind]);
+    }
     return new Response('site asset', {status:path === '/' ? 200 : 404});
   }}};
 }

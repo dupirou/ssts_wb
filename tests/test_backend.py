@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import build
+import schedule_store
 import sync_schedule
 
 
@@ -33,8 +34,8 @@ class DataTests(unittest.TestCase):
         station = build.stations.get('montreal')
         with (
             patch.object(build.stations, 'get', return_value=station),
-            patch.object(build.schedule_store, 'read', return_value=[row]),
-            patch.object(build.schedule_store, 'validate', return_value=[row]),
+            patch.object(schedule_store, 'read', return_value=[row]),
+            patch.object(schedule_store, 'validate', return_value=[row]),
         ):
             with self.assertRaisesRegex(ValueError, 'Ambiguous daylight-saving fold'):
                 build.read_schedule('montreal')
