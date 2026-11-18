@@ -1,7 +1,7 @@
 /* Offline support for stadium Wi-Fi and the subway: the schedule keeps opening without a network.
    Network first for everything, so nothing goes stale while online; the cache answers only when the
    network fails or takes longer than 4 s. The build stamps VERSION, which retires the old cache. */
-const VERSION = 'd31cfc3ffbf8';
+const VERSION = '108d7a4b30df';
 const CACHE = 'ssts-' + VERSION;
 const SHELL = [
   './',

@@ -217,8 +217,7 @@ def is_final(items):
 
 def collect(body, config, api_fetch, schedule=(), known=(), problems=None, rules=None):
     """Read official rounds. Rounds already stored with official results are reused, not
-    re-requested; a discipline whose official Final A is stored and whose every stored round is
-    official is complete, so even its round list is not requested again.
+    re-requested. Refresh the round list even after the final so later publications are discovered.
 
     With a `problems` list, a round whose official heats fail validation is left out (so the
     caller keeps what it stored from that round's source) and its error appended, instead of one
@@ -246,16 +245,6 @@ def collect(body, config, api_fetch, schedule=(), known=(), problems=None, rules
             raise ValueError('ISU discipline/season mismatch')
         eid = event['event_result_id']
         prefix = config['results_url'] + '&type=' + str(eid) + '&round='
-        mine = {url: items for url, items in stored.items() if (url or '').startswith(prefix)}
-        if (
-            mine
-            and all(settled(items) for items in mine.values())
-            and any(i.get('round') == 'final' and i.get('group') == 'A' for items in mine.values() for i in items)
-        ):
-            reused = [i for items in mine.values() for i in items]
-            seen.update(i['id'] for i in reused)
-            rounds.extend(reused)
-            continue
         metas = api_data(api_fetch('/events/get-event-result-round', {'event_result_id': str(eid)}))
         requests += 1
         for meta in metas:

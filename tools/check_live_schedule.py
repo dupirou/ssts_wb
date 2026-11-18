@@ -17,7 +17,7 @@ import sys
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-import build
+from schedule_store import read_schedule
 import isu_results
 import stations
 import sync_china
@@ -145,7 +145,7 @@ def main():
     args = p.parse_args()
     station = stations.get(args.station)
     tz = ZoneInfo(station['timezone'])
-    report = compare(build.read_schedule(args.station), official_rounds(station), tz)
+    report = compare(read_schedule(args.station), official_rounds(station), tz)
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
