@@ -1223,18 +1223,20 @@
   },
   "rounds": {
     "status": "not_published",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-11-18T00:01:35+00:00",
     "updated_at": null,
     "source_urls": [],
-    "items": []
+    "items": [],
+    "error": "rejected: results: ISU traversal exceeds request budget"
   },
   "rankings": {
     "status": "not_published",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-11-18T00:01:35+00:00",
     "updated_at": null,
     "source_urls": [],
-    "items": []
+    "items": [],
+    "error": "rejected: results: ISU traversal exceeds request budget"
   }
 }
