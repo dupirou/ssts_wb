@@ -1,3 +1,5 @@
+import {privateAnalysis} from './private-analysis.mjs';
+
 /** Read-only API over the last validated official snapshot. No upstream scraping per visit. */
 const resources = new Set(['entries', 'rounds', 'results', 'rankings', 'penalties', 'predictions']);
 const resourceFilters = {
@@ -176,6 +178,7 @@ export default {
 
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === '/internal/analysis') return privateAnalysis(request, env);
     if (url.pathname === '/internal/heartbeat') return acceptHeartbeat(request, env);
     // Assets normally bypass the Worker under run_worker_first; retained for direct/fallback requests.
     if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
@@ -257,3 +260,4 @@ export default {
     }
   },
 };
+
