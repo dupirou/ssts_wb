@@ -14,6 +14,8 @@ import json
 import re
 import sys
 import traceback
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from urllib.parse import urljoin
 import stations
@@ -190,12 +192,13 @@ def identity(text, station):
 
 
 def fetch(url):
+    api = url.startswith('https://front-api.isu.org/events/getschedule/')
     return isu_transport.request_bytes(
         url,
-        hosts=HOSTS,
+        hosts={'front-api.isu.org'} if api else HOSTS,
         max_bytes=3_000_000,
         timeout=25,
-        accept='text/html',
+        accept='application/json' if api else 'text/html',
         user_agent='SSTS-WB-ScheduleChecker/1.0 (+https://github.com/dupirou/ssts_wb)',
     ).decode('utf-8')
 
@@ -216,6 +219,32 @@ def discover(station, taken, fetcher=fetch, limit=12):
     return None
 
 
+def dynamic_programme(body, station):
+    try:
+        data = json.loads(body)['data']
+        if data['discipline']['discipline_id'] != 3:
+            raise ValueError('Unexpected schedule discipline')
+        rows = []
+        for item in data['value']:
+            stamp = datetime.fromisoformat(item['start_time'])
+            if stamp.tzinfo is None:
+                raise ValueError('Missing schedule timezone')
+            local = stamp.astimezone(ZoneInfo(station['timezone']))
+            title, stage = item['event_schedule_title'], item['round_information']
+            if title.casefold() == 'mixed team relay':
+                title = 'Mixed 2000 m Relay'
+            session = 'Q' if local.date().isoformat() == station['date_start'] else 'F'
+            if re.match(r'rep(?:\.|echage)\s', stage, re.I):
+                session = 'R'
+            row = event(title + ' ' + stage, session)
+            if stage.casefold() == 'finals':
+                row['group'] = '-'  # ISU gives a single start for the whole finals block.
+            rows.append({'date': local.date().isoformat(), 'time': local.strftime('%H:%M'), **row})
+        return rows
+    except (KeyError, TypeError, json.JSONDecodeError) as exc:
+        raise ValueError('Schedule tab is published but no programme rows could be read') from exc
+
+
 def sync_station(station, fetcher=fetch, now=None, directory=stations.SCHEDULES, meta=None):
     """Check one station's official programme. Returns (action, time changes)."""
     now = now or stations.utc_now()
@@ -227,11 +256,19 @@ def sync_station(station, fetcher=fetch, now=None, directory=stations.SCHEDULES,
         raise ValueError("ISU page is not labelled with the station's city and dates")
     found = parse_text(text, station)
     path = stations.schedule_path(station['id'], directory)
-    if not found and 'loading_schedule' in text and read(path):
-        # Once racing starts the tab loads its times in the browser from front-api's getschedule
-        # feed. On 2026-10-23 that feed moved rounds already raced by 16 minutes, so it is not
-        # trusted: the verified programme stands and race-day changes are checked by hand.
-        return 'live', []
+    source = 'official_isu_schedule_html'
+    if not found and 'loading_schedule' in text:
+        previous = read(path)
+        # Do not replace a more detailed timetable or retrospectively move raced rounds.
+        if previous and (
+            now >= stations.local_start(station)
+            or (meta.get(station['id']) or {}).get('source') != 'official_isu_schedule_api'
+        ):
+            return 'live', []
+        if re.search(rf'[?&]tab=schedule_{station["isu"]["event_id"]}\b', html):
+            url = 'https://front-api.isu.org/events/getschedule/' + station['isu']['slug']
+            found = dynamic_programme(fetcher(url), station)
+            source = 'official_isu_schedule_api'
     if not found:
         # The requested URL itself names the schedule tab, so ask the plain event page whether
         # ISU lists one: a listed tab without readable rows is a parsing failure, not "unpublished".
@@ -247,9 +284,9 @@ def sync_station(station, fetcher=fetch, now=None, directory=stations.SCHEDULES,
     if rows is not None or last[:10] != stamp[:10]:
         meta[station['id']] = {
             'last_successful_schedule_check_utc': stamp,
-            'source': 'official_isu_schedule_html',
+            'source': source,
             'source_url': url,
-            'notes': "Full programme verification passed: every discipline reaches its Final A on the station's dates.",
+            'notes': "Full programme verification passed: every discipline reaches its finals on the station's dates.",
         }
     return action, changes
 

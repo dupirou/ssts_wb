@@ -46,7 +46,7 @@ def validate(rows, station):
             r['gender'] == 'X' and (r['kind'], r['distance']) != ('R', '2000')
         ):
             raise ValueError('Invalid distance/format on row ' + str(n))
-        if (r['round'] == 'F') != (r['group'] in ('A', 'B')) or (r['round'] != 'F' and r['group'] != '-'):
+        if r['group'] not in (('A', 'B', '-') if r['round'] == 'F' else ('-',)):
             raise ValueError('Invalid final group on row ' + str(n))
         ident = tuple(r[k] for k in IDENTITY)
         if ident in seen:
@@ -56,7 +56,7 @@ def validate(rows, station):
         if previous and current < previous:
             raise ValueError('Non-chronological official programme')
         previous = current
-        if r['round'] == 'F' and r['group'] == 'A':
+        if r['round'] == 'F' and r['group'] in ('A', '-'):
             finals.add((r['gender'], r['distance'], r['kind']))
     missing = REQUIRED - finals
     if missing:

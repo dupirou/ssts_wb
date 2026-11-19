@@ -117,7 +117,7 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
             schedule, (disc['gender'], disc['distance_m'], disc['format']), round_info
         )
         if stage == 'final':
-            candidates = [r for r in candidates if group and r['group'] == group]
+            candidates = [r for r in candidates if group and r['group'] in (None, group)]
         if len(candidates) > 1:
             raise ValueError('Ambiguous schedule round mapping')
         match = candidates[0] if candidates else None

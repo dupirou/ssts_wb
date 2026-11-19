@@ -1,6 +1,7 @@
 """Every station follows the same path: find its ISU page, record its programme, keep it current."""
 
 import csv
+import json
 import sys
 import tempfile
 import unittest
@@ -104,6 +105,33 @@ class ScheduleSyncTests(unittest.TestCase):
                 MONTREAL, lambda url: programme_page('Vancouver / CAN', '23.10-25.10, 2026'), self.before, self.dir, {}
             )
         self.assertFalse(stations.schedule_path('montreal', self.dir).exists())
+
+    def test_dynamic_schedule_uses_local_time_and_preserves_combined_finals(self):
+        station = stations.get('seoul')
+        body = {
+            'data': {
+                'discipline': {'discipline_id': 3},
+                'value': [
+                    {
+                        'start_time': '2026-11-20T01:00:00Z',
+                        'event_schedule_title': 'Men 500 m',
+                        'round_information': 'Preliminaries',
+                    },
+                    {
+                        'start_time': '2026-11-22T05:05:00Z',
+                        'event_schedule_title': 'Mixed Team Relay',
+                        'round_information': 'Finals',
+                    },
+                ],
+            }
+        }
+        first, final = sync_schedule.dynamic_programme(json.dumps(body), station)
+        self.assertEqual((first['date'], first['time'], first['session']), ('2026-11-20', '10:00', 'Q'))
+        self.assertEqual(
+            (final['time'], final['distance'], final['round'], final['group']), ('14:05', '2000', 'F', '-')
+        )
+        with self.assertRaisesRegex(ValueError, 'Partial'):
+            sync_schedule.validate([first, final], station)
 
     def test_real_isu_page_text_parses_to_the_pre_race_programme(self):
         # Text of ISU's Vancouver schedule tab as served on 2026-10-21, and the programme it gave.

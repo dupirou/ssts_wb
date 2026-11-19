@@ -919,7 +919,7 @@
     gender[r.gender] + ' ' + r.distance_m + 'm' + (r.format === 'relay' ? ' 接力' : '');
   const roundName = (r) => (r.round === 'final' ? r.group + '组决赛' : roundNames[r.round]);
   const isChina = (r) => r.china && r.china.status === 'confirmed';
-  const isMedal = (r) => r.round === 'final' && r.group === 'A';
+  const isMedal = (r) => r.round === 'final' && r.group !== 'B';
 
   // One dot per round this event actually races (1500m has no preliminaries, women's 1500m may start at the quarter-finals).
   function stageMeter(r) {
