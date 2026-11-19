@@ -80,7 +80,7 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
             skater = person.get('skaters_team' if relay else 'skaters') or {}
             country = person.get('started_for_nf_code')
             name = (skater.get('name') or country) if relay else skater.get('full_name')
-            if not name or not re.fullmatch(r'[A-Z]{3}', country or ''):
+            if not name or not re.fullmatch(r'[A-Z]{3}|AIN[0-9]+', country or ''):
                 raise ValueError('Competitor identity missing')
             aid = (
                 ('team-' + country + '-' + disc['gender']) if relay else data.athlete_id(name, country, disc['gender'])
