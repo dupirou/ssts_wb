@@ -2,6 +2,13 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "42a13bfa1e5de2cb",
+      "station": "shanghai",
+      "kind": "entries",
+      "at": "2026-11-19T08:43:34+00:00",
+      "count": 210
+    },
+    {
       "id": "603525afc6693c1a",
       "station": "seoul",
       "kind": "schedule",
@@ -3269,23 +3276,6 @@
       "kind": "groups",
       "heats": 1,
       "china": []
-    },
-    {
-      "id": "9b08965f3e9aa11f",
-      "station": "vancouver",
-      "at": "2026-10-27T03:25:30+00:00",
-      "local_date": "2026-10-24",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": [
-        "朱祎玎"
-      ]
     }
   ]
 }
