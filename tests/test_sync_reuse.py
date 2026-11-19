@@ -13,7 +13,6 @@ import competition_data as data
 import build
 import isu_results as api
 import sync_competitions as sync
-import sync_predictions as predictions
 
 CONFIG = {
     'city': 'Vancouver',
@@ -256,45 +255,6 @@ class ReuseTests(unittest.TestCase):
         self.assertNotIn(SOURCE, fetched)
         self.assertEqual(result['entries']['items'], [person])
         self.assertEqual(result['entries']['update_status'], 'ok')
-
-    def test_frozen_historic_rankings_are_fetched_once(self):
-        catalog = {}
-        for n, key in enumerate([(('women', 500), 'WCD'), (('women', 500), 'WRD')], 600):
-            catalog[key] = dict(
-                world_standings_list_fsk_id=n,
-                season_name='2025/2026',
-                gender='Women',
-                discipline_distance='500',
-                type=key[1],
-                level_name='Senior',
-            )
-        pages = []
-
-        def sender(url, payload):
-            rid = payload['world_standings_list_fsk_id']
-            pages.append(rid)
-            meta = next(m for m in catalog.values() if m['world_standings_list_fsk_id'] == rid)
-            row = dict(
-                world_standings_list_fsk_id=rid,
-                skaters_id=7,
-                skaters=dict(id=7),
-                rank=1,
-                points=100,
-                nf_for_country_code='CHN',
-            )
-            return json.dumps(
-                dict(status=200, current_page=1, total_page=1, total_items=1, is_next_page='N', detail=meta, data=[row])
-            ).encode()
-
-        with tempfile.TemporaryDirectory() as temp:
-            path = Path(temp) / 'historic_rankings.json'
-            first = predictions.cached_rankings(catalog, sender, '2025/2026', path)
-            second = predictions.cached_rankings(catalog, sender, '2025/2026', path)
-            self.assertEqual(sorted(pages), [600, 601])
-            self.assertEqual(first, second)
-            self.assertEqual(second[('women', 500), 'WCD'][7]['rank'], 1)
-            predictions.cached_rankings(catalog, sender, '2026/2027', path)
-            self.assertEqual(len(pages), 4)
 
 
 if __name__ == '__main__':

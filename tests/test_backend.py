@@ -59,7 +59,7 @@ class DataTests(unittest.TestCase):
             else:
                 self.assertEqual(china['heats'], [])
 
-    def test_verified_heat_provenance_and_prediction(self):
+    def test_verified_heat_provenance_and_estimate(self):
         row = build.read_schedule('vancouver')[0]
         example = {
             'schema_version': 1,

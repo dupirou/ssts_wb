@@ -11,7 +11,7 @@ import certifi
 import isu_transport
 import sync_china
 import sync_competitions
-import sync_predictions
+import isu_rankings
 import sync_schedule
 import tls
 
@@ -37,7 +37,7 @@ class TrustStoreTests(unittest.TestCase):
                 lambda: sync_schedule.fetch('https://www.isu-skating.com/'),
                 lambda: sync_china.fetch_page('https://www.isu-skating.com/'),
                 lambda: sync_competitions.fetch('https://www.isu-skating.com/'),
-                lambda: sync_predictions.post_json('https://front-api.isu.org/x', {}),
+                lambda: isu_rankings.post_json('https://front-api.isu.org/x', {}),
             ):
                 with self.assertRaises(Stop):
                     call()

@@ -15,7 +15,6 @@ import penalty_protocol
 import stations
 from schedule_store import BJ, read_schedule
 import official_sources
-import predict_groups
 import qualification
 import site_catalog
 import history_data
@@ -381,7 +380,6 @@ def _compile(now, out, prior, source_log):
                 # The station's own ISU event page once found; the season calendar until then.
                 source_url=stations.page_url(st) or calendar_url,
                 detail_status='verified' if st['id'] in schedules else 'not_entered',
-                predictions=predict_groups.has_open_items(st['id'], schedules.get(st['id'], [])),
                 schedule_summary=(
                     dict(
                         first_start=schedules[st['id']][0]['utc_start'],
@@ -457,9 +455,8 @@ def _compile(now, out, prior, source_log):
         .replace('__BUILD_VERSION__', hashlib.sha256(shell).hexdigest()[:12]),
         encoding='utf-8',
     )
-    competition_data.export(out, venues, predict_groups.entered_distances, config['season'])
+    competition_data.export(out, venues, competition_data.entered_distances, config['season'])
     penalty_protocol.export(out, config)
-    predict_groups.export(out, venues, schedules)
     site_catalog.export(out, season)
     history_data.export(out, calendar=season)
     # Statistics and identity matching above ran on ISU's spelling; from here on the files are for readers.

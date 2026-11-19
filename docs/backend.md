@@ -17,7 +17,7 @@
 | `sync_schedule.py` 官方赛程 | 开赛前 45 天至最后比赛日 | 城市与日期相符；九个项目都排到 A 组决赛；时间在本站日期内、按序、无重复 | `data/schedules/<id>.csv`、`data/sync_meta.json` |
 | `sync_competitions.py` 报名、分组、成绩、排名 | 开赛前 14 天起持续 | 文件与页面标注本站城市和年份 | `data/competitions/<id>.json` |
 | `sync_china.py` 中国队小组 | 开赛前 1 天至赛后 3 天 | 结果页标注本站城市和年份 | `data/china_auto.json` |
-| `sync_predictions.py` 单项报项与排名 | 配置了 `prediction` 的站（目前温哥华、蒙特利尔），直到各项都有官方分组 | 六个单项各自的官方报项 | `data/prediction_inputs/<id>.json` |
+| `sync_distance_entries.py` 单项报项 | 开赛前 14 天起，直到各项都有官方分组 | 六个单项各自的官方报项 | `data/distance_entries/<id>.json` |
 
 **赛程**：第一次出现完整赛程时直接录入；开赛前可整体替换；开赛后只接受时间变动，一次超过 10 处或轮次结构改变则拒绝并保留原数据。赛事页有 Schedule 标签却读不到轮次，视为失败而不是“未公布”。比赛开始后 ISU 的赛程标签改为在浏览器里加载（页面只有 `loading_schedule`），此时已存的赛程保持不变（结果 `live`）；浏览器所用的 getschedule 接口在比赛中出现过与实际不符的时间，不自动采用，比赛日的改动按官方逐组时间人工核对：`python tools/check_live_schedule.py --station <id>` 只读地列出每轮的已存时间与官方第 1 组计划时间（`moved` / `missing` / `extra` / `no_heats`），见 [log.md](log.md)。
 
@@ -33,7 +33,7 @@
 
 **晋级规则**：每轮的 `qualification_rule`（如 “The first and second placed skaters from each race and up to a maximum of six fastest third place skaters qualify for Heats.”）按 `round_key` 存入快照的 `rounds.rules`，未公布分组的轮次也有；已结束而不再请求的项目保留上次的原文。构建时由 `tools/qualification.py` 转成 `2Q+6q` 和中文说明写入赛程的 `entries[].qualification`；不认识的写法不显示，不猜。
 
-**单项报项**：从 Entries 标签读取六个单项各自的选手名单，按 ISU 选手 ID 匹配上赛季单项世巡赛排名（WCD）与世界排名（WRD）；上赛季榜单只抓一次，缓存在 `historic_rankings.json`。同一份报项也给运动员名单加上每人报的单项（`entries[].distances`）。
+**单项报项**：从 Entries 标签读取六个单项各自的选手名单；整站名单拆不出单项，只能按距离分别读。同一份报项给运动员名单加上每人报的单项（`entries[].distances`）。
 
 ## 中文显示名
 
@@ -53,12 +53,6 @@
 
 `tools/build_results.mjs` 给成绩目录的每场赛事和对应的赛历分站附上 `china_summary`（奖牌数、A 组决赛人／队次、前 8 名、获奖项目），首页和成绩总览用它显示一行摘要。
 
-## 首轮分组预测
-
-规则与出处见 [isu-seeding-2026-27.md](isu-seeding-2026-27.md)。`tools/predict_groups.py` 只放**已知种子**：有单项世界排名的选手按 Rule 293.4 蛇形分组，首轮不是四分之一决赛时按 293.5(a) 在同一排内移位或交换以回避同国。无世界排名者按 ISU 不公开的报名成绩排序，程序不猜位置，每组只显示总人数和待定人数。20 名直通者按 WCD 从实际报名者中选出，不足时以 WRD 递补；第 20 名处并列则该项目不出预测。
-
-某项目出现官方分组后，该项目改为指向官方分组；所有项目都有官方分组后，分站页不再显示“分组预测”标签（`calendar.json` 的 `stations[].predictions`）。温哥华站的预测与官方分组完全一致，见 [log.md](log.md)。
-
 ## 接口
 
 | GET | 内容 |
@@ -70,9 +64,8 @@
 | `/api/v1/events/<id>/results` | 已发布的逐人成绩、名次与晋级代码 |
 | `/api/v1/events/<id>/penalties` | 官方给出的 PEN / YC / RC |
 | `/api/v1/events/<id>/rankings` | 官方文件中的单站 / 世巡赛 / 世界排名 |
-| `/api/v1/events/<id>/predictions` | 首轮非官方分组预测 |
 
-筛选参数：`country`、`gender`、`distance_m`、`round_key`、`athlete_id`、`ranking_type`（预测只支持前三个与 `round_key`）。未知参数和资源不支持的参数均返回 `400 invalid_filter`，未知赛事返回 404，非 GET / HEAD 返回 405。按国家筛选 `rounds` 时保留同组对手。`athlete_id` 只匹配报名运动员或接力队的主 `athlete_id`；不会递归匹配接力队 `participants[].members` 中的上场队员。
+筛选参数：`country`、`gender`、`distance_m`、`round_key`、`athlete_id`、`ranking_type`。未知参数和资源不支持的参数均返回 `400 invalid_filter`，未知赛事返回 404，非 GET / HEAD 返回 405。按国家筛选 `rounds` 时保留同组对手。`athlete_id` 只匹配报名运动员或接力队的主 `athlete_id`；不会递归匹配接力队 `participants[].members` 中的上场队员。
 
 统一响应字段：`schema_version`、`event_id`、`resource`、`status`、`update_status`、`checked_at`（最近成功的同步链路心跳，KV 不可用时为原快照时间）、`data_checked_at`（原始数据校验时间）、`updated_at`（内容变化）、`freshness_source`、`freshness_degraded`、`source_urls`、`stale`、`total`、`items`。`status=not_published` 加空数组表示尚未公布，不等于没人参赛。比赛 session 心跳超过 30 分钟、其他时段超过 36 小时或该资源校验失败时 `stale=true`；KV 故障时使用原快照的 36 小时判定并标记降级。
 
@@ -99,7 +92,7 @@
 
 - 网络、格式或赛事身份校验失败时保留既有数据，标记 `update_status=error`。
 - 只有数据变化，或每天一次刷新核对时间时才提交，避免反复部署。
-- 已确定的数据不再请求：正式成绩的轮次、已解析的同一份 PDF、上赛季排名、各项都有官方分组后的报项。
+- 已确定的数据不再请求：正式成绩的轮次、已解析的同一份 PDF、各项都有官方分组后的报项。
 
 ## 安全边界
 
@@ -112,5 +105,5 @@
 - 四类 ISU 同步器复用 `tools/isu_transport.py` 的域名/跳转校验、大小限制、请求执行、HTML 清洗和 Next.js 数据解码；各自仍需校验赛事身份和响应结构。
 - 主官方逐轮结果由 `sync_competitions.py`/`isu_results.py` 提供。`sync_china.py` 是针对尚无主数据的轮次使用的历史 HTML 来源适配器，不建立第二套前端赛程或改变主数据优先级。
 - 读取已核实赛程失败时只能标记读取错误，不能等同于尚未公布；完全没有官方赛程时只展示比赛日期，不假设零点为开赛时间。
-- 预测输入更新失败时保留带错误状态的历史快照供排查，但不继续公布旧模型分组或沿用未经重新核实的单项报项。票务配置校验失败则暂时隐藏票务链接，不自动恢复旧版购票地址。
+- 单项报项更新失败时保留带错误状态的历史快照供排查，但不继续发布其中的单项。票务配置校验失败则暂时隐藏票务链接，不自动恢复旧版购票地址。
 - 已核实的官方赛程、成绩与来源快照仍可在暂时的解析失败期间保留。构建使用临时目录并在失败时回滚；离线 PWA 仍允许读取缓存。

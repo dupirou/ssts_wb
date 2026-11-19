@@ -1,7 +1,7 @@
 """Official current-season ISU World Tour distance classifications (WCD).
 
 These are season point standings, distinct from any station's Event Classification.
-Reuse the verified ISU pagination and response contracts in sync_predictions.
+Reuse the verified ISU pagination and response contracts in isu_rankings.
 """
 
 import json
@@ -10,8 +10,8 @@ import sys
 from datetime import datetime, timezone
 
 import competition_data
+import isu_rankings
 import stations
-import sync_predictions
 
 OUTPUT = competition_data.ROOT / 'data/world_tour_rankings.json'
 STANDINGS_URL = 'https://www.isu-skating.com/en/short-track/world-standings/'
@@ -19,7 +19,7 @@ DISTANCES = {(g, d) for g in ('men', 'women') for d in (500, 1000, 1500)}
 
 
 def catalog(body, season_name, season_id):
-    value = sync_predictions.response(body, 'current World Tour standings', 1)
+    value = isu_rankings.response(body, 'current World Tour standings', 1)
     if value.get('total_page') != 1 or value.get('total_items') != len(value['data']):
         raise ValueError('Incomplete World Tour catalogue')
     found = {}
@@ -120,21 +120,21 @@ def known_skaters(directory, station_list):
     return identities
 
 
-def collect(calendar, sender=sync_predictions.post_json, directory=competition_data.DATA):
+def collect(calendar, sender=isu_rankings.post_json, directory=competition_data.DATA):
     season = calendar['season']
     season_name = season[:5] + '20' + season[5:]
     season_id = calendar.get('world_tour_standings_season_id')
     if type(season_id) is not int:
         raise ValueError('Missing configured season standings ID')
     body = sender(
-        sync_predictions.API + '/events/get-world-standings-list',
+        isu_rankings.API + '/events/get-world-standings-list',
         dict(discipline_id=3, season_id=season_id, pagesize=300, page=1),
     )
     found = catalog(body, season_name, season_id)
     identities = known_skaters(directory, calendar['stations'])
     tables = []
     for (gender, distance), meta in sorted(found.items()):
-        rows = sync_predictions.ranking_rows(meta, sender)
+        rows = isu_rankings.ranking_rows(meta, sender)
         matched = []
         for sid, place in rows.items():
             known = identities.get(sid)
@@ -155,7 +155,7 @@ def collect(calendar, sender=sync_predictions.post_json, directory=competition_d
     return dict(schema_version=1, season=season, source_url=STANDINGS_URL, tables=tables)
 
 
-def sync(calendar, sender=sync_predictions.post_json, directory=competition_data.DATA, path=OUTPUT, now=None):
+def sync(calendar, sender=isu_rankings.post_json, directory=competition_data.DATA, path=OUTPUT, now=None):
     now = now or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     previous = json.loads(path.read_text(encoding='utf-8')) if path.exists() else None
     try:

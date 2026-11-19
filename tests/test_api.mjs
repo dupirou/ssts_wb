@@ -85,19 +85,6 @@ test('built real snapshot and unconfigured event empty states are served', async
   for (const event of index.events.filter(e=>e.rounds==='not_published')) {
     assert.equal((await (await request(`/api/v1/events/${event.id}/rounds`,realEnv)).json()).status,'not_published');
   }
-  const projected=await (await request('/api/v1/events/vancouver/predictions?gender=women&distance_m=500',realEnv)).json();
-  assert.equal(projected.evidence,'model_prediction_not_official');
-  assert.equal(projected.total,1);
-  const stored=JSON.parse(await readFile(new URL('../dist/data/predictions/vancouver.json',import.meta.url),'utf8'));
-  assert.deepEqual(projected.items,[stored.items.find(p=>p.gender==='women'&&p.distance_m===500)]);
-  assert.deepEqual(await (await request('/api/v1/events/vancouver/predictions?country=CHN',realEnv)).json(),
-    {error:'invalid_filter',field:'country'});
-  assert.equal(await (await request('/api/v1/events/vancouver/predictions',realEnv,'HEAD')).text(),'');
-  const calendar=JSON.parse(await readFile(new URL('../dist/data/calendar.json',import.meta.url),'utf8'));
-  for (const station of calendar.stations.filter(st=>st.detail_status!=='verified')) {
-    const waiting=await (await request(`/api/v1/events/${station.id}/predictions`,realEnv)).json();
-    assert.ok(waiting.items.every(p=>p.missing.includes('schedule')),station.id);
-  }
 });
 
 test('race-window cron: 10-min syncs around sessions, hourly between them, none outside windows', async () => {
@@ -246,7 +233,7 @@ test('freshness uses current heartbeat, expires at 30 minutes in session, and fa
 test('unsupported resource filters reject instead of pretending to return zero matches', async () => {
   const combinations=[
     ['entries','round_key=x'],['rankings','round_key=x'],['results','ranking_type=world'],
-    ['penalties','ranking_type=event'],['predictions','country=CHN'],
+    ['penalties','ranking_type=event'],['entries','distance_m=500'],
   ];
   for(const [resource,query] of combinations){
     const response=await request('/api/v1/events/vancouver/'+resource+'?'+query);

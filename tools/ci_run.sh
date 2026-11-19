@@ -20,7 +20,7 @@ case "${1:-}" in
   competitions) python tools/sync_competitions.py ;;
   penalties) python tools/sync_penalties.py ;;
   china) python tools/sync_china.py ;;
-  predictions) python tools/sync_predictions.py ;;
+  entries) python tools/sync_distance_entries.py ;;
   standings) python tools/sync_world_tour.py ;;
   build) python tools/build.py ;;
   test) npm ci --ignore-scripts; run_tests ;;
@@ -33,14 +33,14 @@ case "${1:-}" in
     python tools/sync_competitions.py
     python tools/sync_penalties.py
     python tools/sync_china.py
-    python tools/sync_predictions.py
+    python tools/sync_distance_entries.py
     python tools/sync_world_tour.py
     python tools/build.py
     npm ci --ignore-scripts
     run_tests
     ;;
   *)
-    echo "Usage: bash tools/ci_run.sh {schedule|competitions|penalties|china|predictions|standings|build|test|test-installed|all}" >&2
+    echo "Usage: bash tools/ci_run.sh {schedule|competitions|penalties|china|entries|standings|build|test|test-installed|all}" >&2
     exit 2
     ;;
 esac

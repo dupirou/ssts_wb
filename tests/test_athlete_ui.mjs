@@ -4,14 +4,11 @@ import {readFile} from 'node:fs/promises';
 import {JSDOM} from 'jsdom';
 
 const file = async name => readFile(new URL('../' + name, import.meta.url), 'utf8');
-const [html, script, snapshot, schedule, predictions, calendar] = await Promise.all([
+const [html, script, snapshot, schedule, calendar] = await Promise.all([
   file('web/index.html'), Promise.all(['ui', 'navigation', 'results-model', 'results-store', 'results-compare', 'results', 'portal', 'app'].map(name => file('web/' + name + '.js'))).then(parts => parts.join('\n')), file('data/competitions/vancouver.json').then(JSON.parse),
   file('dist/data/vancouver.json').then(JSON.parse),
-  file('dist/data/predictions/vancouver.json').then(JSON.parse),
   file('dist/data/calendar.json').then(JSON.parse),
 ]);
-// The prediction tab exists while a station still has first rounds without official groups.
-const withPredictions = {...calendar, stations: calendar.stations.map(s => ({...s, predictions: s.id === 'vancouver'}))};
 async function settle(dom, predicate) {
   for (let i = 0; i < 100; i++) {
     if (predicate()) return;
@@ -19,7 +16,7 @@ async function settle(dom, predicate) {
   }
   throw new Error('UI did not reach expected state: ' + dom.window.document.body.textContent.slice(-700));
 }
-async function page({data = snapshot, fails = () => false, view = 'athletes', delay = async () => {}, url = 'https://example.test/?station=vancouver', files = {'/data/calendar.json': withPredictions}, before = () => {}} = {}) {
+async function page({data = snapshot, fails = () => false, view = 'athletes', delay = async () => {}, url = 'https://example.test/?station=vancouver', files = {'/data/calendar.json': calendar}, before = () => {}} = {}) {
   const dom = new JSDOM(html, {url, runScripts:'outside-only', pretendToBeVisual:true});
   const w = dom.window;
   w.matchMedia = () => ({matches:false, addEventListener(){}});
@@ -32,7 +29,6 @@ async function page({data = snapshot, fails = () => false, view = 'athletes', de
     if (url.pathname.startsWith('/api/')) {
       const resource = url.pathname.split('/').at(-1);
       if (fails(resource)) return new Response('unavailable',{status:503});
-      if (resource === 'predictions') return Response.json(data.predictions || predictions);
       return Response.json({schema_version:1,event_id:'vancouver',resource,total:data[resource].items.length,...data[resource]});
     }
     if (files[url.pathname]) return Response.json(files[url.pathname]);
@@ -110,7 +106,7 @@ test('a round shows its published qualification rule, in the row and in the grou
   // Only the first round carries a rule here, whatever the synced data holds.
   const entries = schedule.entries.map(({qualification, ...e}, i) => i === 0 ? {...e, qualification: rule} : e);
   // Every file comes from memory, so nothing is still loading when the window closes.
-  const files = {'/data/calendar.json': withPredictions, '/data/vancouver.json': {...schedule, entries}, '/data/updates.json': {schema_version: 1, events: []}};
+  const files = {'/data/calendar.json': calendar, '/data/vancouver.json': {...schedule, entries}, '/data/updates.json': {schema_version: 1, events: []}};
   const dom = await page({view: 'schedule', files});
   t.after(() => dom.window.close());
   const d = dom.window.document;
@@ -230,74 +226,12 @@ test('official heat opens participant results and penalties without HTML injecti
   assert.equal(d.querySelector('dialog'),null);
 });
 
-test('prediction waits for distance entries, exposes rules and leaves official highlights untouched', async t => {
-  const data=structuredClone(snapshot);
-  data.predictions=structuredClone(predictions);
-  data.predictions.items.forEach(p=>Object.assign(p,{status:'waiting_for_data',missing:['distance_entries'],
-    source_urls:[],groups:[],unseeded:[],prequalified:[]}));
-  const dom=await page({data,view:'predictions'});t.after(()=>dom.window.close());
-  const d=dom.window.document;
-  const panel=d.querySelector('.prediction-panel');
-  assert.ok(panel);
-  assert.equal(panel.open,true);
-  assert.match(panel.textContent,/非官方/);
-  assert.match(panel.textContent,/单项报名待公布/);
-  assert.equal(panel.querySelector('button[aria-pressed]').hidden,true);
-  assert.equal(panel.querySelectorAll('a').length,3);
-  assert.equal(panel.querySelector('.source-disclosure').open,false);
-  assert.match(panel.querySelector('.source-disclosure summary').textContent,/来源与规则/);
-  assert.equal(panel.querySelectorAll('.prediction-group').length,0);
-  change(dom,panel.querySelector('select'),'men-1500');
-  assert.match(panel.textContent,/单项报名待公布/);
-  assert.equal(d.querySelectorAll('.match-row.is-chn').length,0);
-});
-
-test('stations without distance entries have no prediction tab', async t => {
-  const dom=await page({url:'https://example.test/?station=montreal&view=predictions',view:'schedule'});t.after(()=>dom.window.close());
-  const d=dom.window.document;
-  assert.deepEqual([...d.querySelectorAll('[role="tab"]')].map(b=>b.textContent),['赛程','报名名单']);
-  assert.equal(d.querySelector('#tab-schedule').getAttribute('aria-selected'),'true');
-});
-
-test('projection places known seeds, counts the rest, filters CHN and yields to official groups', async t => {
-  const data=structuredClone(snapshot);
-  data.predictions=structuredClone(predictions);
-  Object.assign(data.predictions.items[0],{status:'predicted',missing:[],prequalified:[{name:'TEST BYE',country:'CHN'}],
-    groups:[{heat_number:1,size:3,has_china:true,participants:[{seed_rank:1,name:'TEST CHN',country:'CHN'}]},
-      {heat_number:2,size:2,has_china:false,participants:[{seed_rank:2,name:'TEST KOR',country:'KOR'},{seed_rank:3,name:'TEST NED',country:'NED'}]}],
-    unseeded:[{name:'NEW CHN',country:'CHN'},{name:'NEW USA',country:'USA'}]});
-  data.predictions.items[1].status='official_available';
-  const dom=await page({data,view:'predictions'});t.after(()=>dom.window.close());
-  const d=dom.window.document,panel=d.querySelector('.prediction-panel');
-  const groups=panel.querySelectorAll('.prediction-group');
-  assert.equal(groups.length,2);
-  assert.match(groups[0].querySelector('h3').textContent,/第 1 组3 人/);
-  assert.match(groups[0].textContent,/另 2 人待定/);
-  assert.doesNotMatch(groups[1].textContent,/待定/);
-  const rest=panel.querySelector('.prediction-byes');
-  assert.match(rest.querySelector('summary').textContent,/其余 2 人待定\u00a0· CHN 1 人/);
-  assert.equal(rest.open,false);
-  assert.doesNotMatch(panel.textContent,/暂估|模拟抽签|首轮预测|个项目可查看/);
-  assert.match(panel.textContent,/直通下一轮/);
-  panel.querySelector('button').click();
-  assert.equal(panel.querySelectorAll('.prediction-group').length,1);
-  assert.equal(panel.querySelectorAll('.prediction-group .athlete-china').length,1);
-  const filtered=panel.querySelector('.prediction-byes');
-  assert.equal(filtered.open,true);
-  assert.equal(filtered.querySelectorAll('li').length,1);
-  const officialKeys = new Set(data.rounds.items.map(h => h.round_key));
-  assert.equal(d.querySelectorAll('.competition-open').length, schedule.entries.filter(r => officialKeys.has(r.round_key)).length);
-  change(dom,panel.querySelector('select'),'women-1000');
-  assert.equal(panel.querySelectorAll('.prediction-group').length,0);
-  assert.match(panel.textContent,/官方分组已公布/);
-});
-
-test('schedule first: one API, no roster/prediction or overview work until requested', async t => {
+test('schedule first: one API, no roster or overview work until requested', async t => {
   const dom=await page({view:'schedule'});t.after(()=>dom.window.close());
   const d=dom.window.document;
   assert.deepEqual(dom.requests.filter(p=>p.startsWith('/api/')),['/api/v1/events/vancouver/rounds']);
   assert.deepEqual(dom.requests.filter(p=>p.startsWith('/data/')).sort(),['/data/calendar.json','/data/vancouver.json']);
-  assert.equal(d.querySelectorAll('.athlete-card,.prediction-panel,.rb-body').length,0);
+  assert.equal(d.querySelectorAll('.athlete-card,.rb-body').length,0);
   assert.equal(d.querySelectorAll('.match-row').length,61);
   const first=d.querySelector('.match-row');
   d.getElementById('tab-athletes').click();
@@ -311,12 +245,6 @@ test('schedule first: one API, no roster/prediction or overview work until reque
   assert.equal(d.querySelector('.match-row'),first,'API responses must not rebuild schedule rows');
   assert.equal(dom.requests.filter(p=>p.endsWith('/entries')).length,1);
   assert.equal(dom.requests.filter(p=>p.endsWith('/rankings')).length,1);
-  assert.equal(dom.requests.filter(p=>p.endsWith('/predictions')).length,0);
-  d.getElementById('tab-predictions').click();
-  await settle(dom,()=>d.querySelector('.prediction-panel'));
-  assert.equal(dom.requests.filter(p=>p.endsWith('/predictions')).length,1);
-  assert.equal(d.getElementById('section-schedule').hidden,true);
-  assert.equal(d.getElementById('section-predictions').hidden,false);
 });
 
 test('slow rankings do not block entries; rapid tab changes deduplicate in-flight requests', async t => {
@@ -373,11 +301,11 @@ test('day, timezone and overview work after navigating between content tabs', as
   assert.equal(d.querySelectorAll('.match-row').length,61,'jump clears a day filter hiding the target');
 });
 
-test('tab keyboard navigation and prediction URL survive reload', async t => {
-  const dom=await page({view:'schedule',url:'https://example.test/?station=vancouver&view=predictions'});t.after(()=>dom.window.close());
+test('tab keyboard navigation returns to the schedule and drops the view parameter', async t => {
+  const dom=await page({view:'athletes',url:'https://example.test/?station=vancouver&view=athletes'});t.after(()=>dom.window.close());
   const d=dom.window.document;
-  await settle(dom,()=>d.querySelector('.prediction-panel'));
-  const tab=d.getElementById('tab-predictions');
+  await settle(dom,()=>d.querySelector('.athlete-card'));
+  const tab=d.getElementById('tab-athletes');
   assert.equal(tab.getAttribute('aria-selected'),'true');
   tab.dispatchEvent(new dom.window.KeyboardEvent('keydown',{key:'Home',bubbles:true}));
   assert.equal(d.activeElement.id,'tab-schedule');
@@ -503,7 +431,7 @@ test('a confirmed heat remains visible when no estimation model exists', async t
   const round = entries.find(r => r.china?.status === 'confirmed' && r.china.heats.length);
   assert.ok(round);
   for (const heat of round.china.heats) heat.estimate = null;
-  const files = {'/data/calendar.json': withPredictions, '/data/vancouver.json': {...schedule, entries},
+  const files = {'/data/calendar.json': calendar, '/data/vancouver.json': {...schedule, entries},
     '/data/updates.json': {schema_version:1,events:[]}};
   const dom = await page({view:'schedule',files});
   t.after(() => dom.window.close());

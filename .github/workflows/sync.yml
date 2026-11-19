@@ -64,10 +64,10 @@ jobs:
         id: sync_china
         continue-on-error: true
         run: bash tools/ci_run.sh china
-      - name: Sync confirmed distance entries and historical seed sources
-        id: sync_predictions
+      - name: Sync official per-distance entry lists
+        id: sync_entries
         continue-on-error: true
-        run: bash tools/ci_run.sh predictions
+        run: bash tools/ci_run.sh entries
       - name: Refresh official World Tour season distance rankings
         id: sync_standings
         continue-on-error: true
@@ -79,7 +79,7 @@ jobs:
           CHINA: ${{ steps.sync_china.outcome }}
           COMPETITIONS: ${{ steps.sync_competitions.outcome }}
           PENALTIES: ${{ steps.sync_penalties.outcome }}
-          PREDICTIONS: ${{ steps.sync_predictions.outcome }}
+          ENTRIES: ${{ steps.sync_entries.outcome }}
           STANDINGS: ${{ steps.sync_standings.outcome }}
         run: |
           {
@@ -90,7 +90,7 @@ jobs:
             printf '| china | %s |\n' "$CHINA"
             printf '| competitions | %s |\n' "$COMPETITIONS"
             printf '| penalties | %s |\n' "$PENALTIES"
-            printf '| predictions | %s |\n' "$PREDICTIONS"
+            printf '| entries | %s |\n' "$ENTRIES"
             printf '| standings | %s |\n' "$STANDINGS"
             echo 'Safe validation refusals exit 0 and appear as warnings in the step log; unexpected failures exit nonzero.'
           } >> "$GITHUB_STEP_SUMMARY"
@@ -120,7 +120,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           stage_updates() {
             git add dist web tools tests
-            git add data/competitions data/prediction_inputs data/updates.json
+            git add data/competitions data/distance_entries data/updates.json
             if [ -f data/world_tour_rankings.json ]; then git add data/world_tour_rankings.json; fi
             if [ -d data/penalties ]; then git add data/penalties; fi
             git add data/stations.json data/schedules data/sync_meta.json data/china_auto.json
@@ -161,7 +161,7 @@ jobs:
               steps.sync_china.outcome == 'success' &&
               steps.sync_competitions.outcome == 'success' &&
               steps.sync_penalties.outcome == 'success' &&
-              steps.sync_predictions.outcome == 'success' &&
+              steps.sync_entries.outcome == 'success' &&
               steps.sync_standings.outcome == 'success' &&
               steps.build_site.outcome == 'success' &&
               (steps.test_site.outcome == 'success' || (env.FULL_CHECKS != 'true' && steps.test_site.outcome == 'skipped')) &&
@@ -191,10 +191,10 @@ jobs:
           CHINA: ${{ steps.sync_china.outcome }}
           COMPETITIONS: ${{ steps.sync_competitions.outcome }}
           PENALTIES: ${{ steps.sync_penalties.outcome }}
-          PREDICTIONS: ${{ steps.sync_predictions.outcome }}
+          ENTRIES: ${{ steps.sync_entries.outcome }}
           STANDINGS: ${{ steps.sync_standings.outcome }}
         run: |
-          for outcome in "$SCHEDULE" "$CHINA" "$COMPETITIONS" "$PENALTIES" "$PREDICTIONS" "$STANDINGS"; do
+          for outcome in "$SCHEDULE" "$CHINA" "$COMPETITIONS" "$PENALTIES" "$ENTRIES" "$STANDINGS"; do
             if [ "$outcome" != success ]; then
               echo "::error::Unexpected sync failure: at least one script did not complete successfully"
               exit 1

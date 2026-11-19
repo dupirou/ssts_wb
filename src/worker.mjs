@@ -1,14 +1,13 @@
 import {privateAnalysis} from './private-analysis.mjs';
 
 /** Read-only API over the last validated official snapshot. No upstream scraping per visit. */
-const resources = new Set(['entries', 'rounds', 'results', 'rankings', 'penalties', 'predictions']);
+const resources = new Set(['entries', 'rounds', 'results', 'rankings', 'penalties']);
 const resourceFilters = {
   entries: new Set(['country', 'gender', 'athlete_id']),
   rounds: new Set(['country', 'gender', 'distance_m', 'round_key', 'athlete_id']),
   results: new Set(['country', 'gender', 'distance_m', 'round_key', 'athlete_id']),
   penalties: new Set(['country', 'gender', 'distance_m', 'round_key', 'athlete_id']),
   rankings: new Set(['country', 'gender', 'distance_m', 'athlete_id', 'ranking_type']),
-  predictions: new Set(['gender', 'distance_m', 'round_key']),
 };
 const filters = new Set(Object.values(resourceFilters).flatMap(keys => [...keys]));
 // Keep this aligned with tools/stations.py's validated ID rule.
@@ -218,13 +217,6 @@ export default {
         if (url.search) return json({error: 'filters_require_resource'}, 400, head);
         return json({schema_version: 1, event_id: eventId,
           endpoints: [...resources].map(r => `/api/v1/events/${eventId}/${r}`)}, 200, head);
-      }
-      if (resource === 'predictions') {
-        const stored = await env.ASSETS.fetch(new URL(`/data/predictions/${eventId}.json`, url));
-        if (!stored.ok) return json({error: 'data_unavailable'}, 503, head);
-        const prediction = await stored.json();
-        const items = prediction.items.filter(item => matches(item, url.searchParams));
-        return json({...prediction, ...await freshness(env, prediction), total: items.length, items}, 200, head);
       }
       const kind = ['results','penalties'].includes(resource) ? 'rounds' : resource;
       const stored = await env.ASSETS.fetch(new URL(`/data/competitions/${eventId}/${kind}.json`, url));
