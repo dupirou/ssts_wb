@@ -1129,6 +1129,27 @@
           if (person.first != null) labels.push('小组第一 ' + Math.round(person.first * 100) + '%');
           if (person.direct != null)
             labels.push('按名次晋级 ' + Math.round(person.direct * 100) + '%');
+          if (person.expectedPlace != null)
+            labels.push('预计组内名次 ' + person.expectedPlace.toFixed(1));
+          if (person.china)
+            labels.push(
+              '近三赛季同项 ' +
+                person.china.count +
+                ' 次单项总排名，最好第 ' +
+                person.china.best +
+                '，领奖台 ' +
+                person.china.podiums +
+                ' 次'
+            );
+          if (person.lane != null) labels.push('起跑道次 ' + person.lane);
+          if (person.opening != null)
+            labels.push(
+              '历史首段均时 ' +
+                person.opening.toFixed(2) +
+                ' 秒（' +
+                person.openingSamples +
+                ' 次）'
+            );
           if (person.starts)
             labels.push(
               '赛季胜率 ' +

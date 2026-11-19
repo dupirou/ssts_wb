@@ -53,3 +53,19 @@ test('a session unlocks the selected round, survives later requests, and can be 
   const cleared = await worker.fetch(send({action:'logout'},token),env);
   assert.match(cleared.headers.get('set-cookie'),/Max-Age=0/);
 });
+
+test('500 m learns lane and opening separately and ignores the upcoming split', async () => {
+  const {sprintModel} = await import('../src/sprint-model.mjs');
+  const id = p => p.name;
+  const race = (swap) => ({participants:['Fast','Slow'].map((name,i) => ({
+    name, rank:i+1, starting_position:swap ? 2-i : 1+i, opening_split_seconds:6.8+0.5*i
+  }))});
+  const model = sprintModel([race(false),race(true)], new Map(),id);
+  const upcoming = {name:'Fast',starting_position:1};
+  assert.ok(model(upcoming,1.5).adjustment > model({...upcoming,name:'Slow'},1.5).adjustment);
+  assert.deepEqual(model(upcoming,1.5),model({...upcoming,opening_split_seconds:9},1.5));
+  assert.equal(model({name:'Unseen'},1.5).adjustment,0);
+  const byLane = sprintModel([race(false),race(false)],new Map(),id);
+  assert.ok(byLane({name:'Unseen',starting_position:1},1.5).adjustment >
+    byLane({name:'Unseen',starting_position:2},1.5).adjustment);
+});

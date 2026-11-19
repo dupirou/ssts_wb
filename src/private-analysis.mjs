@@ -1,22 +1,29 @@
 import historical from './historical-heats.mjs';
 
-const key = (name, country) => country + ':' + name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/['’]/g,'').split(/[^A-Z]+/).filter(Boolean).sort().join('-');
+import women1000 from './historical-women-1000.mjs';
+import chinaHistory from './china-history.mjs';
+import { sprintModel } from './sprint-model.mjs';
+
+export const key = (name, country) => country + ':' + name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/['’]/g,'').split(/[^A-Z]+/).filter(Boolean).sort().join('-');
 const athlete = p => key(p.name_latin || p.name, p.country);
 // Regularized Plackett–Luce scores over ordered finishers. An unseen skater starts at zero.
-function ratings(races) {
+export function ratings(races, standings = []) {
+  const weightsByRace = new Map(standings.map(race => [race, 0.25]));
+  races = races.concat(standings);
   const scores = new Map(races.flat().map(id => [id, 0]));
   const counts = new Map();
-  for (const race of races) for (const id of race) counts.set(id, 1 + (counts.get(id) || 0));
+  for (const race of races) for (const id of race) counts.set(id, (weightsByRace.get(race) ?? 1) + (counts.get(id) || 0));
   for (let step = 0; step < 80; step++) {
     const gradient = new Map([...scores].map(([id, value]) => [id, -value]));
     for (const race of races) {
+      const influence = weightsByRace.get(race) ?? 1;
       let total = 0;
       const weights = race.map(id => Math.exp(scores.get(id)));
       for (let i = race.length - 1; i >= 0; i--) {
         total += weights[i];
         if (i === race.length - 1) continue;
-        gradient.set(race[i], gradient.get(race[i]) + 1);
-        for (let j = i; j < race.length; j++) gradient.set(race[j], gradient.get(race[j]) - weights[j] / total);
+        gradient.set(race[i], gradient.get(race[i]) + influence);
+        for (let j = i; j < race.length; j++) gradient.set(race[j], gradient.get(race[j]) - influence * weights[j] / total);
       }
     }
     for (const [id, g] of gradient) scores.set(id, scores.get(id) + 0.55 * g / (1 + counts.get(id)));
@@ -46,21 +53,39 @@ async function asset(env, path) {
   return response.json();
 }
 
+export function chinaResults(gender, distance) {
+  const china = new Map(), standings = [];
+  for (const [g,d,entries] of chinaHistory) {
+    if (g !== gender || d !== distance) continue;
+    for (const [name, rank] of entries) {
+      const id = key(name,'CHN'), row = china.get(id) || {count:0, best:Infinity, podiums:0};
+      row.count++; row.best = Math.min(row.best,rank); row.podiums += Number(rank <= 3);
+      china.set(id,row);
+    }
+    if (entries.length > 1 && new Set(entries.map(e=>e[1])).size === entries.length)
+      standings.push(entries.map(([name]) => key(name,'CHN')));
+  }
+  return {china, standings};
+}
+
 async function report(env, gender, distance, roundKey) {
   const calendar = await asset(env, '/data/calendar.json');
   const today = new Date().toISOString().slice(0, 10);
   const next = calendar.stations.find(s => s.date_end >= today);
   const stations = calendar.stations.filter(s => s.date_start <= today || s.id === next?.id);
   const sets = await Promise.all(stations.map(s => asset(env, '/data/competitions/' + s.id + '/rounds.json')));
-  const usePrior = gender === 'men' && distance === 1500;
-  const races = usePrior ? historical.map(h => h.map(([name, country]) => key(name, country))) : [];
-  const stats = new Map(), selected = [];
+  const history = gender === 'men' && distance === 1500 ? historical :
+    gender === 'women' && distance === 1000 ? women1000 : [];
+  const races = history.map(h => h.map(([name, country]) => key(name, country)));
+  const {china, standings} = chinaResults(gender, distance);
+  const stats = new Map(), selected = [], finished = [];
   for (const [i, set] of sets.entries()) {
     const station = stations[i];
     for (const heat of set.items) {
       if (heat.gender !== gender || heat.distance_m !== distance || heat.format !== 'individual') continue;
       if (heat.round_key === roundKey) selected.push({station, heat});
       if (heat.evidence !== 'official_results' || heat.result_status?.toLowerCase() !== 'official') continue;
+      finished.push(heat);
       const ordered = heat.participants.filter(p => p.rank > 0 && !p.penalty && !['DNS','DNF'].includes(p.result)).sort((a,b) => a.rank-b.rank);
       if (ordered.length >= 2) races.push(ordered.map(athlete));
       for (const p of heat.participants.filter(p => p.result !== 'DNS')) {
@@ -75,7 +100,8 @@ async function report(env, gender, distance, roundKey) {
   const hasForecast = ({station, heat}) => heat.evidence === 'official_start_list' &&
     station.date_end >= today && (!heat.local_date || heat.local_date >= today);
   const pending = selected.filter(hasForecast);
-  const score = pending.length ? ratings(races) : new Map();
+  const score = pending.length ? ratings(races, standings) : new Map();
+  const sprint = distance === 500 && pending.length ? sprintModel(finished, score, athlete) : null;
   let slots = 0;
   if (pending.length && pending[0].station.detail_status === 'verified') {
     const schedule = await asset(env, '/data/' + pending[0].station.id + '.json');
@@ -85,12 +111,18 @@ async function report(env, gender, distance, roundKey) {
   return selected.map(({heat, station}) => {
     const people = heat.participants.filter(p => p.result !== 'DNS');
     const forecast = hasForecast({heat, station});
-    const weights = people.map(p => Math.exp(score.get(athlete(p)) || 0));
+    const lanes = people.map(p => p.starting_position).filter(n => Number.isInteger(n) && n > 0);
+    const center = lanes.length ? lanes.reduce((a,b) => a+b,0)/lanes.length : 0;
+    const starts = people.map(p => forecast && sprint ? sprint(p, center) : null);
+    const weights = people.map((p,i) => Math.exp((score.get(athlete(p)) || 0) + (starts[i]?.adjustment || 0)));
     const total = weights.reduce((a,b) => a+b, 0);
     const direct = forecast && slots ? topPlaces(weights, slots) : null;
     return {id:heat.id, people:people.map((p,i) => {
       const row = stats.get(athlete(p));
-      return {id:p.athlete_id, starts:row?.starts || 0, wins:row?.wins || 0,
+      const expectedPlace = forecast && p.country === 'CHN' ? weights.reduce((place,w,j) =>
+        place + (i === j ? 0 : w/(w+weights[i])), 1) : null;
+      return {id:p.athlete_id, china:china.get(athlete(p)), expectedPlace,
+        lane:starts[i]?.lane, opening:starts[i]?.opening, openingSamples:starts[i]?.samples, starts:row?.starts || 0, wins:row?.wins || 0,
         first:forecast ? weights[i]/total : null, direct:direct?.[i] ?? null};
     })};
   });
