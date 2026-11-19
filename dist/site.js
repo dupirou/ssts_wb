@@ -1683,7 +1683,167 @@
     return box;
   }
 
+  // The preference only avoids requests for ordinary readers. The Worker verifies the cookie.
+  let analysisUnlocked = false;
+  try {
+    analysisUnlocked = localStorage.getItem('ssts.analysis') === '1';
+  } catch {}
+
+  function rememberAnalysis(value) {
+    analysisUnlocked = value;
+    try {
+      if (value) localStorage.setItem('ssts.analysis', '1');
+      else localStorage.removeItem('ssts.analysis');
+    } catch {}
+  }
+
+  function attachAnalysis(dialog, trigger, round, cells) {
+    const controls = h('div');
+    const message = h('span', { class: 'faint tiny', role: 'status' });
+    const call = (data) =>
+      fetch('/internal/analysis', {
+        method: 'POST',
+        credentials: 'same-origin',
+        cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    dialog.querySelector('header').after(controls);
+    async function loadRound() {
+      const response = await call({
+        action: 'round',
+        roundKey: round.round_key,
+        gender: round.gender,
+        distance: round.distance_m
+      });
+      if (!dialog.open) return;
+      if ([401, 404].includes(response.status)) {
+        rememberAnalysis(false);
+        return;
+      }
+      if (!response.ok) throw new Error();
+      for (const heat of await response.json()) {
+        for (const person of heat.people) {
+          const cell = cells.get(heat.id + '/' + person.id);
+          if (!cell) continue;
+          const labels = [];
+          if (person.first != null) labels.push('小组第一 ' + Math.round(person.first * 100) + '%');
+          if (person.direct != null)
+            labels.push('按名次晋级 ' + Math.round(person.direct * 100) + '%');
+          if (person.expectedPlace != null)
+            labels.push('预计组内名次 ' + person.expectedPlace.toFixed(1));
+          if (person.china)
+            labels.push(
+              '近三赛季同项 ' +
+                person.china.count +
+                ' 次单项总排名，最好第 ' +
+                person.china.best +
+                '，领奖台 ' +
+                person.china.podiums +
+                ' 次'
+            );
+          if (person.lane != null) labels.push('起跑道次 ' + person.lane);
+          if (person.opening != null)
+            labels.push(
+              '历史首段均时 ' +
+                person.opening.toFixed(2) +
+                ' 秒（' +
+                person.openingSamples +
+                ' 次）'
+            );
+          if (person.starts)
+            labels.push(
+              '赛季胜率 ' +
+                Math.round((100 * person.wins) / person.starts) +
+                '%（' +
+                person.wins +
+                '/' +
+                person.starts +
+                '）'
+            );
+          cell.textContent = labels.join(' · ');
+          cell.hidden = !labels.length;
+        }
+      }
+      const lock = h('button', { type: 'button', text: '锁定预测' });
+      lock.onclick = async () => {
+        try {
+          if (!(await call({ action: 'logout' })).ok) throw new Error();
+          rememberAnalysis(false);
+          for (const cell of cells.values()) {
+            cell.hidden = true;
+            cell.textContent = '';
+          }
+          controls.replaceChildren();
+        } catch {
+          message.textContent = '锁定失败，请重试';
+        }
+      };
+      message.textContent = '';
+      controls.replaceChildren(lock, message);
+    }
+    function login() {
+      if (controls.querySelector('form')) return;
+      const input = h('input', {
+        type: 'password',
+        required: true,
+        autocomplete: 'current-password',
+        'aria-label': '预测密码',
+        placeholder: '预测密码'
+      });
+      const submit = h('button', { type: 'submit', text: '解锁' });
+      const form = h('form', {}, input, submit, message);
+      message.textContent = '';
+      controls.replaceChildren(form);
+      input.focus();
+      form.onsubmit = async (event) => {
+        event.preventDefault();
+        submit.disabled = true;
+        try {
+          const response = await call({ action: 'login', password: input.value });
+          if (!response.ok) {
+            message.textContent = response.status === 401 ? '密码有误' : '暂时无法解锁';
+            input.select();
+            return;
+          }
+          input.value = '';
+          rememberAnalysis(true);
+          await loadRound();
+        } catch {
+          message.textContent = '连接失败，请重试';
+        } finally {
+          submit.disabled = false;
+        }
+      };
+    }
+    let taps = 0,
+      since = 0;
+    trigger.addEventListener('click', () => {
+      if (Date.now() - since > 2500) taps = 0;
+      if (!taps) since = Date.now();
+      if (++taps === 5) {
+        taps = 0;
+        login();
+      }
+    });
+    if (analysisUnlocked)
+      loadRound().catch(() => {
+        message.textContent = '预测暂时无法加载';
+        controls.replaceChildren(message);
+      });
+  }
+
   function showCompetition(r, heats) {
+    const cells = new Map();
+    const label = eventName(r) + ' · ' + roundName(r);
+    const trigger =
+      r.format === 'individual'
+        ? h('button', {
+            type: 'button',
+            text: label,
+            style: { all: 'unset', cursor: 'pointer', touchAction: 'manipulation' }
+          })
+        : null;
     const titleId = 'competition-title';
     const close = h(
       'button',
@@ -1693,12 +1853,7 @@
     const dialog = h(
       'dialog',
       { class: 'competition-dialog', 'aria-labelledby': titleId },
-      h(
-        'header',
-        { class: 'competition-head' },
-        h('h2', { id: titleId, text: eventName(r) + ' · ' + roundName(r) }),
-        close
-      ),
+      h('header', { class: 'competition-head' }, h('h2', { id: titleId }, trigger || label), close),
       r.qualification
         ? h(
             'p',
@@ -1727,6 +1882,8 @@
             (p.penalty.infringement_code ? ' · ' + p.penalty.infringement_code : '') +
             ' 判罚'
           : p.result || '—';
+        const analysis = trigger ? h('small', { class: 'tiny faint', hidden: true }) : null;
+        if (analysis) cells.set(heat.id + '/' + p.athlete_id, analysis);
         people.append(
           h(
             'li',
@@ -1744,6 +1901,7 @@
                 class: 'faint tiny',
                 text: p.country + (p.helmet_number != null ? ' · #' + p.helmet_number : '')
               }),
+              analysis,
               p.members?.length
                 ? h(
                     'span',
@@ -1804,6 +1962,7 @@
     });
     document.body.append(dialog);
     dialog.showModal();
+    if (trigger) attachAnalysis(dialog, trigger, r, cells);
   }
 
   function ticketPanel(st) {
