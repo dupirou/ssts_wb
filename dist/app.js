@@ -1364,8 +1364,9 @@
     if (trigger) attachAnalysis(dialog, trigger, r, cells);
   }
 
+  const showHomeTickets = (st) => st.id !== 'seoul' && st.ticketing;
   function ticketPanel(st) {
-    if (!st.ticketing || phase(st.win || stationWindow(st, null)) === 'done') return null;
+    if (!showHomeTickets(st) || phase(st.win || stationWindow(st, null)) === 'done') return null;
     if (st.ticketing.channels?.length) {
       const channels = st.ticketing.channels;
       return h(
@@ -3141,7 +3142,7 @@
   function ticketAlerts(stations) {
     const seen = seenTickets();
     return stations.flatMap((st) => {
-      const ticket = st.ticketing;
+      const ticket = showHomeTickets(st);
       if (!ticket || phase(stationWindow(st, null)) === 'done') return [];
       const channel =
         ticket.channels?.find((item) => item.kind === 'event') || ticket.channels?.[0];

@@ -126,12 +126,12 @@ test('home popup combines official updates and ticket alerts and remembers dismi
   assert.ok(popup, 'a new update should open a home modal');
   assert.match(popup.textContent, /蒙特利尔站.*报名名单已公布/);
   assert.match(popup.textContent, /上海站门票已开售/);
-  assert.match(popup.textContent, /首尔站门票已开售/);
+  assert.doesNotMatch(popup.textContent, /首尔站门票/);
   assert.ok([...popup.querySelectorAll('.upd-list a')].some(a =>
     a.href.includes('m.damai.cn/shows/item.html?itemId=1095988161093')));
   popup.querySelector('.upd-close').click();
   assert.ok(Number(dom.window.localStorage.getItem('ssts.updates.seen')) > 0);
-  assert.equal(JSON.parse(dom.window.localStorage.getItem('ssts.tickets.seen')).length, 2);
+  assert.equal(JSON.parse(dom.window.localStorage.getItem('ssts.tickets.seen')).length, 1);
   const storage = {
     'ssts.updates.seen': dom.window.localStorage.getItem('ssts.updates.seen'),
     'ssts.tickets.seen': dom.window.localStorage.getItem('ssts.tickets.seen')
