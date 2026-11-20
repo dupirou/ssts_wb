@@ -215,6 +215,7 @@
     "seoul/round/2026-11-21/main/women/3000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/500/heats/-/groups": "published",
+    "seoul/round/2026-11-21/repechage/women/1000/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/men/1000/heats/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/500/quarterfinal/-/groups": "published",
@@ -472,25 +473,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "baa4ec7ba73d8ef9",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 11,
-      "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Zixia ZHANG"
-      ]
-    },
     {
       "id": "bb53028c96528d19",
       "station": "montreal",
@@ -3696,6 +3678,21 @@
           "status": "advanced"
         }
       ]
+    },
+    {
+      "id": "44bf22f162564391",
+      "station": "seoul",
+      "at": "2026-11-20T06:41:55+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 3,
+      "china": []
     }
   ]
 }

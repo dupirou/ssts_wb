@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "44bf22f162564391",
+      "station": "seoul",
+      "at": "2026-11-20T06:41:55+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 3,
+      "china": []
+    },
+    {
       "id": "cd535c8d6eb7ebf1",
       "station": "seoul",
       "at": "2026-11-20T06:31:30+00:00",
@@ -3313,25 +3328,6 @@
       "heats": 4,
       "china": [
         "China"
-      ]
-    },
-    {
-      "id": "baa4ec7ba73d8ef9",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 11,
-      "china": [
-        "张柏浩",
-        "宋柯睿",
-        "张子夏"
       ]
     }
   ]
