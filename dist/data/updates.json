@@ -2,6 +2,50 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "4b4e2c6ee9a3b344",
+      "station": "seoul",
+      "at": "2026-11-20T02:11:46+00:00",
+      "local_date": "2026-11-20",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "宋柯睿",
+        "李坤",
+        "孙龙",
+        "张子夏"
+      ]
+    },
+    {
+      "id": "1074109ab276827e",
+      "station": "seoul",
+      "at": "2026-11-20T02:11:46+00:00",
+      "local_date": "2026-11-20",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "李坤"
+      ],
+      "china_results": [
+        {
+          "name": "李坤",
+          "rank": 3,
+          "status": "advanced",
+          "name_latin": "Kun LI"
+        }
+      ]
+    },
+    {
       "id": "8da3d3417d532824",
       "station": "seoul",
       "at": "2026-11-20T01:41:33+00:00",
@@ -3149,43 +3193,6 @@
       "heats": 4,
       "china": [
         "China"
-      ]
-    },
-    {
-      "id": "43325f36f7136706",
-      "station": "montreal",
-      "at": "2026-10-29T16:58:01+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": [
-        "张珈宁"
-      ]
-    },
-    {
-      "id": "3aeeedd529da0079",
-      "station": "montreal",
-      "at": "2026-10-29T16:58:01+00:00",
-      "local_date": null,
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": [
-        "张楚桐",
-        "张珈宁",
-        "公俐",
-        "张延"
       ]
     }
   ]
