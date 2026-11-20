@@ -1,13 +1,17 @@
 /**
- * Per-discipline dynamic Bayesian Plackett-Luce / OpenSkill skill rating engine.
- * Features:
+ * Per-discipline dynamic Bayesian Plackett-Luce / OpenSkill skill rating engine (V1 -> V1.5).
+ *
+ * V1 core:
  * - Independent (gender, distance_m) state: { mu, sigma, lastTimestampMs, lastSeason, nStarts, recentDelta }
  * - Off-season & inactivity variance inflation before prediction and updates
  * - Clean-race isolation: only status in {'OK', 'NO_TIME'} with rank > 0 update skill
- *   (PEN, YC, RC, DNF, DNS, ADV are excluded from competitive rank updates)
- * - Repechage down-weighting (w_rep in [0.35, 0.6])
+ * - Repechage down-weighting
  *
- * Zero external dependencies; identical execution in Node CLI and Cloudflare Worker.
+ * V1.5 upgrades (ablation-gated):
+ * - Cross-distance skill transfer & federation (country) EB cold-start prior
+ * - Coast-to-qualify softening (merges co-Q finishers within 0.10s in non-final rounds)
+ * - Round-tier information weighting (prelim vs QF vs SF/Final)
+ * - Per-distance hyperparameter overrides (500m / 1000m / 1500m)
  */
 
 export const DEFAULT_RATING_CONFIG = {
@@ -24,6 +28,46 @@ export const DEFAULT_RATING_CONFIG = {
   repWeight: 0.45,
   conservativeC: 0.25,
   recentDecay: 0.6,
+
+  // V1.5 options (default off unless enabled by V1.5 preset/config so V1 callers stay bit-exact)
+  enableCrossDistTransfer: false,
+  crossDistWeight: 0.5,
+  enableFederationPrior: false,
+  fedWeight: 0.45,
+  fedPriorTau: 16.0,
+  enableCoastSoftening: false,
+  coastMarginSec: 0.10,
+  enableRoundWeights: false,
+  prelimWeight: 0.85,
+  qfWeight: 1.0,
+  highTierWeight: 1.2,
+  distConfigs: null,
+};
+
+export const V15_RATING_CONFIG = {
+  ...DEFAULT_RATING_CONFIG,
+  enableCrossDistTransfer: true,
+  crossDistWeight: 0.55,
+  enableFederationPrior: true,
+  fedWeight: 0.45,
+  fedPriorTau: 16.0,
+  enableCoastSoftening: false,
+  coastMarginSec: 0.10,
+  enableRoundWeights: false,
+  prelimWeight: 0.85,
+  qfWeight: 1.0,
+  highTierWeight: 1.2,
+  distConfigs: {
+    500: { eta: 0.48, beta: 0.85, gammaSeason: 0.16, repWeight: 0.40 },
+    1000: { eta: 0.45, beta: 0.90, gammaSeason: 0.18, repWeight: 0.45 },
+    1500: { eta: 0.42, beta: 0.95, gammaSeason: 0.20, repWeight: 0.45 },
+  },
+};
+
+const CROSS_DIST_AFFINITY = {
+  500: { 1000: 0.75, 1500: 0.25 },
+  1000: { 500: 0.55, 1500: 0.55 },
+  1500: { 1000: 0.75, 500: 0.25 },
 };
 
 export function disciplineKey(gender, distanceM) {
@@ -45,9 +89,6 @@ export function isCleanFinisher(row) {
   );
 }
 
-/**
- * Compute inactivity and cross-season uncertainty inflation without mutating state.
- */
 export function driftSigma(sigma, lastTimestampMs, lastSeason, currentTimestampMs, currentSeason, cfg) {
   let v = sigma * sigma;
   if (lastTimestampMs != null && currentTimestampMs != null && currentTimestampMs > lastTimestampMs) {
@@ -67,8 +108,14 @@ export function conservativeSkill(mu, sigma, c = DEFAULT_RATING_CONFIG.conservat
 export class DynamicRatingEngine {
   constructor(config = {}) {
     this.cfg = { ...DEFAULT_RATING_CONFIG, ...config };
-    // Map<"gender:distance_m", Map<athleteId, state>>
     this.disciplines = new Map();
+    // Map<"country:gender:distance", { sumMu, w }>
+    this.fedStats = new Map();
+  }
+
+  _cfgFor(distanceM) {
+    const ov = this.cfg.distConfigs && this.cfg.distConfigs[distanceM];
+    return ov ? { ...this.cfg, ...ov } : this.cfg;
   }
 
   _disciplineMap(gender, distanceM) {
@@ -81,19 +128,60 @@ export class DynamicRatingEngine {
     return m;
   }
 
+  _coldStartPrior(athleteId, gender, distanceM, country, cfg) {
+    let crossSum = 0;
+    let crossW = 0;
+    if (cfg.enableCrossDistTransfer) {
+      const aff = CROSS_DIST_AFFINITY[distanceM] || {};
+      for (const [odStr, wAff] of Object.entries(aff)) {
+        const od = Number(odStr);
+        const mOther = this.disciplines.get(disciplineKey(gender, od));
+        const stOther = mOther?.get(athleteId);
+        if (stOther && stOther.nStarts > 0) {
+          const rel = stOther.nStarts / (stOther.nStarts + 4);
+          const w = wAff * rel;
+          crossSum += w * stOther.mu;
+          crossW += w;
+        }
+      }
+    }
+    const crossMu = crossW > 0 ? (crossSum / crossW) * (crossW / (crossW + 0.5)) : 0;
+
+    let fedMu = 0;
+    if (cfg.enableFederationPrior && country) {
+      const f = this.fedStats.get(`${country}:${gender}:${distanceM}`);
+      if (f && f.w > 0) {
+        fedMu = f.sumMu / (f.w + cfg.fedPriorTau);
+      }
+    }
+
+    const raw =
+      (cfg.enableCrossDistTransfer ? cfg.crossDistWeight * crossMu : 0) +
+      (cfg.enableFederationPrior ? cfg.fedWeight * fedMu : 0);
+    const muPrior = Math.max(-1.6, Math.min(1.6, raw));
+    const sigmaInit =
+      cfg.enableCrossDistTransfer && crossW > 0.3
+        ? Math.max(1.15, cfg.sigma0 - 0.2 * Math.min(1, crossW))
+        : cfg.sigma0;
+
+    return { muPrior, sigmaInit };
+  }
+
   /**
    * Read-only pre-race snapshot of an athlete's drifted skill and uncertainty.
-   * Safe against future leakage: only depends on prior state and current race timestamp/season.
+   * Optional country enables federation prior for unseen athletes.
    */
-  peekAthlete(athleteId, gender, distanceM, timestampMs = null, season = null) {
+  peekAthlete(athleteId, gender, distanceM, timestampMs = null, season = null, country = null) {
+    const cfg = this._cfgFor(distanceM);
     const m = this._disciplineMap(gender, distanceM);
     const st = m.get(athleteId);
     if (!st) {
+      const { muPrior, sigmaInit } = this._coldStartPrior(athleteId, gender, distanceM, country, cfg);
       return {
         athleteId,
-        mu: this.cfg.mu0,
-        sigma: this.cfg.sigma0,
-        muTilde: 0.0,
+        mu: cfg.mu0 + muPrior,
+        sigma: sigmaInit,
+        muTilde: conservativeSkill(cfg.mu0 + muPrior, sigmaInit, cfg.conservativeC),
         recentDelta: 0.0,
         nStarts: 0,
         isKnown: false,
@@ -105,24 +193,61 @@ export class DynamicRatingEngine {
       st.lastSeason,
       timestampMs,
       season,
-      this.cfg
+      cfg
     );
     return {
       athleteId,
       mu: st.mu,
       sigma: driftedSigma,
-      muTilde: conservativeSkill(st.mu, driftedSigma, this.cfg.conservativeC),
+      muTilde: conservativeSkill(st.mu, driftedSigma, cfg.conservativeC),
       recentDelta: st.recentDelta,
       nStarts: st.nStarts,
       isKnown: true,
     };
   }
 
+  _sessionWeight(ref, cfg) {
+    if (ref.session_type === 'REPECHAGE') return cfg.repWeight;
+    if (!cfg.enableRoundWeights) return 1.0;
+    if (ref.session_type === 'PRELIM') return cfg.prelimWeight;
+    if (ref.round === 'semifinal' || ref.round === 'final') return cfg.highTierWeight;
+    return cfg.qfWeight;
+  }
+
   /**
-   * Update ratings strictly AFTER a heat finishes using only clean finishers.
-   * Excludes PEN / YC / RC / DNF / DNS / ADV from rank-based updates.
-   * Down-weights REPECHAGE heats by cfg.repWeight.
+   * Build ordered rank tiers, optionally merging co-Q finishers within coastMarginSec
+   * in non-final rounds so teammate/coasting photo-finishes don't corrupt skill mu.
    */
+  _buildTiers(snapshots, ref, cfg) {
+    const byRank = [...snapshots.map((s, idx) => ({ idx, row: s.row }))].sort(
+      (a, b) => a.row.rank - b.row.rank
+    );
+    const tiers = [];
+    for (const item of byRank) {
+      const prevTier = tiers[tiers.length - 1];
+      if (!prevTier) {
+        tiers.push([item.idx]);
+        continue;
+      }
+      const rep = snapshots[prevTier[prevTier.length - 1]].row;
+      const sameRank = item.row.rank === rep.rank;
+      const coastMerge =
+        cfg.enableCoastSoftening &&
+        ref.round !== 'final' &&
+        rep.qual_type === 'Q' &&
+        item.row.qual_type === 'Q' &&
+        typeof rep.time_s === 'number' &&
+        typeof item.row.time_s === 'number' &&
+        Math.abs(item.row.time_s - rep.time_s) <= cfg.coastMarginSec;
+      if (sameRank || coastMerge) {
+        prevTier.push(item.idx);
+      } else {
+        tiers.push([item.idx]);
+      }
+    }
+    return tiers;
+  }
+
   updateHeat(heatRows) {
     if (!Array.isArray(heatRows) || heatRows.length === 0) {
       return { updated: false, reason: 'empty_heat' };
@@ -135,29 +260,18 @@ export class DynamicRatingEngine {
     const ref = clean[0];
     const gender = ref.gender;
     const distanceM = ref.distance_m;
+    const cfg = this._cfgFor(distanceM);
     const season = ref.season || null;
     const timestampMs = parseTimestampMs(ref);
-    const wSession = ref.session_type === 'REPECHAGE' ? this.cfg.repWeight : 1.0;
+    const wSession = this._sessionWeight(ref, cfg);
 
-    // Snapshot drifted pre-update states for all clean finishers.
     const snapshots = clean.map((row) => ({
       row,
-      prior: this.peekAthlete(row.athlete_id, gender, distanceM, timestampMs, season),
+      prior: this.peekAthlete(row.athlete_id, gender, distanceM, timestampMs, season, row.country || null),
     }));
 
-    // Group by rank ascending to handle ties cleanly and symmetrically.
-    const tierMap = new Map();
-    for (let idx = 0; idx < snapshots.length; idx++) {
-      const r = snapshots[idx].row.rank;
-      let grp = tierMap.get(r);
-      if (!grp) {
-        grp = [];
-        tierMap.set(r, grp);
-      }
-      grp.push(idx);
-    }
-    const ranks = [...tierMap.keys()].sort((a, b) => a - b);
-    if (ranks.length < 2) {
+    const tiers = this._buildTiers(snapshots, ref, cfg);
+    if (tiers.length < 2) {
       return { updated: false, reason: 'all_tied', cleanCount: clean.length };
     }
 
@@ -167,21 +281,19 @@ export class DynamicRatingEngine {
     meanMu /= n;
 
     const weights = snapshots.map((s) => {
-      const z = Math.max(-30, Math.min(30, (s.prior.mu - meanMu) / this.cfg.plScale));
+      const z = Math.max(-30, Math.min(30, (s.prior.mu - meanMu) / cfg.plScale));
       return Math.exp(z);
     });
 
-    // Build suffix weight totals across ordered rank groups.
     const grad = new Array(n).fill(0);
     const info = new Array(n).fill(0);
 
-    for (let gIdx = 0; gIdx < ranks.length - 1; gIdx++) {
-      const group = tierMap.get(ranks[gIdx]);
-      // Remaining participants from gIdx through the last rank tier.
+    for (let gIdx = 0; gIdx < tiers.length - 1; gIdx++) {
+      const group = tiers[gIdx];
       let remWeight = 0;
       const remIndices = [];
-      for (let t = gIdx; t < ranks.length; t++) {
-        for (const j of tierMap.get(ranks[t])) {
+      for (let t = gIdx; t < tiers.length; t++) {
+        for (const j of tiers[t]) {
           remIndices.push(j);
           remWeight += weights[j];
         }
@@ -189,9 +301,7 @@ export class DynamicRatingEngine {
       if (!(remWeight > 0)) continue;
 
       const k = group.length;
-      for (const i of group) {
-        grad[i] += 1.0;
-      }
+      for (const i of group) grad[i] += 1.0;
       for (const j of remIndices) {
         const p = weights[j] / remWeight;
         grad[j] -= k * p;
@@ -200,21 +310,21 @@ export class DynamicRatingEngine {
     }
 
     const dMap = this._disciplineMap(gender, distanceM);
-    const betaSq = this.cfg.beta * this.cfg.beta;
-    const minVar = this.cfg.minSigma * this.cfg.minSigma;
+    const betaSq = cfg.beta * cfg.beta;
+    const minVar = cfg.minSigma * cfg.minSigma;
     const deltas = [];
 
     for (let idx = 0; idx < n; idx++) {
       const { row, prior } = snapshots[idx];
       const varPrior = prior.sigma * prior.sigma;
       const alpha = varPrior / (varPrior + betaSq);
-      const deltaMu = this.cfg.eta * wSession * alpha * grad[idx];
+      const deltaMu = cfg.eta * wSession * alpha * grad[idx];
       const muNew = prior.mu + deltaMu;
 
-      const shrink = Math.max(0.5, 1 - this.cfg.kappa * wSession * alpha * Math.min(info[idx], 2.0));
+      const shrink = Math.max(0.5, 1 - cfg.kappa * wSession * alpha * Math.min(info[idx], 2.0));
       const varNew = Math.max(minVar, varPrior * shrink);
       const sigmaNew = Math.sqrt(varNew);
-      const recentDelta = this.cfg.recentDecay * prior.recentDelta + (1 - this.cfg.recentDecay) * deltaMu;
+      const recentDelta = cfg.recentDecay * prior.recentDelta + (1 - cfg.recentDecay) * deltaMu;
 
       dMap.set(row.athlete_id, {
         mu: muNew,
@@ -224,6 +334,17 @@ export class DynamicRatingEngine {
         nStarts: prior.nStarts + 1,
         recentDelta,
       });
+
+      if (cfg.enableFederationPrior && row.country) {
+        const fKey = `${row.country}:${gender}:${distanceM}`;
+        const prevF = this.fedStats.get(fKey) || { sumMu: 0, w: 0 };
+        const obsW = 1 / (1 + varNew);
+        this.fedStats.set(fKey, {
+          sumMu: prevF.sumMu * 0.996 + obsW * muNew,
+          w: prevF.w * 0.996 + obsW,
+        });
+      }
+
       deltas.push({ athleteId: row.athlete_id, deltaMu, muNew, sigmaNew });
     }
 

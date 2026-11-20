@@ -1,7 +1,7 @@
 /**
- * Endogeneity-controlled contextual racing strength model (Layer 2).
+ * Endogeneity-controlled contextual racing strength model (Layer 2: V1 -> V1.5).
  *
- * Models per-skater heat racing strength:
+ * V1 6-feature model:
  *   s_i = alpha_scale * muTilde_i
  *       + beta_lane_prelim * (meanRelLane - relLane_i) * I(PRELIM/REP)
  *       + beta_lane_main   * (meanRelLane - relLane_i) * I(MAIN)
@@ -9,8 +9,13 @@
  *       + beta_form        * recentDelta_i
  *       + beta_split       * zOpening_i
  *
+ * V1.5 extended 9-feature model appends:
+ *       + beta_finish      * zFinish_i (last-2-lap closing kick from pace-model)
+ *       + beta_pace        * zPace_i   (venue-adjusted net pace from pace-model)
+ *       + beta_crowd       * laneDiff_i * (heatSize - stdSize)
+ *
  * Fits parameters via exact penalized Plackett-Luce Newton-Raphson MLE
- * with full 6x6 covariance Hessian, jointly controlling for skill muTilde_i
+ * with full dxd covariance Hessian, jointly controlling for skill muTilde_i
  * and repechage status so inner-lane advantage reflects physics, not seeding.
  *
  * Zero external dependencies.
@@ -25,8 +30,18 @@ export const FEATURE_NAMES = [
   'betaSplit',
 ];
 
+export const V15_FEATURE_NAMES = [
+  ...FEATURE_NAMES,
+  'betaFinish',
+  'betaPace',
+  'betaCrowd',
+];
+
 export const DEFAULT_PRIOR_MEAN = [1.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 export const DEFAULT_PRIOR_PREC = [6.0, 12.0, 12.0, 10.0, 15.0, 15.0];
+
+export const V15_PRIOR_MEAN = [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+export const V15_PRIOR_PREC = [6.0, 12.0, 12.0, 10.0, 15.0, 15.0, 20.0, 20.0, 30.0];
 
 const MAX_VALID_OPENING_SPLIT = {
   500: 11.0,
@@ -39,7 +54,6 @@ export class OpeningSplitTracker {
     this.tau = tau;
     this.decay = decay;
     this.clipAdv = clipAdv;
-    // Map<distanceM, { laneSquares, laneProduct, profiles: Map<athleteId, { sum, n }> }>
     this.byDistance = new Map();
   }
 
@@ -52,9 +66,6 @@ export class OpeningSplitTracker {
     return b;
   }
 
-  /**
-   * Read-only pre-race opening advantage z_opening_i (positive = faster opener).
-   */
   peekZ(athleteId, distanceM) {
     const b = this.byDistance.get(distanceM);
     if (!b) return 0.0;
@@ -64,9 +75,6 @@ export class OpeningSplitTracker {
     return Math.max(-this.clipAdv, Math.min(this.clipAdv, z));
   }
 
-  /**
-   * Update opening-split lane trend and per-athlete EB profile strictly AFTER heat completion.
-   */
   updateHeat(heatRows) {
     if (!Array.isArray(heatRows) || heatRows.length === 0) return false;
     const d = heatRows[0].distance_m;
@@ -110,7 +118,6 @@ export class OpeningSplitTracker {
     for (const m of measured) {
       const dx = m.lane - avgLane;
       const dy = m.t - avgT;
-      // Positive advantage = faster (lower opening time) than lane-adjusted heat average.
       const adv = Math.max(-this.clipAdv, Math.min(this.clipAdv, dx * trend - dy));
       const prev = b.profiles.get(m.athleteId) || { sum: 0.0, n: 0.0 };
       b.profiles.set(m.athleteId, {
@@ -122,10 +129,6 @@ export class OpeningSplitTracker {
   }
 }
 
-/**
- * Compute per-starter normalized lane difference (meanRelLane - relLane_i)
- * so positive values correspond to inner lanes (Lane 1) and zero is heat-centered.
- */
 export function computeHeatLaneDiffs(activeRows) {
   const rels = activeRows.map((r) => {
     if (typeof r.rel_lane === 'number' && Number.isFinite(r.rel_lane)) return r.rel_lane;
@@ -148,10 +151,22 @@ export function computeHeatLaneDiffs(activeRows) {
 }
 
 /**
- * Build the 6-dimensional feature matrix for active starters in one heat,
- * using strictly pre-race rating and opening-split snapshots.
+ * Build the 6-dim (V1) or 9-dim (V1.5) feature matrix strictly pre-race.
  */
-export function buildHeatFeatures(activeRows, ratingEngine, openingTracker) {
+export function buildHeatFeatures(
+  activeRows,
+  ratingEngine,
+  openingTracker,
+  paceTracker = null,
+  options = {}
+) {
+  const {
+    includeFinishKick = false,
+    includePace = false,
+    includeCrowd = false,
+    extended = false,
+  } = options;
+  const emitExtended = extended || paceTracker != null || includeFinishKick || includePace || includeCrowd;
   const laneDiffs = computeHeatLaneDiffs(activeRows);
   return activeRows.map((r, i) => {
     const tMs = r.start_time_utc ? Date.parse(r.start_time_utc) : null;
@@ -160,7 +175,8 @@ export function buildHeatFeatures(activeRows, ratingEngine, openingTracker) {
       r.gender,
       r.distance_m,
       Number.isFinite(tMs) ? tMs : null,
-      r.season || null
+      r.season || null,
+      r.country || null
     );
     const isMain = r.session_type === 'MAIN';
     const laneDiff = laneDiffs[i];
@@ -168,7 +184,7 @@ export function buildHeatFeatures(activeRows, ratingEngine, openingTracker) {
       openingTracker && r.distance_m <= 1000
         ? openingTracker.peekZ(r.athlete_id, r.distance_m)
         : 0.0;
-    return [
+    const base = [
       snap.muTilde,
       isMain ? 0.0 : laneDiff,
       isMain ? laneDiff : 0.0,
@@ -176,13 +192,25 @@ export function buildHeatFeatures(activeRows, ratingEngine, openingTracker) {
       snap.recentDelta,
       zOpen,
     ];
+    if (!emitExtended) return base;
+
+    const zFinish =
+      paceTracker && includeFinishKick
+        ? paceTracker.peekZFinish(r.athlete_id, r.gender, r.distance_m)
+        : 0.0;
+    const zPace =
+      paceTracker && includePace
+        ? paceTracker.peekZPace(r.athlete_id, r.gender, r.distance_m)
+        : 0.0;
+    const stdSize = r.distance_m === 1500 ? 7 : 5;
+    const crowd = includeCrowd
+      ? laneDiff * Math.max(-1, Math.min(2, (r.heat_size || activeRows.length) - stdSize))
+      : 0.0;
+    return [...base, zFinish, zPace, crowd];
   });
 }
 
-/**
- * Solve symmetric positive-definite linear system A * x = b via Gaussian elimination.
- */
-function solveLinear6(A, b) {
+function solveLinear(A, b) {
   const n = b.length;
   const M = A.map((row, i) => [...row, b[i]]);
   for (let col = 0; col < n; col++) {
@@ -211,24 +239,20 @@ function solveLinear6(A, b) {
   return x;
 }
 
-/**
- * Fit 6 contextual Plackett-Luce parameters via damped Newton-Raphson MLE
- * over pre-recorded clean heat snapshots.
- *
- * Each sample is { tiers: number[][], features: number[][] } where tiers[g]
- * lists indices into features for rank group g (ordered best -> worst).
- */
 export function fitContextualParams(
   samples,
   {
-    priorMean = DEFAULT_PRIOR_MEAN,
-    priorPrec = DEFAULT_PRIOR_PREC,
+    priorMean = null,
+    priorPrec = null,
     maxIter = 12,
     tol = 1e-6,
   } = {}
 ) {
-  const d = priorMean.length;
-  const theta = [...priorMean];
+  const inferredDim = samples?.[0]?.features?.[0]?.length || 6;
+  const pMean = priorMean || (inferredDim === 9 ? V15_PRIOR_MEAN : DEFAULT_PRIOR_MEAN);
+  const pPrec = priorPrec || (inferredDim === 9 ? V15_PRIOR_PREC : DEFAULT_PRIOR_PREC);
+  const d = pMean.length;
+  const theta = [...pMean];
   if (!samples || samples.length === 0) {
     return {
       params: thetaToObject(theta),
@@ -244,10 +268,10 @@ export function fitContextualParams(
     const negHess = needHessian ? Array.from({ length: d }, () => new Array(d).fill(0)) : null;
 
     for (let k = 0; k < d; k++) {
-      const diff = th[k] - priorMean[k];
-      logPost -= 0.5 * priorPrec[k] * diff * diff;
-      grad[k] -= priorPrec[k] * diff;
-      if (needHessian) negHess[k][k] += priorPrec[k];
+      const diff = th[k] - pMean[k];
+      logPost -= 0.5 * pPrec[k] * diff * diff;
+      grad[k] -= pPrec[k] * diff;
+      if (needHessian) negHess[k][k] += pPrec[k];
     }
 
     for (let sIdx = 0; sIdx < samples.length; sIdx++) {
@@ -317,7 +341,7 @@ export function fitContextualParams(
 
   let current = evalObj(theta, true);
   for (let iter = 0; iter < maxIter; iter++) {
-    const step = solveLinear6(current.negHess, current.grad);
+    const step = solveLinear(current.negHess, current.grad);
     let maxStep = 0;
     for (let k = 0; k < d; k++) {
       if (Math.abs(step[k]) > maxStep) maxStep = Math.abs(step[k]);
@@ -349,7 +373,7 @@ export function fitContextualParams(
 }
 
 export function thetaToObject(theta) {
-  return {
+  const obj = {
     alphaScale: theta[0],
     betaLanePrelim: theta[1],
     betaLaneMain: theta[2],
@@ -357,20 +381,22 @@ export function thetaToObject(theta) {
     betaForm: theta[4],
     betaSplit: theta[5],
   };
+  if (theta.length > 6) {
+    obj.betaFinish = theta[6] ?? 0;
+    obj.betaPace = theta[7] ?? 0;
+    obj.betaCrowd = theta[8] ?? 0;
+  }
+  return obj;
 }
 
 export function scoreHeatFeatures(features, theta) {
   return features.map((x) => {
     let s = 0;
-    for (let k = 0; k < theta.length; k++) s += theta[k] * x[k];
+    for (let k = 0; k < Math.min(theta.length, x.length); k++) s += theta[k] * x[k];
     return s;
   });
 }
 
-/**
- * Extract rank tiers from clean finishers inside a heat's activeRows for training samples.
- * Returns null if fewer than 2 distinct clean rank tiers exist.
- */
 export function makeTrainingSample(activeRows, features) {
   const tierMap = new Map();
   for (let i = 0; i < activeRows.length; i++) {
@@ -390,4 +416,60 @@ export function makeTrainingSample(activeRows, features) {
     tiers: ranks.map((rk) => tierMap.get(rk)),
     features,
   };
+}
+
+/**
+ * Causally fit 1D score temperature tau_d >= 0.8 for incident-decoupled simulation
+ * using strictly past heats' pre-race features and survival probabilities (1 - p_inc).
+ * Compensates for Plackett-Luce bottom-rank dilution and incident dropout variance.
+ */
+export function fitIncidentTemperature(
+  samples,
+  theta,
+  { priorTemp = 1.05, priorPrec = 25.0, maxIter = 8 } = {}
+) {
+  if (!samples || samples.length < 20) return priorTemp;
+  let tau = priorTemp;
+  for (let iter = 0; iter < maxIter; iter++) {
+    let grad = -priorPrec * (tau - priorTemp);
+    let negHess = priorPrec;
+    for (let sIdx = 0; sIdx < samples.length; sIdx++) {
+      const samp = samples[sIdx];
+      const { tiers, features, pInc } = samp;
+      if (!tiers || tiers.length < 2 || tiers[0].length !== 1) continue;
+      const wIdx = tiers[0][0];
+      const n = features.length;
+      const raw = new Array(n);
+      let maxS = -Infinity;
+      for (let i = 0; i < n; i++) {
+        let v = 0;
+        const xi = features[i];
+        for (let k = 0; k < Math.min(theta.length, xi.length); k++) v += theta[k] * xi[k];
+        raw[i] = v;
+        if (tau * v > maxS) maxS = tau * v;
+      }
+      let wSum = 0;
+      const w = new Array(n);
+      for (let i = 0; i < n; i++) {
+        const surv = pInc ? Math.max(0.5, 1.0 - pInc[i]) : 1.0;
+        const wi = surv * Math.exp(Math.max(-35, Math.min(35, tau * raw[i] - maxS)));
+        w[i] = wi;
+        wSum += wi;
+      }
+      if (!(wSum > 0)) continue;
+      let meanR = 0;
+      for (let i = 0; i < n; i++) meanR += (w[i] / wSum) * raw[i];
+      let varR = 0;
+      for (let i = 0; i < n; i++) {
+        const dr = raw[i] - meanR;
+        varR += (w[i] / wSum) * dr * dr;
+      }
+      grad += raw[wIdx] - meanR;
+      negHess += varR;
+    }
+    const step = grad / Math.max(negHess, 1e-6);
+    tau = Math.max(0.85, Math.min(1.45, tau + step));
+    if (Math.abs(step) < 1e-4) break;
+  }
+  return tau;
 }
