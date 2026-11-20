@@ -2,6 +2,51 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "64401893159e68c9",
+      "station": "seoul",
+      "at": "2026-11-20T05:41:39+00:00",
+      "local_date": "2026-11-20",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张柏浩",
+        "李坤",
+        "孙龙",
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "张柏浩",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "李坤",
+          "rank": 3,
+          "status": "out",
+          "name_latin": "Kun LI"
+        },
+        {
+          "name": "孙龙",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Long SUN"
+        },
+        {
+          "name": "张子夏",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
       "id": "7f08dfc92a89e532",
       "station": "seoul",
       "at": "2026-11-20T05:21:40+00:00",
@@ -3259,23 +3304,6 @@
       "heats": 6,
       "china": [
         "张珈宁"
-      ]
-    },
-    {
-      "id": "6632abde8d4d6549",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "China"
       ]
     }
   ]
