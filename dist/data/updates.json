@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "8092ab54603474ed",
+      "station": "seoul",
+      "at": "2026-11-20T02:21:46+00:00",
+      "local_date": "2026-11-22",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": []
+    },
+    {
       "id": "4b4e2c6ee9a3b344",
       "station": "seoul",
       "at": "2026-11-20T02:11:46+00:00",
@@ -3171,23 +3186,6 @@
       "repechage": false,
       "gender": "mixed",
       "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "China"
-      ]
-    },
-    {
-      "id": "76ced853c3fac4a9",
-      "station": "montreal",
-      "at": "2026-10-29T16:58:01+00:00",
-      "local_date": null,
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
       "format": "relay",
       "kind": "groups",
       "heats": 4,
