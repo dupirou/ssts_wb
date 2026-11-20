@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "8da3d3417d532824",
+      "station": "seoul",
+      "at": "2026-11-20T01:41:33+00:00",
+      "local_date": "2026-11-21",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": []
+    },
+    {
       "id": "f3089fc0dd84b229",
       "station": "seoul",
       "at": "2026-11-20T01:31:43+00:00",
@@ -3171,23 +3186,6 @@
         "张珈宁",
         "公俐",
         "张延"
-      ]
-    },
-    {
-      "id": "2c0228b6e2745475",
-      "station": "montreal",
-      "at": "2026-10-29T16:58:01+00:00",
-      "local_date": null,
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "China"
       ]
     }
   ]
