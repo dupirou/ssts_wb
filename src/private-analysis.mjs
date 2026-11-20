@@ -257,6 +257,16 @@ function parseQualificationRule(codeStr) {
   };
 }
 
+function finalAFieldSize(sets, roundKey) {
+  if (!roundKey.endsWith('/final/B')) return null;
+  const key = roundKey.slice(0, -1) + 'A';
+  for (const set of sets) {
+    const final = set.items.find(h => h.round_key === key);
+    if (final) return final.participants.filter(p => p.result !== 'DNS').length || null;
+  }
+  return null;
+}
+
 async function reportV2({ env, calendar, stations, sets, gender, distance, roundKey, selected, hasForecast, stats, china, state }) {
   const season = calendar.season || '2026/27';
   const pendingItems = selected.filter(hasForecast);
@@ -446,6 +456,7 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
       includeWhatIfClean: true,
     }
   );
+  const finalOffset = finalAFieldSize(sets, roundKey);
   const mcByHeatId = new Map(mcRes.heats.map((h) => [h.id, h]));
 
   return selected.map((item) => {
@@ -525,6 +536,8 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
           starts: row?.starts || 0,
           wins: row?.wins || 0,
           first: mcP.p_first,
+          medals: heat.round === 'final' && heat.group === 'A' ? mcP.podium : null,
+          expectedFinalPlace: finalOffset == null ? null : finalOffset + mcP.expected_place,
           direct: qRule.big_q > 0 ? mcP.p_big_q : null,
           smallQ: qRule.small_q_planned > 0 ? mcP.p_small_q : null,
           totalAdvance: qRule.big_q > 0 || qRule.small_q_planned > 0 ? mcP.p_total_advance : null,
@@ -616,6 +629,7 @@ export async function report(env, gender, distance, roundKey) {
     const rule = schedule.entries.find((e) => e.round_key === roundKey)?.qualification?.code;
     slots = Number(/^(\d+)Q/.exec(rule || '')?.[1] || 0);
   }
+  const finalOffset = finalAFieldSize(sets, roundKey);
   return selected.map(({ heat, station }) => {
     const people = heat.participants.filter((p) => p.result !== 'DNS');
     const forecast = hasForecast({ heat, station });
@@ -628,13 +642,15 @@ export async function report(env, gender, distance, roundKey) {
       Math.exp((score.get(athlete(p)) || 0) + (starts[i]?.adjustment || 0))
     );
     const total = weights.reduce((a, b) => a + b, 0);
+    const podium = forecast && heat.round === 'final' && heat.group === 'A'
+      ? [1, 2, 3].map(rank => topPlaces(weights, rank)) : null;
     const direct = forecast && slots ? topPlaces(weights, slots) : null;
     return {
       id: heat.id,
       people: people.map((p, i) => {
         const row = stats.get(athlete(p));
         const expectedPlace =
-          forecast && p.country === 'CHN'
+          forecast && (p.country === 'CHN' || heat.group === 'B')
             ? weights.reduce((place, w, j) => place + (i === j ? 0 : w / (w + weights[i])), 1)
             : null;
         return {
@@ -646,6 +662,8 @@ export async function report(env, gender, distance, roundKey) {
           openingSamples: starts[i]?.samples,
           starts: row?.starts || 0,
           wins: row?.wins || 0,
+          medals: podium?.map((cum, rank) => cum[i] - (rank ? podium[rank - 1][i] : 0)) ?? null,
+          expectedFinalPlace: finalOffset == null || expectedPlace == null ? null : finalOffset + expectedPlace,
           first: forecast ? weights[i] / total : null,
           direct: direct?.[i] ?? null,
         };

@@ -1006,6 +1006,29 @@
       const box = h('details', { class: 'analysis-dive' }, h('summary', { text: '数据分析' }));
       const grid = h('div', { class: 'analysis-dive-body' });
 
+      if (round.round !== 'final' && person.direct != null && person.smallQ != null) {
+        grid.append(
+          h('span', { class: 'analysis-dive-label', text: '晋级路径' }),
+          h('span', {
+            class: 'analysis-dive-val num',
+            text:
+              '按名次晋级 ' +
+              Math.round(person.direct * 100) +
+              '% · 按成绩晋级 ' +
+              Math.round(person.smallQ * 100) +
+              '%'
+          })
+        );
+      }
+      if (person.incident != null) {
+        grid.append(
+          h('span', { class: 'analysis-dive-label', text: '意外概率' }),
+          h('span', {
+            class: 'analysis-dive-val num',
+            text: Math.round(person.incident * 100) + '%'
+          })
+        );
+      }
       if (dive) {
         const attr = dive.factor_attribution || {};
         const factors = FACTOR_LABELS.map(([k, label]) => [label, Number(attr[k] || 0)])
@@ -1049,7 +1072,11 @@
           );
         }
 
-        if (dive.what_if_clean_race && dive.path_breakdown) {
+        if (
+          dive.what_if_clean_race &&
+          dive.path_breakdown &&
+          (person.totalAdvance != null || (round.round === 'final' && round.group === 'A'))
+        ) {
           const hasAdvance = person.totalAdvance != null;
           let whatIfText;
           if (hasAdvance) {
@@ -1057,16 +1084,7 @@
             const cleanPct = Math.round(dive.what_if_clean_race.p_total_advance * 100);
             const diff = cleanPct - curPct;
             whatIfText =
-              '总晋级 ' +
-              curPct +
-              '% → ' +
-              cleanPct +
-              '% (' +
-              (diff >= 0 ? '+' : '') +
-              diff +
-              '%) · 纯竞速第1 ' +
-              Math.round(dive.what_if_clean_race.p_first * 100) +
-              '%';
+              '总晋级 ' + curPct + '% → ' + cleanPct + '% (' + (diff >= 0 ? '+' : '') + diff + '%)';
           } else {
             const curFirst = Math.round(dive.path_breakdown.p_first * 100);
             const cleanFirst = Math.round(dive.what_if_clean_race.p_first * 100);
@@ -1144,65 +1162,29 @@
           const cell = cells.get(heat.id + '/' + person.id);
           if (!cell) continue;
           const chips = [];
-          const hasTotalAdv = person.totalAdvance != null;
-          if (hasTotalAdv) {
+          function chip(label, value, primary = false) {
             chips.push(
               h('span', {
-                class: 'analysis-chip is-primary num',
-                text: '总晋级 ' + Math.round(person.totalAdvance * 100) + '%'
-              })
-            );
-            if (person.first != null) {
-              chips.push(
-                h('span', {
-                  class: 'analysis-chip num',
-                  text: '第1 ' + Math.round(person.first * 100) + '%'
-                })
-              );
-            }
-          } else if (person.first != null) {
-            chips.push(
-              h('span', {
-                class: 'analysis-chip is-primary num',
-                text:
-                  (showFinalTitle ? '夺冠 ' : '小组第一 ') + Math.round(person.first * 100) + '%'
+                class: cls('analysis-chip num', primary && 'is-primary'),
+                text: label + ' ' + value
               })
             );
           }
-          if (person.direct != null) {
-            chips.push(
-              h('span', {
-                class: 'analysis-chip num',
-                text:
-                  (person.smallQ != null || hasTotalAdv ? '大Q ' : '按名次晋级 ') +
-                  Math.round(person.direct * 100) +
-                  '%'
-              })
-            );
-          }
-          if (person.smallQ != null && heat.qualificationRule?.small_q_actual > 0) {
-            chips.push(
-              h('span', {
-                class: 'analysis-chip num',
-                text: '小q ' + Math.round(person.smallQ * 100) + '%'
-              })
-            );
-          }
-          if (person.incident != null) {
-            chips.push(
-              h('span', {
-                class: cls('analysis-chip num', person.incident >= 0.08 && 'is-warn'),
-                text: '意外 ' + Math.round(person.incident * 100) + '%'
-              })
-            );
-          }
-          if (person.expectedPlace != null) {
-            chips.push(
-              h('span', {
-                class: 'analysis-chip num',
-                text: '预估第 ' + person.expectedPlace.toFixed(1)
-              })
-            );
+          const percent = (value) => Math.round(value * 100) + '%';
+          if (showFinalTitle && person.medals) {
+            person.medals.forEach((p, i) => chip(['金牌', '银牌', '铜牌'][i], percent(p), i === 0));
+          } else if (
+            round.round === 'final' &&
+            round.group === 'B' &&
+            person.expectedPlace != null
+          ) {
+            if (person.expectedFinalPlace != null)
+              chip('预计最终第', person.expectedFinalPlace.toFixed(1), true);
+            else chip('预计 B 组第', person.expectedPlace.toFixed(1), true);
+          } else if (person.totalAdvance != null) {
+            chip('晋级', percent(person.totalAdvance), true);
+          } else if (person.direct != null) {
+            chip('按名次晋级', percent(person.direct), true);
           }
           const children = [];
           if (chips.length) children.push(h('div', { class: 'analysis-metrics' }, ...chips));
