@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-20T07:01:40+00:00",
-    "updated_at": "2026-11-20T07:01:40+00:00",
+    "checked_at": "2026-11-20T07:06:46+00:00",
+    "updated_at": "2026-11-20T07:06:46+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23413",
@@ -8963,23 +8963,11 @@
         "heat_number": 7,
         "heat_label": "Heat 7",
         "source_start": "2026-11-20T15:59:32.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23455",
         "participants": [
-          {
-            "athlete_id": "ath-4b56413b1bd7406aff55",
-            "name": "Denis ORS",
-            "country": "TUR",
-            "official_skater_id": 19040,
-            "helmet_number": 40,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-d17ee33a3816179f80fc",
             "name": "Seochan BAE",
@@ -8987,9 +8975,9 @@
             "official_skater_id": 22070,
             "helmet_number": 96,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "1:28.058",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -8999,8 +8987,32 @@
             "official_skater_id": 491,
             "helmet_number": 122,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "1:28.505",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-4b56413b1bd7406aff55",
+            "name": "Denis ORS",
+            "country": "TUR",
+            "official_skater_id": 19040,
+            "helmet_number": 40,
+            "starting_position": 4,
+            "rank": 3,
+            "result": "1:29.375",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-bf41d212ebfe992891e6",
+            "name": "Justin LIU",
+            "country": "USA",
+            "official_skater_id": 4302,
+            "helmet_number": 111,
+            "starting_position": 5,
+            "rank": 4,
+            "result": "no time",
             "qualification": null,
             "penalty": null
           },
@@ -9012,21 +9024,12 @@
             "helmet_number": 28,
             "starting_position": 2,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-bf41d212ebfe992891e6",
-            "name": "Justin LIU",
-            "country": "USA",
-            "official_skater_id": 4302,
-            "helmet_number": 111,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -9042,8 +9045,8 @@
         "group": null,
         "heat_number": 8,
         "heat_label": "Heat 8",
-        "source_start": "2026-11-20T15:53:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-20T16:05:27.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23455",
