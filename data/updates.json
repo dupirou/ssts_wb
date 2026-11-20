@@ -206,12 +206,14 @@
     "seoul/round/2026-11-20/qualifying/men/500/preliminaries/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/men/500/preliminaries/-/results": "official",
     "seoul/round/2026-11-20/qualifying/men/5000/quarterfinal/-/groups": "published",
+    "seoul/round/2026-11-20/qualifying/men/5000/quarterfinal/-/results": "official",
     "seoul/round/2026-11-20/qualifying/women/1000/heats/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/women/1000/heats/-/results": "official",
     "seoul/round/2026-11-20/qualifying/women/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/women/1500/quarterfinal/-/results": "official",
     "seoul/round/2026-11-20/qualifying/women/500/heats/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/women/500/heats/-/results": "official",
+    "seoul/round/2026-11-21/main/men/5000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/main/mixed/2000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/main/women/3000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/1500/quarterfinal/-/groups": "published",
@@ -474,39 +476,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "c72f67c43fb1c86d",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": []
-    },
-    {
-      "id": "fe10568453319b1a",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 11,
-      "china": [
-        "Bohao ZHANG",
-        "Kun LI"
-      ]
-    },
     {
       "id": "2b37c6e8d9f38ff8",
       "station": "montreal",
@@ -3717,6 +3686,46 @@
           "rank": 2,
           "status": "advanced"
         }
+      ]
+    },
+    {
+      "id": "834de130af9e6f7a",
+      "station": "seoul",
+      "at": "2026-11-20T08:01:43+00:00",
+      "local_date": "2026-11-20",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "9a5afb57f67686e4",
+      "station": "seoul",
+      "at": "2026-11-20T08:01:43+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "People's Republic of China"
       ]
     }
   ]
