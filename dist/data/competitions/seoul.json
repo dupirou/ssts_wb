@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-20T06:41:55+00:00",
-    "updated_at": "2026-11-20T06:41:55+00:00",
+    "checked_at": "2026-11-20T06:51:32+00:00",
+    "updated_at": "2026-11-20T06:51:32+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23413",
@@ -8474,7 +8474,7 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-11-20T15:32:07.000Z",
-        "result_status": "Unofficial",
+        "result_status": "Official",
         "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23455",
@@ -8488,7 +8488,7 @@
             "starting_position": 1,
             "rank": 1,
             "result": "1:25.777",
-            "qualification": null,
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -8500,19 +8500,7 @@
             "starting_position": 4,
             "rank": 2,
             "result": "1:26.568",
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-623779beeda587847aba",
-            "name": "Nicolas ANDERMANN",
-            "country": "AUT",
-            "official_skater_id": 314,
-            "helmet_number": 51,
-            "starting_position": 3,
-            "rank": 3,
-            "result": "1:27.743",
-            "qualification": null,
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -8522,11 +8510,23 @@
             "official_skater_id": 18320,
             "helmet_number": 68,
             "starting_position": 2,
-            "rank": 4,
+            "rank": 3,
             "result": "1:27.511",
-            "qualification": null,
+            "qualification": "p",
             "penalty": null,
             "name_latin": "Kerui SONG"
+          },
+          {
+            "athlete_id": "ath-623779beeda587847aba",
+            "name": "Nicolas ANDERMANN",
+            "country": "AUT",
+            "official_skater_id": 314,
+            "helmet_number": 51,
+            "starting_position": 3,
+            "rank": 4,
+            "result": "1:27.743",
+            "qualification": null,
+            "penalty": null
           },
           {
             "athlete_id": "ath-c717ef5022b3c1c56264",
@@ -8638,9 +8638,9 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-11-20T15:38:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-20T15:41:44.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23455",
         "participants": [
@@ -8651,9 +8651,9 @@
             "official_skater_id": 4990,
             "helmet_number": 6,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "1:29.359",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -8663,9 +8663,9 @@
             "official_skater_id": 1471,
             "helmet_number": 25,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "1:30.019",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -8675,20 +8675,8 @@
             "official_skater_id": 3494,
             "helmet_number": 99,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-3e4f8461219f16c88e65",
-            "name": "Tobias WOLF",
-            "country": "AUT",
-            "official_skater_id": 7759,
-            "helmet_number": 52,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "1:30.453",
             "qualification": null,
             "penalty": null
           },
@@ -8699,8 +8687,20 @@
             "official_skater_id": 3114,
             "helmet_number": 78,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "1:30.780",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-3e4f8461219f16c88e65",
+            "name": "Tobias WOLF",
+            "country": "AUT",
+            "official_skater_id": 7759,
+            "helmet_number": 52,
+            "starting_position": 4,
+            "rank": 5,
+            "result": "1:31.914",
             "qualification": null,
             "penalty": null
           }
@@ -8718,9 +8718,9 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-11-20T15:41:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-20T15:45:32.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23455",
         "participants": [
@@ -8731,21 +8731,9 @@
             "official_skater_id": 226,
             "helmet_number": 27,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-fc00bf7d3e213bcf4f68",
-            "name": "Maxime LAOUN",
-            "country": "CAN",
-            "official_skater_id": 3951,
-            "helmet_number": 26,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "1:28.634",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -8755,9 +8743,9 @@
             "official_skater_id": 7376,
             "helmet_number": 21,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "1:28.723",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -8767,8 +8755,8 @@
             "official_skater_id": 3839,
             "helmet_number": 134,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "1:30.649",
             "qualification": null,
             "penalty": null
           },
@@ -8779,8 +8767,20 @@
             "official_skater_id": 5921,
             "helmet_number": 121,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "1:31.189",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-fc00bf7d3e213bcf4f68",
+            "name": "Maxime LAOUN",
+            "country": "CAN",
+            "official_skater_id": 3951,
+            "helmet_number": 26,
+            "starting_position": 2,
+            "rank": 5,
+            "result": "1:44.488",
             "qualification": null,
             "penalty": null
           }
@@ -8798,12 +8798,24 @@
         "group": null,
         "heat_number": 5,
         "heat_label": "Heat 5",
-        "source_start": "2026-11-20T15:44:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-20T15:49:02.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23455",
         "participants": [
+          {
+            "athlete_id": "ath-ff0e797c67667f8c165e",
+            "name": "Musashi KAKINAMI",
+            "country": "JPN",
+            "official_skater_id": 22908,
+            "helmet_number": 88,
+            "starting_position": 5,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
           {
             "athlete_id": "ath-2f5775133539f6a7e0f7",
             "name": "Felix ROUSSEL",
@@ -8847,18 +8859,6 @@
             "official_skater_id": 7327,
             "helmet_number": 57,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-ff0e797c67667f8c165e",
-            "name": "Musashi KAKINAMI",
-            "country": "JPN",
-            "official_skater_id": 22908,
-            "helmet_number": 88,
-            "starting_position": 5,
             "rank": null,
             "result": null,
             "qualification": null,
