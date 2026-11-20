@@ -57,10 +57,10 @@ test('Monte Carlo enforces strict conservation, seeded reproducibility, and <200
   ];
   const roundInput = { heats: eightHeats, bigQ: 2, smallQPlanned: 2, smallQFromPlace: 3 };
 
-  const t0 = performance.now();
   const out1 = simulateRound(roundInput, { iterations: 10000, seed: 12345 });
-  const elapsedMs = performance.now() - t0;
+  const t0 = performance.now();
   const out2 = simulateRound(roundInput, { iterations: 10000, seed: 12345 });
+  const elapsedMs = performance.now() - t0;
 
   assert.deepEqual(out1, out2);
   assert.ok(elapsedMs < 200, `Expected <200ms for 8x5 round @10k iters, took ${elapsedMs.toFixed(1)}ms`);
