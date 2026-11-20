@@ -1375,11 +1375,7 @@
     );
     for (const heat of [...heats].sort((a, b) => (a.heat_number ?? 0) - (b.heat_number ?? 0))) {
       const results = heat.evidence === 'official_results';
-      const status = !results
-        ? null
-        : heat.result_status?.toLowerCase() === 'official'
-          ? '正式成绩'
-          : '暂定成绩';
+      const provisional = results && heat.result_status?.toLowerCase() !== 'official';
       const heading = heat.group
         ? heat.group + ' 组决赛'
         : heat.heat_number
@@ -1430,7 +1426,12 @@
             results
               ? h(
                   'div',
-                  { class: cls('result-value num', p.penalty && 'penalty-value') },
+                  {
+                    class: cls(
+                      'result-value num',
+                      (p.penalty || p.result === 'PEN') && 'penalty-value'
+                    )
+                  },
                   h('b', { text: result }),
                   p.qualification
                     ? h('small', {
@@ -1445,22 +1446,14 @@
           )
         );
       }
-      // Column names, since the leading number means a start position before results and a rank after.
-      const cols = h(
-        'div',
-        { class: 'result-cols', 'aria-hidden': 'true' },
-        h('span', { text: results ? '名次' : '出发位' }),
-        h('span', { text: '选手 · 国家 · 头盔号' }),
-        results ? h('span', { text: '成绩' }) : null
-      );
       const heatHead = h(
         'div',
         { class: 'competition-heat-head' },
         h('h3', { text: heading }),
-        status ? h('span', { class: 'pill', text: status }) : null
+        provisional ? h('span', { class: 'pill', text: '暂定成绩' }) : null
       );
       heatHeads.set(heat.id, heatHead);
-      dialog.append(h('section', { class: 'competition-heat' }, heatHead, cols, people));
+      dialog.append(h('section', { class: 'competition-heat' }, heatHead, people));
     }
     if (heats[0]?.source_url)
       dialog.append(h('p', { class: 'source-line' }, external(heats[0].source_url, '官方来源')));

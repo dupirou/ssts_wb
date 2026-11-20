@@ -3156,8 +3156,7 @@ td.time {
   display: grid;
   gap: 4px;
 }
-.result-person,
-.result-cols {
+.result-person {
   display: grid;
   grid-template-columns: 2.4rem minmax(0, 1fr) auto;
   align-items: start;
@@ -3166,14 +3165,8 @@ td.time {
   border-radius: 10px;
   background: var(--well-soft);
 }
-.result-cols {
-  padding-block: 0 4px;
-  background: none;
-  font-size: 0.68rem;
-  color: var(--muted);
-}
-.result-cols span:first-child {
-  text-align: center;
+.result-person:not(:has(.result-value)) {
+  grid-template-columns: 2.4rem minmax(0, 1fr);
 }
 .result-person.is-china {
   box-shadow: inset 3px 0 0 var(--red);
@@ -3196,10 +3189,16 @@ td.time {
 }
 .result-name-row {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px 8px;
+  align-items: baseline;
+  gap: 4px;
+}
+.result-name-row > b {
+  min-width: 0;
+}
+.result-name-row > .analysis-metrics {
+  flex: 0 0 auto;
+  max-width: 55%;
+  gap: 2px 3px;
 }
 .result-meta-row {
   display: flex;
@@ -3218,8 +3217,12 @@ td.time {
   gap: 2px;
   font-size: 0.9rem;
 }
-.result-value small {
+.result-value small,
+.result-value.penalty-value b {
   font-size: 0.7rem;
+  font-weight: 400;
+}
+.result-value small {
   color: var(--ok);
 }
 .penalty-value {
@@ -3253,10 +3256,6 @@ td.time {
   .result-person {
     gap: 8px;
     padding: 6px 8px;
-  }
-  .result-cols {
-    gap: 8px;
-    padding-inline: 8px;
   }
 }
 @media print {
@@ -5877,11 +5876,12 @@ td.time {
   align-items: center;
 }
 .analysis-chip {
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  padding: 2px 7px;
-  border-radius: 6px;
-  font-size: 0.74rem;
+  padding: 1px 4px;
+  border-radius: 5px;
+  font-size: 0.68rem;
   line-height: 1.35;
   background: var(--panel);
   border: 1px solid var(--border-soft);
