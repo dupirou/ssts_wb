@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-20T05:21:40+00:00",
-    "updated_at": "2026-11-20T05:21:40+00:00",
+    "checked_at": "2026-11-20T05:31:34+00:00",
+    "updated_at": "2026-11-20T05:31:34+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23413",
@@ -6501,9 +6501,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-20T14:23:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-20T14:21:45.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23444",
         "participants": [
@@ -6514,21 +6514,9 @@
             "official_skater_id": 1701,
             "helmet_number": 3,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-732f4fad920fa4946f20",
-            "name": "Jongun RIM",
-            "country": "KOR",
-            "official_skater_id": 5906,
-            "helmet_number": 8,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "40.578",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -6538,9 +6526,9 @@
             "official_skater_id": 8078,
             "helmet_number": 42,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "40.769",
+            "qualification": "Q",
             "penalty": null,
             "name_latin": "Bohao ZHANG"
           },
@@ -6551,8 +6539,8 @@
             "official_skater_id": 859,
             "helmet_number": 109,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "41.346",
             "qualification": null,
             "penalty": null
           },
@@ -6563,8 +6551,20 @@
             "official_skater_id": 8033,
             "helmet_number": 116,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "41.417",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-732f4fad920fa4946f20",
+            "name": "Jongun RIM",
+            "country": "KOR",
+            "official_skater_id": 5906,
+            "helmet_number": 8,
+            "starting_position": 2,
+            "rank": 5,
+            "result": "1:02.605",
             "qualification": null,
             "penalty": null
           }
@@ -6582,24 +6582,12 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-11-20T14:25:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-20T14:24:26.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23444",
         "participants": [
-          {
-            "athlete_id": "ath-fc00bf7d3e213bcf4f68",
-            "name": "Maxime LAOUN",
-            "country": "CAN",
-            "official_skater_id": 3951,
-            "helmet_number": 26,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-2eea258e3a0d28fc0ba5",
             "name": "Jeongmin LEE",
@@ -6607,9 +6595,9 @@
             "official_skater_id": 4030,
             "helmet_number": 32,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "41.581",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -6619,23 +6607,11 @@
             "official_skater_id": 20586,
             "helmet_number": 69,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "42.697",
+            "qualification": "Q",
             "penalty": null,
             "name_latin": "Zixia ZHANG"
-          },
-          {
-            "athlete_id": "ath-c28e18c99f0af84ca8d0",
-            "name": "Takumi WADA",
-            "country": "JPN",
-            "official_skater_id": 7563,
-            "helmet_number": 90,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
           },
           {
             "athlete_id": "ath-78b1997e73d6897f4a5d",
@@ -6644,9 +6620,33 @@
             "official_skater_id": 3114,
             "helmet_number": 78,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "42.785",
             "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-c28e18c99f0af84ca8d0",
+            "name": "Takumi WADA",
+            "country": "JPN",
+            "official_skater_id": 7563,
+            "helmet_number": 90,
+            "starting_position": 4,
+            "rank": 4,
+            "result": "43.806",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-fc00bf7d3e213bcf4f68",
+            "name": "Maxime LAOUN",
+            "country": "CAN",
+            "official_skater_id": 3951,
+            "helmet_number": 26,
+            "starting_position": 1,
+            "rank": 5,
+            "result": "1:09.501",
+            "qualification": "ADV",
             "penalty": null
           }
         ]
@@ -6663,24 +6663,12 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-11-20T14:27:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-20T14:28:54.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23444",
         "participants": [
-          {
-            "athlete_id": "ath-a9ddcbdd069f5c0a1198",
-            "name": "Furkan AKAR",
-            "country": "TUR",
-            "official_skater_id": 226,
-            "helmet_number": 27,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-295c31a30610e64d9499",
             "name": "Mathieu PELLETIER",
@@ -6688,9 +6676,21 @@
             "official_skater_id": 5474,
             "helmet_number": 66,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "40.879",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-a9ddcbdd069f5c0a1198",
+            "name": "Furkan AKAR",
+            "country": "TUR",
+            "official_skater_id": 226,
+            "helmet_number": 27,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "41.343",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -6700,8 +6700,8 @@
             "official_skater_id": 4167,
             "helmet_number": 67,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "41.373",
             "qualification": null,
             "penalty": null,
             "name_latin": "Kun LI"
@@ -6713,8 +6713,8 @@
             "official_skater_id": 7960,
             "helmet_number": 19,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "41.568",
             "qualification": null,
             "penalty": null
           },
@@ -6725,8 +6725,8 @@
             "official_skater_id": 314,
             "helmet_number": 51,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "41.623",
             "qualification": null,
             "penalty": null
           }
