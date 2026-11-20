@@ -167,6 +167,7 @@ function parseLiveRoundContext(roundLabel, roundEnum) {
 function normalizeLiveQualification(qualRaw, sessionType, round) {
   if (!qualRaw) return { qual_type: round === 'final' ? null : 'OUT', qual_target: null };
   const q = String(qualRaw).trim();
+  if (q === 'p') return { qual_type: 'p', qual_target: null };
   if (q === 'Q' || q === 'QA') return { qual_type: 'Q', qual_target: round === 'semifinal' && sessionType === 'MAIN' ? 'FA' : 'NEXT' };
   if (q === 'q' || q === 'qA') return { qual_type: 'q', qual_target: round === 'semifinal' && sessionType === 'MAIN' ? 'FA' : 'NEXT' };
   if (q === 'QB' || q === 'qB') return { qual_type: q, qual_target: 'FB' };
@@ -177,19 +178,21 @@ function normalizeLiveQualification(qualRaw, sessionType, round) {
   return { qual_type: 'OUT', qual_target: null };
 }
 
+function liveAthleteId(p, state) {
+  const oid = p.official_skater_id;
+  return state.crosswalk?.[p.athlete_id] ||
+    (Number.isInteger(oid) && oid > 0 ? state.official_ids?.[oid] || `skr-${oid}` : null) ||
+    state.name_lookup?.[athlete(p)] || p.athlete_id;
+}
+
 function normalizeLiveHeatRows(heat, station, state, season) {
   const { session_type, round, round_tier } = parseLiveRoundContext(heat.round_label, heat.round);
   const activeCount = (heat.participants || []).filter((p) => p.result !== 'DNS').length;
   const startUtc = heat.source_start || (heat.local_date ? `${heat.local_date}T00:00:00Z` : null);
   const city = station.city_en || station.city || station.id;
 
-  const resolveId = (p) =>
-    state.crosswalk?.[p.athlete_id] ||
-    state.name_lookup?.[athlete(p)] ||
-    p.athlete_id;
-
   const rows = (heat.participants || []).map((p) => {
-    const cid = resolveId(p);
+    const cid = liveAthleteId(p, state);
     const time_s = parseTimeSeconds(p.result);
     const { qual_type, qual_target } = normalizeLiveQualification(p.qualification, session_type, round);
     let status = 'NO_TIME';
@@ -368,7 +371,7 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
       if (/^rep\.\s*semi/i.test(String(h.round_label || ''))) {
         for (const p of h.participants || []) {
           if (p.qualification === 'Q' || p.qualification === 'q' || String(p.qualification || '').startsWith('ADV')) {
-            const cid = state.crosswalk?.[p.athlete_id] || state.name_lookup?.[athlete(p)] || p.athlete_id;
+            const cid = liveAthleteId(p, state);
             repQualIds.add(cid);
           }
         }

@@ -31,6 +31,7 @@ class HeatsSchemaUnitTests(unittest.TestCase):
     def test_case_sensitive_qualification_mapping(self):
         self.assertEqual(hs.normalize_qualification('Q', 'PRELIM', 'heats'), ('Q', 'Q', 'NEXT', True))
         self.assertEqual(hs.normalize_qualification('q', 'PRELIM', 'heats'), ('q', 'q', 'NEXT', True))
+        self.assertEqual(hs.normalize_qualification('p', 'MAIN', 'quarterfinal'), ('p', 'p', None, None))
         # Rep. Semifinals advances to NEXT main round, not FA
         self.assertEqual(hs.normalize_qualification('Q', 'REPECHAGE', 'semifinal'), ('Q', 'Q', 'NEXT', True))
         # MAIN Semifinals
@@ -103,7 +104,18 @@ class HeatsDatasetTests(unittest.TestCase):
 class HeatsExportTests(unittest.TestCase):
     def test_wide_export_merges_five_seasons_with_schema_and_codes(self):
         rows = export_heat_starts.build_wide_rows(ROOT / 'data/heats')
-        self.assertEqual(len({r['event_id'] for r in rows}), 29)
+        expected_stations = set()
+        for path in (ROOT / 'data/competitions').glob('*.json'):
+            snapshot = json.loads(path.read_text())
+            if any(
+                h['format'] == 'individual'
+                and h['evidence'] == 'official_results'
+                and h['result_status'].lower() == 'official'
+                for h in snapshot['rounds']['items']
+            ):
+                expected_stations.add('2026-27-worldtour-' + snapshot['event_id'])
+        self.assertEqual({r['event_id'] for r in rows if r['season'] == '2026/27'}, expected_stations)
+        self.assertEqual(len({r['event_id'] for r in rows if r['season'] != '2026/27'}), 27)
         self.assertEqual({r['season'] for r in rows}, {'2022/23', '2023/24', '2024/25', '2025/26', '2026/27'})
         self.assertEqual(list(rows[0].keys()), export_heat_starts.CSV_COLUMNS)
         # C89I2 subcodes must be populated on 2025/26 Worlds (id 1) and 2026/27 World Tour.

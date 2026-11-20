@@ -72,6 +72,8 @@ def _load_2026_27_rows(heats_dir, crosswalk, season_cfg):
     season = stations_doc['season']
     lane_mode = season_cfg['seasons'][season]['lane_mode']
     mappings = crosswalk['mappings']
+    registry = json.loads((heats_dir / 'athletes.json').read_text())['items']
+    official_ids = {oid: a['id'] for a in registry for oid in a['official_skater_ids']}
 
     rows = []
     events_seen = set()
@@ -108,7 +110,7 @@ def _load_2026_27_rows(heats_dir, crosswalk, season_cfg):
                 for part in h['participants']:
                     q_raw, q_type, q_target, adv = hs.normalize_qualification(part.get('qualification'), styp, rnd)
                     if adv:
-                        skr = mappings[part['athlete_id']]['athlete_id']
+                        skr = hs.live_athlete_id(part, mappings, official_ids)
                         rep_sf_qualifiers.setdefault((h['gender'], h['distance_m']), set()).add(skr)
 
         for h in heats:
@@ -128,7 +130,7 @@ def _load_2026_27_rows(heats_dir, crosswalk, season_cfg):
                 q_raw, q_type, q_target, adv = hs.normalize_qualification(part.get('qualification'), styp, rnd)
                 status, time_s, pen_str, is_inc, inc_type = hs.normalize_status(raw_res, '', q_raw)
                 p_code = pen_obj.get('infringement_code') if pen_obj else None
-                skr_id = mappings[part['athlete_id']]['athlete_id']
+                skr_id = hs.live_athlete_id(part, mappings, official_ids)
                 parsed_parts.append(
                     (part, skr_id, q_raw, q_type, q_target, adv, status, time_s, pen_str, p_code, is_inc, inc_type)
                 )

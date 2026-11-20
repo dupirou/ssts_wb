@@ -192,6 +192,7 @@ export function buildPredictionState(heatsDir = HEATS_DIR) {
     trained_heats: trainedHeats,
     through_timestamp_utc: throughTs,
     crosswalk,
+    official_ids: Object.fromEntries(athletesDoc.items.flatMap(a => a.official_skater_ids.map(id => [id, a.id]))),
     name_lookup: nameLookup,
     athlete_countries: athleteCountries,
     theta_by_distance: thetaByDistance,

@@ -12,8 +12,8 @@ SCHEMA_VERSION = 1
 SESSION_TYPES = ('PRELIM', 'MAIN', 'REPECHAGE')
 ROUNDS = ('pre_preliminaries', 'preliminaries', 'heats', 'quarterfinal', 'semifinal', 'final')
 STATUSES = ('OK', 'NO_TIME', 'PEN', 'YC', 'RC', 'DNF', 'DNS', 'ADV')
-QUAL_FLAGS_RAW = ('Q', 'q', 'QA', 'qA', 'QB', 'qB', 'ADV', 'ADVA', 'ADVB')
-QUAL_TYPES = ('Q', 'q', 'QB', 'qB', 'ADV', 'OUT')
+QUAL_FLAGS_RAW = ('p', 'Q', 'q', 'QA', 'qA', 'QB', 'qB', 'ADV', 'ADVA', 'ADVB')
+QUAL_TYPES = ('p', 'Q', 'q', 'QB', 'qB', 'ADV', 'OUT')
 QUAL_TARGETS = ('NEXT', 'FA', 'FB')
 
 ROUND_TIERS = {
@@ -231,6 +231,8 @@ def normalize_qualification(raw_flag, session_type, round_enum):
         if flag is not None:
             raise ValueError(f'Unexpected qualification flag {flag!r} in final round')
         return None, None, None, None
+    if flag == 'p':
+        return flag, 'p', None, None
     if flag is None:
         return None, 'OUT', None, False
     is_main_sf = session_type == 'MAIN' and round_enum == 'semifinal'
@@ -329,3 +331,13 @@ def is_withdrawn_ghost(comp):
         and not (comp.get('qualification_code') or '').strip()
         and not comp.get('lap')
     )
+
+
+def live_athlete_id(part, mappings, official_ids):
+    mapped = mappings.get(part.get('athlete_id'))
+    if mapped:
+        return mapped['athlete_id']
+    oid = part.get('official_skater_id')
+    if isinstance(oid, int) and oid > 0:
+        return official_ids.get(oid, f'skr-{oid}')
+    return part.get('athlete_id')

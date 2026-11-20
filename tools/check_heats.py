@@ -160,19 +160,15 @@ def validate_all(heats_dir=ROOT / 'data/heats', require_rules=True):
 
     # Check 2026/27 rounds.json crosswalk 100% coverage.
     mappings = crosswalk_doc['mappings']
+    official_ids = {oid: a['id'] for a in athletes_doc['items'] for oid in a['official_skater_ids']}
     for p in sorted((ROOT / 'data/competitions').glob('*.json')):
         snap = json.loads(p.read_text(encoding='utf-8'))
         for h in snap.get('rounds', {}).get('items', []):
             for part in h.get('participants', []):
-                if h.get('format') == 'individual':
-                    aid = part.get('athlete_id')
-                    if aid not in mappings:
-                        errors.append(f'Missing crosswalk mapping for {p.name} {h["id"]} {aid}')
-                else:
-                    for mem in part.get('members', []):
-                        aid = mem.get('athlete_id')
-                        if aid not in mappings:
-                            errors.append(f'Missing crosswalk mapping for relay member {p.name} {h["id"]} {aid}')
+                people = [part] if h.get('format') == 'individual' else part.get('members', [])
+                for person in people:
+                    if not hs.live_athlete_id(person, mappings, official_ids):
+                        errors.append(f'Missing athlete identity for {p.name} {h["id"]}')
 
     all_heat_ids = set()
     status_counts = Counter()

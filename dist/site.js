@@ -1129,7 +1129,6 @@
   let scheduleEntries = [];
   function competitionPanel(station) {
     const athletes = h('div', { class: 'athlete-data' });
-    const predictions = h('div', { class: 'athlete-data' });
     const status = h('div', { class: 'competition-status', hidden: true });
     const slots = new Map(),
       pending = new Map(),
@@ -1138,10 +1137,9 @@
     const labels = {
       entries: '报名名单',
       rankings: '排名',
-      predictions: '分组预测',
       rounds: '分组与成绩'
     };
-    const containers = { entries: athletes, rankings: athletes, predictions, rounds: status };
+    const containers = { entries: athletes, rankings: athletes, rounds: status };
     // Independent slots preserve successful data and filter choices when a sibling request fails.
     for (const resource of Object.keys(labels)) {
       const slot = h('div', { dataset: { resource } });
@@ -1192,10 +1190,7 @@
             view.refreshHeats?.();
           } else {
             const previous = slot.querySelector('details');
-            const panel =
-              resource === 'predictions'
-                ? predictionList(value)
-                : athleteList(value, labels[resource], resource === 'rankings');
+            const panel = athleteList(value, labels[resource], resource === 'rankings');
             panel.open = previous ? previous.open : resource !== 'rankings';
             for (const select of panel.querySelectorAll('select')) {
               const old = [...(previous?.querySelectorAll('select') || [])].find(
@@ -1206,11 +1201,6 @@
                 select.dispatchEvent(new Event('change'));
               }
             }
-            if (
-              resource === 'predictions' &&
-              previous?.querySelector('button[aria-pressed="true"]')
-            )
-              panel.querySelector('button[aria-pressed]')?.click();
             fill(slot, panel);
           }
           loaded.set(resource, Date.now());
@@ -1239,7 +1229,6 @@
     }
     return {
       athletes,
-      predictions: station.predictions ? predictions : null,
       status,
       load,
       startRounds: () => {
@@ -1249,16 +1238,16 @@
         if (name === 'athletes') {
           load('entries');
           load('rankings');
-        } else if (name === 'predictions') load('predictions');
-        else load('rounds');
+        } else {
+          load('rounds');
+        }
       }
     };
   }
 
   function stationTabs(schedule, competition, hasSchedule = true) {
     const sections = { schedule, athletes: competition.athletes };
-    if (competition.predictions) sections.predictions = competition.predictions;
-    const labels = { schedule: '赛程', athletes: '报名名单', predictions: '分组预测' };
+    const labels = { schedule: '赛程', athletes: '报名名单' };
     const nav = h('div', { class: 'section-tabs', role: 'tablist', 'aria-label': '本站内容' });
     const buttons = new Map();
     let selected = 'schedule';
@@ -1337,152 +1326,6 @@
       minute: '2-digit',
       hour12: false
     });
-
-  function predictionList(dataset) {
-    const box = h(
-      'details',
-      { class: 'panel athlete-panel prediction-panel' },
-      h(
-        'summary',
-        { class: 'athlete-summary' },
-        h('b', { text: '分组预测' }),
-        h('span', { class: 'prediction-label', text: '非官方' }),
-        dataset.stale ? h('small', { class: 'pill', text: '待更新' }) : null
-      )
-    );
-    const select = h(
-      'select',
-      { 'aria-label': '预测项目' },
-      dataset.items.map((p) =>
-        h('option', { value: p.id, text: (gender[p.gender] || '') + ' ' + p.distance_m + 'm' })
-      )
-    );
-    const chinaOnly = h('button', {
-      type: 'button',
-      class: 'chip',
-      'aria-pressed': 'false',
-      text: '只看 CHN'
-    });
-    const body = h('div', { class: 'prediction-body', 'aria-live': 'polite' });
-    const reasons = {
-      schedule: '轮次赛程待公布',
-      refresh: '预测数据暂时无法核实',
-      distance_entries: '单项报名待公布',
-      prequalification_tie: '直通名额出现并列，待官方名单',
-      prequalification_list: '直通名单待官方公布'
-    };
-    const person = (p) =>
-      h('li', {
-        class: cls(p.country === 'CHN' && 'athlete-china'),
-        text: p.name + ' · ' + p.country
-      });
-    let onlyChina = false;
-    const draw = () => {
-      const item = dataset.items.find((p) => p.id === select.value);
-      if (!item) return;
-      fill(body);
-      chinaOnly.hidden = item.status !== 'predicted';
-      if (item.status === 'official_available') {
-        body.append(
-          h('p', { class: 'faint athlete-empty', text: '官方分组已公布，请在赛程中查看' })
-        );
-      } else if (item.status !== 'predicted') {
-        body.append(
-          h('p', { class: 'faint athlete-empty', text: reasons[item.missing[0]] || '暂无法预测' })
-        );
-      } else {
-        const groups = item.groups.filter((g) => !onlyChina || g.has_china);
-        const grid = h('div', { class: 'prediction-grid' });
-        for (const group of groups)
-          grid.append(
-            h(
-              'section',
-              { class: cls('prediction-group', group.has_china && 'has-china') },
-              h(
-                'h3',
-                {},
-                '第 ' + group.heat_number + ' 组',
-                h('span', { class: 'faint num', text: group.size + ' 人' })
-              ),
-              h(
-                'ul',
-                {},
-                group.participants.map((p) =>
-                  h(
-                    'li',
-                    { class: cls(p.country === 'CHN' && 'athlete-china') },
-                    h('span', { class: 'faint num', text: '#' + p.seed_rank }),
-                    h('b', { text: p.name }),
-                    h('small', { text: p.country })
-                  )
-                )
-              ),
-              group.size > group.participants.length
-                ? h('p', {
-                    class: 'faint tiny',
-                    text: '另 ' + (group.size - group.participants.length) + ' 人待定'
-                  })
-                : null
-            )
-          );
-        body.append(grid);
-        if (!groups.length)
-          body.append(h('p', { class: 'faint athlete-empty', text: '已知种子中没有 CHN 选手' }));
-        const unseeded = item.unseeded.filter((p) => !onlyChina || p.country === 'CHN');
-        if (item.unseeded.length)
-          body.append(
-            h(
-              'details',
-              { class: 'prediction-byes', open: onlyChina && unseeded.length > 0 },
-              h(
-                'summary',
-                {},
-                phrases(
-                  '其余 ' + item.unseeded.length + ' 人待定',
-                  item.unseeded.some((p) => p.country === 'CHN') &&
-                    'CHN ' + item.unseeded.filter((p) => p.country === 'CHN').length + ' 人'
-                )
-              ),
-              h('p', { class: 'faint tiny', text: '无世界排名，按未公开的报名成绩分入各组' }),
-              h('ul', {}, unseeded.map(person))
-            )
-          );
-        if (item.prequalified.length)
-          body.append(
-            h(
-              'details',
-              { class: 'prediction-byes' },
-              h('summary', { text: '直通下一轮 · ' + item.prequalified.length + ' 人' }),
-              h('ul', {}, item.prequalified.map(person))
-            )
-          );
-      }
-      body.append(
-        h(
-          'details',
-          { class: 'source-disclosure' },
-          h('summary', {}, '来源与规则'),
-          h(
-            'div',
-            { class: 'source-links' },
-            ...(item.source_urls || []).map((url, i) =>
-              external(url, ['单项报项', '世巡赛排名', '世界排名'][i] || 'ISU 来源')
-            ),
-            ...(dataset.rules || []).map((r) => external(r.url, r.label))
-          )
-        )
-      );
-    };
-    chinaOnly.addEventListener('click', () => {
-      onlyChina = !onlyChina;
-      chinaOnly.setAttribute('aria-pressed', String(onlyChina));
-      draw();
-    });
-    select.addEventListener('change', draw);
-    box.append(h('div', { class: 'athlete-tools' }, select, chinaOnly), body);
-    draw();
-    return box;
-  }
 
   function athleteList(dataset, title, ranking = false) {
     // Rank feeds contain one record per project. A single card belongs to
@@ -2154,8 +1997,9 @@
                   p.qualification
                     ? h('small', {
                         text:
-                          { Q: '晋级', q: '按成绩晋级', ADV: '判进' }[p.qualification] ||
-                          p.qualification
+                          { Q: '晋级', q: '按成绩晋级', p: '小 q 晋级待定', ADV: '判进' }[
+                            p.qualification
+                          ] || p.qualification
                       })
                     : null
                 )

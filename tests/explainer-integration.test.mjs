@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -24,11 +26,14 @@ function req(body, cookie = '') {
   });
 }
 
-test('H2H store in prediction_state.json matches build/heat_starts.jsonl clean finishes', () => {
+test('H2H store in prediction_state.json matches build/heat_starts.jsonl clean finishes', (t) => {
   const state = JSON.parse(
     fs.readFileSync(path.join(ROOT, 'dist/data/prediction_state.json'), 'utf8')
   );
-  const raw = fs.readFileSync(path.join(ROOT, 'build/heat_starts.jsonl'), 'utf8');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ssts-heat-starts-'));
+  t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+  execFileSync('python', ['tools/export_heat_starts.py', '--out-dir', dir], { cwd: ROOT });
+  const raw = fs.readFileSync(path.join(dir, 'heat_starts.jsonl'), 'utf8');
 
   // Independently compute clean H2H across 2022/23-2025/26 heats (excluding incomplete 960 heats).
   const heats = new Map();

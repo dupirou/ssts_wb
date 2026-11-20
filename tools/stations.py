@@ -16,7 +16,6 @@ ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / 'data/stations.json'
 SCHEDULES = ROOT / 'data/schedules'
 META = ROOT / 'data/sync_meta.json'
-OVERRIDES = ROOT / 'data/competition_sources.json'
 EVENT_PAGE = 'https://www.isu-skating.com/en/short-track/events/eventdetail/'
 FIELDS = ('id', 'city', 'city_en', 'country', 'date_start', 'date_end', 'timezone', 'venue')
 
@@ -93,7 +92,7 @@ def plain(text):
 
 
 def sources(station):
-    """Official source configuration for the competition syncs; manual overrides win."""
+    """Official source configuration for the competition syncs."""
     config = dict(city=station['city_en'], year=int(station['date_start'][:4]), documents=[])
     if station.get('isu'):
         config.update(
@@ -101,11 +100,6 @@ def sources(station):
             results_url=page_url(station, 'results'),
             isu_event_id=station['isu']['event_id'],
         )
-    if OVERRIDES.exists():
-        overrides = json.loads(OVERRIDES.read_text(encoding='utf-8'))
-        if overrides.get('schema_version') != 1:
-            raise ValueError('Unsupported source configuration')
-        config.update(overrides['events'].get(station['id'], {}))
     return config
 
 
