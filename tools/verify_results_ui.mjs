@@ -77,6 +77,24 @@ try{
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`overflow: ${path} ${width}`);
       if(path.includes('/montreal/')){
         await page.waitForSelector('.competition-open');
+        if(width===320 || width===390){
+          const fits=await page.evaluate(()=>{
+            const dialog=document.createElement('dialog');
+            dialog.className='competition-dialog';
+            dialog.innerHTML='<div class="result-person"><span>1</span><div class="result-identity"><div class="result-name-row"><b>Birgit Marja Maria RADT</b><div class="analysis-metrics"><span class="analysis-chip">晋级 100%</span></div></div></div></div>';
+            document.body.append(dialog);
+            dialog.showModal();
+            const name=dialog.querySelector('b');
+            const firstLine=document.createRange();
+            firstLine.selectNodeContents(name);
+            const rect=firstLine.getClientRects()[0];
+            const chip=dialog.querySelector('.analysis-chip').getBoundingClientRect();
+            const fits=chip.top < rect.bottom && chip.bottom > rect.top && dialog.scrollWidth <= dialog.clientWidth;
+            dialog.remove();
+            return fits;
+          });
+          assert.ok(fits, 'Long athlete name and probability must share the first line at '+width);
+        }
         if(width<1180){
           for(const zone of ['当地','北京']){
             await page.getByRole('button',{name:zone,exact:true}).click();
