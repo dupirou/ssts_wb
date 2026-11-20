@@ -206,6 +206,7 @@
     "seoul/round/2026-11-20/qualifying/men/500/preliminaries/-/results": "official",
     "seoul/round/2026-11-20/qualifying/men/5000/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/women/1000/heats/-/groups": "published",
+    "seoul/round/2026-11-20/qualifying/women/1000/heats/-/results": "official",
     "seoul/round/2026-11-20/qualifying/women/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/women/1500/quarterfinal/-/results": "official",
     "seoul/round/2026-11-20/qualifying/women/500/heats/-/groups": "published",
@@ -471,23 +472,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "945487ad7da3d856",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": [
-        "Jianing ZHANG"
-      ]
-    },
     {
       "id": "baa4ec7ba73d8ef9",
       "station": "montreal",
@@ -3667,6 +3651,47 @@
         },
         {
           "name": "Zixia ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "cd535c8d6eb7ebf1",
+      "station": "seoul",
+      "at": "2026-11-20T06:31:30+00:00",
+      "local_date": "2026-11-20",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Yan ZHANG",
           "rank": 2,
           "status": "advanced"
         }

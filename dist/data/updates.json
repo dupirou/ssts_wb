@@ -2,6 +2,51 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "cd535c8d6eb7ebf1",
+      "station": "seoul",
+      "at": "2026-11-20T06:31:30+00:00",
+      "local_date": "2026-11-20",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张珈宁",
+        "宋佳蕊",
+        "公俐",
+        "张延"
+      ],
+      "china_results": [
+        {
+          "name": "张珈宁",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Jianing ZHANG"
+        },
+        {
+          "name": "宋佳蕊",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Jiarui SONG"
+        },
+        {
+          "name": "公俐",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Li GONG"
+        },
+        {
+          "name": "张延",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Yan ZHANG"
+        }
+      ]
+    },
+    {
       "id": "64401893159e68c9",
       "station": "seoul",
       "at": "2026-11-20T05:41:39+00:00",
@@ -3287,23 +3332,6 @@
         "张柏浩",
         "宋柯睿",
         "张子夏"
-      ]
-    },
-    {
-      "id": "945487ad7da3d856",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": [
-        "张珈宁"
       ]
     }
   ]
