@@ -2,6 +2,51 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "342e896cca6aa8f5",
+      "station": "seoul",
+      "at": "2026-11-20T07:11:34+00:00",
+      "local_date": "2026-11-20",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "宋柯睿",
+        "李坤",
+        "孙龙",
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "宋柯睿",
+          "rank": 3,
+          "status": "out",
+          "name_latin": "Kerui SONG"
+        },
+        {
+          "name": "李坤",
+          "rank": 4,
+          "status": "advanced",
+          "name_latin": "Kun LI"
+        },
+        {
+          "name": "孙龙",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Long SUN"
+        },
+        {
+          "name": "张子夏",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
       "id": "44bf22f162564391",
       "station": "seoul",
       "at": "2026-11-20T06:41:55+00:00",
@@ -3312,23 +3357,6 @@
       "kind": "groups",
       "heats": 6,
       "china": []
-    },
-    {
-      "id": "bb53028c96528d19",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "China"
-      ]
     }
   ]
 }
