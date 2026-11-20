@@ -2,6 +2,66 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "7f08dfc92a89e532",
+      "station": "seoul",
+      "at": "2026-11-20T05:21:40+00:00",
+      "local_date": "2026-11-20",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张楚桐",
+        "宋佳蕊",
+        "公俐",
+        "王欣然"
+      ],
+      "china_results": [
+        {
+          "name": "张楚桐",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Chutong ZHANG"
+        },
+        {
+          "name": "宋佳蕊",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Jiarui SONG"
+        },
+        {
+          "name": "公俐",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Li GONG"
+        },
+        {
+          "name": "王欣然",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Xinran WANG"
+        }
+      ]
+    },
+    {
+      "id": "486970591403e3eb",
+      "station": "seoul",
+      "at": "2026-11-20T05:21:40+00:00",
+      "local_date": "2026-11-22",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": []
+    },
+    {
       "id": "ca2e07a5718a0269",
       "station": "seoul",
       "at": "2026-11-20T03:41:38+00:00",
@@ -3216,44 +3276,6 @@
       "heats": 4,
       "china": [
         "China"
-      ]
-    },
-    {
-      "id": "4a909d5d7ee0467a",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "张柏浩",
-        "宋柯睿"
-      ]
-    },
-    {
-      "id": "47db566c00ba7b3c",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": [
-        "张楚桐",
-        "张珈宁",
-        "公俐",
-        "张延"
       ]
     }
   ]

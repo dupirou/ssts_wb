@@ -208,12 +208,14 @@
     "seoul/round/2026-11-20/qualifying/women/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/women/1500/quarterfinal/-/results": "official",
     "seoul/round/2026-11-20/qualifying/women/500/heats/-/groups": "published",
+    "seoul/round/2026-11-20/qualifying/women/500/heats/-/results": "official",
     "seoul/round/2026-11-21/main/mixed/2000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/main/women/3000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/500/heats/-/groups": "published",
     "seoul/round/2026-11-22/repechage/men/1000/heats/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/groups": "published",
+    "seoul/round/2026-11-22/repechage/women/500/quarterfinal/-/groups": "published",
     "seoul/schedule": "published",
     "seoul/time/2026-11-20/qualifying/men/1000/heats/-": "2026-11-20 14:32",
     "seoul/time/2026-11-20/qualifying/men/1000/preliminaries/-": "2026-11-20 09:39",
@@ -468,44 +470,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "47db566c00ba7b3c",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Li GONG",
-        "Yan ZHANG"
-      ]
-    },
-    {
-      "id": "4a909d5d7ee0467a",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "Bohao ZHANG",
-        "Kerui SONG"
-      ]
-    },
     {
       "id": "6632abde8d4d6549",
       "station": "montreal",
@@ -3624,6 +3588,62 @@
           "name": "Yiding ZHU",
           "rank": 4,
           "status": "repechage"
+        }
+      ]
+    },
+    {
+      "id": "486970591403e3eb",
+      "station": "seoul",
+      "at": "2026-11-20T05:21:40+00:00",
+      "local_date": "2026-11-22",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": []
+    },
+    {
+      "id": "7f08dfc92a89e532",
+      "station": "seoul",
+      "at": "2026-11-20T05:21:40+00:00",
+      "local_date": "2026-11-20",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Jiarui SONG",
+        "Li GONG",
+        "Xinran WANG"
+      ],
+      "china_results": [
+        {
+          "name": "Chutong ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Xinran WANG",
+          "rank": 2,
+          "status": "advanced"
         }
       ]
     }
