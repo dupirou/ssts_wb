@@ -11,6 +11,7 @@ import {
 } from './prediction/lane-model.mjs';
 import { PaceTracker } from './prediction/pace-model.mjs';
 import { IncidentRiskModel } from './prediction/incident-model.mjs';
+import { previousRoundForm, withinHeatForm, advanceFormWeight } from './prediction/advance-form.mjs';
 import { simulateRound } from './prediction/monte-carlo.mjs';
 import {
   explainHeat,
@@ -226,6 +227,7 @@ function normalizeLiveHeatRows(heat, station, state, season) {
       is_repechage_qualifier: false,
       opening_split_s: openingSplit,
       lap_times_s: null,
+      last_four_seconds: p.last_four_seconds ?? null,
       season,
       city,
       gender: heat.gender,
@@ -287,7 +289,7 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
 
   const theta = state.theta_by_distance?.[String(distance)] || [1, 0, 0, 0, 0, 0, 0, 0, 0];
   const tauV2 = state.temp_by_distance?.[String(distance)] ?? 1.0;
-  const scaledTheta = theta.map((t) => t * tauV2);
+  const scaledTheta = Array.from({ length: 9 }, (_, i) => (theta[i] ?? 0) * tauV2);
 
   // Determine strict time boundary so incremental replay never leaks later rounds.
   const minPendingStart = pendingItems
@@ -311,11 +313,22 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
   }
   incrementalHeats.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : (a.heat.heat_number ?? 0) - (b.heat.heat_number ?? 0)));
 
+  const firstStation = (pendingItems[0] || selected[0])?.station;
+  const useForm = /\/main\/.*\/(?:quarterfinal|semifinal)\//.test(roundKey) && [500, 1000, 1500].includes(distance);
+  const stationHeats = [];
+  const roundStart = selected.map(({ heat }) => heat.source_start || heat.local_date).filter(Boolean).sort()[0];
   for (const { heat, station } of incrementalHeats) {
     const { rows } = normalizeLiveHeatRows(heat, station, state, season);
     const active = rows.filter((r) => r.status !== 'DNS');
     if (active.length < 2) continue;
 
+    // With date-only entries, the order within the same day is unknown.
+    const beforeRound = heat.source_start && roundStart?.includes('T')
+      ? Date.parse(heat.source_start) < Date.parse(roundStart)
+      : heat.local_date && heat.local_date < roundStart?.slice(0, 10);
+    if (useForm && station.id === firstStation?.id && heat.distance_m === distance && beforeRound) {
+      stationHeats.push(rows);
+    }
     ratingEngine.updateHeat(rows);
     if (heat.distance_m === distance) {
       for (const r of rows) {
@@ -331,7 +344,8 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
   }
 
   // Parse qualification rule from verified station schedule if available.
-  const firstStation = (pendingItems[0] || selected[0])?.station;
+  const form = previousRoundForm(stationHeats, distance);
+  if (form.size) scaledTheta.push(advanceFormWeight[distance]);
   let qRule = { code: null, big_q: 0, small_q_planned: 0, small_q_from_place: 0 };
   if (firstStation) {
     const schedule = await optionalAsset(env, '/data/' + firstStation.id + '.json');
@@ -416,6 +430,9 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
       includeFinishKick: true,
       includePace: true,
     });
+    if (form.size) {
+      withinHeatForm(active, form).forEach((value, i) => features[i].push(value));
+    }
     const scores = scoreHeatFeatures(features, scaledTheta);
     const activeWithMu = active.map((r, idx) => ({ ...r, mu_tilde: features[idx][0] }));
     const incProbs = incidentModel.predictHeat(activeWithMu);

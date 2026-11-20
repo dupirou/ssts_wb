@@ -6,6 +6,7 @@ a published 2025 Gdansk response. Future schema changes must fail closed.
 
 import json
 import re
+from heats_schema import extract_laps, parse_time_seconds
 import competition_data as data
 import sync_china
 import isu_transport
@@ -45,6 +46,20 @@ def integer(value):
     if isinstance(value, bool) or not re.fullmatch(r'\d+', str(value)):
         raise ValueError('Unexpected numeric official field')
     return int(value)
+
+
+def last_four_seconds(person):
+    total = parse_time_seconds(person.get('final_result'))
+    laps = person.get('lap') or []
+    if not total or not isinstance(laps, list) or len(laps) != 14:
+        return None
+    numbers = {str(row.get('LapNumber')) for row in laps if isinstance(row, dict)}
+    if numbers != {str(i) for i in range(1, 15)}:
+        return None
+    _, times = extract_laps(laps)
+    if not times or min(times) <= 0 or abs(sum(times) - total) >= 0.25:
+        return None
+    return round(sum(times[-4:]), 3)
 
 
 def heat_items(heats, event, round_meta, source_url, schedule=()):
@@ -103,6 +118,8 @@ def heat_items(heats, event, round_meta, source_url, schedule=()):
                     **({'members': team_members(person, country, disc['gender'])} if relay else {}),
                 )
             )
+            if not relay and disc['distance_m'] == 1500:
+                members[-1]['last_four_seconds'] = last_four_seconds(person)
         if len({m['athlete_id'] for m in members}) != len(members):
             raise ValueError('Duplicate competitor in official heat')
         label = heat.get('name', '')
@@ -204,6 +221,12 @@ def settled(items):
     return (
         is_final(items)
         and all(i.get('round') != 'final' or i.get('group') in ('A', 'B') for i in items)
+        and all(
+            'last_four_seconds' in p
+            for i in items
+            if i.get('format') == 'individual' and i.get('distance_m') == 1500
+            for p in i['participants']
+        )
         and all('members' in p for i in items if i.get('format') == 'relay' for p in i['participants'])
     )
 

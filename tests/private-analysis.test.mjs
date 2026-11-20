@@ -69,3 +69,46 @@ test('500 m learns lane and opening separately and ignores the upcoming split', 
   assert.ok(byLane({name:'Unseen',starting_position:1},1.5).adjustment >
     byLane({name:'Unseen',starting_position:2},1.5).adjustment);
 });
+
+test('1500 m advancement uses prior official closing times from this stop only', async () => {
+  const { report } = await import('../src/private-analysis.mjs');
+  const station = {id:'test', date_start:'2000-01-01', date_end:'2099-01-01'};
+  const raceDay = '2098-12-31';
+  const key = raceDay + '/main/men/1500/semifinal/-';
+  const participants = ['Alpha','Bravo','Charlie'].map((name, i) =>
+    ({athlete_id:name, name, country:'CAN', starting_position:i+1}));
+  const upcoming = {id:'next', round_key:key, round:'semifinal', round_label:'Semifinals', local_date:raceDay,
+    source_start:raceDay+'T12:00:00Z', gender:'men', distance_m:1500, format:'individual',
+    evidence:'official_start_list', participants};
+  const previous = { ...upcoming, id:'previous', round_key:'previous', round:'heats', round_label:'Heats',
+    evidence:'official_results', result_status:'Official', source_start:raceDay+'T10:00:00Z'};
+  async function forecast(closing, extra = {}) {
+    const file = {
+      '/data/calendar.json':{stations:[station]},
+      '/data/prediction_state.json':{},
+      '/data/test.json':{entries:[{round_key:key,qualification:{code:'1Q+1q'}}]},
+      '/data/competitions/test/rounds.json':{items:[{...previous,participants:participants.map((p,i)=>({
+        ...p,rank:i+1,result:'2:20.00'+i,last_four_seconds:closing[i]})),...extra}, upcoming]},
+    };
+    return (await report({ASSETS:{fetch:url=>Response.json(file[url.pathname])}},'men',1500,key))[0].people;
+  }
+  const fast = await forecast([34,36,null]), slow = await forecast([36,34,null]);
+  assert.ok(fast[0].totalAdvance > slow[0].totalAdvance);
+  assert.ok(fast[0].direct > slow[0].direct);
+  for (const p of fast) assert.ok(Math.abs(p.direct+p.smallQ-p.totalAdvance)<1e-10);
+  const later = {source_start:raceDay+'T12:05:00Z'};
+  assert.deepEqual(await forecast([34,36,null],later), await forecast([36,34,null],later));
+});
+
+test('relative form uses the last classified time and falls back to total time for missing 1500 splits', async () => {
+  const {previousRoundForm} = await import('../src/prediction/advance-form.mjs');
+  const row = (athlete_id,time_s,last_four_seconds) => ({
+    athlete_id, time_s, last_four_seconds, round_key:'heats', status:'OK'
+  });
+  const heats = [[row('A',141,33),row('B',140,null)],[row('C',139,36),row('D',143,null)],
+    [{...row('A',115,30),round_key:'repechage',status:'ADV'}]];
+  const form = previousRoundForm(heats,1500);
+  assert.equal(form.get('A'),0.5);
+  assert.equal(form.get('B'),0.25);
+  assert.equal(previousRoundForm(heats,1000).get('A'),-0.25);
+});

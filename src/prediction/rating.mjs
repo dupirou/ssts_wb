@@ -28,7 +28,6 @@ export const DEFAULT_RATING_CONFIG = {
   repWeight: 0.45,
   conservativeC: 0.25,
   recentDecay: 0.6,
-  earlyUpdateMultiplier: 1,
 
   // V1.5 options (default off unless enabled by V1.5 preset/config so V1 callers stay bit-exact)
   enableCrossDistTransfer: false,
@@ -47,7 +46,6 @@ export const DEFAULT_RATING_CONFIG = {
 
 export const V15_RATING_CONFIG = {
   ...DEFAULT_RATING_CONFIG,
-  earlyUpdateMultiplier: 1.5,
   enableCrossDistTransfer: true,
   crossDistWeight: 0.55,
   enableFederationPrior: true,
@@ -320,8 +318,7 @@ export class DynamicRatingEngine {
       const { row, prior } = snapshots[idx];
       const varPrior = prior.sigma * prior.sigma;
       const alpha = varPrior / (varPrior + betaSq);
-      const step = prior.nStarts < 5 ? cfg.eta * cfg.earlyUpdateMultiplier : cfg.eta;
-      const deltaMu = step * wSession * alpha * grad[idx];
+      const deltaMu = cfg.eta * wSession * alpha * grad[idx];
       const muNew = prior.mu + deltaMu;
 
       const shrink = Math.max(0.5, 1 - cfg.kappa * wSession * alpha * Math.min(info[idx], 2.0));

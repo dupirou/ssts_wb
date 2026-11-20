@@ -146,6 +146,28 @@ class ReuseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Duplicate competitor'):
             api.heat_items([heat], event, meta, CONFIG['results_url'] + '&type=11&round=21')
 
+    def test_1500_closing_split_is_validated_and_old_round_is_refetched_once(self):
+        skater = dict(person('Ann TEST', 1, 101), final_rank='1', final_result='2:16.000')
+        skater['lap'] = [dict(LapNumber=str(i), LapTime='9.000' if i > 10 else '10.000') for i in range(14, 0, -1)]
+        heat = dict(
+            event_result_id=11,
+            event_result_round_id=21,
+            event_result_round_heats_id=210,
+            name='Heat 1',
+            result_status='Official',
+            event_result_round_heats_competitors=[skater],
+        )
+        parsed = api.heat_items(
+            [heat], dict(EVENT, name='Women 1500 m'), dict(event_result_round_id=21, name='Heats'), SOURCE
+        )
+        p = parsed[0]['participants'][0]
+        self.assertEqual(p.pop('last_four_seconds'), 36.0)
+        self.assertFalse(api.settled(parsed))
+        skater['lap'].pop()
+        p['last_four_seconds'] = api.last_four_seconds(skater)
+        self.assertIsNone(p['last_four_seconds'])
+        self.assertTrue(api.settled(parsed))
+
     def test_late_round_is_fetched_after_official_final(self):
         known = [stored(22, round_='final', group='A')]
         calls = []

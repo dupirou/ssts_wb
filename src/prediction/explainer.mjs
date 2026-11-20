@@ -96,7 +96,7 @@ export function computeFactorAttribution(featuresMatrix, scores, scaledTheta, id
   const base_skill = contrib(0);
   const lane = contrib(1) + contrib(2) + contrib(8);
   const repechage_context = contrib(3);
-  const recent_form = contrib(4);
+  const recent_form = contrib(4) + contrib(9);
   const opening_split = contrib(5);
   const finishing_kick = contrib(6);
   const venue_pace = contrib(7);
