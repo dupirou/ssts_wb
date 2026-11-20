@@ -279,6 +279,8 @@ export function simulateRound(roundInput, options = {}) {
 
   function runPass(withIncidents, passIters, passSeed) {
     const outFirst = new Float64Array(totalOutSkaters);
+    const outSecond = new Uint32Array(totalOutSkaters);
+    const outThird = new Uint32Array(totalOutSkaters);
     const outBigQ = new Float64Array(totalOutSkaters);
     const outSmallQ = new Float64Array(totalOutSkaters);
     const outPen = new Float64Array(totalOutSkaters);
@@ -346,6 +348,8 @@ export function simulateRound(roundInput, options = {}) {
         const winSlot = base + ord[0];
         winnerTrials[pOutHeatIdx[h]] += 1;
         outFirst[winSlot] += 1;
+        if (activeCnt > 1) outSecond[base + ord[1]]++;
+        if (activeCnt > 2) outThird[base + ord[2]]++;
 
         const qLim = pBigQ[h] < activeCnt ? pBigQ[h] : activeCnt;
         for (let pos = 0; pos < qLim; pos++) {
@@ -403,6 +407,8 @@ export function simulateRound(roundInput, options = {}) {
 
     return {
       outFirst,
+      outSecond,
+      outThird,
       outBigQ,
       outSmallQ,
       outPen,
@@ -518,6 +524,7 @@ export function simulateRound(roundInput, options = {}) {
       return {
         athlete_id: p.athlete_id,
         p_first: pFirst,
+        podium: [mainRes.outFirst[sl], mainRes.outSecond[sl], mainRes.outThird[sl]].map(count => count / iterations),
         p_big_q: pBigQ,
         p_small_q: pSmallQ,
         p_total_advance: pBigQ + pSmallQ,

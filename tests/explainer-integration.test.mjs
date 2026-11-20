@@ -274,3 +274,39 @@ test('End-to-end /internal/analysis V2 + Layer 4 on real Montreal 2Q+2q round (p
   assert.equal(groupsAdv[2].qualificationRule.small_q_actual, 1);
   console.log(`Worker /internal/analysis warm latency: ${elapsedMs.toFixed(1)} ms`);
 });
+
+test('pending A final awards individual medal probabilities and B final uses the actual A field', async () => {
+  const read = name => JSON.parse(fs.readFileSync(path.join(ROOT, 'dist/data', name), 'utf8'));
+  const calendar = read('calendar.json');
+  const station = calendar.stations.find(s => s.id === 'montreal');
+  const finals = read('competitions/montreal/rounds.json').items.filter(h =>
+    h.gender === 'men' && h.distance_m === 500 && h.round === 'final'
+  ).map(h => ({
+    ...h, evidence: 'official_start_list', result_status: 'Start List', local_date: '2099-01-01',
+    participants: h.participants.map(p => ({ ...p, result: null, rank: null, penalty: null, qualification: null }))
+  }));
+  const finalA = finals.find(h => h.group === 'A');
+  const files = {
+    '/data/calendar.json': { ...calendar, stations: [{ ...station, date_end: '2099-01-01' }] },
+    '/data/prediction_state.json': read('prediction_state.json'),
+    '/data/montreal.json': read('montreal.json'),
+    '/data/competitions/montreal/rounds.json': { items: finals }
+  };
+  const env = { ANALYSIS_PASSWORD: SECRET, ASSETS: { fetch: async url => Response.json(files[new URL(url).pathname]) } };
+  const login = await worker.fetch(req({ action: 'login', password: SECRET }), env);
+  const cookie = login.headers.get('set-cookie').split(';')[0];
+  for (const heat of finals) {
+    const response = await worker.fetch(req({ action: 'round', gender: 'men', distance: 500, roundKey: heat.round_key }, cookie), env);
+    assert.equal(response.status, 200);
+    const [{ people }] = await response.json();
+    if (heat.group === 'A') {
+      assert.ok(people.every(p => p.medals.length === 3 && p.medals.every(x => x >= 0 && x <= 1)));
+      for (let rank = 0; rank < 3; rank++) {
+        const total = people.reduce((s, p) => s + p.medals[rank], 0);
+        assert.ok(total > 0.9 && total <= 1 + 1e-9);
+      }
+    } else {
+      assert.ok(people.every(p => p.medals === null && p.expectedFinalPlace === finalA.participants.length + p.expectedPlace));
+    }
+  }
+});
