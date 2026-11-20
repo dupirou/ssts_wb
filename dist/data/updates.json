@@ -2,6 +2,69 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "ca2e07a5718a0269",
+      "station": "seoul",
+      "at": "2026-11-20T03:41:38+00:00",
+      "local_date": "2026-11-20",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张柏浩",
+        "宋柯睿",
+        "孙龙",
+        "朱祎玎"
+      ],
+      "china_results": [
+        {
+          "name": "张柏浩",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "宋柯睿",
+          "rank": 7,
+          "status": "repechage",
+          "name_latin": "Kerui SONG"
+        },
+        {
+          "name": "孙龙",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Long SUN"
+        },
+        {
+          "name": "朱祎玎",
+          "rank": 4,
+          "status": "repechage",
+          "name_latin": "Yiding ZHU"
+        }
+      ]
+    },
+    {
+      "id": "0e937889df10b582",
+      "station": "seoul",
+      "at": "2026-11-20T03:41:38+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "宋柯睿",
+        "朱祎玎"
+      ]
+    },
+    {
       "id": "72e55bf724e566df",
       "station": "seoul",
       "at": "2026-11-20T03:01:37+00:00",
@@ -3192,31 +3255,6 @@
         "公俐",
         "张延"
       ]
-    },
-    {
-      "id": "0d44da8abaa56c4e",
-      "station": "montreal",
-      "at": "2026-10-29T18:24:28+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "China"
-      ]
-    },
-    {
-      "id": "0f46dc81fd051716",
-      "station": "montreal",
-      "kind": "schedule",
-      "at": "2026-10-29T18:24:18+00:00",
-      "local_date": "2026-10-30",
-      "count": 60
     }
   ]
 }
