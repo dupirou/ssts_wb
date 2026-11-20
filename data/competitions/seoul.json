@@ -1224,8 +1224,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-20T02:31:31+00:00",
-    "updated_at": "2026-11-20T02:31:31+00:00",
+    "checked_at": "2026-11-20T02:41:30+00:00",
+    "updated_at": "2026-11-20T02:41:30+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23413",
@@ -1457,9 +1457,9 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-20T11:26:00.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-20T11:26:40.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23413",
         "participants": [
@@ -1470,9 +1470,9 @@
             "official_skater_id": 6159,
             "helmet_number": 1,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "2:26.436",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -1482,9 +1482,9 @@
             "official_skater_id": 1534,
             "helmet_number": 49,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "2:26.463",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -1495,8 +1495,8 @@
             "helmet_number": 78,
             "starting_position": 3,
             "rank": 3,
-            "result": "2:26.580",
-            "qualification": null,
+            "result": "2:26.573",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -1507,8 +1507,8 @@
             "helmet_number": 85,
             "starting_position": 5,
             "rank": 4,
-            "result": "2:30.020",
-            "qualification": null,
+            "result": "2:30.014",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -1518,8 +1518,8 @@
             "official_skater_id": 4857,
             "helmet_number": 63,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "2:59.148",
             "qualification": null,
             "penalty": null
           },
@@ -1530,8 +1530,8 @@
             "official_skater_id": 20671,
             "helmet_number": 95,
             "starting_position": 6,
-            "rank": null,
-            "result": null,
+            "rank": 6,
+            "result": "3:00.293",
             "qualification": null,
             "penalty": null
           }
@@ -1549,9 +1549,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-20T11:30:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-20T11:31:34.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23413",
         "participants": [
@@ -1562,9 +1562,21 @@
             "official_skater_id": 1231,
             "helmet_number": 4,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "2:31.686",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-f9ba3790fd71cb6f2f00",
+            "name": "Failia AIMALETDINOVA",
+            "country": "AIN2",
+            "official_skater_id": 22123,
+            "helmet_number": 90,
+            "starting_position": 6,
+            "rank": 2,
+            "result": "2:31.763",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -1574,9 +1586,9 @@
             "official_skater_id": 6380,
             "helmet_number": 79,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "2:32.256",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -1586,8 +1598,8 @@
             "official_skater_id": 7851,
             "helmet_number": 70,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "2:32.899",
             "qualification": null,
             "penalty": null
           },
@@ -1598,8 +1610,8 @@
             "official_skater_id": 6730,
             "helmet_number": 80,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "2:33.288",
             "qualification": null,
             "penalty": null
           },
@@ -1610,20 +1622,8 @@
             "official_skater_id": 947,
             "helmet_number": 96,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-f9ba3790fd71cb6f2f00",
-            "name": "Failia AIMALETDINOVA",
-            "country": "AIN2",
-            "official_skater_id": 22123,
-            "helmet_number": 90,
-            "starting_position": 6,
-            "rank": null,
-            "result": null,
+            "rank": 6,
+            "result": "2:33.321",
             "qualification": null,
             "penalty": null
           }
@@ -1641,9 +1641,9 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-11-20T11:34:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-20T11:36:07.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23413",
         "participants": [
@@ -1654,9 +1654,21 @@
             "official_skater_id": 3406,
             "helmet_number": 5,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "2:31.341",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-0cee84be0110c19e9257",
+            "name": "Mariia METELKINA",
+            "country": "AIN2",
+            "official_skater_id": 22109,
+            "helmet_number": 93,
+            "starting_position": 6,
+            "rank": 2,
+            "result": "2:31.408",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -1666,21 +1678,9 @@
             "official_skater_id": 8090,
             "helmet_number": 55,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-5bedac287eabf80aec92",
-            "name": "Mirei NAKASHIMA",
-            "country": "JPN",
-            "official_skater_id": 5023,
-            "helmet_number": 12,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "2:31.556",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -1690,8 +1690,8 @@
             "official_skater_id": 407,
             "helmet_number": 29,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "2:31.954",
             "qualification": null,
             "penalty": null
           },
@@ -1702,20 +1702,20 @@
             "official_skater_id": 3923,
             "helmet_number": 97,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "2:33.287",
             "qualification": null,
             "penalty": null
           },
           {
-            "athlete_id": "ath-0cee84be0110c19e9257",
-            "name": "Mariia METELKINA",
-            "country": "AIN2",
-            "official_skater_id": 22109,
-            "helmet_number": 93,
-            "starting_position": 6,
-            "rank": null,
-            "result": null,
+            "athlete_id": "ath-5bedac287eabf80aec92",
+            "name": "Mirei NAKASHIMA",
+            "country": "JPN",
+            "official_skater_id": 5023,
+            "helmet_number": 12,
+            "starting_position": 3,
+            "rank": 6,
+            "result": "2:33.887",
             "qualification": null,
             "penalty": null
           }
@@ -1893,7 +1893,7 @@
           },
           {
             "athlete_id": "ath-ccb448108645fa010aff",
-            "name": "Ayano SEKIGUCHI",
+            "name": "Ayano Sekiguchi",
             "country": "JPN",
             "official_skater_id": 17693,
             "helmet_number": 98,
@@ -2988,7 +2988,7 @@
           },
           {
             "athlete_id": "ath-050bd069f71a453ce726",
-            "name": "Daniele ZAMPEDRI",
+            "name": "Daniele Zampedri",
             "country": "ITA",
             "official_skater_id": 8033,
             "helmet_number": 116,
@@ -3724,7 +3724,7 @@
           },
           {
             "athlete_id": "ath-ccb448108645fa010aff",
-            "name": "Ayano SEKIGUCHI",
+            "name": "Ayano Sekiguchi",
             "country": "JPN",
             "official_skater_id": 17693,
             "helmet_number": 98,
@@ -5231,7 +5231,7 @@
           },
           {
             "athlete_id": "ath-050bd069f71a453ce726",
-            "name": "Daniele ZAMPEDRI",
+            "name": "Daniele Zampedri",
             "country": "ITA",
             "official_skater_id": 8033,
             "helmet_number": 116,
@@ -5423,7 +5423,7 @@
         "participants": [
           {
             "athlete_id": "ath-0b75c8b148a940d59dbb",
-            "name": "Thomas NADALINI",
+            "name": "Thomas Nadalini",
             "country": "ITA",
             "official_skater_id": 4990,
             "helmet_number": 6,
@@ -6725,7 +6725,7 @@
           },
           {
             "athlete_id": "ath-050bd069f71a453ce726",
-            "name": "Daniele ZAMPEDRI",
+            "name": "Daniele Zampedri",
             "country": "ITA",
             "official_skater_id": 8033,
             "helmet_number": 116,
