@@ -438,6 +438,16 @@ export function simulateRound(roundInput, options = {}) {
     }
   }
 
+  // Compare winners within the same round, including official times as heats finish.
+  const roundTimes = outHeatMeta.map((meta) => meta.isCompleted
+    ? meta.active.find((p) => p.rank === 1)?.time_s
+    : meta.heat.heat_pace?.expectedTimeS
+  ).filter((time) => Number.isFinite(time) && time > 0).sort((a, b) => a - b);
+  const mid = Math.floor(roundTimes.length / 2);
+  const medianTime = roundTimes.length >= 2
+    ? (roundTimes[mid] + roundTimes[Math.floor((roundTimes.length - 1) / 2)]) / 2
+    : null;
+
   const outHeats = outHeatMeta.map((meta, hIdx) => {
     const base = outStart[hIdx];
     const n = outLen[hIdx];
@@ -473,6 +483,12 @@ export function simulateRound(roundInput, options = {}) {
 
     const wTrials = mainRes.winnerTrials[hIdx] || iterations;
     const pace = meta.heat.heat_pace || null;
+    let paceLabel = 'medium';
+    if (pace && medianTime !== null && pace.sigmaHeat > 0) {
+      const delta = pace.expectedTimeS - medianTime;
+      if (delta < -pace.sigmaHeat / 2) paceLabel = 'fast';
+      if (delta > pace.sigmaHeat / 2) paceLabel = 'slow';
+    }
     const cleanPL = analyticalCleanByHeat.get(hIdx) || null;
 
     const people = meta.active.map((p, i) => {
@@ -520,7 +536,7 @@ export function simulateRound(roundInput, options = {}) {
         ? {
             expected_time_s: pace.expectedTimeS,
             pace_delta_s: pace.paceDeltaS,
-            pace_label: pace.paceLabel,
+            pace_label: paceLabel,
           }
         : null,
       people,

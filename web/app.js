@@ -961,9 +961,8 @@
       }
     }
     const PACE_LABELS = {
-      fast: '节奏偏快 · 利好小q',
-      medium: '节奏中等',
-      slow: '偏慢 · 偏战术'
+      fast: '预计节奏快于同轮',
+      slow: '预计节奏慢于同轮'
     };
     const FACTOR_LABELS = [
       ['base_skill', '基础实力'],
@@ -1004,7 +1003,7 @@
       return parts;
     }
     function buildDeepDivePanel(person, dive) {
-      const box = h('details', { class: 'analysis-dive' }, h('summary', { text: '球探拆解' }));
+      const box = h('details', { class: 'analysis-dive' }, h('summary', { text: '数据分析' }));
       const grid = h('div', { class: 'analysis-dive-body' });
 
       if (dive) {
@@ -1120,8 +1119,8 @@
         const head = heatHeads.get(heat.id);
         if (head && (heat.heatPace || heat.qualificationRule?.code)) {
           const metaParts = [];
-          if (heat.heatPace?.pace_label) {
-            metaParts.push(PACE_LABELS[heat.heatPace.pace_label] || heat.heatPace.pace_label);
+          if (PACE_LABELS[heat.heatPace?.pace_label]) {
+            metaParts.push(PACE_LABELS[heat.heatPace.pace_label]);
           }
           if (heat.qualificationRule?.n_adv > 0) {
             metaParts.push('已判进占 ' + heat.qualificationRule.n_adv + ' 席');

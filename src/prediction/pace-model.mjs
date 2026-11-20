@@ -238,14 +238,10 @@ export class PaceTracker {
     const sigmaGap =
       gm.n >= 20 ? Math.max(0.12, Math.sqrt(gm.sqErr / gm.n)) : DEFAULT_GAP_MEAN[d] * 0.65;
 
-    const zNorm = paceDeltaS / Math.max(sigmaHeat, 0.25);
-    const paceLabel = zNorm <= -0.25 ? 'fast' : zNorm >= 0.25 ? 'slow' : 'medium';
-
     return {
       tVenue,
       paceDeltaS,
       expectedTimeS: tVenue + paceDeltaS,
-      paceLabel,
       sigmaHeat,
       gapBeta: bGap,
       sigmaGap,
