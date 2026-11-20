@@ -1,6 +1,6 @@
 # SSTS-WB · 短道速滑赛程
 
-非官方的 2026/27 ISU 短道速滑世巡赛与世锦赛赛程站：北京时间换算、官方报名与分组、中国队场次高亮、首轮分组预测。线上地址 https://stss.fusu.uk ，可安装为手机主屏幕应用。
+非官方的 2026/27 ISU 短道速滑世巡赛与世锦赛赛程站：北京时间换算、官方报名与分组、中国队场次高亮。线上地址 https://stss.fusu.uk ，可安装为手机主屏幕应用。
 
 ## 页面入口
 
@@ -36,7 +36,7 @@ Worker stsswb：静态文件 + 只读 /api/v1（src/worker.mjs）
 | `data/stations.json` | 唯一的分站配置：日期、时区、场馆、ISU 赛事页 |
 | `data/schedules/` `data/competitions/` | 已核对的官方赛程、报名、分组与成绩 |
 | `data/history/` | 中国队历史赛事索引、固定运动员身份与官方最终成绩 |
-| `data/prediction_inputs/` `data/prediction_tables.json` | 单项报项、上赛季单项排名与预测用表（预测和运动员报项用） |
+| `data/distance_entries/` | 各站单项报项，运动员名单据此显示每人所报单项 |
 | `data/penalties/` | 各站官方 Protocol 核验后的世巡赛累计判罚快照 |
 | `data/world_tour_rankings.json` | 本赛季世巡赛单项排名的最近一次可信快照 |
 | `data/tickets.json` | 人工核对的各站售票信息 |
@@ -44,7 +44,7 @@ Worker stsswb：静态文件 + 只读 /api/v1（src/worker.mjs）
 | `data/china*.json` | 中国队分组证据（自动导入与人工覆盖） |
 | `data/updates.json` | 已通知过的“新动态” |
 | `data/*_sources.json` `data/sync_meta.json` | 官方来源登记与同步状态 |
-| `tools/` | 同步脚本（`sync_*.py`）、构建（`build.py`）、预测、图标渲染 |
+| `tools/` | 同步脚本（`sync_*.py`）、构建（`build.py`）、图标渲染 |
 | `web/` | 前端源文件；`dist/` 为构建产物，不要手改 |
 | `tools/site_catalog.py` | 从快照生成赛果摘要、运动员索引与本赛季世巡赛排名 |
 | `src/worker.mjs` | Cloudflare Worker：API 与比赛时段定时触发 |
@@ -59,7 +59,7 @@ python -m pip install -r requirements.txt   # Python 3.11+
 # 构建还需要 Node.js 22（tools/build_results.mjs）
 python tools/build.py
 python -m http.server 8000 --directory dist  # 打开 http://127.0.0.1:8000（只有静态页面）
-npx wrangler@4.151.2 dev --local            # 含 /api：运动员、分组、成绩与预测
+npx wrangler@4.151.2 dev --local            # 含 /api：运动员、分组、成绩与排名
 python -m unittest discover -s tests
 npm ci --ignore-scripts
 node --test tests/*.mjs
@@ -72,7 +72,7 @@ ruff format --check tools tests && ruff check tools tests
 
 ## 文档
 
-- [docs/backend.md](docs/backend.md)：数据同步、接口、预测、新动态、安全边界
+- [docs/backend.md](docs/backend.md)：数据同步、接口、新动态、安全边界
 - [docs/architecture.md](docs/architecture.md)：当前页面职责、模块与加载方式
 - [docs/history.md](docs/history.md)：中国队历史成绩收录、导入与覆盖范围
 - [docs/frontend.md](docs/frontend.md)：页面结构、视觉规则、文案约定

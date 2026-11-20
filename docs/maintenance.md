@@ -9,7 +9,6 @@
 | 场馆 | `data/stations.json` 的 `venue` | 留空时开赛前显示“场馆待公布”，结束后不显示 |
 | 售票信息 | `data/tickets.json` | 开售时间带当地 UTC 偏移；订票域名须在 `tools/build.py` 的 `BOOKING_SITES` 白名单里 |
 | 中国队中文名 | `data/athlete_names_zh.json` | 键为全站统一写法“名 姓（姓大写）”，如 `Long SUN`；新队员首次报名后补一行，未列出的队员显示 ISU 拼写 |
-| 单项报项与分组预测 | `data/competition_sources.json` 的 `prediction` | 只有配置了的分站才显示每人所报单项和首轮预测；第 3 站起直通规则不同，见 [isu-seeding-2026-27.md](isu-seeding-2026-27.md) |
 
 比赛日如官方临场调整时间，用 `python tools/check_live_schedule.py --station <id>` 对照后手工更正，见 [backend.md](backend.md)。
 
@@ -17,10 +16,9 @@
 
 1. `data/stations.json`：赛季、各站城市、日期、时区；`isu` 可留空，赛程同步会按城市和日期在 ISU 赛事列表里找到并写回。世锦赛写在 `championships`。
 2. `data/tickets.json`、`data/athlete_names_zh.json`：清掉过期售票信息，补新队员。
-3. `data/competition_sources.json`：删除上赛季的 `prediction` 配置。
-4. `tools/localize.py` 的 `TEAMS`：出现新的国家或地区代码时补中文队名，未列出的接力队显示 ISU 原文。
-5. `docs/isu-seeding-<赛季>.md`：按新赛季通告核对直通与分组规则。
-6. 上赛季成绩并入历史档案：见 [history.md](history.md)。
+3. `tools/localize.py` 的 `TEAMS`：出现新的国家或地区代码时补中文队名，未列出的接力队显示 ISU 原文。
+4. `docs/isu-seeding-<赛季>.md`：按新赛季通告核对官方直通与首轮种子规则；这只是规则参考，页面上的分组一律用 ISU 官方发布。
+5. 上赛季成绩并入历史档案：见 [history.md](history.md)。
 
 ## 运行与密钥
 

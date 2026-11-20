@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'data/competitions'
-INPUTS = ROOT / 'data/prediction_inputs'
+ENTRIES = ROOT / 'data/distance_entries'
 KINDS = ('entries', 'rounds', 'rankings')
 
 
@@ -72,10 +72,33 @@ def display_names(snapshot, extra=()):
     return names
 
 
-def distance_entrants(event_id, directory=INPUTS):
+def distance_lists(event_id, directory=ENTRIES):
+    """The stored per-distance entry lists, or [] when none were synced."""
     path = directory / f'{event_id}.json'
-    lists = json.loads(path.read_text(encoding='utf-8')).get('lists', []) if path.exists() else []
-    return [p for entered in lists for p in entered['participants']]
+    return json.loads(path.read_text(encoding='utf-8')).get('lists', []) if path.exists() else []
+
+
+def distance_entrants(event_id, directory=ENTRIES):
+    return [p for entered in distance_lists(event_id, directory) for p in entered['participants']]
+
+
+def entered_distances(event_id, directory=ENTRIES):
+    """athlete_id -> the individual distances entered there.
+
+    A failed refresh leaves the last lists for inspection but publishes no
+    distances: last week's entry list may no longer be current.
+    """
+    path = directory / f'{event_id}.json'
+    if not path.exists():
+        return {}
+    stored = json.loads(path.read_text(encoding='utf-8'))
+    if stored.get('update_status') == 'error':
+        return {}
+    found = {}
+    for entered in stored.get('lists', []):
+        for person in entered['participants']:
+            found.setdefault(person['athlete_id'], []).append(entered['distance_m'])
+    return {athlete: sorted(distances) for athlete, distances in found.items()}
 
 
 def display_snapshot(event_id):

@@ -4,6 +4,14 @@
 
 按日期记录主要改动与核查结论。细节见对应提交和 PR。
 
+## 2026-11-20 · 删除首轮分组预测，保留单项报项
+
+**背景。** 预测标签只在 ISU 尚未公布该站首轮分组的窗口内出现，实际几乎看不到：温哥华站从 10-22 的版本到 10-23 官方分组发布之间可见；蒙特利尔站的报项 10-29 才入库，当时六项都还没有赛程，标签在而面板为空。维护面包括 583 行模型与同步、晋级表、203 KB 冻结排名和每站一次额外抓取，用户确认删除。
+
+**处理。** 删除 `tools/predict_groups.py`、`data/prediction_tables.json`、`data/prediction_inputs/` 与 `/api/v1/events/<id>/predictions`，分站页回到「赛程 / 报名名单」两个标签。单项报项保留：新增 `tools/sync_distance_entries.py`，数据改存 `data/distance_entries/<站>.json`，运动员卡片仍显示每人所报单项。World Standings 的请求与响应契约抽到 `tools/isu_rankings.py`，`sync_world_tour.py` 改依赖它，删掉 `sync_predictions.py` 不再影响本赛季排名同步。站点来源改由 `data/stations.json` 推导，删除 `data/competition_sources.json`；`sync.yml`、`ci_run.sh`、接口文档与测试同步更新，[isu-seeding-2026-27.md](isu-seeding-2026-27.md) 保留为规则参考。
+
+**验证。** 重新构建 `dist/`，`dist/data/competitions/vancouver/entries.json` 与改动前一致（每人所报单项输出不变）。本地 `python -m unittest discover -s tests` 144 项、`node --test tests/*.mjs` 94 项、ruff 与 prettier 检查均通过；改动见 PR #76。
+
 ## 2026-10-27 · 名次冲突采用当前官方最终分类
 
 - 用户确认“名次冲突以最新版本为准”。重新读取 112 份当前官网最终分类响应，50 场、117 条冲突记录采用其中的正式总名次与状态，奖牌及前八统计随之更新。

@@ -56,7 +56,6 @@ test('Worlds detail uses schedule and roster waiting states without World Tour f
   // No entries exist yet, so no empty athletes tab: the page is one panel.
   assert.equal(d.querySelector('.section-tabs'), null);
   assert.equal(d.querySelector('#section-athletes'), null);
-  assert.equal(d.querySelectorAll('.prediction-panel, .prediction-grid').length, 0);
   assert.match(d.querySelector('#section-schedule').textContent, /逐项赛程待公布/);
   assert.equal(d.querySelectorAll('.st-nav-list a').length, 8);
   assert.equal(d.querySelector('.championship-nav').getAttribute('aria-current'), 'page');

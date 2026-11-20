@@ -274,7 +274,7 @@ class ScheduleSyncTests(unittest.TestCase):
 class FailureIsolationTests(unittest.TestCase):
     def test_one_station_raising_does_not_stop_the_others(self):
         import sync_competitions
-        import sync_predictions
+        import sync_distance_entries
         from unittest.mock import patch
 
         seen = []
@@ -295,10 +295,13 @@ class FailureIsolationTests(unittest.TestCase):
         self.assertEqual(seen, ['vancouver', 'montreal'])
 
         def raising(event_id, config, *args, **kwargs):
-            raise ValueError('Prediction snapshot identity mismatch')
+            raise ValueError('Entries snapshot identity mismatch')
 
-        with patch.object(sync_predictions, 'sync_event', raising), patch.object(sys, 'argv', ['sync_predictions.py']):
-            self.assertEqual(sync_predictions.main(), 0)
+        with (
+            patch.object(sync_distance_entries, 'sync_event', raising),
+            patch.object(sys, 'argv', ['sync_distance_entries.py']),
+        ):
+            self.assertEqual(sync_distance_entries.main(), 0)
 
 
 class StationConfigTests(unittest.TestCase):
@@ -319,14 +322,18 @@ class StationConfigTests(unittest.TestCase):
         self.assertTrue(stations.within(MONTREAL, datetime(2027, 1, 6, tzinfo=timezone.utc), 14))
         self.assertFalse(stations.within(MONTREAL, datetime(2026, 10, 15, tzinfo=timezone.utc), 14))
 
-    def test_sources_follow_the_station_and_keep_overrides(self):
+    def test_sources_follow_the_station(self):
         vancouver = stations.sources(stations.get('vancouver'))
-        self.assertEqual(vancouver['prediction']['event_id'], 16230)
+        self.assertEqual(vancouver['isu_event_id'], 16230)
         montreal = stations.sources(MONTREAL)
         self.assertEqual((montreal['city'], montreal['year']), ('Montreal', 2026))
-        self.assertEqual(montreal['prediction']['event_id'], 16272)
-        self.assertTrue(montreal['prediction']['entries_url'].endswith('?tab=entries_16272'))
         self.assertTrue(montreal['documents_url'].endswith('?tab=documents_16272'))
+        self.assertTrue(montreal['results_url'].endswith('?tab=results_16272'))
+        self.assertEqual(
+            stations.page_url(MONTREAL, 'entries'),
+            'https://www.isu-skating.com/en/short-track/events/eventdetail/'
+            'isu-short-track-world-tour-2-montreal/?tab=entries_16272',
+        )
 
     def test_new_station_programme_is_announced_once(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -374,12 +381,12 @@ class SyncOutcomeTests(unittest.TestCase):
         ):
             self.assertEqual(sync_competitions.main(), 1)
 
-    def test_unexpected_prediction_failure_is_nonzero(self):
-        import sync_predictions
+    def test_unexpected_entries_failure_is_nonzero(self):
+        import sync_distance_entries
         from unittest.mock import patch
 
         with (
-            patch.object(sync_predictions, 'sync_event', side_effect=OSError('network unavailable')),
-            patch.object(sys, 'argv', ['sync_predictions.py']),
+            patch.object(sync_distance_entries, 'sync_event', side_effect=OSError('network unavailable')),
+            patch.object(sys, 'argv', ['sync_distance_entries.py']),
         ):
-            self.assertEqual(sync_predictions.main(), 1)
+            self.assertEqual(sync_distance_entries.main(), 1)
