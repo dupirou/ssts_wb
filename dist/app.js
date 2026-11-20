@@ -1199,9 +1199,7 @@
                   h('span', {
                     class: 'analysis-rival-h2h num',
                     text:
-                      rv.h2h_total > 0
-                        ? rv.h2h_wins + '胜 ' + rv.h2h_losses + '负'
-                        : '暂无正赛交手'
+                      rv.h2h_total > 0 ? rv.h2h_wins + '胜 ' + rv.h2h_losses + '负' : '暂无正赛交手'
                   })
                 )
               )
@@ -1385,7 +1383,11 @@
         controls.replaceChildren();
         return;
       }
-      const lock = h('button', { type: 'button', class: 'analysis-btn is-danger', text: '锁定预测' });
+      const lock = h('button', {
+        type: 'button',
+        class: 'analysis-btn is-danger',
+        text: '锁定预测'
+      });
       const cancel = h('button', { type: 'button', class: 'analysis-btn', text: '取消' });
       const bar = h('div', { class: 'analysis-lock-bar' }, lock, cancel, message);
       lock.onclick = async () => {
@@ -1416,7 +1418,11 @@
         'aria-label': '预测密码',
         placeholder: '输入预测密码'
       });
-      const submit = h('button', { type: 'submit', class: 'analysis-btn is-primary', text: '解锁' });
+      const submit = h('button', {
+        type: 'submit',
+        class: 'analysis-btn is-primary',
+        text: '解锁'
+      });
       const form = h('form', { class: 'analysis-login' }, input, submit, message);
       message.textContent = '';
       controls.replaceChildren(form);
@@ -1509,7 +1515,9 @@
             (p.penalty.infringement_code ? ' · ' + p.penalty.infringement_code : '') +
             ' 判罚'
           : p.result || '—';
-        const analysis = trigger ? h('div', { class: 'analysis-cell tiny faint', hidden: true }) : null;
+        const analysis = trigger
+          ? h('div', { class: 'analysis-cell tiny faint', hidden: true })
+          : null;
         if (analysis) cells.set(heat.id + '/' + p.athlete_id, analysis);
         people.append(
           h(
@@ -1569,15 +1577,7 @@
         status ? h('span', { class: 'pill', text: status }) : null
       );
       heatHeads.set(heat.id, heatHead);
-      dialog.append(
-        h(
-          'section',
-          { class: 'competition-heat' },
-          heatHead,
-          cols,
-          people
-        )
-      );
+      dialog.append(h('section', { class: 'competition-heat' }, heatHead, cols, people));
     }
     if (heats[0]?.source_url)
       dialog.append(h('p', { class: 'source-line' }, external(heats[0].source_url, '官方来源')));

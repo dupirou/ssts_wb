@@ -24,7 +24,9 @@ class HeatsSchemaUnitTests(unittest.TestCase):
         # Montreal Oct 28, 2022 is EDT (UTC-4): 09:30:11 local -> 13:30:11 UTC
         self.assertEqual(hs.local_wallclock_to_utc('2022-10-28T09:30:11.000Z', 'Montréal'), '2022-10-28T13:30:11Z')
         # Milano Feb 10, 2026 is CET (UTC+1): 10:33:07 local -> 09:33:07 UTC
-        self.assertEqual(hs.local_wallclock_to_utc('2026-02-10T10:33:07.000Z', 'Milano Cortina'), '2026-02-10T09:33:07Z')
+        self.assertEqual(
+            hs.local_wallclock_to_utc('2026-02-10T10:33:07.000Z', 'Milano Cortina'), '2026-02-10T09:33:07Z'
+        )
 
     def test_case_sensitive_qualification_mapping(self):
         self.assertEqual(hs.normalize_qualification('Q', 'PRELIM', 'heats'), ('Q', 'Q', 'NEXT', True))
@@ -84,7 +86,7 @@ class HeatsDatasetTests(unittest.TestCase):
         heats_dir = ROOT / 'data/heats'
         self.assertTrue((heats_dir / 'events.json').exists(), 'Run import_heats.py first')
         summary = check_heats.validate_all(heats_dir, require_rules=True)
-        self.assertEqual(summary['errors'], [], f"Validation errors: {summary['errors'][:5]}")
+        self.assertEqual(summary['errors'], [], f'Validation errors: {summary["errors"][:5]}')
         self.assertEqual(summary['event_count'], 27)
 
         # Verify season_config.json lane_mode per D0 empirical findings.

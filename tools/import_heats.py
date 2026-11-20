@@ -88,9 +88,7 @@ class ThrottledCache:
                 time.sleep(self.delay - elapsed)
             for attempt in range(3):
                 try:
-                    body = isu_transport.request_bytes(
-                        url, hosts=PDF_HOSTS, max_bytes=25_000_000, form=form or None
-                    )
+                    body = isu_transport.request_bytes(url, hosts=PDF_HOSTS, max_bytes=25_000_000, form=form or None)
                     self._last_fetch = time.monotonic()
                     break
                 except HTTPError as ex:
@@ -132,7 +130,7 @@ def load_target_events(inventory_path=ROOT / 'data/history/inventory.json'):
             raw_city = ev['city'].split(',')[0].strip()
             city_slug = re.sub(r'[^a-z0-9]+', '-', hs.plain_text(raw_city).lower()).strip('-')
             suffix = f'-{idx}' if kind in ('worldcup', 'worldtour') else ''
-            ev['event_slug'] = f"{season.replace('/', '-')}-{kind}-{city_slug}{suffix}"
+            ev['event_slug'] = f'{season.replace("/", "-")}-{kind}-{city_slug}{suffix}'
             ev['stop_number'] = idx if kind in ('worldcup', 'worldtour') else None
             ev['base_city'] = raw_city
     events.sort(key=lambda e: (e['date_start'], int(e['official_event_id'])))
@@ -168,19 +166,21 @@ def parse_c89i2_infringements(pdf_bytes):
             embedded_helmet = re.match(r'^([0-9]+)\s+(.+)', parts[1])
             helmet = int(parts[1]) if parts[1].isdigit() else (int(embedded_helmet[1]) if embedded_helmet else None)
             name = parts[2] if parts[1].isdigit() else (embedded_helmet[2] if embedded_helmet else parts[1])
-            rows.append({
-                'number': int(serial),
-                'race_number': int(race),
-                'gender': gender.lower(),
-                'distance_m': int(distance),
-                'round_label': parts[0],
-                'helmet_number': helmet,
-                'name': name,
-                'country': country,
-                'status': status,
-                'infringement_code': code,
-                'page': page_no,
-            })
+            rows.append(
+                {
+                    'number': int(serial),
+                    'race_number': int(race),
+                    'gender': gender.lower(),
+                    'distance_m': int(distance),
+                    'round_label': parts[0],
+                    'helmet_number': helmet,
+                    'name': name,
+                    'country': country,
+                    'status': status,
+                    'infringement_code': code,
+                    'page': page_no,
+                }
+            )
     return rows
 
 
@@ -213,14 +213,16 @@ def parse_c73_pages(pdf_bytes, target_titles):
             if cur_heat is None:
                 continue
             bucket = results.setdefault((title, cur_heat), {'note': note, 'rows': []})
-            bucket['rows'].append({
-                'rank': int(rnk) if rnk.isdigit() else None,
-                'helmet_number': int(helm),
-                'name': ' '.join(nm.split()),
-                'country': noc,
-                'result': 'no time' if res == 'No time' else res,
-                'qual': qual or '',
-            })
+            bucket['rows'].append(
+                {
+                    'rank': int(rnk) if rnk.isdigit() else None,
+                    'helmet_number': int(helm),
+                    'name': ' '.join(nm.split()),
+                    'country': noc,
+                    'result': 'no time' if res == 'No time' else res,
+                    'qual': qual or '',
+                }
+            )
     return results
 
 
@@ -230,7 +232,7 @@ def _apply_c73_patches(disciplines, c73_data):
         disc_name = disc_entry['meta'].get('discipline_name') or disc_entry['meta'].get('name')
         for r_entry in disc_entry['rounds']:
             rmeta = r_entry['round_meta']
-            title = f"{disc_name} - {rmeta['name']}"
+            title = f'{disc_name} - {rmeta["name"]}'
             for heat in r_entry['heats']:
                 if (heat.get('result_status') or '').strip() not in ('Start List', 'Live'):
                     continue
@@ -245,7 +247,10 @@ def _apply_c73_patches(disciplines, c73_data):
                 api_comps = heat.get('event_result_round_heats_competitors') or []
                 by_bib = {isu_results.integer(c.get('bib_number')): c for c in api_comps}
                 by_key = {
-                    (hs.normalize_name_key((c.get('skaters') or {}).get('full_name')), (c.get('started_for_nf_code') or '').strip()): c
+                    (
+                        hs.normalize_name_key((c.get('skaters') or {}).get('full_name')),
+                        (c.get('started_for_nf_code') or '').strip(),
+                    ): c
                     for c in api_comps
                 }
                 patched_comps = []
@@ -254,7 +259,7 @@ def _apply_c73_patches(disciplines, c73_data):
                         (hs.normalize_name_key(row['name']), row['country'])
                     )
                     if not comp:
-                        raise ValueError(f"C73 patch could not match {row} in {title} Heat {m[1]}")
+                        raise ValueError(f'C73 patch could not match {row} in {title} Heat {m[1]}')
                     comp = dict(comp)
                     comp['final_rank'] = row['rank']
                     comp['final_result'] = row['result']
@@ -325,15 +330,23 @@ def fetch_event_raw(cache, ev):
         by_disc.setdefault((d['gender'], d['distance_m']), []).append((m, d))
 
     for (gender, distance_m), group in sorted(by_disc.items()):
-        group.sort(key=lambda item: (item[0].get('start_date') or '', item[0].get('display_order') or 0, item[0]['event_result_id']))
+        group.sort(
+            key=lambda item: (
+                item[0].get('start_date') or '',
+                item[0].get('display_order') or 0,
+                item[0]['event_result_id'],
+            )
+        )
         for fallback_inst, (meta, disc) in enumerate(group, 1):
             instance = hs.parse_distance_instance(meta.get('name'), fallback=fallback_inst)
             if ev['season'] in ('2024/25', '2025/26') and instance != 1:
-                raise ValueError(f"Double-distance instance {instance} unexpected in {ev['season']} event {eid}")
+                raise ValueError(f'Double-distance instance {instance} unexpected in {ev["season"]} event {eid}')
             erid = meta['event_result_id']
             rounds, round_source = cache.api('get-event-result-round', event_result_id=erid)
             round_entries = []
-            for rmeta in sorted(rounds, key=lambda r: (r.get('date') or '', r.get('display_order') or 0, r['event_result_round_id'])):
+            for rmeta in sorted(
+                rounds, key=lambda r: (r.get('date') or '', r.get('display_order') or 0, r['event_result_round_id'])
+            ):
                 if str(rmeta['event_result_id']) != str(erid) or str(rmeta['event_id']) != eid:
                     raise ValueError(f'Round metadata mismatch in event {eid} erid={erid}')
                 heats, heat_source = cache.api(
@@ -342,18 +355,22 @@ def fetch_event_raw(cache, ev):
                     event_result_round_id=rmeta['event_result_round_id'],
                     country_code='',
                 )
-                round_entries.append({
-                    'round_meta': rmeta,
-                    'round_source': round_source,
-                    'heats': heats,
-                    'heat_source': heat_source,
-                })
-            disciplines.append({
-                'meta': meta,
-                'disc': disc,
-                'instance': instance,
-                'rounds': round_entries,
-            })
+                round_entries.append(
+                    {
+                        'round_meta': rmeta,
+                        'round_source': round_source,
+                        'heats': heats,
+                        'heat_source': heat_source,
+                    }
+                )
+            disciplines.append(
+                {
+                    'meta': meta,
+                    'disc': disc,
+                    'instance': instance,
+                    'rounds': round_entries,
+                }
+            )
 
     infringements = []
     pdf_source = None
@@ -410,12 +427,15 @@ def build_athlete_registry(raw_events):
     def record_appearance(oid, name, gender, country, seen_date):
         if not isinstance(oid, int) or oid <= 0:
             raise ValueError(f'Invalid official_skater_id: {oid!r} ({name})')
-        entry = by_oid.setdefault(oid, {
-            'oid': oid,
-            'names': [],
-            'genders': set(),
-            'sightings': [],
-        })
+        entry = by_oid.setdefault(
+            oid,
+            {
+                'oid': oid,
+                'names': [],
+                'genders': set(),
+                'sightings': [],
+            },
+        )
         clean_name = ' '.join((name or '').split())
         if clean_name and clean_name not in entry['names']:
             entry['names'].append(clean_name)
@@ -427,7 +447,6 @@ def build_athlete_registry(raw_events):
     # 1. Scan all 27 historical events.
     for raw in raw_events:
         ev = raw['event']
-        city = ev['base_city']
         for disc_entry in raw['disciplines']:
             gender = disc_entry['disc']['gender']
             for r_entry in disc_entry['rounds']:
@@ -478,7 +497,9 @@ def build_athlete_registry(raw_events):
                         aid = mem.get('athlete_id')
                         # Relay member gender might differ in mixed relay; record if already known else omit guess.
                         if oid and oid in by_oid:
-                            record_appearance(oid, mem['name'], next(iter(by_oid[oid]['genders'])), part['country'], local_date)
+                            record_appearance(
+                                oid, mem['name'], next(iter(by_oid[oid]['genders'])), part['country'], local_date
+                            )
                         if aid and aid.startswith('ath-'):
                             g = next(iter(by_oid[oid]['genders'])) if oid in by_oid else heat['gender']
                             comp_aids.setdefault(aid, []).append((mem['name'], part['country'], g, oid))
@@ -506,13 +527,16 @@ def build_athlete_registry(raw_events):
     canonical_records = {}
     for oid, info in sorted(by_oid.items()):
         canon = oid_to_canon.get(oid, oid)
-        rec = canonical_records.setdefault(canon, {
-            'oids': set(),
-            'names': [],
-            'genders': set(),
-            'sightings': [],
-            'merge_notes': [],
-        })
+        rec = canonical_records.setdefault(
+            canon,
+            {
+                'oids': set(),
+                'names': [],
+                'genders': set(),
+                'sightings': [],
+                'merge_notes': [],
+            },
+        )
         rec['oids'].add(oid)
         for n in info['names']:
             if n not in rec['names']:
@@ -523,7 +547,7 @@ def build_athlete_registry(raw_events):
     for canon, rec in canonical_records.items():
         if len(rec['oids']) > 1:
             rec['merge_notes'].append(
-                f"Merged official_skater_ids {sorted(rec['oids'])} from data/history/athletes.json"
+                f'Merged official_skater_ids {sorted(rec["oids"])} from data/history/athletes.json'
             )
 
     athletes = []
@@ -666,13 +690,15 @@ def convert_event(raw, oid_to_skr):
                     seen_doc_keys.add(dk)
                     source_docs.append(doc)
 
-            for heat in sorted(r_entry['heats'], key=lambda h: (h.get('display_order') or 0, h['event_result_round_heats_id'])):
+            for heat in sorted(
+                r_entry['heats'], key=lambda h: (h.get('display_order') or 0, h['event_result_round_heats_id'])
+            ):
                 if int(heat['event_result_id']) != int(disc_entry['meta']['event_result_id']) or int(
                     heat['event_result_round_id']
                 ) != int(rmeta['event_result_round_id']):
                     raise ValueError(f'Heat event/round mismatch in {ev["event_slug"]}')
 
-                heat_id = f"isu-heat-{heat['event_result_round_heats_id']}"
+                heat_id = f'isu-heat-{heat["event_result_round_heats_id"]}'
                 if heat_id in seen_heat_ids:
                     raise ValueError(f'Duplicate heat id {heat_id}')
                 seen_heat_ids.add(heat_id)
@@ -693,13 +719,15 @@ def convert_event(raw, oid_to_skr):
                 filtered_comps = []
                 for c in comps:
                     if hs.is_withdrawn_ghost(c):
-                        dropped_ghosts.append({
-                            'event': ev['event_slug'],
-                            'heat_id': heat_id,
-                            'skaters_id': c.get('skaters_id'),
-                            'name': (c.get('skaters') or {}).get('full_name'),
-                            'starting_position': c.get('starting_position'),
-                        })
+                        dropped_ghosts.append(
+                            {
+                                'event': ev['event_slug'],
+                                'heat_id': heat_id,
+                                'skaters_id': c.get('skaters_id'),
+                                'name': (c.get('skaters') or {}).get('full_name'),
+                                'starting_position': c.get('starting_position'),
+                            }
+                        )
                         continue
                     filtered_comps.append(c)
 
@@ -713,9 +741,7 @@ def convert_event(raw, oid_to_skr):
                     oid = c.get('skaters_id')
                     if oid not in oid_to_skr:
                         raise ValueError(f'Unregistered official_skater_id {oid} in {heat_id}')
-                    name = sk.get('full_name') or ' '.join(
-                        p for p in (sk.get('first_name'), sk.get('last_name')) if p
-                    )
+                    name = sk.get('full_name') or ' '.join(p for p in (sk.get('first_name'), sk.get('last_name')) if p)
                     country = (
                         (c.get('started_for_nf_code') or '').strip()
                         or (sk.get('organization_code') or '').strip()
@@ -740,32 +766,32 @@ def convert_event(raw, oid_to_skr):
 
                     p_code = None
                     if penalty in ('PEN', 'YC', 'RC') and infringements:
-                        p_code = _match_infringement(
-                            infringements, gender, distance_m, rmeta['name'], country, helmet
-                        )
+                        p_code = _match_infringement(infringements, gender, distance_m, rmeta['name'], country, helmet)
 
-                    prelim_parsed.append({
-                        'athlete_id': oid_to_skr[oid],
-                        'official_skater_id': oid,
-                        'name': ' '.join(name.split()),
-                        'country': country,
-                        'helmet_number': helmet,
-                        'starting_position': sp,
-                        'rank': rank,
-                        'result': result_str,
-                        'time_s': time_s,
-                        'status': status,
-                        'penalty': penalty,
-                        'penalty_code': p_code,
-                        'is_incident': is_incident,
-                        'incident_type': incident_type,
-                        'qual_flag_raw': q_raw,
-                        'qual_type': q_type,
-                        'qual_target': q_target,
-                        'advanced': advanced,
-                        'opening_split_s': opening_split_s,
-                        'lap_times_s': lap_times_s,
-                    })
+                    prelim_parsed.append(
+                        {
+                            'athlete_id': oid_to_skr[oid],
+                            'official_skater_id': oid,
+                            'name': ' '.join(name.split()),
+                            'country': country,
+                            'helmet_number': helmet,
+                            'starting_position': sp,
+                            'rank': rank,
+                            'result': result_str,
+                            'time_s': time_s,
+                            'status': status,
+                            'penalty': penalty,
+                            'penalty_code': p_code,
+                            'is_incident': is_incident,
+                            'incident_type': incident_type,
+                            'qual_flag_raw': q_raw,
+                            'qual_type': q_type,
+                            'qual_target': q_target,
+                            'advanced': advanced,
+                            'opening_split_s': opening_split_s,
+                            'lap_times_s': lap_times_s,
+                        }
+                    )
 
                 entered_size = len(prelim_parsed)
                 heat_size = sum(1 for p in prelim_parsed if p['status'] != 'DNS')
@@ -780,49 +806,53 @@ def convert_event(raw, oid_to_skr):
                         rep_sf_qualifiers.add(p['athlete_id'])
 
                 # Sort participants deterministically by rank (nulls last), then starting_position.
-                prelim_parsed.sort(key=lambda p: (
-                    p['rank'] is None,
-                    p['rank'] or 999,
-                    p['starting_position'] is None,
-                    p['starting_position'] or 999,
-                    p['athlete_id'],
-                ))
+                prelim_parsed.sort(
+                    key=lambda p: (
+                        p['rank'] is None,
+                        p['rank'] or 999,
+                        p['starting_position'] is None,
+                        p['starting_position'] or 999,
+                        p['athlete_id'],
+                    )
+                )
 
                 inst_seg = f'/dist{instance}' if instance > 1 else ''
                 round_key = (
-                    f"{local_date}/{session_type.lower()}/{gender}/{distance_m}{inst_seg}/"
-                    f"{round_enum}/{(final_group or '-').lower()}"
+                    f'{local_date}/{session_type.lower()}/{gender}/{distance_m}{inst_seg}/'
+                    f'{round_enum}/{(final_group or "-").lower()}'
                 )
 
-                disc_heats.append({
-                    'id': heat_id,
-                    'gender': gender,
-                    'distance_m': distance_m,
-                    'format': 'individual',
-                    'event_distance_instance': instance,
-                    'session_type': session_type,
-                    'round': round_enum,
-                    'final_group': final_group,
-                    'round_tier': round_tier,
-                    'round_key': round_key,
-                    'round_label': rmeta['name'],
-                    'heat_number': heat_number,
-                    'heat_label': heat.get('name'),
-                    'local_date': local_date,
-                    'start_time_utc': start_time_utc,
-                    'heat_size': heat_size,
-                    'entered_size': entered_size,
-                    'qualification': None,
-                    'qualification_rule_raw': (rmeta.get('qualification_rule') or '').strip() or None,
-                    'result_status': (heat.get('result_status') or '').strip() or None,
-                    'evidence': 'official_results',
-                    'source_url': (
-                        f"{ev['source_url']}&type={disc_entry['meta']['event_result_id']}"
-                        f"&round={rmeta['event_result_round_id']}"
-                    ),
-                    'source_sha256': r_entry['heat_source']['sha256'],
-                    'participants': prelim_parsed,
-                })
+                disc_heats.append(
+                    {
+                        'id': heat_id,
+                        'gender': gender,
+                        'distance_m': distance_m,
+                        'format': 'individual',
+                        'event_distance_instance': instance,
+                        'session_type': session_type,
+                        'round': round_enum,
+                        'final_group': final_group,
+                        'round_tier': round_tier,
+                        'round_key': round_key,
+                        'round_label': rmeta['name'],
+                        'heat_number': heat_number,
+                        'heat_label': heat.get('name'),
+                        'local_date': local_date,
+                        'start_time_utc': start_time_utc,
+                        'heat_size': heat_size,
+                        'entered_size': entered_size,
+                        'qualification': None,
+                        'qualification_rule_raw': (rmeta.get('qualification_rule') or '').strip() or None,
+                        'result_status': (heat.get('result_status') or '').strip() or None,
+                        'evidence': 'official_results',
+                        'source_url': (
+                            f'{ev["source_url"]}&type={disc_entry["meta"]["event_result_id"]}'
+                            f'&round={rmeta["event_result_round_id"]}'
+                        ),
+                        'source_sha256': r_entry['heat_source']['sha256'],
+                        'participants': prelim_parsed,
+                    }
+                )
 
         # Tag is_repechage_qualifier on the main-draw entry round fed by Rep. Semifinals.
         entry_round = 'semifinal' if distance_m == 1500 else 'quarterfinal'
@@ -836,19 +866,19 @@ def convert_event(raw, oid_to_skr):
 
     # Sort all heats chronologically within the event.
     session_order = {'PRELIM': 0, 'REPECHAGE': 1, 'MAIN': 2}
-    heats_out.sort(key=lambda h: (
-        h['start_time_utc'] or '',
-        h['local_date'],
-        session_order[h['session_type']],
-        h['round_tier'],
-        h['heat_number'] or 0,
-        h['id'],
-    ))
+    heats_out.sort(
+        key=lambda h: (
+            h['start_time_utc'] or '',
+            h['local_date'],
+            session_order[h['session_type']],
+            h['round_tier'],
+            h['heat_number'] or 0,
+            h['id'],
+        )
+    )
 
     source_docs_sorted = sorted(source_docs, key=lambda d: (d['url'], json.dumps(d['form'], sort_keys=True)))
-    source_sha256 = hist_api.digest(
-        json.dumps(source_docs_sorted, sort_keys=True, separators=(',', ':')).encode()
-    )
+    source_sha256 = hist_api.digest(json.dumps(source_docs_sorted, sort_keys=True, separators=(',', ':')).encode())
 
     partial_events = {
         '960': 'ISU front-api omits ~35% of skaters across 171 heats; official Protocol PDF STWT-2-Montreal-2025-26-1761561207-5928.pdf is vector-outlined without a text layer.',
@@ -904,7 +934,10 @@ def main():
     cache = ThrottledCache(args.cache, delay=args.delay, offline=args.offline)
     raw_events = []
     for idx, ev in enumerate(events, 1):
-        print(f"[{idx}/{len(events)}] {ev['season']} {ev['kind']} {ev['official_event_id']} ({ev['base_city']})", flush=True)
+        print(
+            f'[{idx}/{len(events)}] {ev["season"]} {ev["kind"]} {ev["official_event_id"]} ({ev["base_city"]})',
+            flush=True,
+        )
         raw_events.append(fetch_event_raw(cache, ev))
 
     if args.fetch_only:
@@ -918,8 +951,8 @@ def main():
     write_json_deterministic(args.out / 'athletes.json', athletes_doc)
     write_json_deterministic(args.out / 'athlete_crosswalk.json', crosswalk_doc)
     print(
-        f"Athletes: {len(athletes_doc['items'])}, crosswalk: {len(crosswalk_doc['mappings'])}, "
-        f"entries-only unmapped: {len(crosswalk_doc['unmapped_entries_only'])}",
+        f'Athletes: {len(athletes_doc["items"])}, crosswalk: {len(crosswalk_doc["mappings"])}, '
+        f'entries-only unmapped: {len(crosswalk_doc["unmapped_entries_only"])}',
         flush=True,
     )
 
@@ -930,36 +963,37 @@ def main():
     for raw in raw_events:
         ev_doc, ghosts = convert_event(raw, oid_to_skr)
         all_ghosts.extend(ghosts)
-        out_path = events_dir / f"{ev_doc['event_id']}.json"
+        out_path = events_dir / f'{ev_doc["event_id"]}.json'
         write_json_deterministic(out_path, ev_doc)
         heats = ev_doc['heats']
         starts = sum(len(h['participants']) for h in heats)
-        events_index.append({
-            'event_id': ev_doc['event_id'],
-            'official_event_id': ev_doc['official_event_id'],
-            'season': ev_doc['season'],
-            'kind': ev_doc['kind'],
-            'stop_number': ev_doc['stop_number'],
-            'title': ev_doc['title'],
-            'city': ev_doc['city'],
-            'date_start': ev_doc['date_start'],
-            'date_end': ev_doc['date_end'],
-            'timezone': ev_doc['timezone'],
-            'coverage': ev_doc['coverage'],
-            'coverage_note': ev_doc['coverage_note'],
-            'file': f"events/{ev_doc['event_id']}.json",
-            'heat_count': len(heats),
-            'start_count': starts,
-            'disciplines': sorted({(h['gender'], h['distance_m'], h['event_distance_instance']) for h in heats}),
-            'source_url': ev_doc['source']['url'],
-            'source_sha256': ev_doc['source']['sha256'],
-        })
+        events_index.append(
+            {
+                'event_id': ev_doc['event_id'],
+                'official_event_id': ev_doc['official_event_id'],
+                'season': ev_doc['season'],
+                'kind': ev_doc['kind'],
+                'stop_number': ev_doc['stop_number'],
+                'title': ev_doc['title'],
+                'city': ev_doc['city'],
+                'date_start': ev_doc['date_start'],
+                'date_end': ev_doc['date_end'],
+                'timezone': ev_doc['timezone'],
+                'coverage': ev_doc['coverage'],
+                'coverage_note': ev_doc['coverage_note'],
+                'file': f'events/{ev_doc["event_id"]}.json',
+                'heat_count': len(heats),
+                'start_count': starts,
+                'disciplines': sorted({(h['gender'], h['distance_m'], h['event_distance_instance']) for h in heats}),
+                'source_url': ev_doc['source']['url'],
+                'source_sha256': ev_doc['source']['sha256'],
+            }
+        )
 
     # Convert discipline tuples to dicts for clean JSON.
     for item in events_index:
         item['disciplines'] = [
-            {'gender': g, 'distance_m': d, 'event_distance_instance': inst}
-            for g, d, inst in item['disciplines']
+            {'gender': g, 'distance_m': d, 'event_distance_instance': inst} for g, d, inst in item['disciplines']
         ]
 
     events_doc = {
@@ -972,8 +1006,8 @@ def main():
     }
     write_json_deterministic(args.out / 'events.json', events_doc)
     print(
-        f"Imported {events_doc['event_count']} events, {events_doc['total_heats']} heats, "
-        f"{events_doc['total_starts']} starts, {len(all_ghosts)} dropped ghost rows.",
+        f'Imported {events_doc["event_count"]} events, {events_doc["total_heats"]} heats, '
+        f'{events_doc["total_starts"]} starts, {len(all_ghosts)} dropped ghost rows.',
         flush=True,
     )
     return 0

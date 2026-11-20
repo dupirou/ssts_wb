@@ -45,7 +45,15 @@ def cross_check_manual(events_dir):
                         if p['status'] in ('OK', 'ADV') and p['time_s'] is not None
                     ]
                     if timed:
-                        groups.append({'event_id': ev['event_id'], 'heat_id': h['id'], 'round': h['round_label'], 'heat': h['heat_label'], 'timed': timed})
+                        groups.append(
+                            {
+                                'event_id': ev['event_id'],
+                                'heat_id': h['id'],
+                                'round': h['round_label'],
+                                'heat': h['heat_label'],
+                                'timed': timed,
+                            }
+                        )
         return groups
 
     # historical-heats.mjs: 2025/26 WT1-4 + Worlds Men 1500m
@@ -54,7 +62,11 @@ def cross_check_manual(events_dir):
 
     specs = [
         ('src/historical-heats.mjs (25/26 Men 1500m)', ROOT / 'src/historical-heats.mjs', men_1500_official),
-        ('src/historical-women-1000.mjs (25/26 Women 1000m)', ROOT / 'src/historical-women-1000.mjs', women_1000_official),
+        (
+            'src/historical-women-1000.mjs (25/26 Women 1000m)',
+            ROOT / 'src/historical-women-1000.mjs',
+            women_1000_official,
+        ),
     ]
 
     report = []
@@ -95,34 +107,40 @@ def cross_check_manual(events_dir):
                     if not matched_official:
                         # Find closest country match in the same heat
                         same_ctry = [o_name for o_name, o_ctry, _ in og['timed'] if o_ctry == m_ctry]
-                        spelling_diffs.append({
-                            'group_index': idx + 1,
-                            'event': og['event_id'],
-                            'heat': f"{og['round']} {og['heat']}",
-                            'manual': f'{m_name} ({m_ctry})',
-                            'official': ', '.join(same_ctry) or '(country mismatch)',
-                        })
+                        spelling_diffs.append(
+                            {
+                                'group_index': idx + 1,
+                                'event': og['event_id'],
+                                'heat': f'{og["round"]} {og["heat"]}',
+                                'manual': f'{m_name} ({m_ctry})',
+                                'official': ', '.join(same_ctry) or '(country mismatch)',
+                            }
+                        )
                     else:
                         # Check for Cyrillic/Greek confusable characters in manual text
                         if hs.plain_text(m_name) != m_name and re.search(r'[\u0400-\u04ff\u0370-\u03ff]', m_name):
-                            spelling_diffs.append({
-                                'group_index': idx + 1,
-                                'event': og['event_id'],
-                                'heat': f"{og['round']} {og['heat']}",
-                                'manual': f'{m_name} [contains Cyrillic/Greek homoglyph]',
-                                'official': matched_official[0][0],
-                            })
+                            spelling_diffs.append(
+                                {
+                                    'group_index': idx + 1,
+                                    'event': og['event_id'],
+                                    'heat': f'{og["round"]} {og["heat"]}',
+                                    'manual': f'{m_name} [contains Cyrillic/Greek homoglyph]',
+                                    'official': matched_official[0][0],
+                                }
+                            )
             else:
                 unmatched_groups.append({'group_index': idx + 1, 'sample': mg[:3], 'len': len(mg)})
 
-        report.append({
-            'label': label,
-            'manual_groups': len(manual_groups),
-            'official_timed_groups': len(official),
-            'matched_groups': exact_matches,
-            'spelling_diffs': spelling_diffs,
-            'unmatched_groups': unmatched_groups,
-        })
+        report.append(
+            {
+                'label': label,
+                'manual_groups': len(manual_groups),
+                'official_timed_groups': len(official),
+                'matched_groups': exact_matches,
+                'spelling_diffs': spelling_diffs,
+                'unmatched_groups': unmatched_groups,
+            }
+        )
     return report
 
 
@@ -177,15 +195,31 @@ def validate_all(heats_dir=ROOT / 'data/heats', require_rules=True):
         ev = json.loads(ev_path.read_text(encoding='utf-8'))
         is_partial = ev.get('coverage') == 'partial'
         if is_partial:
-            partial_events.append({
-                'event_id': ev['event_id'],
-                'heat_count': len(ev['heats']),
-                'start_count': sum(len(h['participants']) for h in ev['heats']),
-                'note': ev.get('coverage_note'),
-            })
+            partial_events.append(
+                {
+                    'event_id': ev['event_id'],
+                    'heat_count': len(ev['heats']),
+                    'start_count': sum(len(h['participants']) for h in ev['heats']),
+                    'note': ev.get('coverage_note'),
+                }
+            )
         season = ev['season']
         cfg = season_cfg['seasons'][season]
-        st_stat = season_stats.setdefault(season, {'events': 0, 'heats': 0, 'starts': 0, 'pen': 0, 'yc': 0, 'rc': 0, 'dnf': 0, 'dns': 0, 'no_time': 0, 'adv': 0})
+        st_stat = season_stats.setdefault(
+            season,
+            {
+                'events': 0,
+                'heats': 0,
+                'starts': 0,
+                'pen': 0,
+                'yc': 0,
+                'rc': 0,
+                'dnf': 0,
+                'dns': 0,
+                'no_time': 0,
+                'adv': 0,
+            },
+        )
         st_stat['events'] += 1
 
         # Group heats by discipline instance to check round routing & conservation.
@@ -193,40 +227,44 @@ def validate_all(heats_dir=ROOT / 'data/heats', require_rules=True):
         seen_round_keys = {}
         for h in ev['heats']:
             if h['id'] in all_heat_ids:
-                errors.append(f"Duplicate global heat id {h['id']}")
+                errors.append(f'Duplicate global heat id {h["id"]}')
             all_heat_ids.add(h['id'])
             st_stat['heats'] += 1
 
             # Double-distance & session assertions
             if not cfg['has_double_distance'] and h['event_distance_instance'] != 1:
-                errors.append(f"{ev['event_id']} {h['id']}: unexpected instance {h['event_distance_instance']} in {season}")
+                errors.append(
+                    f'{ev["event_id"]} {h["id"]}: unexpected instance {h["event_distance_instance"]} in {season}'
+                )
             if 'Rep.' in (h['round_label'] or '') and h['session_type'] != 'REPECHAGE':
-                errors.append(f"{ev['event_id']} {h['id']}: repechage round has session_type={h['session_type']}")
+                errors.append(f'{ev["event_id"]} {h["id"]}: repechage round has session_type={h["session_type"]}')
             if 'Rep.' not in (h['round_label'] or '') and h['session_type'] == 'REPECHAGE':
-                errors.append(f"{ev['event_id']} {h['id']}: non-rep round has session_type=REPECHAGE")
+                errors.append(f'{ev["event_id"]} {h["id"]}: non-rep round has session_type=REPECHAGE')
 
             rk_key = (h['round_key'], h['heat_label'])
             if rk_key in seen_round_keys:
-                errors.append(f"{ev['event_id']} duplicate (round_key, heat_label): {rk_key}")
+                errors.append(f'{ev["event_id"]} duplicate (round_key, heat_label): {rk_key}')
             seen_round_keys[rk_key] = h['id']
 
             parts = h['participants']
             expected_entered = len(parts)
             expected_heat_size = sum(1 for p in parts if p['status'] != 'DNS')
             if h['entered_size'] != expected_entered:
-                errors.append(f"{h['id']}: entered_size {h['entered_size']} != {expected_entered}")
+                errors.append(f'{h["id"]}: entered_size {h["entered_size"]} != {expected_entered}')
             if h['heat_size'] != expected_heat_size:
-                errors.append(f"{h['id']}: heat_size {h['heat_size']} != {expected_heat_size}")
+                errors.append(f'{h["id"]}: heat_size {h["heat_size"]} != {expected_heat_size}')
 
             sps = [p['starting_position'] for p in parts if p['starting_position'] is not None]
             if len(sps) != len(set(sps)):
-                errors.append(f"{h['id']}: duplicate starting_position {sps}")
+                errors.append(f'{h["id"]}: duplicate starting_position {sps}')
             for sp in sps:
                 if not 1 <= sp <= h['entered_size']:
                     if is_partial:
-                        warnings.append(f"{ev['event_id']} {h['id']}: partial upstream API sp={sp} > entered_size={h['entered_size']}")
+                        warnings.append(
+                            f'{ev["event_id"]} {h["id"]}: partial upstream API sp={sp} > entered_size={h["entered_size"]}'
+                        )
                     else:
-                        errors.append(f"{h['id']}: starting_position {sp} outside 1..{h['entered_size']}")
+                        errors.append(f'{h["id"]}: starting_position {sp} outside 1..{h["entered_size"]}')
 
             for p in parts:
                 st_stat['starts'] += 1
@@ -248,11 +286,11 @@ def validate_all(heats_dir=ROOT / 'data/heats', require_rules=True):
                     st_stat['adv'] += 1
 
                 if p['athlete_id'] not in athlete_ids:
-                    errors.append(f"{h['id']}: unknown athlete_id {p['athlete_id']}")
+                    errors.append(f'{h["id"]}: unknown athlete_id {p["athlete_id"]}')
                 if st in ('NO_TIME', 'PEN', 'YC', 'RC', 'DNF', 'DNS') and p['time_s'] is not None:
-                    errors.append(f"{h['id']} {p['athlete_id']}: status={st} must have time_s=None, got {p['time_s']}")
+                    errors.append(f'{h["id"]} {p["athlete_id"]}: status={st} must have time_s=None, got {p["time_s"]}')
                 if st == 'OK' and (p['time_s'] is None or p['time_s'] <= 0):
-                    errors.append(f"{h['id']} {p['athlete_id']}: status=OK invalid time_s={p['time_s']}")
+                    errors.append(f'{h["id"]} {p["athlete_id"]}: status=OK invalid time_s={p["time_s"]}')
 
                 expected_rel = (
                     round((p['starting_position'] - 1) / max(h['heat_size'] - 1, 1), 6)
@@ -260,7 +298,7 @@ def validate_all(heats_dir=ROOT / 'data/heats', require_rules=True):
                     else None
                 )
                 if p['rel_lane'] != expected_rel:
-                    errors.append(f"{h['id']} {p['athlete_id']}: rel_lane {p['rel_lane']} != {expected_rel}")
+                    errors.append(f'{h["id"]} {p["athlete_id"]}: rel_lane {p["rel_lane"]} != {expected_rel}')
 
                 if p['is_repechage_qualifier']:
                     rep_q_outer_checks['total'] += 1
@@ -270,13 +308,13 @@ def validate_all(heats_dir=ROOT / 'data/heats', require_rules=True):
                     else:
                         rep_q_outer_checks['overflow_or_notime'] += 1
                         warnings.append(
-                            f"{ev['event_id']} {h['id']}: rep qualifier {p['name']} at lane {p['starting_position']}/{h['heat_size']}"
+                            f'{ev["event_id"]} {h["id"]}: rep qualifier {p["name"]} at lane {p["starting_position"]}/{h["heat_size"]}'
                         )
 
             if require_rules and h['round'] != 'final':
                 qrule = h.get('qualification')
                 if not qrule or qrule.get('big_q') is None or qrule.get('small_q_planned') is None:
-                    errors.append(f"{ev['event_id']} {h['id']}: missing qualification rule")
+                    errors.append(f'{ev["event_id"]} {h["id"]}: missing qualification rule')
 
             by_disc.setdefault((h['gender'], h['distance_m'], h['event_distance_instance']), []).append(h)
 
@@ -304,7 +342,7 @@ def validate_all(heats_dir=ROOT / 'data/heats', require_rules=True):
                         for p in h['participants']:
                             if p['athlete_id'] in blocked_prelim:
                                 errors.append(
-                                    f"{ev['event_id']} {disc_key} {h['id']}: blocked prelim skater {p['name']} ({p['athlete_id']}) entered {rnd}"
+                                    f'{ev["event_id"]} {disc_key} {h["id"]}: blocked prelim skater {p["name"]} ({p["athlete_id"]}) entered {rnd}'
                                 )
                             if p['athlete_id'] in dnf_prelim and rnd in ('heats', 'quarterfinal'):
                                 dnf_to_rep_count += 1
@@ -316,15 +354,12 @@ def validate_all(heats_dir=ROOT / 'data/heats', require_rules=True):
                         continue
                     qrule = rhs[0]['qualification']
                     if any(h['qualification'] != qrule for h in rhs):
-                        errors.append(f"{ev['event_id']} {disc_key} {styp}/{rnd}: inconsistent heat qualification rules")
+                        errors.append(
+                            f'{ev["event_id"]} {disc_key} {styp}/{rnd}: inconsistent heat qualification rules'
+                        )
                     if qrule.get('exempt_track_block'):
                         continue
-                    n_q_small = sum(
-                        1
-                        for h in rhs
-                        for p in h['participants']
-                        if p['qual_type'] == 'q'
-                    )
+                    n_q_small = sum(1 for h in rhs for p in h['participants'] if p['qual_type'] == 'q')
                     n_adv = sum(
                         1
                         for h in rhs
@@ -334,7 +369,7 @@ def validate_all(heats_dir=ROOT / 'data/heats', require_rules=True):
                     expected_q = max(0, qrule['small_q_planned'] - n_adv)
                     if n_q_small != expected_q:
                         errors.append(
-                            f"{ev['event_id']} {disc_key} {styp}/{rnd}: q_actual={n_q_small} != max(0, {qrule['small_q_planned']}-{n_adv})={expected_q}"
+                            f'{ev["event_id"]} {disc_key} {styp}/{rnd}: q_actual={n_q_small} != max(0, {qrule["small_q_planned"]}-{n_adv})={expected_q}'
                         )
 
     manual_check = cross_check_manual(heats_dir / 'events')
@@ -366,15 +401,15 @@ def render_coverage_md(summary):
         '',
         '## 1. 全量汇总',
         '',
-        f"- 覆盖赛事数：**{summary['event_count']}** 站（2022/23–2025/26）",
-        f"- 总组数（Heats）：**{summary['heat_count']}**",
-        f"- 总出场人次数（Starts）：**{summary['start_count']}**",
-        f"- 选手主档人数：**{summary['athletes_count']}**（均已绑定 `official_skater_ids` / `skr-<id>`，零 `tmp-` 临时 ID）",
-        f"- 2026/27 `ath-*` 对照映射数：**{summary['crosswalk_count']}**（`rounds.json` 100% 映射；仅未出场替补/新人未映射到 `skr-`：**{len(summary['unmapped_entries_only'])}** 人）",
-        f"- 赛前撤赛幽灵占位行剔除：**{len(summary['dropped_ghost_rows'])}** 条",
-        f"- 资格赛 `DNF` 合法进入复活赛实例：**{summary['dnf_to_rep_count']}** 人次",
-        f"- 复活半决赛胜者进入正赛外道校验：**{summary['rep_q_outer_checks']['outer_ok']}/{summary['rep_q_outer_checks']['total']}** 居标准最外道（5/7 号道及以上）",
-        f"- 校验错误数：**{len(summary['errors'])}**",
+        f'- 覆盖赛事数：**{summary["event_count"]}** 站（2022/23–2025/26）',
+        f'- 总组数（Heats）：**{summary["heat_count"]}**',
+        f'- 总出场人次数（Starts）：**{summary["start_count"]}**',
+        f'- 选手主档人数：**{summary["athletes_count"]}**（均已绑定 `official_skater_ids` / `skr-<id>`，零 `tmp-` 临时 ID）',
+        f'- 2026/27 `ath-*` 对照映射数：**{summary["crosswalk_count"]}**（`rounds.json` 100% 映射；仅未出场替补/新人未映射到 `skr-`：**{len(summary["unmapped_entries_only"])}** 人）',
+        f'- 赛前撤赛幽灵占位行剔除：**{len(summary["dropped_ghost_rows"])}** 条',
+        f'- 资格赛 `DNF` 合法进入复活赛实例：**{summary["dnf_to_rep_count"]}** 人次',
+        f'- 复活半决赛胜者进入正赛外道校验：**{summary["rep_q_outer_checks"]["outer_ok"]}/{summary["rep_q_outer_checks"]["total"]}** 居标准最外道（5/7 号道及以上）',
+        f'- 校验错误数：**{len(summary["errors"])}**',
         '',
         '## 2. 分赛季覆盖率与判罚基线',
         '',
@@ -386,66 +421,74 @@ def render_coverage_md(summary):
         started = max(st['starts'] - st['dns'], 1)
         pen_rate = (st['pen'] + st['yc'] + st['rc']) / started * 100
         lines.append(
-            f"| {season} | {st['events']} | {st['heats']} | {st['starts']} | "
-            f"{st['pen']} | {st['yc']} | {st['rc']} | {st['dnf']} | {st['dns']} | {st['no_time']} | {st['adv']} | {pen_rate:.2f}% |"
+            f'| {season} | {st["events"]} | {st["heats"]} | {st["starts"]} | '
+            f'{st["pen"]} | {st["yc"]} | {st["rc"]} | {st["dnf"]} | {st["dns"]} | {st["no_time"]} | {st["adv"]} | {pen_rate:.2f}% |'
         )
 
-    lines.extend([
-        '',
-        '## 3. 跨协会代表变更选手清单（`athletes.json`）',
-        '',
-        f"共发现 **{len(summary['cross_country_athletes'])}** 名跨代表协会变更记录：",
-        '',
-        '| 主键 | 姓名 | 代表协会变更轨迹 |',
-        '|---|---|---|',
-    ])
+    lines.extend(
+        [
+            '',
+            '## 3. 跨协会代表变更选手清单（`athletes.json`）',
+            '',
+            f'共发现 **{len(summary["cross_country_athletes"])}** 名跨代表协会变更记录：',
+            '',
+            '| 主键 | 姓名 | 代表协会变更轨迹 |',
+            '|---|---|---|',
+        ]
+    )
     for a in summary['cross_country_athletes']:
-        trail = ' → '.join(f"{c['country']} ({c['first_seen']}..{c['last_seen']})" for c in a['countries'])
-        lines.append(f"| `{a['id']}` | {a['name']} | {trail} |")
+        trail = ' → '.join(f'{c["country"]} ({c["first_seen"]}..{c["last_seen"]})' for c in a['countries'])
+        lines.append(f'| `{a["id"]}` | {a["name"]} | {trail} |')
 
-    lines.extend([
-        '',
-        '## 4. 手工历史数据交叉核验（`src/historical-*.mjs`）',
-        '',
-    ])
+    lines.extend(
+        [
+            '',
+            '## 4. 手工历史数据交叉核验（`src/historical-*.mjs`）',
+            '',
+        ]
+    )
     for mc in summary['manual_check']:
         lines.append(
-            f"### {mc['label']}: 匹配 {mc['matched_groups']}/{mc['manual_groups']} 组（官方完赛有时间组 {mc['official_timed_groups']}）"
+            f'### {mc["label"]}: 匹配 {mc["matched_groups"]}/{mc["manual_groups"]} 组（官方完赛有时间组 {mc["official_timed_groups"]}）'
         )
         lines.append('')
         if mc['spelling_diffs']:
             lines.append('| 序号 | 赛事 | 轮次组别 | 手工录入（`historical-*.mjs`） | 官方 ISU 记录 |')
             lines.append('|---:|---|---|---|---|')
             for d in mc['spelling_diffs']:
-                lines.append(f"| {d['group_index']} | `{d['event']}` | {d['heat']} | {d['manual']} | {d['official']} |")
+                lines.append(f'| {d["group_index"]} | `{d["event"]}` | {d["heat"]} | {d["manual"]} | {d["official"]} |')
             lines.append('')
         if mc['unmatched_groups']:
-            lines.append(f"未完全匹配组（{len(mc['unmatched_groups'])}）：")
+            lines.append(f'未完全匹配组（{len(mc["unmatched_groups"])}）：')
             for u in mc['unmatched_groups'][:20]:
-                lines.append(f"- 第 {u['group_index']} 组（len={u['len']}）: `{u['sample']}`")
+                lines.append(f'- 第 {u["group_index"]} 组（len={u["len"]}）: `{u["sample"]}`')
             lines.append('')
 
     if summary['unmapped_entries_only']:
-        lines.extend([
-            '## 5. 2026/27 仅报名未出场 `ath-*` 选手（待出场后自动补齐 ISU ID）',
-            '',
-            f"共 {len(summary['unmapped_entries_only'])} 名仅在 `entries`/`rankings` 出现且无历史出赛记录的选手：",
-            '',
-        ])
+        lines.extend(
+            [
+                '## 5. 2026/27 仅报名未出场 `ath-*` 选手（待出场后自动补齐 ISU ID）',
+                '',
+                f'共 {len(summary["unmapped_entries_only"])} 名仅在 `entries`/`rankings` 出现且无历史出赛记录的选手：',
+                '',
+            ]
+        )
         for u in summary['unmapped_entries_only'][:30]:
-            lines.append(f"- `{u['legacy_id']}`: {u['name']} ({u['country']}, {u['gender']})")
+            lines.append(f'- `{u["legacy_id"]}`: {u["name"]} ({u["country"]}, {u["gender"]})')
         if len(summary['unmapped_entries_only']) > 30:
-            lines.append(f"- ... 其余 {len(summary['unmapped_entries_only']) - 30} 名见 `athlete_crosswalk.json`")
+            lines.append(f'- ... 其余 {len(summary["unmapped_entries_only"]) - 30} 名见 `athlete_crosswalk.json`')
         lines.append('')
 
     if summary.get('partial_events'):
-        lines.extend([
-            '## 6. 部分覆盖赛事说明（上游 ISU API 缺损）',
-            '',
-        ])
+        lines.extend(
+            [
+                '## 6. 部分覆盖赛事说明（上游 ISU API 缺损）',
+                '',
+            ]
+        )
         for pe in summary['partial_events']:
             lines.append(
-                f"- `{pe['event_id']}`: 已导入 {pe['heat_count']} 组 / {pe['start_count']} 人次 — {pe['note']}"
+                f'- `{pe["event_id"]}`: 已导入 {pe["heat_count"]} 组 / {pe["start_count"]} 人次 — {pe["note"]}'
             )
         lines.append('')
 
@@ -462,8 +505,8 @@ def main():
     summary = validate_all(args.heats_dir, require_rules=not args.skip_rules)
     args.coverage_out.write_text(render_coverage_md(summary), encoding='utf-8')
     print(
-        f"Checked {summary['event_count']} events, {summary['heat_count']} heats, {summary['start_count']} starts; "
-        f"errors={len(summary['errors'])}, warnings={len(summary['warnings'])}",
+        f'Checked {summary["event_count"]} events, {summary["heat_count"]} heats, {summary["start_count"]} starts; '
+        f'errors={len(summary["errors"])}, warnings={len(summary["warnings"])}',
         flush=True,
     )
     for err in summary['errors'][:20]:

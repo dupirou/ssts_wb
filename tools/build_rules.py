@@ -73,7 +73,10 @@ def infer_round_rule(ev, round_heats):
     n_q_big = sum(1 for h in round_heats for p in h['participants'] if p['qual_type'] == 'Q')
     n_q_small = sum(1 for h in round_heats for p in h['participants'] if p['qual_type'] == 'q')
     n_adv = sum(
-        1 for h in round_heats for p in h['participants'] if p['qual_type'] == 'ADV' and p['qual_target'] in ('NEXT', 'FA')
+        1
+        for h in round_heats
+        for p in h['participants']
+        if p['qual_type'] == 'ADV' and p['qual_target'] in ('NEXT', 'FA')
     )
 
     parsed = parse_rule_text(raw_text)
@@ -86,7 +89,12 @@ def infer_round_rule(ev, round_heats):
             default=0,
         )
         max_q_rank = max(
-            (p['rank'] for h in round_heats for p in h['participants'] if p['qual_type'] == 'Q' and p['rank'] is not None),
+            (
+                p['rank']
+                for h in round_heats
+                for p in h['participants']
+                if p['qual_type'] == 'Q' and p['rank'] is not None
+            ),
             default=0,
         )
         big_q = max(max_q_in_heat, max_q_rank)
@@ -149,7 +157,9 @@ def main():
         ev_path = args.heats_dir / meta['file']
         ev = json.loads(ev_path.read_text(encoding='utf-8'))
         season = ev['season']
-        season_rules = by_season.setdefault(season, {'schema_version': hs.SCHEMA_VERSION, 'season': season, 'events': {}})
+        season_rules = by_season.setdefault(
+            season, {'schema_version': hs.SCHEMA_VERSION, 'season': season, 'events': {}}
+        )
 
         # Group non-final heats by (gender, distance_m, instance, session_type, round).
         grouped = {}
@@ -176,14 +186,16 @@ def main():
                 heat_q['rule_note'] = q_obj['rule_note']
             for h in rhs:
                 h['qualification'] = dict(heat_q)
-            ev_rule_list.append({
-                'gender': gender,
-                'distance_m': dist,
-                'event_distance_instance': inst,
-                'session_type': styp,
-                'round': rnd,
-                **q_obj,
-            })
+            ev_rule_list.append(
+                {
+                    'gender': gender,
+                    'distance_m': dist,
+                    'event_distance_instance': inst,
+                    'session_type': styp,
+                    'round': rnd,
+                    **q_obj,
+                }
+            )
 
         ev_path.write_text(json.dumps(ev, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         season_rules['events'][ev['event_id']] = ev_rule_list
@@ -193,7 +205,7 @@ def main():
     for season, doc in sorted(by_season.items()):
         fname = season.replace('/', '-') + '.json'
         (rules_dir / fname).write_text(json.dumps(doc, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-        print(f"Wrote {fname}: {len(doc['events'])} events", flush=True)
+        print(f'Wrote {fname}: {len(doc["events"])} events', flush=True)
 
     print(f'Rule exceptions ({len(exceptions)}):', flush=True)
     for ex in exceptions:

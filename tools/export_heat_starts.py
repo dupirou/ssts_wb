@@ -81,7 +81,7 @@ def _load_2026_27_rows(heats_dir, crosswalk, season_cfg):
         st = station_meta[st_id]
         city = st['city_en']
         oid_event = str(st['isu']['event_id']) if st.get('isu') else None
-        event_id = f"{season.replace('/', '-')}-worldtour-{st_id}"
+        event_id = f'{season.replace("/", "-")}-worldtour-{st_id}'
 
         # Attach penalty codes from data/penalties/<station>.json if available.
         pen_path = ROOT / 'data/penalties' / f'{st_id}.json'
@@ -106,9 +106,7 @@ def _load_2026_27_rows(heats_dir, crosswalk, season_cfg):
             styp, rnd, _ = hs.parse_round_name(h['round_label'])
             if styp == 'REPECHAGE' and rnd == 'semifinal':
                 for part in h['participants']:
-                    q_raw, q_type, q_target, adv = hs.normalize_qualification(
-                        part.get('qualification'), styp, rnd
-                    )
+                    q_raw, q_type, q_target, adv = hs.normalize_qualification(part.get('qualification'), styp, rnd)
                     if adv:
                         skr = mappings[part['athlete_id']]['athlete_id']
                         rep_sf_qualifiers.setdefault((h['gender'], h['distance_m']), set()).add(skr)
@@ -127,67 +125,82 @@ def _load_2026_27_rows(heats_dir, crosswalk, season_cfg):
             for part in parts:
                 pen_obj = part.get('penalty')
                 raw_res = part.get('result') or (pen_obj['code'] if pen_obj else '')
-                q_raw, q_type, q_target, adv = hs.normalize_qualification(
-                    part.get('qualification'), styp, rnd
-                )
+                q_raw, q_type, q_target, adv = hs.normalize_qualification(part.get('qualification'), styp, rnd)
                 status, time_s, pen_str, is_inc, inc_type = hs.normalize_status(raw_res, '', q_raw)
                 p_code = pen_obj.get('infringement_code') if pen_obj else None
                 skr_id = mappings[part['athlete_id']]['athlete_id']
-                parsed_parts.append((part, skr_id, q_raw, q_type, q_target, adv, status, time_s, pen_str, p_code, is_inc, inc_type))
+                parsed_parts.append(
+                    (part, skr_id, q_raw, q_type, q_target, adv, status, time_s, pen_str, p_code, is_inc, inc_type)
+                )
 
             heat_size = sum(1 for item in parsed_parts if item[6] != 'DNS')
             entry_round = 'semifinal' if h['distance_m'] == 1500 else 'quarterfinal'
             rep_set = rep_sf_qualifiers.get((h['gender'], h['distance_m']), set())
 
-            for part, skr_id, q_raw, q_type, q_target, adv, status, time_s, pen_str, p_code, is_inc, inc_type in parsed_parts:
+            for (
+                part,
+                skr_id,
+                q_raw,
+                q_type,
+                q_target,
+                adv,
+                status,
+                time_s,
+                pen_str,
+                p_code,
+                is_inc,
+                inc_type,
+            ) in parsed_parts:
                 sp = part.get('starting_position')
                 rel_lane = round((sp - 1) / max(heat_size - 1, 1), 6) if (sp is not None and status != 'DNS') else None
-                rows.append({
-                    'season': season,
-                    'event_id': event_id,
-                    'official_event_id': oid_event,
-                    'event_kind': 'worldtour',
-                    'city': city,
-                    'local_date': local_date,
-                    'start_time_utc': start_utc,
-                    'gender': h['gender'],
-                    'distance_m': h['distance_m'],
-                    'event_distance_instance': 1,
-                    'session_type': styp,
-                    'round': rnd,
-                    'final_group': fgrp,
-                    'round_tier': tier,
-                    'round_key': h.get('round_key'),
-                    'heat_id': h['id'],
-                    'heat_number': h.get('heat_number'),
-                    'heat_size': heat_size,
-                    'entered_size': entered_size,
-                    'lane_mode': lane_mode,
-                    'athlete_id': skr_id,
-                    'official_skater_id': part.get('official_skater_id'),
-                    'name': part['name'],
-                    'country': part['country'],
-                    'helmet_number': part.get('helmet_number'),
-                    'starting_position': sp,
-                    'rel_lane': rel_lane,
-                    'rank': part.get('rank'),
-                    'result': part.get('result') or '',
-                    'time_s': time_s,
-                    'status': status,
-                    'penalty': pen_str,
-                    'penalty_code': p_code,
-                    'is_incident': is_inc,
-                    'incident_type': inc_type,
-                    'qual_flag_raw': q_raw,
-                    'qual_type': q_type,
-                    'qual_target': q_target,
-                    'advanced': adv,
-                    'is_repechage_qualifier': bool(styp == 'MAIN' and rnd == entry_round and skr_id in rep_set),
-                    'opening_split_s': None,
-                    'lap_times_s': None,
-                    'big_q': None,
-                    'small_q_planned': None,
-                })
+                rows.append(
+                    {
+                        'season': season,
+                        'event_id': event_id,
+                        'official_event_id': oid_event,
+                        'event_kind': 'worldtour',
+                        'city': city,
+                        'local_date': local_date,
+                        'start_time_utc': start_utc,
+                        'gender': h['gender'],
+                        'distance_m': h['distance_m'],
+                        'event_distance_instance': 1,
+                        'session_type': styp,
+                        'round': rnd,
+                        'final_group': fgrp,
+                        'round_tier': tier,
+                        'round_key': h.get('round_key'),
+                        'heat_id': h['id'],
+                        'heat_number': h.get('heat_number'),
+                        'heat_size': heat_size,
+                        'entered_size': entered_size,
+                        'lane_mode': lane_mode,
+                        'athlete_id': skr_id,
+                        'official_skater_id': part.get('official_skater_id'),
+                        'name': part['name'],
+                        'country': part['country'],
+                        'helmet_number': part.get('helmet_number'),
+                        'starting_position': sp,
+                        'rel_lane': rel_lane,
+                        'rank': part.get('rank'),
+                        'result': part.get('result') or '',
+                        'time_s': time_s,
+                        'status': status,
+                        'penalty': pen_str,
+                        'penalty_code': p_code,
+                        'is_incident': is_inc,
+                        'incident_type': inc_type,
+                        'qual_flag_raw': q_raw,
+                        'qual_type': q_type,
+                        'qual_target': q_target,
+                        'advanced': adv,
+                        'is_repechage_qualifier': bool(styp == 'MAIN' and rnd == entry_round and skr_id in rep_set),
+                        'opening_split_s': None,
+                        'lap_times_s': None,
+                        'big_q': None,
+                        'small_q_planned': None,
+                    }
+                )
     return rows, events_seen
 
 
@@ -203,70 +216,74 @@ def build_wide_rows(heats_dir=ROOT / 'data/heats'):
         for h in ev['heats']:
             qrule = h.get('qualification') or {}
             for p in h['participants']:
-                rows.append({
-                    'season': ev['season'],
-                    'event_id': ev['event_id'],
-                    'official_event_id': ev['official_event_id'],
-                    'event_kind': ev['kind'],
-                    'city': ev['city'],
-                    'local_date': h['local_date'],
-                    'start_time_utc': h['start_time_utc'],
-                    'gender': h['gender'],
-                    'distance_m': h['distance_m'],
-                    'event_distance_instance': h['event_distance_instance'],
-                    'session_type': h['session_type'],
-                    'round': h['round'],
-                    'final_group': h['final_group'],
-                    'round_tier': h['round_tier'],
-                    'round_key': h['round_key'],
-                    'heat_id': h['id'],
-                    'heat_number': h['heat_number'],
-                    'heat_size': h['heat_size'],
-                    'entered_size': h['entered_size'],
-                    'lane_mode': lane_mode,
-                    'athlete_id': p['athlete_id'],
-                    'official_skater_id': p['official_skater_id'],
-                    'name': p['name'],
-                    'country': p['country'],
-                    'helmet_number': p['helmet_number'],
-                    'starting_position': p['starting_position'],
-                    'rel_lane': p['rel_lane'],
-                    'rank': p['rank'],
-                    'result': p['result'],
-                    'time_s': p['time_s'],
-                    'status': p['status'],
-                    'penalty': p['penalty'],
-                    'penalty_code': p['penalty_code'],
-                    'is_incident': p['is_incident'],
-                    'incident_type': p['incident_type'],
-                    'qual_flag_raw': p['qual_flag_raw'],
-                    'qual_type': p['qual_type'],
-                    'qual_target': p['qual_target'],
-                    'advanced': p['advanced'],
-                    'is_repechage_qualifier': p['is_repechage_qualifier'],
-                    'opening_split_s': p['opening_split_s'],
-                    'lap_times_s': p['lap_times_s'],
-                    'big_q': qrule.get('big_q'),
-                    'small_q_planned': qrule.get('small_q_planned'),
-                })
+                rows.append(
+                    {
+                        'season': ev['season'],
+                        'event_id': ev['event_id'],
+                        'official_event_id': ev['official_event_id'],
+                        'event_kind': ev['kind'],
+                        'city': ev['city'],
+                        'local_date': h['local_date'],
+                        'start_time_utc': h['start_time_utc'],
+                        'gender': h['gender'],
+                        'distance_m': h['distance_m'],
+                        'event_distance_instance': h['event_distance_instance'],
+                        'session_type': h['session_type'],
+                        'round': h['round'],
+                        'final_group': h['final_group'],
+                        'round_tier': h['round_tier'],
+                        'round_key': h['round_key'],
+                        'heat_id': h['id'],
+                        'heat_number': h['heat_number'],
+                        'heat_size': h['heat_size'],
+                        'entered_size': h['entered_size'],
+                        'lane_mode': lane_mode,
+                        'athlete_id': p['athlete_id'],
+                        'official_skater_id': p['official_skater_id'],
+                        'name': p['name'],
+                        'country': p['country'],
+                        'helmet_number': p['helmet_number'],
+                        'starting_position': p['starting_position'],
+                        'rel_lane': p['rel_lane'],
+                        'rank': p['rank'],
+                        'result': p['result'],
+                        'time_s': p['time_s'],
+                        'status': p['status'],
+                        'penalty': p['penalty'],
+                        'penalty_code': p['penalty_code'],
+                        'is_incident': p['is_incident'],
+                        'incident_type': p['incident_type'],
+                        'qual_flag_raw': p['qual_flag_raw'],
+                        'qual_type': p['qual_type'],
+                        'qual_target': p['qual_target'],
+                        'advanced': p['advanced'],
+                        'is_repechage_qualifier': p['is_repechage_qualifier'],
+                        'opening_split_s': p['opening_split_s'],
+                        'lap_times_s': p['lap_times_s'],
+                        'big_q': qrule.get('big_q'),
+                        'small_q_planned': qrule.get('small_q_planned'),
+                    }
+                )
 
     live_rows, _ = _load_2026_27_rows(heats_dir, crosswalk, season_cfg)
     rows.extend(live_rows)
 
     session_order = {'PRELIM': 0, 'REPECHAGE': 1, 'MAIN': 2}
-    rows.sort(key=lambda r: (
-        r['start_time_utc'] or '',
-        r['local_date'],
-        session_order[r['session_type']],
-        r['round_tier'],
-        r['heat_number'] or 0,
-        r['heat_id'],
-        r['rank'] is None,
-        r['rank'] or 999,
-        r['starting_position'] is None,
-        r['starting_position'] or 999,
-        r['athlete_id'],
-    ))
+    rows.sort(
+        key=lambda r: (
+            r['start_time_utc'] or '',
+            r['local_date'],
+            session_order[r['session_type']],
+            r['round_tier'],
+            r['heat_number'] or 0,
+            r['heat_id'],
+            r['rank'] is None,
+            r['rank'] or 999,
+            r['starting_position'] is None,
+            r['starting_position'] or 999,
+            r['athlete_id'],
+        )
+    )
 
     # Assert strict uniqueness & chronological monotonicity.
     seen_pairs = set()
@@ -328,8 +345,8 @@ def main():
     for season in sorted(by_season):
         st = by_season[season]
         print(
-            f"  {season}: starts={st['starts']}, pen_rate={st['pen'] / max(st['non_dns'], 1) * 100:.2f}%, "
-            f"dnf_rate={st['dnf'] / max(st['non_dns'], 1) * 100:.2f}%"
+            f'  {season}: starts={st["starts"]}, pen_rate={st["pen"] / max(st["non_dns"], 1) * 100:.2f}%, '
+            f'dnf_rate={st["dnf"] / max(st["non_dns"], 1) * 100:.2f}%'
         )
     return 0
 

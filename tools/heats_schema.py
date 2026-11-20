@@ -52,15 +52,55 @@ CITY_TIMEZONES = {
 }
 
 # Cyrillic and Greek lookalike characters that appear in manual/PDF skater names.
-CONFUSABLES = str.maketrans({
-    'А': 'A', 'В': 'B', 'Е': 'E', 'К': 'K', 'М': 'M', 'Н': 'H', 'О': 'O', 'Р': 'P',
-    'С': 'C', 'Т': 'T', 'У': 'Y', 'Х': 'X', 'І': 'I',
-    'а': 'a', 'е': 'e', 'і': 'i', 'о': 'o', 'р': 'p', 'с': 'c', 'у': 'y', 'х': 'x',
-    'Α': 'A', 'Β': 'B', 'Ε': 'E', 'Ζ': 'Z', 'Η': 'H', 'Ι': 'I', 'Κ': 'K', 'Μ': 'M',
-    'Ν': 'N', 'Ο': 'O', 'Ρ': 'P', 'Τ': 'T', 'Χ': 'X',
-    'Ł': 'L', 'ł': 'l', 'Ø': 'O', 'ø': 'o', 'Đ': 'D', 'đ': 'd', 'ß': 'ss',
-    'Æ': 'AE', 'æ': 'ae', 'Œ': 'OE', 'œ': 'oe',
-})
+CONFUSABLES = str.maketrans(
+    {
+        'А': 'A',
+        'В': 'B',
+        'Е': 'E',
+        'К': 'K',
+        'М': 'M',
+        'Н': 'H',
+        'О': 'O',
+        'Р': 'P',
+        'С': 'C',
+        'Т': 'T',
+        'У': 'Y',
+        'Х': 'X',
+        'І': 'I',
+        'а': 'a',
+        'е': 'e',
+        'і': 'i',
+        'о': 'o',
+        'р': 'p',
+        'с': 'c',
+        'у': 'y',
+        'х': 'x',
+        'Α': 'A',
+        'Β': 'B',
+        'Ε': 'E',
+        'Ζ': 'Z',
+        'Η': 'H',
+        'Ι': 'I',
+        'Κ': 'K',
+        'Μ': 'M',
+        'Ν': 'N',
+        'Ο': 'O',
+        'Ρ': 'P',
+        'Τ': 'T',
+        'Χ': 'X',
+        'Ł': 'L',
+        'ł': 'l',
+        'Ø': 'O',
+        'ø': 'o',
+        'Đ': 'D',
+        'đ': 'd',
+        'ß': 'ss',
+        'Æ': 'AE',
+        'æ': 'ae',
+        'Œ': 'OE',
+        'œ': 'oe',
+    }
+)
 
 TIME_RE = re.compile(r'^(?:(\d+):)?(\d{1,2})\.(\d{3})$')
 
@@ -135,7 +175,11 @@ def parse_round_name(raw_name):
         round_enum = 'final'
     else:
         raise ValueError(f'Unsupported official round name: {raw_name!r}')
-    session_type = 'REPECHAGE' if is_rep else ('PRELIM' if round_enum in ('pre_preliminaries', 'preliminaries', 'heats') else 'MAIN')
+    session_type = (
+        'REPECHAGE'
+        if is_rep
+        else ('PRELIM' if round_enum in ('pre_preliminaries', 'preliminaries', 'heats') else 'MAIN')
+    )
     tier = ROUND_TIERS.get(round_enum, 5)
     return session_type, round_enum, tier
 
@@ -255,7 +299,9 @@ def normalize_status(raw_result, raw_result_status, qual_flag_raw):
             raise ValueError(f'Unexpected result_status with no time: {rstatus!r}')
         return 'NO_TIME', None, None, False, None
 
-    raise ValueError(f'Unknown official result/status: final_result={raw_result!r}, result_status={raw_result_status!r}')
+    raise ValueError(
+        f'Unknown official result/status: final_result={raw_result!r}, result_status={raw_result_status!r}'
+    )
 
 
 def extract_laps(lap_rows):
