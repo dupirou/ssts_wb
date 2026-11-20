@@ -27,7 +27,6 @@ function makeRound(bigQ = 2, smallQPlanned = 2, pInc = 0.04) {
       heat_pace: {
         expectedTimeS: 41.8,
         paceDeltaS: -0.2,
-        paceLabel: 'medium',
         sigmaHeat: 0.6,
         gapBeta: [0.1, 0.25, 0.14],
         sigmaGap: 0.3,
@@ -43,6 +42,15 @@ function makeRound(bigQ = 2, smallQPlanned = 2, pInc = 0.04) {
     smallQFromPlace: bigQ + 1,
   };
 }
+
+test('pace compares heats within their own round', () => {
+  const round = makeRound();
+  const labels = () => simulateRound(round, { iterations: 100, seed: 1 }).heats.map(h => h.heat_pace.pace_label);
+  assert.deepEqual(labels(), ['medium', 'medium', 'medium', 'medium']);
+  round.heats[0].heat_pace.expectedTimeS -= 1;
+  round.heats[3].heat_pace.expectedTimeS += 1;
+  assert.deepEqual(labels(), ['fast', 'medium', 'medium', 'slow']);
+});
 
 test('Monte Carlo enforces strict conservation, seeded reproducibility, and <200ms latency', () => {
   // 8 heats x 5 skaters = 40 skaters at N=10,000
