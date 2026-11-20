@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-20T07:51:30+00:00",
-    "updated_at": "2026-11-20T07:51:30+00:00",
+    "checked_at": "2026-11-20T07:55:43+00:00",
+    "updated_at": "2026-11-20T07:55:43+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23413",
@@ -1417,14 +1417,42 @@
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
         "participants": [
           {
+            "athlete_id": "team-NED-men",
+            "name": "荷兰队",
+            "country": "NED",
+            "official_skater_id": 12992,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": 1,
+            "result": "6:54.990",
+            "qualification": null,
+            "penalty": null,
+            "members": [],
+            "name_latin": "Netherlands"
+          },
+          {
+            "athlete_id": "team-CAN-men",
+            "name": "加拿大队",
+            "country": "CAN",
+            "official_skater_id": 12986,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "6:55.900",
+            "qualification": null,
+            "penalty": null,
+            "members": [],
+            "name_latin": "Canada"
+          },
+          {
             "athlete_id": "team-USA-men",
             "name": "美国队",
             "country": "USA",
             "official_skater_id": 12994,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "6:56.640",
             "qualification": null,
             "penalty": null,
             "members": [],
@@ -1443,34 +1471,6 @@
             "penalty": null,
             "members": [],
             "name_latin": "Turkiye"
-          },
-          {
-            "athlete_id": "team-NED-men",
-            "name": "荷兰队",
-            "country": "NED",
-            "official_skater_id": 12992,
-            "helmet_number": null,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [],
-            "name_latin": "Netherlands"
-          },
-          {
-            "athlete_id": "team-CAN-men",
-            "name": "加拿大队",
-            "country": "CAN",
-            "official_skater_id": 12986,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [],
-            "name_latin": "Canada"
           }
         ]
       },
