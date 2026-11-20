@@ -2,6 +2,41 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "f3089fc0dd84b229",
+      "station": "seoul",
+      "at": "2026-11-20T01:31:43+00:00",
+      "local_date": "2026-11-20",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "张柏浩",
+        "李坤",
+        "孙龙",
+        "张子夏"
+      ]
+    },
+    {
+      "id": "60aa1175231fc618",
+      "station": "seoul",
+      "at": "2026-11-20T01:31:43+00:00",
+      "local_date": "2026-11-20",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
       "id": "f76ab693d984549f",
       "station": "seoul",
       "at": "2026-11-19T09:07:18+00:00",
@@ -3154,40 +3189,6 @@
       "china": [
         "China"
       ]
-    },
-    {
-      "id": "1c1799acf80b83e8",
-      "station": "montreal",
-      "at": "2026-10-29T16:58:01+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 11,
-      "china": [
-        "张柏浩",
-        "宋柯睿",
-        "张子夏"
-      ]
-    },
-    {
-      "id": "14e8c48686acb98e",
-      "station": "montreal",
-      "at": "2026-10-29T16:58:01+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": []
     }
   ]
 }
