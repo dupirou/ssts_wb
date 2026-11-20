@@ -5830,3 +5830,34 @@ td.time {
 .penalty-details li > span {
   flex: 1 1 13rem;
 }
+.analysis-heat-meta.pace-fast {
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+.analysis-heat-meta.pace-slow {
+  color: var(--muted);
+}
+.analysis-cell {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.2rem;
+}
+.analysis-dive {
+  border-left: 2px solid var(--border-soft);
+  padding-left: 0.55rem;
+  margin-top: 0.1rem;
+}
+.analysis-dive > summary {
+  cursor: pointer;
+  color: var(--accent-text);
+  font-weight: 600;
+}
+.analysis-dive-body {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: 0.25rem;
+  color: var(--text-2);
+}
+.analysis-dive-row {
+  margin: 0;
+}

@@ -464,6 +464,9 @@ def _compile(now, out, prior, source_log):
     history_data.export(out, calendar=season)
     # Statistics and identity matching above ran on ISU's spelling; from here on the files are for readers.
     localize.apply(sorted((out / 'data').rglob('*.json')))
+    prediction_state = ROOT / 'data/heats/prediction_state.json'
+    if prediction_state.exists():
+        shutil.copyfile(prediction_state, out / 'data/prediction_state.json')
     # Preserve the whole-event download while serving API requests from compact, localized resources.
     for event_id, *_ in venues:
         directory = out / 'data/competitions'

@@ -1096,7 +1096,7 @@
     } catch {}
   }
 
-  function attachAnalysis(dialog, trigger, round, cells) {
+  function attachAnalysis(dialog, trigger, round, cells, heatHeads = new Map()) {
     const controls = h('div');
     const message = h('span', { class: 'faint tiny', role: 'status' });
     const call = (data) =>
@@ -1108,6 +1108,91 @@
         body: JSON.stringify(data)
       });
     dialog.querySelector('header').after(controls);
+    function clearUI() {
+      for (const cell of cells.values()) {
+        cell.hidden = true;
+        cell.replaceChildren();
+      }
+      for (const head of heatHeads.values()) {
+        head.querySelectorAll('.analysis-heat-meta').forEach((el) => el.remove());
+      }
+    }
+    const PACE_LABELS = {
+      fast: '节奏偏快（利好小q）',
+      medium: '节奏中等',
+      slow: '偏慢偏战术'
+    };
+    const FACTOR_LABELS = [
+      ['base_skill', '基础实力'],
+      ['lane', '起跑道次'],
+      ['opening_split', '首圈启动'],
+      ['finishing_kick', '末两圈冲刺'],
+      ['venue_pace', '冰场净速度'],
+      ['recent_form', '近期状态'],
+      ['repechage_context', '复活赛背景']
+    ];
+    function buildDeepDivePanel(dive) {
+      const box = h('details', { class: 'analysis-dive' }, h('summary', { text: '展开拆解' }));
+      const body = h('div', { class: 'analysis-dive-body' });
+      const attr = dive.factor_attribution || {};
+      const factors = FACTOR_LABELS.map(([k, label]) => [label, Number(attr[k] || 0)])
+        .filter(([, val]) => Math.abs(val) >= 0.005)
+        .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
+      if (factors.length) {
+        body.append(
+          h(
+            'p',
+            { class: 'analysis-dive-row' },
+            h('strong', { text: '战力拆解：' }),
+            factors
+              .map(([lbl, v]) => lbl + ' ' + (v >= 0 ? '+' : '') + v.toFixed(2))
+              .join(' · ')
+          )
+        );
+      }
+      if (Array.isArray(dive.key_rivals) && dive.key_rivals.length) {
+        const rivalText = dive.key_rivals
+          .map((rv) =>
+            rv.h2h_total > 0
+              ? 'vs ' +
+                rv.name +
+                '（' +
+                rv.country +
+                '）：历史交手 ' +
+                rv.h2h_wins +
+                '胜 ' +
+                rv.h2h_losses +
+                '负'
+              : 'vs ' + rv.name + '（' + rv.country + '）：暂无历史正赛交手'
+          )
+          .join('；');
+        body.append(h('p', { class: 'analysis-dive-row' }, h('strong', { text: '关键对手：' }), rivalText));
+      }
+      if (dive.what_if_clean_race && dive.path_breakdown) {
+        const curPct = Math.round(dive.path_breakdown.p_total_advance * 100);
+        const cleanPct = Math.round(dive.what_if_clean_race.p_total_advance * 100);
+        const diff = cleanPct - curPct;
+        body.append(
+          h(
+            'p',
+            { class: 'analysis-dive-row' },
+            h('strong', { text: '无意外假设：' }),
+            '总晋级 ' +
+              curPct +
+              '% → ' +
+              cleanPct +
+              '%（' +
+              (diff >= 0 ? '+' : '') +
+              diff +
+              '%）· 纯竞速第一 ' +
+              Math.round(dive.what_if_clean_race.p_first * 100) +
+              '%'
+          )
+        );
+      }
+      box.append(body);
+      return box;
+    }
     async function loadRound() {
       const response = await call({
         action: 'round',
@@ -1121,14 +1206,48 @@
         return;
       }
       if (!response.ok) throw new Error();
+      clearUI();
       for (const heat of await response.json()) {
+        const head = heatHeads.get(heat.id);
+        if (head && (heat.heatPace || heat.qualificationRule?.code)) {
+          const metaParts = [];
+          if (heat.heatPace?.pace_label) {
+            metaParts.push(PACE_LABELS[heat.heatPace.pace_label] || heat.heatPace.pace_label);
+          }
+          if (heat.qualificationRule?.code) {
+            let ruleTxt = heat.qualificationRule.code;
+            if (heat.qualificationRule.n_adv > 0) {
+              ruleTxt += '（已判进占 ' + heat.qualificationRule.n_adv + ' 席）';
+            }
+            metaParts.push(ruleTxt);
+          }
+          if (metaParts.length) {
+            head.append(
+              h('span', {
+                class: cls(
+                  'pill analysis-heat-meta',
+                  heat.heatPace?.pace_label && 'pace-' + heat.heatPace.pace_label
+                ),
+                text: metaParts.join(' · ')
+              })
+            );
+          }
+        }
         for (const person of heat.people) {
           const cell = cells.get(heat.id + '/' + person.id);
           if (!cell) continue;
           const labels = [];
           if (person.first != null) labels.push('小组第一 ' + Math.round(person.first * 100) + '%');
           if (person.direct != null)
-            labels.push('按名次晋级 ' + Math.round(person.direct * 100) + '%');
+            labels.push(
+              (person.smallQ != null ? '大Q ' : '按名次晋级 ') + Math.round(person.direct * 100) + '%'
+            );
+          if (person.smallQ != null && heat.qualificationRule?.small_q_actual > 0)
+            labels.push('小q ' + Math.round(person.smallQ * 100) + '%');
+          if (person.totalAdvance != null)
+            labels.push('总晋级 ' + Math.round(person.totalAdvance * 100) + '%');
+          if (person.incident != null)
+            labels.push('意外 ' + Math.round(person.incident * 100) + '%');
           if (person.expectedPlace != null)
             labels.push('预计组内名次 ' + person.expectedPlace.toFixed(1));
           if (person.china)
@@ -1160,8 +1279,11 @@
                 person.starts +
                 '）'
             );
-          cell.textContent = labels.join(' · ');
-          cell.hidden = !labels.length;
+          const children = [];
+          if (labels.length) children.push(h('span', { class: 'analysis-summary', text: labels.join(' · ') }));
+          if (person.deepDive) children.push(buildDeepDivePanel(person.deepDive));
+          cell.replaceChildren(...children);
+          cell.hidden = !children.length;
         }
       }
       const lock = h('button', { type: 'button', text: '锁定预测' });
@@ -1169,10 +1291,7 @@
         try {
           if (!(await call({ action: 'logout' })).ok) throw new Error();
           rememberAnalysis(false);
-          for (const cell of cells.values()) {
-            cell.hidden = true;
-            cell.textContent = '';
-          }
+          clearUI();
           controls.replaceChildren();
         } catch {
           message.textContent = '锁定失败，请重试';
@@ -1234,6 +1353,7 @@
 
   function showCompetition(r, heats) {
     const cells = new Map();
+    const heatHeads = new Map();
     const label = eventName(r) + ' · ' + roundName(r);
     const trigger =
       r.format === 'individual'
@@ -1281,7 +1401,7 @@
             (p.penalty.infringement_code ? ' · ' + p.penalty.infringement_code : '') +
             ' 判罚'
           : p.result || '—';
-        const analysis = trigger ? h('small', { class: 'tiny faint', hidden: true }) : null;
+        const analysis = trigger ? h('div', { class: 'analysis-cell tiny faint', hidden: true }) : null;
         if (analysis) cells.set(heat.id + '/' + p.athlete_id, analysis);
         people.append(
           h(
@@ -1334,16 +1454,18 @@
         h('span', { text: '选手 · 国家 · 头盔号' }),
         results ? h('span', { text: '成绩' }) : null
       );
+      const heatHead = h(
+        'div',
+        { class: 'competition-heat-head' },
+        h('h3', { text: heading }),
+        status ? h('span', { class: 'pill', text: status }) : null
+      );
+      heatHeads.set(heat.id, heatHead);
       dialog.append(
         h(
           'section',
           { class: 'competition-heat' },
-          h(
-            'div',
-            { class: 'competition-heat-head' },
-            h('h3', { text: heading }),
-            status ? h('span', { class: 'pill', text: status }) : null
-          ),
+          heatHead,
           cols,
           people
         )
@@ -1361,7 +1483,7 @@
     });
     document.body.append(dialog);
     dialog.showModal();
-    if (trigger) attachAnalysis(dialog, trigger, r, cells);
+    if (trigger) attachAnalysis(dialog, trigger, r, cells, heatHeads);
   }
 
   const showHomeTickets = (st) => st.id !== 'seoul' && st.ticketing;

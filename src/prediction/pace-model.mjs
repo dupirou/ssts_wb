@@ -330,6 +330,7 @@ export class PaceTracker {
         const sByAth = new Map();
         for (let i = 0; i < activeRows.length; i++) sByAth.set(activeRows[i].athlete_id, scores[i]);
         const sWin = sByAth.get(winner.athlete_id) ?? 0;
+        const bg = gm.reg.beta();
         for (let idx = 1; idx < timed.length; idx++) {
           const cand = timed[idx];
           if (cand.rank > 4) continue;
@@ -337,7 +338,6 @@ export class PaceTracker {
           if (!(gap >= 0 && gap <= 8.0)) continue;
           const sCand = sByAth.get(cand.athlete_id) ?? 0;
           const xGap = [1.0, cand.rank - 1, Math.max(0, sWin - sCand)];
-          const bg = gm.reg.beta();
           const predG = bg[0] * xGap[0] + bg[1] * xGap[1] + bg[2] * xGap[2];
           gm.sqErr = gm.sqErr * 0.996 + (gap - predG) * (gap - predG);
           gm.n = gm.n * 0.996 + 1;
@@ -365,5 +365,84 @@ export class PaceTracker {
     addWeightedStat(this.tierDeltaStats, `${gdKey}:${tb}`, tWin - gdMeanPre);
 
     return true;
+  }
+
+  toJSON() {
+    const r6 = (x) => Math.round(x * 1e6) / 1e6;
+    const serNested = (store) => {
+      const out = {};
+      for (const [dk, m] of store.entries()) {
+        const sub = {};
+        for (const [aid, p] of m.entries()) sub[aid] = [r6(p.sum), r6(p.n)];
+        out[dk] = sub;
+      }
+      return out;
+    };
+    const serFlat = (map) => {
+      const out = {};
+      for (const [k, v] of map.entries()) out[k] = [r6(v.sum), r6(v.w)];
+      return out;
+    };
+    const serRegMap = (rm) => {
+      const out = {};
+      for (const [d, item] of rm.entries()) {
+        out[d] = {
+          XtX: item.reg.XtX.map((row) => row.map(r6)),
+          Xty: item.reg.Xty.map(r6),
+          sqErr: r6(item.sqErr),
+          n: r6(item.n),
+        };
+      }
+      return out;
+    };
+    return {
+      finishProfiles: serNested(this.finishProfiles),
+      paceProfiles: serNested(this.paceProfiles),
+      gdStats: serFlat(this.gdStats),
+      cityDeltaStats: serFlat(this.cityDeltaStats),
+      tierDeltaStats: serFlat(this.tierDeltaStats),
+      heatTimeModel: serRegMap(this.heatTimeModel),
+      gapModel: serRegMap(this.gapModel),
+    };
+  }
+
+  static fromJSON(data, options = {}, filter = null) {
+    const pt = new PaceTracker(options);
+    if (!data) return pt;
+    const gdFilter = filter?.gender && filter?.distance ? `${filter.gender}:${filter.distance}` : null;
+    const loadNested = (store, obj) => {
+      for (const [dk, sub] of Object.entries(obj || {})) {
+        if (gdFilter && dk !== gdFilter) continue;
+        const m = new Map();
+        for (const [aid, arr] of Object.entries(sub)) m.set(aid, { sum: arr[0], n: arr[1] });
+        store.set(dk, m);
+      }
+    };
+    const loadFlat = (map, obj) => {
+      for (const [k, arr] of Object.entries(obj || {})) {
+        if (gdFilter && k !== gdFilter && !k.startsWith(gdFilter + ':')) continue;
+        map.set(k, { sum: arr[0], w: arr[1] });
+      }
+    };
+    const loadReg = (rm, obj) => {
+      for (const [dStr, st] of Object.entries(obj || {})) {
+        if (filter?.distance && Number(dStr) !== filter.distance) continue;
+        const item = rm.get(Number(dStr));
+        if (!item) continue;
+        item.reg.XtX = st.XtX.map((r) => [...r]);
+        item.reg.Xty = [...st.Xty];
+        item.reg._dirty = true;
+        item.sqErr = st.sqErr;
+        item.n = st.n;
+      }
+    };
+    loadNested(pt.finishProfiles, data.finishProfiles);
+    loadNested(pt.paceProfiles, data.paceProfiles);
+    loadFlat(pt.gdStats, data.gdStats);
+    loadFlat(pt.cityDeltaStats, data.cityDeltaStats);
+    loadFlat(pt.tierDeltaStats, data.tierDeltaStats);
+    loadReg(pt.heatTimeModel, data.heatTimeModel);
+    loadReg(pt.gapModel, data.gapModel);
+    return pt;
   }
 }

@@ -119,13 +119,57 @@ export class OpeningSplitTracker {
       const dx = m.lane - avgLane;
       const dy = m.t - avgT;
       const adv = Math.max(-this.clipAdv, Math.min(this.clipAdv, dx * trend - dy));
-      const prev = b.profiles.get(m.athleteId) || { sum: 0.0, n: 0.0 };
+      const prev = b.profiles.get(m.athleteId) || { sum: 0.0, n: 0.0, rawSum: 0.0, rawN: 0 };
       b.profiles.set(m.athleteId, {
         sum: this.decay * prev.sum + adv,
         n: this.decay * prev.n + 1.0,
+        rawSum: (prev.rawSum || 0) + m.t,
+        rawN: (prev.rawN || 0) + 1,
       });
     }
     return true;
+  }
+
+  peekRaw(athleteId, distanceM) {
+    const p = this.byDistance.get(distanceM)?.profiles.get(athleteId);
+    if (!p || !(p.rawN > 0)) return { opening: null, samples: 0 };
+    return { opening: p.rawSum / p.rawN, samples: p.rawN };
+  }
+
+  toJSON() {
+    const r6 = (x) => Math.round(x * 1e6) / 1e6;
+    const out = {};
+    for (const [d, b] of this.byDistance.entries()) {
+      const profiles = {};
+      for (const [aid, p] of b.profiles.entries()) {
+        profiles[aid] = [r6(p.sum), r6(p.n), r6(p.rawSum || 0), p.rawN || 0];
+      }
+      out[d] = {
+        laneSquares: r6(b.laneSquares),
+        laneProduct: r6(b.laneProduct),
+        profiles,
+      };
+    }
+    return out;
+  }
+
+  static fromJSON(data, options = {}, filter = null) {
+    const tr = new OpeningSplitTracker(options);
+    if (!data) return tr;
+    for (const [dStr, obj] of Object.entries(data)) {
+      const d = Number(dStr);
+      if (filter?.distance && d !== filter.distance) continue;
+      const profiles = new Map();
+      for (const [aid, arr] of Object.entries(obj.profiles || {})) {
+        profiles.set(aid, { sum: arr[0], n: arr[1], rawSum: arr[2] || 0, rawN: arr[3] || 0 });
+      }
+      tr.byDistance.set(d, {
+        laneSquares: obj.laneSquares,
+        laneProduct: obj.laneProduct,
+        profiles,
+      });
+    }
+    return tr;
   }
 }
 

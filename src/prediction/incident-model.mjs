@@ -219,4 +219,71 @@ export class IncidentRiskModel {
     }
     return true;
   }
+
+  toJSON() {
+    const r6 = (x) => Math.round(x * 1e6) / 1e6;
+    const serSum = (m) => {
+      const out = {};
+      for (const [k, v] of m.entries()) out[k] = [r6(v.sum), r6(v.w)];
+      return out;
+    };
+    const serAth = (m) => {
+      const out = {};
+      for (const [k, v] of m.entries()) {
+        out[k] = [r6(v.obsPen), r6(v.expPen), r6(v.obsDnf), r6(v.expDnf)];
+      }
+      return out;
+    };
+    const serCal = (m) => {
+      const out = {};
+      for (const [d, c] of m.entries()) out[d] = { w: c.w.map(r6), hess: c.hess.map(r6) };
+      return out;
+    };
+    return {
+      distPen: serSum(this.distPen),
+      distDnf: serSum(this.distDnf),
+      seasonDistPen: serSum(this.seasonDistPen),
+      seasonDistDnf: serSum(this.seasonDistDnf),
+      athOverall: serAth(this.athOverall),
+      athDist: serAth(this.athDist),
+      penCal: serCal(this.penCal),
+      dnfCal: serCal(this.dnfCal),
+    };
+  }
+
+  static fromJSON(data, options = {}, filter = null) {
+    const ir = new IncidentRiskModel(options);
+    if (!data) return ir;
+    const dSuffix = filter?.distance ? `:${filter.distance}` : null;
+    const loadSum = (m, obj) => {
+      for (const [k, arr] of Object.entries(obj || {})) {
+        if (dSuffix && (k.includes(':') ? !k.endsWith(dSuffix) : Number(k) !== filter.distance)) continue;
+        m.set(k.includes(':') ? k : Number(k), { sum: arr[0], w: arr[1] });
+      }
+    };
+    const loadAth = (m, obj, suffixFilter = null) => {
+      for (const [k, arr] of Object.entries(obj || {})) {
+        if (suffixFilter && !k.endsWith(suffixFilter)) continue;
+        m.set(k, { obsPen: arr[0], expPen: arr[1], obsDnf: arr[2], expDnf: arr[3] });
+      }
+    };
+    const loadCal = (m, obj) => {
+      for (const [dStr, st] of Object.entries(obj || {})) {
+        if (filter?.distance && Number(dStr) !== filter.distance) continue;
+        const cal = m.get(Number(dStr));
+        if (!cal) continue;
+        cal.w = [...st.w];
+        cal.hess = [...st.hess];
+      }
+    };
+    loadSum(ir.distPen, data.distPen);
+    loadSum(ir.distDnf, data.distDnf);
+    loadSum(ir.seasonDistPen, data.seasonDistPen);
+    loadSum(ir.seasonDistDnf, data.seasonDistDnf);
+    loadAth(ir.athOverall, data.athOverall);
+    loadAth(ir.athDist, data.athDist, dSuffix);
+    loadCal(ir.penCal, data.penCal);
+    loadCal(ir.dnfCal, data.dnfCal);
+    return ir;
+  }
 }

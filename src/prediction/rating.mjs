@@ -350,4 +350,55 @@ export class DynamicRatingEngine {
 
     return { updated: true, cleanCount: n, wSession, deltas };
   }
+
+  toJSON() {
+    const round = (x) => Math.round(x * 1e6) / 1e6;
+    const disciplines = {};
+    for (const [dk, m] of this.disciplines.entries()) {
+      const obj = {};
+      for (const [aid, st] of m.entries()) {
+        obj[aid] = [
+          round(st.mu),
+          round(st.sigma),
+          st.lastTimestampMs,
+          st.lastSeason,
+          st.nStarts,
+          round(st.recentDelta),
+        ];
+      }
+      disciplines[dk] = obj;
+    }
+    const fedStats = {};
+    for (const [fk, f] of this.fedStats.entries()) {
+      fedStats[fk] = [round(f.sumMu), round(f.w)];
+    }
+    return { disciplines, fedStats };
+  }
+
+  static fromJSON(data, config = V15_RATING_CONFIG, filter = null) {
+    const eng = new DynamicRatingEngine(config);
+    if (!data) return eng;
+    const prefix = filter?.gender ? `${filter.gender}:` : null;
+    for (const [dk, obj] of Object.entries(data.disciplines || {})) {
+      if (prefix && !dk.startsWith(prefix)) continue;
+      const m = new Map();
+      for (const [aid, arr] of Object.entries(obj)) {
+        m.set(aid, {
+          mu: arr[0],
+          sigma: arr[1],
+          lastTimestampMs: arr[2],
+          lastSeason: arr[3],
+          nStarts: arr[4],
+          recentDelta: arr[5],
+        });
+      }
+      eng.disciplines.set(dk, m);
+    }
+    const fedSuffix = filter?.gender && filter?.distance ? `:${filter.gender}:${filter.distance}` : null;
+    for (const [fk, arr] of Object.entries(data.fedStats || {})) {
+      if (fedSuffix && !fk.endsWith(fedSuffix)) continue;
+      eng.fedStats.set(fk, { sumMu: arr[0], w: arr[1] });
+    }
+    return eng;
+  }
 }
