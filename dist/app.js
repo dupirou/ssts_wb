@@ -926,6 +926,8 @@
   }
 
   // The preference only avoids requests for ordinary readers. The Worker verifies the cookie.
+  const ANALYSIS_CACHE_TTL = 60_000;
+  const analysisCache = new Map();
   let analysisUnlocked = false;
   try {
     analysisUnlocked = localStorage.getItem('ssts.analysis') === '1';
@@ -933,6 +935,7 @@
 
   function rememberAnalysis(value) {
     analysisUnlocked = value;
+    if (!value) analysisCache.clear();
     try {
       if (value) localStorage.setItem('ssts.analysis', '1');
       else localStorage.removeItem('ssts.analysis');
@@ -953,8 +956,10 @@
     dialog.querySelector('header').after(controls);
     function clearUI() {
       for (const cell of cells.values()) {
-        cell.hidden = true;
-        cell.replaceChildren();
+        cell.metrics.hidden = true;
+        cell.metrics.replaceChildren();
+        cell.dive.hidden = true;
+        cell.dive.replaceChildren();
       }
       for (const head of heatHeads.values()) {
         head.querySelectorAll('.analysis-heat-meta').forEach((el) => el.remove());
@@ -1002,30 +1007,47 @@
       }
       return parts;
     }
-    function buildDeepDivePanel(person, dive) {
+    function buildDeepDivePanel(person, dive, heat) {
       const box = h('details', { class: 'analysis-dive' }, h('summary', { text: '数据分析' }));
       const grid = h('div', { class: 'analysis-dive-body' });
 
-      if (round.round !== 'final' && person.direct != null && person.smallQ != null) {
-        grid.append(
-          h('span', { class: 'analysis-dive-label', text: '晋级路径' }),
-          h('span', {
-            class: 'analysis-dive-val num',
-            text:
-              '按名次晋级 ' +
-              Math.round(person.direct * 100) +
-              '% · 按成绩晋级 ' +
-              Math.round(person.smallQ * 100) +
-              '%'
-          })
-        );
+      if (round.round !== 'final') {
+        const pathParts = [];
+        if (person.first != null)
+          pathParts.push('小组第一 ' + Math.round(person.first * 100) + '%');
+        if (person.direct != null) pathParts.push('大Q ' + Math.round(person.direct * 100) + '%');
+        if (
+          person.smallQ != null &&
+          ((heat?.qualificationRule?.small_q_actual ?? 0) > 0 || person.smallQ > 0)
+        ) {
+          pathParts.push('小q ' + Math.round(person.smallQ * 100) + '%');
+        }
+        if (pathParts.length) {
+          grid.append(
+            h('span', { class: 'analysis-dive-label', text: '晋级路径' }),
+            h('span', {
+              class: 'analysis-dive-val num',
+              text: pathParts.join(' · ')
+            })
+          );
+        }
       }
       if (person.incident != null) {
+        const incPct = Math.round(person.incident * 100);
+        const incText =
+          person.pen != null && person.dnf != null
+            ? incPct +
+              '%（犯规 ' +
+              Math.round(person.pen * 100) +
+              '% · 未完赛 ' +
+              Math.round(person.dnf * 100) +
+              '%）'
+            : incPct + '%';
         grid.append(
           h('span', { class: 'analysis-dive-label', text: '意外概率' }),
           h('span', {
             class: 'analysis-dive-val num',
-            text: Math.round(person.incident * 100) + '%'
+            text: incText
           })
         );
       }
@@ -1078,30 +1100,30 @@
           (person.totalAdvance != null || (round.round === 'final' && round.group === 'A'))
         ) {
           const hasAdvance = person.totalAdvance != null;
-          let whatIfText;
-          if (hasAdvance) {
-            const curPct = Math.round(dive.path_breakdown.p_total_advance * 100);
-            const cleanPct = Math.round(dive.what_if_clean_race.p_total_advance * 100);
-            const diff = cleanPct - curPct;
-            whatIfText =
-              '总晋级 ' + curPct + '% → ' + cleanPct + '% (' + (diff >= 0 ? '+' : '') + diff + '%)';
-          } else {
-            const curFirst = Math.round(dive.path_breakdown.p_first * 100);
-            const cleanFirst = Math.round(dive.what_if_clean_race.p_first * 100);
-            const diff = cleanFirst - curFirst;
-            whatIfText =
-              '纯竞速第1 ' +
-              curFirst +
-              '% → ' +
-              cleanFirst +
-              '% (' +
-              (diff >= 0 ? '+' : '') +
-              diff +
-              '%)';
-          }
+          const prefix = hasAdvance ? '总晋级 ' : '纯竞速第1 ';
+          const curPct = Math.round(
+            (hasAdvance ? dive.path_breakdown.p_total_advance : dive.path_breakdown.p_first) * 100
+          );
+          const cleanPct = Math.round(
+            (hasAdvance
+              ? dive.what_if_clean_race.p_total_advance
+              : dive.what_if_clean_race.p_first) * 100
+          );
+          const diff = cleanPct - curPct;
           grid.append(
             h('span', { class: 'analysis-dive-label', text: '无意外假设' }),
-            h('span', { class: 'analysis-dive-val num', text: whatIfText })
+            h(
+              'span',
+              { class: 'analysis-dive-val num' },
+              prefix + curPct + '% → ' + cleanPct + '% ',
+              h('span', {
+                class: cls(
+                  'analysis-delta',
+                  diff > 0 ? 'delta-pos' : diff < 0 ? 'delta-neg' : null
+                ),
+                text: '(' + (diff >= 0 ? '+' : '') + diff + '%)'
+              })
+            )
           );
         }
       }
@@ -1118,22 +1140,10 @@
       box.append(grid);
       return box;
     }
-    async function loadRound() {
-      const response = await call({
-        action: 'round',
-        roundKey: round.round_key,
-        gender: round.gender,
-        distance: round.distance_m
-      });
-      if (!dialog.open) return;
-      if ([401, 404].includes(response.status)) {
-        rememberAnalysis(false);
-        return;
-      }
-      if (!response.ok) throw new Error();
+    function renderRoundGroups(groups) {
       clearUI();
       const showFinalTitle = round.round === 'final' && round.group === 'A';
-      for (const heat of await response.json()) {
+      for (const heat of groups) {
         const head = heatHeads.get(heat.id);
         if (head && (heat.heatPace || heat.qualificationRule?.code)) {
           const metaParts = [];
@@ -1162,44 +1172,87 @@
           const cell = cells.get(heat.id + '/' + person.id);
           if (!cell) continue;
           const chips = [];
-          function chip(label, value, primary = false) {
+          function chip(label, value, tone = '') {
             chips.push(
               h('span', {
-                class: cls('analysis-chip num', primary && 'is-primary'),
+                class: cls('analysis-chip num', tone),
                 text: label + ' ' + value
               })
             );
           }
           const percent = (value) => Math.round(value * 100) + '%';
+          const advTier = (p) =>
+            p >= 0.7 ? 'is-tier-high' : p >= 0.3 ? 'is-tier-mid' : 'is-tier-low';
           if (showFinalTitle && person.medals) {
-            person.medals.forEach((p, i) => chip(['金牌', '银牌', '铜牌'][i], percent(p), i === 0));
+            person.medals.forEach((p, i) =>
+              chip(['金牌', '银牌', '铜牌'][i], percent(p), i === 0 ? 'is-primary' : '')
+            );
           } else if (
             round.round === 'final' &&
             round.group === 'B' &&
             person.expectedPlace != null
           ) {
             if (person.expectedFinalPlace != null)
-              chip('预计最终第', person.expectedFinalPlace.toFixed(1), true);
-            else chip('预计 B 组第', person.expectedPlace.toFixed(1), true);
-          } else if (person.totalAdvance != null) {
-            chip('晋级', percent(person.totalAdvance), true);
-          } else if (person.direct != null) {
-            chip('按名次晋级', percent(person.direct), true);
+              chip('预计最终第', person.expectedFinalPlace.toFixed(1), 'is-primary');
+            else chip('预计 B 组第', person.expectedPlace.toFixed(1), 'is-primary');
+          } else {
+            if (person.totalAdvance != null)
+              chip('晋级', percent(person.totalAdvance), advTier(person.totalAdvance));
+            else if (person.direct != null)
+              chip('按名次晋级', percent(person.direct), advTier(person.direct));
+            if (person.expectedPlace != null) chip('预估第', person.expectedPlace.toFixed(1));
           }
-          const children = [];
-          if (chips.length) children.push(h('div', { class: 'analysis-metrics' }, ...chips));
+          cell.metrics.replaceChildren(...chips);
+          cell.metrics.hidden = !chips.length;
           const hasForecastData =
-            person.first != null || person.direct != null || person.deepDive != null;
-          if (hasForecastData) {
-            const divePanel = buildDeepDivePanel(person, person.deepDive);
-            if (divePanel) children.push(divePanel);
+            person.first != null ||
+            person.direct != null ||
+            person.deepDive != null ||
+            person.medals != null ||
+            person.expectedPlace != null;
+          const divePanel = hasForecastData
+            ? buildDeepDivePanel(person, person.deepDive, heat)
+            : null;
+          if (divePanel) {
+            cell.dive.replaceChildren(divePanel);
+            cell.dive.hidden = false;
+          } else {
+            cell.dive.replaceChildren();
+            cell.dive.hidden = true;
           }
-          cell.replaceChildren(...children);
-          cell.hidden = !children.length;
         }
       }
       message.textContent = '';
       controls.replaceChildren();
+    }
+    async function loadRound() {
+      const cacheKey = round.round_key + '|' + round.gender + '|' + round.distance_m;
+      const cached = analysisCache.get(cacheKey);
+      if (cached && Date.now() - cached.at < ANALYSIS_CACHE_TTL) {
+        renderRoundGroups(cached.groups);
+        return;
+      }
+      message.textContent = '正在加载预测…';
+      if (!controls.querySelector('form, .analysis-lock-bar')) {
+        controls.replaceChildren(message);
+      }
+      const response = await call({
+        action: 'round',
+        roundKey: round.round_key,
+        gender: round.gender,
+        distance: round.distance_m
+      });
+      if (!dialog.open) return;
+      if ([401, 404].includes(response.status)) {
+        rememberAnalysis(false);
+        clearUI();
+        controls.replaceChildren();
+        return;
+      }
+      if (!response.ok) throw new Error();
+      const groups = await response.json();
+      analysisCache.set(cacheKey, { groups, at: Date.now() });
+      renderRoundGroups(groups);
     }
     function toggleLockBar() {
       if (controls.querySelector('.analysis-lock-bar')) {
@@ -1339,10 +1392,11 @@
             (p.penalty.infringement_code ? ' · ' + p.penalty.infringement_code : '') +
             ' 判罚'
           : p.result || '—';
+        const metrics = trigger ? h('div', { class: 'analysis-metrics', hidden: true }) : null;
         const analysis = trigger
           ? h('div', { class: 'analysis-cell tiny faint', hidden: true })
           : null;
-        if (analysis) cells.set(heat.id + '/' + p.athlete_id, analysis);
+        if (analysis) cells.set(heat.id + '/' + p.athlete_id, { metrics, dive: analysis });
         people.append(
           h(
             'li',
@@ -1355,12 +1409,16 @@
             h(
               'div',
               { class: 'result-identity' },
-              h('b', { text: p.name }),
-              h('span', {
-                class: 'faint tiny',
-                text: p.country + (p.helmet_number != null ? ' · #' + p.helmet_number : '')
-              }),
-              analysis,
+              h('div', { class: 'result-name-row' }, h('b', { text: p.name }), metrics),
+              h(
+                'div',
+                { class: 'result-meta-row' },
+                h('span', {
+                  class: 'faint tiny',
+                  text: p.country + (p.helmet_number != null ? ' · #' + p.helmet_number : '')
+                }),
+                analysis
+              ),
               p.members?.length
                 ? h(
                     'span',
