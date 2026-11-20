@@ -1224,8 +1224,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-20T00:21:43+00:00",
-    "updated_at": "2026-11-20T00:21:43+00:00",
+    "checked_at": "2026-11-20T01:11:30+00:00",
+    "updated_at": "2026-11-20T01:11:30+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23413",
@@ -3467,8 +3467,8 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-32066fa5576219230001",
-            "name": "Assen GYUROV",
+            "athlete_id": "ath-672e318a34c40e9d2d36",
+            "name": "Asen GYUROV",
             "country": "BUL",
             "official_skater_id": 2435,
             "helmet_number": 61,
@@ -4188,12 +4188,24 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-20T10:00:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-20T10:00:41.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23442",
         "participants": [
+          {
+            "athlete_id": "ath-766b41e307ecb7b3445a",
+            "name": "Konstantin IVLIEV",
+            "country": "AIN2",
+            "official_skater_id": 2908,
+            "helmet_number": 124,
+            "starting_position": 4,
+            "rank": 1,
+            "result": "40.923",
+            "qualification": "Q",
+            "penalty": null
+          },
           {
             "athlete_id": "ath-26292f2efadb197ddb94",
             "name": "Kazuki YOSHINAGA",
@@ -4201,9 +4213,21 @@
             "official_skater_id": 7960,
             "helmet_number": 19,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "41.039",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-386e02e7887f7b96867e",
+            "name": "Benjamin SULLIVAN",
+            "country": "USA",
+            "official_skater_id": 19467,
+            "helmet_number": 113,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "41.155",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -4213,8 +4237,8 @@
             "official_skater_id": 1657,
             "helmet_number": 60,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "41.220",
             "qualification": null,
             "penalty": null
           },
@@ -4225,32 +4249,8 @@
             "official_skater_id": 5923,
             "helmet_number": 56,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-766b41e307ecb7b3445a",
-            "name": "Konstantin IVLIEV",
-            "country": "AIN2",
-            "official_skater_id": 2908,
-            "helmet_number": 124,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-386e02e7887f7b96867e",
-            "name": "Benjamin SULLIVAN",
-            "country": "USA",
-            "official_skater_id": 19467,
-            "helmet_number": 113,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "41.838",
             "qualification": null,
             "penalty": null
           }
@@ -4269,8 +4269,8 @@
         "heat_number": 2,
         "heat_label": "Heat 2",
         "source_start": "2026-11-20T10:02:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23442",
         "participants": [
@@ -4281,9 +4281,9 @@
             "official_skater_id": 1342,
             "helmet_number": 18,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "42.038",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4293,9 +4293,9 @@
             "official_skater_id": 3114,
             "helmet_number": 78,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "42.606",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4305,9 +4305,21 @@
             "official_skater_id": 4648,
             "helmet_number": 63,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "42.822",
+            "qualification": "p",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-284e4e30ce2b8e981154",
+            "name": "Vladimir BALBEKOV",
+            "country": "AIN2",
+            "official_skater_id": 491,
+            "helmet_number": 122,
+            "starting_position": 5,
+            "rank": 4,
+            "result": "1:02.869",
+            "qualification": "ADV",
             "penalty": null
           },
           {
@@ -4318,21 +4330,12 @@
             "helmet_number": 136,
             "starting_position": 4,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-284e4e30ce2b8e981154",
-            "name": "Vladimir BALBEKOV",
-            "country": "AIN2",
-            "official_skater_id": 491,
-            "helmet_number": 122,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -4348,8 +4351,8 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-11-20T10:04:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-20T10:09:28.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23442",
@@ -4391,24 +4394,24 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-05fa7ba7935d7438f295",
-            "name": "Valentin KOBYZEV",
-            "country": "AIN2",
-            "official_skater_id": 22629,
-            "helmet_number": 125,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
             "athlete_id": "ath-993c4cb36d702de0a0b4",
             "name": "Ivan MARTINIC",
             "country": "CRO",
             "official_skater_id": 4592,
             "helmet_number": 130,
             "starting_position": 5,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-05fa7ba7935d7438f295",
+            "name": "Valentin KOBYZEV",
+            "country": "AIN2",
+            "official_skater_id": 22629,
+            "helmet_number": 125,
+            "starting_position": 4,
             "rank": null,
             "result": null,
             "qualification": null,
@@ -4619,8 +4622,8 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-32066fa5576219230001",
-            "name": "Assen GYUROV",
+            "athlete_id": "ath-672e318a34c40e9d2d36",
+            "name": "Asen GYUROV",
             "country": "BUL",
             "official_skater_id": 2435,
             "helmet_number": 61,
@@ -5577,8 +5580,8 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-32066fa5576219230001",
-            "name": "Assen GYUROV",
+            "athlete_id": "ath-672e318a34c40e9d2d36",
+            "name": "Asen GYUROV",
             "country": "BUL",
             "official_skater_id": 2435,
             "helmet_number": 61,
