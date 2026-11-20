@@ -1591,7 +1591,7 @@
   },
   "rounds": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-11-20T12:44:20+00:00",
     "updated_at": "2026-11-20T12:44:20+00:00",
     "source_urls": [
@@ -20822,11 +20822,12 @@
       "2026-11-01/repechage/women/500/heats/-": "The first, second and third placed skaters from each race and up to a maximum of two fastest fourth place skaters qualify for Rep Quarterfinals.",
       "2026-11-01/repechage/women/500/quarterfinal/-": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals.",
       "2026-11-01/repechage/women/500/semifinal/-": "The first placed skater from each race qualify for Quarterfinals."
-    }
+    },
+    "error": "unexpected: results: The read operation timed out"
   },
   "rankings": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-11-20T14:01:23+00:00",
     "updated_at": "2026-11-20T14:01:23+00:00",
     "source_urls": [
@@ -29205,6 +29206,7 @@
         "official_details": "70        5                                                 75   0:42.697",
         "source_url": "https://isu-d8g8b4b7ece7aphs.a03.azurefd.net/isudamcontainer/uploads/isunewrevamp/document/original/cff94b3fa5be896f9331e13e7b293b824db5364f971c50cbe113767a515ad721.pdf"
       }
-    ]
+    ],
+    "error": "unexpected: results: The read operation timed out"
   }
 }
