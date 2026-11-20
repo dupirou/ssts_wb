@@ -1,0 +1,1528 @@
+{
+  "schema_version": 1,
+  "event_count": 27,
+  "total_heats": 4784,
+  "total_starts": 25078,
+  "dropped_ghost_rows": [
+    {
+      "event": "2024-25-worldtour-montreal-1",
+      "heat_id": "isu-heat-5426",
+      "skaters_id": 16355,
+      "name": "Wonjun MOON",
+      "starting_position": 3
+    },
+    {
+      "event": "2024-25-worldtour-montreal-2",
+      "heat_id": "isu-heat-3869",
+      "skaters_id": 17877,
+      "name": "Lia MEAD",
+      "starting_position": 4
+    },
+    {
+      "event": "2024-25-worldtour-montreal-2",
+      "heat_id": "isu-heat-4471",
+      "skaters_id": 17877,
+      "name": "Lia MEAD",
+      "starting_position": 7
+    }
+  ],
+  "items": [
+    {
+      "event_id": "2022-23-worldcup-montreal-1",
+      "official_event_id": "3912",
+      "season": "2022/23",
+      "kind": "worldcup",
+      "stop_number": 1,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Montréal",
+      "date_start": "2022-10-28",
+      "date_end": "2022-10-30",
+      "timezone": "America/Toronto",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2022-23-worldcup-montreal-1.json",
+      "heat_count": 158,
+      "start_count": 807,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-22/?tab=results_3912",
+      "source_sha256": "c82b7595a1b2fb35035015bfe6ddd2f23a377725e32e82ae03d5256c45a9b97e"
+    },
+    {
+      "event_id": "2022-23-worldcup-salt-lake-city-2",
+      "official_event_id": "3885",
+      "season": "2022/23",
+      "kind": "worldcup",
+      "stop_number": 2,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Salt Lake City",
+      "date_start": "2022-11-04",
+      "date_end": "2022-11-06",
+      "timezone": "America/Denver",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2022-23-worldcup-salt-lake-city-2.json",
+      "heat_count": 158,
+      "start_count": 796,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-10/?tab=results_3885",
+      "source_sha256": "ed5dede360598465b45592f237c9983c9f90f6327944787175a274fffc5f212f"
+    },
+    {
+      "event_id": "2022-23-worldcup-almaty-3",
+      "official_event_id": "3763",
+      "season": "2022/23",
+      "kind": "worldcup",
+      "stop_number": 3,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Almaty",
+      "date_start": "2022-12-09",
+      "date_end": "2022-12-11",
+      "timezone": "Asia/Almaty",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2022-23-worldcup-almaty-3.json",
+      "heat_count": 168,
+      "start_count": 912,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 2
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-9/?tab=results_3763",
+      "source_sha256": "f0a0b5c175b821799304ccf44463b6390b5cd7e987e7270dc356bb315d713caf"
+    },
+    {
+      "event_id": "2022-23-worldcup-almaty-4",
+      "official_event_id": "3719",
+      "season": "2022/23",
+      "kind": "worldcup",
+      "stop_number": 4,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Almaty",
+      "date_start": "2022-12-16",
+      "date_end": "2022-12-18",
+      "timezone": "Asia/Almaty",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2022-23-worldcup-almaty-4.json",
+      "heat_count": 161,
+      "start_count": 812,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-8/?tab=results_3719",
+      "source_sha256": "efb7da900eabe13f6feb42cbed069da2065abd80254e9a047096b9ea239a9c77"
+    },
+    {
+      "event_id": "2022-23-worldcup-dresden-5",
+      "official_event_id": "3579",
+      "season": "2022/23",
+      "kind": "worldcup",
+      "stop_number": 5,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Dresden",
+      "date_start": "2023-02-03",
+      "date_end": "2023-02-05",
+      "timezone": "Europe/Berlin",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2022-23-worldcup-dresden-5.json",
+      "heat_count": 198,
+      "start_count": 1106,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 2
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-7/?tab=results_3579",
+      "source_sha256": "f47d13f59c3254f67480447cd5280a8c75275f825cf1e8fb6c683e364ceb181c"
+    },
+    {
+      "event_id": "2022-23-worldcup-dordrecht-6",
+      "official_event_id": "3533",
+      "season": "2022/23",
+      "kind": "worldcup",
+      "stop_number": 6,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Dordrecht",
+      "date_start": "2023-02-10",
+      "date_end": "2023-02-12",
+      "timezone": "Europe/Amsterdam",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2022-23-worldcup-dordrecht-6.json",
+      "heat_count": 194,
+      "start_count": 1014,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-6/?tab=results_3533",
+      "source_sha256": "bf175f3d12915b9d55baf14ded580729736740c9a8ab9b1a8f40683ade1e59fd"
+    },
+    {
+      "event_id": "2022-23-worlds-seoul",
+      "official_event_id": "3483",
+      "season": "2022/23",
+      "kind": "worlds",
+      "stop_number": null,
+      "title": "KB Financial Group ISU World Short Track Speed Skating Championships",
+      "city": "Seoul",
+      "date_start": "2023-03-10",
+      "date_end": "2023-03-12",
+      "timezone": "Asia/Seoul",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2022-23-worlds-seoul.json",
+      "heat_count": 147,
+      "start_count": 778,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/kb-financial-group-isu-world-short-track-speed-skating-championships/?tab=results_3483",
+      "source_sha256": "0868cadfa705b346bc1f0ed4dba5ae7f31f91a5b99d58e3a20ee5575b714b535"
+    },
+    {
+      "event_id": "2023-24-worldcup-montreal-1",
+      "official_event_id": "3319",
+      "season": "2023/24",
+      "kind": "worldcup",
+      "stop_number": 1,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Montréal",
+      "date_start": "2023-10-20",
+      "date_end": "2023-10-22",
+      "timezone": "America/Toronto",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2023-24-worldcup-montreal-1.json",
+      "heat_count": 181,
+      "start_count": 976,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-21/?tab=results_3319",
+      "source_sha256": "65cc19001d12fe83bd16bfa85bc2fb4f1cfccc892cb2e5efca6dbab77cb14d5d"
+    },
+    {
+      "event_id": "2023-24-worldcup-montreal-2",
+      "official_event_id": "3291",
+      "season": "2023/24",
+      "kind": "worldcup",
+      "stop_number": 2,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Montréal",
+      "date_start": "2023-10-27",
+      "date_end": "2023-10-29",
+      "timezone": "America/Toronto",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2023-24-worldcup-montreal-2.json",
+      "heat_count": 184,
+      "start_count": 1011,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 2
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-5/?tab=results_3291",
+      "source_sha256": "f7f9b0450f6be4c1875168f7ddf54e885f4ea8c2caf0ce016ad533b531bd254f"
+    },
+    {
+      "event_id": "2023-24-worldcup-beijing-3",
+      "official_event_id": "3141",
+      "season": "2023/24",
+      "kind": "worldcup",
+      "stop_number": 3,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Beijing",
+      "date_start": "2023-12-08",
+      "date_end": "2023-12-10",
+      "timezone": "Asia/Shanghai",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2023-24-worldcup-beijing-3.json",
+      "heat_count": 158,
+      "start_count": 816,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-4/?tab=results_3141",
+      "source_sha256": "ac84a7afc39c5d45a80d869319d3a44ab7ad62d97f9f575ab9f5dfdb705e2840"
+    },
+    {
+      "event_id": "2023-24-worldcup-seoul-4",
+      "official_event_id": "3092",
+      "season": "2023/24",
+      "kind": "worldcup",
+      "stop_number": 4,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Seoul",
+      "date_start": "2023-12-15",
+      "date_end": "2023-12-17",
+      "timezone": "Asia/Seoul",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2023-24-worldcup-seoul-4.json",
+      "heat_count": 174,
+      "start_count": 944,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 2
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-3/?tab=results_3092",
+      "source_sha256": "13565860b7c3592cb45ca4ad5ddd07424592db7a73435b22bd9a81585cc7cbc8"
+    },
+    {
+      "event_id": "2023-24-worldcup-dresden-5",
+      "official_event_id": "2914",
+      "season": "2023/24",
+      "kind": "worldcup",
+      "stop_number": 5,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Dresden",
+      "date_start": "2024-02-09",
+      "date_end": "2024-02-11",
+      "timezone": "Europe/Berlin",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2023-24-worldcup-dresden-5.json",
+      "heat_count": 196,
+      "start_count": 1043,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating-2/?tab=results_2914",
+      "source_sha256": "0a43a2dc7362238cda77c2fac21a3fd0d0749580f56d9bb29fbc5eef0627362b"
+    },
+    {
+      "event_id": "2023-24-worldcup-gdansk-6",
+      "official_event_id": "2885",
+      "season": "2023/24",
+      "kind": "worldcup",
+      "stop_number": 6,
+      "title": "ISU World Cup Short Track Speed Skating",
+      "city": "Gdansk",
+      "date_start": "2024-02-16",
+      "date_end": "2024-02-18",
+      "timezone": "Europe/Warsaw",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2023-24-worldcup-gdansk-6.json",
+      "heat_count": 202,
+      "start_count": 1042,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 2
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-cup-short-track-speed-skating/?tab=results_2885",
+      "source_sha256": "a72abb47d1bf4ab96cee5c6a867c476947a4b3efb55d82925ecc6b833928045b"
+    },
+    {
+      "event_id": "2023-24-worlds-rotterdam",
+      "official_event_id": "2826",
+      "season": "2023/24",
+      "kind": "worlds",
+      "stop_number": null,
+      "title": "ISU World Short Track Speed Skating Championships",
+      "city": "Rotterdam",
+      "date_start": "2024-03-15",
+      "date_end": "2024-03-17",
+      "timezone": "Europe/Amsterdam",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2023-24-worlds-rotterdam.json",
+      "heat_count": 157,
+      "start_count": 842,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-short-track-speed-skating-championships-3/?tab=results_2826",
+      "source_sha256": "a9c47b7105d8d10859655245e8b9a78e141c2786cdbcfe2bbd675580c8c40184"
+    },
+    {
+      "event_id": "2024-25-worldtour-montreal-1",
+      "official_event_id": "1950",
+      "season": "2024/25",
+      "kind": "worldtour",
+      "stop_number": 1,
+      "title": "ISU Short Track World Tour",
+      "city": "Montréal",
+      "date_start": "2024-10-25",
+      "date_end": "2024-10-27",
+      "timezone": "America/Toronto",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2024-25-worldtour-montreal-1.json",
+      "heat_count": 179,
+      "start_count": 975,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-6/?tab=results_1950",
+      "source_sha256": "df9d4b6ccdaa8862cf0103f95a675d636edeb991ecc4bee295d254ec80c4e023"
+    },
+    {
+      "event_id": "2024-25-worldtour-montreal-2",
+      "official_event_id": "1923",
+      "season": "2024/25",
+      "kind": "worldtour",
+      "stop_number": 2,
+      "title": "ISU Short Track World Tour",
+      "city": "Montréal",
+      "date_start": "2024-11-01",
+      "date_end": "2024-11-03",
+      "timezone": "America/Toronto",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2024-25-worldtour-montreal-2.json",
+      "heat_count": 175,
+      "start_count": 938,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-5/?tab=results_1923",
+      "source_sha256": "cfac3e86337139123cf5d81c43e6b38c1ea7d651379331a2264fb4c791cc1d2f"
+    },
+    {
+      "event_id": "2024-25-worldtour-beijing-3",
+      "official_event_id": "1785",
+      "season": "2024/25",
+      "kind": "worldtour",
+      "stop_number": 3,
+      "title": "ISU Short Track World Tour",
+      "city": "Beijing",
+      "date_start": "2024-12-06",
+      "date_end": "2024-12-08",
+      "timezone": "Asia/Shanghai",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2024-25-worldtour-beijing-3.json",
+      "heat_count": 171,
+      "start_count": 912,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4/?tab=results_1785",
+      "source_sha256": "79a64c21a3972c023750430919b10cae2d0b4005c6c4194d263e13053868153d"
+    },
+    {
+      "event_id": "2024-25-worldtour-seoul-4",
+      "official_event_id": "1762",
+      "season": "2024/25",
+      "kind": "worldtour",
+      "stop_number": 4,
+      "title": "ISU Short Track World Tour",
+      "city": "Seoul",
+      "date_start": "2024-12-13",
+      "date_end": "2024-12-15",
+      "timezone": "Asia/Seoul",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2024-25-worldtour-seoul-4.json",
+      "heat_count": 178,
+      "start_count": 959,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3/?tab=results_1762",
+      "source_sha256": "f49f781a6dd9c7310da2af748ae57eb21f49cade255b7849151440544950230f"
+    },
+    {
+      "event_id": "2024-25-worldtour-tilburg-5",
+      "official_event_id": "1634",
+      "season": "2024/25",
+      "kind": "worldtour",
+      "stop_number": 5,
+      "title": "ISU Short Track World Tour",
+      "city": "Tilburg",
+      "date_start": "2025-02-07",
+      "date_end": "2025-02-09",
+      "timezone": "Europe/Amsterdam",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2024-25-worldtour-tilburg-5.json",
+      "heat_count": 163,
+      "start_count": 884,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-2/?tab=results_1634",
+      "source_sha256": "837be2c9ff4d562b796c868f98668006fcb8002255f674b14fb48f064ee90233"
+    },
+    {
+      "event_id": "2024-25-worldtour-milan-6",
+      "official_event_id": "1599",
+      "season": "2024/25",
+      "kind": "worldtour",
+      "stop_number": 6,
+      "title": "ISU Short Track World Tour",
+      "city": "Milan",
+      "date_start": "2025-02-14",
+      "date_end": "2025-02-16",
+      "timezone": "Europe/Rome",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2024-25-worldtour-milan-6.json",
+      "heat_count": 182,
+      "start_count": 978,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour/?tab=results_1599",
+      "source_sha256": "ca306d120e67fb2f82165f81eb2abf7f52c23bd4e597f719b8617c7c45d28a7d"
+    },
+    {
+      "event_id": "2024-25-worlds-beijing",
+      "official_event_id": "1502",
+      "season": "2024/25",
+      "kind": "worlds",
+      "stop_number": null,
+      "title": "CNSG 2025 ISU World Short Track Championships Beijing",
+      "city": "Beijing",
+      "date_start": "2025-03-14",
+      "date_end": "2025-03-16",
+      "timezone": "Asia/Shanghai",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2024-25-worlds-beijing.json",
+      "heat_count": 167,
+      "start_count": 875,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-short-track-speed-skating-championships/?tab=results_1502",
+      "source_sha256": "cfba43f6838b72ab24381389c5473d1f87773cd4797550fb66fa25acf669e48b"
+    },
+    {
+      "event_id": "2025-26-worldtour-montreal-1",
+      "official_event_id": "967",
+      "season": "2025/26",
+      "kind": "worldtour",
+      "stop_number": 1,
+      "title": "ISU Short Track World Tour #1",
+      "city": "Montréal",
+      "date_start": "2025-10-09",
+      "date_end": "2025-10-12",
+      "timezone": "America/Toronto",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2025-26-worldtour-montreal-1.json",
+      "heat_count": 224,
+      "start_count": 1212,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-14/?tab=results_967",
+      "source_sha256": "4736dfaf01cb9e9836ab893c43bae728d3d7c394822ad5969463e26af67b9392"
+    },
+    {
+      "event_id": "2025-26-worldtour-montreal-2",
+      "official_event_id": "960",
+      "season": "2025/26",
+      "kind": "worldtour",
+      "stop_number": 2,
+      "title": "ISU Short Track World Tour #2",
+      "city": "Montréal",
+      "date_start": "2025-10-16",
+      "date_end": "2025-10-19",
+      "timezone": "America/Toronto",
+      "coverage": "partial",
+      "coverage_note": "ISU front-api omits ~35% of skaters across 171 heats; official Protocol PDF STWT-2-Montreal-2025-26-1761561207-5928.pdf is vector-outlined without a text layer.",
+      "file": "events/2025-26-worldtour-montreal-2.json",
+      "heat_count": 222,
+      "start_count": 763,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-13/?tab=results_960",
+      "source_sha256": "fcae64a64c66a9322540a2bc145fafffa9f5bc73f3c62cac8dd624ede9527b86"
+    },
+    {
+      "event_id": "2025-26-worldtour-gdansk-3",
+      "official_event_id": "793",
+      "season": "2025/26",
+      "kind": "worldtour",
+      "stop_number": 3,
+      "title": "ISU Short Track World Tour #3",
+      "city": "Gdansk",
+      "date_start": "2025-11-20",
+      "date_end": "2025-11-23",
+      "timezone": "Europe/Warsaw",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2025-26-worldtour-gdansk-3.json",
+      "heat_count": 223,
+      "start_count": 1212,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-7/?tab=results_793",
+      "source_sha256": "5e56e1758c22cb14466055ac74c4d6c9a84961d683cb8698eb1b2f0fc7d474f8"
+    },
+    {
+      "event_id": "2025-26-worldtour-dordrecht-4",
+      "official_event_id": "953",
+      "season": "2025/26",
+      "kind": "worldtour",
+      "stop_number": 4,
+      "title": "ISU Short Track World Tour #4",
+      "city": "Dordrecht",
+      "date_start": "2025-11-27",
+      "date_end": "2025-11-30",
+      "timezone": "Europe/Amsterdam",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2025-26-worldtour-dordrecht-4.json",
+      "heat_count": 221,
+      "start_count": 1206,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-12/?tab=results_953",
+      "source_sha256": "128e2e6321a6e16b58f6807bc18acdf1d4c4b4c5da0d5c0566a306a777d6c821"
+    },
+    {
+      "event_id": "2025-26-olympics-milano-cortina",
+      "official_event_id": "22",
+      "season": "2025/26",
+      "kind": "olympics",
+      "stop_number": null,
+      "title": "Olympic Winter Games 2026 Short Track Speed Skating",
+      "city": "Milano Cortina",
+      "date_start": "2026-02-06",
+      "date_end": "2026-02-22",
+      "timezone": "Europe/Rome",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2025-26-olympics-milano-cortina.json",
+      "heat_count": 86,
+      "start_count": 431,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/olympic-winter-games-2026-short-track-skating/?tab=results_22",
+      "source_sha256": "09b7c527047d1d6b83bb9c815daed5a9898c5f9e77cc43626e51ddb94ed98428"
+    },
+    {
+      "event_id": "2025-26-worlds-montreal",
+      "official_event_id": "1",
+      "season": "2025/26",
+      "kind": "worlds",
+      "stop_number": null,
+      "title": "ISU CNSG Short Track World Championships",
+      "city": "Montréal",
+      "date_start": "2026-03-13",
+      "date_end": "2026-03-15",
+      "timezone": "America/Toronto",
+      "coverage": "complete",
+      "coverage_note": null,
+      "file": "events/2025-26-worlds-montreal.json",
+      "heat_count": 157,
+      "start_count": 834,
+      "disciplines": [
+        {
+          "gender": "men",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "men",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 500,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1000,
+          "event_distance_instance": 1
+        },
+        {
+          "gender": "women",
+          "distance_m": 1500,
+          "event_distance_instance": 1
+        }
+      ],
+      "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-world-short-track-speed-skating-championships-2/?tab=results_1",
+      "source_sha256": "02da46e8ca73b23b8dc709785d43887f90174dbc355f2162cce8076dfac5b0ac"
+    }
+  ]
+}

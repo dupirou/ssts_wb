@@ -3145,7 +3145,7 @@ td.time {
 .result-cols {
   display: grid;
   grid-template-columns: 2.4rem minmax(0, 1fr) auto;
-  align-items: center;
+  align-items: start;
   gap: 10px;
   padding: 7px 10px;
   border-radius: 10px;
@@ -3168,6 +3168,8 @@ td.time {
   font-size: 1rem;
   font-weight: 700;
   text-align: center;
+  padding-top: 2px;
+  line-height: 1.25;
 }
 .result-identity {
   display: grid;
@@ -5756,4 +5758,181 @@ td.time {
 }
 .penalty-details li > span {
   flex: 1 1 13rem;
+}
+.analysis-controls {
+  margin-bottom: 12px;
+}
+.analysis-controls:empty {
+  display: none;
+}
+.analysis-login,
+.analysis-lock-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--well);
+  border: 1px solid var(--border);
+}
+.analysis-login input {
+  flex: 1 1 140px;
+  min-width: 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 0.85rem;
+}
+.analysis-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.analysis-btn.is-primary {
+  background: var(--cta-bg);
+  border-color: var(--cta-bg);
+  color: var(--cta-fg);
+}
+.analysis-btn.is-danger {
+  border-color: rgb(var(--red-rgb) / 0.45);
+  color: var(--red-text);
+}
+.analysis-heat-meta {
+  margin-left: auto;
+  font-size: 0.72rem;
+}
+.analysis-heat-meta.pace-fast {
+  color: var(--accent-text);
+  border-color: var(--sel-border);
+  background: var(--sel-bg);
+}
+.analysis-heat-meta.pace-slow {
+  color: var(--muted);
+}
+.analysis-cell {
+  display: grid;
+  gap: 6px;
+  margin-top: 6px;
+}
+.analysis-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  align-items: center;
+}
+.analysis-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  color: var(--text-2);
+}
+.analysis-chip.is-primary {
+  background: var(--sel-bg);
+  border-color: var(--sel-border);
+  color: var(--sel-fg);
+  font-weight: 700;
+}
+.analysis-chip.is-warn {
+  background: rgb(var(--gold-rgb) / 0.14);
+  border-color: rgb(var(--gold-rgb) / 0.45);
+  color: var(--gold-text);
+}
+.analysis-dive > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--accent-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  list-style: none;
+}
+.analysis-dive > summary::-webkit-details-marker {
+  display: none;
+}
+.analysis-dive > summary::before {
+  content: '▸';
+  font-size: 0.7em;
+  transition: transform 0.15s ease;
+}
+.analysis-dive[open] > summary::before {
+  transform: rotate(90deg);
+}
+.analysis-dive-body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px 10px;
+  align-items: start;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  font-size: 0.75rem;
+  color: var(--text-2);
+}
+.analysis-dive-label {
+  color: var(--muted);
+  font-weight: 600;
+  white-space: nowrap;
+  padding-top: 1px;
+}
+.analysis-dive-val {
+  min-width: 0;
+}
+.analysis-factor-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.analysis-factor-pill {
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  border: 1px solid transparent;
+}
+.analysis-factor-pill.factor-pos {
+  background: rgb(var(--cyan-rgb) / 0.12);
+  border-color: rgb(var(--cyan-rgb) / 0.3);
+  color: var(--ok);
+}
+.analysis-factor-pill.factor-neg {
+  background: rgb(var(--red-rgb) / 0.1);
+  border-color: rgb(var(--red-rgb) / 0.28);
+  color: var(--red-text);
+}
+.analysis-rivals {
+  display: grid;
+  gap: 3px;
+}
+.analysis-rival-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 10px;
+}
+.analysis-rival-h2h {
+  color: var(--muted);
+}
+@media (max-width: 680px) {
+  .analysis-dive-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
+  }
+  .analysis-dive-label:not(:first-child) {
+    margin-top: 4px;
+  }
 }

@@ -1540,9 +1540,9 @@
     } catch {}
   }
 
-  function attachAnalysis(dialog, trigger, round, cells) {
-    const controls = h('div');
-    const message = h('span', { class: 'faint tiny', role: 'status' });
+  function attachAnalysis(dialog, trigger, round, cells, heatHeads = new Map()) {
+    const controls = h('div', { class: 'analysis-controls' });
+    const message = h('span', { class: 'analysis-msg faint tiny', role: 'status' });
     const call = (data) =>
       fetch('/internal/analysis', {
         method: 'POST',
@@ -1552,6 +1552,156 @@
         body: JSON.stringify(data)
       });
     dialog.querySelector('header').after(controls);
+    function clearUI() {
+      for (const cell of cells.values()) {
+        cell.hidden = true;
+        cell.replaceChildren();
+      }
+      for (const head of heatHeads.values()) {
+        head.querySelectorAll('.analysis-heat-meta').forEach((el) => el.remove());
+      }
+    }
+    const PACE_LABELS = {
+      fast: '节奏偏快 · 利好小q',
+      medium: '节奏中等',
+      slow: '偏慢 · 偏战术'
+    };
+    const FACTOR_LABELS = [
+      ['base_skill', '基础实力'],
+      ['lane', '起跑道次'],
+      ['opening_split', '首圈启动'],
+      ['finishing_kick', '末两圈冲刺'],
+      ['venue_pace', '冰场净速度'],
+      ['recent_form', '近期状态'],
+      ['repechage_context', '复活赛背景']
+    ];
+    function buildHistoryParts(person) {
+      const parts = [];
+      if (person.starts) {
+        parts.push(
+          '赛季胜率 ' +
+            Math.round((100 * person.wins) / person.starts) +
+            '% (' +
+            person.wins +
+            '/' +
+            person.starts +
+            ')'
+        );
+      }
+      if (person.opening != null) {
+        parts.push('首段均时 ' + person.opening.toFixed(2) + 's (' + person.openingSamples + '次)');
+      }
+      if (person.china) {
+        parts.push(
+          '近三季单项 ' +
+            person.china.count +
+            '次 · 最好第' +
+            person.china.best +
+            ' · 领奖台' +
+            person.china.podiums +
+            '次'
+        );
+      }
+      return parts;
+    }
+    function buildDeepDivePanel(person, dive) {
+      const box = h('details', { class: 'analysis-dive' }, h('summary', { text: '球探拆解' }));
+      const grid = h('div', { class: 'analysis-dive-body' });
+
+      if (dive) {
+        const attr = dive.factor_attribution || {};
+        const factors = FACTOR_LABELS.map(([k, label]) => [label, Number(attr[k] || 0)])
+          .filter(([, val]) => Math.abs(val) >= 0.005)
+          .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
+        if (factors.length) {
+          grid.append(
+            h('span', { class: 'analysis-dive-label', text: '战力拆解' }),
+            h(
+              'div',
+              { class: 'analysis-factor-list' },
+              ...factors.map(([lbl, v]) =>
+                h('span', {
+                  class: cls('analysis-factor-pill num', v >= 0 ? 'factor-pos' : 'factor-neg'),
+                  text: lbl + ' ' + (v >= 0 ? '+' : '') + v.toFixed(2)
+                })
+              )
+            )
+          );
+        }
+
+        if (Array.isArray(dive.key_rivals) && dive.key_rivals.length) {
+          grid.append(
+            h('span', { class: 'analysis-dive-label', text: '关键对手' }),
+            h(
+              'div',
+              { class: 'analysis-rivals' },
+              ...dive.key_rivals.map((rv) =>
+                h(
+                  'div',
+                  { class: 'analysis-rival-item' },
+                  h('span', { text: rv.name + ' (' + rv.country + ')' }),
+                  h('span', {
+                    class: 'analysis-rival-h2h num',
+                    text:
+                      rv.h2h_total > 0 ? rv.h2h_wins + '胜 ' + rv.h2h_losses + '负' : '暂无正赛交手'
+                  })
+                )
+              )
+            )
+          );
+        }
+
+        if (dive.what_if_clean_race && dive.path_breakdown) {
+          const hasAdvance = person.totalAdvance != null;
+          let whatIfText;
+          if (hasAdvance) {
+            const curPct = Math.round(dive.path_breakdown.p_total_advance * 100);
+            const cleanPct = Math.round(dive.what_if_clean_race.p_total_advance * 100);
+            const diff = cleanPct - curPct;
+            whatIfText =
+              '总晋级 ' +
+              curPct +
+              '% → ' +
+              cleanPct +
+              '% (' +
+              (diff >= 0 ? '+' : '') +
+              diff +
+              '%) · 纯竞速第1 ' +
+              Math.round(dive.what_if_clean_race.p_first * 100) +
+              '%';
+          } else {
+            const curFirst = Math.round(dive.path_breakdown.p_first * 100);
+            const cleanFirst = Math.round(dive.what_if_clean_race.p_first * 100);
+            const diff = cleanFirst - curFirst;
+            whatIfText =
+              '纯竞速第1 ' +
+              curFirst +
+              '% → ' +
+              cleanFirst +
+              '% (' +
+              (diff >= 0 ? '+' : '') +
+              diff +
+              '%)';
+          }
+          grid.append(
+            h('span', { class: 'analysis-dive-label', text: '无意外假设' }),
+            h('span', { class: 'analysis-dive-val num', text: whatIfText })
+          );
+        }
+      }
+
+      const histParts = buildHistoryParts(person);
+      if (histParts.length) {
+        grid.append(
+          h('span', { class: 'analysis-dive-label', text: '历史参考' }),
+          h('span', { class: 'analysis-dive-val num', text: histParts.join(' · ') })
+        );
+      }
+
+      if (!grid.childNodes.length) return null;
+      box.append(grid);
+      return box;
+    }
     async function loadRound() {
       const response = await call({
         action: 'round',
@@ -1565,65 +1715,143 @@
         return;
       }
       if (!response.ok) throw new Error();
+      clearUI();
+      const showFinalTitle = round.round === 'final' && round.group === 'A';
       for (const heat of await response.json()) {
+        const head = heatHeads.get(heat.id);
+        if (head && (heat.heatPace || heat.qualificationRule?.code)) {
+          const metaParts = [];
+          if (heat.heatPace?.pace_label) {
+            metaParts.push(PACE_LABELS[heat.heatPace.pace_label] || heat.heatPace.pace_label);
+          }
+          if (heat.qualificationRule?.n_adv > 0) {
+            metaParts.push('已判进占 ' + heat.qualificationRule.n_adv + ' 席');
+          }
+          if (!round.qualification && heat.qualificationRule?.code) {
+            metaParts.push(heat.qualificationRule.code);
+          }
+          if (metaParts.length) {
+            head.append(
+              h('span', {
+                class: cls(
+                  'pill analysis-heat-meta',
+                  heat.heatPace?.pace_label && 'pace-' + heat.heatPace.pace_label
+                ),
+                text: metaParts.join(' · ')
+              })
+            );
+          }
+        }
         for (const person of heat.people) {
           const cell = cells.get(heat.id + '/' + person.id);
           if (!cell) continue;
-          const labels = [];
-          if (person.first != null) labels.push('小组第一 ' + Math.round(person.first * 100) + '%');
-          if (person.direct != null)
-            labels.push('按名次晋级 ' + Math.round(person.direct * 100) + '%');
-          if (person.expectedPlace != null)
-            labels.push('预计组内名次 ' + person.expectedPlace.toFixed(1));
-          if (person.china)
-            labels.push(
-              '近三赛季同项 ' +
-                person.china.count +
-                ' 次单项总排名，最好第 ' +
-                person.china.best +
-                '，领奖台 ' +
-                person.china.podiums +
-                ' 次'
+          const chips = [];
+          const hasTotalAdv = person.totalAdvance != null;
+          if (hasTotalAdv) {
+            chips.push(
+              h('span', {
+                class: 'analysis-chip is-primary num',
+                text: '总晋级 ' + Math.round(person.totalAdvance * 100) + '%'
+              })
             );
-          if (person.lane != null) labels.push('起跑道次 ' + person.lane);
-          if (person.opening != null)
-            labels.push(
-              '历史首段均时 ' +
-                person.opening.toFixed(2) +
-                ' 秒（' +
-                person.openingSamples +
-                ' 次）'
+            if (person.first != null) {
+              chips.push(
+                h('span', {
+                  class: 'analysis-chip num',
+                  text: '第1 ' + Math.round(person.first * 100) + '%'
+                })
+              );
+            }
+          } else if (person.first != null) {
+            chips.push(
+              h('span', {
+                class: 'analysis-chip is-primary num',
+                text:
+                  (showFinalTitle ? '夺冠 ' : '小组第一 ') + Math.round(person.first * 100) + '%'
+              })
             );
-          if (person.starts)
-            labels.push(
-              '赛季胜率 ' +
-                Math.round((100 * person.wins) / person.starts) +
-                '%（' +
-                person.wins +
-                '/' +
-                person.starts +
-                '）'
+          }
+          if (person.direct != null) {
+            chips.push(
+              h('span', {
+                class: 'analysis-chip num',
+                text:
+                  (person.smallQ != null || hasTotalAdv ? '大Q ' : '按名次晋级 ') +
+                  Math.round(person.direct * 100) +
+                  '%'
+              })
             );
-          cell.textContent = labels.join(' · ');
-          cell.hidden = !labels.length;
+          }
+          if (person.smallQ != null && heat.qualificationRule?.small_q_actual > 0) {
+            chips.push(
+              h('span', {
+                class: 'analysis-chip num',
+                text: '小q ' + Math.round(person.smallQ * 100) + '%'
+              })
+            );
+          }
+          if (person.incident != null) {
+            chips.push(
+              h('span', {
+                class: cls('analysis-chip num', person.incident >= 0.08 && 'is-warn'),
+                text: '意外 ' + Math.round(person.incident * 100) + '%'
+              })
+            );
+          }
+          if (person.expectedPlace != null) {
+            chips.push(
+              h('span', {
+                class: 'analysis-chip num',
+                text: '预估第 ' + person.expectedPlace.toFixed(1)
+              })
+            );
+          }
+          const children = [];
+          if (chips.length) children.push(h('div', { class: 'analysis-metrics' }, ...chips));
+          const hasForecastData =
+            person.first != null || person.direct != null || person.deepDive != null;
+          if (hasForecastData) {
+            const divePanel = buildDeepDivePanel(person, person.deepDive);
+            if (divePanel) children.push(divePanel);
+          }
+          cell.replaceChildren(...children);
+          cell.hidden = !children.length;
         }
       }
-      const lock = h('button', { type: 'button', text: '锁定预测' });
+      message.textContent = '';
+      controls.replaceChildren();
+    }
+    function toggleLockBar() {
+      if (controls.querySelector('.analysis-lock-bar')) {
+        message.textContent = '';
+        controls.replaceChildren();
+        return;
+      }
+      const lock = h('button', {
+        type: 'button',
+        class: 'analysis-btn is-danger',
+        text: '锁定预测'
+      });
+      const cancel = h('button', { type: 'button', class: 'analysis-btn', text: '取消' });
+      const bar = h('div', { class: 'analysis-lock-bar' }, lock, cancel, message);
       lock.onclick = async () => {
+        lock.disabled = true;
         try {
           if (!(await call({ action: 'logout' })).ok) throw new Error();
           rememberAnalysis(false);
-          for (const cell of cells.values()) {
-            cell.hidden = true;
-            cell.textContent = '';
-          }
+          clearUI();
           controls.replaceChildren();
         } catch {
           message.textContent = '锁定失败，请重试';
+          lock.disabled = false;
         }
       };
+      cancel.onclick = () => {
+        message.textContent = '';
+        controls.replaceChildren();
+      };
       message.textContent = '';
-      controls.replaceChildren(lock, message);
+      controls.replaceChildren(bar);
     }
     function login() {
       if (controls.querySelector('form')) return;
@@ -1632,10 +1860,14 @@
         required: true,
         autocomplete: 'current-password',
         'aria-label': '预测密码',
-        placeholder: '预测密码'
+        placeholder: '输入预测密码'
       });
-      const submit = h('button', { type: 'submit', text: '解锁' });
-      const form = h('form', {}, input, submit, message);
+      const submit = h('button', {
+        type: 'submit',
+        class: 'analysis-btn is-primary',
+        text: '解锁'
+      });
+      const form = h('form', { class: 'analysis-login' }, input, submit, message);
       message.textContent = '';
       controls.replaceChildren(form);
       input.focus();
@@ -1666,7 +1898,8 @@
       if (!taps) since = Date.now();
       if (++taps === 5) {
         taps = 0;
-        login();
+        if (analysisUnlocked) toggleLockBar();
+        else login();
       }
     });
     if (analysisUnlocked)
@@ -1678,6 +1911,7 @@
 
   function showCompetition(r, heats) {
     const cells = new Map();
+    const heatHeads = new Map();
     const label = eventName(r) + ' · ' + roundName(r);
     const trigger =
       r.format === 'individual'
@@ -1725,7 +1959,9 @@
             (p.penalty.infringement_code ? ' · ' + p.penalty.infringement_code : '') +
             ' 判罚'
           : p.result || '—';
-        const analysis = trigger ? h('small', { class: 'tiny faint', hidden: true }) : null;
+        const analysis = trigger
+          ? h('div', { class: 'analysis-cell tiny faint', hidden: true })
+          : null;
         if (analysis) cells.set(heat.id + '/' + p.athlete_id, analysis);
         people.append(
           h(
@@ -1761,8 +1997,9 @@
                   p.qualification
                     ? h('small', {
                         text:
-                          { Q: '晋级', q: '按成绩晋级', ADV: '判进' }[p.qualification] ||
-                          p.qualification
+                          { Q: '晋级', q: '按成绩晋级', p: '小 q 晋级待定', ADV: '判进' }[
+                            p.qualification
+                          ] || p.qualification
                       })
                     : null
                 )
@@ -1778,20 +2015,14 @@
         h('span', { text: '选手 · 国家 · 头盔号' }),
         results ? h('span', { text: '成绩' }) : null
       );
-      dialog.append(
-        h(
-          'section',
-          { class: 'competition-heat' },
-          h(
-            'div',
-            { class: 'competition-heat-head' },
-            h('h3', { text: heading }),
-            status ? h('span', { class: 'pill', text: status }) : null
-          ),
-          cols,
-          people
-        )
+      const heatHead = h(
+        'div',
+        { class: 'competition-heat-head' },
+        h('h3', { text: heading }),
+        status ? h('span', { class: 'pill', text: status }) : null
       );
+      heatHeads.set(heat.id, heatHead);
+      dialog.append(h('section', { class: 'competition-heat' }, heatHead, cols, people));
     }
     if (heats[0]?.source_url)
       dialog.append(h('p', { class: 'source-line' }, external(heats[0].source_url, '官方来源')));
@@ -1805,7 +2036,7 @@
     });
     document.body.append(dialog);
     dialog.showModal();
-    if (trigger) attachAnalysis(dialog, trigger, r, cells);
+    if (trigger) attachAnalysis(dialog, trigger, r, cells, heatHeads);
   }
 
   const showHomeTickets = (st) => st.id !== 'seoul' && st.ticketing;

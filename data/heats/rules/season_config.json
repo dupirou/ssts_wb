@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "note": "Season-level competition rules for 2022/23-2026/27 derived from docs/isu_rules_evolution.md and docs/data_audit.md.",
+  "seasons": {
+    "2022/23": {
+      "series": "worldcup",
+      "rule_version": "2022",
+      "has_double_distance": true,
+      "standard_heat_size": {
+        "500": [5, 5, 5],
+        "1000": [5, 5, 5],
+        "1500": [7, 7]
+      },
+      "f500_size": 5,
+      "adv_eats_q": true,
+      "final_b_not_skated_max_skaters": 1,
+      "worlds_repechage": true,
+      "olympics_repechage": false,
+      "rep_cap": null,
+      "lane_mode": "time_first",
+      "seeding_mode": "time_first",
+      "zfs_mode": "test_then_active",
+      "crystal_globe": true,
+      "team_crystal_globe": false,
+      "notes": "Zero False Start tested in first 5 ISU events (Comm 2510) and active for remainder of season; Worlds introduces repechage & drops 3000m Superfinal."
+    },
+    "2023/24": {
+      "series": "worldcup",
+      "rule_version": "2022",
+      "has_double_distance": true,
+      "standard_heat_size": {
+        "500": [5, 5, 5],
+        "1000": [5, 5, 5],
+        "1500": [7, 7]
+      },
+      "f500_size": 5,
+      "adv_eats_q": true,
+      "final_b_not_skated_max_skaters": 1,
+      "worlds_repechage": true,
+      "olympics_repechage": false,
+      "rep_cap": null,
+      "lane_mode": "time_first",
+      "seeding_mode": "time_first",
+      "zfs_mode": "mandatory",
+      "crystal_globe": true,
+      "team_crystal_globe": false,
+      "notes": "Last season with World Cup branding and double-distance events (1)/(2); Zero False Start mandatory."
+    },
+    "2024/25": {
+      "series": "worldtour",
+      "rule_version": "2024_renumbered",
+      "has_double_distance": false,
+      "standard_heat_size": {
+        "500": [5, 5, 5],
+        "1000": [5, 5, 5],
+        "1500": [7, 7]
+      },
+      "f500_size": 5,
+      "adv_eats_q": true,
+      "final_b_not_skated_max_skaters": 1,
+      "worlds_repechage": true,
+      "olympics_repechage": false,
+      "rep_cap": {
+        "500": 40,
+        "1000": 40,
+        "1500": 42
+      },
+      "lane_mode": "time_first",
+      "seeding_mode": "rank_then_time",
+      "zfs_mode": "mandatory",
+      "crystal_globe": true,
+      "team_crystal_globe": true,
+      "notes": "World Tour debut (Comm 2648), no double distances. Inter-round seeding switched to rank-then-time, while empirical SF->Final lane assignment remained time_first throughout 2024/25."
+    },
+    "2025/26": {
+      "series": "worldtour",
+      "rule_version": "2024_renumbered",
+      "has_double_distance": false,
+      "standard_heat_size": {
+        "500": [5, 5, 5],
+        "1000": [5, 5, 5],
+        "1500": [7, 7]
+      },
+      "f500_size": 5,
+      "adv_eats_q": true,
+      "final_b_not_skated_max_skaters": 1,
+      "worlds_repechage": true,
+      "olympics_repechage": false,
+      "rep_cap": null,
+      "lane_mode": "time_first",
+      "seeding_mode": "rank_then_time",
+      "zfs_mode": "mandatory",
+      "crystal_globe": true,
+      "team_crystal_globe": true,
+      "notes": "4-stop Olympic qualification World Tour (Comm 2717, rep_cap lifted) + Milano Cortina Olympics (no repechage, 5-skater 500m Final A). Empirical SF->Final lane assignment remained time_first through 2025/26 Worlds."
+    },
+    "2026/27": {
+      "series": "worldtour",
+      "rule_version": "2026_sports_rules",
+      "has_double_distance": false,
+      "standard_heat_size": {
+        "500": [5, 5, 5],
+        "1000": [5, 5, 5],
+        "1500": [7, 7]
+      },
+      "f500_size": 5,
+      "adv_eats_q": true,
+      "final_b_not_skated_max_skaters": 1,
+      "worlds_repechage": true,
+      "olympics_repechage": false,
+      "rep_cap": {
+        "single_qual_500": 40,
+        "single_qual_1000": 40,
+        "single_qual_1500": 42,
+        "first_round_500": 25,
+        "first_round_1000": 25,
+        "first_round_1500": 28
+      },
+      "lane_mode": "rank_then_time",
+      "seeding_mode": "rank_then_time",
+      "zfs_mode": "mandatory",
+      "crystal_globe": true,
+      "team_crystal_globe": true,
+      "cumulative_penalty_thresholds": [3, 5, 7],
+      "extra_top40_quota": 4,
+      "split_repechage": true,
+      "notes": "2026 ISU Sports Rules (Comm 2806): SF->Final starting positions switch to rank_then_time (Rule 293.7), 7-stop WT, split repechage, cumulative penalty sanctions (3/5/7)."
+    }
+  }
+}
