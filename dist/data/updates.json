@@ -2,6 +2,66 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "72e55bf724e566df",
+      "station": "seoul",
+      "at": "2026-11-20T03:01:37+00:00",
+      "local_date": "2026-11-20",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张楚桐",
+        "张珈宁",
+        "宋佳蕊",
+        "张延"
+      ],
+      "china_results": [
+        {
+          "name": "张楚桐",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Chutong ZHANG"
+        },
+        {
+          "name": "张珈宁",
+          "rank": 3,
+          "status": "advanced",
+          "name_latin": "Jianing ZHANG"
+        },
+        {
+          "name": "宋佳蕊",
+          "rank": 3,
+          "status": "advanced",
+          "name_latin": "Jiarui SONG"
+        },
+        {
+          "name": "张延",
+          "rank": 4,
+          "status": "advanced",
+          "name_latin": "Yan ZHANG"
+        }
+      ]
+    },
+    {
+      "id": "5d2b2982e000d63d",
+      "station": "seoul",
+      "at": "2026-11-20T03:01:37+00:00",
+      "local_date": "2026-11-22",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 3,
+      "china": []
+    },
+    {
       "id": "8092ab54603474ed",
       "station": "seoul",
       "at": "2026-11-20T02:21:46+00:00",
@@ -3157,41 +3217,6 @@
       "at": "2026-10-29T18:24:18+00:00",
       "local_date": "2026-10-30",
       "count": 60
-    },
-    {
-      "id": "e150325492885509",
-      "station": "montreal",
-      "at": "2026-10-29T16:58:01+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 11,
-      "china": [
-        "张柏浩",
-        "李坤"
-      ]
-    },
-    {
-      "id": "96fcba5590012301",
-      "station": "montreal",
-      "at": "2026-10-29T16:58:01+00:00",
-      "local_date": null,
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "China"
-      ]
     }
   ]
 }
