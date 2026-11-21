@@ -547,4 +547,13 @@ roster_model:
       mid_long: 2
       versatile_upside: 2
     upside_sigma_multiplier: 1.0
-  injured_or_unavailable_athlete_ids: []
+  injured_or_unavailable_athlete_ids:
+    - "skr-4247" # 林孝埈 (未参赛/移除)
+    - "skr-5859" # 任子威 (已退役)
+    - "skr-1876" # 范可新 (已退役)
+    - "skr-8039" # 臧一泽 (已退役)
+  senior_required_domestic_venues:
+    enabled: true
+    venues: ["衡水"]
+    applies_to_age_groups: ["SENIOR_ONLY", "UNKNOWN"]
+    note: "2026/27 赛季未参加衡水站全国选拔赛的成年组运动员不具备本季国际参赛资格；双适龄（DUAL_ELIGIBLE）青年选手不受此限。"

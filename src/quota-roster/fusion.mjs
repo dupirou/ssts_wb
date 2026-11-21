@@ -1430,6 +1430,22 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
   }
 
   const allowedDivs = new Set(config?.roster_model?.domestic_default_divisions || ['甲组']);
+  const venuesByAthlete = new Map();
+  const observedVenues = new Set();
+  for (const r of rawRecords) {
+    if (!r || !r.athlete_id) continue;
+    if (r.division && !allowedDivs.has(r.division)) continue;
+    if (asOfDate && r.report_date && r.report_date > asOfDate) continue;
+    if (r.venue) {
+      observedVenues.add(r.venue);
+      let s = venuesByAthlete.get(r.athlete_id);
+      if (!s) {
+        s = new Set();
+        venuesByAthlete.set(r.athlete_id, s);
+      }
+      s.add(r.venue);
+    }
+  }
   const filtered = rawRecords.filter((r) => {
     if (!r || !r.athlete_id) return false;
     if (r.division && !allowedDivs.has(r.division)) return false;
@@ -1446,6 +1462,8 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
       relayMemberSet: new Set(),
       highlights: new Map(),
       athletesMeta: new Map(),
+      venuesByAthlete,
+      observedVenues,
       recordCount: 0,
     };
   }
@@ -1619,6 +1637,8 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
     relayMemberSet,
     highlights,
     athletesMeta,
+    venuesByAthlete,
+    observedVenues,
     recordCount: scored.length,
   };
 }
@@ -1842,8 +1862,20 @@ export function buildFusedCandidatePool({
 
   const womenEligible = [];
   const womenExcluded = [];
+  const womenExcludedQual = [];
   const menEligible = [];
   const menExcluded = [];
+  const menExcludedQual = [];
+
+  const unavailableSet = new Set(cfg?.roster_model?.injured_or_unavailable_athlete_ids || []);
+  const reqVenueCfg = cfg?.roster_model?.senior_required_domestic_venues || {};
+  const reqVenues = Array.isArray(reqVenueCfg.venues) ? reqVenueCfg.venues : [];
+  const reqAgeGroups = new Set(reqVenueCfg.applies_to_age_groups || ['SENIOR_ONLY', 'UNKNOWN']);
+  const enforceReqVenues = Boolean(
+    reqVenueCfg.enabled &&
+      reqVenues.length > 0 &&
+      reqVenues.some((v) => domesticPool.observedVenues?.has(v))
+  );
 
   for (const meta of rawCandidates.values()) {
     const gender = meta.gender;
@@ -1903,6 +1935,31 @@ export function buildFusedCandidatePool({
       };
       if (gender === 'women') womenExcluded.push(excludedEntry);
       else menExcluded.push(excludedEntry);
+      continue;
+    }
+
+    // Domestic qualification & retired/unavailable gate (e.g. must have raced Hengshui for Senior_ONLY)
+    const isUnavailable = unavailableSet.has(aid);
+    const athVenues = domesticPool.venuesByAthlete?.get(aid);
+    const missingRequiredVenue =
+      enforceReqVenues &&
+      reqAgeGroups.has(ageGroup) &&
+      !reqVenues.some((v) => athVenues && athVenues.has(v));
+    if (isUnavailable || missingRequiredVenue) {
+      const exclEntry = {
+        athlete_id: aid,
+        official_skater_id: meta.official_skater_id ?? null,
+        name_en: meta.name_en || meta.name_zh || aid,
+        name_zh: meta.name_zh || null,
+        gender,
+        birth_date: meta.birth_date || null,
+        age_group: ageGroup,
+        data_sources: dataSources,
+        last_active_date: lastActiveDate,
+        reason: isUnavailable ? 'retired_or_unavailable' : 'missing_required_domestic_venue',
+      };
+      if (gender === 'women') womenExcludedQual.push(exclEntry);
+      else menExcludedQual.push(exclEntry);
       continue;
     }
 
@@ -2088,10 +2145,12 @@ export function buildFusedCandidatePool({
     women: {
       eligible: womenEligible,
       excludedByAge: womenExcluded,
+      excludedByQualification: womenExcludedQual,
     },
     men: {
       eligible: menEligible,
       excludedByAge: menExcluded,
+      excludedByQualification: menExcludedQual,
     },
   };
 }

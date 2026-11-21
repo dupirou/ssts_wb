@@ -123,6 +123,22 @@ test('Real data pipeline: zero writes to data/heats/, positive cross-tier correl
     );
   }
 
+  // (b2) Retired/unavailable and non-Hengshui SENIOR_ONLY athletes are strictly excluded
+  for (const excludedId of ['skr-4247', 'skr-5859', 'skr-1876', 'skr-8039', 'skr-4312', 'skr-4314', 'skr-5753']) {
+    assert.ok(!allEligibleIds.has(excludedId), `${excludedId} must be excluded from eligible`);
+  }
+  const allQualExclIds = new Set([
+    ...pool.women.excludedByQualification.map((c) => c.athlete_id),
+    ...pool.men.excludedByQualification.map((c) => c.athlete_id),
+  ]);
+  for (const excludedId of ['skr-4247', 'skr-5859', 'skr-1876', 'skr-8039', 'skr-4312', 'skr-4314']) {
+    assert.ok(allQualExclIds.has(excludedId), `${excludedId} should be audited in excludedByQualification`);
+  }
+  // Hengshui participants & DUAL_ELIGIBLE youth remain eligible
+  for (const eligibleId of ['skr-6784', 'skr-8078', 'skr-8080', 'skr-2262', 'skr-7613', 'skr-20586', 'skr-22312']) {
+    assert.ok(allEligibleIds.has(eligibleId), `${eligibleId} should remain eligible`);
+  }
+
   // Verify milp-eng candidate contract on every eligible candidate
   for (const group of [pool.women.eligible, pool.men.eligible]) {
     assert.ok(group.length >= 10);
