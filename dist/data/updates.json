@@ -2,6 +2,36 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "bcfa8b002e6ae73d",
+      "station": "seoul",
+      "at": "2026-11-21T06:11:36+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
+      "id": "167c1f0d17f3a235",
+      "station": "seoul",
+      "at": "2026-11-21T06:11:36+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
       "id": "c82dda1c5d48830e",
       "station": "seoul",
       "at": "2026-11-21T05:50:24+00:00",
@@ -3246,68 +3276,6 @@
       "kind": "groups",
       "heats": 6,
       "china": []
-    },
-    {
-      "id": "11b9e18924c0c286",
-      "station": "montreal",
-      "at": "2026-10-30T19:31:20+00:00",
-      "local_date": "2026-10-31",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": [
-        "张珈宁"
-      ]
-    },
-    {
-      "id": "e35390a0b4beff5e",
-      "station": "montreal",
-      "at": "2026-10-30T19:21:21+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张柏浩",
-        "宋柯睿",
-        "孙龙",
-        "张子夏"
-      ],
-      "china_results": [
-        {
-          "name": "张柏浩",
-          "rank": 3,
-          "status": "repechage",
-          "name_latin": "Bohao ZHANG"
-        },
-        {
-          "name": "宋柯睿",
-          "rank": 3,
-          "status": "advanced",
-          "name_latin": "Kerui SONG"
-        },
-        {
-          "name": "孙龙",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Long SUN"
-        },
-        {
-          "name": "张子夏",
-          "rank": 3,
-          "status": "advanced",
-          "name_latin": "Zixia ZHANG"
-        }
-      ]
     }
   ]
 }
