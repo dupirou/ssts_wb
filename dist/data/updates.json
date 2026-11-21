@@ -2,6 +2,60 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "79dd76faf367df20",
+      "station": "seoul",
+      "at": "2026-11-21T02:51:42+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "李坤"
+      ],
+      "china_results": [
+        {
+          "name": "李坤",
+          "rank": 3,
+          "status": "out",
+          "name_latin": "Kun LI"
+        }
+      ]
+    },
+    {
+      "id": "536f680fec8839cc",
+      "station": "seoul",
+      "at": "2026-11-21T02:51:42+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "2ffe2a0304eb8d88",
+      "station": "seoul",
+      "at": "2026-11-21T02:51:42+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
       "id": "77a0bb40a1d80aff",
       "station": "seoul",
       "at": "2026-11-21T02:31:45+00:00",
@@ -3329,72 +3383,6 @@
       "kind": "groups",
       "heats": 5,
       "china": []
-    },
-    {
-      "id": "805515fcf430bbbf",
-      "station": "montreal",
-      "at": "2026-10-30T14:01:26+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "张柏浩",
-        "李坤",
-        "孙龙",
-        "张子夏"
-      ]
-    },
-    {
-      "id": "ef18ea9fd03e0d9a",
-      "station": "montreal",
-      "at": "2026-10-30T13:51:20+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "54ee74185644dd73",
-      "station": "montreal",
-      "at": "2026-10-30T13:51:20+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张柏浩",
-        "李坤"
-      ],
-      "china_results": [
-        {
-          "name": "张柏浩",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Bohao ZHANG"
-        },
-        {
-          "name": "李坤",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Kun LI"
-        }
-      ]
     }
   ]
 }

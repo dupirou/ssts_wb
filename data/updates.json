@@ -224,7 +224,10 @@
     "seoul/round/2026-11-21/repechage/men/500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/500/quarterfinal/-/results": "official",
     "seoul/round/2026-11-21/repechage/men/500/semifinal/-/groups": "published",
+    "seoul/round/2026-11-21/repechage/men/500/semifinal/-/results": "official",
     "seoul/round/2026-11-21/repechage/women/1000/quarterfinal/-/groups": "published",
+    "seoul/round/2026-11-21/repechage/women/1000/quarterfinal/-/results": "official",
+    "seoul/round/2026-11-21/repechage/women/1000/semifinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/men/1000/heats/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/500/quarterfinal/-/groups": "published",
@@ -482,70 +485,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "54ee74185644dd73",
-      "station": "montreal",
-      "at": "2026-10-30T13:51:20+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Bohao ZHANG",
-        "Kun LI"
-      ],
-      "china_results": [
-        {
-          "name": "Bohao ZHANG",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Kun LI",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "ef18ea9fd03e0d9a",
-      "station": "montreal",
-      "at": "2026-10-30T13:51:20+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "805515fcf430bbbf",
-      "station": "montreal",
-      "at": "2026-10-30T14:01:26+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "Bohao ZHANG",
-        "Kun LI",
-        "Long SUN",
-        "Zixia ZHANG"
-      ]
-    },
     {
       "id": "44d5a0d2eaf9f1cf",
       "station": "montreal",
@@ -3760,6 +3699,59 @@
       "heats": 2,
       "china": [
         "Kun LI"
+      ]
+    },
+    {
+      "id": "2ffe2a0304eb8d88",
+      "station": "seoul",
+      "at": "2026-11-21T02:51:42+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
+    },
+    {
+      "id": "536f680fec8839cc",
+      "station": "seoul",
+      "at": "2026-11-21T02:51:42+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "79dd76faf367df20",
+      "station": "seoul",
+      "at": "2026-11-21T02:51:42+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Kun LI"
+      ],
+      "china_results": [
+        {
+          "name": "Kun LI",
+          "rank": 3,
+          "status": "out"
+        }
       ]
     }
   ]
