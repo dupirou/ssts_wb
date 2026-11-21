@@ -40,6 +40,16 @@ class QualificationRuleTests(unittest.TestCase):
         self.assertEqual(zh(TEXTS[10]), '每组前 2 名及成绩最好的 1 名第 3 名晋级A组决赛，其余可进B组决赛')
         self.assertEqual(zh(TEXTS[12]), '每组前 2 名晋级A组决赛，第 3、4 名进B组决赛')
 
+    def test_seoul_semifinal_uses_only_final_a_places_for_prediction(self):
+        rows = build.attach_qualification(build.read_schedule('seoul'), 'seoul')
+        rule = next(r['qualification'] for r in rows if r['round_key'] == '2026-11-21/main/men/1500/semifinal/-')
+        self.assertEqual(rule['code'], '2Q+1q')
+        self.assertIn('A组决赛', rule['zh'])
+        self.assertIn('B组决赛', rule['zh'])
+        direct_only = rule['text'].replace(' and up to a maximum of one fastest third place skater', '')
+        self.assertEqual(qualification.describe(direct_only)['code'], '2Q')
+        self.assertIsNone(qualification.describe('The first placed skater from each race qualify for Final B.')['code'])
+
     def test_unknown_wording_keeps_its_text_without_a_guess(self):
         self.assertIsNone(qualification.describe(''))
         self.assertIsNone(qualification.describe(None))

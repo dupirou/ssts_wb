@@ -21,12 +21,13 @@ TARGETS = {
     'rep quarterfinals': '复活赛1/4决赛',
     'rep semifinals': '复活赛半决赛',
     'final a': 'A组决赛',
+    'final': 'A组决赛',
 }
 PLACES = r'(?:first|second|third|fourth|fifth|sixth)'
 DIRECT = re.compile(rf'^the ({PLACES}(?:(?:, | and ){PLACES})*) placed (?:skaters?|teams?) from each race\b')
 FASTEST = re.compile(rf'up to a maximum of (\w+) fastest ({PLACES}) place (?:skaters?|teams?)')
 TARGET = re.compile(
-    r'qualify for (rep\.? heats|rep\.? quarterfinals|rep\.? semifinals|heats|quarterfinals|semifinals|final a)\b'
+    r'qualify for (rep\.? heats|rep\.? quarterfinals|rep\.? semifinals|heats|quarterfinals|semifinals|final a|final(?=[,.]|$))\b'
 )
 RELAY_B = 'the third and fourth placed teams from each race qualify for final b'
 REMAINDER_B = 'remainder may qualify for final b'
@@ -46,7 +47,7 @@ def describe(text):
     n = len(places)
     if places != list(range(1, n + 1)):
         return unknown
-    fastest = FASTEST.search(low)
+    fastest = FASTEST.search(low[: target.start()])
     q = 0
     if fastest:
         if fastest[1] not in NUMBERS or ORDINALS[fastest[2]] != n + 1:
@@ -58,7 +59,13 @@ def describe(text):
         + (f'及成绩最好的 {q} 名第 {n + 1} 名' if q else '')
         + f'晋级{goal}'
     )
-    if RELAY_B in low:
+    if re.search(
+        r'the third and fourth placed (?:skaters|teams) from each race and up to a maximum of next two fastest '
+        r'fifth place (?:skaters|teams) qualify for final b',
+        low[target.end() :],
+    ):
+        zh += '，其余第 3、4 名及最多两名用时最快的第 5 名可进B组决赛'
+    elif RELAY_B in low:
         zh += f'，第 {n + 1}、{n + 2} 名进B组决赛'
     elif REMAINDER_B in low:
         zh += '，其余可进B组决赛'

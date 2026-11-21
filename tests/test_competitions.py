@@ -420,7 +420,16 @@ Quarterfinals        11  CHN - People's Republic of China      3  2:51.826
         records, covered = data.china_evidence(obj)
         self.assertEqual(records[0]['heats'][0]['number'], 2)
         self.assertEqual(len(covered), 1)
-        obj['rounds']['items'][0]['participants'][0]['country'] = 'HKG'
+        start = obj['rounds']['items'][0]
+        result = dict(
+            start, id='result', evidence='official_results', participants=[dict(name='TEST Result', country='CHN')]
+        )
+        for ordering in ([result, start], [start, result]):
+            obj['rounds']['items'] = ordering
+            records, _ = data.china_evidence(obj)
+            self.assertEqual(records[0]['heats'], [dict(number=2, athletes=['TEST Result'])])
+            self.assertEqual(records[0]['evidence'], 'official_round_results')
+        result['participants'][0]['country'] = 'HKG'
         records, corrected = data.china_evidence(obj)
         self.assertEqual(records, [])
         self.assertEqual(covered, corrected)
