@@ -430,6 +430,18 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
       includeFinishKick: true,
       includePace: true,
     });
+    if (distance === 1500) {
+      const session = roundKey.split('/')[1];
+      let laneWeight = 1;
+      if (session === 'qualifying' || (session === 'main' && heat.round === 'semifinal')) laneWeight = 0.5;
+      if (session === 'main' && heat.round === 'final' && heat.group === 'A') laneWeight = 0;
+      // Scale the two lane terms and their interaction with field size.
+      for (const row of features) {
+        row[1] *= laneWeight;
+        row[2] *= laneWeight;
+        row[8] *= laneWeight;
+      }
+    }
     if (form.size) {
       withinHeatForm(active, form).forEach((value, i) => features[i].push(value));
     }
