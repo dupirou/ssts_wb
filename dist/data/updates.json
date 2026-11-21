@@ -13,7 +13,7 @@
       "distance_m": 5000,
       "format": "relay",
       "kind": "groups",
-      "heats": 2,
+      "heats": 4,
       "china": [
         "People's Republic of China"
       ]
@@ -60,9 +60,25 @@
         {
           "name": "People's Republic of China",
           "rank": 1
+        },
+        {
+          "name": "People's Republic of China",
+          "rank": 1
         }
       ],
       "podium": [
+        {
+          "rank": 1,
+          "name": "中国队",
+          "country": "CHN",
+          "name_latin": "People's Republic of China"
+        },
+        {
+          "rank": 1,
+          "name": "荷兰队",
+          "country": "NED",
+          "name_latin": "Netherlands"
+        },
         {
           "rank": 1,
           "name": "中国队",
@@ -80,6 +96,17 @@
           "name": "韩国队",
           "country": "KOR",
           "name_latin": "Republic of Korea"
+        },
+        {
+          "rank": 2,
+          "name": "韩国队",
+          "country": "KOR",
+          "name_latin": "Republic of Korea"
+        },
+        {
+          "rank": 3,
+          "name": "Ain2",
+          "country": "AIN2"
         },
         {
           "rank": 3,
@@ -118,12 +145,32 @@
           "name_latin": "Bohao ZHANG"
         },
         {
+          "name": "张柏浩",
+          "rank": 5,
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "孙龙",
+          "rank": 4,
+          "name_latin": "Long SUN"
+        },
+        {
           "name": "孙龙",
           "rank": 4,
           "name_latin": "Long SUN"
         }
       ],
       "podium": [
+        {
+          "rank": 1,
+          "name": "Dong Min SHIN",
+          "country": "KOR"
+        },
+        {
+          "rank": 1,
+          "name": "Seochan BAE",
+          "country": "KOR"
+        },
         {
           "rank": 1,
           "name": "Dong Min SHIN",
@@ -143,6 +190,26 @@
           "rank": 2,
           "name": "Luca SPECHENHAUSER",
           "country": "ITA"
+        },
+        {
+          "rank": 2,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Luca SPECHENHAUSER",
+          "country": "ITA"
+        },
+        {
+          "rank": 3,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Daniil NIKOLAEV",
+          "country": "AIN2"
         },
         {
           "rank": 3,
@@ -191,7 +258,7 @@
       "distance_m": 3000,
       "format": "relay",
       "kind": "groups",
-      "heats": 2,
+      "heats": 4,
       "china": [
         "People's Republic of China"
       ]
@@ -239,7 +306,7 @@
       "distance_m": 1500,
       "format": "individual",
       "kind": "groups",
-      "heats": 2,
+      "heats": 4,
       "china": [
         "张柏浩",
         "孙龙"
@@ -599,7 +666,7 @@
       "distance_m": 2000,
       "format": "relay",
       "kind": "groups",
-      "heats": 4,
+      "heats": 6,
       "china": [
         "People's Republic of China"
       ]
