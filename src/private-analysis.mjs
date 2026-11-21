@@ -260,10 +260,10 @@ function parseQualificationRule(codeStr) {
 }
 
 function finalAFieldSize(sets, roundKey) {
-  if (!roundKey.endsWith('/final/B')) return null;
+  if (!/\/final\/[B-]$/.test(roundKey)) return null;
   const key = roundKey.slice(0, -1) + 'A';
   for (const set of sets) {
-    const final = set.items.find(h => h.round_key === key);
+    const final = set.items.find(h => h.round_key === key || (h.round_key === roundKey && h.group === 'A'));
     if (final) return final.participants.filter(p => p.result !== 'DNS').length || null;
   }
   return null;
@@ -554,7 +554,7 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
           wins: row?.wins || 0,
           first: mcP.p_first,
           medals: heat.round === 'final' && heat.group === 'A' ? mcP.podium : null,
-          expectedFinalPlace: finalOffset == null ? null : finalOffset + mcP.expected_place,
+          expectedFinalPlace: heat.group !== 'B' || finalOffset == null ? null : finalOffset + mcP.expected_place,
           direct: qRule.big_q > 0 ? mcP.p_big_q : null,
           smallQ: qRule.small_q_planned > 0 ? mcP.p_small_q : null,
           totalAdvance: qRule.big_q > 0 || qRule.small_q_planned > 0 ? mcP.p_total_advance : null,
@@ -680,7 +680,7 @@ export async function report(env, gender, distance, roundKey) {
           starts: row?.starts || 0,
           wins: row?.wins || 0,
           medals: podium?.map((cum, rank) => cum[i] - (rank ? podium[rank - 1][i] : 0)) ?? null,
-          expectedFinalPlace: finalOffset == null || expectedPlace == null ? null : finalOffset + expectedPlace,
+          expectedFinalPlace: heat.group !== 'B' || finalOffset == null || expectedPlace == null ? null : finalOffset + expectedPlace,
           first: forecast ? weights[i] / total : null,
           direct: direct?.[i] ?? null,
         };
