@@ -217,6 +217,8 @@
     "seoul/round/2026-11-21/main/mixed/2000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/main/women/3000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/1500/quarterfinal/-/groups": "published",
+    "seoul/round/2026-11-21/repechage/men/1500/quarterfinal/-/results": "official",
+    "seoul/round/2026-11-21/repechage/men/1500/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/500/heats/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/500/heats/-/results": "official",
     "seoul/round/2026-11-21/repechage/men/500/quarterfinal/-/groups": "published",
@@ -478,36 +480,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "79c6dcae02120a25",
-      "station": "montreal",
-      "kind": "time_change",
-      "at": "2026-10-30T00:01:10+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "previous": "2026-11-02 00:29",
-      "current": "2026-11-02 00:38"
-    },
-    {
-      "id": "7b5e296b4fee2a89",
-      "station": "montreal",
-      "kind": "time_change",
-      "at": "2026-10-30T00:01:10+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-01 23:26",
-      "current": "2026-11-01 23:35"
-    },
     {
       "id": "89e3a5650227e92f",
       "station": "montreal",
@@ -3731,6 +3703,52 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "390b860d31b582c9",
+      "station": "seoul",
+      "at": "2026-11-21T02:11:40+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Yiding ZHU"
+      ]
+    },
+    {
+      "id": "45718d976be6742c",
+      "station": "seoul",
+      "at": "2026-11-21T02:11:40+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Kerui SONG",
+        "Yiding ZHU"
+      ],
+      "china_results": [
+        {
+          "name": "Kerui SONG",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Yiding ZHU",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
     }
   ]
 }

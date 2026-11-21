@@ -2,6 +2,54 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "45718d976be6742c",
+      "station": "seoul",
+      "at": "2026-11-21T02:11:40+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "宋柯睿",
+        "朱祎玎"
+      ],
+      "china_results": [
+        {
+          "name": "宋柯睿",
+          "rank": 3,
+          "status": "out",
+          "name_latin": "Kerui SONG"
+        },
+        {
+          "name": "朱祎玎",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Yiding ZHU"
+        }
+      ]
+    },
+    {
+      "id": "390b860d31b582c9",
+      "station": "seoul",
+      "at": "2026-11-21T02:11:40+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "朱祎玎"
+      ]
+    },
+    {
       "id": "acef33e17b0195f3",
       "station": "seoul",
       "at": "2026-11-21T01:21:50+00:00",
@@ -3336,36 +3384,6 @@
       "format": "individual",
       "previous": "2026-11-01 23:06",
       "current": "2026-11-01 23:15"
-    },
-    {
-      "id": "7b5e296b4fee2a89",
-      "station": "montreal",
-      "kind": "time_change",
-      "at": "2026-10-30T00:01:10+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-01 23:26",
-      "current": "2026-11-01 23:35"
-    },
-    {
-      "id": "79c6dcae02120a25",
-      "station": "montreal",
-      "kind": "time_change",
-      "at": "2026-10-30T00:01:10+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "previous": "2026-11-02 00:29",
-      "current": "2026-11-02 00:38"
     }
   ]
 }
