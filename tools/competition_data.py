@@ -147,9 +147,15 @@ def china_evidence(snapshot):
     grouped = {}
     for heat in snapshot['rounds']['items']:
         if heat.get('round_key') and heat.get('evidence') in ('official_start_list', 'official_results'):
-            grouped.setdefault(heat['round_key'], []).append(heat)
+            # ISU can publish a new race ID for the result of the same numbered heat.
+            by_number = grouped.setdefault(heat['round_key'], {})
+            number = heat.get('heat_number')
+            slot = number if number is not None else heat['id']
+            if slot not in by_number or heat['evidence'] == 'official_results':
+                by_number[slot] = heat
     records = []
-    for key, heats in grouped.items():
+    for key, by_number in grouped.items():
+        heats = list(by_number.values())
         chinese = []
         for heat in heats:
             # A relay team is named by its skaters once ISU lists them (after the heat), else by the team.
