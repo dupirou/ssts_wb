@@ -1224,8 +1224,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-21T08:31:32+00:00",
-    "updated_at": "2026-11-21T08:31:32+00:00",
+    "checked_at": "2026-11-21T08:41:33+00:00",
+    "updated_at": "2026-11-21T08:41:33+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -1480,12 +1480,46 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-21T17:36:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-21T17:39:26.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
         "participants": [
+          {
+            "athlete_id": "team-ITA-men",
+            "name": "Italy",
+            "country": "ITA",
+            "official_skater_id": 12988,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-bf93d274dece11d17ae7",
+                "name": "Lorenzo PREVITALI",
+                "official_skater_id": 5703
+              },
+              {
+                "athlete_id": "ath-0b75c8b148a940d59dbb",
+                "name": "Thomas NADALINI",
+                "official_skater_id": 4990
+              },
+              {
+                "athlete_id": "ath-d92eaba24dcaf8aca602",
+                "name": "Luca SPECHENHAUSER",
+                "official_skater_id": 6644
+              },
+              {
+                "athlete_id": "ath-050bd069f71a453ce726",
+                "name": "Daniele ZAMPEDRI",
+                "official_skater_id": 8033
+              }
+            ]
+          },
           {
             "athlete_id": "team-KOR-men",
             "name": "Republic of Korea",
@@ -1497,7 +1531,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-312405ae84ff65c4ae3a",
+                "name": "Taesung KIM",
+                "official_skater_id": 3473
+              },
+              {
+                "athlete_id": "ath-2eea258e3a0d28fc0ba5",
+                "name": "Jeongmin LEE",
+                "official_skater_id": 4030
+              },
+              {
+                "athlete_id": "ath-732f4fad920fa4946f20",
+                "name": "Jongun RIM",
+                "official_skater_id": 5906
+              },
+              {
+                "athlete_id": "ath-7c9576fc5f305230747a",
+                "name": "Dong Min SHIN",
+                "official_skater_id": 6390
+              }
+            ]
           },
           {
             "athlete_id": "team-BEL-men",
@@ -1510,7 +1565,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
+                "name": "Warre NOIRON",
+                "official_skater_id": 5140
+              },
+              {
+                "athlete_id": "ath-9f8261b4f03d9bcbec9a",
+                "name": "Fre VAN DAMME",
+                "official_skater_id": 7327
+              },
+              {
+                "athlete_id": "ath-f14f6ec4ac20e39bef35",
+                "name": "Enzo PROOST",
+                "official_skater_id": 5726
+              },
+              {
+                "athlete_id": "ath-9f7cbe745e1593f62ee3",
+                "name": "Warre VAN DAMME",
+                "official_skater_id": 7328
+              }
+            ]
           },
           {
             "athlete_id": "team-CAN-men",
@@ -1523,20 +1599,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
-          },
-          {
-            "athlete_id": "team-ITA-men",
-            "name": "Italy",
-            "country": "ITA",
-            "official_skater_id": 12988,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-fc00bf7d3e213bcf4f68",
+                "name": "Maxime LAOUN",
+                "official_skater_id": 3951
+              },
+              {
+                "athlete_id": "ath-ff84a70c32aaa0324d85",
+                "name": "William DANDJINOU",
+                "official_skater_id": 1422
+              },
+              {
+                "athlete_id": "ath-66f405825cafc7701e42",
+                "name": "Philippe DAUDELIN",
+                "official_skater_id": 1444
+              },
+              {
+                "athlete_id": "ath-2f5775133539f6a7e0f7",
+                "name": "Felix ROUSSEL",
+                "official_skater_id": 5998
+              }
+            ]
           }
         ]
       },
@@ -1569,7 +1653,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-dd44b2a84774da47ab8d",
+                "name": "Melle VAN 'T WOUT",
+                "official_skater_id": 7376
+              },
+              {
+                "athlete_id": "ath-98d77949cb6eb84d0b02",
+                "name": "Teun BOER",
+                "official_skater_id": 783
+              },
+              {
+                "athlete_id": "ath-3c121028999cfe671647",
+                "name": "Jens VAN 'T WOUT",
+                "official_skater_id": 7375
+              },
+              {
+                "athlete_id": "ath-6be3e556e39507d16dc3",
+                "name": "Kay HUISMAN",
+                "official_skater_id": 2780
+              }
+            ]
           },
           {
             "athlete_id": "team-AIN2-men",
@@ -1582,7 +1687,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-ae059245c19305b299b6",
+                "name": "Daniil NIKOLAEV",
+                "official_skater_id": 20499
+              },
+              {
+                "athlete_id": "ath-05fa7ba7935d7438f295",
+                "name": "Valentin KOBYZEV",
+                "official_skater_id": 22629
+              },
+              {
+                "athlete_id": "ath-957beb23a9901b33af6b",
+                "name": "Semen ELISTRATOV",
+                "official_skater_id": 1774
+              },
+              {
+                "athlete_id": "ath-284e4e30ce2b8e981154",
+                "name": "Vladimir BALBEKOV",
+                "official_skater_id": 491
+              }
+            ]
           },
           {
             "athlete_id": "team-CHN-men",
@@ -1595,7 +1721,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-872b8b25f1eda8723e33",
+                "name": "Kun LI",
+                "official_skater_id": 4167
+              },
+              {
+                "athlete_id": "ath-78a6ed2c7eac904f5ca0",
+                "name": "Long SUN",
+                "official_skater_id": 6784
+              },
+              {
+                "athlete_id": "ath-799c7f543fce635aeeb8",
+                "name": "Zixia ZHANG",
+                "official_skater_id": 20586
+              },
+              {
+                "athlete_id": "ath-49a455de09fadeaad9c9",
+                "name": "Bohao ZHANG",
+                "official_skater_id": 8078
+              }
+            ]
           },
           {
             "athlete_id": "team-USA-men",
@@ -1608,7 +1755,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-386e02e7887f7b96867e",
+                "name": "Benjamin SULLIVAN",
+                "official_skater_id": 19467
+              },
+              {
+                "athlete_id": "ath-472493cfd4ab7c1d5088",
+                "name": "Clayton DE CLEMENTE",
+                "official_skater_id": 1471
+              },
+              {
+                "athlete_id": "ath-84f0d8c76ad7b4d4c9ad",
+                "name": "Andrew HEO",
+                "official_skater_id": 2616
+              },
+              {
+                "athlete_id": "ath-bf41d212ebfe992891e6",
+                "name": "Justin LIU",
+                "official_skater_id": 4302
+              }
+            ]
           }
         ]
       },
