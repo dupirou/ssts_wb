@@ -1224,8 +1224,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-21T01:21:50+00:00",
-    "updated_at": "2026-11-21T01:21:50+00:00",
+    "checked_at": "2026-11-21T01:31:36+00:00",
+    "updated_at": "2026-11-21T01:31:36+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -4391,8 +4391,8 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-21T10:22:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-21T10:28:13.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16343&round=23431",
@@ -4404,11 +4404,11 @@
             "official_skater_id": 4030,
             "helmet_number": 32,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "2:28.660",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 36.57
           },
           {
             "athlete_id": "ath-ed4d41133f871dbcd2f6",
@@ -4437,30 +4437,30 @@
             "last_four_seconds": null
           },
           {
-            "athlete_id": "ath-a4c9e0fa92c31f6f11ce",
-            "name": "Ivan DONCHEV",
-            "country": "BUL",
-            "official_skater_id": 1657,
-            "helmet_number": 60,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
-          {
             "athlete_id": "ath-27143c296ec97522a767",
             "name": "Maxim MAXIMOV",
             "country": "BUL",
             "official_skater_id": 4648,
             "helmet_number": 63,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "2:29.110",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 36.45
+          },
+          {
+            "athlete_id": "ath-a4c9e0fa92c31f6f11ce",
+            "name": "Ivan DONCHEV",
+            "country": "BUL",
+            "official_skater_id": 1657,
+            "helmet_number": 60,
+            "starting_position": 4,
+            "rank": 5,
+            "result": "2:32.630",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 40.27
           },
           {
             "athlete_id": "ath-ebed38a356cd59f7d6e4",
@@ -4483,7 +4483,7 @@
             "helmet_number": 140,
             "starting_position": 7,
             "rank": null,
-            "result": null,
+            "result": "DNS",
             "qualification": null,
             "penalty": null,
             "last_four_seconds": null
@@ -4921,7 +4921,7 @@
           },
           {
             "athlete_id": "ath-adac927b0b3d0c45aeb4",
-            "name": "KERUI SONG",
+            "name": "Kerui SONG",
             "country": "CHN",
             "official_skater_id": 18320,
             "helmet_number": 68,
