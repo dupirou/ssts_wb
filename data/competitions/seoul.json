@@ -1224,8 +1224,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-21T05:21:34+00:00",
-    "updated_at": "2026-11-21T05:21:34+00:00",
+    "checked_at": "2026-11-21T05:26:11+00:00",
+    "updated_at": "2026-11-21T05:26:11+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -6585,7 +6585,7 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-11-21T14:18:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16344&round=23439",
@@ -6597,6 +6597,18 @@
             "official_skater_id": 1231,
             "helmet_number": 4,
             "starting_position": 1,
+            "rank": 1,
+            "result": "1:31.520",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-32780e84744937993fa2",
+            "name": "Ann-Sophie BACHAND",
+            "country": "CAN",
+            "official_skater_id": 457,
+            "helmet_number": 51,
+            "starting_position": 4,
             "rank": null,
             "result": null,
             "qualification": null,
@@ -6615,38 +6627,26 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
-            "country": "CHN",
-            "official_skater_id": 8090,
-            "helmet_number": 55,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-32780e84744937993fa2",
-            "name": "Ann-Sophie BACHAND",
-            "country": "CAN",
-            "official_skater_id": 457,
-            "helmet_number": 51,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
             "athlete_id": "ath-718c9eb2f816ecc25ced",
             "name": "Chien Hua HUANG",
             "country": "TPE",
             "official_skater_id": 18356,
             "helmet_number": 85,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "1:32.730",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-f5df095326a0281962ea",
+            "name": "Jianing ZHANG",
+            "country": "CHN",
+            "official_skater_id": 8090,
+            "helmet_number": 55,
+            "starting_position": 3,
+            "rank": 5,
+            "result": "1:32.800",
             "qualification": null,
             "penalty": null
           }
