@@ -128,21 +128,44 @@ test('Real data pipeline: zero writes to data/heats/, positive cross-tier correl
     );
   }
 
-  // (b2) Retired/unavailable and non-Hengshui (incl. all-blank-rank/0-pt skr-6615) SENIOR_ONLY athletes are strictly excluded
-  for (const excludedId of ['skr-4247', 'skr-5859', 'skr-1876', 'skr-8039', 'skr-4312', 'skr-4314', 'skr-5753', 'skr-6615']) {
+  // (b2) Retired/unavailable, non-Hengshui, and non-selected mid-pack domestic athletes are strictly excluded
+  for (const excludedId of ['skr-4247', 'skr-5859', 'skr-1876', 'skr-8039', 'skr-4312', 'skr-4314', 'skr-5753', 'skr-6615', 'skr-18243', 'skr-4176']) {
     assert.ok(!allEligibleIds.has(excludedId), `${excludedId} must be excluded from eligible`);
   }
   const allQualExclIds = new Set([
     ...pool.women.excludedByQualification.map((c) => c.athlete_id),
     ...pool.men.excludedByQualification.map((c) => c.athlete_id),
   ]);
-  for (const excludedId of ['skr-4247', 'skr-5859', 'skr-1876', 'skr-8039', 'skr-4312', 'skr-4314', 'skr-6615']) {
+  for (const excludedId of ['skr-4247', 'skr-5859', 'skr-1876', 'skr-8039', 'skr-4312', 'skr-4314', 'skr-6615', 'skr-18243', 'skr-4176']) {
     assert.ok(allQualExclIds.has(excludedId), `${excludedId} should be audited in excludedByQualification`);
   }
-  // Hengshui participants & DUAL_ELIGIBLE youth remain eligible (skr-18243 placed #2 in 500m at Hengshui)
-  for (const eligibleId of ['skr-6784', 'skr-8078', 'skr-8080', 'skr-2262', 'skr-7613', 'skr-20586', 'skr-22312', 'skr-18243']) {
+  const excl18243 = pool.women.excludedByQualification.find((c) => c.athlete_id === 'skr-18243');
+  assert.equal(excl18243.reason, 'not_in_national_team_selection_pool');
+
+  // Hengshui+WT, JWC_2026_27, and Qitaihe Gold/Top3 (incl. Hengshui-exempt skr-8107 张添翼) remain eligible
+  assert.equal(pool.calibrationDiagnostics.selectionGateActive, true);
+  for (const eligibleId of ['skr-6784', 'skr-8078', 'skr-8080', 'skr-2262', 'skr-7613', 'skr-20586', 'skr-22312', 'skr-8107', 'skr-8145']) {
     assert.ok(allEligibleIds.has(eligibleId), `${eligibleId} should remain eligible`);
   }
+  const zhangTianyi = pool.men.eligible.find((c) => c.athlete_id === 'skr-8107');
+  assert.equal(zhangTianyi.name_zh, '张添翼');
+  assert.equal(zhangTianyi.qualification_path, 'DOMESTIC_GOLD');
+  assert.equal(pool.women.eligible.find((c) => c.athlete_id === 'skr-22880')?.name_zh, '宗艾迪');
+  assert.equal(pool.men.eligible.find((c) => c.athlete_id === 'skr-22630')?.name_zh, '孙志博');
+
+  const eligibleZhNames = new Set([
+    ...pool.women.eligible.map((c) => c.name_zh),
+    ...pool.men.eligible.map((c) => c.name_zh),
+  ]);
+  for (const zh of ['南佳延', '李晶', '郭骏达', '于翰琦', '朱昱璋', '高君镇', '钟宇晨', '张添翼']) {
+    assert.ok(eligibleZhNames.has(zh), `${zh} must be in eligible national team selection pool`);
+  }
+
+  // Verify 2026/27 Top-40 world ranking injection
+  assert.deepEqual(pool.men.top40Counts, { 500: 4, 1000: 4, 1500: 3 });
+  assert.deepEqual(pool.men.eligible.find((c) => c.athlete_id === 'skr-6784')?.world_ranking_top40_distances, [500, 1000, 1500]);
+  assert.deepEqual(pool.men.eligible.find((c) => c.athlete_id === 'skr-8157')?.world_ranking_top40_distances, [1500]);
+  assert.deepEqual(pool.men.eligible.find((c) => c.athlete_id === 'skr-18320')?.world_ranking_top40_distances, [1000]);
 
   // Verify milp-eng candidate contract on every eligible candidate
   for (const group of [pool.women.eligible, pool.men.eligible]) {
@@ -666,5 +689,15 @@ test('Cross-cycle Senior mu decay, relay season decay, and old Junior isolation 
     assert.ok(Math.abs(curSen.relay_stats.senior_weighted_final_a - 0.5) < 1e-4);
   } finally {
     fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
+});
+
+test('Historical backtest asOfDate (2025/26) disables 2026/27 selection gate and Top-40 future data', () => {
+  const histPool = buildFusedCandidatePool({ asOfDate: '2025-11-15' });
+  assert.equal(histPool.calibrationDiagnostics.selectionGateActive, false);
+  assert.deepEqual(histPool.women.top40Counts, { 500: 0, 1000: 0, 1500: 0 });
+  assert.deepEqual(histPool.men.top40Counts, { 500: 0, 1000: 0, 1500: 0 });
+  for (const c of [...histPool.women.eligible, ...histPool.men.eligible]) {
+    assert.deepEqual(c.world_ranking_top40_distances, []);
   }
 });

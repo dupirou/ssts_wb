@@ -60,6 +60,36 @@
     versatile_upside: '综合 / 高潜力机动'
   };
 
+  const QUAL_PATH_LABELS = {
+    WT_2026_27: '本季WT',
+    JWC_2026_27: '青杯梯队',
+    DOMESTIC_GOLD: '七台河金牌',
+    DOMESTIC_TOP3: '七台河前三'
+  };
+
+  function formatTop40Tag(dists) {
+    if (!Array.isArray(dists) || !dists.length) return null;
+    const clean = dists.map((d) => String(d).replace(/m$/i, '')).join('·');
+    return `Top40: ${clean}m`;
+  }
+
+  function channelAndTop40Tags(h, record, lookup) {
+    const base = record.athlete_id ? lookup?.byId.get(record.athlete_id) : null;
+    const qPath = record.qualification_path || base?.qualification_path || null;
+    const top40 = record.world_ranking_top40_distances?.length
+      ? record.world_ranking_top40_distances
+      : base?.world_ranking_top40_distances || null;
+    const tags = [];
+    if (qPath) {
+      tags.push(h('span', { class: 'roster-tag is-qual', text: QUAL_PATH_LABELS[qPath] || qPath }));
+    }
+    const top40Text = formatTop40Tag(top40);
+    if (top40Text) {
+      tags.push(h('span', { class: 'roster-tag is-top40', text: top40Text }));
+    }
+    return tags;
+  }
+
   const DIST_KEYS = ['500', '1000', '1500', 'relay'];
   const DIST_LABELS = { 500: '500m', 1000: '1000m', 1500: '1500m', relay: '接力' };
 
@@ -562,6 +592,7 @@
         ageLabel
           ? h('span', { class: `roster-tag ${isDual ? 'is-dual' : 'is-senior'}`, text: ageLabel })
           : null,
+        ...channelAndTop40Tags(h, candidate, lookup),
         ...sources.map((src) => h('span', { class: 'roster-tag is-source', text: src })),
         preferredDists.length
           ? h(
@@ -714,10 +745,19 @@
     );
   }
 
-  function renderReservesSection(h, scenarioData, lookup) {
+  function renderReservesSection(h, scenarioData, state, lookup) {
     const reserves = [...(scenarioData.reserves || [])].sort(
       (a, b) => (a.reserve_rank || 99) - (b.reserve_rank || 99)
     );
+    const reserveCap = scenarioData.reserve_cap ?? reserves.length;
+    const isWt = state.event === 'wt';
+    const headingText = isWt
+      ? `替补梯队（限额 ${reserveCap} 人${reserves.length < reserveCap ? ` · 当前 ${reserves.length} 人` : ''}）`
+      : `替补梯队（最多 ${reserveCap} 人，当前 ${reserves.length} 人）`;
+    const subText = isWt
+      ? `世巡赛单站替补限额 ${reserveCap} 人 · 不足不强凑`
+      : '按短距离/接力 · 中长距离 · 综合机动三路配置';
+
     const counts = { sprint_relay: 0, mid_long: 0, versatile_upside: 0 };
     for (const r of reserves) {
       if (counts[r.role_tag] != null) counts[r.role_tag]++;
@@ -726,9 +766,11 @@
     const summaryChips = h(
       'div',
       { class: 'roster-reserve-summary' },
-      ...Object.entries(ROLE_LABELS).map(([tag, label]) =>
-        h('span', { class: `roster-tag is-role-${tag}` }, `${label} ${counts[tag] || 0} 人`)
-      )
+      ...Object.entries(ROLE_LABELS)
+        .filter(([tag]) => counts[tag] > 0)
+        .map(([tag, label]) =>
+          h('span', { class: `roster-tag is-role-${tag}` }, `${label} ${counts[tag]} 人`)
+        )
     );
 
     const grid = h(
@@ -741,6 +783,7 @@
           : '—';
         const roleLabel = ROLE_LABELS[r.role_tag] || r.role_tag;
         const sources = (r.data_sources || []).map((s) => SOURCE_LABELS[s] || s);
+        const extraTags = channelAndTop40Tags(h, r, lookup);
 
         return h(
           'article',
@@ -761,10 +804,11 @@
             h('b', { text: nm.zh }),
             nm.en ? h('small', { class: 'faint', text: nm.en }) : null
           ),
-          sources.length
+          sources.length || extraTags.length
             ? h(
                 'div',
                 { class: 'roster-tags' },
+                ...extraTags,
                 ...sources.map((src) => h('span', { class: 'roster-tag is-source', text: src }))
               )
             : null,
@@ -797,15 +841,10 @@
 
     return h(
       'section',
-      { class: 'panel roster-section', 'aria-label': '6 人替补名单' },
-      h(
-        'div',
-        { class: 'panel-head' },
-        h('h2', { text: '6 人替补池' }),
-        h('p', { text: '按短距离/接力 · 中长距离 · 综合机动三路配置' })
-      ),
-      summaryChips,
-      grid
+      { class: 'panel roster-section', 'aria-label': '替补梯队' },
+      h('div', { class: 'panel-head' }, h('h2', { text: headingText }), h('p', { text: subText })),
+      reserves.length ? summaryChips : null,
+      reserves.length ? grid : h('p', { class: 'faint', text: '当前合格候选池无额外替补人选。' })
     );
   }
 
@@ -931,7 +970,7 @@
       body.replaceChildren(
         renderQuotaSection(h, quotas, forecast, state, lookup),
         renderMainSection(h, scenarioData, forecast, state, lookup),
-        renderReservesSection(h, scenarioData, lookup)
+        renderReservesSection(h, scenarioData, state, lookup)
       );
     };
 

@@ -265,11 +265,39 @@ export function buildRosterProblem(candidates, opts = {}) {
     opts.riskAversion ??
     opts.config?.roster_model?.objective_weights?.uncertainty_risk_aversion ??
     0.35;
+  const top40ProtectWeight = Number(opts.top40ProtectWeight ?? 0) || 0;
+  const top40Counts = [0, 0, 0];
+  const top40Flags = new Uint8Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    const list = candidates[i].world_ranking_top40_distances;
+    if (!Array.isArray(list)) continue;
+    for (const rawD of list) {
+      const d = parseInt(String(rawD), 10);
+      const k = DISTANCES.indexOf(d);
+      if (k >= 0 && !top40Flags[i * 3 + k]) {
+        top40Flags[i * 3 + k] = 1;
+        top40Counts[k]++;
+      }
+    }
+  }
+  const top40Bonus = new Float64Array(n * 3);
+  if (top40ProtectWeight !== 0) {
+    for (let k = 0; k < 3; k++) {
+      const cnt = opts.top40Counts?.[DISTANCES[k]] ?? top40Counts[k];
+      const urgency = cnt <= 3 ? 1.6 : cnt === 4 ? 1.0 : 0.4;
+      const bonus = top40ProtectWeight * urgency;
+      for (let i = 0; i < n; i++) {
+        if (top40Flags[i * 3 + k]) top40Bonus[i * 3 + k] = bonus;
+      }
+    }
+  }
   const problem = {
     n,
     ids,
     candidates,
     V: new Float64Array(n * 3),
+    top40Bonus,
+    top40ProtectWeight,
     R: new Float64Array(n),
     M: new Float64Array(n),
     blocked: new Uint8Array(n),
@@ -338,11 +366,11 @@ function popcount3(p) {
 /** Objective of pattern p (bits 500/1000/1500/relay) for candidate i. */
 function patternValue(problem, i, p, lambdas) {
   const b = i * 3;
-  const { V } = problem;
+  const { V, top40Bonus } = problem;
   let v = lambdas.form * problem.M[i];
-  if (p & 1) v += V[b];
-  if (p & 2) v += V[b + 1];
-  if (p & 4) v += V[b + 2];
+  if (p & 1) v += V[b] + (top40Bonus ? top40Bonus[b] : 0);
+  if (p & 2) v += V[b + 1] + (top40Bonus ? top40Bonus[b + 1] : 0);
+  if (p & 4) v += V[b + 2] + (top40Bonus ? top40Bonus[b + 2] : 0);
   if (p & RELAY_BIT) v += lambdas.relay * problem.R[i];
   if (popcount3(p) === 3) v -= lambdas.fatigue;
   return v;
@@ -858,6 +886,10 @@ export function runMonteCarloRoster(candidates, opts = {}) {
     age_group: c.age_group ?? null,
     is_dual_eligible: Boolean(c.is_dual_eligible),
     data_sources: c.data_sources || [],
+    qualification_path: c.qualification_path ?? null,
+    world_ranking_top40_distances: Array.isArray(c.world_ranking_top40_distances)
+      ? c.world_ranking_top40_distances
+      : [],
     form_momentum: round(problem.M[i]),
     recent_highlight: c.recent_highlight ?? null,
     skills: {
@@ -972,8 +1004,14 @@ export function selectSixReserves(mc, opts = {}) {
   const problem = mc._problem;
   const config = opts.config || {};
   const rp = config.roster_model?.reserve_pool || {};
-  const alloc = rp.allocation || { sprint_relay: 2, mid_long: 2, versatile_upside: 2 };
-  const totalSize = rp.total_size ?? 6;
+  const maxReserves = Math.max(0, Math.floor(opts.maxReserves ?? rp.total_size ?? 6));
+  if (maxReserves === 0) return [];
+  const defaultWtAlloc = rp.wt_allocation || { sprint_relay: 1, mid_long: 1, versatile_upside: 0 };
+  const alloc =
+    opts.reserveAllocation ||
+    (maxReserves === (rp.wt_max_size ?? 2) && (opts.maxReserves != null || rp.wt_allocation)
+      ? defaultWtAlloc
+      : rp.allocation || { sprint_relay: 2, mid_long: 2, versatile_upside: 2 });
   const upK = rp.upside_sigma_multiplier ?? 1.0;
   const constraints = opts.constraints || mc.constraints;
   const lambdas = opts.lambdas || mc.lambdas;
@@ -1041,8 +1079,22 @@ export function selectSixReserves(mc, opts = {}) {
     (a, b) => b.versatile - a.versatile || a.best.loss - b.best.loss
   );
 
+  const targetCap = Math.min(maxReserves, rows.length);
+  if (chosen.length < targetCap) {
+    const remaining = rows
+      .filter((r) => !taken.has(r.j))
+      .sort(
+        (a, b) =>
+          a.best.loss - b.best.loss || b.prob - a.prob || problem.ids[a.j].localeCompare(problem.ids[b.j])
+      );
+    for (const r of remaining.slice(0, targetCap - chosen.length)) {
+      taken.add(r.j);
+      chosen.push({ ...r, tag: 'versatile_upside', metric: r.best });
+    }
+  }
+
   const ordered = chosen
-    .slice(0, totalSize)
+    .slice(0, targetCap)
     .sort((a, b) => a.metric.loss - b.metric.loss || b.prob - a.prob);
   return ordered.map((r, idx) => {
     const c = problem.candidates[r.j];
@@ -1058,6 +1110,10 @@ export function selectSixReserves(mc, opts = {}) {
       marginal_loss: Number.isFinite(r.metric.loss) ? round(r.metric.loss) : null,
       is_dual_eligible: Boolean(c.is_dual_eligible),
       data_sources: c.data_sources || [],
+      qualification_path: c.qualification_path ?? null,
+      world_ranking_top40_distances: Array.isArray(c.world_ranking_top40_distances)
+        ? c.world_ranking_top40_distances
+        : [],
       recent_highlight: c.recent_highlight ?? null,
       upside_score: round(r.upside),
       versatility_score: round(r.versatile)
@@ -1109,9 +1165,14 @@ export function forecastGender(candidates, opts = {}) {
   const t1 = performance.now();
   const reserves = selectSixReserves(mc, opts);
   const t2 = performance.now();
+  const reserveCap = Math.max(
+    0,
+    Math.floor(opts.maxReserves ?? opts.config?.roster_model?.reserve_pool?.total_size ?? 6)
+  );
   const { _problem, ...rest } = mc;
   return {
     ...rest,
+    reserve_cap: reserveCap,
     reserves,
     timing_ms: { monte_carlo: round(t1 - t0, 1), reserves: round(t2 - t1, 1), total: round(t2 - t0, 1) }
   };

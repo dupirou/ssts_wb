@@ -91,6 +91,13 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
   const penaltyBans = quotasDoc?.world_tour_2026_27?.next_stop_penalty_bans || [];
   const penaltyWarnings = quotasDoc?.world_tour_2026_27?.one_away_from_ban_warnings || [];
 
+  const rp = config.roster_model?.reserve_pool || {};
+  const wtMaxReserves = rp.wt_max_size ?? 2;
+  const wtReserveAlloc = rp.wt_allocation || { sprint_relay: 1, mid_long: 1, versatile_upside: 0 };
+  const wcMaxReserves = rp.wc_max_size ?? rp.total_size ?? 6;
+  const wcReserveAlloc = rp.allocation || { sprint_relay: 2, mid_long: 2, versatile_upside: 2 };
+  const wtTop40Protect = config.roster_model?.objective_weights?.lambda_top40_protect ?? 0.04;
+
   const wtOut = {};
   for (const gender of ['women', 'men']) {
     const q = wtQuotas[gender]?.CHN || {};
@@ -104,7 +111,10 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
       constraints: cons,
       lambdas,
       fieldByDistance: fields[gender],
-      blockedDistancesByAthlete: blocked
+      blockedDistancesByAthlete: blocked,
+      maxReserves: wtMaxReserves,
+      reserveAllocation: wtReserveAlloc,
+      top40ProtectWeight: wtTop40Protect
     });
   }
 
@@ -123,7 +133,10 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
       config,
       constraints: cons,
       lambdas,
-      fieldByDistance: fields[gender]
+      fieldByDistance: fields[gender],
+      maxReserves: wcMaxReserves,
+      reserveAllocation: wcReserveAlloc,
+      top40ProtectWeight: 0
     });
   }
 
@@ -153,6 +166,10 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
       excluded_by_age: {
         women: fused.women.excludedByAge,
         men: fused.men.excludedByAge
+      },
+      excluded_by_qualification: {
+        women: fused.women.excludedByQualification || [],
+        men: fused.men.excludedByQualification || []
       },
       penalty_bans_applied: penaltyBans.filter((b) => b.country === 'CHN'),
       penalty_warnings_chn: penaltyWarnings.filter((w) => w.country === 'CHN'),
@@ -261,7 +278,8 @@ function runHistoricalBacktest(config) {
             constraints: cons,
             lambdas: { ...lambdasBase, fatigue: lf },
             fieldByDistance: fields[gender],
-            draws: 300
+            draws: 300,
+            top40ProtectWeight: 0
           });
           const predIds = new Set(fc.preferred_main_roster?.athlete_ids || []);
           const rosterHits = [...act.athletes].filter((id) => predIds.has(id)).length;
@@ -410,7 +428,10 @@ function runDualEligibleSensitivity({ asOfDate, config, quotasDoc, predState, fu
       constraints: cons,
       lambdas: lambdasFromConfig(config),
       fieldByDistance: fields[gender],
-      blockedDistancesByAthlete: blocked
+      blockedDistancesByAthlete: blocked,
+      maxReserves: config.roster_model?.reserve_pool?.wt_max_size ?? 2,
+      reserveAllocation: config.roster_model?.reserve_pool?.wt_allocation,
+      top40ProtectWeight: config.roster_model?.objective_weights?.lambda_top40_protect ?? 0.04
     });
     const afterCand = afterFc.candidates.find((c) => c.athlete_id === target.athlete_id);
     const afterRank = afterFc.candidates.findIndex((c) => c.athlete_id === target.athlete_id) + 1;
@@ -459,14 +480,17 @@ function formatBacktestMarkdown({ config, forecast, backtest, sensitivity }) {
       const mainStr = g.preferred_main_roster.athlete_ids
         .map((id) => `${nameById.get(id) || id} (${id})`)
         .join('、');
-      const resStr = g.reserves
-        .map((r) => `#${r.reserve_rank} ${r.name_zh || r.name_en} [${r.role_tag}, loss=${r.marginal_loss}]`)
-        .join('；');
+      const resStr = g.reserves.length
+        ? g.reserves
+            .map((r) => `#${r.reserve_rank} ${r.name_zh || r.name_en} [${r.role_tag}, loss=${r.marginal_loss}]`)
+            .join('；')
+        : '无';
+      const capLabel = g.reserve_cap ?? g.reserves.length;
       lines.push(
         `- **${gender === 'women' ? '女队' : '男队'}**（约束 \`N=${g.constraints.nMax}, K=${g.constraints.k500}/${g.constraints.k1000}/${g.constraints.k1500}, R=${g.constraints.relay}\`, 耗时 \`${g.timing_ms.total} ms\`）：`
       );
       lines.push(`  - 首选正选（频率 ${(g.preferred_main_roster.frequency * 100).toFixed(1)}%）：${mainStr}`);
-      lines.push(`  - 6人替补梯队：${resStr}`);
+      lines.push(`  - 替补梯队（最多 ${capLabel} 人，实际 ${g.reserves.length} 人）：${resStr}`);
     }
     lines.push('');
   }
@@ -516,8 +540,12 @@ function formatBacktestMarkdown({ config, forecast, backtest, sensitivity }) {
   lines.push('| 性别 | 兼项测试选手 | 注入前排名 / 正选概率 / 替补位 | 注入后排名 / 正选概率 / 替补位 |');
   lines.push('|---|---|---:|---:|');
   for (const s of sensitivity) {
-    const bRes = s.before_reserve_rank ? `替补#${s.before_reserve_rank}` : '池外';
-    const aRes = s.after_reserve_rank ? `替补#${s.after_reserve_rank}` : '晋级正选';
+    const bRes = s.before_reserve_rank ? `替补#${s.before_reserve_rank}` : '替补池外';
+    const aRes = s.after_reserve_rank
+      ? `替补#${s.after_reserve_rank}`
+      : s.after_prob >= 0.5
+        ? '晋级正选'
+        : '替补池外';
     lines.push(
       `| ${s.gender} | ${s.name} | 第${s.before_rank} / ${(s.before_prob * 100).toFixed(1)}% / ${bRes} | 第${s.after_rank} / ${(s.after_prob * 100).toFixed(1)}% / ${aRes} |`
     );

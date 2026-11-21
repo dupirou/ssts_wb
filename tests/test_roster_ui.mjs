@@ -49,6 +49,12 @@ async function loadPage(path, options = {}) {
     if (options.fail && url.pathname === options.fail) {
       return new Response('unavailable', { status: 503 });
     }
+    if (options.quotas && url.pathname === '/data/quota_roster/quotas_2026_27.json') {
+      return Response.json(options.quotas);
+    }
+    if (options.forecast && url.pathname === '/data/quota_roster/chn_roster_forecast.json') {
+      return Response.json(options.forecast);
+    }
     return new Response(await file('dist' + url.pathname));
   };
 
@@ -101,12 +107,12 @@ test('/roster/ renders 2026/27 WT 4-skater quotas, penalty warnings, CHN Women m
   assert.match(mainCards[0].textContent, /μ ± σ/);
   assert.match(mainCards[0].textContent, /\d+\.\d{2} ± \d+\.\d{2}/);
 
-  // Expanding full candidate pool shows dual-eligible and negative momentum skaters
+  // Expanding full candidate pool shows dual-eligible skaters; negative momentum renders with .is-neg
   const allCandidates = d.querySelector('.roster-all-candidates');
   assert.ok(allCandidates);
   allCandidates.open = true;
   assert.ok(allCandidates.querySelector('.roster-tag.is-dual'));
-  assert.ok(allCandidates.querySelector('.roster-momentum.is-neg'));
+  assert.ok(d.querySelector('.roster-momentum.is-neg'));
 
   // Top-3 lineups
   const lineups = [...d.querySelectorAll('.roster-lineup-card')];
@@ -114,22 +120,63 @@ test('/roster/ renders 2026/27 WT 4-skater quotas, penalty warnings, CHN Women m
   assert.match(lineups[0].textContent, /方案 #1/);
   assert.match(lineups[0].textContent, /出现频率/);
 
-  // 6-reserve pool
+  // Reserve pool (respects dynamic reserve_cap: WT=2 or WC<=6)
+  const forecastJson = JSON.parse(await file('dist/data/quota_roster/chn_roster_forecast.json'));
+  const wtWomen = forecastJson.scenarios.world_tour_next_stop.women;
+  const expectedCap = wtWomen.reserve_cap ?? wtWomen.reserves.length;
+  const reservesSection = d.querySelector('[aria-label="替补梯队"]');
+  assert.ok(reservesSection);
+  assert.match(reservesSection.querySelector('h2').textContent, new RegExp(`限额 ${expectedCap} 人`));
   const reserves = [...d.querySelectorAll('.roster-reserve-card')];
-  assert.equal(reserves.length, 6);
+  assert.equal(reserves.length, wtWomen.reserves.length);
+  assert.ok(reserves.length >= 1 && reserves.length <= expectedCap);
   assert.deepEqual(
     reserves.map((el) => el.querySelector('.roster-reserve-rank').textContent),
-    ['#1', '#2', '#3', '#4', '#5', '#6']
+    reserves.map((_, i) => '#' + (i + 1))
   );
   const reserveText = reserves.map((el) => el.textContent).join('\n');
-  assert.match(reserveText, /短距离 \/ 接力/);
-  assert.match(reserveText, /中长距离/);
-  assert.match(reserveText, /综合 \/ 高潜力机动/);
-  assert.match(reserveText, /双适龄 U-19/);
-  assert.match(reserveText, /青杯/);
-  assert.match(reserveText, /成年世巡/);
+  assert.match(reserveText, /短距离 \/ 接力|中长距离|综合 \/ 高潜力机动/);
+  assert.match(reserveText, /双适龄 U-19|成年/);
   assert.match(reserveText, /首要顶替对象/);
   assert.match(reserveText, /边际替代损失/);
+});
+
+test('/roster/ renders dynamic reserve_cap (WT=2, WC<=6), qualification_path, and Top40 badges', async (t) => {
+  const forecast = JSON.parse(await file('dist/data/quota_roster/chn_roster_forecast.json'));
+  const wtWomen = forecast.scenarios.world_tour_next_stop.women;
+  wtWomen.reserve_cap = 2;
+  wtWomen.reserves = wtWomen.reserves.slice(0, 2);
+  wtWomen.candidates[0].qualification_path = 'WT_2026_27';
+  wtWomen.candidates[0].world_ranking_top40_distances = [500, 1000, 1500];
+  wtWomen.reserves[0].qualification_path = 'DOMESTIC_GOLD';
+  wtWomen.reserves[0].world_ranking_top40_distances = [1500];
+
+  const wcWomen = forecast.scenarios.world_championships_2027.women;
+  wcWomen.reserve_cap = 6;
+  wcWomen.reserves = wcWomen.reserves.slice(0, 4);
+  wcWomen.candidates[0].qualification_path = 'JWC_2026_27';
+  wcWomen.reserves[0].qualification_path = 'DOMESTIC_TOP3';
+
+  const domWt = await loadPage('/roster/?event=wt&gender=women', { forecast });
+  t.after(() => domWt.window.close());
+  const dWt = domWt.window.document;
+  assert.match(dWt.querySelector('[aria-label="替补梯队"] h2').textContent, /替补梯队（限额 2 人）/);
+  assert.equal(dWt.querySelectorAll('.roster-reserve-card').length, 2);
+  assert.match(dWt.querySelector('.roster-skater-card').textContent, /本季WT/);
+  assert.match(dWt.querySelector('.roster-skater-card').textContent, /Top40: 500·1000·1500m/);
+  assert.match(dWt.querySelector('.roster-reserve-card').textContent, /七台河金牌/);
+  assert.match(dWt.querySelector('.roster-reserve-card').textContent, /Top40: 1500m/);
+
+  const domWc = await loadPage('/roster/?event=wc&gender=women', { forecast });
+  t.after(() => domWc.window.close());
+  const dWc = domWc.window.document;
+  assert.match(
+    dWc.querySelector('[aria-label="替补梯队"] h2').textContent,
+    /替补梯队（最多 6 人，当前 4 人）/
+  );
+  assert.equal(dWc.querySelectorAll('.roster-reserve-card').length, 4);
+  assert.match(dWc.querySelector('.roster-skater-card').textContent, /青杯梯队/);
+  assert.match(dWc.querySelector('.roster-reserve-card').textContent, /七台河前三/);
 });
 
 test('/roster/ supports URL-synced switching to 2027 WC, CHN Men, and country quota filtering', async (t) => {

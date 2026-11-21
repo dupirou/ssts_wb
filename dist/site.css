@@ -6316,6 +6316,16 @@ td.time {
   border-color: rgb(var(--cyan-rgb) / 0.36);
   color: var(--accent-text);
 }
+.roster-tag.is-qual {
+  background: rgb(var(--ice-rgb) / 0.1);
+  border-color: rgb(var(--ice-rgb) / 0.24);
+  color: var(--text);
+}
+.roster-tag.is-top40 {
+  background: rgb(var(--gold-rgb) / 0.12);
+  border-color: rgb(var(--gold-rgb) / 0.36);
+  color: var(--gold-text);
+}
 .roster-tag.is-pref-summary {
   background: rgb(var(--gold-rgb) / 0.14);
   border-color: rgb(var(--gold-rgb) / 0.4);

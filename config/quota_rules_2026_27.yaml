@@ -555,13 +555,20 @@ roster_model:
     lambda_relay: 0.14
     lambda_form: 0.02
     lambda_fatigue: 0.045
+    lambda_top40_protect: 0.04
     uncertainty_risk_aversion: 0.35
   reserve_pool:
     total_size: 6
+    wt_max_size: 2
+    wc_max_size: 6
     allocation:
       sprint_relay: 2
       mid_long: 2
       versatile_upside: 2
+    wt_allocation:
+      sprint_relay: 1
+      mid_long: 1
+      versatile_upside: 0
     upside_sigma_multiplier: 1.0
   injured_or_unavailable_athlete_ids:
     - "skr-4247" # 林孝埈 (未参赛/移除)
@@ -572,4 +579,12 @@ roster_model:
     enabled: true
     venues: ["衡水"]
     applies_to_age_groups: ["SENIOR_ONLY", "UNKNOWN"]
-    note: "2026/27 赛季未参加衡水站全国选拔赛的成年组运动员不具备本季国际参赛资格；双适龄（DUAL_ELIGIBLE）青年选手不受此限。"
+    note: "2026/27 赛季未参加衡水站全国选拔赛的成年组运动员原则上不具备本季国际参赛资格；双适龄（DUAL_ELIGIBLE）青年选手以及在七台河站及后续国内站获单项金牌或单站总积分前三者不受此限。"
+  national_team_selection_2026_27:
+    enabled: true
+    target_season: "2026/27"
+    allow_current_season_wt_skaters: true
+    allow_current_season_jwc_skaters: true
+    post_hengshui_venues: ["七台河"]
+    require_gold_or_station_top_n: 3
+    note: "除本季 WT 现役队员与 2026/27 青杯适龄梯队外，自七台河站起仅单站单项金牌或单站总积分前三名可入选国家队候选池；候选池不足时不强行凑满替补名额。"

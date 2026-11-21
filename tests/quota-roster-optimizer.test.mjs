@@ -103,6 +103,99 @@ test('4D value scoring: nonlinear PL medal EV rewards elite contenders over medi
     { athlete_id: 'x1', distances: { 500: { mu: 1, sigma: 1 }, 1000: { mu: 1, sigma: 1 }, 1500: { mu: 1, sigma: 1 } } }
   ]);
   assert.equal(prDef.riskAversion, 0.35);
+  assert.equal(prDef.top40ProtectWeight, 0);
+});
+
+test('WT Top-40 quota protection bonus preserves scarce Top-40 slots and matches brute-force MILP', () => {
+  const pool = [
+    {
+      athlete_id: 't1',
+      qualification_path: 'WT_2026_27',
+      world_ranking_top40_distances: [1500],
+      distances: { 500: { mu: 0.2, sigma: 0.5 }, 1000: { mu: 0.2, sigma: 0.5 }, 1500: { mu: 1.5, sigma: 0.5 } },
+      form_momentum: 0.0,
+      relay_stats: { senior_starts: 2, senior_final_a: 1 }
+    },
+    {
+      athlete_id: 't2',
+      qualification_path: 'DOMESTIC_GOLD',
+      world_ranking_top40_distances: [],
+      distances: { 500: { mu: 0.2, sigma: 0.5 }, 1000: { mu: 0.2, sigma: 0.5 }, 1500: { mu: 1.55, sigma: 0.5 } },
+      form_momentum: 0.0,
+      relay_stats: { senior_starts: 2, senior_final_a: 1 }
+    },
+    {
+      athlete_id: 't3',
+      qualification_path: 'WT_2026_27',
+      world_ranking_top40_distances: [500, 1000, 1500],
+      distances: { 500: { mu: 2.2, sigma: 0.4 }, 1000: { mu: 2.2, sigma: 0.4 }, 1500: { mu: 2.2, sigma: 0.4 } },
+      form_momentum: 0.1,
+      relay_stats: { senior_starts: 4, senior_final_a: 2 }
+    },
+    {
+      athlete_id: 't4',
+      qualification_path: 'WT_2026_27',
+      world_ranking_top40_distances: [1500],
+      distances: { 500: { mu: 2.0, sigma: 0.4 }, 1000: { mu: 2.0, sigma: 0.4 }, 1500: { mu: 2.0, sigma: 0.4 } },
+      form_momentum: 0.1,
+      relay_stats: { senior_starts: 4, senior_final_a: 2 }
+    }
+  ];
+  const cons = { nMax: 3, k: [2, 2, 3], relayRequired: 0 };
+  const lam = { relay: 0.14, form: 0.02, fatigue: 0.045 };
+
+  // With 3 Top-40 skaters in 1500m (cnt <= 3 -> u = 1.6), bonus = 0.04 * 1.6 = 0.064
+  const prProtect = buildRosterProblem(pool, { top40ProtectWeight: 0.04 });
+  assert.ok(Math.abs(prProtect.top40Bonus[0 * 3 + 2] - 0.064) < 1e-12);
+  assert.equal(prProtect.top40Bonus[1 * 3 + 2], 0);
+  // Pure V remains unpolluted
+  assert.ok(prProtect.V[1 * 3 + 2] > prProtect.V[0 * 3 + 2]);
+
+  const dpProtect = solveRosterMilp(prProtect, cons, lam);
+  const bfProtect = bruteForceRosterMilp(prProtect, cons, lam);
+  assert.ok(Math.abs(dpProtect.objective - bfProtect.objective) < 1e-9);
+  assert.ok(dpProtect.entries[1500].includes(0), 'Top-40 skater t1 should be protected in 1500m');
+
+  // With top40ProtectWeight = 0, higher raw skill t2 wins over t1
+  const prOff = buildRosterProblem(pool, { top40ProtectWeight: 0 });
+  const dpOff = solveRosterMilp(prOff, cons, lam);
+  assert.ok(dpOff.entries[1500].includes(1), 'Without protection, slightly higher raw mu t2 wins');
+  assert.ok(!dpOff.entries[1500].includes(0));
+});
+
+test('Elastic reserve cap: WT caps at 2 (1+1) and small pools never pad or fail when below cap', () => {
+  const cfg = loadQuotaRulesConfig();
+  const pool20 = makeSyntheticPool(20, 404);
+  pool20[0].qualification_path = 'WT_2026_27';
+  pool20[0].world_ranking_top40_distances = [500, 1500];
+
+  const wtRes = forecastGender(pool20, {
+    config: cfg,
+    constraints: worldTourConstraints(cfg),
+    maxReserves: cfg.roster_model.reserve_pool.wt_max_size,
+    reserveAllocation: cfg.roster_model.reserve_pool.wt_allocation,
+    top40ProtectWeight: cfg.roster_model.objective_weights.lambda_top40_protect
+  });
+  assert.equal(wtRes.reserve_cap, 2);
+  assert.equal(wtRes.reserves.length, 2);
+  assert.deepEqual(
+    wtRes.reserves.map((r) => r.role_tag).sort(),
+    ['mid_long', 'sprint_relay']
+  );
+  const c0 = wtRes.candidates.find((c) => c.athlete_id === pool20[0].athlete_id);
+  assert.equal(c0.qualification_path, 'WT_2026_27');
+  assert.deepEqual(c0.world_ranking_top40_distances, [500, 1500]);
+
+  // Small pool of 7 skaters with nMax=6 leaves only 1 remaining candidate (< wc_max_size=6)
+  const smallPool = makeSyntheticPool(7, 505);
+  const wcSmall = forecastGender(smallPool, {
+    config: cfg,
+    constraints: { nMax: 6, k: [3, 3, 3], relayRequired: 4 },
+    maxReserves: 6
+  });
+  assert.equal(wcSmall.reserve_cap, 6);
+  assert.equal(wcSmall.reserves.length, 1);
+  assert.equal(wcSmall.reserves[0].reserve_rank, 1);
 });
 
 test('Exact 0-1 MILP DP matches brute-force enumeration across 60 diverse random & edge cases', () => {
