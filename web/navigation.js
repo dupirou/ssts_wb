@@ -6,7 +6,8 @@
     { id: 'home', label: '首页', href: '/', icon: 'home' },
     { id: 'events', label: '赛事', href: '/events/', icon: 'calendar' },
     { id: 'results', label: '成绩', href: '/results/', icon: 'history' },
-    { id: 'athletes', label: '运动员', href: '/athletes/', icon: 'people' }
+    { id: 'athletes', label: '运动员', href: '/athletes/', icon: 'people' },
+    { id: 'roster', label: '阵容', href: '/roster/', icon: 'roster' }
   ];
   function resolve(input) {
     const url = new URL(input.href || input, location.origin);

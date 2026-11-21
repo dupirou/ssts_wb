@@ -32,6 +32,7 @@ BUNDLE = 'site.js'
 BUNDLES = {
     BUNDLE: ('ui.js', 'navigation.js', 'portal.js', 'app.js'),
     'results-page.js': ('results-model.js', 'results-store.js', 'results-compare.js', 'results.js'),
+    'roster-page.js': ('roster.js',),
 }
 SCRIPTS = tuple(name for scripts in BUNDLES.values() for name in scripts)
 SHELL_FILES = ('index.html', *BUNDLES, 'site.css', 'manifest.webmanifest')
@@ -263,6 +264,7 @@ def page_titles(config, results_index):
     pages = {
         'events': (f'{season} 赛事｜短道速滑', None),
         'athletes': ('运动员｜短道速滑', f'{season} 赛季短道速滑世巡赛运动员名单、头盔号与单项排名。'),
+        'roster': ('阵容｜短道速滑', f'{season} 赛季短道速滑 ISU 名额核算与中国队动态阵容预测。'),
     }
     prefix = 'events/' + season.replace('/', '-') + '/'
     for st in config['stations']:
@@ -464,6 +466,13 @@ def _compile(now, out, prior, source_log):
     prediction_state = ROOT / 'data/heats/prediction_state.json'
     if prediction_state.exists():
         shutil.copyfile(prediction_state, out / 'data/prediction_state.json')
+    quota_roster_dir = ROOT / 'data/quota_roster'
+    quota_roster_out = out / 'data/quota_roster'
+    for filename in ('quotas_2026_27.json', 'chn_roster_forecast.json'):
+        src_path = quota_roster_dir / filename
+        if src_path.exists():
+            quota_roster_out.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(src_path, quota_roster_out / filename)
     # Preserve the whole-event download while serving API requests from compact, localized resources.
     for event_id, *_ in venues:
         directory = out / 'data/competitions'
@@ -499,6 +508,7 @@ def _compile(now, out, prior, source_log):
             'results/compare',
             'history',
             'athletes',
+            'roster',
         ]
         + ['results/events/' + event['id'] for event in results_index['events']]
         + [
@@ -523,6 +533,11 @@ def _compile(now, out, prior, source_log):
             page_html = page_html.replace(
                 '<script defer src="/site.js"></script>',
                 '<link rel="preload" href="/results-page.js" as="script">\n<script defer src="/site.js"></script>',
+            )
+        elif page_path == 'roster':
+            page_html = page_html.replace(
+                '<script defer src="/site.js"></script>',
+                '<link rel="preload" href="/roster-page.js" as="script">\n<script defer src="/site.js"></script>',
             )
         (page_dir / 'index.html').write_text(page_html, encoding='utf-8')
     feed = updates.export(

@@ -54,7 +54,7 @@ test('home shows the next event without results or explanatory copy', async t =>
   const dom = await page('/?now=2026-10-27T04:00:00Z');
   t.after(() => dom.window.close());
   const d = dom.window.document;
-  assert.deepEqual([...d.querySelectorAll('#site-nav a')].map(a => a.textContent), ['首页', '赛事', '成绩', '运动员']);
+  assert.deepEqual([...d.querySelectorAll('#site-nav a')].map(a => a.textContent), ['首页', '赛事', '成绩', '运动员', '阵容']);
   assert.equal(d.querySelector('#site-nav [aria-current]').getAttribute('href'), '/');
   assert.match(d.querySelector('.next-city').textContent, /蒙特利尔/);
   assert.equal(d.querySelectorAll('.st-card').length, 0);
@@ -382,7 +382,7 @@ test('a failed results feed preserves global navigation and provides a retry', a
   t.after(() => dom.window.close());
   const d = dom.window.document;
   assert.match(d.querySelector('.review-content').textContent, /暂时无法加载/);
-  assert.equal(d.querySelectorAll('#site-nav a').length, 4);
+  assert.equal(d.querySelectorAll('#site-nav a').length, 5);
   assert.ok(d.querySelector('.review-content button'));
 });
 

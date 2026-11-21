@@ -99,6 +99,16 @@
       finals: 'A 组决赛 ' + summary.a_finals + ' · 前 8 名 ' + summary.top8
     };
   }
+  const icons = {
+    roster: [
+      [
+        'path',
+        { d: 'M9 4.5H6a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-13a2 2 0 0 0-2-2h-3' }
+      ],
+      ['rect', { x: 9, y: 2.5, width: 6, height: 4, rx: 1 }],
+      ['path', { d: 'M8 11h8M8 15h5' }]
+    ]
+  };
   site.ui = {
     h,
     s,
@@ -109,7 +119,8 @@
     tableScroll,
     findFocus,
     requestJSON,
-    chinaRecap
+    chinaRecap,
+    icons
   };
 })();
 ;
@@ -121,7 +132,8 @@
     { id: 'home', label: '首页', href: '/', icon: 'home' },
     { id: 'events', label: '赛事', href: '/events/', icon: 'calendar' },
     { id: 'results', label: '成绩', href: '/results/', icon: 'history' },
-    { id: 'athletes', label: '运动员', href: '/athletes/', icon: 'people' }
+    { id: 'athletes', label: '运动员', href: '/athletes/', icon: 'people' },
+    { id: 'roster', label: '阵容', href: '/roster/', icon: 'roster' }
   ];
   function resolve(input) {
     const url = new URL(input.href || input, location.origin);
@@ -695,7 +707,8 @@
       ['path', { d: 'M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z' }],
       ['path', { d: 'M10 20.5a2.2 2.2 0 0 0 4 0' }]
     ],
-    chev: [['path', { d: 'M7 10l5 5 5-5' }]]
+    chev: [['path', { d: 'M7 10l5 5 5-5' }]],
+    ...(window.SSTS.ui.icons || {})
   };
   function icon(name, className) {
     return s(
@@ -4000,10 +4013,15 @@
       ? fetchData('updates.json').catch(() => null)
       : Promise.resolve(null);
     const resultsPage = route.page === 'results';
+    const rosterPage = route.page === 'roster';
     // Start the independent catalogue request while the route's script downloads.
     const resultIndex = resultsPage ? fetchData('results/index.json') : null;
     resultIndex?.catch(() => {});
-    const calendar = resultsPage ? null : await fetchData('calendar.json');
+    const quotaData = rosterPage ? fetchData('quota_roster/quotas_2026_27.json') : null;
+    const forecastData = rosterPage ? fetchData('quota_roster/chn_roster_forecast.json') : null;
+    quotaData?.catch(() => {});
+    forecastData?.catch(() => {});
+    const calendar = resultsPage || rosterPage ? null : await fetchData('calendar.json');
     calendarSeason = calendar?.season;
     const requested = route.page === 'event' ? route.event : null;
     const detailFor = (st) =>
@@ -4079,6 +4097,21 @@
     } else if (route.page === 'athletes') {
       document.title = '运动员｜短道速滑';
       await window.SSTS.portal.athletes(context, calendar);
+    } else if (route.page === 'roster') {
+      document.title = '阵容｜短道速滑';
+      if (!window.SSTS.roster) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = '/roster-page.js';
+          script.onload = resolve;
+          script.onerror = () => {
+            script.remove();
+            reject(new Error('阵容模块加载失败'));
+          };
+          document.head.append(script);
+        });
+      }
+      await window.SSTS.roster.render(context, { quotaData, forecastData });
     } else if (
       route.page === 'event' &&
       (!route.season || route.season === calendar.season.replace('/', '-'))

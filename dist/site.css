@@ -4578,7 +4578,7 @@ td.time {
     z-index: 40;
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 0;
     padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
     background: var(--bar);
@@ -6014,5 +6014,595 @@ td.time {
   }
   .analysis-dive-label:not(:first-child) {
     margin-top: 4px;
+  }
+}
+
+/* ---------- Roster & ISU Quota view (/roster/) ---------- */
+.roster-controls {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: var(--bar);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+.roster-seg {
+  display: inline-flex;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 12px;
+  background: var(--well);
+  border: 1px solid var(--border-soft);
+  max-width: 100%;
+}
+.roster-seg-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 40px;
+  padding: 6px 14px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  line-height: 1.2;
+  text-align: left;
+}
+.roster-seg-btn.is-compact {
+  align-items: center;
+  min-width: 64px;
+}
+.roster-seg-btn b {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.roster-seg-btn small {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.roster-seg-btn:hover {
+  background: rgb(var(--ice-rgb) / 0.07);
+}
+.roster-seg-btn[aria-pressed='true'] {
+  background: var(--seg-bg);
+  color: var(--seg-fg);
+}
+.roster-seg-btn[aria-pressed='true'] small {
+  color: rgb(var(--seg-fg-rgb) / 0.78);
+}
+.roster-body {
+  display: grid;
+  gap: 18px;
+}
+.roster-section {
+  display: grid;
+  gap: 14px;
+}
+.roster-section .panel-head {
+  margin-bottom: 2px;
+}
+.roster-quota-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.roster-quota-chip {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--well);
+  border: 1px solid var(--border-soft);
+}
+.roster-quota-chip.is-accent {
+  border-color: var(--sel-border);
+  background: var(--sel-bg);
+}
+.roster-quota-chip.is-relay {
+  grid-column: span 1;
+}
+.roster-quota-label {
+  font-size: 0.76rem;
+  font-weight: 650;
+  color: var(--muted);
+}
+.roster-quota-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.roster-quota-chip.is-accent .roster-quota-val {
+  color: var(--sel-fg);
+}
+.roster-quota-sub,
+.roster-relay-line {
+  font-size: 0.74rem;
+  color: var(--text-2);
+  line-height: 1.4;
+}
+.roster-penalty-bar {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--well-soft);
+  border: 1px solid var(--border-soft);
+}
+.roster-penalty-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.roster-penalty-global {
+  margin-left: auto;
+  font-size: 0.76rem;
+}
+.roster-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.roster-status-pill.is-safe {
+  background: rgb(var(--ok-rgb) / 0.12);
+  border-color: rgb(var(--ok-rgb) / 0.34);
+  color: var(--ok);
+}
+.roster-status-pill.is-warn {
+  background: rgb(var(--gold-rgb) / 0.14);
+  border-color: rgb(var(--gold-rgb) / 0.4);
+  color: var(--gold-text);
+}
+.roster-status-pill.is-danger {
+  background: rgb(var(--red-rgb) / 0.14);
+  border-color: rgb(var(--red-rgb) / 0.42);
+  color: var(--red-text);
+}
+.roster-penalty-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.roster-penalty-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+}
+.roster-penalty-item.is-warn {
+  border-color: rgb(var(--gold-rgb) / 0.35);
+}
+.roster-penalty-item.is-danger {
+  border-color: rgb(var(--red-rgb) / 0.4);
+}
+.roster-penalty-note {
+  font-size: 0.74rem;
+}
+.roster-countries-panel > summary {
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent-text);
+  padding: 4px 0;
+}
+.roster-countries-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+.roster-country-filter {
+  flex: 1 1 240px;
+  min-width: 0;
+  min-height: 38px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 0.84rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  background: var(--popover);
+}
+.roster-countries-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+.roster-countries-table th,
+.roster-countries-table td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-soft);
+  white-space: nowrap;
+}
+.roster-countries-table thead th {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.roster-countries-table tbody tr.is-chn {
+  background: rgb(var(--red-rgb) / 0.08);
+}
+.roster-noc {
+  font-weight: 650;
+}
+.roster-main-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.roster-skater-card {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--well);
+  border: 1px solid var(--border-soft);
+}
+.roster-skater-card.is-main {
+  border-color: var(--border);
+}
+.roster-skater-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.roster-skater-name {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.roster-skater-name b {
+  font-size: 1.02rem;
+  font-weight: 800;
+}
+.roster-skater-name small {
+  font-size: 0.74rem;
+  overflow-wrap: anywhere;
+}
+.roster-main-prob {
+  flex: none;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  background: var(--sel-bg);
+  border: 1px solid var(--sel-border);
+  color: var(--sel-fg);
+}
+.roster-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.roster-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 650;
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  color: var(--text-2);
+}
+.roster-tag.is-dual {
+  background: rgb(var(--cyan-rgb) / 0.14);
+  border-color: rgb(var(--cyan-rgb) / 0.36);
+  color: var(--accent-text);
+}
+.roster-tag.is-qual {
+  background: rgb(var(--ice-rgb) / 0.1);
+  border-color: rgb(var(--ice-rgb) / 0.24);
+  color: var(--text);
+}
+.roster-tag.is-top40 {
+  background: rgb(var(--gold-rgb) / 0.12);
+  border-color: rgb(var(--gold-rgb) / 0.36);
+  color: var(--gold-text);
+}
+.roster-tag.is-pref-summary {
+  background: rgb(var(--gold-rgb) / 0.14);
+  border-color: rgb(var(--gold-rgb) / 0.4);
+  color: var(--gold-text);
+}
+.roster-tag.is-role-sprint_relay {
+  background: rgb(var(--red-rgb) / 0.12);
+  border-color: rgb(var(--red-rgb) / 0.34);
+  color: var(--red-text);
+}
+.roster-tag.is-role-mid_long {
+  background: rgb(var(--cyan-rgb) / 0.12);
+  border-color: rgb(var(--cyan-rgb) / 0.34);
+  color: var(--accent-text);
+}
+.roster-tag.is-role-versatile_upside {
+  background: rgb(var(--gold-rgb) / 0.14);
+  border-color: rgb(var(--gold-rgb) / 0.38);
+  color: var(--gold-text);
+}
+.roster-prob-matrix {
+  display: grid;
+  gap: 6px;
+}
+.roster-prob-row {
+  display: grid;
+  grid-template-columns: 3.8rem minmax(0, 1fr) 2.6rem;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+}
+.roster-prob-dist {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-2);
+  font-weight: 600;
+}
+.roster-prob-row.is-preferred .roster-prob-dist {
+  color: var(--text);
+  font-weight: 750;
+}
+.roster-pref-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex: none;
+}
+.roster-prob-track {
+  height: 7px;
+  border-radius: 999px;
+  background: rgb(var(--ice-rgb) / 0.12);
+  overflow: hidden;
+}
+.roster-prob-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.roster-prob-row.is-preferred .roster-prob-fill {
+  background: var(--gold);
+}
+.roster-prob-val {
+  text-align: right;
+  color: var(--text-2);
+}
+.roster-skater-foot {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-soft);
+}
+.roster-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.roster-metric small {
+  font-size: 0.7rem;
+}
+.roster-metric span {
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+.roster-momentum.is-pos {
+  color: var(--red-text);
+}
+.roster-momentum.is-neg {
+  color: var(--ok);
+}
+.roster-all-candidates > summary {
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 650;
+  color: var(--accent-text);
+  margin-bottom: 10px;
+}
+.roster-subhead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+}
+.roster-subhead h3 {
+  font-size: 1rem;
+  font-weight: 800;
+}
+.roster-lineups-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.roster-lineup-card {
+  border-radius: 14px;
+  background: var(--well);
+  border: 1px solid var(--border-soft);
+  padding: 12px 14px;
+}
+.roster-lineup-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  cursor: pointer;
+  list-style: none;
+}
+.roster-lineup-head::-webkit-details-marker {
+  display: none;
+}
+.roster-lineup-rank {
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: var(--accent-text);
+}
+.roster-lineup-freq {
+  font-size: 0.84rem;
+}
+.roster-lineup-head small {
+  margin-left: auto;
+  font-size: 0.74rem;
+}
+.roster-lineup-body {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
+}
+.roster-lineup-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.roster-member-chip {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 650;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.roster-lineup-entries {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  font-size: 0.78rem;
+}
+.roster-lineup-dist {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+  gap: 8px;
+}
+.roster-lineup-dist dt {
+  color: var(--muted);
+  font-weight: 650;
+}
+.roster-lineup-dist dd {
+  margin: 0;
+  color: var(--text-2);
+}
+.roster-excluded-note {
+  font-size: 0.76rem;
+}
+.roster-reserve-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.roster-reserve-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.roster-reserve-card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--well);
+  border: 1px solid var(--border-soft);
+}
+.roster-reserve-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.roster-reserve-rank {
+  font-size: 0.92rem;
+  font-weight: 850;
+  color: var(--accent-text);
+}
+.roster-reserve-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-soft);
+}
+.roster-reserve-stats dt {
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+.roster-reserve-stats dd {
+  margin: 2px 0 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.roster-highlight {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border-soft);
+}
+@media (max-width: 1179px) {
+  .roster-quota-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .roster-quota-chip.is-relay {
+    grid-column: span 2;
+  }
+  .roster-main-grid,
+  .roster-lineups-grid,
+  .roster-reserve-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 680px) {
+  .roster-controls {
+    padding: 8px;
+  }
+  .roster-seg {
+    width: 100%;
+  }
+  .roster-seg-btn {
+    flex: 1 1 0;
+    padding: 6px 10px;
+  }
+  .roster-quota-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .roster-quota-chip.is-accent,
+  .roster-quota-chip.is-relay {
+    grid-column: span 2;
+  }
+  .roster-main-grid,
+  .roster-lineups-grid,
+  .roster-reserve-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .roster-penalty-global {
+    margin-left: 0;
   }
 }
