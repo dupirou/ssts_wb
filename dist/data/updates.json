@@ -2,6 +2,48 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "5c68cdaec3330c80",
+      "station": "seoul",
+      "at": "2026-11-21T03:21:42+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "朱祎玎"
+      ],
+      "china_results": [
+        {
+          "name": "朱祎玎",
+          "rank": 4,
+          "status": "out",
+          "name_latin": "Yiding ZHU"
+        }
+      ]
+    },
+    {
+      "id": "5631d725654451be",
+      "station": "seoul",
+      "at": "2026-11-21T03:21:42+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 3,
+      "china": [
+        "张柏浩",
+        "孙龙"
+      ]
+    },
+    {
       "id": "d347770f6d393b61",
       "station": "seoul",
       "at": "2026-11-21T03:11:32+00:00",
@@ -3323,59 +3365,6 @@
           "rank": 1,
           "status": "advanced",
           "name_latin": "Kerui SONG"
-        }
-      ]
-    },
-    {
-      "id": "c4b62f899b76b03c",
-      "station": "montreal",
-      "at": "2026-10-30T15:21:22+00:00",
-      "local_date": "2026-11-01",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 5,
-      "china": []
-    },
-    {
-      "id": "6ee7f494bd4cd932",
-      "station": "montreal",
-      "at": "2026-10-30T15:21:22+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张柏浩",
-        "宋柯睿",
-        "张子夏"
-      ],
-      "china_results": [
-        {
-          "name": "张柏浩",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Bohao ZHANG"
-        },
-        {
-          "name": "宋柯睿",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Kerui SONG"
-        },
-        {
-          "name": "张子夏",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Zixia ZHANG"
         }
       ]
     }
