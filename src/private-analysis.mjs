@@ -719,7 +719,7 @@ async function signingKey(secret) {
   );
 }
 
-export async function privateAnalysis(request, env) {
+export async function privateAnalysis(request, env, preparedRounds) {
   const secret = env.ANALYSIS_PASSWORD;
   if (!secret || request.method !== 'POST') return reply(404, {});
   if (request.headers.get('Origin') !== new URL(request.url).origin) return reply(403, {});
@@ -761,7 +761,11 @@ export async function privateAnalysis(request, env) {
   )
     return reply(400, {});
   try {
-    return reply(200, await report(env, data.gender, data.distance, data.roundKey));
+    const today = new Date(now * 1000).toISOString().slice(0, 10);
+    const prepared = preparedRounds?.day === today
+      ? preparedRounds.rounds[JSON.stringify([data.gender, data.distance, data.roundKey])]
+      : null;
+    return reply(200, prepared ?? await report(env, data.gender, data.distance, data.roundKey));
   } catch {
     return reply(503, {});
   }
