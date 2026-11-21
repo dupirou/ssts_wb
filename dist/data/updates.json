@@ -2,6 +2,484 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "ef7941cd34908180",
+      "station": "seoul",
+      "at": "2026-11-21T09:01:37+00:00",
+      "local_date": "2026-11-22",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "1e2b669bcbb59afa",
+      "station": "seoul",
+      "at": "2026-11-21T09:01:37+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 4,
+          "status": "final_b"
+        }
+      ]
+    },
+    {
+      "id": "ad4105f266591202",
+      "station": "seoul",
+      "at": "2026-11-21T08:31:32+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 1
+        },
+        {
+          "name": "People's Republic of China",
+          "rank": 1
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "中国队",
+          "country": "CHN",
+          "name_latin": "People's Republic of China"
+        },
+        {
+          "rank": 1,
+          "name": "荷兰队",
+          "country": "NED",
+          "name_latin": "Netherlands"
+        },
+        {
+          "rank": 1,
+          "name": "中国队",
+          "country": "CHN",
+          "name_latin": "People's Republic of China"
+        },
+        {
+          "rank": 1,
+          "name": "荷兰队",
+          "country": "NED",
+          "name_latin": "Netherlands"
+        },
+        {
+          "rank": 2,
+          "name": "韩国队",
+          "country": "KOR",
+          "name_latin": "Republic of Korea"
+        },
+        {
+          "rank": 2,
+          "name": "韩国队",
+          "country": "KOR",
+          "name_latin": "Republic of Korea"
+        },
+        {
+          "rank": 3,
+          "name": "Ain2",
+          "country": "AIN2"
+        },
+        {
+          "rank": 3,
+          "name": "Ain2",
+          "country": "AIN2"
+        }
+      ]
+    },
+    {
+      "id": "5debbd603a64d7eb",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-21T08:11:31+00:00",
+      "changed": true
+    },
+    {
+      "id": "03cce88f643af4aa",
+      "station": "seoul",
+      "at": "2026-11-21T08:11:31+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张柏浩",
+        "孙龙"
+      ],
+      "china_results": [
+        {
+          "name": "张柏浩",
+          "rank": 5,
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "张柏浩",
+          "rank": 5,
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "孙龙",
+          "rank": 4,
+          "name_latin": "Long SUN"
+        },
+        {
+          "name": "孙龙",
+          "rank": 4,
+          "name_latin": "Long SUN"
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Dong Min SHIN",
+          "country": "KOR"
+        },
+        {
+          "rank": 1,
+          "name": "Seochan BAE",
+          "country": "KOR"
+        },
+        {
+          "rank": 1,
+          "name": "Dong Min SHIN",
+          "country": "KOR"
+        },
+        {
+          "rank": 1,
+          "name": "Seochan BAE",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Luca SPECHENHAUSER",
+          "country": "ITA"
+        },
+        {
+          "rank": 2,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Luca SPECHENHAUSER",
+          "country": "ITA"
+        },
+        {
+          "rank": 3,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Daniil NIKOLAEV",
+          "country": "AIN2"
+        },
+        {
+          "rank": 3,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Daniil NIKOLAEV",
+          "country": "AIN2"
+        }
+      ]
+    },
+    {
+      "id": "c2d062e1bbc7d238",
+      "station": "seoul",
+      "at": "2026-11-21T07:41:33+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "b9a14498985fac77",
+      "station": "seoul",
+      "at": "2026-11-21T07:41:33+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "96d12c4a5ad38d5d",
+      "station": "seoul",
+      "at": "2026-11-21T07:21:38+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张柏浩",
+        "孙龙"
+      ],
+      "china_results": [
+        {
+          "name": "张柏浩",
+          "rank": 5,
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "孙龙",
+          "rank": 4,
+          "status": "final_b",
+          "name_latin": "Long SUN"
+        }
+      ]
+    },
+    {
+      "id": "96ce3494934948a0",
+      "station": "seoul",
+      "at": "2026-11-21T07:21:38+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "张柏浩",
+        "孙龙"
+      ]
+    },
+    {
+      "id": "846635243097bff4",
+      "station": "seoul",
+      "at": "2026-11-21T06:41:29+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "rank": 1,
+          "name": "Failia AIMALETDINOVA",
+          "country": "AIN2"
+        },
+        {
+          "rank": 1,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "rank": 1,
+          "name": "Failia AIMALETDINOVA",
+          "country": "AIN2"
+        },
+        {
+          "rank": 2,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Danae BLAIS",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Danae BLAIS",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Florence BRUNELLE",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Alena KRYLOVA",
+          "country": "AIN2"
+        },
+        {
+          "rank": 3,
+          "name": "Florence BRUNELLE",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Alena KRYLOVA",
+          "country": "AIN2"
+        }
+      ]
+    },
+    {
+      "id": "3fd2db05f62b5e86",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-21T06:41:29+00:00",
+      "changed": true
+    },
+    {
+      "id": "ab8f377fceed0743",
+      "station": "seoul",
+      "at": "2026-11-21T06:21:32+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Teun BOER",
+          "country": "NED"
+        },
+        {
+          "rank": 1,
+          "name": "Jeongmin LEE",
+          "country": "KOR"
+        },
+        {
+          "rank": 1,
+          "name": "Teun BOER",
+          "country": "NED"
+        },
+        {
+          "rank": 1,
+          "name": "Jeongmin LEE",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Justin LIU",
+          "country": "USA"
+        },
+        {
+          "rank": 2,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Justin LIU",
+          "country": "USA"
+        },
+        {
+          "rank": 3,
+          "name": "Mathieu PELLETIER",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
+        },
+        {
+          "rank": 3,
+          "name": "Mathieu PELLETIER",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
+        }
+      ]
+    },
+    {
+      "id": "09fc05c7ee2cfdbb",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-21T06:21:32+00:00"
+    },
+    {
       "id": "bcfa8b002e6ae73d",
       "station": "seoul",
       "at": "2026-11-21T06:11:36+00:00",
@@ -13,7 +491,7 @@
       "distance_m": 1000,
       "format": "individual",
       "kind": "groups",
-      "heats": 2,
+      "heats": 4,
       "china": []
     },
     {
@@ -58,7 +536,7 @@
       "distance_m": 500,
       "format": "individual",
       "kind": "groups",
-      "heats": 2,
+      "heats": 4,
       "china": []
     },
     {
@@ -188,7 +666,7 @@
       "distance_m": 2000,
       "format": "relay",
       "kind": "groups",
-      "heats": 2,
+      "heats": 6,
       "china": [
         "People's Republic of China"
       ]
@@ -2990,292 +3468,6 @@
       "china": [
         "宋柯睿"
       ]
-    },
-    {
-      "id": "95895cb4c85b90ac",
-      "station": "montreal",
-      "at": "2026-10-31T13:51:17+00:00",
-      "local_date": "2026-10-31",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "e25b02975f75ac4a",
-      "station": "montreal",
-      "at": "2026-10-31T13:21:30+00:00",
-      "local_date": "2026-10-31",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "508d631a0599b002",
-      "station": "montreal",
-      "at": "2026-10-31T13:21:30+00:00",
-      "local_date": "2026-10-31",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": [
-        "张柏浩",
-        "李坤",
-        "张子夏"
-      ]
-    },
-    {
-      "id": "07191c62c33f911e",
-      "station": "montreal",
-      "at": "2026-10-31T05:38:43+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "China"
-      ]
-    },
-    {
-      "id": "e527f8c43480711e",
-      "station": "montreal",
-      "at": "2026-10-30T22:31:23+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "b25995193b070234",
-      "station": "montreal",
-      "at": "2026-10-30T22:31:23+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "China"
-      ]
-    },
-    {
-      "id": "c3e32d547b9fad21",
-      "station": "montreal",
-      "at": "2026-10-30T21:41:22+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "38104f681f4ff47c",
-      "station": "montreal",
-      "at": "2026-10-30T21:41:22+00:00",
-      "local_date": null,
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "China"
-      ]
-    },
-    {
-      "id": "1f50b2115f857271",
-      "station": "montreal",
-      "at": "2026-10-30T20:51:35+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张柏浩",
-        "宋柯睿",
-        "孙龙",
-        "朱祎玎"
-      ],
-      "china_results": [
-        {
-          "name": "张柏浩",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Bohao ZHANG"
-        },
-        {
-          "name": "宋柯睿",
-          "rank": 5,
-          "status": "repechage",
-          "name_latin": "Kerui SONG"
-        },
-        {
-          "name": "孙龙",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Long SUN"
-        },
-        {
-          "name": "朱祎玎",
-          "rank": 3,
-          "status": "advanced",
-          "name_latin": "Yiding ZHU"
-        }
-      ]
-    },
-    {
-      "id": "8e7b1d2402157fef",
-      "station": "montreal",
-      "at": "2026-10-30T20:31:23+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": []
-    },
-    {
-      "id": "2d6174f06257b293",
-      "station": "montreal",
-      "at": "2026-10-30T20:21:25+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张楚桐",
-        "张珈宁",
-        "公俐",
-        "张延"
-      ],
-      "china_results": [
-        {
-          "name": "张楚桐",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Chutong ZHANG"
-        },
-        {
-          "name": "张珈宁",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Jianing ZHANG"
-        },
-        {
-          "name": "公俐",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Li GONG"
-        },
-        {
-          "name": "张延",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Yan ZHANG"
-        }
-      ]
-    },
-    {
-      "id": "384f78a8285dad7e",
-      "station": "montreal",
-      "at": "2026-10-30T20:01:22+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": [
-        "张柏浩",
-        "宋柯睿",
-        "孙龙",
-        "朱祎玎"
-      ]
-    },
-    {
-      "id": "92d0115bfa2f32e6",
-      "station": "montreal",
-      "at": "2026-10-30T19:31:20+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": []
     }
   ]
 }
