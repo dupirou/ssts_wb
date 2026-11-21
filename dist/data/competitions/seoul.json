@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-21T08:21:41+00:00",
-    "updated_at": "2026-11-21T08:21:41+00:00",
+    "checked_at": "2026-11-21T08:31:32+00:00",
+    "updated_at": "2026-11-21T08:31:32+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -12604,8 +12604,8 @@
         "heat_number": null,
         "heat_label": "Final",
         "source_start": "2026-11-21T17:19:53.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16342&round=23511",
         "participants": [
@@ -12616,8 +12616,8 @@
             "official_skater_id": 12997,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "4:12.679",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -12649,49 +12649,14 @@
             "name_latin": "People's Republic of China"
           },
           {
-            "athlete_id": "team-CAN-women",
-            "name": "加拿大队",
-            "country": "CAN",
-            "official_skater_id": 12996,
-            "helmet_number": null,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-3eaa973ae7925d335ead",
-                "name": "Danae BLAIS",
-                "official_skater_id": 743
-              },
-              {
-                "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
-                "name": "Florence BRUNELLE",
-                "official_skater_id": 924
-              },
-              {
-                "athlete_id": "ath-32780e84744937993fa2",
-                "name": "Ann-Sophie BACHAND",
-                "official_skater_id": 457
-              },
-              {
-                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
-                "name": "Courtney SARAULT",
-                "official_skater_id": 6159
-              }
-            ],
-            "name_latin": "Canada"
-          },
-          {
             "athlete_id": "team-KOR-women",
             "name": "韩国队",
             "country": "KOR",
             "official_skater_id": 13000,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "4:12.990",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -12719,14 +12684,48 @@
             "name_latin": "Republic of Korea"
           },
           {
+            "athlete_id": "team-AIN2-women",
+            "name": "Ain2",
+            "country": "AIN2",
+            "official_skater_id": 12995,
+            "helmet_number": null,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "4:13.560",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-f9ba3790fd71cb6f2f00",
+                "name": "Failia AIMALETDINOVA",
+                "official_skater_id": 22123
+              },
+              {
+                "athlete_id": "ath-878b429516890d2356ef",
+                "name": "Elena SEREGINA",
+                "official_skater_id": 20501
+              },
+              {
+                "athlete_id": "ath-483550788c35bdf02032",
+                "name": "Alena KRYLOVA",
+                "official_skater_id": 20498
+              },
+              {
+                "athlete_id": "ath-f8b3fd093e7538654fab",
+                "name": "Anastasiia ZHEGANOVA",
+                "official_skater_id": 20671
+              }
+            ]
+          },
+          {
             "athlete_id": "team-JPN-women",
             "name": "日本队",
             "country": "JPN",
             "official_skater_id": 12999,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "4:14.617",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -12754,38 +12753,42 @@
             "name_latin": "Japan"
           },
           {
-            "athlete_id": "team-AIN2-women",
-            "name": "Ain2",
-            "country": "AIN2",
-            "official_skater_id": 12995,
+            "athlete_id": "team-CAN-women",
+            "name": "加拿大队",
+            "country": "CAN",
+            "official_skater_id": 12996,
             "helmet_number": null,
-            "starting_position": 5,
+            "starting_position": 2,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            },
             "members": [
               {
-                "athlete_id": "ath-f9ba3790fd71cb6f2f00",
-                "name": "Failia AIMALETDINOVA",
-                "official_skater_id": 22123
+                "athlete_id": "ath-3eaa973ae7925d335ead",
+                "name": "Danae BLAIS",
+                "official_skater_id": 743
               },
               {
-                "athlete_id": "ath-878b429516890d2356ef",
-                "name": "Elena SEREGINA",
-                "official_skater_id": 20501
+                "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+                "name": "Florence BRUNELLE",
+                "official_skater_id": 924
               },
               {
-                "athlete_id": "ath-483550788c35bdf02032",
-                "name": "Alena KRYLOVA",
-                "official_skater_id": 20498
+                "athlete_id": "ath-32780e84744937993fa2",
+                "name": "Ann-Sophie BACHAND",
+                "official_skater_id": 457
               },
               {
-                "athlete_id": "ath-f8b3fd093e7538654fab",
-                "name": "Anastasiia ZHEGANOVA",
-                "official_skater_id": 20671
+                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+                "name": "Courtney SARAULT",
+                "official_skater_id": 6159
               }
-            ]
+            ],
+            "name_latin": "Canada"
           }
         ]
       },

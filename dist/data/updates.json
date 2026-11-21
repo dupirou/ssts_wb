@@ -2,6 +2,53 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "ad4105f266591202",
+      "station": "seoul",
+      "at": "2026-11-21T08:31:32+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 1
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "中国队",
+          "country": "CHN",
+          "name_latin": "People's Republic of China"
+        },
+        {
+          "rank": 1,
+          "name": "荷兰队",
+          "country": "NED",
+          "name_latin": "Netherlands"
+        },
+        {
+          "rank": 2,
+          "name": "韩国队",
+          "country": "KOR",
+          "name_latin": "Republic of Korea"
+        },
+        {
+          "rank": 3,
+          "name": "Ain2",
+          "country": "AIN2"
+        }
+      ]
+    },
+    {
       "id": "5debbd603a64d7eb",
       "station": "seoul",
       "kind": "rankings",
@@ -3284,25 +3331,6 @@
       "kind": "results",
       "china": [],
       "china_results": []
-    },
-    {
-      "id": "508d631a0599b002",
-      "station": "montreal",
-      "at": "2026-10-31T13:21:30+00:00",
-      "local_date": "2026-10-31",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": [
-        "张柏浩",
-        "李坤",
-        "张子夏"
-      ]
     }
   ]
 }
