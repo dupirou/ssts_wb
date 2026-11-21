@@ -2,6 +2,74 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "5debbd603a64d7eb",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-21T08:11:31+00:00",
+      "changed": true
+    },
+    {
+      "id": "03cce88f643af4aa",
+      "station": "seoul",
+      "at": "2026-11-21T08:11:31+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张柏浩",
+        "孙龙"
+      ],
+      "china_results": [
+        {
+          "name": "张柏浩",
+          "rank": 5,
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "孙龙",
+          "rank": 4,
+          "name_latin": "Long SUN"
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Dong Min SHIN",
+          "country": "KOR"
+        },
+        {
+          "rank": 1,
+          "name": "Seochan BAE",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Luca SPECHENHAUSER",
+          "country": "ITA"
+        },
+        {
+          "rank": 3,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Daniil NIKOLAEV",
+          "country": "AIN2"
+        }
+      ]
+    },
+    {
       "id": "c2d062e1bbc7d238",
       "station": "seoul",
       "at": "2026-11-21T07:41:33+00:00",
@@ -3234,46 +3302,6 @@
         "张柏浩",
         "李坤",
         "张子夏"
-      ]
-    },
-    {
-      "id": "07191c62c33f911e",
-      "station": "montreal",
-      "at": "2026-10-31T05:38:43+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "China"
-      ]
-    },
-    {
-      "id": "e527f8c43480711e",
-      "station": "montreal",
-      "at": "2026-10-30T22:31:23+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 1,
-          "status": "advanced"
-        }
       ]
     }
   ]
