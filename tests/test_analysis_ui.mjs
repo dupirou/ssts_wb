@@ -259,12 +259,13 @@ test('Final A keeps medal chips and Final B keeps expected final place inline on
   );
 });
 
-test('site.css defines --ok-rgb, red/green factors, sticky header, tier pills, and content-visibility', () => {
+test('site.css defines --ok-rgb, red/green factors, fixed header with scrollable body, tier pills, and content-visibility', () => {
   assert.match(css, /:root\s*\{[\s\S]*--ok-rgb:\s*111 227 190;/);
   assert.match(css, /:root\[data-theme='light'\]\s*\{[\s\S]*--ok-rgb:\s*18 134 91;/);
   assert.match(css, /\.analysis-factor-pill\.factor-pos\s*\{[^}]*--red-rgb[^}]*color:\s*var\(--red-text\)/);
   assert.match(css, /\.analysis-factor-pill\.factor-neg\s*\{[^}]*--ok-rgb[^}]*color:\s*var\(--ok\)/);
-  assert.match(css, /\.competition-head\s*\{[^}]*position:\s*sticky;[^}]*top:\s*0;/);
+  assert.match(css, /\.competition-head\s*\{[^}]*flex:\s*none;/);
+  assert.match(css, /\.competition-body\s*\{[^}]*overflow:\s*auto;/);
   assert.match(css, /\.athlete-card\s*\{[^}]*content-visibility:\s*auto;/);
   assert.match(css, /\.competition-heat\s*\{[^}]*content-visibility:\s*auto;/);
   assert.match(css, /\.analysis-chip\.is-tier-high\b/);
