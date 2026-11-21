@@ -1224,8 +1224,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-21T08:41:33+00:00",
-    "updated_at": "2026-11-21T08:41:33+00:00",
+    "checked_at": "2026-11-21T08:51:44+00:00",
+    "updated_at": "2026-11-21T08:51:44+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -1481,45 +1481,11 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-11-21T17:39:26.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
         "participants": [
-          {
-            "athlete_id": "team-ITA-men",
-            "name": "Italy",
-            "country": "ITA",
-            "official_skater_id": 12988,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-bf93d274dece11d17ae7",
-                "name": "Lorenzo PREVITALI",
-                "official_skater_id": 5703
-              },
-              {
-                "athlete_id": "ath-0b75c8b148a940d59dbb",
-                "name": "Thomas NADALINI",
-                "official_skater_id": 4990
-              },
-              {
-                "athlete_id": "ath-d92eaba24dcaf8aca602",
-                "name": "Luca SPECHENHAUSER",
-                "official_skater_id": 6644
-              },
-              {
-                "athlete_id": "ath-050bd069f71a453ce726",
-                "name": "Daniele ZAMPEDRI",
-                "official_skater_id": 8033
-              }
-            ]
-          },
           {
             "athlete_id": "team-KOR-men",
             "name": "Republic of Korea",
@@ -1527,9 +1493,9 @@
             "official_skater_id": 12991,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "7:05.796",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -1555,49 +1521,15 @@
             ]
           },
           {
-            "athlete_id": "team-BEL-men",
-            "name": "Belgium",
-            "country": "BEL",
-            "official_skater_id": 12985,
-            "helmet_number": null,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
-                "name": "Warre NOIRON",
-                "official_skater_id": 5140
-              },
-              {
-                "athlete_id": "ath-9f8261b4f03d9bcbec9a",
-                "name": "Fre VAN DAMME",
-                "official_skater_id": 7327
-              },
-              {
-                "athlete_id": "ath-f14f6ec4ac20e39bef35",
-                "name": "Enzo PROOST",
-                "official_skater_id": 5726
-              },
-              {
-                "athlete_id": "ath-9f7cbe745e1593f62ee3",
-                "name": "Warre VAN DAMME",
-                "official_skater_id": 7328
-              }
-            ]
-          },
-          {
             "athlete_id": "team-CAN-men",
             "name": "Canada",
             "country": "CAN",
             "official_skater_id": 12986,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "7:05.882",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -1621,6 +1553,77 @@
                 "official_skater_id": 5998
               }
             ]
+          },
+          {
+            "athlete_id": "team-ITA-men",
+            "name": "Italy",
+            "country": "ITA",
+            "official_skater_id": 12988,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": 3,
+            "result": "7:06.115",
+            "qualification": "ADV",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-bf93d274dece11d17ae7",
+                "name": "Lorenzo PREVITALI",
+                "official_skater_id": 5703
+              },
+              {
+                "athlete_id": "ath-0b75c8b148a940d59dbb",
+                "name": "Thomas NADALINI",
+                "official_skater_id": 4990
+              },
+              {
+                "athlete_id": "ath-d92eaba24dcaf8aca602",
+                "name": "Luca SPECHENHAUSER",
+                "official_skater_id": 6644
+              },
+              {
+                "athlete_id": "ath-050bd069f71a453ce726",
+                "name": "Daniele ZAMPEDRI",
+                "official_skater_id": 8033
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-BEL-men",
+            "name": "Belgium",
+            "country": "BEL",
+            "official_skater_id": 12985,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            },
+            "members": [
+              {
+                "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
+                "name": "Warre NOIRON",
+                "official_skater_id": 5140
+              },
+              {
+                "athlete_id": "ath-9f8261b4f03d9bcbec9a",
+                "name": "Fre VAN DAMME",
+                "official_skater_id": 7327
+              },
+              {
+                "athlete_id": "ath-f14f6ec4ac20e39bef35",
+                "name": "Enzo PROOST",
+                "official_skater_id": 5726
+              },
+              {
+                "athlete_id": "ath-9f7cbe745e1593f62ee3",
+                "name": "Warre VAN DAMME",
+                "official_skater_id": 7328
+              }
+            ]
           }
         ]
       },
@@ -1636,8 +1639,8 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-21T17:44:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-21T17:50:08.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -1689,14 +1692,14 @@
             "penalty": null,
             "members": [
               {
+                "athlete_id": "ath-766b41e307ecb7b3445a",
+                "name": "Konstantin IVLIEV",
+                "official_skater_id": 2908
+              },
+              {
                 "athlete_id": "ath-ae059245c19305b299b6",
                 "name": "Daniil NIKOLAEV",
                 "official_skater_id": 20499
-              },
-              {
-                "athlete_id": "ath-05fa7ba7935d7438f295",
-                "name": "Valentin KOBYZEV",
-                "official_skater_id": 22629
               },
               {
                 "athlete_id": "ath-957beb23a9901b33af6b",
