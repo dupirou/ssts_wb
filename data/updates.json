@@ -233,6 +233,7 @@
     "seoul/round/2026-11-21/repechage/women/1000/quarterfinal/-/results": "official",
     "seoul/round/2026-11-21/repechage/women/1000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/women/1000/semifinal/-/results": "official",
+    "seoul/round/2026-11-22/main/mixed/2000/final/-/groups": "published",
     "seoul/round/2026-11-22/repechage/men/1000/heats/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/500/quarterfinal/-/groups": "published",
@@ -490,35 +491,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "1d68d7a696c5ed21",
-      "station": "montreal",
-      "at": "2026-10-30T16:11:19+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Bohao ZHANG",
-        "Kerui SONG"
-      ],
-      "china_results": [
-        {
-          "name": "Bohao ZHANG",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Kerui SONG",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
     {
       "id": "7c57914c973ba37c",
       "station": "montreal",
@@ -3744,6 +3716,23 @@
           "rank": 4,
           "status": "out"
         }
+      ]
+    },
+    {
+      "id": "acd351208f3a1074",
+      "station": "seoul",
+      "at": "2026-11-21T03:51:42+00:00",
+      "local_date": "2026-11-22",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "People's Republic of China"
       ]
     }
   ]

@@ -2,6 +2,23 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "acd351208f3a1074",
+      "station": "seoul",
+      "at": "2026-11-21T03:51:42+00:00",
+      "local_date": "2026-11-22",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
       "id": "5c68cdaec3330c80",
       "station": "seoul",
       "at": "2026-11-21T03:21:42+00:00",
@@ -3335,37 +3352,6 @@
         "张珈宁",
         "宋佳蕊",
         "王晔"
-      ]
-    },
-    {
-      "id": "1d68d7a696c5ed21",
-      "station": "montreal",
-      "at": "2026-10-30T16:11:19+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张柏浩",
-        "宋柯睿"
-      ],
-      "china_results": [
-        {
-          "name": "张柏浩",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Bohao ZHANG"
-        },
-        {
-          "name": "宋柯睿",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Kerui SONG"
-        }
       ]
     }
   ]
