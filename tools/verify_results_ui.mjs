@@ -78,6 +78,29 @@ try{
       if(path.includes('/montreal/')){
         await page.waitForSelector('.competition-open');
         if(width===320 || width===390){
+          await page.locator('.match-row:has(.qual) .competition-open').first().click();
+          const modal=page.locator('.competition-dialog[open]');
+          for(const scale of ['100%','150%']){
+            await page.evaluate(scale=>document.documentElement.style.fontSize=scale,scale);
+            const layout=await modal.evaluate(dialog=>{
+              const head=dialog.querySelector('.competition-head');
+              const body=dialog.querySelector('.competition-body');
+              const rule=dialog.querySelector('.qual-rule');
+              const firstLine=document.createRange();
+              firstLine.selectNodeContents(rule);
+              const headerBottom=head.getBoundingClientRect().bottom;
+              const ruleTop=firstLine.getClientRects()[0].top;
+              const atTop=body.scrollTop===0;
+              body.scrollTop=80;
+              const scrolls=body.scrollTop>0;
+              const headerStays=head.getBoundingClientRect().bottom===headerBottom;
+              body.scrollTop=0;
+              return {visible:ruleTop>=headerBottom,atTop,scrolls,headerStays};
+            });
+            assert.deepEqual(layout,{visible:true,atTop:true,scrolls:true,headerStays:true},`Competition dialog layout at ${width}px, ${scale} text`);
+          }
+          await modal.getByRole('button',{name:'关闭比赛详情'}).click();
+          await page.evaluate(()=>document.documentElement.style.fontSize='');
           const fits=await page.evaluate(()=>{
             const dialog=document.createElement('dialog');
             dialog.className='competition-dialog';

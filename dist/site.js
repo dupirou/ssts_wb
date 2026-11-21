@@ -1543,7 +1543,7 @@
     } catch {}
   }
 
-  function attachAnalysis(dialog, trigger, round, cells, heatHeads = new Map()) {
+  function attachAnalysis(dialog, body, trigger, round, cells, heatHeads = new Map()) {
     const controls = h('div', { class: 'analysis-controls' });
     const message = h('span', { class: 'analysis-msg faint tiny', role: 'status' });
     const call = (data) =>
@@ -1554,7 +1554,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-    dialog.querySelector('header').after(controls);
+    body.prepend(controls);
     function clearUI() {
       for (const cell of cells.values()) {
         cell.metrics.hidden = true;
@@ -1958,13 +1958,12 @@
     const titleId = 'competition-title';
     const close = h(
       'button',
-      { type: 'button', class: 'icon-btn', 'aria-label': '关闭比赛详情' },
+      { type: 'button', class: 'icon-btn', 'aria-label': '关闭比赛详情', autofocus: '' },
       icon('close')
     );
-    const dialog = h(
-      'dialog',
-      { class: 'competition-dialog', 'aria-labelledby': titleId },
-      h('header', { class: 'competition-head' }, h('h2', { id: titleId }, trigger || label), close),
+    const body = h(
+      'div',
+      { class: 'competition-body' },
       r.qualification
         ? h(
             'p',
@@ -1973,6 +1972,12 @@
             r.qualification.zh
           )
         : null
+    );
+    const dialog = h(
+      'dialog',
+      { class: 'competition-dialog', 'aria-labelledby': titleId },
+      h('header', { class: 'competition-head' }, h('h2', { id: titleId }, trigger || label), close),
+      body
     );
     for (const heat of [...heats].sort((a, b) => (a.heat_number ?? 0) - (b.heat_number ?? 0))) {
       const results = heat.evidence === 'official_results';
@@ -2054,10 +2059,10 @@
         provisional ? h('span', { class: 'pill', text: '暂定成绩' }) : null
       );
       heatHeads.set(heat.id, heatHead);
-      dialog.append(h('section', { class: 'competition-heat' }, heatHead, people));
+      body.append(h('section', { class: 'competition-heat' }, heatHead, people));
     }
     if (heats[0]?.source_url)
-      dialog.append(h('p', { class: 'source-line' }, external(heats[0].source_url, '官方来源')));
+      body.append(h('p', { class: 'source-line' }, external(heats[0].source_url, '官方来源')));
     close.addEventListener('click', () => dialog.close());
     dialog.addEventListener('close', () => dialog.remove());
     dialog.addEventListener('click', (e) => {
@@ -2068,7 +2073,7 @@
     });
     document.body.append(dialog);
     dialog.showModal();
-    if (trigger) attachAnalysis(dialog, trigger, r, cells, heatHeads);
+    if (trigger) attachAnalysis(dialog, body, trigger, r, cells, heatHeads);
   }
 
   const showHomeTickets = (st) => st.id !== 'seoul' && st.ticketing;

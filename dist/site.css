@@ -2651,7 +2651,7 @@ td.time {
   cursor: help;
 }
 .qual-rule {
-  margin: -10px 0 16px;
+  margin: 0 0 16px;
   font-size: 0.84rem;
   color: var(--text-2);
 }
@@ -3100,30 +3100,36 @@ td.time {
   width: min(640px, calc(100% - 24px));
   max-height: calc(100dvh - 40px);
   margin: auto;
-  padding: 20px;
+  padding: 0;
+  overflow: hidden;
   color: var(--text);
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: 0 24px 80px rgb(0 0 0 / 0.3);
+}
+.competition-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.competition-body {
+  min-height: 0;
+  overflow: auto;
   overscroll-behavior: contain;
+  padding: 14px 20px 20px;
 }
 .competition-dialog::backdrop {
   background: var(--scrim);
 }
 .competition-head {
-  position: sticky;
-  top: 0;
-  z-index: 3;
+  flex: none;
   display: flex;
   gap: 16px;
   align-items: center;
   justify-content: space-between;
-  margin: -20px -20px 16px;
   padding: 20px 20px 14px;
   background: var(--panel);
   border-bottom: 1px solid var(--border-soft);
-  border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
 }
 .competition-head h2 {
   font-size: 1.16rem;
@@ -3228,7 +3234,7 @@ td.time {
 .penalty-value {
   color: var(--red-text);
 }
-.competition-dialog > .source-line {
+.competition-body > .source-line {
   margin-top: 18px;
 }
 @media (max-width: 680px) {
@@ -3246,11 +3252,12 @@ td.time {
   }
   .competition-dialog {
     width: calc(100% - 14px);
-    padding: 14px 12px calc(14px + env(safe-area-inset-bottom));
     max-height: calc(100dvh - 24px);
   }
+  .competition-body {
+    padding: 12px 12px calc(14px + env(safe-area-inset-bottom));
+  }
   .competition-head {
-    margin: -14px -12px 14px;
     padding: 14px 12px 12px;
   }
   .result-person {
