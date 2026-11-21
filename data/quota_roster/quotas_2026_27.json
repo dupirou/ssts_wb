@@ -1,0 +1,2454 @@
+{
+  "schema_version": 1,
+  "season": "2026-2027",
+  "generated_at": "2026-11-21T07:42:20+00:00",
+  "config_version": "2026.27.1",
+  "penalty_source": "montreal.json",
+  "wc_2027_verification": {
+    "checked_cells": 177,
+    "mismatch_count": 0,
+    "exact_match": true
+  },
+  "world_championships_2027": {
+    "individual_and_roster": {
+      "women": {
+        "AUS": {
+          "country": "AUS",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 3
+        },
+        "BEL": {
+          "country": "BEL",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": true,
+          "max_roster_size": 3
+        },
+        "CAN": {
+          "country": "CAN",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 3,
+          "slots_500m": 3,
+          "earned_1000m": 3,
+          "slots_1000m": 3,
+          "earned_1500m": 3,
+          "slots_1500m": 3,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "CHN": {
+          "country": "CHN",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 3,
+          "slots_500m": 3,
+          "earned_1000m": 3,
+          "slots_1000m": 3,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "CRO": {
+          "country": "CRO",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 3
+        },
+        "CZE": {
+          "country": "CZE",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": true,
+          "max_roster_size": 3
+        },
+        "FRA": {
+          "country": "FRA",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": false,
+          "max_roster_size": 5
+        },
+        "GBR": {
+          "country": "GBR",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 3
+        },
+        "GER": {
+          "country": "GER",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": true,
+          "max_roster_size": 3
+        },
+        "HKG": {
+          "country": "HKG",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 2
+        },
+        "HUN": {
+          "country": "HUN",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": true,
+          "max_roster_size": 3
+        },
+        "ITA": {
+          "country": "ITA",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 3,
+          "slots_1000m": 3,
+          "earned_1500m": 3,
+          "slots_1500m": 3,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "JPN": {
+          "country": "JPN",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "KAZ": {
+          "country": "KAZ",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "KOR": {
+          "country": "KOR",
+          "gender": "women",
+          "host_upgraded_distances": [
+            "500m"
+          ],
+          "earned_500m": 2,
+          "slots_500m": 3,
+          "earned_1000m": 3,
+          "slots_1000m": 3,
+          "earned_1500m": 3,
+          "slots_1500m": 3,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "LAT": {
+          "country": "LAT",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 3
+        },
+        "NED": {
+          "country": "NED",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 3,
+          "slots_500m": 3,
+          "earned_1000m": 3,
+          "slots_1000m": 3,
+          "earned_1500m": 3,
+          "slots_1500m": 3,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "NOR": {
+          "country": "NOR",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 2
+        },
+        "POL": {
+          "country": "POL",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 3,
+          "slots_500m": 3,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "SGP": {
+          "country": "SGP",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "SVK": {
+          "country": "SVK",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "UKR": {
+          "country": "UKR",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 3
+        },
+        "USA": {
+          "country": "USA",
+          "gender": "women",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": false,
+          "max_roster_size": 5
+        }
+      },
+      "men": {
+        "AUS": {
+          "country": "AUS",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 3
+        },
+        "AUT": {
+          "country": "AUT",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 2
+        },
+        "BEL": {
+          "country": "BEL",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": true,
+          "max_roster_size": 3
+        },
+        "BIH": {
+          "country": "BIH",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "BRA": {
+          "country": "BRA",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 2
+        },
+        "BUL": {
+          "country": "BUL",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 2
+        },
+        "CAN": {
+          "country": "CAN",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 3,
+          "slots_500m": 3,
+          "earned_1000m": 3,
+          "slots_1000m": 3,
+          "earned_1500m": 3,
+          "slots_1500m": 3,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "CHN": {
+          "country": "CHN",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 3,
+          "slots_500m": 3,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "CRO": {
+          "country": "CRO",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "CZE": {
+          "country": "CZE",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": true,
+          "max_roster_size": 3
+        },
+        "FRA": {
+          "country": "FRA",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 3
+        },
+        "GBR": {
+          "country": "GBR",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": false,
+          "max_roster_size": 5
+        },
+        "GER": {
+          "country": "GER",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": true,
+          "max_roster_size": 3
+        },
+        "HKG": {
+          "country": "HKG",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 3
+        },
+        "HUN": {
+          "country": "HUN",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "IND": {
+          "country": "IND",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "IRL": {
+          "country": "IRL",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 2
+        },
+        "ITA": {
+          "country": "ITA",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 3,
+          "slots_500m": 3,
+          "earned_1000m": 3,
+          "slots_1000m": 3,
+          "earned_1500m": 3,
+          "slots_1500m": 3,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "JPN": {
+          "country": "JPN",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "KAZ": {
+          "country": "KAZ",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "KOR": {
+          "country": "KOR",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 3,
+          "slots_500m": 3,
+          "earned_1000m": 3,
+          "slots_1000m": 3,
+          "earned_1500m": 3,
+          "slots_1500m": 3,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "LAT": {
+          "country": "LAT",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 3
+        },
+        "LTU": {
+          "country": "LTU",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 2
+        },
+        "LUX": {
+          "country": "LUX",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "NED": {
+          "country": "NED",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 3,
+          "slots_1000m": 3,
+          "earned_1500m": 3,
+          "slots_1500m": 3,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "NOR": {
+          "country": "NOR",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "NZL": {
+          "country": "NZL",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "PHI": {
+          "country": "PHI",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 2
+        },
+        "POL": {
+          "country": "POL",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": true,
+          "max_roster_size": 5
+        },
+        "SLO": {
+          "country": "SLO",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "SRB": {
+          "country": "SRB",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 3
+        },
+        "SUI": {
+          "country": "SUI",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "SVK": {
+          "country": "SVK",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 1,
+          "slots_500m": 1,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 1
+        },
+        "TUR": {
+          "country": "TUR",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 2,
+          "slots_1500m": 2,
+          "has_gender_relay": true,
+          "has_mixed_relay": false,
+          "max_roster_size": 5
+        },
+        "UKR": {
+          "country": "UKR",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 1,
+          "slots_1000m": 1,
+          "earned_1500m": 1,
+          "slots_1500m": 1,
+          "has_gender_relay": false,
+          "has_mixed_relay": false,
+          "max_roster_size": 2
+        },
+        "USA": {
+          "country": "USA",
+          "gender": "men",
+          "host_upgraded_distances": [],
+          "earned_500m": 2,
+          "slots_500m": 2,
+          "earned_1000m": 2,
+          "slots_1000m": 2,
+          "earned_1500m": 3,
+          "slots_1500m": 3,
+          "has_gender_relay": true,
+          "has_mixed_relay": false,
+          "max_roster_size": 5
+        }
+      }
+    },
+    "relays": {
+      "men_5000m": {
+        "top_n": 12,
+        "host_member": "KOR",
+        "host_replaced_12th": false,
+        "qualified_countries": [
+          "CAN",
+          "KOR",
+          "CHN",
+          "JPN",
+          "POL",
+          "NED",
+          "KAZ",
+          "HUN",
+          "USA",
+          "GBR",
+          "ITA",
+          "TUR"
+        ],
+        "standings": [
+          {
+            "country": "CAN",
+            "points": 180,
+            "official_rank": 1,
+            "standing_rank": 1,
+            "qualified": true
+          },
+          {
+            "country": "KOR",
+            "points": 170,
+            "official_rank": 2,
+            "standing_rank": 2,
+            "qualified": true
+          },
+          {
+            "country": "CHN",
+            "points": 150,
+            "official_rank": 3,
+            "standing_rank": 3,
+            "qualified": true
+          },
+          {
+            "country": "JPN",
+            "points": 110,
+            "official_rank": 4,
+            "standing_rank": 4,
+            "qualified": true
+          },
+          {
+            "country": "POL",
+            "points": 86,
+            "official_rank": 5,
+            "standing_rank": 5,
+            "qualified": true
+          },
+          {
+            "country": "NED",
+            "points": 78,
+            "official_rank": 6,
+            "standing_rank": 6,
+            "qualified": true
+          },
+          {
+            "country": "KAZ",
+            "points": 76,
+            "official_rank": 7,
+            "standing_rank": 7,
+            "qualified": true
+          },
+          {
+            "country": "HUN",
+            "points": 68,
+            "official_rank": 8,
+            "standing_rank": 8,
+            "qualified": true
+          },
+          {
+            "country": "USA",
+            "points": 64,
+            "official_rank": 9,
+            "standing_rank": 9,
+            "qualified": true
+          },
+          {
+            "country": "GBR",
+            "points": 56,
+            "official_rank": 10,
+            "standing_rank": 10,
+            "qualified": true
+          },
+          {
+            "country": "ITA",
+            "points": 54,
+            "official_rank": 11,
+            "standing_rank": 11,
+            "qualified": true
+          },
+          {
+            "country": "TUR",
+            "points": 52,
+            "official_rank": 12,
+            "standing_rank": 12,
+            "qualified": true
+          },
+          {
+            "country": "BEL",
+            "points": 40,
+            "official_rank": 13,
+            "standing_rank": 13,
+            "qualified": false
+          },
+          {
+            "country": "NOR",
+            "points": 28,
+            "official_rank": 14,
+            "standing_rank": 14,
+            "qualified": false
+          },
+          {
+            "country": "BUL",
+            "points": 24,
+            "official_rank": 15,
+            "standing_rank": 15,
+            "qualified": false
+          }
+        ]
+      },
+      "women_3000m": {
+        "top_n": 12,
+        "host_member": "KOR",
+        "host_replaced_12th": false,
+        "qualified_countries": [
+          "ITA",
+          "CAN",
+          "KOR",
+          "NED",
+          "CHN",
+          "FRA",
+          "JPN",
+          "POL",
+          "KAZ",
+          "USA"
+        ],
+        "standings": [
+          {
+            "country": "ITA",
+            "points": 160,
+            "official_rank": 1,
+            "standing_rank": 1,
+            "qualified": true
+          },
+          {
+            "country": "CAN",
+            "points": 160,
+            "official_rank": 2,
+            "standing_rank": 2,
+            "qualified": true
+          },
+          {
+            "country": "KOR",
+            "points": 160,
+            "official_rank": 3,
+            "standing_rank": 3,
+            "qualified": true
+          },
+          {
+            "country": "NED",
+            "points": 140,
+            "official_rank": 4,
+            "standing_rank": 4,
+            "qualified": true
+          },
+          {
+            "country": "CHN",
+            "points": 100,
+            "official_rank": 5,
+            "standing_rank": 5,
+            "qualified": true
+          },
+          {
+            "country": "FRA",
+            "points": 80,
+            "official_rank": 6,
+            "standing_rank": 6,
+            "qualified": true
+          },
+          {
+            "country": "JPN",
+            "points": 76,
+            "official_rank": 7,
+            "standing_rank": 7,
+            "qualified": true
+          },
+          {
+            "country": "POL",
+            "points": 76,
+            "official_rank": 8,
+            "standing_rank": 8,
+            "qualified": true
+          },
+          {
+            "country": "KAZ",
+            "points": 72,
+            "official_rank": 9,
+            "standing_rank": 9,
+            "qualified": true
+          },
+          {
+            "country": "USA",
+            "points": 32,
+            "official_rank": 10,
+            "standing_rank": 10,
+            "qualified": true
+          }
+        ]
+      },
+      "mixed_2000m": {
+        "top_n": 12,
+        "host_member": "KOR",
+        "host_replaced_12th": false,
+        "qualified_countries": [
+          "NED",
+          "CAN",
+          "KOR",
+          "POL",
+          "ITA",
+          "CHN",
+          "JPN",
+          "BEL",
+          "GER",
+          "HUN",
+          "KAZ",
+          "CZE"
+        ],
+        "standings": [
+          {
+            "country": "NED",
+            "points": 200,
+            "official_rank": 1,
+            "standing_rank": 1,
+            "qualified": true
+          },
+          {
+            "country": "CAN",
+            "points": 140,
+            "official_rank": 2,
+            "standing_rank": 2,
+            "qualified": true
+          },
+          {
+            "country": "KOR",
+            "points": 130,
+            "official_rank": 3,
+            "standing_rank": 3,
+            "qualified": true
+          },
+          {
+            "country": "POL",
+            "points": 114,
+            "official_rank": 4,
+            "standing_rank": 4,
+            "qualified": true
+          },
+          {
+            "country": "ITA",
+            "points": 110,
+            "official_rank": 5,
+            "standing_rank": 5,
+            "qualified": true
+          },
+          {
+            "country": "CHN",
+            "points": 94,
+            "official_rank": 6,
+            "standing_rank": 6,
+            "qualified": true
+          },
+          {
+            "country": "JPN",
+            "points": 80,
+            "official_rank": 7,
+            "standing_rank": 7,
+            "qualified": true
+          },
+          {
+            "country": "BEL",
+            "points": 60,
+            "official_rank": 8,
+            "standing_rank": 8,
+            "qualified": true
+          },
+          {
+            "country": "GER",
+            "points": 60,
+            "official_rank": 9,
+            "standing_rank": 9,
+            "qualified": true
+          },
+          {
+            "country": "HUN",
+            "points": 56,
+            "official_rank": 10,
+            "standing_rank": 10,
+            "qualified": true
+          },
+          {
+            "country": "KAZ",
+            "points": 52,
+            "official_rank": 11,
+            "standing_rank": 11,
+            "qualified": true
+          },
+          {
+            "country": "CZE",
+            "points": 50,
+            "official_rank": 12,
+            "standing_rank": 12,
+            "qualified": true
+          },
+          {
+            "country": "USA",
+            "points": 36,
+            "official_rank": 13,
+            "standing_rank": 13,
+            "qualified": false
+          },
+          {
+            "country": "FRA",
+            "points": 24,
+            "official_rank": 14,
+            "standing_rank": 14,
+            "qualified": false
+          },
+          {
+            "country": "GBR",
+            "points": 16,
+            "official_rank": 15,
+            "standing_rank": 15,
+            "qualified": false
+          }
+        ]
+      }
+    }
+  },
+  "world_tour_2026_27": {
+    "penalty_bans_enabled": true,
+    "quotas": {
+      "women": {
+        "AIN": {
+          "country": "AIN",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "AIN2": {
+          "country": "AIN2",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "AUS": {
+          "country": "AUS",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 1,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "BEL": {
+          "country": "BEL",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 2,
+            "1000m": 1,
+            "1500m": 2
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "CAN": {
+          "country": "CAN",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 4,
+            "1000m": 3,
+            "1500m": 5
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "CHN": {
+          "country": "CHN",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 5,
+            "1000m": 6,
+            "1500m": 5
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "CRO": {
+          "country": "CRO",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 1,
+            "1000m": 1,
+            "1500m": 1
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "CZE": {
+          "country": "CZE",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 1
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "FRA": {
+          "country": "FRA",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m"
+          ],
+          "top40_counts": {
+            "500m": 3,
+            "1000m": 2,
+            "1500m": 0
+          },
+          "slots_500m": 4,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "GBR": {
+          "country": "GBR",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 1,
+            "1000m": 1,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "GER": {
+          "country": "GER",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 1,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "HKG": {
+          "country": "HKG",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "HUN": {
+          "country": "HUN",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 1,
+            "1000m": 1,
+            "1500m": 2
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "ITA": {
+          "country": "ITA",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 5,
+            "1000m": 4,
+            "1500m": 4
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "JPN": {
+          "country": "JPN",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 1,
+            "1000m": 3,
+            "1500m": 4
+          },
+          "slots_500m": 3,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "KAZ": {
+          "country": "KAZ",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 3,
+            "1000m": 1,
+            "1500m": 3
+          },
+          "slots_500m": 4,
+          "slots_1000m": 3,
+          "slots_1500m": 4
+        },
+        "KOR": {
+          "country": "KOR",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 3,
+            "1000m": 5,
+            "1500m": 4
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "LAT": {
+          "country": "LAT",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "NED": {
+          "country": "NED",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 3,
+            "1000m": 5,
+            "1500m": 5
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "NOR": {
+          "country": "NOR",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "NZL": {
+          "country": "NZL",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "POL": {
+          "country": "POL",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m"
+          ],
+          "top40_counts": {
+            "500m": 5,
+            "1000m": 3,
+            "1500m": 2
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 3
+        },
+        "SGP": {
+          "country": "SGP",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "SUI": {
+          "country": "SUI",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "SVK": {
+          "country": "SVK",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "THA": {
+          "country": "THA",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "TPE": {
+          "country": "TPE",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "UKR": {
+          "country": "UKR",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "USA": {
+          "country": "USA",
+          "gender": "women",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "1000m"
+          ],
+          "top40_counts": {
+            "500m": 2,
+            "1000m": 3,
+            "1500m": 2
+          },
+          "slots_500m": 3,
+          "slots_1000m": 4,
+          "slots_1500m": 3
+        }
+      },
+      "men": {
+        "AIN2": {
+          "country": "AIN2",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 1
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "AUS": {
+          "country": "AUS",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 1,
+            "1000m": 1,
+            "1500m": 1
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "AUT": {
+          "country": "AUT",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "BEL": {
+          "country": "BEL",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 1,
+            "1000m": 0,
+            "1500m": 1
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "BIH": {
+          "country": "BIH",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "BRA": {
+          "country": "BRA",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "BUL": {
+          "country": "BUL",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 1
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "CAN": {
+          "country": "CAN",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 5,
+            "1000m": 5,
+            "1500m": 3
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "CHN": {
+          "country": "CHN",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 6,
+            "1000m": 6,
+            "1500m": 3
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "CRO": {
+          "country": "CRO",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "CZE": {
+          "country": "CZE",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "FRA": {
+          "country": "FRA",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 1,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "GBR": {
+          "country": "GBR",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 1,
+            "1500m": 2
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "GER": {
+          "country": "GER",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "HKG": {
+          "country": "HKG",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 1,
+            "1500m": 1
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "HUN": {
+          "country": "HUN",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 1,
+            "1500m": 1
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "IND": {
+          "country": "IND",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "IRL": {
+          "country": "IRL",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "ITA": {
+          "country": "ITA",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 3,
+            "1000m": 3,
+            "1500m": 3
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "JPN": {
+          "country": "JPN",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 4,
+            "1000m": 2,
+            "1500m": 4
+          },
+          "slots_500m": 4,
+          "slots_1000m": 3,
+          "slots_1500m": 4
+        },
+        "KAZ": {
+          "country": "KAZ",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "1000m"
+          ],
+          "top40_counts": {
+            "500m": 2,
+            "1000m": 3,
+            "1500m": 2
+          },
+          "slots_500m": 3,
+          "slots_1000m": 4,
+          "slots_1500m": 3
+        },
+        "KOR": {
+          "country": "KOR",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 5,
+            "1000m": 4,
+            "1500m": 5
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "LAT": {
+          "country": "LAT",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 1,
+            "1000m": 2,
+            "1500m": 2
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "LTU": {
+          "country": "LTU",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "LUX": {
+          "country": "LUX",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "MAS": {
+          "country": "MAS",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "MGL": {
+          "country": "MGL",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "NED": {
+          "country": "NED",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 4,
+            "1000m": 4,
+            "1500m": 5
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "NOR": {
+          "country": "NOR",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "NZL": {
+          "country": "NZL",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "PHI": {
+          "country": "PHI",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "POL": {
+          "country": "POL",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 2,
+            "1000m": 2,
+            "1500m": 2
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "SGP": {
+          "country": "SGP",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "SLO": {
+          "country": "SLO",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "SRB": {
+          "country": "SRB",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "SUI": {
+          "country": "SUI",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "SVK": {
+          "country": "SVK",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "THA": {
+          "country": "THA",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "TPE": {
+          "country": "TPE",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "TUR": {
+          "country": "TUR",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 2,
+            "1000m": 1,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "UKR": {
+          "country": "UKR",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 1,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "USA": {
+          "country": "USA",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [
+            "500m",
+            "1000m",
+            "1500m"
+          ],
+          "top40_counts": {
+            "500m": 3,
+            "1000m": 3,
+            "1500m": 3
+          },
+          "slots_500m": 4,
+          "slots_1000m": 4,
+          "slots_1500m": 4
+        },
+        "UZB": {
+          "country": "UZB",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        }
+      }
+    },
+    "next_stop_penalty_bans": [
+      {
+        "athlete_id": "ath-295c31a30610e64d9499",
+        "name": "PELLETIER Mathieu",
+        "country": "CAN",
+        "gender": "men",
+        "cumulative_penalties": 3,
+        "blocked_count": 1,
+        "blocked_distances": [
+          "1000m"
+        ],
+        "world_ranks": {
+          "500m": 16,
+          "1000m": 12,
+          "1500m": 42
+        }
+      }
+    ],
+    "one_away_from_ban_warnings": [
+      {
+        "athlete_id": "ath-08caea4ad943373c94ab",
+        "name": "ZHANG Chutong",
+        "country": "CHN",
+        "gender": "women",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 16,
+          "1000m": 22,
+          "1500m": 10
+        }
+      },
+      {
+        "athlete_id": "ath-2f5775133539f6a7e0f7",
+        "name": "ROUSSEL Felix",
+        "country": "CAN",
+        "gender": "men",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 7,
+          "1000m": 11,
+          "1500m": 2
+        }
+      },
+      {
+        "athlete_id": "ath-32780e84744937993fa2",
+        "name": "BACHAND Ann-Sophie",
+        "country": "CAN",
+        "gender": "women",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "1000m": 55,
+          "1500m": 29
+        }
+      },
+      {
+        "athlete_id": "ath-3bd809dcd4f058d4b540",
+        "name": "DESMET Hanne",
+        "country": "BEL",
+        "gender": "women",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 12,
+          "1000m": 2,
+          "1500m": 6
+        }
+      },
+      {
+        "athlete_id": "ath-513b3ec2cc3a073a75d3",
+        "name": "SANTOS-GRISWOLD Kristen",
+        "country": "USA",
+        "gender": "women",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 13,
+          "1000m": 6,
+          "1500m": 24
+        }
+      },
+      {
+        "athlete_id": "ath-623779beeda587847aba",
+        "name": "ANDERMANN Nicolas",
+        "country": "AUT",
+        "gender": "men",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 47,
+          "1000m": 47,
+          "1500m": 77
+        }
+      },
+      {
+        "athlete_id": "ath-64a844d676fa24746b6b",
+        "name": "NASSEN Aibek",
+        "country": "KAZ",
+        "gender": "men",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 50,
+          "1000m": 68
+        }
+      },
+      {
+        "athlete_id": "ath-7526110b176497878d3f",
+        "name": "GONG Li",
+        "country": "CHN",
+        "gender": "women",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "1000m": 15,
+          "1500m": 11
+        }
+      },
+      {
+        "athlete_id": "ath-bf41d212ebfe992891e6",
+        "name": "LIU Justin",
+        "country": "USA",
+        "gender": "men",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 52,
+          "1000m": 135
+        }
+      },
+      {
+        "athlete_id": "ath-bf93d274dece11d17ae7",
+        "name": "PREVITALI Lorenzo",
+        "country": "ITA",
+        "gender": "men",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 39,
+          "1000m": 63,
+          "1500m": 107
+        }
+      },
+      {
+        "athlete_id": "ath-e7991c93e1479da1d3f5",
+        "name": "KRUZBERGS Roberts",
+        "country": "LAT",
+        "gender": "men",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 22,
+          "1000m": 17,
+          "1500m": 12
+        }
+      },
+      {
+        "athlete_id": "ath-ee4b7a824eb8cb36d140",
+        "name": "SOLOVIOVA Kateryna",
+        "country": "GER",
+        "gender": "women",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 33,
+          "1000m": 57,
+          "1500m": 82
+        }
+      }
+    ]
+  }
+}

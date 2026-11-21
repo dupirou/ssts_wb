@@ -99,6 +99,16 @@
       finals: 'A 组决赛 ' + summary.a_finals + ' · 前 8 名 ' + summary.top8
     };
   }
+  const icons = {
+    roster: [
+      [
+        'path',
+        { d: 'M9 4.5H6a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-13a2 2 0 0 0-2-2h-3' }
+      ],
+      ['rect', { x: 9, y: 2.5, width: 6, height: 4, rx: 1 }],
+      ['path', { d: 'M8 11h8M8 15h5' }]
+    ]
+  };
   site.ui = {
     h,
     s,
@@ -109,6 +119,7 @@
     tableScroll,
     findFocus,
     requestJSON,
-    chinaRecap
+    chinaRecap,
+    icons
   };
 })();

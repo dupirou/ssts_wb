@@ -1,0 +1,550 @@
+# ==============================================================================
+# ISU Short Track Speed Skating 2026-2027 Deterministic Rules, Quotas & Roster Config
+# Sources: ISU Comm. 2805, 2806, 2807 (Updated 2026-08-06), 2811,
+#          CER 2026 Art. 9.2, 2026 ST Sports Rules, Qualifying Tables (2026-11-17)
+# Verified against original Comm. 2805 PDF & 2026 Montreal Worlds Protocol (2026-11-21)
+# ==============================================================================
+
+schema_version: "2026.27.1"
+season: "2026-2027"
+effective_cutoff_date: "2026-07-01"
+
+# ------------------------------------------------------------------------------
+# 1. AGE ELIGIBILITY & DUAL-ELIGIBILITY RULES (CER 2026 Art. 9.2 & Comm. 2807)
+# ------------------------------------------------------------------------------
+age_eligibility:
+  cutoff_date: "2026-07-01"
+  senior:
+    min_age_before_cutoff: 17
+    dob_max: "2009-06-30"
+    dob_min: null
+  senior_only:
+    min_age_before_cutoff: 19
+    dob_max: "2007-06-30"
+  junior_isu_events:
+    min_age_before_cutoff: 15
+    max_age_exclusive_before_cutoff: 19
+    dob_min: "2007-07-01"
+    dob_max: "2011-06-30"
+    brackets:
+      U19_Junior_A: { dob_min: "2007-07-01", dob_max: "2009-06-30" }
+      U17_Junior_B: { dob_min: "2009-07-01", dob_max: "2011-06-30" }
+      U15: { dob_min: "2011-07-01", dob_max: "2013-06-30" }
+      U13: { dob_min: "2013-07-01", dob_max: "2015-06-30" }
+  dual_eligible:
+    dob_min: "2007-07-01"
+    dob_max: "2009-06-30"
+    jwc_1_2_cross_entry_policy: "discouraged_if_skating_fall_world_tour"
+    jwc_prize_money_forfeit_trigger:
+      condition: "participated_in_any_world_tour_event_before_jwc_3"
+      trigger_events: ["WT1", "WT2", "WT3", "WT4", "WT5"]
+      forfeits_points_or_eligibility: false
+      forfeits_jwc_prize_money: true
+
+# ------------------------------------------------------------------------------
+# 2. POINTS TABLES (1-indexed arrays: index 0 = Rank 1)
+# ------------------------------------------------------------------------------
+points_tables:
+  world_tour_standard_1x:
+    - 100
+    - 80
+    - 70
+    - 60
+    - 50
+    - 44
+    - 40
+    - 36
+    - 32
+    - 28
+    - 24
+    - 20
+    - 18
+    - 16
+    - 14
+    - 12
+    - 10
+    - 8
+    - 6
+    - 5
+    - 4
+    - 3
+    - 2
+    - 1
+
+  world_tour_team_globe_relay_3x:
+    - 300
+    - 240
+    - 210
+    - 180
+    - 150
+    - 132
+    - 120
+    - 108
+    - 96
+    - 84
+    - 72
+    - 60
+    - 54
+    - 48
+    - 42
+    - 36
+    - 30
+    - 24
+    - 18
+    - 15
+    - 12
+    - 9
+    - 6
+    - 3
+
+  world_ranking_1x:
+    rank_68_plus: 1
+    values:
+      - 10000
+      - 8500
+      - 7225
+      - 6141
+      - 5220
+      - 4437
+      - 3771
+      - 3206
+      - 2725
+      - 2316
+      - 1969
+      - 1673
+      - 1422
+      - 1209
+      - 1028
+      - 874
+      - 743
+      - 631
+      - 536
+      - 456
+      - 410
+      - 369
+      - 332
+      - 299
+      - 269
+      - 242
+      - 218
+      - 196
+      - 177
+      - 159
+      - 143
+      - 129
+      - 116
+      - 104
+      - 94
+      - 84
+      - 76
+      - 68
+      - 62
+      - 55
+      - 50
+      - 45
+      - 40
+      - 36
+      - 33
+      - 29
+      - 27
+      - 24
+      - 21
+      - 19
+      - 18
+      - 17
+      - 16
+      - 15
+      - 14
+      - 13
+      - 12
+      - 11
+      - 10
+      - 9
+      - 8
+      - 7
+      - 6
+      - 5
+      - 4
+      - 3
+      - 2
+
+  world_championships_2027_ranking_2x:
+    rank_68_plus: 2
+    values:
+      - 20000
+      - 17000
+      - 14450
+      - 12282
+      - 10440
+      - 8874
+      - 7542
+      - 6412
+      - 5450
+      - 4632
+      - 3938
+      - 3346
+      - 2844
+      - 2418
+      - 2056
+      - 1748
+      - 1486
+      - 1262
+      - 1072
+      - 912
+      - 820
+      - 738
+      - 664
+      - 598
+      - 538
+      - 484
+      - 436
+      - 392
+      - 354
+      - 318
+      - 286
+      - 258
+      - 232
+      - 208
+      - 188
+      - 168
+      - 152
+      - 136
+      - 124
+      - 110
+      - 100
+      - 90
+      - 80
+      - 72
+      - 66
+      - 58
+      - 54
+      - 48
+      - 42
+      - 38
+      - 36
+      - 34
+      - 32
+      - 30
+      - 28
+      - 26
+      - 24
+      - 22
+      - 20
+      - 18
+      - 16
+      - 14
+      - 12
+      - 10
+      - 8
+      - 6
+      - 4
+
+# ------------------------------------------------------------------------------
+# 3. WORLD TOUR 2026/27 RULES (Comm. 2806 & Qualifying Tables 2026-11-17)
+# ------------------------------------------------------------------------------
+world_tour:
+  total_stops: 7
+  event_duration_days: 3
+  individual_distances: ["500m", "1000m", "1500m"]
+  relay_distances:
+    women: "3000m"
+    men: "5000m"
+    mixed: "2000m"
+
+  entries:
+    max_skaters_per_gender_total: 6
+    max_skaters_per_distance_default: 3
+    four_skater_exception:
+      enabled: true
+      max_skaters_per_distance: 4
+      within_gender_total_cap: true
+      condition: "member_has_at_least_3_skaters_in_world_ranking_top_40_for_distance_at_confirmed_entry"
+      required_top_rank: 40
+      required_skater_count: 3
+    relays:
+      gender_relay: { max_teams_per_gender: 1, min_skaters: 4, max_skaters: 6 }
+      mixed_relay:
+        max_teams: 1
+        entry_list_max_per_gender: 6
+        participating_min_per_gender: 2
+        participating_max_per_gender: 4
+
+  qualifying_times_500m:
+    enforce_filter_in_roster_model: false
+    valid_after: "2024-07-01"
+    deadline_days_before_event: 10
+    manual_timing_penalty_seconds: 0.2
+    single_skater_member: { women: 46.37, men: 44.25 }
+    multi_skater_member: { women: 45.54, men: 43.46 }
+
+  qualifying_tables_key_limits:
+    repechage_cap_1_qual_round: { "500m": 40, "1000m": 40, "1500m": 42 }
+    repechage_cap_2_qual_rounds_r1_elim: { "500m": 25, "1000m": 25, "1500m": 28 }
+    direct_qualifiers_to_main_session: { "500m_QF": 18, "1000m_QF": 18, "1500m_SF": 19 }
+    relay_standard_advance_teams: 5
+
+  scoring_eligibility:
+    individual_requires_main_session: true
+    relay_all_participating_teams_score: true
+    single_skater_b_final_walkover_rank: 1
+
+  classifications:
+    individual_distance:
+      points_table: "world_tour_standard_1x"
+      counting_results: { best_m: 5, of_n: 7 }
+      tie_breaker_order:
+        - "total_counting_points"
+        - "most_1st_places"
+        - "most_2nd_places"
+        - "most_3rd_places"
+        - "most_recent_event_result"
+
+    relay_distance:
+      points_table: "world_tour_standard_1x"
+      relay_multiplier: 1
+      counting_results: { best_m: 5, of_n: 7 }
+      tie_breaker_order:
+        - "total_counting_points"
+        - "most_1st_places"
+        - "most_2nd_places"
+        - "most_3rd_places"
+        - "most_recent_event_result"
+
+    overall_crystal_globe:
+      points_table: "world_tour_standard_1x"
+      counting_results: { max_individual_results: 15, max_possible_starts: 21, across_all_distances: true }
+      tie_breaker_order:
+        - "total_counting_points"
+        - "most_1st_places"
+        - "most_2nd_places"
+        - "most_3rd_places"
+        - "joint_winners_no_further_break"
+
+    team_crystal_globe:
+      individual_points_table: "world_tour_standard_1x"
+      individual_multiplier: 1
+      relay_points_table: "world_tour_team_globe_relay_3x"
+      relay_multiplier: 3
+      counting_results: { all_events_all_points_count: true, drop_worst: 0 }
+      tie_breaker_order:
+        - "total_accumulated_points"
+        - "most_1st_places"
+        - "most_2nd_places"
+        - "most_3rd_places"
+        - "joint_winners_no_further_break"
+
+    world_ranking_rolling:
+      formula: "best_(N-1)_of_N"
+      season_2026_27_progression: ["3_of_4", "4_of_5", "5_of_6", "6_of_7"]
+      season_2027_28_with_worlds: "7_of_8_with_worlds_2x"
+      prequalification_top_k: 20
+      prequalification_basis_by_stop:
+        WT1: "season_2025_26_final_wt_classification"
+        WT2: "season_2025_26_final_converted_100_to_1_plus_WT1"
+        WT3: "WT1_plus_WT2"
+        WT4: "all_2026_27_completed"
+        WT5: "all_2026_27_completed"
+        WT6: "all_2026_27_completed"
+        WT7: "best_5_of_6_2026_27"
+
+  race_and_event_ranking_order:
+    within_race_status_order: ["FINISHED", "DNF", "PEN", "DNS"]
+    unranked_bottom_order: ["RC", "FIRST_ROUND_DNS"]
+    repechage_entry_eligible_statuses: ["ELIMINATED_CLEAN", "DNF"]
+    repechage_entry_banned_statuses: ["PEN", "YC", "RC", "DNS"]
+
+  cumulative_penalty_system:
+    enabled: true
+    countable_sanctions: ["PEN_IMPEDING", "PEN_KICKING_OUT", "YC", "RC"]
+    excluded_codes: ["ASS", "EMB", "EQP", "OFF", "SR", "ST6"]
+    excluded_races: ["WOMEN_RELAY", "MEN_RELAY", "MIXED_RELAY"]
+    excluded_events: ["WORLD_CHAMPIONSHIPS", "EUROPEAN_CHAMPIONSHIPS", "JUNIOR_WORLD_CHAMPIONSHIPS"]
+    ban_scope: "next_world_tour_event_only"
+    reset_policy: "reset_to_0_after_WT7"
+    thresholds:
+      - sanctions: 3
+        blocked_individual_distances_count: 1
+        target_selection: "highest_ranked_distance"
+      - sanctions: 5
+        blocked_individual_distances_count: 2
+        target_selection: "two_highest_ranked_distances"
+      - sanctions: 7
+        blocked_individual_distances_count: 3
+        target_selection: "all_individual_distances"
+    separate_red_card_rule_296_m:
+      rolling_window_months: 12
+      red_card_threshold: 2
+      consequence: "automatic_suspension_all_isu_owg_yog_international_events"
+      reference_min_duration_note: "verify_2026_full_clause_prior_rule_was_max(2_months,3_competitions)"
+
+# ------------------------------------------------------------------------------
+# 4. 2027 WORLD CHAMPIONSHIPS QUOTA RULES (Comm. 2805 & Rule 281.3)
+# ------------------------------------------------------------------------------
+world_championships_2027:
+  location: "Seoul, KOR"
+  dates: { start: "2027-03-12", end: "2027-03-14" }
+  host_member: "KOR"
+
+  individual_quota_calculation:
+    basis: "preceding_world_championships_2026_distance_classification"
+    base_quota_per_distance: 1
+    two_spots_rule: { min_skaters: 1, max_rank: 32 }
+    three_spots_rule: { min_skaters: 2, max_rank: 16 }
+    host_exception:
+      can_upgrade_to_3_per_distance: true
+      counts_only_originally_qualified_for_2028_qualification: true
+    special_members_comm_2804: ["BLR", "RUS"]
+
+  relay_quota_calculation:
+    basis: "world_tour_2026_27_relay_classification_best_5_of_7"
+    top_n_qualified: 12
+    host_replacement_rule: "if_host_unqualified_replaces_12th_ranked_team"
+    forfeit_reallocation: "invite_next_ranked_member_after_WT7"
+    last_qualifying_spot_tie_breaker:
+      - "highest_single_event_rank_in_counting_wt_events"
+      - "second_highest_single_event_rank_iterative"
+      - "best_skated_time_in_counting_wt_events_2026_27"
+
+  category_max_roster_cap_rules:
+    if_gender_relay_entered: 5
+    else_if_any_distance_has_3_spots: 4
+    else_if_mixed_relay_qualified_or_at_least_two_distances_have_2_spots: 3
+    else_if_exactly_one_distance_has_2_spots: 2
+    else_default: 1
+
+  qualifying_times_500m:
+    enforce_filter_in_roster_model: false
+    deadline_days_before_event: 10
+    single_skater_member: { women: 46.37, men: 44.25 }
+    multi_skater_member: { women: 45.54, men: 43.46 }
+
+  china_chn_verified_status:
+    individual_status: "CONFIRMED_FROM_COMM_2805_AND_2026_WORLDS_PROTOCOL"
+    individual_quotas:
+      women: { "500m": 3, "1000m": 3, "1500m": 2 }
+      men: { "500m": 3, "1000m": 2, "1500m": 2 }
+    pdf_visual_audit_note: "Verified 2026-11-21 via (x,y) coordinate extraction of Comm. 2805 p.5 and 2026 Montreal Worlds C81: Men 500m=3 (ZHANG Bohao 14th, LI Kun 16th), Men 1000m=2 (LI Kun 16th, ZHANG Bohao 20th), Men 1500m=2 (ZHANG Bohao 11th, SONG Guixu 33rd)."
+    relay_status: "PENDING_UNTIL_WT7_2027_02_14"
+    implied_roster_cap:
+      women: { without_gender_relay: 4, with_gender_relay: 5 }
+      men: { without_gender_relay: 4, with_gender_relay: 5 }
+
+# ------------------------------------------------------------------------------
+# 5. JUNIOR WORLD CUP 2026/27 & 2027 JUNIOR WORLDS (Comm. 2807 & Comm. 2805)
+# ------------------------------------------------------------------------------
+junior_world_cup:
+  total_stops: 3
+  points_table: "world_tour_standard_1x"
+  relay_multiplier: 1
+  relay_standard_advance_teams: 4
+  relay_distances:
+    women: "3000m"
+    men: "3000m"
+    mixed: "2000m"
+  entries:
+    max_skaters_per_gender_total: 5
+    max_skaters_per_distance: 3
+    four_skater_exception_enabled: false
+    max_individual_distances_per_skater_per_stop: 2
+    daily_equal_split_matrix:
+      5_skaters: [[2, 3], [3, 2]]
+      4_skaters: [[2, 2]]
+      3_skaters: [[1, 2], [2, 1]]
+      2_skaters: [[1, 1]]
+    relays:
+      gender_relay: { max_teams_per_gender: 1, min_skaters: 4, max_skaters: 5 }
+      mixed_relay: { max_teams: 1, entry_max_per_gender: 5, participating_min_per_gender: 2, participating_max_per_gender: 4 }
+  qualifying_times_500m:
+    valid_after: "2024-07-01"
+    deadline_days_before_event: 10
+    all_skaters: { women: 49.36, men: 46.27 }
+  classifications:
+    has_overall_crystal_globe: false
+    has_team_crystal_globe: false
+    counting_results: "all_results_count"
+    tie_breaker_order:
+      - "total_points"
+      - "most_1st_places"
+      - "most_2nd_places"
+      - "most_3rd_places"
+      - "last_result_of_season"
+
+junior_world_championships_2027:
+  location: "Astana, KAZ"
+  venue: "Alau Ice Palace"
+  dates: { start: "2027-01-28", end: "2027-01-31" }
+  individual_quota_basis: "preceding_junior_worlds_2026"
+  base_quota_per_distance: 2
+  three_spots_rule: { min_skaters: 2, max_rank: 32 }
+  relay_qualification_basis: "jwc_relay_classification_after_JWC2"
+  category_max_roster_cap:
+    without_relay: 3
+    with_relay: 5
+  china_chn_individual_quotas:
+    women: { "500m": 3, "1000m": 3, "1500m": 3 }
+    men: { "500m": 3, "1000m": 3, "1500m": 3 }
+
+# ------------------------------------------------------------------------------
+# 6. FULL 2026-27 SEASON CALENDAR (For Dual-Eligible Scheduler)
+# ------------------------------------------------------------------------------
+calendar_2026_27:
+  four_continents_short_track_2027:
+    scheduled: false
+    note: "Not included in ISU Comm. 2805 or 2026/27 official Short Track calendar"
+
+  events:
+    - { id: "WT1", circuit: "SENIOR_WT", qual_start: "2026-10-23", main_start: "2026-10-24", end: "2026-10-25", city: "Vancouver", country: "CAN", venue: "Pacific Coliseum", venue_official: true, jwc_prize_red_zone: true }
+    - { id: "WT2", circuit: "SENIOR_WT", qual_start: "2026-10-30", main_start: "2026-10-31", end: "2026-11-01", city: "Montreal", country: "CAN", venue: "Maurice Richard Arena", venue_official: true, jwc_prize_red_zone: true }
+    - { id: "JWC1", circuit: "JUNIOR_WC", qual_start: "2026-11-06", main_start: "2026-11-07", end: "2026-11-08", city: "Bormio", country: "ITA", venue: "Palaghiaccio", venue_official: true, repeated_distance: "1000m" }
+    - { id: "JWC2", circuit: "JUNIOR_WC", qual_start: "2026-11-12", main_start: "2026-11-13", end: "2026-11-14", city: "Bormio", country: "ITA", venue: "Palaghiaccio", venue_official: true, repeated_distance: "500m" }
+    - { id: "WT3", circuit: "SENIOR_WT", qual_start: "2026-11-20", main_start: "2026-11-21", end: "2026-11-22", city: "Seoul", country: "KOR", venue: "Mokdong Ice Rink", venue_official: true, jwc_prize_red_zone: true }
+    - { id: "WT4", circuit: "SENIOR_WT", qual_start: "2026-11-27", main_start: "2026-11-28", end: "2026-11-29", city: "Shanghai", country: "CHN", venue: "SPD Bank Oriental Sports Center", venue_official: true, jwc_prize_red_zone: true }
+    - { id: "WT5", circuit: "SENIOR_WT", qual_start: "2026-12-04", main_start: "2026-12-05", end: "2026-12-06", city: "Beijing", country: "CHN", venue: "Capital Indoor Stadium", venue_official: false, jwc_prize_red_zone: true }
+    - { id: "EUROS", circuit: "SENIOR_CHAMP", qual_start: "2027-01-15", main_start: "2027-01-16", end: "2027-01-17", city: "Dresden", country: "GER", venue: "JOYNEXT Arena", venue_official: true, eligible_regions: ["EUROPE"] }
+    - { id: "JWC3", circuit: "JUNIOR_WC", qual_start: "2027-01-22", main_start: "2027-01-23", end: "2027-01-24", city: "Astana", country: "KAZ", venue: "TBA (Astana)", venue_official: false, repeated_distance: "1500m" }
+    - { id: "WJC", circuit: "JUNIOR_CHAMP", qual_start: "2027-01-28", main_start: "2027-01-30", end: "2027-01-31", city: "Astana", country: "KAZ", venue: "Alau Ice Palace", venue_official: true, format_days: 4 }
+    - { id: "WT6", circuit: "SENIOR_WT", qual_start: "2027-02-05", main_start: "2027-02-06", end: "2027-02-07", city: "Gdansk", country: "POL", venue: "Hala Olivia", venue_official: false, jwc_prize_red_zone: false }
+    - { id: "WT7", circuit: "SENIOR_WT", qual_start: "2027-02-12", main_start: "2027-02-13", end: "2027-02-14", city: "Tilburg", country: "NED", venue: "IJssportcentrum Tilburg", venue_official: false, jwc_prize_red_zone: false }
+    - { id: "WORLDS", circuit: "SENIOR_CHAMP", qual_start: "2027-03-12", main_start: "2027-03-13", end: "2027-03-14", city: "Seoul", country: "KOR", venue: "Mokdong Ice Rink", venue_official: false, world_ranking_multiplier: 2 }
+
+# ------------------------------------------------------------------------------
+# 7. ROSTER OPTIMIZATION & THREE-POOL FUSION HYPERPARAMETERS (Externalized)
+# ------------------------------------------------------------------------------
+roster_model:
+  random_seed: 202627
+  monte_carlo_draws: 1000
+  weight_perturbation_pct: 0.15
+  enforce_500m_qualifying_time: false
+  enforce_hard_locks: false
+  domestic_default_divisions: ["甲组"]
+  domestic_half_life_days: 180
+  calibration:
+    junior_rank_ridge_l2: 1.0
+    junior_pace_weight_by_distance:
+      "500": 0.45
+      "1000": 0.35
+      "1500": 0.20
+    sigma_junior_adapt: 0.55
+    domestic_anchor_min_count: 3
+    domestic_anchor_ridge_l2: 1.5
+    sigma_domestic_adapt: 0.80
+    sigma_domestic_fallback: 1.05
+    domestic_fallback_quantile_mu:
+      top_1: 0.85
+      top_3: 0.45
+      top_8: 0.05
+      median: -0.45
+      tail: -1.10
+  objective_weights:
+    lambda_relay: 0.42
+    lambda_form: 0.14
+    lambda_fatigue: 0.22
+    uncertainty_risk_aversion: 0.45
+  reserve_pool:
+    total_size: 6
+    allocation:
+      sprint_relay: 2
+      mid_long: 2
+      versatile_upside: 2
+    upside_sigma_multiplier: 1.0
+  injured_or_unavailable_athlete_ids: []

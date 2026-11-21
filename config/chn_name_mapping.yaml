@@ -1,0 +1,664 @@
+schema_version: 1
+season: 2026/27
+note: Composite-key (name_zh, team) mapping for CHN athletes across Senior ISU, Junior
+  ISU, and Domestic PDFs. Populate teams[] to disambiguate domestic homonyms.
+athletes:
+- athlete_id: skr-8078
+  official_skater_id: 8078
+  name_zh: 张柏浩
+  aliases_zh: []
+  name_en: Bohao ZHANG
+  gender: men
+  birth_date: '2006-10-20'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 四川省体育局
+  pools:
+  - senior
+  - junior
+- athlete_id: skr-4296
+  official_skater_id: 4296
+  name_zh: 刘冠逸
+  aliases_zh: []
+  name_en: Guanyi LIU
+  gender: men
+  birth_date: '2000-01-26'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-19400
+  official_skater_id: 19400
+  name_zh: 宋桂旭
+  aliases_zh: []
+  name_en: Guixu SONG
+  gender: men
+  birth_date: '2004-02-24'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 内蒙古自治区竞技体育训练中心
+  pools:
+  - senior
+- athlete_id: skr-22883
+  official_skater_id: 22883
+  name_zh: 姜浩阳
+  aliases_zh: []
+  name_en: HAOYANG JIANG
+  gender: men
+  birth_date: '2009-04-20'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams:
+  - 北京市冬季运动管理中心
+  pools:
+  - junior
+- athlete_id: skr-6615
+  official_skater_id: 6615
+  name_zh: 宋嘉华
+  aliases_zh: []
+  name_en: Jiahua SONG
+  gender: men
+  birth_date: '2001-11-01'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 四川省体育局
+  pools:
+  - senior
+- athlete_id: skr-18320
+  official_skater_id: 18320
+  name_zh: 宋柯睿
+  aliases_zh: []
+  name_en: Kerui SONG
+  gender: men
+  birth_date: '2006-01-17'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 山东省冬季运动管理中心
+  pools:
+  - senior
+- athlete_id: skr-4166
+  official_skater_id: 4166
+  name_zh: ''
+  aliases_zh: []
+  name_en: Kongchao Li
+  gender: men
+  birth_date: '2002-09-07'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-4167
+  official_skater_id: 4167
+  name_zh: 李坤
+  aliases_zh: []
+  name_en: Kun LI
+  gender: men
+  birth_date: '2004-08-04'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 四川省体育局
+  pools:
+  - senior
+- athlete_id: skr-6784
+  official_skater_id: 6784
+  name_zh: 孙龙
+  aliases_zh: []
+  name_en: Long SUN
+  gender: men
+  birth_date: '2000-08-28'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 长春市冬季运动管理中心
+  pools:
+  - senior
+- athlete_id: skr-18349
+  official_skater_id: 18349
+  name_zh: 田珉硕
+  aliases_zh: []
+  name_en: Minshuo TIAN
+  gender: men
+  birth_date: '2006-06-21'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 河北省体育局冬季运动中心
+  pools:
+  - junior
+- athlete_id: skr-7600
+  official_skater_id: 7600
+  name_zh: 王其智
+  aliases_zh: []
+  name_en: Qizhi Wang
+  gender: men
+  birth_date: '2004-04-16'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 黑龙江省滑冰协会
+  pools:
+  - senior
+- athlete_id: skr-4312
+  official_skater_id: 4312
+  name_zh: 刘少昂
+  aliases_zh: []
+  name_en: Shaoang LIU
+  gender: men
+  birth_date: '1998-03-13'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-4314
+  official_skater_id: 4314
+  name_zh: 刘少林
+  aliases_zh: []
+  name_en: Shaolin LIU
+  gender: men
+  birth_date: '1995-11-20'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-8107
+  official_skater_id: 8107
+  name_zh: 张添翼
+  aliases_zh: []
+  name_en: Tianyi ZHANG
+  gender: men
+  birth_date: '2004-08-25'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 吉林省体育局冰上运动管理中心
+  pools:
+  - senior
+- athlete_id: skr-20551
+  official_skater_id: 20551
+  name_zh: 王天佑
+  aliases_zh: []
+  name_en: Tianyou WANG
+  gender: men
+  birth_date: '2008-05-31'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams:
+  - 黑龙江省冰上训练中心
+  pools:
+  - junior
+- athlete_id: skr-4176
+  official_skater_id: 4176
+  name_zh: 李文龙
+  aliases_zh: []
+  name_en: Wenlong LI
+  gender: men
+  birth_date: '2001-02-04'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 山东省冬季运动管理中心
+  pools:
+  - senior
+- athlete_id: skr-18305
+  official_skater_id: 18305
+  name_zh: 孙枭
+  aliases_zh: []
+  name_en: XIAO SUN
+  gender: men
+  birth_date: '2005-10-30'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 黑龙江省冰上训练中心
+  pools:
+  - junior
+- athlete_id: skr-22625
+  official_skater_id: 22625
+  name_zh: ''
+  aliases_zh: []
+  name_en: XINCHI YU
+  gender: men
+  birth_date: '2010-04-25'
+  age_group_2026_27: JUNIOR_ONLY
+  teams: []
+  pools:
+  - junior
+- athlete_id: skr-8110
+  official_skater_id: 8110
+  name_zh: 张心喆
+  aliases_zh: []
+  name_en: XINZHE ZHANG
+  gender: men
+  birth_date: '2007-06-01'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 山东省冬季运动管理中心
+  pools:
+  - senior
+  - junior
+- athlete_id: skr-4247
+  official_skater_id: 4247
+  name_zh: 林孝埈
+  aliases_zh: []
+  name_en: Xiaojun LIN
+  gender: men
+  birth_date: '1996-05-29'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-4179
+  official_skater_id: 4179
+  name_zh: 李鑫宇
+  aliases_zh: []
+  name_en: Xinyu LI
+  gender: men
+  birth_date: '2006-05-15'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 山东省冬季运动管理中心
+  pools:
+  - senior
+  - junior
+- athlete_id: skr-4422
+  official_skater_id: 4422
+  name_zh: 吕延鹏
+  aliases_zh: []
+  name_en: Yanpeng LYU
+  gender: men
+  birth_date: '2004-09-23'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-8157
+  official_skater_id: 8157
+  name_zh: 朱祎玎
+  aliases_zh: []
+  name_en: Yiding ZHU
+  gender: men
+  birth_date: '2002-12-02'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 吉林省体育局冰上运动管理中心
+  pools:
+  - senior
+- athlete_id: skr-8145
+  official_skater_id: 8145
+  name_zh: 钟宇晨
+  aliases_zh: []
+  name_en: Yuchen ZHONG
+  gender: men
+  birth_date: '1998-06-01'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 黑龙江省冰上训练中心
+  pools:
+  - senior
+- athlete_id: skr-20570
+  official_skater_id: 20570
+  name_zh: 李禹衡
+  aliases_zh: []
+  name_en: Yuheng LI
+  gender: men
+  birth_date: '2008-06-19'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams:
+  - 吉林省体育局冰上运动管理中心
+  pools:
+  - junior
+- athlete_id: skr-22630
+  official_skater_id: 22630
+  name_zh: ''
+  aliases_zh: []
+  name_en: ZHIBO SUN
+  gender: men
+  birth_date: '2008-08-18'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams: []
+  pools:
+  - junior
+- athlete_id: skr-5859
+  official_skater_id: 5859
+  name_zh: 任子威
+  aliases_zh: []
+  name_en: Ziwei REN
+  gender: men
+  birth_date: '1997-06-03'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-20586
+  official_skater_id: 20586
+  name_zh: 张子夏
+  aliases_zh: []
+  name_en: Zixia ZHANG
+  gender: men
+  birth_date: '2008-06-18'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams:
+  - 上海电闪磊鸣体育俱乐部
+  pools:
+  - senior
+  - junior
+- athlete_id: skr-7808
+  official_skater_id: 7808
+  name_zh: 徐爱丽
+  aliases_zh: []
+  name_en: Aili XU
+  gender: women
+  birth_date: '1996-07-28'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-5753
+  official_skater_id: 5753
+  name_zh: 曲春雨
+  aliases_zh: []
+  name_en: Chunyu Qu
+  gender: women
+  birth_date: '1996-07-20'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-8080
+  official_skater_id: 8080
+  name_zh: 张楚桐
+  aliases_zh: []
+  name_en: Chutong ZHANG
+  gender: women
+  birth_date: '2003-02-17'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 吉林省体育局冰上运动管理中心
+  pools:
+  - senior
+- athlete_id: skr-3032
+  official_skater_id: 3032
+  name_zh: 贾惠凌
+  aliases_zh: []
+  name_en: Huiling Jia
+  gender: women
+  birth_date: '2000-01-07'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 山东省冬季运动管理中心
+  pools:
+  - senior
+- athlete_id: skr-8090
+  official_skater_id: 8090
+  name_zh: 张珈宁
+  aliases_zh: []
+  name_en: Jianing ZHANG
+  gender: women
+  birth_date: '2005-07-08'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 上海电闪磊鸣体育俱乐部
+  pools:
+  - senior
+- athlete_id: skr-6617
+  official_skater_id: 6617
+  name_zh: 宋佳蕊
+  aliases_zh: []
+  name_en: Jiarui SONG
+  gender: women
+  birth_date: '2005-02-16'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 四川省体育局
+  pools:
+  - senior
+- athlete_id: skr-7874
+  official_skater_id: 7874
+  name_zh: 杨婧茹
+  aliases_zh: []
+  name_en: Jingru YANG
+  gender: women
+  birth_date: '2006-07-10'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 黑龙江省冰上训练中心
+  pools:
+  - senior
+- athlete_id: skr-18243
+  official_skater_id: 18243
+  name_zh: 林敬宜
+  aliases_zh: []
+  name_en: Jingyi LIN
+  gender: women
+  birth_date: '2007-05-18'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 黑龙江省冰上训练中心
+  pools:
+  - junior
+- athlete_id: skr-4165
+  official_skater_id: 4165
+  name_zh: 李金恣
+  aliases_zh: []
+  name_en: Jinzi LI
+  gender: women
+  birth_date: '2007-12-11'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams: []
+  pools:
+  - senior
+  - junior
+- athlete_id: skr-18282
+  official_skater_id: 18282
+  name_zh: 邝俊雨
+  aliases_zh: []
+  name_en: Junyu KUANG
+  gender: women
+  birth_date: '2009-06-27'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams:
+  - 四川省体育局
+  pools:
+  - junior
+- athlete_id: skr-1876
+  official_skater_id: 1876
+  name_zh: 范可新
+  aliases_zh: []
+  name_en: Kexin FAN
+  gender: women
+  birth_date: '1993-09-19'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-18342
+  official_skater_id: 18342
+  name_zh: 赵可心
+  aliases_zh: []
+  name_en: Kexin ZHAO
+  gender: women
+  birth_date: '2008-07-09'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams:
+  - 吉林省体育局冰上运动管理中心
+  pools:
+  - junior
+- athlete_id: skr-2262
+  official_skater_id: 2262
+  name_zh: 公俐
+  aliases_zh: []
+  name_en: Li GONG
+  gender: women
+  birth_date: '2000-07-09'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 山东省冬季运动管理中心
+  pools:
+  - senior
+- athlete_id: skr-22312
+  official_skater_id: 22312
+  name_zh: 杨茸秒
+  aliases_zh: []
+  name_en: RONGMIAO YANG
+  gender: women
+  birth_date: '2008-01-25'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams:
+  - 上海电闪磊鸣体育俱乐部
+  pools:
+  - junior
+- athlete_id: skr-20560
+  official_skater_id: 20560
+  name_zh: 郝若萱
+  aliases_zh: []
+  name_en: RUOXUAN HAO
+  gender: women
+  birth_date: '2008-07-05'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams:
+  - 辽宁省冬季运动管理中心
+  pools:
+  - junior
+- athlete_id: skr-982
+  official_skater_id: 982
+  name_zh: ''
+  aliases_zh: []
+  name_en: Shenyi Cai
+  gender: women
+  birth_date: '2004-01-22'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-4421
+  official_skater_id: 4421
+  name_zh: 吕婉钰
+  aliases_zh: []
+  name_en: Wanyu LYU
+  gender: women
+  birth_date: '2005-11-11'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+  - junior
+- athlete_id: skr-2519
+  official_skater_id: 2519
+  name_zh: 郝卫莹
+  aliases_zh: []
+  name_en: Weiying HAO
+  gender: women
+  birth_date: '2000-09-22'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 黑龙江省冰上训练中心
+  pools:
+  - senior
+- athlete_id: skr-7609
+  official_skater_id: 7609
+  name_zh: 王欣然
+  aliases_zh: []
+  name_en: Xinran WANG
+  gender: women
+  birth_date: '2001-08-03'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 黑龙江省冰上训练中心
+  pools:
+  - senior
+- athlete_id: skr-4180
+  official_skater_id: 4180
+  name_zh: ''
+  aliases_zh: []
+  name_en: Xuan LI
+  gender: women
+  birth_date: '2006-02-15'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: skr-22880
+  official_skater_id: 22880
+  name_zh: ''
+  aliases_zh: []
+  name_en: YIAIDI ZONG
+  gender: women
+  birth_date: '2009-02-14'
+  age_group_2026_27: DUAL_ELIGIBLE
+  teams: []
+  pools:
+  - junior
+- athlete_id: skr-6626
+  official_skater_id: 6626
+  name_zh: 宋一霏
+  aliases_zh: []
+  name_en: YIFEI SONG
+  gender: women
+  birth_date: '2004-08-14'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 吉林省体育局冰上运动管理中心
+  pools:
+  - senior
+- athlete_id: skr-22881
+  official_skater_id: 22881
+  name_zh: ''
+  aliases_zh: []
+  name_en: YUCHEN JIANG
+  gender: women
+  birth_date: '2009-12-05'
+  age_group_2026_27: JUNIOR_ONLY
+  teams: []
+  pools:
+  - junior
+- athlete_id: skr-19401
+  official_skater_id: 19401
+  name_zh: 张延
+  aliases_zh: []
+  name_en: Yan ZHANG
+  gender: women
+  birth_date: '2003-04-01'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 黑龙江省冰上训练中心
+  pools:
+  - senior
+- athlete_id: skr-7613
+  official_skater_id: 7613
+  name_zh: 王晔
+  aliases_zh: []
+  name_en: Ye WANG
+  gender: women
+  birth_date: '2005-08-29'
+  age_group_2026_27: SENIOR_ONLY
+  teams:
+  - 北京市冬季运动管理中心
+  pools:
+  - senior
+- athlete_id: skr-8039
+  official_skater_id: 8039
+  name_zh: 臧一泽
+  aliases_zh: []
+  name_en: Yize ZANG
+  gender: women
+  birth_date: '1999-09-08'
+  age_group_2026_27: SENIOR_ONLY
+  teams: []
+  pools:
+  - senior
+- athlete_id: dom-lixuan-sh
+  official_skater_id: null
+  name_zh: 李暄
+  aliases_zh: []
+  name_en: Xuan LI (Shanghai)
+  gender: women
+  birth_date: null
+  age_group_2026_27: UNKNOWN
+  teams:
+  - 上海电闪磊鸣体育俱乐部
+  pools:
+  - domestic
+- athlete_id: dom-lixuan-sd
+  official_skater_id: null
+  name_zh: 李璇
+  aliases_zh: []
+  name_en: Xuan LI (Shandong)
+  gender: women
+  birth_date: null
+  age_group_2026_27: UNKNOWN
+  teams:
+  - 山东省冬季运动管理中心
+  pools:
+  - domestic
