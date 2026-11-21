@@ -25,7 +25,7 @@ async function settle(dom, predicate) {
   throw new Error('UI did not settle');
 }
 
-async function openDialogWithAnalysis(roundEntry, participants, analysisPayload) {
+async function openDialogWithAnalysis(roundEntry, participants, analysisPayload, heatGroup = roundEntry.group) {
   const data = structuredClone(snapshot);
   data.rounds = {
     ...data.rounds,
@@ -35,7 +35,7 @@ async function openDialogWithAnalysis(roundEntry, participants, analysisPayload)
         round_key: roundEntry.round_key,
         evidence: 'official_start_list',
         heat_number: 1,
-        group: roundEntry.group || null,
+        group: heatGroup || null,
         source_url: 'https://isu-skating.com/x',
         participants
       }
@@ -77,6 +77,9 @@ async function openDialogWithAnalysis(roundEntry, participants, analysisPayload)
         total: data[resource].items.length,
         ...data[resource]
       });
+    }
+    if (url.pathname === '/data/vancouver.json') {
+      return Response.json({...schedule, entries:schedule.entries.map(e => e.id === roundEntry.id ? roundEntry : e)});
     }
     if (url.pathname === '/data/calendar.json') return Response.json(calendar);
     return new Response(await file('dist' + url.pathname));
@@ -257,6 +260,18 @@ test('Final A keeps medal chips and Final B keeps expected final place inline on
     [...domB.window.document.querySelectorAll('.result-name-row .analysis-chip')].map((el) => el.textContent),
     ['预计最终第 6.2']
   );
+});
+
+test('a combined final uses the schedule title and the individual heat group for medals', async (t) => {
+  const base = schedule.entries.find(e => e.id === '2026-10-24-main-men-500-final-A');
+  const entry = {...base, group:null, round_key:base.round_key.replace(/A$/, '-')};
+  const dom = await openDialogWithAnalysis(entry, [{athlete_id:'a', name:'Test', country:'CAN'}],
+    [{id:'test-heat-1', people:[{id:'a', medals:[0.5,0.3,0.2]}]}], 'A');
+  t.after(() => dom.window.close());
+  const doc = dom.window.document;
+  assert.equal(doc.querySelector('#r-' + base.id + ' .round-name').textContent, '决赛');
+  assert.match(doc.querySelector('dialog h2').textContent, /· 决赛$/);
+  assert.match(doc.querySelector('.result-name-row .analysis-chip').textContent, /金牌 50%/);
 });
 
 test('site.css defines --ok-rgb, red/green factors, fixed header with scrollable body, tier pills, and content-visibility', () => {

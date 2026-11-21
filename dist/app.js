@@ -316,7 +316,8 @@
   const sessionNote = { qualifying: '', repechage: '', main: '含淘汰赛' };
   const eventName = (r) =>
     gender[r.gender] + ' ' + r.distance_m + 'm' + (r.format === 'relay' ? ' 接力' : '');
-  const roundName = (r) => (r.round === 'final' ? r.group + '组决赛' : roundNames[r.round]);
+  const roundName = (r) =>
+    r.round === 'final' && r.group ? r.group + '组决赛' : roundNames[r.round];
   const isChina = (r) => r.china && r.china.status === 'confirmed';
   const isMedal = (r) => r.round === 'final' && r.group !== 'B';
 
@@ -1007,7 +1008,7 @@
       }
       return parts;
     }
-    function buildDeepDivePanel(person, dive, heat) {
+    function buildDeepDivePanel(person, dive, heat, group) {
       const box = h('details', { class: 'analysis-dive' }, h('summary', { text: '数据分析' }));
       const grid = h('div', { class: 'analysis-dive-body' });
 
@@ -1097,7 +1098,7 @@
         if (
           dive.what_if_clean_race &&
           dive.path_breakdown &&
-          (person.totalAdvance != null || (round.round === 'final' && round.group === 'A'))
+          (person.totalAdvance != null || (round.round === 'final' && group === 'A'))
         ) {
           const hasAdvance = person.totalAdvance != null;
           const prefix = hasAdvance ? '总晋级 ' : '纯竞速第1 ';
@@ -1142,7 +1143,6 @@
     }
     function renderRoundGroups(groups) {
       clearUI();
-      const showFinalTitle = round.round === 'final' && round.group === 'A';
       for (const heat of groups) {
         const head = heatHeads.get(heat.id);
         if (head && (heat.heatPace || heat.qualificationRule?.code)) {
@@ -1183,13 +1183,13 @@
           const percent = (value) => Math.round(value * 100) + '%';
           const advTier = (p) =>
             p >= 0.7 ? 'is-tier-high' : p >= 0.3 ? 'is-tier-mid' : 'is-tier-low';
-          if (showFinalTitle && person.medals) {
+          if (cell.group === 'A' && person.medals) {
             person.medals.forEach((p, i) =>
               chip(['金牌', '银牌', '铜牌'][i], percent(p), i === 0 ? 'is-primary' : '')
             );
           } else if (
             round.round === 'final' &&
-            round.group === 'B' &&
+            cell.group === 'B' &&
             person.expectedPlace != null
           ) {
             if (person.expectedFinalPlace != null)
@@ -1211,7 +1211,7 @@
             person.medals != null ||
             person.expectedPlace != null;
           const divePanel = hasForecastData
-            ? buildDeepDivePanel(person, person.deepDive, heat)
+            ? buildDeepDivePanel(person, person.deepDive, heat, cell.group)
             : null;
           if (divePanel) {
             cell.dive.replaceChildren(divePanel);
@@ -1397,7 +1397,12 @@
         const analysis = trigger
           ? h('div', { class: 'analysis-cell tiny faint', hidden: true })
           : null;
-        if (analysis) cells.set(heat.id + '/' + p.athlete_id, { metrics, dive: analysis });
+        if (analysis)
+          cells.set(heat.id + '/' + p.athlete_id, {
+            metrics,
+            dive: analysis,
+            group: heat.group || r.group
+          });
         people.append(
           h(
             'li',
@@ -3091,7 +3096,7 @@
               'button',
               {
                 type: 'button',
-                title: eventName(r) + ' A组决赛 · ' + md(d) + ' ' + wk(d) + ' ' + hm,
+                title: eventName(r) + ' ' + roundName(r) + ' · ' + md(d) + ' ' + wk(d) + ' ' + hm,
                 onclick: () => scrollToRow(r)
               },
               h(
