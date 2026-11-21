@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-21T07:31:45+00:00",
-    "updated_at": "2026-11-21T07:31:45+00:00",
+    "checked_at": "2026-11-21T07:41:33+00:00",
+    "updated_at": "2026-11-21T07:41:33+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -1246,6 +1246,7 @@
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16341&round=23420",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16341&round=23421",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16342&round=23426",
+      "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16342&round=23511",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16343&round=23430",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16343&round=23431",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16343&round=23432",
@@ -3452,7 +3453,7 @@
             "starting_position": 1,
             "rank": 3,
             "result": "4:32.756",
-            "qualification": "p",
+            "qualification": "QB",
             "penalty": null,
             "members": [
               {
@@ -3493,46 +3494,11 @@
         "heat_number": 2,
         "heat_label": "Heat 2",
         "source_start": "2026-11-21T16:27:39.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16342&round=23426",
         "participants": [
-          {
-            "athlete_id": "team-KOR-women",
-            "name": "韩国队",
-            "country": "KOR",
-            "official_skater_id": 13000,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-856445cfa3a2dc493db7",
-                "name": "Minji KIM",
-                "official_skater_id": 18348
-              },
-              {
-                "athlete_id": "ath-3e79769fe95fdcfb1c3e",
-                "name": "Gilli KIM",
-                "official_skater_id": 3406
-              },
-              {
-                "athlete_id": "ath-27654e207b20ca51c8bf",
-                "name": "Minjeong CHOI",
-                "official_skater_id": 1231
-              },
-              {
-                "athlete_id": "ath-fd0ac8fcf99b108ede4f",
-                "name": "Ji Hyun CHOI",
-                "official_skater_id": 1227
-              }
-            ],
-            "name_latin": "Republic of Korea"
-          },
           {
             "athlete_id": "team-CAN-women",
             "name": "加拿大队",
@@ -3540,9 +3506,9 @@
             "official_skater_id": 12996,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "4:17.920",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -3569,15 +3535,50 @@
             "name_latin": "Canada"
           },
           {
+            "athlete_id": "team-KOR-women",
+            "name": "韩国队",
+            "country": "KOR",
+            "official_skater_id": 13000,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "4:18.001",
+            "qualification": "Q",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-856445cfa3a2dc493db7",
+                "name": "Minji KIM",
+                "official_skater_id": 18348
+              },
+              {
+                "athlete_id": "ath-3e79769fe95fdcfb1c3e",
+                "name": "Gilli KIM",
+                "official_skater_id": 3406
+              },
+              {
+                "athlete_id": "ath-27654e207b20ca51c8bf",
+                "name": "Minjeong CHOI",
+                "official_skater_id": 1231
+              },
+              {
+                "athlete_id": "ath-fd0ac8fcf99b108ede4f",
+                "name": "Ji Hyun CHOI",
+                "official_skater_id": 1227
+              }
+            ],
+            "name_latin": "Republic of Korea"
+          },
+          {
             "athlete_id": "team-AIN2-women",
             "name": "Ain2",
             "country": "AIN2",
             "official_skater_id": 12995,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "4:18.946",
+            "qualification": "q",
             "penalty": null,
             "members": [
               {
@@ -12584,6 +12585,129 @@
             "qualification": null,
             "penalty": null,
             "last_four_seconds": null
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-21354",
+        "gender": "women",
+        "distance_m": 3000,
+        "format": "relay",
+        "round_key": "2026-11-21/main/women/3000/final/-",
+        "local_date": "2026-11-21",
+        "round": "final",
+        "round_label": "Final",
+        "group": "A",
+        "heat_number": null,
+        "heat_label": "Final",
+        "source_start": "2026-11-21T17:15:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": true,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16342&round=23511",
+        "participants": [
+          {
+            "athlete_id": "team-CHN-women",
+            "name": "中国队",
+            "country": "CHN",
+            "official_skater_id": 12997,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "members": [],
+            "name_latin": "People's Republic of China"
+          },
+          {
+            "athlete_id": "team-CAN-women",
+            "name": "加拿大队",
+            "country": "CAN",
+            "official_skater_id": 12996,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "members": [],
+            "name_latin": "Canada"
+          },
+          {
+            "athlete_id": "team-KOR-women",
+            "name": "韩国队",
+            "country": "KOR",
+            "official_skater_id": 13000,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "members": [],
+            "name_latin": "Republic of Korea"
+          },
+          {
+            "athlete_id": "team-JPN-women",
+            "name": "日本队",
+            "country": "JPN",
+            "official_skater_id": 12999,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "members": [],
+            "name_latin": "Japan"
+          },
+          {
+            "athlete_id": "team-AIN2-women",
+            "name": "Ain2",
+            "country": "AIN2",
+            "official_skater_id": 12995,
+            "helmet_number": null,
+            "starting_position": 5,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-21355",
+        "gender": "women",
+        "distance_m": 3000,
+        "format": "relay",
+        "round_key": "2026-11-21/main/women/3000/final/-",
+        "local_date": "2026-11-21",
+        "round": "final",
+        "round_label": "Final",
+        "group": "B",
+        "heat_number": null,
+        "heat_label": "Final B",
+        "source_start": "2026-11-21T17:09:00.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
+        "has_china": false,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16342&round=23511",
+        "participants": [
+          {
+            "athlete_id": "team-NED-women",
+            "name": "荷兰队",
+            "country": "NED",
+            "official_skater_id": 13001,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 1,
+            "result": "no time",
+            "qualification": null,
+            "penalty": null,
+            "members": [],
+            "name_latin": "Netherlands"
           }
         ]
       }

@@ -2,6 +2,46 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "c2d062e1bbc7d238",
+      "station": "seoul",
+      "at": "2026-11-21T07:41:33+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "b9a14498985fac77",
+      "station": "seoul",
+      "at": "2026-11-21T07:41:33+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
       "id": "96d12c4a5ad38d5d",
       "station": "seoul",
       "at": "2026-11-21T07:21:38+00:00",
@@ -3223,46 +3263,6 @@
       "repechage": false,
       "gender": "men",
       "distance_m": 5000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 1,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "b25995193b070234",
-      "station": "montreal",
-      "at": "2026-10-30T22:31:23+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "China"
-      ]
-    },
-    {
-      "id": "c3e32d547b9fad21",
-      "station": "montreal",
-      "at": "2026-10-30T21:41:22+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
       "format": "relay",
       "kind": "results",
       "china": [
