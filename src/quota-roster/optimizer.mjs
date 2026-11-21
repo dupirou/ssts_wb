@@ -42,13 +42,13 @@ export const DEFAULT_VALUE_MODEL = Object.freeze({
 
 export const DEFAULT_RELAY_MODEL = Object.freeze({
   saturationStarts: 4,
-  seniorParticipation: 0.4,
-  seniorFinalA: 0.25,
-  juniorParticipation: 0.15,
-  juniorFinalA: 0.1,
-  domesticMember: 0.1,
-  historyWeight: 0.5,
-  blendWeight: 0.5,
+  seniorParticipation: 0.45,
+  seniorFinalA: 0.3,
+  juniorParticipation: 0.06,
+  juniorFinalA: 0.04,
+  domesticMember: 0.06,
+  historyWeight: 0.55,
+  blendWeight: 0.45,
   blend500: 0.55,
   blend1000: 0.45
 });
@@ -189,9 +189,15 @@ export function relayHistoryScore(relayStats = {}, model = DEFAULT_RELAY_MODEL) 
   const sat = (n) => 1 - Math.exp(-Math.max(0, n || 0) / model.saturationStarts);
   const rate = (fa, st) => (st > 0 ? Math.min(1, Math.max(0, (fa || 0) / st)) : 0);
   const s = relayStats || {};
+  const seniorStarts = Number.isFinite(s.senior_weighted_starts)
+    ? s.senior_weighted_starts
+    : s.senior_starts;
+  const seniorFinalA = Number.isFinite(s.senior_weighted_final_a)
+    ? s.senior_weighted_final_a
+    : s.senior_final_a;
   return (
-    model.seniorParticipation * sat(s.senior_starts) +
-    model.seniorFinalA * rate(s.senior_final_a, s.senior_starts) +
+    model.seniorParticipation * sat(seniorStarts) +
+    model.seniorFinalA * rate(seniorFinalA, seniorStarts) +
     model.juniorParticipation * sat(s.junior_starts) +
     model.juniorFinalA * rate(s.junior_final_a, s.junior_starts) +
     model.domesticMember * (s.domestic_relay_member ? 1 : 0)
@@ -258,7 +264,7 @@ export function buildRosterProblem(candidates, opts = {}) {
   const riskAversion =
     opts.riskAversion ??
     opts.config?.roster_model?.objective_weights?.uncertainty_risk_aversion ??
-    0.45;
+    0.35;
   const problem = {
     n,
     ids,
@@ -751,9 +757,9 @@ export function bruteForceRosterMilp(problem, constraints, lambdas, subset = nul
 export function lambdasFromConfig(config) {
   const w = config?.roster_model?.objective_weights || {};
   return {
-    relay: w.lambda_relay ?? 0.42,
-    form: w.lambda_form ?? 0.14,
-    fatigue: w.lambda_fatigue ?? 0.22
+    relay: w.lambda_relay ?? 0.14,
+    form: w.lambda_form ?? 0.02,
+    fatigue: w.lambda_fatigue ?? 0.045
   };
 }
 

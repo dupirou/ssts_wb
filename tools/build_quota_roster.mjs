@@ -212,7 +212,7 @@ function runHistoricalBacktest(config) {
   }));
 
   const lambdasBase = lambdasFromConfig(config);
-  const fatigueGrid = [0.0, 0.12, 0.22, 0.35, 0.5];
+  const fatigueGrid = [0.0, 0.02, 0.045, 0.08, 0.12];
   const rows = [];
   const fatigueStats = new Map(
     fatigueGrid.map((lf) => [
@@ -477,8 +477,10 @@ function formatBacktestMarkdown({ config, forecast, backtest, sensitivity }) {
     '> 对 2024/25–2025/26 全部 12 站完整覆盖赛事（另有 1 站部分覆盖 `2025-26-worldtour-montreal-2` 单独标注），在赛前 1 日截断三池数据并重训国际对手池，检验正选名单与分项席位命中率，以及 `lambda_fatigue` 对兼三项核心的调控效果。'
   );
   lines.push('');
+  const defaultLf = config.roster_model?.objective_weights?.lambda_fatigue ?? 0.045;
+  const defaultStats = backtest.fatigueStats.get(defaultLf);
   lines.push(
-    '> 注：`2024-25-worldtour-tilburg-5` 与 2025 哈尔滨亚冬会撞期（中国队派二线阵容出战），`2025-26-worlds-montreal` 男队为冬奥后新生代练兵阵容（张柏浩/李坤/宋桂旭），因此两站非主力轮换拉低了全样本平均；其余 10 站一线参赛完整站体现正常竞争力映射。`lambda_fatigue` 扫参显示：`0.12` 预测 10 人次兼三项（最接近实际 16 人次），`0.22`（默认）则偏向保守保护体能。'
+    `> 注：\`2024-25-worldtour-tilburg-5\` 与 2025 哈尔滨亚冬会撞期（中国队派二线阵容出战），\`2025-26-worlds-montreal\` 男队为冬奥后新生代练兵阵容（张柏浩/李坤/宋桂旭），因此两站非主力轮换拉低了全样本平均；其余 10 站一线参赛完整站体现正常竞争力映射。默认 \`lambda_fatigue = ${defaultLf}\` 预测兼三项 ${defaultStats?.pred3Dist ?? '-'} 人次（实际 ${defaultStats?.actual3Dist ?? '-'} 人次）。`
   );
   lines.push('');
   lines.push('| `lambda_fatigue` | 完整站正选人数命中率 | 完整站单项席位命中率 | 预测兼三项人次 | 实际兼三项人次 |');
@@ -488,18 +490,17 @@ function formatBacktestMarkdown({ config, forecast, backtest, sensitivity }) {
     const rRate = ((100 * st.rosterHits) / Math.max(1, st.rosterTotal)).toFixed(1);
     const sRate = ((100 * st.slotHits) / Math.max(1, st.slotTotal)).toFixed(1);
     lines.push(
-      `| ${lf.toFixed(2)} | ${st.rosterHits}/${st.rosterTotal} (${rRate}%) | ${st.slotHits}/${st.slotTotal} (${sRate}%) | ${st.pred3Dist} | ${st.actual3Dist} |`
+      `| ${lf.toFixed(3)} | ${st.rosterHits}/${st.rosterTotal} (${rRate}%) | ${st.slotHits}/${st.slotTotal} (${sRate}%) | ${st.pred3Dist} | ${st.actual3Dist} |`
     );
   }
   lines.push('');
 
-  const defaultLf = config.roster_model?.objective_weights?.lambda_fatigue ?? 0.22;
   lines.push(`### 分站回测明细（默认 \`lambda_fatigue = ${defaultLf}\`）`);
   lines.push('');
   lines.push('| 赛事 | 覆盖度 | 性别 | 实际规模 (`N`, `K`) | 正选命中 | 分项命中 | 兼三项 (预测/实际) |');
   lines.push('|---|---|---|---:|---:|---:|---:|');
   for (const r of backtest.rows) {
-    const m = r.by_fatigue[defaultLf];
+    const m = r.by_fatigue[defaultLf] || r.by_fatigue[backtest.fatigueGrid[2]];
     lines.push(
       `| ${r.event_id} | ${r.coverage} | ${r.gender} | ${r.actual_n} (${r.actual_k}) | ${m.rosterHits}/${m.rosterTotal} | ${m.slotHits}/${m.slotTotal} | ${m.pred3Dist}/${r.actual_3dist} |`
     );

@@ -83,12 +83,26 @@ test('4D value scoring: nonlinear PL medal EV rewards elite contenders over medi
   assert.ok(Math.abs(sumMedals - pTop(3)) < 1e-12);
   assert.ok(pTop(4) >= pTop(3) && pTop(3) >= 0 && pTop(4) <= 1);
 
-  // Relay history score saturates monotonically in [0, 1]
+  // Relay history score saturates monotonically in [0, 1] and prefers time-decayed weighted fields
   const r0 = relayHistoryScore({ senior_starts: 0 });
   const r2 = relayHistoryScore({ senior_starts: 2, senior_final_a: 1 });
   const r8 = relayHistoryScore({ senior_starts: 8, senior_final_a: 6, domestic_relay_member: true });
   assert.equal(r0, 0);
   assert.ok(r2 > r0 && r8 > r2 && r8 <= 1.0);
+  const rDecayed = relayHistoryScore({
+    senior_starts: 8,
+    senior_final_a: 6,
+    senior_weighted_starts: 1.0,
+    senior_weighted_final_a: 0.2
+  });
+  assert.ok(rDecayed < r2, `expected decayed weighted relay (${rDecayed}) < raw 2-start (${r2})`);
+
+  // Calibrated objective defaults & riskAversion
+  assert.deepEqual(lambdasFromConfig({}), { relay: 0.14, form: 0.02, fatigue: 0.045 });
+  const prDef = buildRosterProblem([
+    { athlete_id: 'x1', distances: { 500: { mu: 1, sigma: 1 }, 1000: { mu: 1, sigma: 1 }, 1500: { mu: 1, sigma: 1 } } }
+  ]);
+  assert.equal(prDef.riskAversion, 0.35);
 });
 
 test('Exact 0-1 MILP DP matches brute-force enumeration across 60 diverse random & edge cases', () => {

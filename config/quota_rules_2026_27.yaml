@@ -524,22 +524,38 @@ roster_model:
       "500": 0.45
       "1000": 0.35
       "1500": 0.20
-    sigma_junior_adapt: 0.55
+    sigma_junior_adapt: 1.15
+    junior_ignore_old_if_active_senior: true
     domestic_anchor_min_count: 3
-    domestic_anchor_ridge_l2: 1.5
-    sigma_domestic_adapt: 0.80
-    sigma_domestic_fallback: 1.05
+    domestic_anchor_min_r: 0.25
+    domestic_anchor_ridge_l2: 1.0
+    domestic_anchor_prior_z: 0.0
+    domestic_anchor_prior_mu: -0.35
+    domestic_anchor_prior_weight: 2.5
+    sigma_domestic_adapt: 1.55
+    sigma_domestic_fallback: 1.75
     domestic_fallback_quantile_mu:
-      top_1: 0.85
+      top_1: 0.80
       top_3: 0.45
       top_8: 0.05
-      median: -0.45
-      tail: -1.10
+      median: -0.50
+      tail: -1.15
+    senior_inactivity_grace_days: 150
+    senior_inactivity_mu_decay_days: 480
+    relay_season_decay_weights:
+      current_season: 1.0
+      prev_1_season: 0.50
+      prev_2_season: 0.20
+      older_season: 0.08
+    momentum_pool_weights:
+      senior: 1.0
+      junior: 0.35
+      domestic: 0.25
   objective_weights:
-    lambda_relay: 0.42
-    lambda_form: 0.14
-    lambda_fatigue: 0.22
-    uncertainty_risk_aversion: 0.45
+    lambda_relay: 0.14
+    lambda_form: 0.02
+    lambda_fatigue: 0.045
+    uncertainty_risk_aversion: 0.35
   reserve_pool:
     total_size: 6
     allocation:

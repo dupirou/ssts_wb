@@ -33,8 +33,13 @@ test('loadQuotaRulesConfig & loadChnNameMapping parse YAML cleanly without third
   assert.equal(cfg.age_eligibility.dual_eligible.dob_max, '2009-06-30');
   assert.equal(cfg.roster_model.domestic_half_life_days, 180);
   assert.equal(cfg.roster_model.calibration.junior_pace_weight_by_distance['500'], 0.45);
-  assert.equal(cfg.roster_model.calibration.sigma_junior_adapt, 0.55);
+  assert.equal(cfg.roster_model.calibration.sigma_junior_adapt, 1.15);
   assert.equal(cfg.roster_model.calibration.domestic_anchor_min_count, 3);
+  assert.equal(cfg.roster_model.calibration.domestic_anchor_min_r, 0.25);
+  assert.equal(cfg.roster_model.calibration.sigma_domestic_adapt, 1.55);
+  assert.equal(cfg.roster_model.calibration.sigma_domestic_fallback, 1.75);
+  assert.equal(cfg.roster_model.calibration.senior_inactivity_grace_days, 150);
+  assert.equal(cfg.roster_model.calibration.senior_inactivity_mu_decay_days, 480);
   assert.equal(cfg.world_championships_2027.china_chn_verified_status.individual_quotas.women['500m'], 3);
   assert.equal(cfg.world_championships_2027.china_chn_verified_status.individual_quotas.men['1000m'], 2);
 
@@ -123,19 +128,19 @@ test('Real data pipeline: zero writes to data/heats/, positive cross-tier correl
     );
   }
 
-  // (b2) Retired/unavailable and non-Hengshui SENIOR_ONLY athletes are strictly excluded
-  for (const excludedId of ['skr-4247', 'skr-5859', 'skr-1876', 'skr-8039', 'skr-4312', 'skr-4314', 'skr-5753']) {
+  // (b2) Retired/unavailable and non-Hengshui (incl. all-blank-rank/0-pt skr-6615) SENIOR_ONLY athletes are strictly excluded
+  for (const excludedId of ['skr-4247', 'skr-5859', 'skr-1876', 'skr-8039', 'skr-4312', 'skr-4314', 'skr-5753', 'skr-6615']) {
     assert.ok(!allEligibleIds.has(excludedId), `${excludedId} must be excluded from eligible`);
   }
   const allQualExclIds = new Set([
     ...pool.women.excludedByQualification.map((c) => c.athlete_id),
     ...pool.men.excludedByQualification.map((c) => c.athlete_id),
   ]);
-  for (const excludedId of ['skr-4247', 'skr-5859', 'skr-1876', 'skr-8039', 'skr-4312', 'skr-4314']) {
+  for (const excludedId of ['skr-4247', 'skr-5859', 'skr-1876', 'skr-8039', 'skr-4312', 'skr-4314', 'skr-6615']) {
     assert.ok(allQualExclIds.has(excludedId), `${excludedId} should be audited in excludedByQualification`);
   }
-  // Hengshui participants & DUAL_ELIGIBLE youth remain eligible
-  for (const eligibleId of ['skr-6784', 'skr-8078', 'skr-8080', 'skr-2262', 'skr-7613', 'skr-20586', 'skr-22312']) {
+  // Hengshui participants & DUAL_ELIGIBLE youth remain eligible (skr-18243 placed #2 in 500m at Hengshui)
+  for (const eligibleId of ['skr-6784', 'skr-8078', 'skr-8080', 'skr-2262', 'skr-7613', 'skr-20586', 'skr-22312', 'skr-18243']) {
     assert.ok(allEligibleIds.has(eligibleId), `${eligibleId} should remain eligible`);
   }
 
@@ -159,6 +164,10 @@ test('Real data pipeline: zero writes to data/heats/, positive cross-tier correl
       }
       assert.equal(typeof c.relay_stats.senior_starts, 'number');
       assert.equal(typeof c.relay_stats.senior_final_a, 'number');
+      assert.equal(typeof c.relay_stats.senior_weighted_starts, 'number');
+      assert.equal(typeof c.relay_stats.senior_weighted_final_a, 'number');
+      assert.ok(c.relay_stats.senior_weighted_starts <= c.relay_stats.senior_starts + 1e-9);
+      assert.ok(c.relay_stats.senior_weighted_final_a <= c.relay_stats.senior_final_a + 1e-9);
       assert.equal(typeof c.relay_stats.junior_starts, 'number');
       assert.equal(typeof c.relay_stats.junior_final_a, 'number');
       assert.equal(typeof c.relay_stats.domestic_relay_member, 'boolean');
@@ -406,6 +415,255 @@ test('Gracefully handles missing Junior & Domestic data directories', () => {
     assert.equal(pool.calibrationDiagnostics.domestic.recordsLoaded, 0);
     assert.ok(pool.women.eligible.length > 0);
     assert.ok(pool.men.eligible.length > 0);
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
+});
+
+test('Blank rank / 0 points do not grant Hengshui qualification & low-R domestic anchors fall back cleanly', () => {
+  const cfg = loadQuotaRulesConfig();
+  const realPool = buildFusedCandidatePool({ asOfDate: '2026-11-21' });
+
+  const anchors = realPool.women.eligible
+    .filter((c) => c.distances[1500].pools.sen)
+    .sort((a, b) => b.distances[1500].pools.sen.mu - a.distances[1500].pools.sen.mu)
+    .slice(0, 4);
+  assert.equal(anchors.length, 4);
+
+  // Deliberately scramble ranks relative to Senior mu so real correlation r < 0.25 -> must trigger fallback
+  const scrambled = [anchors[2], anchors[0], anchors[3], anchors[1]];
+  const records = [
+    ...scrambled.map((a, idx) => ({
+      athlete_id: a.athlete_id,
+      name_zh: a.name_zh || a.name_en,
+      name_en: a.name_en,
+      birth_date: a.birth_date,
+      gender: 'women',
+      distance_m: 1500,
+      division: '甲组',
+      venue: '衡水',
+      report_date: '2026-10-18',
+      source_file: 'hengshui_w1500.pdf',
+      is_cumulative: false,
+      rank: idx + 1,
+      points: 10000 - idx * 1500,
+      is_relay_member: false,
+    })),
+    // Blank rank + 0 points at Hengshui for a SENIOR_ONLY athlete -> must NOT grant Hengshui eligibility
+    {
+      athlete_id: 'skr-6615',
+      name_zh: '宋嘉华',
+      name_en: 'Jiahua SONG',
+      birth_date: '2003-04-04',
+      gender: 'men',
+      distance_m: 1500,
+      division: '甲组',
+      venue: '衡水',
+      report_date: '2026-10-18',
+      source_file: 'hengshui_m1500.pdf',
+      is_cumulative: false,
+      rank: null,
+      points: 0,
+      is_relay_member: false,
+    },
+    // Valid rank at Hengshui for a men anchor
+    {
+      athlete_id: 'skr-6784',
+      name_zh: '孙龙',
+      name_en: 'Long SUN',
+      birth_date: '2000-08-28',
+      gender: 'men',
+      distance_m: 1500,
+      division: '甲组',
+      venue: '衡水',
+      report_date: '2026-10-18',
+      source_file: 'hengshui_m1500.pdf',
+      is_cumulative: false,
+      rank: 1,
+      points: 10000,
+      is_relay_member: false,
+    },
+  ];
+
+  const pool = buildFusedCandidatePool({
+    asOfDate: '2026-11-21',
+    config: cfg,
+    domesticOverrideRecords: records,
+  });
+
+  // Low-R domestic regression must fall back
+  const diagW1500 = pool.calibrationDiagnostics.domestic.byDiscipline['women:1500'];
+  assert.ok(diagW1500);
+  assert.equal(diagW1500.usedFallback, true);
+  const firstScram = pool.women.eligible.find((c) => c.athlete_id === scrambled[0].athlete_id);
+  assert.ok(Math.abs(firstScram.distances[1500].pools.dom.sigma - 1.75) < 1e-9);
+
+  // Blank rank / 0 points at Hengshui must NOT qualify skr-6615
+  assert.ok(!pool.men.eligible.some((c) => c.athlete_id === 'skr-6615'));
+  assert.ok(
+    pool.men.excludedByQualification.some(
+      (c) => c.athlete_id === 'skr-6615' && c.reason === 'missing_required_domestic_venue'
+    )
+  );
+  // Valid rank at Hengshui keeps skr-6784 eligible
+  assert.ok(pool.men.eligible.some((c) => c.athlete_id === 'skr-6784'));
+});
+
+test('Cross-cycle Senior mu decay, relay season decay, and old Junior isolation work as specified', () => {
+  const tmpDir = makeTempDir();
+  try {
+    const emptyDir = path.join(tmpDir, 'empty');
+    fs.mkdirSync(emptyDir, { recursive: true });
+    const historyDir = path.join(tmpDir, 'history');
+    const historyEventsDir = path.join(historyDir, 'events');
+    fs.mkdirSync(historyEventsDir, { recursive: true });
+
+    const eng = new DynamicRatingEngine(V15_RATING_CONFIG);
+    // 1) Old SENIOR_ONLY skater: last raced 2025-02-28 (631 days before 2026-11-21 -> well over 150d grace)
+    const tsOld = '2025-02-28T12:00:00Z';
+    eng.updateHeat([
+      { athlete_id: 'skr-old-vet', gender: 'men', distance_m: 500, season: '2024/25', local_date: '2025-02-28', start_time_utc: tsOld, session_type: 'MAIN', round: 'final', country: 'CHN', rank: 1, status: 'OK', time_s: 40.8 },
+      { athlete_id: 'skr-opp-a', gender: 'men', distance_m: 500, season: '2024/25', local_date: '2025-02-28', start_time_utc: tsOld, session_type: 'MAIN', round: 'final', country: 'KOR', rank: 2, status: 'OK', time_s: 41.2 },
+      { athlete_id: 'skr-opp-b', gender: 'men', distance_m: 500, season: '2024/25', local_date: '2025-02-28', start_time_utc: tsOld, session_type: 'MAIN', round: 'final', country: 'NED', rank: 3, status: 'OK', time_s: 41.6 },
+    ]);
+
+    // 2) Active current-season Senior skater (2 starts in 2026/27) who also has old 2024/25 Junior data
+    const tsCur1 = '2026-10-25T12:00:00Z';
+    const tsCur2 = '2026-11-01T12:00:00Z';
+    eng.updateHeat([
+      { athlete_id: 'skr-cur-sen', gender: 'men', distance_m: 500, season: '2026/27', local_date: '2026-10-25', start_time_utc: tsCur1, session_type: 'MAIN', round: 'final', country: 'CHN', rank: 1, status: 'OK', time_s: 40.7 },
+      { athlete_id: 'skr-opp-a', gender: 'men', distance_m: 500, season: '2026/27', local_date: '2026-10-25', start_time_utc: tsCur1, session_type: 'MAIN', round: 'final', country: 'KOR', rank: 2, status: 'OK', time_s: 41.1 },
+    ]);
+    eng.updateHeat([
+      { athlete_id: 'skr-cur-sen', gender: 'men', distance_m: 500, season: '2026/27', local_date: '2026-11-01', start_time_utc: tsCur2, session_type: 'MAIN', round: 'final', country: 'CHN', rank: 1, status: 'OK', time_s: 40.6 },
+      { athlete_id: 'skr-opp-b', gender: 'men', distance_m: 500, season: '2026/27', local_date: '2026-11-01', start_time_utc: tsCur2, session_type: 'MAIN', round: 'final', country: 'NED', rank: 2, status: 'OK', time_s: 41.0 },
+    ]);
+
+    // Historical relay appearances across seasons (2024/25 -> gap=2 -> weight 0.20; 2025/26 -> gap=1 -> weight 0.50)
+    fs.writeFileSync(
+      path.join(historyDir, 'catalog.json'),
+      JSON.stringify({
+        events: [
+          { id: 'ev-2425', season: '2024/25', date_start: '2025-02-14', date_end: '2025-02-16' },
+          { id: 'ev-2526', season: '2025/26', date_start: '2026-03-13', date_end: '2026-03-15' },
+        ],
+      })
+    );
+    fs.writeFileSync(
+      path.join(historyEventsDir, 'ev-2425.json'),
+      JSON.stringify({
+        results: [
+          {
+            format: 'relay',
+            country: 'CHN',
+            gender: 'men',
+            final_group: 'A',
+            members: [{ name: 'Old Vet', official_skater_id: 9101, rounds: ['QF', 'SF', 'FA'] }],
+          },
+        ],
+      })
+    );
+    fs.writeFileSync(
+      path.join(historyEventsDir, 'ev-2526.json'),
+      JSON.stringify({
+        results: [
+          {
+            format: 'relay',
+            country: 'CHN',
+            gender: 'men',
+            final_group: 'A',
+            members: [{ name: 'Cur Sen', official_skater_id: 9102, rounds: ['QF', 'FA'] }],
+          },
+        ],
+      })
+    );
+
+    const seniorStateOverride = {
+      through_timestamp_utc: '2026-11-15T20:00:00Z',
+      crosswalk: {},
+      official_ids: { 9101: 'skr-old-vet', 9102: 'skr-cur-sen' },
+      name_lookup: {},
+      athlete_countries: { 'skr-old-vet': 'CHN', 'skr-cur-sen': 'CHN', 'skr-opp-a': 'KOR', 'skr-opp-b': 'NED' },
+      rating: eng.toJSON(),
+    };
+
+    const chnProfilesPath = path.join(tmpDir, 'chn_profiles.json');
+    fs.writeFileSync(
+      chnProfilesPath,
+      JSON.stringify({
+        items: [
+          { athlete_id: 'skr-old-vet', official_skater_id: 9101, name_en: 'Old Vet', gender: 'men', birth_date: '2001-01-01' },
+          { athlete_id: 'skr-cur-sen', official_skater_id: 9102, name_en: 'Cur Sen', gender: 'men', birth_date: '2006-05-01' },
+        ],
+      })
+    );
+
+    // Old 2024/25 Junior event where skr-cur-sen lost badly
+    const juniorEventsOverride = [
+      {
+        event_id: '2024-25-wjc-calgary',
+        season: '2024/25',
+        kind: 'junior_worlds',
+        city: 'Calgary',
+        date_start: '2025-02-27',
+        date_end: '2025-03-02',
+        heats: [
+          {
+            id: 'j-old-h1',
+            season: '2024/25',
+            city: 'Calgary',
+            local_date: '2025-02-28',
+            start_time_utc: '2025-02-28T12:00:00Z',
+            gender: 'men',
+            distance_m: 500,
+            session_type: 'MAIN',
+            round: 'heats',
+            round_tier: 1,
+            participants: [
+              { athlete_id: 'skr-j-win', official_skater_id: 9103, name: 'J Win', country: 'KOR', rank: 1, finish_time_s: 41.5, status: 'OK' },
+              { athlete_id: 'skr-cur-sen', official_skater_id: 9102, name: 'Cur Sen', country: 'CHN', rank: 3, finish_time_s: 43.2, status: 'OK' },
+            ],
+          },
+        ],
+        classifications: [],
+        relays: [],
+      },
+    ];
+
+    const pool = buildFusedCandidatePool({
+      asOfDate: '2026-11-21',
+      paths: {
+        chnNameMapping: path.join(emptyDir, 'missing.yaml'),
+        heatsDir: emptyDir,
+        competitionsDir: emptyDir,
+        historyDir,
+        juniorDir: emptyDir,
+        standings: path.join(emptyDir, 'missing.json'),
+        chnProfiles: chnProfilesPath,
+        domesticResults: path.join(emptyDir, 'missing_dom.json'),
+      },
+      seniorStateOverride,
+      juniorEventsOverride,
+      domesticOverrideRecords: [],
+    });
+
+    const oldVet = pool.men.eligible.find((c) => c.athlete_id === 'skr-old-vet');
+    const curSen = pool.men.eligible.find((c) => c.athlete_id === 'skr-cur-sen');
+    assert.ok(oldVet && curSen);
+
+    // 1. Old veteran mu decayed toward 0 after >150d inactivity
+    assert.ok(oldVet.distances[500].pools.sen.mu < oldVet.distances[500].pools.sen.mu_raw * 0.5);
+    // 2. Old 2024/25 Junior ignored for active 2026/27 Senior skater
+    assert.equal(curSen.distances[500].pools.jun, undefined);
+    assert.ok(curSen.distances[500].pools.jun_ignored);
+    assert.equal(curSen.distances[500].mu, curSen.distances[500].pools.sen.mu);
+    // 3. Relay season decay weights: 2024/25 (3 starts, 1 FA * 0.20 = 0.60, 0.20), 2025/26 (2 starts, 1 FA * 0.50 = 1.0, 0.50)
+    assert.equal(oldVet.relay_stats.senior_starts, 3);
+    assert.ok(Math.abs(oldVet.relay_stats.senior_weighted_starts - 0.6) < 1e-4);
+    assert.ok(Math.abs(oldVet.relay_stats.senior_weighted_final_a - 0.2) < 1e-4);
+    assert.equal(curSen.relay_stats.senior_starts, 2);
+    assert.ok(Math.abs(curSen.relay_stats.senior_weighted_starts - 1.0) < 1e-4);
+    assert.ok(Math.abs(curSen.relay_stats.senior_weighted_final_a - 0.5) < 1e-4);
   } finally {
     fs.rmSync(tmpDir, { recursive: true, force: true });
   }

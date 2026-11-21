@@ -565,6 +565,83 @@ export function fitRidgeLinear1D(xs, ys, lambda = 1.0, fallback = { alpha: 0.8, 
   return { alpha, beta, usedFallback: false, n, r };
 }
 
+/**
+ * Fit weighted Ridge L2 1D linear regression y = alpha * x + beta,
+ * optionally blending a median prior pseudo-observation (priorZ, priorMu, priorWeight)
+ * while computing Pearson correlation r strictly on the real observations.
+ */
+export function fitWeightedRidgeLinear1D(
+  xs,
+  ys,
+  lambda = 1.0,
+  { priorZ = 0.0, priorMu = -0.35, priorWeight = 2.5, fallback = { alpha: 0.65, beta: -0.25 } } = {}
+) {
+  const n = Math.min(xs.length, ys.length);
+  if (n < 2) {
+    return { alpha: fallback.alpha, beta: fallback.beta, usedFallback: true, n, r: null };
+  }
+
+  // Real-anchor correlation (excluding prior pseudo-observation)
+  let rxMean = 0;
+  let ryMean = 0;
+  for (let i = 0; i < n; i++) {
+    rxMean += xs[i];
+    ryMean += ys[i];
+  }
+  rxMean /= n;
+  ryMean /= n;
+  let rsxx = 0;
+  let rsyy = 0;
+  let rsxy = 0;
+  for (let i = 0; i < n; i++) {
+    const dx = xs[i] - rxMean;
+    const dy = ys[i] - ryMean;
+    rsxx += dx * dx;
+    rsyy += dy * dy;
+    rsxy += dx * dy;
+  }
+  const r = rsxx > 0 && rsyy > 0 ? rsxy / Math.sqrt(rsxx * rsyy) : 0;
+
+  // Augmented weighted pairs for Ridge regression
+  const ptsX = [...xs];
+  const ptsY = [...ys];
+  const ptsW = new Array(n).fill(1.0);
+  if (priorWeight > 0 && Number.isFinite(priorZ) && Number.isFinite(priorMu)) {
+    ptsX.push(priorZ);
+    ptsY.push(priorMu);
+    ptsW.push(priorWeight);
+  }
+
+  let sumW = 0;
+  let wxMean = 0;
+  let wyMean = 0;
+  for (let i = 0; i < ptsX.length; i++) {
+    sumW += ptsW[i];
+    wxMean += ptsW[i] * ptsX[i];
+    wyMean += ptsW[i] * ptsY[i];
+  }
+  wxMean /= sumW;
+  wyMean /= sumW;
+
+  let wsxx = 0;
+  let wsxy = 0;
+  for (let i = 0; i < ptsX.length; i++) {
+    const dx = ptsX[i] - wxMean;
+    const dy = ptsY[i] - wyMean;
+    wsxx += ptsW[i] * dx * dx;
+    wsxy += ptsW[i] * dx * dy;
+  }
+
+  if (!(wsxx > 1e-9) || !(wsxy > 0)) {
+    return { alpha: fallback.alpha, beta: fallback.beta, usedFallback: true, n, r };
+  }
+
+  const rawAlpha = wsxy / (wsxx + Math.max(0, lambda));
+  const alpha = clamp(rawAlpha, 0.1, 2.5);
+  const beta = wyMean - alpha * wxMean;
+  return { alpha, beta, usedFallback: false, n, r };
+}
+
 // -----------------------------------------------------------------------------
 // Age Classification (CER 2026 Art. 9.2 & Comm. 2807)
 // -----------------------------------------------------------------------------
@@ -734,7 +811,7 @@ function buildSeniorPool({ asOfDate, paths, seniorStateOverride }) {
 
   // Collect clean Senior finish times per (gender, distance_m) and per city
   const seniorRawTimes = new Map(); // "gender:dist" -> Array<{ city, time_s }>
-  const seniorRelayStats = new Map(); // athlete_id -> { starts, finalA, lastDate }
+  const seniorRelayStats = new Map(); // athlete_id -> { starts, finalA, bySeason: Map<season, { starts, finalA }> }
   const seniorLastDate = new Map(); // athlete_id -> YYYY-MM-DD
   const seniorBestHighlight = new Map(); // athlete_id -> { date, score, text }
 
@@ -744,11 +821,16 @@ function buildSeniorPool({ asOfDate, paths, seniorStateOverride }) {
     if (!prev || dateStr > prev) seniorLastDate.set(athleteId, dateStr);
   };
 
-  const recordSeniorRelay = (athleteId, dateStr, isFinalA) => {
+  const recordSeniorRelay = (athleteId, dateStr, isFinalA, seasonHint = null, countStarts = 1) => {
     if (!athleteId) return;
-    const st = seniorRelayStats.get(athleteId) || { starts: 0, finalA: 0 };
-    st.starts += 1;
+    const st = seniorRelayStats.get(athleteId) || { starts: 0, finalA: 0, bySeason: new Map() };
+    st.starts += countStarts;
     if (isFinalA) st.finalA += 1;
+    const evSeason = seasonHint || seasonForDate(dateStr) || 'unknown';
+    const sb = st.bySeason.get(evSeason) || { starts: 0, finalA: 0 };
+    sb.starts += countStarts;
+    if (isFinalA) sb.finalA += 1;
+    st.bySeason.set(evSeason, sb);
     seniorRelayStats.set(athleteId, st);
     recordSeniorActivity(athleteId, dateStr);
   };
@@ -854,13 +936,8 @@ function buildSeniorPool({ asOfDate, paths, seniorStateOverride }) {
             idMaps.nameLookup[normalizeLookupKey(mem.name, 'CHN')];
           if (!aid) continue;
           const rounds = Array.isArray(mem.rounds) && mem.rounds.length ? mem.rounds : ['QF'];
-          const st = seniorRelayStats.get(aid) || { starts: 0, finalA: 0 };
-          st.starts += rounds.length;
-          if (rounds.includes('FA') || r.final_group === 'A') {
-            st.finalA += 1;
-          }
-          seniorRelayStats.set(aid, st);
-          recordSeniorActivity(aid, evDate);
+          const isFinalA = rounds.includes('FA') || r.final_group === 'A';
+          recordSeniorRelay(aid, evDate, isFinalA, meta.season || seasonForDate(evDate), rounds.length);
         }
       }
     }
@@ -905,7 +982,7 @@ function buildSeniorPool({ asOfDate, paths, seniorStateOverride }) {
               { ...mem, country: team.country },
               idMaps
             );
-            recordSeniorRelay(aid, localDate, isFinalA);
+            recordSeniorRelay(aid, localDate, isFinalA, season, 1);
           }
         }
         continue;
@@ -1203,7 +1280,7 @@ function buildJuniorPool({ asOfDate, config, paths, seniorPool, juniorEventsOver
   const calCfg = config?.roster_model?.calibration || {};
   const ridgeLambda = Number(calCfg.junior_rank_ridge_l2 ?? 1.0);
   const paceWeights = calCfg.junior_pace_weight_by_distance || { '500': 0.45, '1000': 0.35, '1500': 0.2 };
-  const sigmaJuniorAdapt = Number(calCfg.sigma_junior_adapt ?? 0.55);
+  const sigmaJuniorAdapt = Number(calCfg.sigma_junior_adapt ?? 1.15);
 
   const asOfMs = asOfDate ? Date.parse(`${asOfDate}T23:59:59Z`) : null;
   const asOfSeason = seasonForDate(asOfDate);
@@ -1299,6 +1376,11 @@ function buildJuniorPool({ asOfDate, config, paths, seniorPool, juniorEventsOver
           Math.pow(fit.alpha * sigmaJunDrifted, 2) + sigmaJuniorAdapt * sigmaJuniorAdapt
         );
 
+        const junLastSeason =
+          jSt.lastSeason ||
+          (jSt.lastTimestampMs != null
+            ? seasonForDate(new Date(jSt.lastTimestampMs).toISOString().slice(0, 10))
+            : null);
         calMap.set(aid, {
           mu: muCal,
           sigma: sigmaCal,
@@ -1308,6 +1390,7 @@ function buildJuniorPool({ asOfDate, config, paths, seniorPool, juniorEventsOver
           sigma_jun: sigmaJunDrifted,
           nStarts: jSt.nStarts,
           recentDelta: jSt.recentDelta,
+          lastSeason: junLastSeason,
         });
       }
 
@@ -1392,11 +1475,11 @@ export function computeRankNormalScores(records) {
 }
 
 function fallbackQuantileToMu(zDom, bestRank, fbCfg) {
-  const top1 = Number(fbCfg?.top_1 ?? 0.85);
+  const top1 = Number(fbCfg?.top_1 ?? 0.8);
   const top3 = Number(fbCfg?.top_3 ?? 0.45);
   const top8 = Number(fbCfg?.top_8 ?? 0.05);
-  const med = Number(fbCfg?.median ?? -0.45);
-  const tail = Number(fbCfg?.tail ?? -1.1);
+  const med = Number(fbCfg?.median ?? -0.5);
+  const tail = Number(fbCfg?.tail ?? -1.15);
 
   const anchors = [
     [-1.25, tail],
@@ -1436,6 +1519,14 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
     if (!r || !r.athlete_id) continue;
     if (r.division && !allowedDivs.has(r.division)) continue;
     if (asOfDate && r.report_date && r.report_date > asOfDate) continue;
+    const hasValidRank = Number.isInteger(r.rank) && r.rank > 0;
+    const hasValidPoints =
+      r.points !== null &&
+      r.points !== undefined &&
+      r.points !== '' &&
+      Number.isFinite(Number(r.points)) &&
+      Number(r.points) > 0;
+    if (!hasValidRank && !hasValidPoints) continue;
     if (r.venue) {
       observedVenues.add(r.venue);
       let s = venuesByAthlete.get(r.athlete_id);
@@ -1476,9 +1567,13 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
   const asOfMs = asOfDate ? Date.parse(`${asOfDate}T00:00:00Z`) : null;
   const calCfg = config?.roster_model?.calibration || {};
   const anchorMinCount = Number(calCfg.domestic_anchor_min_count ?? 3);
-  const ridgeLambda = Number(calCfg.domestic_anchor_ridge_l2 ?? 1.5);
-  const sigmaDomAdapt = Number(calCfg.sigma_domestic_adapt ?? 0.8);
-  const sigmaDomFallback = Number(calCfg.sigma_domestic_fallback ?? 1.05);
+  const minAnchorR = Number(calCfg.domestic_anchor_min_r ?? 0.25);
+  const ridgeLambda = Number(calCfg.domestic_anchor_ridge_l2 ?? 1.0);
+  const priorZ = Number(calCfg.domestic_anchor_prior_z ?? 0.0);
+  const priorMu = Number(calCfg.domestic_anchor_prior_mu ?? -0.35);
+  const priorWeight = Number(calCfg.domestic_anchor_prior_weight ?? 2.5);
+  const sigmaDomAdapt = Number(calCfg.sigma_domestic_adapt ?? 1.55);
+  const sigmaDomFallback = Number(calCfg.sigma_domestic_fallback ?? 1.75);
   const fallbackQuantileCfg = calCfg.domestic_fallback_quantile_mu || {};
 
   // Aggregate per (gender:dist, athlete_id)
@@ -1588,9 +1683,17 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
       }
 
       const hasEnoughAnchors = xs.length >= anchorMinCount;
-      const fit = hasEnoughAnchors
-        ? fitRidgeLinear1D(xs, ys, ridgeLambda, { alpha: 0.65, beta: -0.25 })
+      let fit = hasEnoughAnchors
+        ? fitWeightedRidgeLinear1D(xs, ys, ridgeLambda, {
+            priorZ,
+            priorMu,
+            priorWeight,
+            fallback: { alpha: 0.65, beta: -0.25 },
+          })
         : { alpha: null, beta: null, usedFallback: true, n: xs.length, r: null };
+      if (!fit.usedFallback && !(fit.r != null && fit.r >= minAnchorR)) {
+        fit = { alpha: null, beta: null, usedFallback: true, n: fit.n, r: fit.r };
+      }
 
       const calMap = new Map();
       for (const [aid, st] of dAgg.entries()) {
@@ -1859,6 +1962,25 @@ export function buildFusedCandidatePool({
 
   const asOfMs = Date.parse(`${asOfDate}T23:59:59Z`);
   const asOfSeason = seasonForDate(asOfDate);
+  const calCfg = cfg?.roster_model?.calibration || {};
+  const ignoreOldJunior = calCfg.junior_ignore_old_if_active_senior !== false;
+  const senGraceDays = Number(calCfg.senior_inactivity_grace_days ?? 150);
+  const senMuDecayDays = Number(calCfg.senior_inactivity_mu_decay_days ?? 480);
+  const relayDecayCfg = calCfg.relay_season_decay_weights || {};
+  const relayWCur = Number(relayDecayCfg.current_season ?? 1.0);
+  const relayWPrev1 = Number(relayDecayCfg.prev_1_season ?? 0.5);
+  const relayWPrev2 = Number(relayDecayCfg.prev_2_season ?? 0.2);
+  const relayWOlder = Number(relayDecayCfg.older_season ?? 0.08);
+  const momWeights = calCfg.momentum_pool_weights || {};
+  const wMomSen = Number(momWeights.senior ?? 1.0);
+  const wMomJun = Number(momWeights.junior ?? 0.35);
+  const wMomDom = Number(momWeights.domestic ?? 0.25);
+
+  const seasonStartYear = (s) => {
+    const m = /^(\d{4})/.exec(String(s || ''));
+    return m ? Number(m[1]) : null;
+  };
+  const asOfYear = seasonStartYear(asOfSeason);
 
   const womenEligible = [];
   const womenExcluded = [];
@@ -1999,18 +2121,32 @@ export function buildFusedCandidatePool({
           asOfSeason,
           discCfg
         );
+        let muSenEff = senSt.mu;
+        if (
+          !protectDualActivity &&
+          senSt.lastTimestampMs != null &&
+          Number.isFinite(asOfMs) &&
+          asOfMs > senSt.lastTimestampMs
+        ) {
+          const inactiveDays = (asOfMs - senSt.lastTimestampMs) / 86400000;
+          if (inactiveDays > senGraceDays) {
+            muSenEff =
+              senSt.mu * Math.exp(-(inactiveDays - senGraceDays) / Math.max(1, senMuDecayDays));
+          }
+        }
         const senEntry = {
-          mu: senSt.mu,
+          mu: muSenEff,
+          mu_raw: senSt.mu,
           sigma: sigmaSenDrifted,
           nStarts: senSt.nStarts,
           activity_protected: protectDualActivity,
         };
         poolsObj.sen = senEntry;
         entriesForIvw.push(senEntry);
-        momentumSamples.push({ delta: senSt.recentDelta || 0, weight: 1.0 });
+        momentumSamples.push({ delta: senSt.recentDelta || 0, weight: wMomSen });
       }
 
-      // Pool 2: Calibrated Junior
+      // Pool 2: Calibrated Junior (ignore historical Junior if active in current-season Senior)
       const junCal = juniorPool.calibrated.get(dk)?.get(aid);
       if (junCal) {
         const junEntry = {
@@ -2019,10 +2155,21 @@ export function buildFusedCandidatePool({
           mu_rank: junCal.mu_rank,
           mu_pace: junCal.mu_pace,
           nStarts: junCal.nStarts,
+          lastSeason: junCal.lastSeason || null,
         };
-        poolsObj.jun = junEntry;
-        entriesForIvw.push(junEntry);
-        momentumSamples.push({ delta: junCal.recentDelta || 0, weight: 0.7 });
+        const activeCurrentSenior = Boolean(
+          senSt && senSt.nStarts >= 2 && asOfSeason && senSt.lastSeason === asOfSeason
+        );
+        const junIsOld = Boolean(
+          !junCal.lastSeason || (asOfSeason && junCal.lastSeason < asOfSeason)
+        );
+        if (ignoreOldJunior && activeCurrentSenior && junIsOld) {
+          poolsObj.jun_ignored = junEntry;
+        } else {
+          poolsObj.jun = junEntry;
+          entriesForIvw.push(junEntry);
+          momentumSamples.push({ delta: junCal.recentDelta || 0, weight: wMomJun });
+        }
       }
 
       // Pool 3: Calibrated Domestic 甲组
@@ -2037,8 +2184,8 @@ export function buildFusedCandidatePool({
         };
         poolsObj.dom = domEntry;
         entriesForIvw.push(domEntry);
-        if (!senSt && !junCal) {
-          momentumSamples.push({ delta: 0.08 * Math.tanh(domCal.z_dom), weight: 0.4 });
+        if (!senSt && !poolsObj.jun) {
+          momentumSamples.push({ delta: 0.08 * Math.tanh(domCal.z_dom), weight: wMomDom });
         }
       }
 
@@ -2065,12 +2212,29 @@ export function buildFusedCandidatePool({
       rawMomentum += s.delta * s.weight;
       totalMomW += s.weight;
     }
-    let formMomentum = totalMomW > 0 ? Math.tanh(rawMomentum / totalMomW / 0.22) : 0;
+    let formMomentum = totalMomW > 0 ? Math.tanh(rawMomentum / totalMomW / 0.35) : 0;
     if (lastActiveDate) {
       const inactiveDays = Math.max(0, (asOfMs - Date.parse(`${lastActiveDate}T00:00:00Z`)) / 86400000);
       formMomentum *= Math.exp(-inactiveDays / 365);
     }
     formMomentum = clamp(formMomentum, -1, 1);
+
+    // Compute season-decayed Senior relay metrics alongside raw counts
+    let seniorWeightedStarts = 0;
+    let seniorWeightedFinalA = 0;
+    if (senRelay.bySeason && senRelay.bySeason.size > 0) {
+      for (const [evSeason, counts] of senRelay.bySeason.entries()) {
+        const evYear = seasonStartYear(evSeason);
+        const gap = asOfYear != null && evYear != null ? Math.max(0, asOfYear - evYear) : 3;
+        const w =
+          gap === 0 ? relayWCur : gap === 1 ? relayWPrev1 : gap === 2 ? relayWPrev2 : relayWOlder;
+        seniorWeightedStarts += counts.starts * w;
+        seniorWeightedFinalA += counts.finalA * w;
+      }
+    } else {
+      seniorWeightedStarts = senRelay.starts;
+      seniorWeightedFinalA = senRelay.finalA;
+    }
 
     // Pick most recent/notable highlight across pools
     const hlChoices = [
@@ -2098,6 +2262,8 @@ export function buildFusedCandidatePool({
       relay_stats: {
         senior_starts: senRelay.starts,
         senior_final_a: senRelay.finalA,
+        senior_weighted_starts: Number(seniorWeightedStarts.toFixed(4)),
+        senior_weighted_final_a: Number(seniorWeightedFinalA.toFixed(4)),
         junior_starts: junRelay.starts,
         junior_final_a: junRelay.finalA,
         domestic_relay_member: domesticPool.relayMemberSet.has(aid),
