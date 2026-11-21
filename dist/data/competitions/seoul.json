@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-21T01:01:44+00:00",
-    "updated_at": "2026-11-21T01:01:44+00:00",
+    "checked_at": "2026-11-21T01:12:01+00:00",
+    "updated_at": "2026-11-21T01:12:01+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -6574,8 +6574,8 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-11-21T10:00:34.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23443",
         "participants": [
@@ -6586,9 +6586,9 @@
             "official_skater_id": 1657,
             "helmet_number": 60,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "41.784",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -6598,9 +6598,9 @@
             "official_skater_id": 5461,
             "helmet_number": 120,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "41.963",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -6610,8 +6610,8 @@
             "official_skater_id": 5921,
             "helmet_number": 121,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "43.518",
             "qualification": null,
             "penalty": null
           },
@@ -6622,8 +6622,8 @@
             "official_skater_id": 1816,
             "helmet_number": 138,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "44.479",
             "qualification": null,
             "penalty": null
           }
@@ -6641,12 +6641,24 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-21T10:02:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-21T10:03:33.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23443",
         "participants": [
+          {
+            "athlete_id": "ath-05fa7ba7935d7438f295",
+            "name": "Valentin KOBYZEV",
+            "country": "AIN2",
+            "official_skater_id": 22629,
+            "helmet_number": 125,
+            "starting_position": 4,
+            "rank": 1,
+            "result": "41.854",
+            "qualification": "Q",
+            "penalty": null
+          },
           {
             "athlete_id": "ath-d3696da65ab1eef0c652",
             "name": "Aleyandro RIVERO MAERSCHALCK",
@@ -6654,8 +6666,20 @@
             "official_skater_id": 5923,
             "helmet_number": 56,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "42.614",
+            "qualification": "p",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-b4a8c039b087b2f48af1",
+            "name": "Chun-Chieh LIN",
+            "country": "TPE",
+            "official_skater_id": 4231,
+            "helmet_number": 140,
+            "starting_position": 3,
+            "rank": 3,
+            "result": "43.011",
             "qualification": null,
             "penalty": null
           },
@@ -6666,32 +6690,8 @@
             "official_skater_id": 4592,
             "helmet_number": 130,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-b4a8c039b087b2f48af1",
-            "name": "Chun-Chieh LIN",
-            "country": "TPE",
-            "official_skater_id": 4231,
-            "helmet_number": 140,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-05fa7ba7935d7438f295",
-            "name": "Valentin KOBYZEV",
-            "country": "AIN2",
-            "official_skater_id": 22629,
-            "helmet_number": 125,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "43.799",
             "qualification": null,
             "penalty": null
           }
@@ -6710,7 +6710,7 @@
         "heat_number": 3,
         "heat_label": "Heat 3",
         "source_start": "2026-11-21T10:04:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23443",
@@ -6740,24 +6740,24 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-388d1df985f23bc41a5c",
-            "name": "Tsz Fung KWOK",
-            "country": "HKG",
-            "official_skater_id": 3877,
-            "helmet_number": 80,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
             "athlete_id": "ath-672e318a34c40e9d2d36",
             "name": "Asen GYUROV",
             "country": "BUL",
             "official_skater_id": 2435,
             "helmet_number": 61,
             "starting_position": 4,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-388d1df985f23bc41a5c",
+            "name": "Tsz Fung KWOK",
+            "country": "HKG",
+            "official_skater_id": 3877,
+            "helmet_number": 80,
+            "starting_position": 3,
             "rank": null,
             "result": null,
             "qualification": null,
