@@ -1224,8 +1224,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-21T07:21:38+00:00",
-    "updated_at": "2026-11-21T07:21:38+00:00",
+    "checked_at": "2026-11-21T07:31:45+00:00",
+    "updated_at": "2026-11-21T07:31:45+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -3326,25 +3326,12 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-21T16:17:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-21T16:21:07.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16342&round=23426",
         "participants": [
-          {
-            "athlete_id": "team-NED-women",
-            "name": "Netherlands",
-            "country": "NED",
-            "official_skater_id": 13001,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": []
-          },
           {
             "athlete_id": "team-CHN-women",
             "name": "People's Republic of China",
@@ -3352,9 +3339,9 @@
             "official_skater_id": 12997,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "4:17.672",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -3363,9 +3350,9 @@
                 "official_skater_id": 8080
               },
               {
-                "athlete_id": "ath-7526110b176497878d3f",
-                "name": "Li GONG",
-                "official_skater_id": 2262
+                "athlete_id": "ath-f5df095326a0281962ea",
+                "name": "Jianing ZHANG",
+                "official_skater_id": 8090
               },
               {
                 "athlete_id": "ath-c9d7d5a38485bd9c344f",
@@ -3373,9 +3360,9 @@
                 "official_skater_id": 19401
               },
               {
-                "athlete_id": "ath-f5df095326a0281962ea",
-                "name": "Jianing ZHANG",
-                "official_skater_id": 8090
+                "athlete_id": "ath-7526110b176497878d3f",
+                "name": "Li GONG",
+                "official_skater_id": 2262
               }
             ]
           },
@@ -3386,9 +3373,9 @@
             "official_skater_id": 12999,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "4:18.192",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -3397,19 +3384,53 @@
                 "official_skater_id": 17693
               },
               {
-                "athlete_id": "ath-5bedac287eabf80aec92",
-                "name": "Mirei NAKASHIMA",
-                "official_skater_id": 5023
-              },
-              {
                 "athlete_id": "ath-df765364c74846f50d97",
                 "name": "Rina YAMANA",
                 "official_skater_id": 7851
               },
               {
+                "athlete_id": "ath-5bedac287eabf80aec92",
+                "name": "Mirei NAKASHIMA",
+                "official_skater_id": 5023
+              },
+              {
                 "athlete_id": "ath-3612b246d8bc6f06f928",
                 "name": "Haruna NAGAMORI",
                 "official_skater_id": 4995
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-NED-women",
+            "name": "Netherlands",
+            "country": "NED",
+            "official_skater_id": 13001,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 3,
+            "result": "4:32.756",
+            "qualification": "p",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-51a17d72df4d726dbcde",
+                "name": "Kiek STRAATHOF",
+                "official_skater_id": 6730
+              },
+              {
+                "athlete_id": "ath-6341667ddb63ec55f914",
+                "name": "Diede VAN OORSCHOT",
+                "official_skater_id": 7365
+              },
+              {
+                "athlete_id": "ath-6015217f50457d7cc862",
+                "name": "Zoe Florence DELTRAP",
+                "official_skater_id": 1534
+              },
+              {
+                "athlete_id": "ath-fdc4ee292490f2789298",
+                "name": "Selma POUTSMA",
+                "official_skater_id": 5679
               }
             ]
           }
@@ -3427,8 +3448,8 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-21T16:23:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-21T16:27:39.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16342&round=23426",
@@ -3478,7 +3499,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-5a7cd29016a92caa9dfb",
+                "name": "Claudia GAGNON",
+                "official_skater_id": 2052
+              },
+              {
+                "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+                "name": "Florence BRUNELLE",
+                "official_skater_id": 924
+              },
+              {
+                "athlete_id": "ath-d07ff35989421c041f6e",
+                "name": "Victoria JEAN-BAPTISTE",
+                "official_skater_id": 2993
+              },
+              {
+                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+                "name": "Courtney SARAULT",
+                "official_skater_id": 6159
+              }
+            ]
           },
           {
             "athlete_id": "team-AIN2-women",
