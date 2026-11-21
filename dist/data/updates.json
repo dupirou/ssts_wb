@@ -2,6 +2,36 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "c82dda1c5d48830e",
+      "station": "seoul",
+      "at": "2026-11-21T05:50:24+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "a5f23a3b2bd8a868",
+      "station": "seoul",
+      "at": "2026-11-21T05:50:24+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
       "id": "8815f9ca9e32f452",
       "station": "seoul",
       "at": "2026-11-21T05:41:36+00:00",
@@ -3276,71 +3306,6 @@
           "rank": 3,
           "status": "advanced",
           "name_latin": "Zixia ZHANG"
-        }
-      ]
-    },
-    {
-      "id": "002fba6ba96b0b8c",
-      "station": "montreal",
-      "at": "2026-10-30T19:21:21+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "张柏浩",
-        "宋柯睿",
-        "孙龙",
-        "张子夏"
-      ]
-    },
-    {
-      "id": "830700f1bf5b6d07",
-      "station": "montreal",
-      "at": "2026-10-30T18:51:27+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张珈宁",
-        "宋佳蕊",
-        "公俐",
-        "张延"
-      ],
-      "china_results": [
-        {
-          "name": "张珈宁",
-          "rank": 4,
-          "status": "repechage",
-          "name_latin": "Jianing ZHANG"
-        },
-        {
-          "name": "宋佳蕊",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Jiarui SONG"
-        },
-        {
-          "name": "公俐",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Li GONG"
-        },
-        {
-          "name": "张延",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Yan ZHANG"
         }
       ]
     }

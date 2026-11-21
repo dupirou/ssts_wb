@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-21T05:41:36+00:00",
-    "updated_at": "2026-11-21T05:41:36+00:00",
+    "checked_at": "2026-11-21T05:50:24+00:00",
+    "updated_at": "2026-11-21T05:50:24+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -1262,6 +1262,7 @@
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23446",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23447",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23448",
+      "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23508",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16346&round=23451",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23453",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23454",
@@ -9624,24 +9625,12 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-21T14:35:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-21T14:40:21.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23448",
         "participants": [
-          {
-            "athlete_id": "ath-3c121028999cfe671647",
-            "name": "Jens VAN 'T WOUT",
-            "country": "NED",
-            "official_skater_id": 7375,
-            "helmet_number": 7,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-98d77949cb6eb84d0b02",
             "name": "Teun BOER",
@@ -9649,9 +9638,45 @@
             "official_skater_id": 783,
             "helmet_number": 46,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "40.247",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-3c121028999cfe671647",
+            "name": "Jens VAN 'T WOUT",
+            "country": "NED",
+            "official_skater_id": 7375,
+            "helmet_number": 7,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "40.404",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-bf41d212ebfe992891e6",
+            "name": "Justin LIU",
+            "country": "USA",
+            "official_skater_id": 4302,
+            "helmet_number": 111,
+            "starting_position": 4,
+            "rank": 3,
+            "result": "40.713",
+            "qualification": "QB",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-2eea258e3a0d28fc0ba5",
+            "name": "Jeongmin LEE",
+            "country": "KOR",
+            "official_skater_id": 4030,
+            "helmet_number": 32,
+            "starting_position": 5,
+            "rank": 4,
+            "result": "40.918",
+            "qualification": "QB",
             "penalty": null
           },
           {
@@ -9662,33 +9687,12 @@
             "helmet_number": 124,
             "starting_position": 3,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-bf41d212ebfe992891e6",
-            "name": "Justin LIU",
-            "country": "USA",
-            "official_skater_id": 4302,
-            "helmet_number": 111,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-2eea258e3a0d28fc0ba5",
-            "name": "Jeongmin LEE",
-            "country": "KOR",
-            "official_skater_id": 4030,
-            "helmet_number": 32,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -9704,24 +9708,12 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-21T14:37:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-21T14:44:04.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23448",
         "participants": [
-          {
-            "athlete_id": "ath-2f5775133539f6a7e0f7",
-            "name": "Felix ROUSSEL",
-            "country": "CAN",
-            "official_skater_id": 5998,
-            "helmet_number": 11,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-295c31a30610e64d9499",
             "name": "Mathieu PELLETIER",
@@ -9729,9 +9721,45 @@
             "official_skater_id": 5474,
             "helmet_number": 66,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "40.422",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-84f0d8c76ad7b4d4c9ad",
+            "name": "Andrew HEO",
+            "country": "USA",
+            "official_skater_id": 2616,
+            "helmet_number": 15,
+            "starting_position": 4,
+            "rank": 2,
+            "result": "40.447",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-2f5775133539f6a7e0f7",
+            "name": "Felix ROUSSEL",
+            "country": "CAN",
+            "official_skater_id": 5998,
+            "helmet_number": 11,
+            "starting_position": 1,
+            "rank": 3,
+            "result": "40.614",
+            "qualification": "q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-dae50584eb222f8f7725",
+            "name": "Shogo MIYATA",
+            "country": "JPN",
+            "official_skater_id": 4847,
+            "helmet_number": 9,
+            "starting_position": 5,
+            "rank": 4,
+            "result": "40.705",
+            "qualification": "QB",
             "penalty": null
           },
           {
@@ -9742,33 +9770,12 @@
             "helmet_number": 3,
             "starting_position": 3,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-84f0d8c76ad7b4d4c9ad",
-            "name": "Andrew HEO",
-            "country": "USA",
-            "official_skater_id": 2616,
-            "helmet_number": 15,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-dae50584eb222f8f7725",
-            "name": "Shogo MIYATA",
-            "country": "JPN",
-            "official_skater_id": 4847,
-            "helmet_number": 9,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -11909,6 +11916,142 @@
             "penalty": null,
             "members": [],
             "name_latin": "Japan"
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-21348",
+        "gender": "men",
+        "distance_m": 500,
+        "format": "individual",
+        "round_key": "2026-11-21/main/men/500/final/-",
+        "local_date": "2026-11-21",
+        "round": "final",
+        "round_label": "Final",
+        "group": "A",
+        "heat_number": null,
+        "heat_label": "Final",
+        "source_start": "2026-11-21T15:10:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": false,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23508",
+        "participants": [
+          {
+            "athlete_id": "ath-98d77949cb6eb84d0b02",
+            "name": "Teun BOER",
+            "country": "NED",
+            "official_skater_id": 783,
+            "helmet_number": 46,
+            "starting_position": 1,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-295c31a30610e64d9499",
+            "name": "Mathieu PELLETIER",
+            "country": "CAN",
+            "official_skater_id": 5474,
+            "helmet_number": 66,
+            "starting_position": 2,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-3c121028999cfe671647",
+            "name": "Jens VAN 'T WOUT",
+            "country": "NED",
+            "official_skater_id": 7375,
+            "helmet_number": 7,
+            "starting_position": 3,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-84f0d8c76ad7b4d4c9ad",
+            "name": "Andrew HEO",
+            "country": "USA",
+            "official_skater_id": 2616,
+            "helmet_number": 15,
+            "starting_position": 4,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-2f5775133539f6a7e0f7",
+            "name": "Felix ROUSSEL",
+            "country": "CAN",
+            "official_skater_id": 5998,
+            "helmet_number": 11,
+            "starting_position": 5,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          }
+        ]
+      },
+      {
+        "id": "isu-heat-21349",
+        "gender": "men",
+        "distance_m": 500,
+        "format": "individual",
+        "round_key": "2026-11-21/main/men/500/final/-",
+        "local_date": "2026-11-21",
+        "round": "final",
+        "round_label": "Final",
+        "group": "B",
+        "heat_number": null,
+        "heat_label": "Final B",
+        "source_start": "2026-11-21T15:08:00.000Z",
+        "result_status": "Start List",
+        "evidence": "official_start_list",
+        "has_china": false,
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16345&round=23508",
+        "participants": [
+          {
+            "athlete_id": "ath-bf41d212ebfe992891e6",
+            "name": "Justin LIU",
+            "country": "USA",
+            "official_skater_id": 4302,
+            "helmet_number": 111,
+            "starting_position": 1,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-dae50584eb222f8f7725",
+            "name": "Shogo MIYATA",
+            "country": "JPN",
+            "official_skater_id": 4847,
+            "helmet_number": 9,
+            "starting_position": 2,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-2eea258e3a0d28fc0ba5",
+            "name": "Jeongmin LEE",
+            "country": "KOR",
+            "official_skater_id": 4030,
+            "helmet_number": 32,
+            "starting_position": 3,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
           }
         ]
       }
