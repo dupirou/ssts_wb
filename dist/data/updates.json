@@ -2,6 +2,46 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "ef7941cd34908180",
+      "station": "seoul",
+      "at": "2026-11-21T09:01:37+00:00",
+      "local_date": "2026-11-22",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "1e2b669bcbb59afa",
+      "station": "seoul",
+      "at": "2026-11-21T09:01:37+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 4,
+          "status": "final_b"
+        }
+      ]
+    },
+    {
       "id": "ad4105f266591202",
       "station": "seoul",
       "at": "2026-11-21T08:31:32+00:00",
@@ -231,6 +271,16 @@
           "country": "AIN2"
         },
         {
+          "rank": 1,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "rank": 1,
+          "name": "Failia AIMALETDINOVA",
+          "country": "AIN2"
+        },
+        {
           "rank": 2,
           "name": "Courtney SARAULT",
           "country": "CAN"
@@ -239,6 +289,26 @@
           "rank": 2,
           "name": "Danae BLAIS",
           "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Danae BLAIS",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Florence BRUNELLE",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Alena KRYLOVA",
+          "country": "AIN2"
         },
         {
           "rank": 3,
@@ -285,6 +355,16 @@
           "country": "KOR"
         },
         {
+          "rank": 1,
+          "name": "Teun BOER",
+          "country": "NED"
+        },
+        {
+          "rank": 1,
+          "name": "Jeongmin LEE",
+          "country": "KOR"
+        },
+        {
           "rank": 2,
           "name": "Jens VAN 'T WOUT",
           "country": "NED"
@@ -293,6 +373,26 @@
           "rank": 2,
           "name": "Justin LIU",
           "country": "USA"
+        },
+        {
+          "rank": 2,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Justin LIU",
+          "country": "USA"
+        },
+        {
+          "rank": 3,
+          "name": "Mathieu PELLETIER",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
         },
         {
           "rank": 3,
@@ -324,7 +424,7 @@
       "distance_m": 1000,
       "format": "individual",
       "kind": "groups",
-      "heats": 2,
+      "heats": 4,
       "china": []
     },
     {
@@ -369,7 +469,7 @@
       "distance_m": 500,
       "format": "individual",
       "kind": "groups",
-      "heats": 2,
+      "heats": 4,
       "china": []
     },
     {
@@ -499,7 +599,7 @@
       "distance_m": 2000,
       "format": "relay",
       "kind": "groups",
-      "heats": 2,
+      "heats": 4,
       "china": [
         "People's Republic of China"
       ]
@@ -3301,36 +3401,6 @@
       "china": [
         "宋柯睿"
       ]
-    },
-    {
-      "id": "95895cb4c85b90ac",
-      "station": "montreal",
-      "at": "2026-10-31T13:51:17+00:00",
-      "local_date": "2026-10-31",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "e25b02975f75ac4a",
-      "station": "montreal",
-      "at": "2026-10-31T13:21:30+00:00",
-      "local_date": "2026-10-31",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
     }
   ]
 }
