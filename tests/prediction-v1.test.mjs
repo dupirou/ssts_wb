@@ -259,3 +259,18 @@ test('Controlled lane model learns positive inner-lane effect independent of ski
   const scores = scoreHeatFeatures(buildHeatFeatures(testHeat, engine, tracker), fitted.theta);
   assert.ok(scores[0] > scores[1]);
 });
+
+test('AIN2 and verified Russian AIN skaters share the same distance-specific federation prior', () => {
+  const engine = new DynamicRatingEngine({enableFederationPrior:true});
+  const row = (athlete_id, country, rank) => ({
+    athlete_id, country, rank, gender:'men', distance_m:1500, status:'OK'
+  });
+  engine.updateHeat([row('skr-20499', 'AIN', 1), row('peer', 'CAN', 2)]);
+  const prior = (country, distance = 1500) => engine.peekAthlete('new', 'men', distance, null, null, country).mu;
+  assert.ok(prior('AIN2') > 0);
+  assert.equal(prior('AIN2'), prior('RUS'));
+  assert.equal(prior('AIN'), 0);
+  assert.equal(prior('AIN2', 500), 0);
+  engine.updateHeat([row('entrant', 'AIN2', 1), row('peer', 'CAN', 2)]);
+  assert.deepEqual([...engine.fedStats.keys()].sort(), ['CAN:men:1500', 'RUS:men:1500']);
+});

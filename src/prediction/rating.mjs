@@ -105,6 +105,15 @@ export function conservativeSkill(mu, sigma, c = DEFAULT_RATING_CONFIG.conservat
   return mu / Math.sqrt(1 + c * sigma * sigma);
 }
 
+// ISU Communication 2708 identifies these historical AIN skaters as RUS.
+// An unqualified AIN code alone does not identify a federation.
+const russianNeutralIds = new Set(['skr-4639', 'skr-20498', 'skr-20499', 'skr-20500', 'skr-20501']);
+
+function federationKey(country, athleteId, gender, distanceM) {
+  const russian = country === 'AIN2' || (country === 'AIN' && russianNeutralIds.has(athleteId));
+  return `${russian ? 'RUS' : country}:${gender}:${distanceM}`;
+}
+
 export class DynamicRatingEngine {
   constructor(config = {}) {
     this.cfg = { ...DEFAULT_RATING_CONFIG, ...config };
@@ -149,7 +158,7 @@ export class DynamicRatingEngine {
 
     let fedMu = 0;
     if (cfg.enableFederationPrior && country) {
-      const f = this.fedStats.get(`${country}:${gender}:${distanceM}`);
+      const f = this.fedStats.get(federationKey(country, athleteId, gender, distanceM));
       if (f && f.w > 0) {
         fedMu = f.sumMu / (f.w + cfg.fedPriorTau);
       }
@@ -336,7 +345,7 @@ export class DynamicRatingEngine {
       });
 
       if (cfg.enableFederationPrior && row.country) {
-        const fKey = `${row.country}:${gender}:${distanceM}`;
+        const fKey = federationKey(row.country, row.athlete_id, gender, distanceM);
         const prevF = this.fedStats.get(fKey) || { sumMu: 0, w: 0 };
         const obsW = 1 / (1 + varNew);
         this.fedStats.set(fKey, {
