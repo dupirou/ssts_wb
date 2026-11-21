@@ -2,6 +2,41 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "d347770f6d393b61",
+      "station": "seoul",
+      "at": "2026-11-21T03:11:32+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "6dbd5b00d550233d",
+      "station": "seoul",
+      "at": "2026-11-21T03:11:32+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "张珈宁",
+        "宋佳蕊",
+        "公俐",
+        "张延"
+      ]
+    },
+    {
       "id": "03971ad36ee06e86",
       "station": "seoul",
       "at": "2026-11-21T03:01:36+00:00",
@@ -3342,50 +3377,6 @@
           "status": "advanced",
           "name_latin": "Zixia ZHANG"
         }
-      ]
-    },
-    {
-      "id": "c6fe8d9af1cef7db",
-      "station": "montreal",
-      "at": "2026-10-30T14:31:19+00:00",
-      "local_date": "2026-10-30",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张珈宁"
-      ],
-      "china_results": [
-        {
-          "name": "张珈宁",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Jianing ZHANG"
-        }
-      ]
-    },
-    {
-      "id": "530ea3be3950f77f",
-      "station": "montreal",
-      "at": "2026-10-30T14:31:19+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "张珈宁",
-        "宋佳蕊",
-        "公俐",
-        "张延"
       ]
     }
   ]
