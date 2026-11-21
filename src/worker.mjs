@@ -165,91 +165,94 @@ async function dispatchSync(env, now) {
   return 'dispatched:' + decision;
 }
 
-export default {
-  async scheduled(controller, env, ctx) {
-    ctx.waitUntil(dispatchSync(env, controller.scheduledTime)
-      .then(result => console.log(JSON.stringify({event: 'sync_dispatch', result})))
-      .catch(error => {
-        console.error(JSON.stringify({event: 'sync_dispatch_exception', message: String(error?.message || error), stack: error?.stack}));
-        throw error;
-      }));
-  },
+async function scheduled(controller, env, ctx) {
+  ctx.waitUntil(dispatchSync(env, controller.scheduledTime)
+    .then(result => console.log(JSON.stringify({event: 'sync_dispatch', result})))
+    .catch(error => {
+      console.error(JSON.stringify({event: 'sync_dispatch_exception', message: String(error?.message || error), stack: error?.stack}));
+      throw error;
+    }));
+}
 
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    if (url.pathname === '/internal/analysis') return privateAnalysis(request, env);
-    if (url.pathname === '/internal/heartbeat') return acceptHeartbeat(request, env);
-    // Assets normally bypass the Worker under run_worker_first; retained for direct/fallback requests.
-    if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
-    const head = request.method === 'HEAD';
-    if (!['GET', 'HEAD'].includes(request.method)) {
-      return json({error: 'method_not_allowed'}, 405, head, {Allow: 'GET, HEAD'});
+async function handleRequest(request, env, preparedRounds) {
+  const url = new URL(request.url);
+  if (url.pathname === '/internal/analysis') return privateAnalysis(request, env, preparedRounds);
+  if (url.pathname === '/internal/heartbeat') return acceptHeartbeat(request, env);
+  // Assets normally bypass the Worker under run_worker_first; retained for direct/fallback requests.
+  if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
+  const head = request.method === 'HEAD';
+  if (!['GET', 'HEAD'].includes(request.method)) {
+    return json({error: 'method_not_allowed'}, 405, head, {Allow: 'GET, HEAD'});
+  }
+  const route = url.pathname.match(routePattern);
+  if (!route) return json({error: 'not_found'}, 404, head);
+  for (const [key, value] of url.searchParams) {
+    if (!filters.has(key) || !value || url.searchParams.getAll(key).length !== 1 || value.length > 160) {
+      return json({error: 'invalid_filter', field: key}, 400, head);
     }
-    const route = url.pathname.match(routePattern);
-    if (!route) return json({error: 'not_found'}, 404, head);
-    for (const [key, value] of url.searchParams) {
-      if (!filters.has(key) || !value || url.searchParams.getAll(key).length !== 1 || value.length > 160) {
-        return json({error: 'invalid_filter', field: key}, 400, head);
-      }
-      if ((key === 'country' && !/^[A-Z]{3}$/.test(value)) ||
-          (key === 'gender' && !['men','women','mixed'].includes(value)) ||
-          (key === 'ranking_type' && !['event','world','world_tour'].includes(value)) ||
-          (key === 'distance_m' && !['500','1000','1500','2000','3000','5000'].includes(value))) {
-        return json({error: 'invalid_filter', field: key}, 400, head);
+    if ((key === 'country' && !/^[A-Z]{3}$/.test(value)) ||
+        (key === 'gender' && !['men','women','mixed'].includes(value)) ||
+        (key === 'ranking_type' && !['event','world','world_tour'].includes(value)) ||
+        (key === 'distance_m' && !['500','1000','1500','2000','3000','5000'].includes(value))) {
+      return json({error: 'invalid_filter', field: key}, 400, head);
+    }
+  }
+  try {
+    const indexResponse = await env.ASSETS.fetch(new URL('/data/competitions/index.json', url));
+    if (!indexResponse.ok) return json({error: 'data_unavailable'}, 503, head);
+    const index = await indexResponse.json();
+    const [, eventId, resource] = route;
+    if (resource) {
+      for (const key of url.searchParams.keys()) {
+        if (!resourceFilters[resource].has(key)) return json({error: 'invalid_filter', field: key}, 400, head);
       }
     }
-    try {
-      const indexResponse = await env.ASSETS.fetch(new URL('/data/competitions/index.json', url));
-      if (!indexResponse.ok) return json({error: 'data_unavailable'}, 503, head);
-      const index = await indexResponse.json();
-      const [, eventId, resource] = route;
-      if (resource) {
-        for (const key of url.searchParams.keys()) {
-          if (!resourceFilters[resource].has(key)) return json({error: 'invalid_filter', field: key}, 400, head);
-        }
-      }
-      if (!eventId) {
-        if (url.search) return json({error: 'filters_require_resource'}, 400, head);
-        return json(index, 200, head);
-      }
-      if (!index.events.some(e => e.id === eventId)) return json({error: 'event_not_found'}, 404, head);
-      if (!resource) {
-        if (url.search) return json({error: 'filters_require_resource'}, 400, head);
-        return json({schema_version: 1, event_id: eventId,
-          endpoints: [...resources].map(r => `/api/v1/events/${eventId}/${r}`)}, 200, head);
-      }
-      const kind = ['results','penalties'].includes(resource) ? 'rounds' : resource;
-      const stored = await env.ASSETS.fetch(new URL(`/data/competitions/${eventId}/${kind}.json`, url));
-      if (!stored.ok) return json({error: 'data_unavailable'}, 503, head);
-      const dataset = await stored.json();
-      let items = dataset.items;
-      if (resource === 'rounds') {
-        items = items.filter(item => item.participants.some(p => matches(item, url.searchParams, p)));
-      } else if (resource === 'results' || resource === 'penalties') {
-        items = items.filter(item => item.evidence === 'official_results').flatMap(item =>
-          item.participants.filter(p => matches(item, url.searchParams, p) &&
-            (resource !== 'penalties' || p.penalty != null)).map(p => {
-            const {id: heatId, participants: unusedParticipants, ...heat} = item;
-            return {...heat, heat_id: heatId, id: `${heatId}/${p.athlete_id}`,
-              athlete_id: p.athlete_id, name: p.name, country: p.country,
-              official_skater_id: p.official_skater_id, helmet_number: p.helmet_number,
-              starting_position: p.starting_position, rank: p.rank, result: p.result,
-              qualification: p.qualification, penalty: p.penalty, members: p.members};
-          }));
-      } else {
-        items = items.filter(item => matches(item, url.searchParams));
-      }
-      const {items: unused, ...meta} = dataset;
-      if (resource === 'results' || resource === 'penalties') {
-        meta.status = dataset.items.some(i => i.evidence === 'official_results') ? 'available' : 'not_published';
-      }
-      return json({schema_version: 1, event_id: eventId, resource, ...meta,
-        ...await freshness(env, dataset), total: items.length, items}, 200, head);
-    } catch (error) {
-      console.error(JSON.stringify({event: 'api_error', message: String(error?.message || error), stack: error?.stack}));
-      if (error instanceof SyntaxError) return json({error: 'data_unavailable'}, 503, head);
-      return json({error: 'internal_error'}, 500, head);
+    if (!eventId) {
+      if (url.search) return json({error: 'filters_require_resource'}, 400, head);
+      return json(index, 200, head);
     }
-  },
-};
+    if (!index.events.some(e => e.id === eventId)) return json({error: 'event_not_found'}, 404, head);
+    if (!resource) {
+      if (url.search) return json({error: 'filters_require_resource'}, 400, head);
+      return json({schema_version: 1, event_id: eventId,
+        endpoints: [...resources].map(r => `/api/v1/events/${eventId}/${r}`)}, 200, head);
+    }
+    const kind = ['results','penalties'].includes(resource) ? 'rounds' : resource;
+    const stored = await env.ASSETS.fetch(new URL(`/data/competitions/${eventId}/${kind}.json`, url));
+    if (!stored.ok) return json({error: 'data_unavailable'}, 503, head);
+    const dataset = await stored.json();
+    let items = dataset.items;
+    if (resource === 'rounds') {
+      items = items.filter(item => item.participants.some(p => matches(item, url.searchParams, p)));
+    } else if (resource === 'results' || resource === 'penalties') {
+      items = items.filter(item => item.evidence === 'official_results').flatMap(item =>
+        item.participants.filter(p => matches(item, url.searchParams, p) &&
+          (resource !== 'penalties' || p.penalty != null)).map(p => {
+          const {id: heatId, participants: unusedParticipants, ...heat} = item;
+          return {...heat, heat_id: heatId, id: `${heatId}/${p.athlete_id}`,
+            athlete_id: p.athlete_id, name: p.name, country: p.country,
+            official_skater_id: p.official_skater_id, helmet_number: p.helmet_number,
+            starting_position: p.starting_position, rank: p.rank, result: p.result,
+            qualification: p.qualification, penalty: p.penalty, members: p.members};
+        }));
+    } else {
+      items = items.filter(item => matches(item, url.searchParams));
+    }
+    const {items: unused, ...meta} = dataset;
+    if (resource === 'results' || resource === 'penalties') {
+      meta.status = dataset.items.some(i => i.evidence === 'official_results') ? 'available' : 'not_published';
+    }
+    return json({schema_version: 1, event_id: eventId, resource, ...meta,
+      ...await freshness(env, dataset), total: items.length, items}, 200, head);
+  } catch (error) {
+    console.error(JSON.stringify({event: 'api_error', message: String(error?.message || error), stack: error?.stack}));
+    if (error instanceof SyntaxError) return json({error: 'data_unavailable'}, 503, head);
+    return json({error: 'internal_error'}, 500, head);
+  }
+}
 
+export function createWorker(preparedRounds) {
+  return { scheduled, fetch: (request, env) => handleRequest(request, env, preparedRounds) };
+}
+
+export default createWorker();

@@ -112,3 +112,23 @@ test('relative form uses the last classified time and falls back to total time f
   assert.equal(form.get('B'),0.25);
   assert.equal(previousRoundForm(heats,1000).get('A'),-0.25);
 });
+
+test('prepared round requires a session and only serves the matching day and discipline', async () => {
+  const { createWorker } = await import('../src/worker.mjs');
+  const env = {ANALYSIS_PASSWORD:secret, ASSETS:{fetch:assert.fail}};
+  const day = new Date().toISOString().slice(0, 10);
+  const groups = [{id:'prepared'}];
+  const rounds = {[JSON.stringify([round.gender, round.distance, round.roundKey])]:groups};
+  const prepared = createWorker({day, rounds});
+  assert.equal((await prepared.fetch(send(round), env)).status, 401);
+  const auth = await prepared.fetch(send(login(secret)), env);
+  const token = auth.headers.get('set-cookie').split(';')[0];
+  const hit = await prepared.fetch(send(round, token), env);
+  assert.equal(hit.status, 200);
+  assert.deepEqual(await hit.json(), groups);
+  assert.match(hit.headers.get('cache-control'), /no-store/);
+  // Missing or expired entries must consult live assets (unavailable in this fixture).
+  assert.equal((await prepared.fetch(send({...round,distance:500}, token), env)).status, 503);
+  const expired = createWorker({day:'2000-01-01', rounds});
+  assert.equal((await expired.fetch(send(round, token), env)).status, 503);
+});
