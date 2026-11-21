@@ -2,6 +2,60 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "846635243097bff4",
+      "station": "seoul",
+      "at": "2026-11-21T06:41:29+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "rank": 1,
+          "name": "Failia AIMALETDINOVA",
+          "country": "AIN2"
+        },
+        {
+          "rank": 2,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Danae BLAIS",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Florence BRUNELLE",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Alena KRYLOVA",
+          "country": "AIN2"
+        }
+      ]
+    },
+    {
+      "id": "3fd2db05f62b5e86",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-21T06:41:29+00:00",
+      "changed": true
+    },
+    {
       "id": "ab8f377fceed0743",
       "station": "seoul",
       "at": "2026-11-21T06:21:32+00:00",
@@ -3232,66 +3286,6 @@
           "rank": 3,
           "status": "advanced",
           "name_latin": "Yiding ZHU"
-        }
-      ]
-    },
-    {
-      "id": "8e7b1d2402157fef",
-      "station": "montreal",
-      "at": "2026-10-30T20:31:23+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": []
-    },
-    {
-      "id": "2d6174f06257b293",
-      "station": "montreal",
-      "at": "2026-10-30T20:21:25+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张楚桐",
-        "张珈宁",
-        "公俐",
-        "张延"
-      ],
-      "china_results": [
-        {
-          "name": "张楚桐",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Chutong ZHANG"
-        },
-        {
-          "name": "张珈宁",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Jianing ZHANG"
-        },
-        {
-          "name": "公俐",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Li GONG"
-        },
-        {
-          "name": "张延",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Yan ZHANG"
         }
       ]
     }
