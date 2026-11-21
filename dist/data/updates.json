@@ -2,6 +2,55 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "96d12c4a5ad38d5d",
+      "station": "seoul",
+      "at": "2026-11-21T07:21:38+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张柏浩",
+        "孙龙"
+      ],
+      "china_results": [
+        {
+          "name": "张柏浩",
+          "rank": 5,
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "孙龙",
+          "rank": 4,
+          "status": "final_b",
+          "name_latin": "Long SUN"
+        }
+      ]
+    },
+    {
+      "id": "96ce3494934948a0",
+      "station": "seoul",
+      "at": "2026-11-21T07:21:38+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "张柏浩",
+        "孙龙"
+      ]
+    },
+    {
       "id": "846635243097bff4",
       "station": "seoul",
       "at": "2026-11-21T06:41:29+00:00",
@@ -3224,68 +3273,6 @@
           "name": "China",
           "rank": 1,
           "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "38104f681f4ff47c",
-      "station": "montreal",
-      "at": "2026-10-30T21:41:22+00:00",
-      "local_date": null,
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "China"
-      ]
-    },
-    {
-      "id": "1f50b2115f857271",
-      "station": "montreal",
-      "at": "2026-10-30T20:51:35+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张柏浩",
-        "宋柯睿",
-        "孙龙",
-        "朱祎玎"
-      ],
-      "china_results": [
-        {
-          "name": "张柏浩",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Bohao ZHANG"
-        },
-        {
-          "name": "宋柯睿",
-          "rank": 5,
-          "status": "repechage",
-          "name_latin": "Kerui SONG"
-        },
-        {
-          "name": "孙龙",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Long SUN"
-        },
-        {
-          "name": "朱祎玎",
-          "rank": 3,
-          "status": "advanced",
-          "name_latin": "Yiding ZHU"
         }
       ]
     }
