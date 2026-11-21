@@ -2,6 +2,47 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "77a0bb40a1d80aff",
+      "station": "seoul",
+      "at": "2026-11-21T02:31:45+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "李坤"
+      ]
+    },
+    {
+      "id": "15a30bd48f554ef8",
+      "station": "seoul",
+      "at": "2026-11-21T02:31:45+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "李坤"
+      ],
+      "china_results": [
+        {
+          "name": "李坤",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Kun LI"
+        }
+      ]
+    },
+    {
       "id": "45718d976be6742c",
       "station": "seoul",
       "at": "2026-11-21T02:11:40+00:00",
@@ -3354,36 +3395,6 @@
           "name_latin": "Kun LI"
         }
       ]
-    },
-    {
-      "id": "bdbb053ed9d4e9e2",
-      "station": "montreal",
-      "kind": "time_change",
-      "at": "2026-10-30T00:01:10+00:00",
-      "local_date": "2026-11-01",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "previous": "2026-11-02 02:41",
-      "current": "2026-11-02 02:40"
-    },
-    {
-      "id": "89e3a5650227e92f",
-      "station": "montreal",
-      "kind": "time_change",
-      "at": "2026-10-30T00:01:10+00:00",
-      "local_date": "2026-11-01",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-01 23:06",
-      "current": "2026-11-01 23:15"
     }
   ]
 }

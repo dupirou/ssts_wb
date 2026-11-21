@@ -222,6 +222,8 @@
     "seoul/round/2026-11-21/repechage/men/500/heats/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/500/heats/-/results": "official",
     "seoul/round/2026-11-21/repechage/men/500/quarterfinal/-/groups": "published",
+    "seoul/round/2026-11-21/repechage/men/500/quarterfinal/-/results": "official",
+    "seoul/round/2026-11-21/repechage/men/500/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/women/1000/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/men/1000/heats/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/groups": "published",
@@ -480,36 +482,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "89e3a5650227e92f",
-      "station": "montreal",
-      "kind": "time_change",
-      "at": "2026-10-30T00:01:10+00:00",
-      "local_date": "2026-11-01",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-01 23:06",
-      "current": "2026-11-01 23:15"
-    },
-    {
-      "id": "bdbb053ed9d4e9e2",
-      "station": "montreal",
-      "kind": "time_change",
-      "at": "2026-10-30T00:01:10+00:00",
-      "local_date": "2026-11-01",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "previous": "2026-11-02 02:41",
-      "current": "2026-11-02 02:40"
-    },
     {
       "id": "54ee74185644dd73",
       "station": "montreal",
@@ -3748,6 +3720,46 @@
           "rank": 1,
           "status": "advanced"
         }
+      ]
+    },
+    {
+      "id": "15a30bd48f554ef8",
+      "station": "seoul",
+      "at": "2026-11-21T02:31:45+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Kun LI"
+      ],
+      "china_results": [
+        {
+          "name": "Kun LI",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "77a0bb40a1d80aff",
+      "station": "seoul",
+      "at": "2026-11-21T02:31:45+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Kun LI"
       ]
     }
   ]
