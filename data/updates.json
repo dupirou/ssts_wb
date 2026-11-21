@@ -195,6 +195,7 @@
     "montreal/time/2026-11-01/repechage/women/500/quarterfinal/-": "2026-11-01 23:35",
     "montreal/time/2026-11-01/repechage/women/500/semifinal/-": "2026-11-02 00:08",
     "seoul/entries": "b9eda815ecb867ce",
+    "seoul/rankings": "fd73b15e43faef67",
     "seoul/round/2026-11-20/qualifying/men/1000/heats/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/men/1000/heats/-/results": "official",
     "seoul/round/2026-11-20/qualifying/men/1000/preliminaries/-/groups": "published",
@@ -215,6 +216,7 @@
     "seoul/round/2026-11-20/qualifying/women/500/heats/-/results": "official",
     "seoul/round/2026-11-21/main/men/1500/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/main/men/500/final/-/groups": "published",
+    "seoul/round/2026-11-21/main/men/500/final/-/results": "official",
     "seoul/round/2026-11-21/main/men/500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-21/main/men/500/quarterfinal/-/results": "official",
     "seoul/round/2026-11-21/main/men/500/semifinal/-/groups": "published",
@@ -499,41 +501,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "92d0115bfa2f32e6",
-      "station": "montreal",
-      "at": "2026-10-30T19:31:20+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": []
-    },
-    {
-      "id": "384f78a8285dad7e",
-      "station": "montreal",
-      "at": "2026-10-30T20:01:22+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": [
-        "Bohao ZHANG",
-        "Kerui SONG",
-        "Long SUN",
-        "Yiding ZHU"
-      ]
-    },
     {
       "id": "2d6174f06257b293",
       "station": "montreal",
@@ -3674,6 +3641,59 @@
       "kind": "groups",
       "heats": 2,
       "china": []
+    },
+    {
+      "id": "09fc05c7ee2cfdbb",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-21T06:21:32+00:00"
+    },
+    {
+      "id": "ab8f377fceed0743",
+      "station": "seoul",
+      "at": "2026-11-21T06:21:32+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Teun BOER",
+          "country": "NED"
+        },
+        {
+          "rank": 1,
+          "name": "Jeongmin LEE",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Justin LIU",
+          "country": "USA"
+        },
+        {
+          "rank": 3,
+          "name": "Mathieu PELLETIER",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
+        }
+      ]
     }
   ]
 }

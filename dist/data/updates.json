@@ -2,6 +2,59 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "ab8f377fceed0743",
+      "station": "seoul",
+      "at": "2026-11-21T06:21:32+00:00",
+      "local_date": "2026-11-21",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Teun BOER",
+          "country": "NED"
+        },
+        {
+          "rank": 1,
+          "name": "Jeongmin LEE",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Justin LIU",
+          "country": "USA"
+        },
+        {
+          "rank": 3,
+          "name": "Mathieu PELLETIER",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
+        }
+      ]
+    },
+    {
+      "id": "09fc05c7ee2cfdbb",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-21T06:21:32+00:00"
+    },
+    {
       "id": "bcfa8b002e6ae73d",
       "station": "seoul",
       "at": "2026-11-21T06:11:36+00:00",
@@ -3241,41 +3294,6 @@
           "name_latin": "Yan ZHANG"
         }
       ]
-    },
-    {
-      "id": "384f78a8285dad7e",
-      "station": "montreal",
-      "at": "2026-10-30T20:01:22+00:00",
-      "local_date": "2026-10-30",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": [
-        "张柏浩",
-        "宋柯睿",
-        "孙龙",
-        "朱祎玎"
-      ]
-    },
-    {
-      "id": "92d0115bfa2f32e6",
-      "station": "montreal",
-      "at": "2026-10-30T19:31:20+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": []
     }
   ]
 }
