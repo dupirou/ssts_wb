@@ -2,6 +2,25 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "03971ad36ee06e86",
+      "station": "seoul",
+      "at": "2026-11-21T03:01:36+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "张柏浩",
+        "孙龙",
+        "张子夏"
+      ]
+    },
+    {
       "id": "79dd76faf367df20",
       "station": "seoul",
       "at": "2026-11-21T02:51:42+00:00",
@@ -3368,21 +3387,6 @@
         "公俐",
         "张延"
       ]
-    },
-    {
-      "id": "44d5a0d2eaf9f1cf",
-      "station": "montreal",
-      "at": "2026-10-30T14:11:22+00:00",
-      "local_date": "2026-10-31",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 5,
-      "china": []
     }
   ]
 }
