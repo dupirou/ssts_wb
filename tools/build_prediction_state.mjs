@@ -185,6 +185,21 @@ export function buildPredictionState(heatsDir = HEATS_DIR) {
     h2hSorted[k] = h2hMap.get(k);
   }
 
+  const rating = ratingEngine.toJSON();
+  // One preseason adjustment at the 2025/26 checkpoint. Live replay then updates
+  // RUS independently. Give the seed one regularization unit of evidence.
+  if (eventsIdx.items.map(event => event.season).sort().at(-1) === '2025/26') {
+    const tau = V15_RATING_CONFIG.fedPriorTau;
+    for (const gender of ['men', 'women']) {
+      for (const distance of [500, 1000, 1500]) {
+        const china = rating.fedStats[`CHN:${gender}:${distance}`];
+        if (!china) continue;
+        const mean = china[0] / (china[1] + tau);
+        rating.fedStats[`RUS:${gender}:${distance}`] = [mean * (tau + tau), tau];
+      }
+    }
+  }
+
   return {
     schema_version: 1,
     generated_from: '2022/23-2025/26',
@@ -197,7 +212,7 @@ export function buildPredictionState(heatsDir = HEATS_DIR) {
     athlete_countries: athleteCountries,
     theta_by_distance: thetaByDistance,
     temp_by_distance: tempByDistance,
-    rating: ratingEngine.toJSON(),
+    rating,
     opening: openingTracker.toJSON(),
     pace: paceTracker.toJSON(),
     incident: incidentModel.toJSON(),
