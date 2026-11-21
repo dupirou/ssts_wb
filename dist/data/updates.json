@@ -2,6 +2,67 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "8815f9ca9e32f452",
+      "station": "seoul",
+      "at": "2026-11-21T05:41:36+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
+      "id": "519945b316b82a2d",
+      "station": "seoul",
+      "at": "2026-11-21T05:41:36+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张珈宁",
+        "宋佳蕊",
+        "公俐",
+        "张延"
+      ],
+      "china_results": [
+        {
+          "name": "张珈宁",
+          "rank": 5,
+          "status": "out",
+          "name_latin": "Jianing ZHANG"
+        },
+        {
+          "name": "宋佳蕊",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out",
+          "name_latin": "Jiarui SONG"
+        },
+        {
+          "name": "公俐",
+          "rank": 3,
+          "status": "out",
+          "name_latin": "Li GONG"
+        },
+        {
+          "name": "张延",
+          "rank": 5,
+          "status": "out",
+          "name_latin": "Yan ZHANG"
+        }
+      ]
+    },
+    {
       "id": "d978ff604576da1f",
       "station": "seoul",
       "at": "2026-11-21T05:21:34+00:00",
@@ -3282,66 +3343,6 @@
           "name_latin": "Yan ZHANG"
         }
       ]
-    },
-    {
-      "id": "61c02ca70827244a",
-      "station": "montreal",
-      "at": "2026-10-30T18:11:25+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张柏浩",
-        "李坤",
-        "孙龙",
-        "张子夏"
-      ],
-      "china_results": [
-        {
-          "name": "张柏浩",
-          "rank": 3,
-          "status": "repechage",
-          "name_latin": "Bohao ZHANG"
-        },
-        {
-          "name": "李坤",
-          "rank": 3,
-          "status": "repechage",
-          "name_latin": "Kun LI"
-        },
-        {
-          "name": "孙龙",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Long SUN"
-        },
-        {
-          "name": "张子夏",
-          "rank": 3,
-          "status": "repechage",
-          "name_latin": "Zixia ZHANG"
-        }
-      ]
-    },
-    {
-      "id": "f48bc67a52e2c6b3",
-      "station": "montreal",
-      "at": "2026-10-30T17:51:26+00:00",
-      "local_date": "2026-10-31",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": []
     }
   ]
 }

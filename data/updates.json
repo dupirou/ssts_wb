@@ -220,6 +220,8 @@
     "seoul/round/2026-11-21/main/men/5000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/main/mixed/2000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/main/women/1000/quarterfinal/-/groups": "published",
+    "seoul/round/2026-11-21/main/women/1000/quarterfinal/-/results": "official",
+    "seoul/round/2026-11-21/main/women/1000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/main/women/3000/semifinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-21/repechage/men/1500/quarterfinal/-/results": "official",
@@ -493,62 +495,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "f48bc67a52e2c6b3",
-      "station": "montreal",
-      "at": "2026-10-30T17:51:26+00:00",
-      "local_date": "2026-10-31",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": []
-    },
-    {
-      "id": "61c02ca70827244a",
-      "station": "montreal",
-      "at": "2026-10-30T18:11:25+00:00",
-      "local_date": "2026-10-30",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Bohao ZHANG",
-        "Kun LI",
-        "Long SUN",
-        "Zixia ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Bohao ZHANG",
-          "rank": 3,
-          "status": "repechage"
-        },
-        {
-          "name": "Kun LI",
-          "rank": 3,
-          "status": "repechage"
-        },
-        {
-          "name": "Long SUN",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Zixia ZHANG",
-          "rank": 3,
-          "status": "repechage"
-        }
-      ]
-    },
     {
       "id": "830700f1bf5b6d07",
       "station": "montreal",
@@ -3726,6 +3672,63 @@
           "status": "out"
         }
       ]
+    },
+    {
+      "id": "519945b316b82a2d",
+      "station": "seoul",
+      "at": "2026-11-21T05:41:36+00:00",
+      "local_date": "2026-11-21",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 5,
+          "status": "out"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 5,
+          "status": "out"
+        }
+      ]
+    },
+    {
+      "id": "8815f9ca9e32f452",
+      "station": "seoul",
+      "at": "2026-11-21T05:41:36+00:00",
+      "local_date": "2026-11-21",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
     }
   ]
 }
