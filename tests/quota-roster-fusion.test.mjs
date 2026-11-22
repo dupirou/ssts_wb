@@ -161,11 +161,34 @@ test('Real data pipeline: zero writes to data/heats/, positive cross-tier correl
     assert.ok(eligibleZhNames.has(zh), `${zh} must be in eligible national team selection pool`);
   }
 
-  // Verify 2026/27 Top-40 world ranking injection
+  // Verify 2026/27 Top-40 world ranking injection, world_ranks, wt_2026_27, and top40Watch
   assert.deepEqual(pool.men.top40Counts, { 500: 4, 1000: 4, 1500: 3 });
-  assert.deepEqual(pool.men.eligible.find((c) => c.athlete_id === 'skr-6784')?.world_ranking_top40_distances, [500, 1000, 1500]);
+  const sunLong = pool.men.eligible.find((c) => c.athlete_id === 'skr-6784');
+  assert.deepEqual(sunLong?.world_ranking_top40_distances, [500, 1000, 1500]);
+  assert.equal(sunLong?.world_ranks?.[1500]?.rank, 6);
+  assert.equal(sunLong?.world_ranks?.[1500]?.in_top40, true);
+  assert.ok(sunLong?.wt_2026_27 && sunLong.wt_2026_27.stops_count >= 3);
   assert.deepEqual(pool.men.eligible.find((c) => c.athlete_id === 'skr-8157')?.world_ranking_top40_distances, [1500]);
   assert.deepEqual(pool.men.eligible.find((c) => c.athlete_id === 'skr-18320')?.world_ranking_top40_distances, [1000]);
+
+  for (const gender of ['women', 'men']) {
+    const watch = pool[gender].top40Watch;
+    assert.ok(watch && typeof watch === 'object');
+    for (const d of [500, 1000, 1500]) {
+      const w = watch[d];
+      assert.equal(w.distance_m, d);
+      assert.equal(w.cutoff_rank, 40);
+      assert.ok(w.slots === 3 || w.slots === 4);
+      assert.ok(typeof w.cutoff_points === 'number' && w.cutoff_points > 0);
+      assert.ok(typeof w.top40_total_chn === 'number');
+      assert.ok(typeof w.top40_active_chn === 'number');
+      assert.equal(w.buffer_active, w.top40_active_chn - 3);
+      assert.ok(['SAFE', 'TIGHT', 'BELOW'].includes(w.status));
+      assert.ok(Array.isArray(w.skaters) && w.skaters.length > 0);
+    }
+  }
+  assert.equal(pool.men.top40Watch[1500].status, 'TIGHT');
+  assert.equal(pool.women.top40Watch[500].status, 'SAFE');
 
   // Verify milp-eng candidate contract on every eligible candidate
   for (const group of [pool.women.eligible, pool.men.eligible]) {

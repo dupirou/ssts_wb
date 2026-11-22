@@ -763,6 +763,13 @@ export async function privateAnalysis(request, env, preparedRounds) {
   const sig = Uint8Array.from(parts[2].match(/../g), (s) => parseInt(s, 16));
   if (!(await crypto.subtle.verify('HMAC', await signingKey(secret), sig, encoder.encode(parts[1]))))
     return reply(401, {});
+  if (data.action === 'roster') {
+    try {
+      return reply(200, await asset(env, '/data/quota_roster/chn_roster_forecast.json'));
+    } catch {
+      return reply(503, {});
+    }
+  }
   if (
     data.action !== 'round' ||
     !['men', 'women'].includes(data.gender) ||

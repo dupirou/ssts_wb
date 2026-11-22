@@ -93,12 +93,26 @@
   const DIST_KEYS = ['500', '1000', '1500', 'relay'];
   const DIST_LABELS = { 500: '500m', 1000: '1000m', 1500: '1500m', relay: '接力' };
 
-  const pct = (v, digits = 1) => ((Number(v) || 0) * 100).toFixed(digits) + '%';
-  const fmtSigned = (v, digits = 2) => {
+  const ZONE_META = {
+    SAFE: { label: '主力安全', cls: 'is-safe' },
+    PROTECT: { label: '保席临界', cls: 'is-protect' },
+    CHASE: { label: '冲席边缘', cls: 'is-chase' },
+    INACTIVE_TOP40: { label: '未出战老积分', cls: 'is-inactive' },
+    INACTIVE: { label: '未出战老积分', cls: 'is-inactive' },
+    OUT: { label: '前40外', cls: 'is-out' }
+  };
+
+  const SPECIALTY_LABELS = {
+    sprint_relay: '短距离 / 接力',
+    mid_long: '中长距离',
+    all_round: '全能主力'
+  };
+
+  const formatSignedMargin = (v) => {
     const n = Number(v);
     if (!Number.isFinite(n)) return '—';
-    const fixed = n.toFixed(digits);
-    return n > 0 ? '+' + fixed : fixed;
+    const r = Math.round(n);
+    return r > 0 ? '+' + r : String(r);
   };
   const countryLabel = (code) => (COUNTRY_NAMES[code] ? `${COUNTRY_NAMES[code]} ${code}` : code);
   const normNameKey = (name) =>
@@ -111,9 +125,28 @@
       .sort()
       .join('|');
 
+  const BUILTIN_CHN_NAMES = [
+    ['Chutong ZHANG', '张楚桐'],
+    ['Li GONG', '公俐'],
+    ['Long SUN', '孙龙'],
+    ['Bohao ZHANG', '张柏浩'],
+    ['Ye WANG', '王晔'],
+    ['Xinran WANG', '王欣然'],
+    ['Jiarui SONG', '宋佳蕊'],
+    ['Jianing ZHANG', '张珈宁'],
+    ['Yan ZHANG', '张延'],
+    ['Kun LI', '李坤'],
+    ['Yiding ZHU', '朱祎玎'],
+    ['Kerui SONG', '宋柯睿'],
+    ['Zixia ZHANG', '张子夏']
+  ];
+
   function buildAthleteLookup(forecast) {
     const byId = new Map();
     const byNameKey = new Map();
+    for (const [en, zh] of BUILTIN_CHN_NAMES) {
+      byNameKey.set(normNameKey(en), { name_en: en, name_zh: zh });
+    }
     const ingest = (list) => {
       for (const item of list || []) {
         if (!item) continue;
@@ -157,11 +190,18 @@
     return item.name_zh || item.name_en || id;
   }
 
+  function extractRankNumber(val) {
+    if (Number.isFinite(val)) return val;
+    if (val && typeof val === 'object' && Number.isFinite(val.rank)) return val.rank;
+    return null;
+  }
+
   function topRankedDistance(worldRanks) {
     let bestDist = null;
     let bestRank = Infinity;
-    for (const [dist, rank] of Object.entries(worldRanks || {})) {
-      if (Number.isFinite(rank) && rank < bestRank) {
+    for (const [dist, raw] of Object.entries(worldRanks || {})) {
+      const rank = extractRankNumber(raw);
+      if (rank != null && rank < bestRank) {
         bestRank = rank;
         bestDist = dist;
       }
@@ -169,60 +209,125 @@
     return bestDist ? { dist: bestDist, rank: bestRank } : null;
   }
 
-  function skillSummary(candidate) {
-    const skills = candidate.skills || candidate.distances || candidate.mu_sigma;
-    if (skills && typeof skills === 'object') {
-      let best = null;
-      for (const d of ['500', '1000', '1500']) {
-        const entry = skills[d] || skills[Number(d)];
-        if (entry && Number.isFinite(entry.mu)) {
-          const cons = entry.mu - 2 * (Number.isFinite(entry.sigma) ? entry.sigma : 0);
-          if (!best || cons > best.cons) {
-            best = {
-              dist: d,
-              mu: entry.mu,
-              sigma: Number.isFinite(entry.sigma) ? entry.sigma : null,
-              cons
-            };
-          }
-        }
-      }
-      if (best) {
-        return {
-          label: `${best.dist}m μ ± σ`,
-          text:
-            best.sigma != null
-              ? `${best.mu.toFixed(2)} ± ${best.sigma.toFixed(2)}`
-              : best.mu.toFixed(2),
-          detail: ['500', '1000', '1500']
-            .map((d) => {
-              const e = skills[d] || skills[Number(d)];
-              return e && Number.isFinite(e.mu)
-                ? `${d}m ${e.mu.toFixed(2)}±${(e.sigma ?? 0).toFixed(2)}`
-                : null;
-            })
-            .filter(Boolean)
-            .join(' · ')
-        };
-      }
+  function formatWorldRanks(worldRanks) {
+    if (!worldRanks || typeof worldRanks !== 'object') return '暂无世界排名';
+    const parts = [];
+    for (const d of ['500', '1000', '1500']) {
+      const rank = extractRankNumber(worldRanks[d] ?? worldRanks[d + 'm']);
+      if (rank != null) parts.push(`${d}m #${rank}`);
     }
-    if (Number.isFinite(candidate.mu)) {
-      return {
-        label: '实力 μ ± σ',
-        text:
-          candidate.sigma != null
-            ? `${candidate.mu.toFixed(2)} ± ${candidate.sigma.toFixed(2)}`
-            : candidate.mu.toFixed(2),
-        detail: ''
-      };
+    return parts.length ? parts.join(' · ') : '暂无世界排名';
+  }
+
+  function formatRecommendedEntries(candidate, preferredEntries) {
+    const fromPreferred = DIST_KEYS.filter((d) =>
+      (preferredEntries?.[d] || []).includes(candidate.athlete_id)
+    );
+    const raw = fromPreferred.length
+      ? fromPreferred
+      : Array.isArray(candidate.recommended_entries)
+        ? candidate.recommended_entries
+        : [];
+    const normalized = [];
+    for (const item of raw) {
+      const key = String(item).replace(/m$/i, '');
+      if (key && !normalized.includes(key)) normalized.push(key);
     }
-    const vs = candidate.value_scores || {};
-    const peak = Math.max(vs[500] || 0, vs[1000] || 0, vs[1500] || 0);
-    return {
-      label: '峰值评分',
-      text: peak > 0 ? peak.toFixed(2) : '—',
-      detail: `500m ${(vs[500] || 0).toFixed(2)} · 1000m ${(vs[1000] || 0).toFixed(2)} · 1500m ${(vs[1500] || 0).toFixed(2)}`
-    };
+    if (!normalized.length) return '—';
+    return normalized.map((k) => DIST_LABELS[k] || `${k}m`).join(' · ');
+  }
+
+  function renderTop40Watch(h, forecast, gender) {
+    const watchByDist = forecast.top40_watch?.[gender];
+    if (!watchByDist || typeof watchByDist !== 'object') return null;
+    const distCols = ['500', '1000', '1500']
+      .map((d) => [d, watchByDist[d] || watchByDist[Number(d)]])
+      .filter(([, col]) => col && typeof col === 'object');
+    if (!distCols.length) return null;
+
+    return h(
+      'div',
+      { class: 'roster-top40-watch', 'aria-label': '世界排名 Top-40 与 4 席名额守门' },
+      h(
+        'div',
+        { class: 'roster-subhead' },
+        h('h3', { text: '世界排名 Top-40 与 4 席名额线' }),
+        h('span', {
+          class: 'faint tiny',
+          text: '单项至少 3 人进 Top-40 解锁 4 席特例 · 依现役积分与 #40 门槛线对照'
+        })
+      ),
+      h(
+        'div',
+        { class: 'roster-top40-grid' },
+        ...distCols.map(([d, col]) => {
+          const slots = col.slots ?? 3;
+          const slotText = slots >= 4 ? `${slots} 席特例` : `${slots} 席常规`;
+          const activeCount = col.top40_active_chn ?? 0;
+          const totalCount = col.top40_total_chn;
+          const countText =
+            totalCount != null && totalCount !== activeCount
+              ? `现役前40: ${activeCount}人（总${totalCount}人）`
+              : `现役前40: ${activeCount}人`;
+          const cutoffText = `#40 门槛线: ${col.cutoff_points ?? '—'} 分`;
+          const skaters = Array.isArray(col.skaters) ? col.skaters : [];
+          const statusCls =
+            col.status === 'SAFE' ? 'is-safe' : col.status === 'TIGHT' ? 'is-warn' : 'is-danger';
+
+          return h(
+            'div',
+            { class: 'roster-top40-col', dataset: { distance: d } },
+            h(
+              'div',
+              { class: 'roster-top40-col-head' },
+              h(
+                'div',
+                { class: 'roster-top40-title' },
+                h('b', { text: `${d}m` }),
+                h('span', { class: `roster-status-pill ${statusCls}`, text: slotText })
+              ),
+              h(
+                'div',
+                { class: 'roster-top40-meta num faint' },
+                h('span', { text: countText }),
+                h('span', { text: cutoffText })
+              )
+            ),
+            skaters.length
+              ? h(
+                  'ul',
+                  { class: 'roster-top40-list' },
+                  ...skaters.map((s) => {
+                    const zm = ZONE_META[s.zone] || ZONE_META.OUT;
+                    const margin = formatSignedMargin(s.margin_vs_top40);
+                    const marginNum = Number(s.margin_vs_top40);
+                    const marginCls = marginNum > 0 ? 'is-pos' : marginNum < 0 ? 'is-neg' : '';
+                    return h(
+                      'li',
+                      { class: `roster-top40-row ${zm.cls}` },
+                      h('span', { class: 'roster-top40-rank num', text: `#${s.rank ?? '—'}` }),
+                      h('span', {
+                        class: 'roster-top40-name',
+                        text: s.name_zh || s.name_en || s.athlete_id || '未知选手'
+                      }),
+                      h(
+                        'span',
+                        { class: 'roster-top40-pts num' },
+                        `${s.points ?? '—'} 分`,
+                        h('small', {
+                          class: `roster-top40-margin ${marginCls}`,
+                          text: ` (${margin})`
+                        })
+                      ),
+                      h('span', { class: `roster-zone-pill ${zm.cls}`, text: zm.label })
+                    );
+                  })
+                )
+              : h('p', { class: 'faint tiny', text: '暂无中国队世界排名记录' })
+          );
+        })
+      )
+    );
   }
 
   function renderQuotaSection(h, quotas, forecast, state, lookup) {
@@ -300,11 +405,12 @@
     );
 
     // Penalty warnings & bans bar
-    const chnBans = forecast.penalty_bans_applied || [];
-    const chnWarnings = forecast.penalty_warnings_chn || [];
     const allBans =
-      forecast.penalty_bans_all_members || quotas.world_tour_2026_27?.next_stop_penalty_bans || [];
+      forecast?.penalty_bans_all_members || quotas.world_tour_2026_27?.next_stop_penalty_bans || [];
     const allWarnings = quotas.world_tour_2026_27?.one_away_from_ban_warnings || [];
+    const chnBans = forecast?.penalty_bans_applied || allBans.filter((b) => b.country === 'CHN');
+    const chnWarnings =
+      forecast?.penalty_warnings_chn || allWarnings.filter((w) => w.country === 'CHN');
 
     const penaltyBar = h(
       'div',
@@ -495,6 +601,8 @@
       )
     );
 
+    const top40WatchPanel = forecast ? renderTop40Watch(h, forecast, gender) : null;
+
     return h(
       'section',
       { class: 'panel roster-section', 'aria-label': '名额与规则看板' },
@@ -504,17 +612,37 @@
         h('h2', { text: '名额与规则看板' }),
         h('p', {
           text: isWt
-            ? `下一站：${forecast.next_wt_stop?.city || 'Shanghai'} (${forecast.next_wt_stop?.date_start || ''})`
+            ? forecast?.next_wt_stop
+              ? `下一站：${forecast.next_wt_stop.city || 'Shanghai'} (${forecast.next_wt_stop.date_start || ''})`
+              : '依据 ISU Communication 2806 核定'
             : '依据 ISU Communication 2805 核定'
         })
       ),
       quotaGrid,
+      top40WatchPanel,
       penaltyBar,
       countriesDetails
     );
   }
 
-  function renderCandidateCard(h, candidate, preferredEntries, lookup, isMain) {
+  function tierBadgeMeta(tier, state) {
+    if (tier === 'core') return { text: '稳固主力', cls: 'is-core' };
+    if (tier === 'bubble') {
+      return {
+        text: state.event === 'wc' ? '第5人压线席位' : '轮换 / 保席边缘',
+        cls: 'is-bubble'
+      };
+    }
+    if (tier === 'cut') {
+      return {
+        text: state.event === 'wc' ? '6缩5 裁撤边缘' : '本季WT轮换候补',
+        cls: 'is-cut'
+      };
+    }
+    return { text: '候选池', cls: 'is-pool' };
+  }
+
+  function renderCandidateCard(h, candidate, preferredEntries, lookup, state, tier) {
     const nm = displayName(candidate, lookup);
     const isDual = candidate.is_dual_eligible === true || candidate.age_group === 'DUAL_ELIGIBLE';
     const ageLabel =
@@ -524,51 +652,22 @@
           : '成年'
         : null;
     const sources = (candidate.data_sources || []).map((s) => SOURCE_LABELS[s] || s);
-    const preferredDists = DIST_KEYS.filter((d) =>
-      (preferredEntries?.[d] || []).includes(candidate.athlete_id)
-    );
-    const skill = skillSummary(candidate);
-    const momentum = candidate.form_momentum ?? candidate.value_scores?.form;
-    const momNum = Number(momentum);
-    const momClass = !Number.isFinite(momNum)
-      ? ''
-      : momNum > 0
-        ? 'is-pos'
-        : momNum < 0
-          ? 'is-neg'
-          : '';
-
-    const bars = DIST_KEYS.map((d) => {
-      const p = candidate.entry_prob_matrix?.[d] ?? 0;
-      const isPref = preferredDists.includes(d);
-      return h(
-        'div',
-        { class: `roster-prob-row${isPref ? ' is-preferred' : ''}` },
-        h(
-          'span',
-          { class: 'roster-prob-dist' },
-          DIST_LABELS[d],
-          isPref
-            ? h('i', { class: 'roster-pref-dot', title: '首选报项', 'aria-label': '首选' })
-            : null
-        ),
-        h(
-          'div',
-          { class: 'roster-prob-track', 'aria-hidden': 'true' },
-          h('div', {
-            class: 'roster-prob-fill',
-            style: { width: Math.min(100, Math.max(0, p * 100)).toFixed(1) + '%' }
-          })
-        ),
-        h('span', { class: 'roster-prob-val num', text: pct(p, 0) })
-      );
-    });
+    const badge = tierBadgeMeta(tier, state);
+    const isMain = tier === 'core' || tier === 'bubble';
+    const specLabel =
+      candidate.specialty_label || SPECIALTY_LABELS[candidate.specialty_tag] || null;
+    const entriesText = formatRecommendedEntries(candidate, preferredEntries);
+    const ranksText = formatWorldRanks(candidate.world_ranks);
+    const noteText =
+      candidate.status_note ||
+      candidate.recent_highlight ||
+      (tier === 'core' ? '本季主力阵容' : '国家队合格候选池');
 
     return h(
       'article',
       {
-        class: `roster-skater-card${isMain ? ' is-main' : ''}`,
-        dataset: { athleteId: candidate.athlete_id }
+        class: `roster-skater-card${isMain ? ' is-main' : ''} is-${tier}`,
+        dataset: { athleteId: candidate.athlete_id, tier }
       },
       h(
         'div',
@@ -579,12 +678,7 @@
           h('b', { text: nm.zh }),
           nm.en ? h('small', { class: 'faint', text: nm.en }) : null
         ),
-        h(
-          'span',
-          { class: 'roster-main-prob num' },
-          '正选 ',
-          h('strong', { text: pct(candidate.main_roster_prob) })
-        )
+        h('span', { class: `roster-tier-badge ${badge.cls}`, text: badge.text })
       ),
       h(
         'div',
@@ -594,32 +688,33 @@
           : null,
         ...channelAndTop40Tags(h, candidate, lookup),
         ...sources.map((src) => h('span', { class: 'roster-tag is-source', text: src })),
-        preferredDists.length
-          ? h(
-              'span',
-              { class: 'roster-tag is-pref-summary' },
-              '首选 ' + preferredDists.map((d) => DIST_LABELS[d]).join('·')
-            )
+        specLabel
+          ? h('span', {
+              class: `roster-tag is-specialty is-spec-${candidate.specialty_tag || 'default'}`,
+              text: specLabel
+            })
           : null
       ),
-      h('div', { class: 'roster-prob-matrix' }, ...bars),
       h(
-        'div',
-        { class: 'roster-skater-foot' },
+        'dl',
+        { class: 'roster-skater-facts' },
         h(
           'div',
-          { class: 'roster-metric', title: skill.detail || undefined },
-          h('small', { class: 'faint', text: skill.label }),
-          h('span', { class: 'num', text: skill.text })
+          { class: 'roster-fact-row' },
+          h('dt', { text: '主攻 / 推荐报项' }),
+          h('dd', { text: entriesText })
         ),
         h(
           'div',
-          { class: 'roster-metric' },
-          h('small', { class: 'faint', text: '状态动量' }),
-          h('span', {
-            class: `roster-momentum num ${momClass}`,
-            text: fmtSigned(momentum)
-          })
+          { class: 'roster-fact-row' },
+          h('dt', { text: '世界排名' }),
+          h('dd', { class: 'num', text: ranksText })
+        ),
+        h(
+          'div',
+          { class: 'roster-fact-row is-note' },
+          h('dt', { text: '位置与风险说明' }),
+          h('dd', { text: noteText })
         )
       )
     );
@@ -627,16 +722,85 @@
 
   function renderMainSection(h, scenarioData, forecast, state, lookup) {
     const preferred = scenarioData.preferred_main_roster || { athlete_ids: [], entries: {} };
-    const mainSet = new Set(preferred.athlete_ids || []);
     const candidates = scenarioData.candidates || [];
-    const mainCandidates = candidates.filter((c) => mainSet.has(c.athlete_id));
-    const otherCandidates = candidates.filter((c) => !mainSet.has(c.athlete_id));
+    const byId = new Map(candidates.map((c) => [c.athlete_id, c]));
 
-    const cardsWrap = h(
+    let coreIds, bubbleIds, cutIds;
+    if (scenarioData.roster_tiers) {
+      coreIds = (scenarioData.roster_tiers.core_ids || []).filter((id) => byId.has(id));
+      bubbleIds = (scenarioData.roster_tiers.bubble_ids || []).filter((id) => byId.has(id));
+      cutIds = (scenarioData.roster_tiers.cut_ids || []).filter((id) => byId.has(id));
+    } else {
+      const preferredIds = (
+        preferred.ordered_ids?.length ? preferred.ordered_ids : preferred.athlete_ids || []
+      ).filter((id) => byId.has(id));
+      const coreCount =
+        preferredIds.length === 0
+          ? 0
+          : Math.max(1, preferredIds.length <= 5 ? preferredIds.length - 1 : 4);
+      coreIds = preferredIds.slice(0, coreCount);
+      bubbleIds = preferredIds.slice(coreCount);
+      const prefSet = new Set(preferredIds);
+      cutIds = candidates
+        .filter((c) => !prefSet.has(c.athlete_id) && c.qualification_path === 'WT_2026_27')
+        .map((c) => c.athlete_id);
+    }
+
+    const assignedSet = new Set([...coreIds, ...bubbleIds, ...cutIds]);
+    const coreCandidates = coreIds.map((id) => byId.get(id)).filter(Boolean);
+    const bubbleCandidates = bubbleIds.map((id) => byId.get(id)).filter(Boolean);
+    const cutCandidates = cutIds.map((id) => byId.get(id)).filter(Boolean);
+    const otherCandidates = candidates.filter((c) => !assignedSet.has(c.athlete_id));
+
+    const coreBlock = h(
       'div',
-      { class: 'roster-main-grid' },
-      ...mainCandidates.map((c) => renderCandidateCard(h, c, preferred.entries, lookup, true))
+      { class: 'roster-tier-block is-core' },
+      h(
+        'div',
+        { class: 'roster-subhead' },
+        h('h3', { text: `稳固主力（${coreCandidates.length} 人）` }),
+        h('span', { class: 'faint tiny', text: '现役主力核心 · 出赛顺位稳固' })
+      ),
+      h(
+        'div',
+        { class: 'roster-main-grid' },
+        ...coreCandidates.map((c) =>
+          renderCandidateCard(h, c, preferred.entries, lookup, state, 'core')
+        )
+      )
     );
+
+    const bubbleBlock =
+      bubbleCandidates.length || cutCandidates.length
+        ? h(
+            'div',
+            { class: 'roster-tier-block is-bubble' },
+            h(
+              'div',
+              { class: 'roster-subhead' },
+              h('h3', {
+                text: `淘汰 / 轮换边缘（${bubbleCandidates.length + cutCandidates.length} 人）`
+              }),
+              h('span', {
+                class: 'faint tiny',
+                text:
+                  state.event === 'wc'
+                    ? '5 人上限压线席位与 6 缩 5 裁撤竞争'
+                    : '现役轮换 / 保席边缘与队内竞争'
+              })
+            ),
+            h(
+              'div',
+              { class: 'roster-main-grid' },
+              ...bubbleCandidates.map((c) =>
+                renderCandidateCard(h, c, preferred.entries, lookup, state, 'bubble')
+              ),
+              ...cutCandidates.map((c) =>
+                renderCandidateCard(h, c, preferred.entries, lookup, state, 'cut')
+              )
+            )
+          )
+        : null;
 
     const allToggle =
       otherCandidates.length > 0
@@ -650,63 +814,11 @@
               'div',
               { class: 'roster-main-grid' },
               ...otherCandidates.map((c) =>
-                renderCandidateCard(h, c, preferred.entries, lookup, false)
+                renderCandidateCard(h, c, preferred.entries, lookup, state, 'pool')
               )
             )
           )
         : null;
-
-    // Top-3 lineups
-    const top3 = scenarioData.top_3_lineups || [];
-    const top3Grid = h(
-      'div',
-      { class: 'roster-lineups-grid' },
-      ...top3.map((lu, idx) =>
-        h(
-          'details',
-          { class: 'roster-lineup-card', open: idx === 0 },
-          h(
-            'summary',
-            { class: 'roster-lineup-head' },
-            h('span', { class: 'roster-lineup-rank num', text: `方案 #${idx + 1}` }),
-            idx === 0 ? h('span', { class: 'roster-tag is-pref-summary', text: '高频首选' }) : null,
-            h('b', { class: 'roster-lineup-freq num', text: `出现频率 ${pct(lu.frequency)}` }),
-            h('small', {
-              class: 'faint num',
-              text: `均值 ${Number(lu.avg_objective || 0).toFixed(2)}`
-            })
-          ),
-          h(
-            'div',
-            { class: 'roster-lineup-body' },
-            h(
-              'div',
-              { class: 'roster-lineup-members' },
-              ...(lu.athlete_ids || []).map((id) =>
-                h('span', { class: 'roster-member-chip', text: shortName(id, lookup) })
-              )
-            ),
-            h(
-              'dl',
-              { class: 'roster-lineup-entries' },
-              ...DIST_KEYS.map((d) =>
-                h(
-                  'div',
-                  { class: 'roster-lineup-dist' },
-                  h('dt', { text: DIST_LABELS[d] }),
-                  h('dd', {
-                    text:
-                      (lu.modal_entries?.[d] || [])
-                        .map((id) => shortName(id, lookup))
-                        .join(' · ') || '—'
-                  })
-                )
-              )
-            )
-          )
-        )
-      )
-    );
 
     const excluded = forecast.excluded_by_age?.[state.gender] || [];
     const excludedNote = excluded.length
@@ -722,25 +834,19 @@
 
     return h(
       'section',
-      { class: 'panel roster-section', 'aria-label': '正选大名单与报项概率矩阵' },
+      { class: 'panel roster-section', 'aria-label': '主力阵容与淘汰边缘' },
       h(
         'div',
         { class: 'panel-head' },
-        h('h2', { text: '中国队正选大名单与报项概率矩阵' }),
+        h('h2', { text: '中国队主力与淘汰 / 轮换边缘' }),
         h('p', {
           class: 'num',
-          text: `正选 ${mainCandidates.length} 人 · 模拟 ${scenarioData.feasible_draws || scenarioData.draws || 1000} 次 · 不同组合 ${scenarioData.distinct_lineups || '—'} 种`
+          text: `正选 ${coreCandidates.length + bubbleCandidates.length} 人（稳固 ${coreCandidates.length} · 压线/轮换 ${bubbleCandidates.length}）${cutCandidates.length ? ` · 裁撤/轮换边缘 ${cutCandidates.length} 人` : ''}`
         })
       ),
-      cardsWrap,
+      coreBlock,
+      bubbleBlock,
       allToggle,
-      h(
-        'div',
-        { class: 'roster-subhead' },
-        h('h3', { text: 'Top-3 最高频完整阵容方案' }),
-        h('span', { class: 'faint tiny', text: '点击可折叠或展开单项分工' })
-      ),
-      top3Grid,
       excludedNote
     );
   }
@@ -784,6 +890,10 @@
         const roleLabel = ROLE_LABELS[r.role_tag] || r.role_tag;
         const sources = (r.data_sources || []).map((s) => SOURCE_LABELS[s] || s);
         const extraTags = channelAndTop40Tags(h, r, lookup);
+        const base = r.athlete_id ? lookup?.byId.get(r.athlete_id) : null;
+        const qPath = r.qualification_path || base?.qualification_path || null;
+        const qualText = QUAL_PATH_LABELS[qPath] || '合格候选池';
+        const reserveNote = r.status_note || r.recent_highlight;
 
         return h(
           'article',
@@ -815,26 +925,10 @@
           h(
             'dl',
             { class: 'roster-reserve-stats' },
-            h(
-              'div',
-              {},
-              h('dt', { text: '正选边缘概率' }),
-              h('dd', { class: 'num', text: pct(r.main_roster_prob) })
-            ),
             h('div', {}, h('dt', { text: '首要顶替对象' }), h('dd', { text: repName })),
-            h(
-              'div',
-              {},
-              h('dt', { text: '边际替代损失' }),
-              h('dd', {
-                class: 'num',
-                text: r.marginal_loss != null ? Number(r.marginal_loss).toFixed(4) : '—'
-              })
-            )
+            h('div', {}, h('dt', { text: '选拔通道' }), h('dd', { text: qualText }))
           ),
-          r.recent_highlight
-            ? h('p', { class: 'roster-highlight faint', text: r.recent_highlight })
-            : null
+          reserveNote ? h('p', { class: 'roster-highlight faint', text: reserveNote }) : null
         );
       })
     );
@@ -861,17 +955,15 @@
         'section',
         { class: 'season-head' },
         h('h1', { text: '中国队阵容与名额' }),
-        h('p', { class: 'lead', text: '2026/27 ISU 名额核算与动态阵容预测' })
+        h('p', { class: 'lead', text: '2026/27 ISU 名额核算' })
       ),
-      h('p', { class: 'faint', role: 'status', text: '正在读取名额与阵容数据…' })
+      h('p', { class: 'faint', role: 'status', text: '正在读取名额数据…' })
     );
 
-    let quotas, forecast;
+    let quotas;
+    let forecast = null;
     try {
-      const qPromise = prefetched.quotaData || fetchData('quota_roster/quotas_2026_27.json');
-      const fPromise =
-        prefetched.forecastData || fetchData('quota_roster/chn_roster_forecast.json');
-      [quotas, forecast] = await Promise.all([qPromise, fPromise]);
+      quotas = await (prefetched.quotaData || fetchData('quota_roster/quotas_2026_27.json'));
     } catch (_) {
       root.replaceChildren(
         h(
@@ -893,8 +985,36 @@
       return;
     }
 
-    const lookup = buildAthleteLookup(forecast);
+    let lookup = buildAthleteLookup(null);
     const body = h('div', { class: 'roster-body' });
+    const analysisControls = h('div', { class: 'analysis-controls roster-analysis-controls' });
+    const message = h('span', { class: 'analysis-msg faint tiny', role: 'status' });
+    const leadEl = h('p', {
+      class: 'lead',
+      text: `${quotas.season || '2026-2027'} · 更新于 ${(quotas.generated_at || '').slice(0, 10)}`
+    });
+
+    let unlocked = false;
+    try {
+      unlocked = localStorage.getItem('ssts.analysis') === '1';
+    } catch {}
+
+    function rememberAnalysis(value) {
+      unlocked = value;
+      try {
+        if (value) localStorage.setItem('ssts.analysis', '1');
+        else localStorage.removeItem('ssts.analysis');
+      } catch {}
+    }
+
+    const callAnalysis = (data) =>
+      fetch('/internal/analysis', {
+        method: 'POST',
+        credentials: 'same-origin',
+        cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
 
     const syncUrl = () => {
       const url = new URL(location.href);
@@ -958,21 +1078,143 @@
     };
 
     const draw = () => {
+      const quotaSection = renderQuotaSection(h, quotas, unlocked ? forecast : null, state, lookup);
+      if (!unlocked || !forecast) {
+        body.replaceChildren(quotaSection);
+        return;
+      }
       const scenarioKey =
         state.event === 'wc' ? 'world_championships_2027' : 'world_tour_next_stop';
       const scenarioData = forecast.scenarios?.[scenarioKey]?.[state.gender];
       if (!scenarioData) {
         body.replaceChildren(
+          quotaSection,
           h('section', { class: 'panel empty-state' }, h('p', { text: '暂无该场景阵容预测数据' }))
         );
         return;
       }
       body.replaceChildren(
-        renderQuotaSection(h, quotas, forecast, state, lookup),
+        quotaSection,
         renderMainSection(h, scenarioData, forecast, state, lookup),
         renderReservesSection(h, scenarioData, state, lookup)
       );
     };
+
+    async function loadForecast() {
+      message.textContent = '正在加载预测…';
+      if (!analysisControls.querySelector('form, .analysis-lock-bar')) {
+        analysisControls.replaceChildren(message);
+      }
+      const response = await callAnalysis({ action: 'roster' });
+      if ([401, 404].includes(response.status)) {
+        rememberAnalysis(false);
+        forecast = null;
+        lookup = buildAthleteLookup(null);
+        message.textContent = '';
+        analysisControls.replaceChildren();
+        draw();
+        return;
+      }
+      if (!response.ok) throw new Error();
+      forecast = await response.json();
+      lookup = buildAthleteLookup(forecast);
+      leadEl.textContent = `${quotas.season || '2026-2027'} · 更新于 ${forecast.as_of_date || forecast.generated_at?.slice(0, 10) || (quotas.generated_at || '').slice(0, 10)}`;
+      message.textContent = '';
+      analysisControls.replaceChildren();
+      draw();
+    }
+
+    function toggleLockBar() {
+      if (analysisControls.querySelector('.analysis-lock-bar')) {
+        message.textContent = '';
+        analysisControls.replaceChildren();
+        return;
+      }
+      const lock = h('button', {
+        type: 'button',
+        class: 'analysis-btn is-danger',
+        text: '锁定预测'
+      });
+      const cancel = h('button', { type: 'button', class: 'analysis-btn', text: '取消' });
+      const bar = h('div', { class: 'analysis-lock-bar' }, lock, cancel, message);
+      lock.onclick = async () => {
+        lock.disabled = true;
+        try {
+          if (!(await callAnalysis({ action: 'logout' })).ok) throw new Error();
+          rememberAnalysis(false);
+          forecast = null;
+          lookup = buildAthleteLookup(null);
+          message.textContent = '';
+          analysisControls.replaceChildren();
+          draw();
+        } catch {
+          message.textContent = '锁定失败，请重试';
+          lock.disabled = false;
+        }
+      };
+      cancel.onclick = () => {
+        message.textContent = '';
+        analysisControls.replaceChildren();
+      };
+      message.textContent = '';
+      analysisControls.replaceChildren(bar);
+    }
+
+    function login() {
+      if (analysisControls.querySelector('form')) return;
+      const input = h('input', {
+        type: 'password',
+        required: true,
+        autocomplete: 'current-password',
+        'aria-label': '预测密码',
+        placeholder: '输入预测密码'
+      });
+      const submit = h('button', {
+        type: 'submit',
+        class: 'analysis-btn is-primary',
+        text: '解锁'
+      });
+      const form = h('form', { class: 'analysis-login' }, input, submit, message);
+      message.textContent = '';
+      analysisControls.replaceChildren(form);
+      input.focus();
+      form.onsubmit = async (event) => {
+        event.preventDefault();
+        submit.disabled = true;
+        try {
+          const response = await callAnalysis({ action: 'login', password: input.value });
+          if (!response.ok) {
+            message.textContent = response.status === 401 ? '密码有误' : '暂时无法解锁';
+            input.select();
+            return;
+          }
+          input.value = '';
+          rememberAnalysis(true);
+          await loadForecast();
+        } catch {
+          message.textContent = '连接失败，请重试';
+        } finally {
+          submit.disabled = false;
+        }
+      };
+    }
+
+    const titleTrigger = h('button', {
+      type: 'button',
+      text: '中国队阵容与名额',
+      style: { all: 'unset', cursor: 'pointer', touchAction: 'manipulation' }
+    });
+    let taps = 0;
+    let since = 0;
+    titleTrigger.addEventListener('click', () => {
+      if (Date.now() - since > 2500) taps = 0;
+      if (!taps) since = Date.now();
+      if (++taps === 5) {
+        taps = 0;
+        if (unlocked) toggleLockBar();
+        else login();
+      }
+    });
 
     const controls = h(
       'div',
@@ -982,19 +1224,19 @@
     );
 
     root.replaceChildren(
-      h(
-        'section',
-        { class: 'season-head' },
-        h('h1', { text: '中国队阵容与名额' }),
-        h('p', {
-          class: 'lead',
-          text: `${quotas.season || '2026-2027'} · 更新于 ${forecast.as_of_date || forecast.generated_at?.slice(0, 10) || ''}`
-        })
-      ),
+      h('section', { class: 'season-head' }, h('h1', {}, titleTrigger), leadEl),
+      analysisControls,
       controls,
       body
     );
     draw();
+
+    if (unlocked) {
+      await loadForecast().catch(() => {
+        message.textContent = '预测暂时无法加载';
+        analysisControls.replaceChildren(message);
+      });
+    }
   }
 
   site.roster = { render };

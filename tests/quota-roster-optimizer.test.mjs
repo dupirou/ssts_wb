@@ -396,3 +396,108 @@ test('Performance: 1,000 MC MILP draws + 6 reserves completes in < 2.0 s per gen
     );
   }
 });
+
+test('Active WT squad tier classification, cut-skater reserve priority, and bubble replacement targeting', () => {
+  const cfg = loadQuotaRulesConfig();
+  const pool = makeSyntheticPool(12, 808);
+  // Make 7 skaters active WT_2026_27 with clear sprint vs mid-long roles and world rankings
+  for (let i = 0; i < 7; i++) {
+    pool[i].qualification_path = 'WT_2026_27';
+    pool[i].wt_2026_27 = {
+      stops_count: i < 6 ? 3 : 1,
+      stops: i < 6 ? ['montreal-1', 'montreal-2', 'salt-lake-city'] : ['salt-lake-city'],
+      distances_entered: i % 2 === 0 ? [500, 1000] : [1000, 1500],
+      relay_starts: i < 6 ? 3 : 0,
+      final_a_count: i < 4 ? 2 : 0,
+      best_rank: i + 3
+    };
+  }
+  // Core #1..#4 (all-round / strong)
+  for (let i = 0; i < 4; i++) {
+    pool[i].distances[500] = { mu: 2.3 - 0.1 * i, sigma: 0.3 };
+    pool[i].distances[1000] = { mu: 2.2 - 0.1 * i, sigma: 0.3 };
+    pool[i].distances[1500] = { mu: 2.1 - 0.1 * i, sigma: 0.3 };
+    pool[i].world_ranking_top40_distances = [500, 1000, 1500];
+    pool[i].world_ranks = {
+      500: { rank: 8 + i, in_top40: true },
+      1000: { rank: 10 + i, in_top40: true },
+      1500: { rank: 12 + i, in_top40: true }
+    };
+  }
+  // #5 (mid_long bubble) and #6 (sprint_relay bubble) and #7 (sprint_relay cut)
+  pool[4].distances[500] = { mu: 0.5, sigma: 0.35 };
+  pool[4].distances[1000] = { mu: 1.5, sigma: 0.35 };
+  pool[4].distances[1500] = { mu: 1.6, sigma: 0.35 };
+  pool[4].wt_2026_27.distances_entered = [1000, 1500];
+  pool[4].world_ranking_top40_distances = [1000, 1500];
+  pool[4].world_ranks = { 1000: { rank: 20, in_top40: true }, 1500: { rank: 31, in_top40: true } };
+
+  pool[5].distances[500] = { mu: 1.55, sigma: 0.35 };
+  pool[5].distances[1000] = { mu: 0.4, sigma: 0.35 };
+  pool[5].distances[1500] = { mu: 0.3, sigma: 0.35 };
+  pool[5].wt_2026_27.distances_entered = [500];
+  pool[5].world_ranking_top40_distances = [500];
+  pool[5].world_ranks = { 500: { rank: 7, in_top40: true } };
+
+  pool[6].distances[500] = { mu: 1.25, sigma: 0.35 };
+  pool[6].distances[1000] = { mu: 0.2, sigma: 0.35 };
+  pool[6].distances[1500] = { mu: 0.1, sigma: 0.35 };
+  pool[6].wt_2026_27.distances_entered = [500];
+  pool[6].world_ranking_top40_distances = [500];
+  pool[6].world_ranks = { 500: { rank: 29, in_top40: true } };
+
+  // Make non-WT candidate #8 artificially strong on raw mu to prove cut WT skater still wins reserve #1
+  pool[7].qualification_path = 'JWC_2026_27';
+  pool[7].distances[500] = { mu: 1.4, sigma: 0.4 };
+  pool[7].distances[1000] = { mu: 1.3, sigma: 0.4 };
+  pool[7].distances[1500] = { mu: 1.3, sigma: 0.4 };
+
+  // 1) WT mode (nMax=6): 4 core, 2 bubble, 1 cut
+  const wtRes = forecastGender(pool, {
+    config: cfg,
+    constraints: worldTourConstraints(cfg, { fourSkaterDistances: [500, 1000, 1500] }),
+    maxReserves: 2,
+    reserveAllocation: { sprint_relay: 1, mid_long: 1, versatile_upside: 0 },
+    draws: 200
+  });
+  assert.equal(wtRes.roster_tiers.core_ids.length, 4);
+  assert.equal(wtRes.roster_tiers.bubble_ids.length, 2);
+  assert.deepEqual(wtRes.roster_tiers.cut_ids, [pool[6].athlete_id]);
+  assert.equal(wtRes.reserves[0].athlete_id, pool[6].athlete_id, 'Cut WT skater must be Reserve #1');
+  assert.ok(
+    wtRes.roster_tiers.bubble_ids.includes(wtRes.reserves[0].primary_replacement_for),
+    'Cut sprint skater should replace a bubble starter'
+  );
+  assert.equal(wtRes.reserves[0].primary_replacement_for, pool[5].athlete_id);
+  assert.equal(wtRes.reserves[0].roster_tier, 'cut');
+  assert.match(wtRes.reserves[0].status_note, /轮换队员|29/);
+
+  // 2) WC mode (nMax=5): 4 core, 1 bubble, 2 cut
+  const wcRes = forecastGender(pool, {
+    config: cfg,
+    constraints: worldChampionshipConstraints(cfg, 'women'),
+    maxReserves: 6,
+    draws: 200
+  });
+  assert.equal(wcRes.roster_tiers.core_ids.length, 4);
+  assert.equal(wcRes.roster_tiers.bubble_ids.length, 1);
+  assert.equal(wcRes.roster_tiers.cut_ids.length, 2);
+  const top2ResIds = new Set(wcRes.reserves.slice(0, 2).map((r) => r.athlete_id));
+  assert.ok(top2ResIds.has(pool[5].athlete_id) && top2ResIds.has(pool[6].athlete_id));
+
+  // Verify every candidate and reserve carries enriched V2 fields
+  for (const c of wcRes.candidates) {
+    assert.ok(['core', 'bubble', 'cut', 'reserve', 'pool'].includes(c.roster_tier));
+    assert.ok(['sprint_relay', 'mid_long', 'all_round'].includes(c.specialty_tag));
+    assert.ok(['短距离 / 接力', '中长距离', '全能主力'].includes(c.specialty_label));
+    assert.ok(Array.isArray(c.recommended_entries) && c.recommended_entries.length >= 1);
+    assert.equal(typeof c.status_note, 'string');
+    assert.ok(c.status_note.length > 0);
+  }
+  for (const r of wcRes.reserves) {
+    assert.ok(['cut', 'reserve'].includes(r.roster_tier));
+    assert.ok(['sprint_relay', 'mid_long', 'all_round'].includes(r.specialty_tag));
+    assert.ok(Array.isArray(r.recommended_entries) && r.recommended_entries.length >= 1);
+    assert.equal(typeof r.status_note, 'string');
+  }
+});

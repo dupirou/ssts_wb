@@ -178,6 +178,9 @@ async function handleRequest(request, env, preparedRounds) {
   const url = new URL(request.url);
   if (url.pathname === '/internal/analysis') return privateAnalysis(request, env, preparedRounds);
   if (url.pathname === '/internal/heartbeat') return acceptHeartbeat(request, env);
+  if (url.pathname === '/data/quota_roster/chn_roster_forecast.json') {
+    return json({error: 'not_found'}, 404, request.method === 'HEAD');
+  }
   // Assets normally bypass the Worker under run_worker_first; retained for direct/fallback requests.
   if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
   const head = request.method === 'HEAD';

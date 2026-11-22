@@ -890,6 +890,8 @@ export function runMonteCarloRoster(candidates, opts = {}) {
     world_ranking_top40_distances: Array.isArray(c.world_ranking_top40_distances)
       ? c.world_ranking_top40_distances
       : [],
+    world_ranks: c.world_ranks || {},
+    wt_2026_27: c.wt_2026_27 || null,
     form_momentum: round(problem.M[i]),
     recent_highlight: c.recent_highlight ?? null,
     skills: {
@@ -930,11 +932,76 @@ export function runMonteCarloRoster(candidates, opts = {}) {
     modal_entries: modalEntries(problem, lu)
   }));
 
-  // Preferred roster: use the most frequent MC lineup when it is a clear mode (>= 5% of draws);
-  // otherwise use the deterministic MAP optimum so reserve marginal losses remain non-negative
-  // and coherent on large candidate pools.
+  // Preferred roster: when an active current-season WT squad exists (>= 4 WT_2026_27 skaters),
+  // anchor selection on active WT skaters (plus any breakout candidate with mu >= 2.2),
+  // and balance 6-skater WT workloads so travelling starters don't sit with 1 distance while
+  // teammates skate 3. For synthetic pools, use the MC mode (>= 5%) or deterministic MAP optimum.
+  const wtActiveIndices = [];
+  const starBreakoutIndices = [];
+  for (let i = 0; i < n; i++) {
+    const c = pool[i];
+    if (c.qualification_path === 'WT_2026_27') {
+      wtActiveIndices.push(i);
+    } else if (
+      Math.max(problem.mu[i * 3], problem.mu[i * 3 + 1], problem.mu[i * 3 + 2]) >= 2.2 &&
+      c.qualification_path
+    ) {
+      starBreakoutIndices.push(i);
+    }
+  }
+  const normCons = normConstraints(constraints);
+  const useActiveSquadAnchor = wtActiveIndices.length >= Math.min(4, normCons.nMax);
+
   let preferred = null;
-  if (ranked.length || deterministic.feasible) {
+  if (useActiveSquadAnchor) {
+    const activeSubset = [...wtActiveIndices, ...starBreakoutIndices];
+    // Rank active candidates by transparent standing score to pick top nMax starters
+    const standingScore = (idx) => {
+      const c = pool[idx];
+      const isWt = c.qualification_path === 'WT_2026_27';
+      const stops = c.wt_2026_27?.stops_count ?? (isWt ? 1 : 0);
+      const top40 = c.world_ranking_top40_distances || [];
+      const wr = c.world_ranks || {};
+      let wrScore = 0;
+      for (const d of top40) {
+        const rk = wr[d]?.rank ?? 30;
+        const slotNeed = d === 500 ? normCons.k500 : d === 1000 ? normCons.k1000 : normCons.k1500;
+        const distMult = slotNeed >= 3 ? 1.0 : 0.82;
+        wrScore += distMult * (0.25 + 0.55 * ((41 - Math.min(40, rk)) / 40));
+      }
+      const vSum =
+        problem.V[idx * 3] +
+        problem.V[idx * 3 + 1] +
+        problem.V[idx * 3 + 2] +
+        lambdas0.relay * problem.R[idx];
+      return (isWt ? 2.0 : 1.5) + 0.22 * Math.min(3, stops) + wrScore + 2.2 * vSum;
+    };
+    const sortedActive = [...activeSubset].sort(
+      (a, b) => standingScore(b) - standingScore(a) || problem.ids[a].localeCompare(problem.ids[b])
+    );
+    const chosenMembers = sortedActive.slice(0, normCons.nMax);
+    // When nMax >= 6 (full WT roster), raise 3-distance fatigue penalty so 12 slots split 2x6 cleanly
+    const assignLambdas =
+      normCons.nMax >= 6
+        ? { ...lambdas0, fatigue: Math.max(lambdas0.fatigue, 0.25) }
+        : lambdas0;
+    const sol = solveRosterMilp(problem, constraints, assignLambdas, {
+      subset: chosenMembers,
+      forced: chosenMembers,
+      prune: false
+    });
+    const use = sol.feasible ? sol : deterministic;
+    const mKey = lineupKey(problem, chosenMembers);
+    const freqCount = lineups.get(mKey)?.count || 0;
+    preferred = {
+      athlete_ids: chosenMembers.map((i) => problem.ids[i]).sort(),
+      ordered_ids: chosenMembers.map((i) => problem.ids[i]),
+      frequency: round(freqCount / denom),
+      objective_at_mean: round(use.objective),
+      entries: solutionToEntries(problem, use),
+      matches_deterministic_map: detKey === mKey
+    };
+  } else if (ranked.length || deterministic.feasible) {
     const topFreq = ranked.length ? ranked[0][1].count / denom : 0;
     const useMode = ranked.length > 0 && (topFreq >= 0.05 || !deterministic.feasible);
     const members = useMode ? ranked[0][1].members : deterministic.selected;
@@ -996,9 +1063,183 @@ function modalEntries(problem, lu) {
 // 4. Six-reserve marginal replacement selector
 // ------------------------------------------------------------------------------------------------
 
+const SPECIALTY_LABELS = Object.freeze({
+  sprint_relay: '短距离 / 接力',
+  mid_long: '中长距离',
+  all_round: '全能主力'
+});
+
+function candidateMu(cand, d) {
+  const s = cand.skills?.[d] ?? cand.skills?.[String(d)] ?? cand.distances?.[d] ?? cand.distances?.[String(d)];
+  return s && Number.isFinite(s.mu) ? s.mu : -2.0;
+}
+
+function candidateStandingScore(cand) {
+  const isWt = cand.qualification_path === 'WT_2026_27';
+  const stops = cand.wt_2026_27?.stops_count ?? (isWt ? 1 : 0);
+  const top40 = cand.world_ranking_top40_distances || [];
+  const wr = cand.world_ranks || {};
+  let wrScore = 0;
+  for (const d of top40) {
+    const rk = wr[d]?.rank ?? 30;
+    wrScore += 0.25 + 0.55 * ((41 - Math.min(40, rk)) / 40);
+  }
+  const vs = cand.value_scores || {};
+  const vSum = (vs[500] || 0) + (vs[1000] || 0) + (vs[1500] || 0) + 0.14 * (vs.relay || 0);
+  return (isWt ? 2.0 : 0) + 0.22 * Math.min(3, stops) + wrScore + 2.2 * vSum + (cand.main_roster_prob || 0);
+}
+
+function splitMainTiers(orderedMain) {
+  const len = orderedMain.length;
+  if (len === 0) return { coreIds: [], bubbleIds: [] };
+  const coreCount = len >= 5 ? 4 : Math.max(1, len - 1);
+  return {
+    coreIds: orderedMain.slice(0, coreCount),
+    bubbleIds: orderedMain.slice(coreCount)
+  };
+}
+
+function deriveRecommendedEntries(cand, isStarter, mainEntries) {
+  if (isStarter && mainEntries) {
+    const out = [];
+    for (const k of ['500', '1000', '1500', 'relay']) {
+      if ((mainEntries[k] || []).includes(cand.athlete_id)) out.push(k);
+    }
+    if (out.length > 0) return out;
+  }
+  const wtDists = (cand.wt_2026_27?.distances_entered || [])
+    .map((d) => Number(d))
+    .filter((d) => DISTANCES.includes(d));
+  const ranked = [...DISTANCES].sort((a, b) => candidateMu(cand, b) - candidateMu(cand, a) || a - b);
+  if (wtDists.length > 0) {
+    const wtRanked = [...wtDists].sort((a, b) => candidateMu(cand, b) - candidateMu(cand, a) || a - b);
+    return wtRanked.slice(0, 2).sort((a, b) => a - b).map(String);
+  }
+  const top1 = ranked[0];
+  const top2 = ranked[1];
+  const mu1 = candidateMu(cand, top1);
+  const mu2 = candidateMu(cand, top2);
+  const chosen = mu1 - mu2 <= 0.65 && mu2 > -0.5 ? [top1, top2] : [top1];
+  return chosen.sort((a, b) => a - b).map(String);
+}
+
+function inferSpecialty(cand) {
+  const top40 = (cand.world_ranking_top40_distances || []).map((d) => Number(d));
+  const wtDists = (cand.wt_2026_27?.distances_entered || []).map((d) => Number(d));
+  const mu500 = candidateMu(cand, 500);
+  const mu1000 = candidateMu(cand, 1000);
+  const mu1500 = candidateMu(cand, 1500);
+
+  let tag;
+  if (top40.length >= 3) {
+    tag = 'all_round';
+  } else if (
+    wtDists.length === 3 &&
+    Math.min(mu500, mu1000, mu1500) >= 0.7 &&
+    Math.max(mu500, mu1000, mu1500) - Math.min(mu500, mu1000, mu1500) <= 0.6
+  ) {
+    tag = 'all_round';
+  } else if (top40.includes(500) && !top40.includes(1500)) {
+    tag = 'sprint_relay';
+  } else if ((top40.includes(1500) || top40.includes(1000)) && !top40.includes(500)) {
+    tag = 'mid_long';
+  } else if (wtDists.includes(500) && !wtDists.includes(1500)) {
+    tag = 'sprint_relay';
+  } else if ((wtDists.includes(1500) || wtDists.includes(1000)) && !wtDists.includes(500)) {
+    tag = 'mid_long';
+  } else if (Math.min(mu500, mu1000, mu1500) >= 0.85 && Math.max(mu500, mu1000, mu1500) - Math.min(mu500, mu1000, mu1500) <= 0.45) {
+    tag = 'all_round';
+  } else {
+    const bestD = DISTANCES.reduce((best, d) => (candidateMu(cand, d) > candidateMu(cand, best) ? d : best), 500);
+    if (bestD === 500 || (mu500 >= mu1500 + 0.2 && mu500 >= mu1000)) tag = 'sprint_relay';
+    else if (bestD === 1500 || mu1500 >= mu500 + 0.2) tag = 'mid_long';
+    else tag = mu500 >= mu1500 ? 'sprint_relay' : 'mid_long';
+  }
+  return { tag, label: SPECIALTY_LABELS[tag] };
+}
+
+function formatWorldRankBrief(cand) {
+  const wr = cand.world_ranks || {};
+  const entries = DISTANCES.filter((d) => wr[d]?.rank != null).map((d) => ({
+    d,
+    rank: wr[d].rank,
+    inTop40: Boolean(wr[d].in_top40)
+  }));
+  if (entries.length === 0) return null;
+  const top25Count = entries.filter((e) => e.rank <= 25).length;
+  const top40Entries = entries.filter((e) => e.inTop40 || e.rank <= 40);
+  const bubbleEntry = entries.find((e) => e.rank >= 25 && e.rank <= 40);
+  const best = [...entries].sort((a, b) => a.rank - b.rank)[0];
+  return { entries, top25Count, top40Count: top40Entries.length, bubbleEntry, best };
+}
+
+function buildStatusNote(cand, tier, nMax, cutIndex = 0) {
+  const wrInfo = formatWorldRankBrief(cand);
+  const stops = cand.wt_2026_27?.stops_count || 0;
+
+  if (tier === 'core') {
+    const parts = ['稳固主力'];
+    if (stops > 0) parts.push(`本季WT出战${stops}站`);
+    if (wrInfo) {
+      if (wrInfo.top25Count >= 3) parts.push('三项世界排名前25');
+      else if (wrInfo.top40Count >= 3) parts.push(`${wrInfo.best.d}m #${wrInfo.best.rank} · 三项世界前40`);
+      else if (wrInfo.top40Count === 2) {
+        const top2 = wrInfo.entries.filter((e) => e.rank <= 40).map((e) => `${e.d}m #${e.rank}`);
+        parts.push(top2.join(' · '));
+      } else {
+        parts.push(`${wrInfo.best.d}m #${wrInfo.best.rank} 单科支柱`);
+      }
+    } else if (cand.qualification_path === 'WT_2026_27') {
+      parts.push('本季世巡赛核心');
+    } else {
+      parts.push('综合实力核心席位');
+    }
+    return parts.join(' · ');
+  }
+
+  if (tier === 'bubble') {
+    let wrDetail = null;
+    if (wrInfo) {
+      if (wrInfo.bubbleEntry) {
+        wrDetail = `${wrInfo.bubbleEntry.d}m #${wrInfo.bubbleEntry.rank} 保席临界`;
+      } else if (wrInfo.best.rank <= 40) {
+        const roleTxt = wrInfo.best.d === 500 ? '短距离轮换位' : wrInfo.best.d === 1500 ? '单科保席' : '中距离轮换位';
+        wrDetail = `${wrInfo.best.d}m #${wrInfo.best.rank} ${roleTxt}`;
+      }
+    }
+    if (nMax === 5) {
+      return wrDetail
+        ? `世锦赛5人上限第5人压线席位 · ${wrDetail} · 面临缩编竞争`
+        : '世锦赛5人上限第5人压线席位 · 面临缩编竞争';
+    }
+    return wrDetail
+      ? `现役轮换 / 保席边缘 · ${wrDetail} · 面临替补梯队对位竞争`
+      : '现役轮换 / 保席边缘 · 面临替补梯队对位竞争';
+  }
+
+  if (tier === 'cut') {
+    let wrHint = null;
+    if (wrInfo) {
+      if (wrInfo.bubbleEntry) wrHint = `${wrInfo.bubbleEntry.d}m #${wrInfo.bubbleEntry.rank} 保席临界`;
+      else if (wrInfo.best.rank <= 40) wrHint = `${wrInfo.best.d}m #${wrInfo.best.rank}`;
+    }
+    if (nMax === 5) {
+      const rankLabel = cutIndex === 0 ? '列为头号候补' : '列为优先候补';
+      return wrHint
+        ? `世锦赛 6 缩 5 裁撤边缘 · ${wrHint} · 现役世巡赛队员，${rankLabel}`
+        : `世锦赛 6 缩 5 裁撤边缘 · 现役世巡赛队员，${rankLabel}`;
+    }
+    return wrHint
+      ? `本季世巡赛轮换队员 · ${wrHint} · 与现役主力竞争上场席位`
+      : '本季世巡赛轮换队员 · 与现役主力竞争上场席位';
+  }
+
+  return cand.recent_highlight || '国家队合格候选池';
+}
+
 /**
  * @param {object} mc result of runMonteCarloRoster (uses its _problem and per-candidate probs)
- * @param {object} opts { constraints, lambdas, config, mainIds? }
+ * @param {object} opts { constraints, lambdas, config, mainIds?, orderedMain?, bubbleIds? }
  */
 export function selectSixReserves(mc, opts = {}) {
   const problem = mc._problem;
@@ -1021,10 +1262,32 @@ export function selectSixReserves(mc, opts = {}) {
   const mainSet = new Set(main);
   const probById = new Map(mc.candidates.map((c) => [c.athlete_id, c.main_roster_prob]));
 
-  const baseSol = solveRosterMilp(problem, constraints, lambdas, { subset: main, prune: false });
+  let bubbleIdList = opts.bubbleIds;
+  const hasOrderedMain = Array.isArray(mc.preferred_main_roster?.ordered_ids);
+  if (!bubbleIdList && hasOrderedMain) {
+    bubbleIdList = splitMainTiers(mc.preferred_main_roster.ordered_ids).bubbleIds;
+  }
+  const bubbleSet = new Set(
+    (bubbleIdList || []).map((id) => idIndex.get(id)).filter((i) => i !== undefined)
+  );
+  const mainEntries = !opts.mainIds ? mc.preferred_main_roster?.entries : null;
+
+  const baseOpts = hasOrderedMain ? { subset: main, forced: main, prune: false } : { subset: main, prune: false };
+  const baseSol = solveRosterMilp(problem, constraints, lambdas, baseOpts);
   const baseObj = baseSol.feasible ? baseSol.objective : 0;
   const roleOf = new Map();
   for (let s = 0; s < baseSol.selected.length; s++) roleOf.set(baseSol.selected[s], baseSol.patterns[s]);
+  if (mainEntries) {
+    for (const m of main) {
+      const id = problem.ids[m];
+      let mask = roleOf.get(m) || 0;
+      if ((mainEntries[500] || []).includes(id)) mask |= 1;
+      if ((mainEntries[1000] || []).includes(id)) mask |= 2;
+      if ((mainEntries[1500] || []).includes(id)) mask |= 4;
+      if ((mainEntries.relay || []).includes(id)) mask |= RELAY_BIT;
+      roleOf.set(m, mask);
+    }
+  }
 
   const rows = [];
   for (let j = 0; j < problem.n; j++) {
@@ -1032,6 +1295,9 @@ export function selectSixReserves(mc, opts = {}) {
     let best = { loss: Infinity, m: null };
     let sprint = { loss: Infinity, m: null };
     let mid = { loss: Infinity, m: null };
+    let bestBubble = { loss: Infinity, m: null };
+    let sprintBubble = { loss: Infinity, m: null };
+    let midBubble = { loss: Infinity, m: null };
     for (const m of main) {
       const subset = main.filter((x) => x !== m);
       subset.push(j);
@@ -1042,20 +1308,43 @@ export function selectSixReserves(mc, opts = {}) {
       });
       const loss = sol.feasible ? baseObj - sol.objective : Infinity;
       const role = roleOf.get(m) || 0;
+      const isBub = bubbleSet.has(m);
       if (loss < best.loss) best = { loss, m };
       if (role & (1 | RELAY_BIT) && loss < sprint.loss) sprint = { loss, m };
       if (role & (2 | 4) && loss < mid.loss) mid = { loss, m };
+      if (isBub && sol.feasible) {
+        if (loss < bestBubble.loss) bestBubble = { loss, m };
+        if (role & (1 | RELAY_BIT) && loss < sprintBubble.loss) sprintBubble = { loss, m };
+        if (role & (2 | 4) && loss < midBubble.loss) midBubble = { loss, m };
+      }
     }
     if (sprint.m === null) sprint = best;
     if (mid.m === null) mid = best;
+    const sprintTarget = sprintBubble.m !== null ? sprintBubble : sprint.m !== null ? sprint : bestBubble.m !== null ? bestBubble : best;
+    const midTarget = midBubble.m !== null ? midBubble : mid.m !== null ? mid : bestBubble.m !== null ? bestBubble : best;
+    const bestTarget = bestBubble.m !== null ? bestBubble : best;
+
     let upside = 0;
     for (let k = 0; k < 3; k++) {
       if ((problem.blocked[j] >> k) & 1) continue;
       const v = problem.valueFns[DISTANCES[k]](problem.mu[j * 3 + k] + upK * problem.sigma[j * 3 + k]);
       if (v > upside) upside = v;
     }
+    const cand = problem.candidates[j];
+    const isCutWt = cand.qualification_path === 'WT_2026_27';
+    const spec = inferSpecialty(cand).tag;
     const prob = probById.get(problem.ids[j]) ?? 0;
-    rows.push({ j, best, sprint, mid, prob, upside, versatile: prob + upside });
+    rows.push({
+      j,
+      isCutWt,
+      spec,
+      best: bestTarget,
+      sprint: sprintTarget,
+      mid: midTarget,
+      prob,
+      upside,
+      versatile: prob + upside
+    });
   }
 
   const chosen = [];
@@ -1069,15 +1358,19 @@ export function selectSixReserves(mc, opts = {}) {
       chosen.push({ ...r, tag, metric: metric(r) });
     }
   };
-  const byLoss = (key) => (a, b) => a[key].loss - b[key].loss || b.prob - a.prob;
-  pick('sprint_relay', alloc.sprint_relay ?? 2, (r) => r.sprint, byLoss('sprint'));
-  pick('mid_long', alloc.mid_long ?? 2, (r) => r.mid, byLoss('mid'));
-  pick(
-    'versatile_upside',
-    alloc.versatile_upside ?? 2,
-    (r) => r.best,
-    (a, b) => b.versatile - a.versatile || a.best.loss - b.best.loss
-  );
+  pick('sprint_relay', alloc.sprint_relay ?? 2, (r) => r.sprint, (a, b) => {
+    const aPrio = a.isCutWt && a.spec !== 'mid_long' ? 1 : 0;
+    const bPrio = b.isCutWt && b.spec !== 'mid_long' ? 1 : 0;
+    return bPrio - aPrio || a.sprint.loss - b.sprint.loss || b.prob - a.prob;
+  });
+  pick('mid_long', alloc.mid_long ?? 2, (r) => r.mid, (a, b) => {
+    const aPrio = a.isCutWt && a.spec !== 'sprint_relay' ? 1 : 0;
+    const bPrio = b.isCutWt && b.spec !== 'sprint_relay' ? 1 : 0;
+    return bPrio - aPrio || a.mid.loss - b.mid.loss || b.prob - a.prob;
+  });
+  pick('versatile_upside', alloc.versatile_upside ?? 2, (r) => r.best, (a, b) => {
+    return Number(b.isCutWt) - Number(a.isCutWt) || b.versatile - a.versatile || a.best.loss - b.best.loss;
+  });
 
   const targetCap = Math.min(maxReserves, rows.length);
   if (chosen.length < targetCap) {
@@ -1085,7 +1378,10 @@ export function selectSixReserves(mc, opts = {}) {
       .filter((r) => !taken.has(r.j))
       .sort(
         (a, b) =>
-          a.best.loss - b.best.loss || b.prob - a.prob || problem.ids[a.j].localeCompare(problem.ids[b.j])
+          Number(b.isCutWt) - Number(a.isCutWt) ||
+          a.best.loss - b.best.loss ||
+          b.prob - a.prob ||
+          problem.ids[a.j].localeCompare(problem.ids[b.j])
       );
     for (const r of remaining.slice(0, targetCap - chosen.length)) {
       taken.add(r.j);
@@ -1095,7 +1391,7 @@ export function selectSixReserves(mc, opts = {}) {
 
   const ordered = chosen
     .slice(0, targetCap)
-    .sort((a, b) => a.metric.loss - b.metric.loss || b.prob - a.prob);
+    .sort((a, b) => Number(b.isCutWt) - Number(a.isCutWt) || a.metric.loss - b.metric.loss || b.prob - a.prob);
   return ordered.map((r, idx) => {
     const c = problem.candidates[r.j];
     const m = r.metric.m;
@@ -1114,6 +1410,8 @@ export function selectSixReserves(mc, opts = {}) {
       world_ranking_top40_distances: Array.isArray(c.world_ranking_top40_distances)
         ? c.world_ranking_top40_distances
         : [],
+      world_ranks: c.world_ranks || {},
+      wt_2026_27: c.wt_2026_27 || null,
       recent_highlight: c.recent_highlight ?? null,
       upside_score: round(r.upside),
       versatility_score: round(r.versatile)
@@ -1158,20 +1456,95 @@ export function worldChampionshipConstraints(config, gender, opts = {}) {
   };
 }
 
-/** Full per-gender pipeline: MC + reserves + timing. */
+/** Full per-gender pipeline: MC + tier classification + reserves + timing. */
 export function forecastGender(candidates, opts = {}) {
   const t0 = performance.now();
   const mc = runMonteCarloRoster(candidates, opts);
   const t1 = performance.now();
-  const reserves = selectSixReserves(mc, opts);
+
+  const candById = new Map(mc.candidates.map((c) => [c.athlete_id, c]));
+  let orderedMain = mc.preferred_main_roster?.ordered_ids
+    ? [...mc.preferred_main_roster.ordered_ids]
+    : [...(mc.preferred_main_roster?.athlete_ids || [])];
+  if (!mc.preferred_main_roster?.ordered_ids && orderedMain.length > 1) {
+    orderedMain.sort((a, b) => {
+      const ca = candById.get(a);
+      const cb = candById.get(b);
+      const sa = ca ? candidateStandingScore(ca) : 0;
+      const sb = cb ? candidateStandingScore(cb) : 0;
+      return sb - sa || a.localeCompare(b);
+    });
+  }
+
+  const { coreIds, bubbleIds } = splitMainTiers(orderedMain);
+  const mainSet = new Set(orderedMain);
+  const cutIds = mc.candidates
+    .filter((c) => !mainSet.has(c.athlete_id) && c.qualification_path === 'WT_2026_27')
+    .sort((a, b) => candidateStandingScore(b) - candidateStandingScore(a) || a.athlete_id.localeCompare(b.athlete_id))
+    .map((c) => c.athlete_id);
+
+  const reserves = selectSixReserves(mc, { ...opts, orderedMain, bubbleIds });
   const t2 = performance.now();
   const reserveCap = Math.max(
     0,
     Math.floor(opts.maxReserves ?? opts.config?.roster_model?.reserve_pool?.total_size ?? 6)
   );
+
+  const coreSet = new Set(coreIds);
+  const bubbleSet = new Set(bubbleIds);
+  const cutSet = new Set(cutIds);
+  const cutIdxById = new Map(cutIds.map((id, idx) => [id, idx]));
+  const reserveSet = new Set(reserves.map((r) => r.athlete_id));
+  const mainEntries = mc.preferred_main_roster?.entries || null;
+  const nMax = mc.constraints?.nMax ?? 6;
+
+  for (const c of mc.candidates) {
+    const id = c.athlete_id;
+    const isStarter = mainSet.has(id);
+    const tier = coreSet.has(id)
+      ? 'core'
+      : bubbleSet.has(id)
+        ? 'bubble'
+        : cutSet.has(id)
+          ? 'cut'
+          : reserveSet.has(id)
+            ? 'reserve'
+            : 'pool';
+    const spec = inferSpecialty(c);
+    c.roster_tier = tier;
+    c.specialty_tag = spec.tag;
+    c.specialty_label = spec.label;
+    c.recommended_entries = deriveRecommendedEntries(c, isStarter, mainEntries);
+    c.status_note = buildStatusNote(c, tier, nMax, cutIdxById.get(id) ?? 0);
+  }
+
+  for (const r of reserves) {
+    const enriched = candById.get(r.athlete_id);
+    if (enriched) {
+      r.roster_tier = enriched.roster_tier;
+      r.specialty_tag = enriched.specialty_tag;
+      r.specialty_label = enriched.specialty_label;
+      r.recommended_entries = enriched.recommended_entries;
+      r.status_note = enriched.status_note;
+    } else {
+      const spec = inferSpecialty(r);
+      const tier = cutSet.has(r.athlete_id) ? 'cut' : 'reserve';
+      r.roster_tier = tier;
+      r.specialty_tag = spec.tag;
+      r.specialty_label = spec.label;
+      r.recommended_entries = deriveRecommendedEntries(r, false, null);
+      r.status_note = buildStatusNote(r, tier, nMax, cutIdxById.get(r.athlete_id) ?? 0);
+    }
+  }
+
   const { _problem, ...rest } = mc;
   return {
     ...rest,
+    roster_tiers: {
+      core_ids: coreIds,
+      bubble_ids: bubbleIds,
+      cut_ids: cutIds
+    },
     reserve_cap: reserveCap,
     reserves,
     timing_ms: { monte_carlo: round(t1 - t0, 1), reserves: round(t2 - t1, 1), total: round(t2 - t0, 1) }

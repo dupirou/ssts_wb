@@ -3405,9 +3405,7 @@
     const resultIndex = resultsPage ? fetchData('results/index.json') : null;
     resultIndex?.catch(() => {});
     const quotaData = rosterPage ? fetchData('quota_roster/quotas_2026_27.json') : null;
-    const forecastData = rosterPage ? fetchData('quota_roster/chn_roster_forecast.json') : null;
     quotaData?.catch(() => {});
-    forecastData?.catch(() => {});
     const calendar = resultsPage || rosterPage ? null : await fetchData('calendar.json');
     calendarSeason = calendar?.season;
     const requested = route.page === 'event' ? route.event : null;
@@ -3498,7 +3496,7 @@
           document.head.append(script);
         });
       }
-      await window.SSTS.roster.render(context, { quotaData, forecastData });
+      await window.SSTS.roster.render(context, { quotaData });
     } else if (
       route.page === 'event' &&
       (!route.season || route.season === calendar.season.replace('/', '-'))

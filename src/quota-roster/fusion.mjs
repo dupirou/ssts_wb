@@ -820,6 +820,25 @@ function buildSeniorPool({ asOfDate, asOfSeason, paths, seniorStateOverride }) {
   const seniorLastDate = new Map(); // athlete_id -> YYYY-MM-DD
   const seniorBestHighlight = new Map(); // athlete_id -> { date, score, text }
   const currentSeasonWtAthletes = new Set(); // CHN athlete_ids with official_results in asOfSeason WT
+  const currentSeasonWtStats = new Map(); // athlete_id -> { stops: Set, distances: Set, relayStarts: number, finalACount: number, bestRank: number|null }
+
+  const recordCurrentWtStat = (athleteId, city, distM = null, isRelay = false, isFinalA = false, rank = null) => {
+    if (!athleteId) return;
+    let st = currentSeasonWtStats.get(athleteId);
+    if (!st) {
+      st = { stops: new Set(), distances: new Set(), relayStarts: 0, finalACount: 0, bestRank: null };
+      currentSeasonWtStats.set(athleteId, st);
+    }
+    if (city) st.stops.add(city);
+    if (distM) st.distances.add(distM);
+    if (isRelay) st.relayStarts += 1;
+    if (isFinalA && !isRelay) {
+      st.finalACount += 1;
+      if (Number.isInteger(rank) && rank > 0 && (st.bestRank === null || rank < st.bestRank)) {
+        st.bestRank = rank;
+      }
+    }
+  };
 
   const recordSeniorActivity = (athleteId, dateStr) => {
     if (!athleteId || !dateStr) return;
@@ -979,7 +998,9 @@ function buildSeniorPool({ asOfDate, asOfSeason, paths, seniorStateOverride }) {
       if (asOfDate && localDate && localDate > asOfDate) continue;
 
       if (heat.format === 'relay') {
-        if (heat.gender !== 'women' && heat.gender !== 'men') continue;
+        const isGenderRelay = heat.gender === 'women' || heat.gender === 'men';
+        const isMixedRelay = heat.gender === 'mixed';
+        if (!isGenderRelay && !isMixedRelay) continue;
         const isFinalA = heat.round === 'final' && heat.group === 'A';
         const heatSeason = seasonForDate(localDate) || season;
         for (const team of heat.participants || []) {
@@ -989,9 +1010,14 @@ function buildSeniorPool({ asOfDate, asOfSeason, paths, seniorStateOverride }) {
               { ...mem, country: team.country },
               idMaps
             );
-            recordSeniorRelay(aid, localDate, isFinalA, season, 1);
+            if (isGenderRelay) {
+              recordSeniorRelay(aid, localDate, isFinalA, season, 1);
+            } else {
+              recordSeniorActivity(aid, localDate);
+            }
             if (team.country === 'CHN' && asOfSeason && heatSeason === asOfSeason && aid) {
               currentSeasonWtAthletes.add(aid);
+              recordCurrentWtStat(aid, city, null, true, isFinalA, null);
             }
           }
         }
@@ -1005,10 +1031,12 @@ function buildSeniorPool({ asOfDate, asOfSeason, paths, seniorStateOverride }) {
 
       const rows = normalizeCompetitionHeatRows(heat, city, idMaps, season);
       const heatSeason = seasonForDate(localDate) || season;
+      const isIndivFinalA = heat.round === 'final' && heat.group === 'A';
       if (asOfSeason && heatSeason === asOfSeason) {
         for (const r of rows) {
           if (r.country === 'CHN' && r.status !== 'DNS' && r.athlete_id) {
             currentSeasonWtAthletes.add(r.athlete_id);
+            recordCurrentWtStat(r.athlete_id, city, heat.distance_m, false, isIndivFinalA, r.rank);
           }
         }
       }
@@ -1115,6 +1143,7 @@ function buildSeniorPool({ asOfDate, asOfSeason, paths, seniorStateOverride }) {
     lastDateByAthlete: seniorLastDate,
     highlights: seniorBestHighlight,
     currentSeasonWtAthletes,
+    currentSeasonWtStats,
     incrementalHeatsReplayed: incrementalIndivHeats.length,
   };
 }
@@ -2043,16 +2072,49 @@ export function buildFusedCandidatePool({
     domesticPool,
   });
 
-  // Load 2026/27 World Ranking Top-40 distances strictly when evaluating in 2026/27 (no future leakage in backtests)
+  // Load 2026/27 World Ranking Top-40 distances & full CHN ranking watch strictly when evaluating in 2026/27 (no future leakage in backtests)
   const top40DistancesByAthlete = new Map();
+  const worldRanksByAthlete = new Map();
+  const rawWorldRankingChn = { women: { 500: [], 1000: [], 1500: [] }, men: { 500: [], 1000: [], 1500: [] } };
+  const worldRankingCutoffs = { women: { 500: 0, 1000: 0, 1500: 0 }, men: { 500: 0, 1000: 0, 1500: 0 } };
   if (asOfSeason === '2026/27') {
     const standingsDoc = readJsonOptional(mergedPaths.standings);
     for (const tbl of standingsDoc?.world_rankings_individual || []) {
       const dist = Number(tbl.distance_m);
-      if (!DISTANCES.includes(dist)) continue;
-      for (const row of tbl.items || []) {
+      const g = tbl.gender;
+      if (!DISTANCES.includes(dist) || !GENDERS.includes(g)) continue;
+      const items = tbl.items || [];
+      const rank40Row = items.find((r) => r.rank === 40) || items[Math.min(39, items.length - 1)];
+      const cutoffPts = Number(rank40Row?.points || 0);
+      worldRankingCutoffs[g][dist] = cutoffPts;
+      for (const row of items) {
         if (row.country !== 'CHN' || !row.athlete_id) continue;
-        if (Number.isInteger(row.rank) && row.rank >= 1 && row.rank <= 40) {
+        const rk = Number(row.rank);
+        const pts = Number(row.points || 0);
+        if (Number.isInteger(rk) && rk > 0) {
+          let wrMap = worldRanksByAthlete.get(row.athlete_id);
+          if (!wrMap) {
+            wrMap = {};
+            worldRanksByAthlete.set(row.athlete_id, wrMap);
+          }
+          wrMap[dist] = {
+            rank: rk,
+            points: pts,
+            cutoff_points: cutoffPts,
+            margin_vs_top40: pts - cutoffPts,
+            in_top40: rk <= 40,
+          };
+          rawWorldRankingChn[g][dist].push({
+            athlete_id: row.athlete_id,
+            name_en: row.name,
+            rank: rk,
+            points: pts,
+            cutoff_points: cutoffPts,
+            margin_vs_top40: pts - cutoffPts,
+            in_top40: rk <= 40,
+          });
+        }
+        if (Number.isInteger(rk) && rk >= 1 && rk <= 40) {
           let s = top40DistancesByAthlete.get(row.athlete_id);
           if (!s) {
             s = new Set();
@@ -2252,13 +2314,15 @@ export function buildFusedCandidatePool({
           discCfg
         );
         let muSenEff = senSt.mu;
+        const lastGlobalSenMs =
+          lastSeniorDate != null ? Date.parse(`${lastSeniorDate}T00:00:00Z`) : senSt.lastTimestampMs;
         if (
           !protectDualActivity &&
-          senSt.lastTimestampMs != null &&
+          lastGlobalSenMs != null &&
           Number.isFinite(asOfMs) &&
-          asOfMs > senSt.lastTimestampMs
+          asOfMs > lastGlobalSenMs
         ) {
-          const inactiveDays = (asOfMs - senSt.lastTimestampMs) / 86400000;
+          const inactiveDays = (asOfMs - lastGlobalSenMs) / 86400000;
           if (inactiveDays > senGraceDays) {
             muSenEff =
               senSt.mu * Math.exp(-(inactiveDays - senGraceDays) / Math.max(1, senMuDecayDays));
@@ -2375,6 +2439,7 @@ export function buildFusedCandidatePool({
     hlChoices.sort((a, b) => b.recencyScore - a.recencyScore || a.rank - b.rank);
     const recentHighlight = hlChoices[0]?.text || null;
 
+    const wtSt = seniorPool.currentSeasonWtStats?.get(aid);
     const candidateObj = {
       athlete_id: aid,
       official_skater_id: meta.official_skater_id ?? null,
@@ -2386,6 +2451,15 @@ export function buildFusedCandidatePool({
       is_dual_eligible: isDualEligible,
       qualification_path: qualificationPath || null,
       world_ranking_top40_distances: [...(top40DistancesByAthlete.get(aid) || [])].sort((a, b) => a - b),
+      world_ranks: worldRanksByAthlete.get(aid) || {},
+      wt_2026_27: {
+        stops_count: wtSt ? wtSt.stops.size : 0,
+        stops: wtSt ? [...wtSt.stops] : [],
+        distances_entered: wtSt ? [...wtSt.distances].sort((a, b) => a - b) : [],
+        relay_starts: wtSt ? wtSt.relayStarts : 0,
+        final_a_count: wtSt ? wtSt.finalACount : 0,
+        best_rank: wtSt ? wtSt.bestRank : null,
+      },
       data_sources: dataSources,
       last_active_date: lastActiveDate,
       recent_highlight: recentHighlight,
@@ -2434,6 +2508,62 @@ export function buildFusedCandidatePool({
     return counts;
   };
 
+  const buildTop40WatchForGender = (gender, eligibleArr) => {
+    const eligById = new Map(eligibleArr.map((c) => [c.athlete_id, c]));
+    const out = {};
+    for (const d of DISTANCES) {
+      const rows = rawWorldRankingChn[gender]?.[d] || [];
+      const cutoffPts = worldRankingCutoffs[gender]?.[d] || 0;
+      const enriched = rows.map((r) => {
+        const cand = eligById.get(r.athlete_id);
+        const meta = rawCandidates.get(r.athlete_id);
+        const isActiveEligible = Boolean(cand);
+        const isActiveWt = cand?.qualification_path === 'WT_2026_27';
+        let zone = 'OUT';
+        if (!isActiveEligible) {
+          zone = r.in_top40 ? 'INACTIVE_TOP40' : 'INACTIVE';
+        } else if (r.rank <= 25) {
+          zone = 'SAFE';
+        } else if (r.rank <= 40) {
+          zone = 'PROTECT';
+        } else if (r.rank <= 55) {
+          zone = 'CHASE';
+        }
+        return {
+          athlete_id: r.athlete_id,
+          name_zh: cand?.name_zh || meta?.name_zh || FALLBACK_NAME_ZH_BY_ID[r.athlete_id] || null,
+          name_en: cand?.name_en || meta?.name_en || r.name_en,
+          rank: r.rank,
+          points: r.points,
+          cutoff_points: cutoffPts,
+          margin_vs_top40: r.margin_vs_top40,
+          in_top40: r.in_top40,
+          is_active_eligible: isActiveEligible,
+          is_active_wt: isActiveWt,
+          zone,
+        };
+      });
+      const totalTop40 = enriched.filter((r) => r.in_top40).length;
+      const activeTop40 = enriched.filter((r) => r.in_top40 && r.is_active_eligible).length;
+      const slots = totalTop40 >= 3 ? 4 : 3;
+      const status =
+        activeTop40 >= 4 ? 'SAFE' : activeTop40 === 3 || totalTop40 >= 3 ? 'TIGHT' : 'BELOW';
+      out[d] = {
+        distance_m: d,
+        slots,
+        required_top40_for_4_slots: 3,
+        cutoff_rank: 40,
+        cutoff_points: cutoffPts,
+        top40_total_chn: totalTop40,
+        top40_active_chn: activeTop40,
+        buffer_active: activeTop40 - 3,
+        status,
+        skaters: enriched,
+      };
+    }
+    return out;
+  };
+
   return {
     asOfDate,
     calibrationDiagnostics: {
@@ -2456,12 +2586,14 @@ export function buildFusedCandidatePool({
       excludedByAge: womenExcluded,
       excludedByQualification: womenExcludedQual,
       top40Counts: countTop40(womenEligible),
+      top40Watch: buildTop40WatchForGender('women', womenEligible),
     },
     men: {
       eligible: menEligible,
       excludedByAge: menExcluded,
       excludedByQualification: menExcludedQual,
       top40Counts: countTop40(menEligible),
+      top40Watch: buildTop40WatchForGender('men', menEligible),
     },
   };
 }

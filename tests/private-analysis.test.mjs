@@ -49,6 +49,13 @@ test('a session unlocks the selected round, survives later requests, and can be 
   assert.equal(winner.first,winner.direct);
   const finished = await worker.fetch(send({...round,roundKey:'old'},token),env);
   assert.equal((await finished.json())[0].people[0].first,null);
+  assert.equal((await worker.fetch(new Request(origin + '/data/quota_roster/chn_roster_forecast.json'), env)).status, 404);
+  assert.equal((await worker.fetch(send({action:'roster'}), env)).status, 401);
+  files['/data/quota_roster/chn_roster_forecast.json'] = {schema_version: 1, scenarios: {}};
+  const rosterRes = await worker.fetch(send({action:'roster'}, token), env);
+  assert.equal(rosterRes.status, 200);
+  assert.match(rosterRes.headers.get('cache-control'), /no-store/);
+  assert.equal((await rosterRes.json()).schema_version, 1);
   assert.equal((await worker.fetch(send(round,token),{...env,ANALYSIS_PASSWORD:'rotated'})).status,401);
   const cleared = await worker.fetch(send({action:'logout'},token),env);
   assert.match(cleared.headers.get('set-cookie'),/Max-Age=0/);

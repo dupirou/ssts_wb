@@ -174,6 +174,10 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
       penalty_bans_applied: penaltyBans.filter((b) => b.country === 'CHN'),
       penalty_warnings_chn: penaltyWarnings.filter((w) => w.country === 'CHN'),
       penalty_bans_all_members: penaltyBans,
+      top40_watch: {
+        women: fused.women.top40Watch,
+        men: fused.men.top40Watch
+      },
       scenarios: {
         world_tour_next_stop: {
           label: '2026-27 World Tour Next Stop',
@@ -466,8 +470,26 @@ function formatBacktestMarkdown({ config, forecast, backtest, sensitivity }) {
   );
   lines.push('');
 
-  lines.push('## 1. 2026-27 下一站 WT 与 2027 首尔世锦赛实时预测摘要');
+  lines.push('## 1. 2026-27 下一站 WT 与 2027 首尔世锦赛实时预测摘要（V2 分层看板）');
   lines.push('');
+  if (forecast.top40_watch) {
+    lines.push('### 世界排名 Top-40 护席监控');
+    lines.push('');
+    lines.push('| 性别 | 项目 | 席位 | 现役 Top-40 | 总 Top-40 | #40 门槛分 | 状态 |');
+    lines.push('|---|---|---:|---:|---:|---:|---|');
+    for (const gender of ['women', 'men']) {
+      const watch = forecast.top40_watch[gender] || {};
+      const gLabel = gender === 'women' ? '女队' : '男队';
+      for (const d of DISTANCES) {
+        const w = watch[d];
+        if (!w) continue;
+        lines.push(
+          `| ${gLabel} | ${d}m | ${w.slots} 席 | ${w.top40_active_chn} 人 | ${w.top40_total_chn} 人 | ${w.cutoff_points} | ${w.status} |`
+        );
+      }
+    }
+    lines.push('');
+  }
   for (const [scKey, title] of [
     ['world_tour_next_stop', '2026-27 世巡赛下一站 (WT4 上海)'],
     ['world_championships_2027', '2027 首尔世锦赛 (5人上限 / 已核验单项名额)']
@@ -476,20 +498,43 @@ function formatBacktestMarkdown({ config, forecast, backtest, sensitivity }) {
     lines.push(`### ${title}`);
     for (const gender of ['women', 'men']) {
       const g = sc[gender];
-      const nameById = new Map(g.candidates.map((c) => [c.athlete_id, c.name_zh || c.name_en]));
-      const mainStr = g.preferred_main_roster.athlete_ids
-        .map((id) => `${nameById.get(id) || id} (${id})`)
-        .join('、');
+      const candById = new Map(g.candidates.map((c) => [c.athlete_id, c]));
+      const fmtCand = (id) => {
+        const c = candById.get(id);
+        if (!c) return id;
+        const name = c.name_zh || c.name_en || id;
+        const spec = c.specialty_label ? `[${c.specialty_label}]` : '';
+        const ent = (c.recommended_entries || []).map((e) => (e === 'relay' ? '接力' : `${e}m`)).join('/');
+        return `${name}${spec}${ent ? `(${ent})` : ''}`;
+      };
+      const tiers = g.roster_tiers || { core_ids: g.preferred_main_roster.athlete_ids, bubble_ids: [], cut_ids: [] };
+      const coreStr = tiers.core_ids.map(fmtCand).join('、') || '无';
+      const bubbleItems = [
+        ...tiers.bubble_ids.map((id) => {
+          const c = candById.get(id);
+          return `${c?.name_zh || c?.name_en || id}（${c?.status_note || '轮换边缘'}）`;
+        }),
+        ...tiers.cut_ids.map((id) => {
+          const c = candById.get(id);
+          return `${c?.name_zh || c?.name_en || id}（${c?.status_note || '裁撤边缘'}）`;
+        })
+      ];
+      const bubbleStr = bubbleItems.join('；') || '无';
       const resStr = g.reserves.length
         ? g.reserves
-            .map((r) => `#${r.reserve_rank} ${r.name_zh || r.name_en} [${r.role_tag}, loss=${r.marginal_loss}]`)
+            .map((r) => {
+              const rep = candById.get(r.primary_replacement_for);
+              const repName = rep ? rep.name_zh || rep.name_en : r.primary_replacement_for;
+              return `#${r.reserve_rank} ${r.name_zh || r.name_en} [${r.specialty_label || r.role_tag}, 对位:${repName}]`;
+            })
             .join('；')
         : '无';
       const capLabel = g.reserve_cap ?? g.reserves.length;
       lines.push(
         `- **${gender === 'women' ? '女队' : '男队'}**（约束 \`N=${g.constraints.nMax}, K=${g.constraints.k500}/${g.constraints.k1000}/${g.constraints.k1500}, R=${g.constraints.relay}\`, 耗时 \`${g.timing_ms.total} ms\`）：`
       );
-      lines.push(`  - 首选正选（频率 ${(g.preferred_main_roster.frequency * 100).toFixed(1)}%）：${mainStr}`);
+      lines.push(`  - 稳固主力（${tiers.core_ids.length}人）：${coreStr}`);
+      lines.push(`  - 淘汰 / 轮换边缘：${bubbleStr}`);
       lines.push(`  - 替补梯队（最多 ${capLabel} 人，实际 ${g.reserves.length} 人）：${resStr}`);
     }
     lines.push('');
