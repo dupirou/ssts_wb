@@ -195,7 +195,7 @@
     "montreal/time/2026-11-01/repechage/women/500/quarterfinal/-": "2026-11-01 23:35",
     "montreal/time/2026-11-01/repechage/women/500/semifinal/-": "2026-11-02 00:08",
     "seoul/entries": "b9eda815ecb867ce",
-    "seoul/rankings": "f627fc05da32e577",
+    "seoul/rankings": "3b71a16ed2040020",
     "seoul/round/2026-11-20/qualifying/men/1000/heats/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/men/1000/heats/-/results": "official",
     "seoul/round/2026-11-20/qualifying/men/1000/preliminaries/-/groups": "published",
@@ -260,6 +260,7 @@
     "seoul/round/2026-11-22/main/men/5000/final/-/groups": "published",
     "seoul/round/2026-11-22/main/mixed/2000/final/-/groups": "published",
     "seoul/round/2026-11-22/main/women/1500/final/-/groups": "published",
+    "seoul/round/2026-11-22/main/women/1500/final/-/results": "official",
     "seoul/round/2026-11-22/main/women/1500/semifinal/-/groups": "published",
     "seoul/round/2026-11-22/main/women/1500/semifinal/-/results": "official",
     "seoul/round/2026-11-22/main/women/500/final/-/groups": "published",
@@ -536,70 +537,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "d238604bb2647d33",
-      "station": "montreal",
-      "at": "2026-10-31T19:01:21+00:00",
-      "local_date": "2026-10-31",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG"
-      ],
-      "china_results": [
-        {
-          "name": "Jianing ZHANG",
-          "rank": 1
-        },
-        {
-          "name": "Jiarui SONG",
-          "rank": 3
-        },
-        {
-          "name": "Li GONG",
-          "rank": 4
-        }
-      ]
-    },
-    {
-      "id": "57d8e8ca0084d5d1",
-      "station": "montreal",
-      "at": "2026-10-31T19:11:19+00:00",
-      "local_date": "2026-10-31",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": [],
-      "podium": [
-        {
-          "rank": 1,
-          "name": "Minjeong CHOI",
-          "country": "KOR"
-        },
-        {
-          "rank": 2,
-          "name": "Courtney SARAULT",
-          "country": "CAN"
-        },
-        {
-          "rank": 3,
-          "name": "Hanne DESMET",
-          "country": "BEL"
-        }
-      ]
-    },
     {
       "id": "9010836c148684e5",
       "station": "montreal",
@@ -3900,6 +3837,82 @@
           "status": "final_b"
         }
       ]
+    },
+    {
+      "id": "03ebb4e73eedfb6a",
+      "station": "seoul",
+      "at": "2026-11-22T08:21:42+00:00",
+      "local_date": "2026-11-22",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Chutong ZHANG",
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Chutong ZHANG",
+          "rank": 7
+        },
+        {
+          "name": "Jianing ZHANG",
+          "rank": 5
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 7
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 4
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Elisa CONFORTOLA",
+          "country": "ITA"
+        },
+        {
+          "rank": 1,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Gilli KIM",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Ann-Sophie BACHAND",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Failia AIMALETDINOVA",
+          "country": "AIN2"
+        },
+        {
+          "rank": 3,
+          "name": "Zoe Florence DELTRAP",
+          "country": "NED"
+        }
+      ]
+    },
+    {
+      "id": "253e068cfd0c0689",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-22T08:21:42+00:00",
+      "changed": true
     }
   ]
 }
