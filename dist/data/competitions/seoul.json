@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-22T05:31:43+00:00",
-    "updated_at": "2026-11-22T05:31:43+00:00",
+    "checked_at": "2026-11-22T05:51:54+00:00",
+    "updated_at": "2026-11-22T05:51:54+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -4174,8 +4174,8 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-11-22T14:43:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16341&round=23423",
         "participants": [
@@ -4186,9 +4186,9 @@
             "official_skater_id": 6159,
             "helmet_number": 1,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "42.910",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4198,9 +4198,9 @@
             "official_skater_id": 7609,
             "helmet_number": 28,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "43.001",
+            "qualification": "Q",
             "penalty": null,
             "name_latin": "Xinran WANG"
           },
@@ -4211,23 +4211,11 @@
             "official_skater_id": 6617,
             "helmet_number": 54,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "43.039",
+            "qualification": "p",
             "penalty": null,
             "name_latin": "Jiarui SONG"
-          },
-          {
-            "athlete_id": "ath-ee4b7a824eb8cb36d140",
-            "name": "Kateryna SOLOVIOVA",
-            "country": "GER",
-            "official_skater_id": 18274,
-            "helmet_number": 64,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
           },
           {
             "athlete_id": "ath-878b429516890d2356ef",
@@ -4236,8 +4224,20 @@
             "official_skater_id": 20501,
             "helmet_number": 94,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "43.132",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-ee4b7a824eb8cb36d140",
+            "name": "Kateryna SOLOVIOVA",
+            "country": "GER",
+            "official_skater_id": 18274,
+            "helmet_number": 64,
+            "starting_position": 4,
+            "rank": 5,
+            "result": "43.224",
             "qualification": null,
             "penalty": null
           }
@@ -4255,9 +4255,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-22T14:45:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-22T14:48:07.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16341&round=23423",
         "participants": [
@@ -4268,9 +4268,9 @@
             "official_skater_id": 924,
             "helmet_number": 10,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "42.772",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4280,9 +4280,9 @@
             "official_skater_id": 2993,
             "helmet_number": 53,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "42.962",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4292,9 +4292,9 @@
             "official_skater_id": 2262,
             "helmet_number": 19,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "42.988",
+            "qualification": "p",
             "penalty": null,
             "name_latin": "Li GONG"
           },
@@ -4305,8 +4305,8 @@
             "official_skater_id": 1545,
             "helmet_number": 44,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "43.770",
             "qualification": null,
             "penalty": null
           },
@@ -4317,8 +4317,8 @@
             "official_skater_id": 7851,
             "helmet_number": 70,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "1:04.423",
             "qualification": null,
             "penalty": null
           }
@@ -4336,8 +4336,8 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-11-22T14:47:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-22T14:50:46.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16341&round=23423",
