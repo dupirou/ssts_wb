@@ -1224,8 +1224,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-22T03:11:33+00:00",
-    "updated_at": "2026-11-22T03:11:33+00:00",
+    "checked_at": "2026-11-22T03:21:44+00:00",
+    "updated_at": "2026-11-22T03:21:44+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -2398,9 +2398,9 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-22T12:13:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-22T12:16:07.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23414",
         "participants": [
@@ -2411,11 +2411,11 @@
             "official_skater_id": 457,
             "helmet_number": 51,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "2:42.750",
+            "qualification": "Q",
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 37.68
           },
           {
             "athlete_id": "ath-ee4b7a824eb8cb36d140",
@@ -2424,24 +2424,11 @@
             "official_skater_id": 18274,
             "helmet_number": 64,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "2:43.110",
+            "qualification": "Q",
             "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-996d4f6ccb8210b8921d",
-            "name": "Ching Yan LAM",
-            "country": "HKG",
-            "official_skater_id": 3923,
-            "helmet_number": 97,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 38.3
           },
           {
             "athlete_id": "ath-3612b246d8bc6f06f928",
@@ -2450,11 +2437,11 @@
             "official_skater_id": 4995,
             "helmet_number": 69,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "2:43.235",
+            "qualification": "p",
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 38.035
           },
           {
             "athlete_id": "ath-241970bee5835179fa24",
@@ -2463,11 +2450,24 @@
             "official_skater_id": 947,
             "helmet_number": 96,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "2:43.257",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 38.287
+          },
+          {
+            "athlete_id": "ath-996d4f6ccb8210b8921d",
+            "name": "Ching Yan LAM",
+            "country": "HKG",
+            "official_skater_id": 3923,
+            "helmet_number": 97,
+            "starting_position": 3,
+            "rank": 5,
+            "result": "2:43.444",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 38.404
           }
         ]
       },
@@ -2483,8 +2483,8 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-22T12:17:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-22T12:20:47.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16340&round=23414",
