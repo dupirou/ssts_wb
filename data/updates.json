@@ -258,6 +258,7 @@
     "seoul/round/2026-11-22/repechage/men/1000/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/500/quarterfinal/-/groups": "published",
+    "seoul/round/2026-11-22/repechage/women/500/quarterfinal/-/results": "official",
     "seoul/schedule": "published",
     "seoul/time/2026-11-20/qualifying/men/1000/heats/-": "2026-11-20 14:32",
     "seoul/time/2026-11-20/qualifying/men/1000/preliminaries/-": "2026-11-20 09:39",
@@ -512,41 +513,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "4b985a31cb6fe9be",
-      "station": "montreal",
-      "at": "2026-10-31T14:21:17+00:00",
-      "local_date": "2026-10-31",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Bohao ZHANG",
-        "Kun LI",
-        "Zixia ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Bohao ZHANG",
-          "rank": 1,
-          "status": "advanced"
-        },
-        {
-          "name": "Kun LI",
-          "rank": 4,
-          "status": "out"
-        },
-        {
-          "name": "Zixia ZHANG",
-          "rank": 2,
-          "status": "advanced"
-        }
-      ]
-    },
     {
       "id": "c12c6ed837b8a948",
       "station": "montreal",
@@ -3866,6 +3832,21 @@
       "repechage": true,
       "gender": "men",
       "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "97e783245c7b13ea",
+      "station": "seoul",
+      "at": "2026-11-22T02:31:45+00:00",
+      "local_date": "2026-11-22",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
       "format": "individual",
       "kind": "results",
       "china": [],

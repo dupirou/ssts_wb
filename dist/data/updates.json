@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "97e783245c7b13ea",
+      "station": "seoul",
+      "at": "2026-11-22T02:31:45+00:00",
+      "local_date": "2026-11-22",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
       "id": "38be00b36ca2715f",
       "station": "seoul",
       "at": "2026-11-22T02:21:43+00:00",
@@ -3423,44 +3438,6 @@
           "rank": 1,
           "status": "advanced",
           "name_latin": "Jianing ZHANG"
-        }
-      ]
-    },
-    {
-      "id": "4b985a31cb6fe9be",
-      "station": "montreal",
-      "at": "2026-10-31T14:21:17+00:00",
-      "local_date": "2026-10-31",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张柏浩",
-        "李坤",
-        "张子夏"
-      ],
-      "china_results": [
-        {
-          "name": "张柏浩",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Bohao ZHANG"
-        },
-        {
-          "name": "李坤",
-          "rank": 4,
-          "status": "out",
-          "name_latin": "Kun LI"
-        },
-        {
-          "name": "张子夏",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Zixia ZHANG"
         }
       ]
     }
