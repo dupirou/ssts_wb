@@ -195,7 +195,7 @@
     "montreal/time/2026-11-01/repechage/women/500/quarterfinal/-": "2026-11-01 23:35",
     "montreal/time/2026-11-01/repechage/women/500/semifinal/-": "2026-11-02 00:08",
     "seoul/entries": "b9eda815ecb867ce",
-    "seoul/rankings": "8f8e749534aa60f2",
+    "seoul/rankings": "eb9b5fc16871ce04",
     "seoul/round/2026-11-20/qualifying/men/1000/heats/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/men/1000/heats/-/results": "official",
     "seoul/round/2026-11-20/qualifying/men/1000/preliminaries/-/groups": "published",
@@ -260,6 +260,7 @@
     "seoul/round/2026-11-22/main/mixed/2000/final/-/groups": "published",
     "seoul/round/2026-11-22/main/women/1500/semifinal/-/groups": "published",
     "seoul/round/2026-11-22/main/women/500/final/-/groups": "published",
+    "seoul/round/2026-11-22/main/women/500/final/-/results": "official",
     "seoul/round/2026-11-22/main/women/500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/main/women/500/quarterfinal/-/results": "official",
     "seoul/round/2026-11-22/main/women/500/semifinal/-/groups": "published",
@@ -532,58 +533,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "f48c71edc0b65470",
-      "station": "montreal",
-      "at": "2026-10-31T18:21:16+00:00",
-      "local_date": "2026-10-31",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": [
-        "Long SUN"
-      ]
-    },
-    {
-      "id": "236b1718624f8e24",
-      "station": "montreal",
-      "at": "2026-10-31T18:41:20+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG"
-      ],
-      "china_results": [
-        {
-          "name": "Jianing ZHANG",
-          "rank": 3,
-          "status": "final_b"
-        },
-        {
-          "name": "Jiarui SONG",
-          "rank": 4,
-          "status": "final_b"
-        },
-        {
-          "name": "Li GONG",
-          "rank": 5,
-          "status": "final_b"
-        }
-      ]
-    },
     {
       "id": "446a752ba8137764",
       "station": "montreal",
@@ -3850,6 +3799,77 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "33aee1aff765d108",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-22T07:01:29+00:00",
+      "changed": true
+    },
+    {
+      "id": "e83547f2605304de",
+      "station": "seoul",
+      "at": "2026-11-22T07:01:29+00:00",
+      "local_date": "2026-11-22",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jiarui SONG",
+        "Li GONG",
+        "Xinran WANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jiarui SONG",
+          "rank": 5
+        },
+        {
+          "name": "Li GONG",
+          "rank": 3
+        },
+        {
+          "name": "Xinran WANG",
+          "rank": 1
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "rank": 1,
+          "name": "Xinran WANG",
+          "country": "CHN"
+        },
+        {
+          "rank": 2,
+          "name": "Danae BLAIS",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Victoria JEAN-BAPTISTE",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Florence BRUNELLE",
+          "country": "CAN"
+        },
+        {
+          "rank": 3,
+          "name": "Li GONG",
+          "country": "CHN"
+        }
+      ]
     }
   ]
 }

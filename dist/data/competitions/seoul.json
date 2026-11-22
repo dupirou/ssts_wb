@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-22T06:51:52+00:00",
-    "updated_at": "2026-11-22T06:51:52+00:00",
+    "checked_at": "2026-11-22T07:01:29+00:00",
+    "updated_at": "2026-11-22T07:01:29+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -16794,9 +16794,9 @@
         "group": "A",
         "heat_number": null,
         "heat_label": "Final",
-        "source_start": "2026-11-22T15:47:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-22T15:50:37.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16341&round=23536",
         "participants": [
@@ -16807,20 +16807,8 @@
             "official_skater_id": 6159,
             "helmet_number": 1,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
-            "name": "Florence BRUNELLE",
-            "country": "CAN",
-            "official_skater_id": 924,
-            "helmet_number": 10,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "43.055",
             "qualification": null,
             "penalty": null
           },
@@ -16831,8 +16819,32 @@
             "official_skater_id": 743,
             "helmet_number": 25,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "43.171",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+            "name": "Florence BRUNELLE",
+            "country": "CAN",
+            "official_skater_id": 924,
+            "helmet_number": 10,
+            "starting_position": 2,
+            "rank": 3,
+            "result": "43.184",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-27654e207b20ca51c8bf",
+            "name": "Minjeong CHOI",
+            "country": "KOR",
+            "official_skater_id": 1231,
+            "helmet_number": 4,
+            "starting_position": 5,
+            "rank": 4,
+            "result": "43.300",
             "qualification": null,
             "penalty": null
           },
@@ -16843,23 +16855,11 @@
             "official_skater_id": 6617,
             "helmet_number": 54,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "DNF",
             "qualification": null,
             "penalty": null,
             "name_latin": "Jiarui SONG"
-          },
-          {
-            "athlete_id": "ath-27654e207b20ca51c8bf",
-            "name": "Minjeong CHOI",
-            "country": "KOR",
-            "official_skater_id": 1231,
-            "helmet_number": 4,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
           }
         ]
       },
@@ -17136,9 +17136,10 @@
   "rankings": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-22T02:31:45+00:00",
-    "updated_at": "2026-11-22T02:31:45+00:00",
+    "checked_at": "2026-11-22T07:01:29+00:00",
+    "updated_at": "2026-11-22T07:01:29+00:00",
     "source_urls": [
+      "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16341/",
       "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16343/",
       "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16344/",
       "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16345/"
@@ -17323,6 +17324,66 @@
         "official_details": "1:31.646",
         "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16344/",
         "name_latin": "Jianing ZHANG"
+      },
+      {
+        "id": "event/women/500/ath-08caea4ad943373c94ab",
+        "athlete_id": "ath-08caea4ad943373c94ab",
+        "ranking_type": "event",
+        "gender": "women",
+        "distance_m": 500,
+        "format": "individual",
+        "name": "张楚桐",
+        "country": "CHN",
+        "rank": 10,
+        "points": null,
+        "official_details": "43.139",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16341/",
+        "name_latin": "Chutong ZHANG"
+      },
+      {
+        "id": "event/women/500/ath-387545148a759a14a937",
+        "athlete_id": "ath-387545148a759a14a937",
+        "ranking_type": "event",
+        "gender": "women",
+        "distance_m": 500,
+        "format": "individual",
+        "name": "宋佳蕊",
+        "country": "CHN",
+        "rank": 5,
+        "points": null,
+        "official_details": "43.039",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16341/",
+        "name_latin": "Jiarui SONG"
+      },
+      {
+        "id": "event/women/500/ath-7526110b176497878d3f",
+        "athlete_id": "ath-7526110b176497878d3f",
+        "ranking_type": "event",
+        "gender": "women",
+        "distance_m": 500,
+        "format": "individual",
+        "name": "公俐",
+        "country": "CHN",
+        "rank": 8,
+        "points": null,
+        "official_details": "42.988",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16341/",
+        "name_latin": "Li GONG"
+      },
+      {
+        "id": "event/women/500/ath-f538c26b063aaebfc376",
+        "athlete_id": "ath-f538c26b063aaebfc376",
+        "ranking_type": "event",
+        "gender": "women",
+        "distance_m": 500,
+        "format": "individual",
+        "name": "王欣然",
+        "country": "CHN",
+        "rank": 6,
+        "points": null,
+        "official_details": "42.975",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16341/",
+        "name_latin": "Xinran WANG"
       }
     ]
   }
