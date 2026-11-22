@@ -107,9 +107,10 @@ def round_facts(event_id, rounds):
         ):
             standings = [standing(p, first, rounds['items']) for p in people if p['country'] == 'CHN']
             results = dict(base, kind='results', china=china, china_results=sorted(standings, key=lambda s: s['name']))
-            if first['round'] == 'final' and first.get('group') == 'A':
+            if first['round'] == 'final' and any(h.get('group') == 'A' for h in heats):
+                finalists = (p for h in heats if h.get('group') == 'A' for p in h['participants'])
                 ranked = sorted(
-                    (p for p in people if isinstance(p.get('rank'), int) and 1 <= p['rank'] <= 3),
+                    (p for p in finalists if isinstance(p.get('rank'), int) and 1 <= p['rank'] <= 3),
                     key=lambda p: p['rank'],
                 )
                 results['podium'] = [dict(rank=p['rank'], name=p['name'], country=p['country']) for p in ranked]

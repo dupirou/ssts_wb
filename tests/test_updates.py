@@ -92,6 +92,7 @@ class UpdateFeedTests(unittest.TestCase):
                 [person('FAN Kexin', 'CHN', 1), person('Kim BOUTIN', 'CAN', 2), person('X Y', 'NED', 4)],
                 'A',
             ),
+            heat('h2', final, 'final', 'official_results', [person('B winner', 'ITA', 1)], 'B'),
         )
         log = self.run_once(log)
         self.assertEqual([e['kind'] for e in log['events']], ['entries', 'groups', 'results'])

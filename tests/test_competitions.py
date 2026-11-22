@@ -32,6 +32,26 @@ CAN PAGE Kiera F Substitute
 
 
 class CompetitionTests(unittest.TestCase):
+    def test_duplicate_final_publications_keep_distinct_races_and_results(self):
+        final = dict(
+            id='isu-heat-1',
+            gender='women',
+            distance_m=3000,
+            format='relay',
+            round='final',
+            group='A',
+            source_start='2026-11-21T17:19:53Z',
+            round_label='Final',
+            source_url='round1',
+            participants=[dict(country='CHN', rank=1, result='4:12.679')],
+        )
+        copy_final = dict(final, id='isu-heat-2', source_url='round2', round_label='Finals')
+        other_group = dict(copy_final, group='B')
+        reskate = dict(copy_final, source_start='2026-11-21T18:00:00Z')
+        revision = dict(copy_final, participants=[dict(country='CHN', rank=1, result='4:12.680')])
+        expected = [final, other_group, reskate, revision]
+        self.assertEqual(sync.unique_final_heats([final, copy_final, *expected[1:]]), expected)
+
     def test_relay_event_classification_is_distinct_from_world_tour(self):
         page = """Vancouver 2026
                   EVENT CLASSIFICATION
