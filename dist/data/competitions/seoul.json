@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-22T05:11:42+00:00",
-    "updated_at": "2026-11-22T05:11:42+00:00",
+    "checked_at": "2026-11-22T05:21:45+00:00",
+    "updated_at": "2026-11-22T05:21:45+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -16013,47 +16013,12 @@
         "group": "A",
         "heat_number": null,
         "heat_label": "Final",
-        "source_start": "2026-11-22T14:10:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-22T14:14:22.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16381&round=23519",
         "participants": [
-          {
-            "athlete_id": "team-CAN-mixed",
-            "name": "加拿大队",
-            "country": "CAN",
-            "official_skater_id": 13004,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-2f5775133539f6a7e0f7",
-                "name": "Felix ROUSSEL",
-                "official_skater_id": 5998
-              },
-              {
-                "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
-                "name": "Florence BRUNELLE",
-                "official_skater_id": 924
-              },
-              {
-                "athlete_id": "ath-6a55e9fb6f1aecd29288",
-                "name": "Steven DUBOIS",
-                "official_skater_id": 1701
-              },
-              {
-                "athlete_id": "ath-3eaa973ae7925d335ead",
-                "name": "Danae BLAIS",
-                "official_skater_id": 743
-              }
-            ],
-            "name_latin": "Canada"
-          },
           {
             "athlete_id": "team-NED-mixed",
             "name": "荷兰队",
@@ -16061,8 +16026,8 @@
             "official_skater_id": 13011,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "2:37.610",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -16096,8 +16061,8 @@
             "official_skater_id": 13002,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "2:37.895",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -16130,8 +16095,8 @@
             "official_skater_id": 13005,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "2:38.069",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -16169,8 +16134,8 @@
             "official_skater_id": 13010,
             "helmet_number": null,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "2:38.248",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -16196,6 +16161,41 @@
               }
             ],
             "name_latin": "Republic of Korea"
+          },
+          {
+            "athlete_id": "team-CAN-mixed",
+            "name": "加拿大队",
+            "country": "CAN",
+            "official_skater_id": 13004,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 5,
+            "result": "3:13.901",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-2f5775133539f6a7e0f7",
+                "name": "Felix ROUSSEL",
+                "official_skater_id": 5998
+              },
+              {
+                "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+                "name": "Florence BRUNELLE",
+                "official_skater_id": 924
+              },
+              {
+                "athlete_id": "ath-6a55e9fb6f1aecd29288",
+                "name": "Steven DUBOIS",
+                "official_skater_id": 1701
+              },
+              {
+                "athlete_id": "ath-3eaa973ae7925d335ead",
+                "name": "Danae BLAIS",
+                "official_skater_id": 743
+              }
+            ],
+            "name_latin": "Canada"
           }
         ]
       },
