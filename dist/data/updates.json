@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "09a0f1808d7f9737",
+      "station": "seoul",
+      "at": "2026-11-22T03:41:38+00:00",
+      "local_date": "2026-11-22",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
       "id": "96156033cf1c7049",
       "station": "seoul",
       "at": "2026-11-22T03:31:45+00:00",
@@ -3377,30 +3392,6 @@
       "kind": "results",
       "china": [],
       "china_results": []
-    },
-    {
-      "id": "843019b1a2426c63",
-      "station": "montreal",
-      "at": "2026-10-31T15:41:33+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张珈宁"
-      ],
-      "china_results": [
-        {
-          "name": "张珈宁",
-          "rank": 1,
-          "status": "final_b",
-          "name_latin": "Jianing ZHANG"
-        }
-      ]
     }
   ]
 }

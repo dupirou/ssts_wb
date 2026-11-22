@@ -259,6 +259,7 @@
     "seoul/round/2026-11-22/repechage/men/1000/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/men/1000/quarterfinal/-/results": "official",
     "seoul/round/2026-11-22/repechage/men/1000/semifinal/-/groups": "published",
+    "seoul/round/2026-11-22/repechage/men/1000/semifinal/-/results": "official",
     "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/results": "official",
     "seoul/round/2026-11-22/repechage/women/1500/semifinal/-/groups": "published",
@@ -520,29 +521,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "843019b1a2426c63",
-      "station": "montreal",
-      "at": "2026-10-31T15:41:33+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jianing ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jianing ZHANG",
-          "rank": 1,
-          "status": "final_b"
-        }
-      ]
-    },
     {
       "id": "223188171026a3c2",
       "station": "montreal",
@@ -3823,6 +3801,21 @@
       "kind": "groups",
       "heats": 1,
       "china": []
+    },
+    {
+      "id": "09a0f1808d7f9737",
+      "station": "seoul",
+      "at": "2026-11-22T03:41:38+00:00",
+      "local_date": "2026-11-22",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
     }
   ]
 }
