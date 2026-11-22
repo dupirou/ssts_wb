@@ -2,6 +2,36 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "bebc7e564853cc94",
+      "station": "seoul",
+      "at": "2026-11-22T06:51:52+00:00",
+      "local_date": "2026-11-22",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "310c6e37222d0f96",
+      "station": "seoul",
+      "at": "2026-11-22T06:51:52+00:00",
+      "local_date": "2026-11-22",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
       "id": "ae08c4a55350d898",
       "station": "seoul",
       "at": "2026-11-22T06:21:29+00:00",
@@ -3388,45 +3418,6 @@
       "heats": 1,
       "china": [
         "孙龙"
-      ]
-    },
-    {
-      "id": "5e4e619791363f14",
-      "station": "montreal",
-      "at": "2026-10-31T18:21:16+00:00",
-      "local_date": "2026-10-31",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
-    {
-      "id": "df8c543823af8cd6",
-      "station": "montreal",
-      "at": "2026-10-31T18:11:15+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "孙龙"
-      ],
-      "china_results": [
-        {
-          "name": "孙龙",
-          "rank": 4,
-          "status": "final_b",
-          "name_latin": "Long SUN"
-        }
       ]
     }
   ]
