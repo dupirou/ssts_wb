@@ -264,7 +264,7 @@
             totalCount != null && totalCount !== activeCount
               ? `现役前40: ${activeCount}人（总${totalCount}人）`
               : `现役前40: ${activeCount}人`;
-          const cutoffText = `#40 门槛线: ${col.cutoff_points ?? '—'} 分`;
+          const cutoffText = `#40 门槛线: ${col.cutoff_points ?? '—'} 分${col.as_of ? ' · ' + col.as_of.slice(0, 10) : ''}`;
           const skaters = Array.isArray(col.skaters) ? col.skaters : [];
           const statusCls =
             col.status === 'SAFE' ? 'is-safe' : col.status === 'TIGHT' ? 'is-warn' : 'is-danger';
@@ -364,8 +364,8 @@
 
     const relayText = (row, label) => {
       if (!row) return `${label}：暂无排名`;
-      const suffix = row.qualified === false ? ' · 未入围' : '';
-      return `${label}：第 ${row.official_rank} 名 · ${row.points} 分${suffix}`;
+      const suffix = row.qualified === false ? ' · 暂列资格线外' : '';
+      return `${label}：暂列第 ${row.official_rank} 名 · ${row.points} 分${suffix}`;
     };
 
     const quotaGrid = h(
@@ -374,14 +374,17 @@
       h(
         'div',
         { class: 'roster-quota-chip is-accent' },
-        h('span', { class: 'roster-quota-label', text: `${genderLabel}总注册上限` }),
+        h('span', {
+          class: 'roster-quota-label',
+          text: `${genderLabel}${isWt ? '' : '预计'}总注册上限`
+        }),
         h('b', { class: 'roster-quota-val num', text: `${chnQuota.max_roster_size ?? '—'} 人` })
       ),
       ...distCards,
       h(
         'div',
         { class: 'roster-quota-chip is-relay' },
-        h('span', { class: 'roster-quota-label', text: '接力排名' }),
+        h('span', { class: 'roster-quota-label', text: '接力暂列排名' }),
         h('p', {
           class: 'roster-relay-line',
           text: relayText(genderRelayChn, genderRelayLabel)
@@ -401,6 +404,10 @@
     const chnWarnings =
       forecast?.penalty_warnings_chn || allWarnings.filter((w) => w.country === 'CHN');
 
+    const targetStop = isBeijing ? 'beijing' : forecast?.next_wt_stop?.id;
+    const penaltyCurrent =
+      !('penalty_target_stop' in quotas) ||
+      (targetStop && targetStop === quotas.penalty_target_stop);
     const penaltyBar = h(
       'div',
       { class: 'roster-penalty-bar', 'aria-label': '累计犯规禁报预警' },
@@ -414,7 +421,7 @@
           },
           `中国队禁报 ${chnBans.length} 人`
         ),
-        h('span', { class: 'roster-status-pill is-warn' }, `2 次犯规预警 ${chnWarnings.length} 人`)
+        h('span', { class: 'roster-status-pill is-warn' }, `距禁报差 1 次 ${chnWarnings.length} 人`)
       ),
       chnBans.length || chnWarnings.length
         ? h(
@@ -433,7 +440,7 @@
                 }),
                 h('span', {
                   class: 'num',
-                  text: `累计 ${b.cumulative_penalties} 次 · 禁报 ${(b.blocked_distances || []).join(' / ')}`
+                  text: `累计 ${b.cumulative_penalties} 次 · 禁报 ${(b.blocked_distances || []).join(' / ') || b.blocked_count + ' 项，项目待定'}`
                 })
               );
             }),
@@ -506,9 +513,9 @@
           const mr = mixedRelayMap.get(r.country);
           const relayCell = (rec, hasFlag) => {
             if (!hasFlag && !rec?.qualified) {
-              return rec ? `未入围 (#${rec.official_rank})` : '—';
+              return rec ? `暂列线外 (#${rec.official_rank})` : '—';
             }
-            return rec ? `✓ #${rec.official_rank} (${rec.points}分)` : '✓ 已获资格';
+            return rec ? `暂列 #${rec.official_rank} (${rec.points}分)` : '暂列入围';
           };
           return h(
             'tr',
@@ -566,7 +573,7 @@
       )
     );
 
-    const top40WatchPanel = forecast ? renderTop40Watch(h, forecast, gender) : null;
+    const top40WatchPanel = isWt && forecast ? renderTop40Watch(h, forecast, gender) : null;
     const bjMeta = forecast?.scenarios?.world_tour_beijing;
     const nextStopText = isBeijing
       ? `目标分站：${bjMeta?.city || 'Beijing'} (${bjMeta?.date_start || '2026-12-04'})`
@@ -584,8 +591,18 @@
         nextStopText ? h('p', { text: nextStopText }) : null
       ),
       quotaGrid,
+      quotas.relay_as_of
+        ? h('small', {
+            class: 'faint',
+            text: `接力榜数据日期 · ${genderRelayLabel} ${quotas.relay_as_of[genderRelayKey]?.slice(0, 10)} · 混合 ${quotas.relay_as_of.mixed_2000m?.slice(0, 10)}`
+          })
+        : null,
       top40WatchPanel,
-      penaltyBar,
+      isWt && penaltyCurrent
+        ? penaltyBar
+        : isWt
+          ? h('p', { class: 'faint', text: '本场禁报名单待核对' })
+          : null,
       countriesDetails
     );
   }
@@ -935,7 +952,7 @@
     };
 
     const eventBtns = [
-      { id: 'wt', label: '世巡赛 · 上海站' },
+      { id: 'wt', label: '世巡赛 · 下一站' },
       { id: 'wt_beijing', label: '世巡赛 · 北京站' },
       { id: 'wc', label: '2027 首尔世锦赛' }
     ].map((opt) =>
@@ -989,6 +1006,13 @@
     };
 
     const draw = () => {
+      const next = forecast?.next_wt_stop;
+      const nextBtn = eventBtns.find((b) => b.dataset.value === 'wt');
+      nextBtn.querySelector('b').textContent = next?.city_zh
+        ? `世巡赛 · ${next.city_zh}站`
+        : '世巡赛 · 下一站';
+      const beijingBtn = eventBtns.find((b) => b.dataset.value === 'wt_beijing');
+      beijingBtn.hidden = next?.id === 'beijing' && state.event !== 'wt_beijing';
       const quotaSection = renderQuotaSection(h, quotas, unlocked ? forecast : null, state, lookup);
       if (!unlocked || !forecast) {
         body.replaceChildren(quotaSection);
@@ -997,7 +1021,7 @@
       const scenarioKey =
         state.event === 'wc'
           ? 'world_championships_2027'
-          : state.event === 'wt_beijing' && forecast.scenarios?.world_tour_beijing
+          : state.event === 'wt_beijing'
             ? 'world_tour_beijing'
             : 'world_tour_next_stop';
       const scenarioData = forecast.scenarios?.[scenarioKey]?.[state.gender];

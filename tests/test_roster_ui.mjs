@@ -104,8 +104,7 @@ test('/roster/ hides predictions by default, unlocks via 5-tap title password fl
 
   // Locked state: public quota section renders, but zero prediction sections or /internal/analysis calls
   assert.ok(d.querySelector('[aria-label="名额与规则看板"]'));
-  assert.ok(d.querySelector('.roster-penalty-bar'));
-  assert.match(d.querySelector('.roster-penalty-bar').textContent, /张楚桐/);
+  assert.match(d.querySelector('#app').textContent, /本场禁报名单待核对/);
   assert.equal(d.querySelector('[aria-label="主力阵容与淘汰边缘"]'), null);
   assert.equal(d.querySelector('[aria-label="替补梯队"]'), null);
   assert.equal(d.querySelector('.roster-top40-watch'), null);
@@ -160,11 +159,8 @@ test('/roster/ renders V2 simplified layout: quotas, penalty warnings, Core vs B
   assert.match(quotaSection.textContent, /Top-40 4 人特例/);
   assert.match(quotaSection.textContent, /第 5 名/);
 
-  const penaltyBar = d.querySelector('.roster-penalty-bar');
-  assert.ok(penaltyBar);
-  assert.match(penaltyBar.textContent, /张楚桐/);
-  assert.match(penaltyBar.textContent, /公俐/);
-  assert.match(penaltyBar.textContent, /2 次犯规预警 2 人/);
+  assert.equal(d.querySelector('.roster-penalty-bar'), null);
+  assert.match(quotaSection.textContent, /本场禁报名单待核对/);
 
   // V1 Monte Carlo / MILP artifacts and redundant explanatory prose must be completely absent
   const pageText = d.querySelector('#app').textContent;
@@ -394,7 +390,7 @@ test('/roster/ supports URL-synced switching to 2027 WC, CHN Men, and country qu
   // CHN Men 2027 WC: 5 max, 3/2/2 individual slots, Men 5000m relay #3
   const quotaSection = d.querySelector('[aria-label="名额与规则看板"]');
   assert.match(quotaSection.textContent, /5 人/);
-  assert.match(quotaSection.textContent, /男子 5000m 接力：第 3 名/);
+  assert.match(quotaSection.textContent, /男子 5000m 接力：暂列第 3 名/);
 
   const mainCards = [...d.querySelectorAll('.roster-main-grid > .roster-skater-card.is-main')];
   assert.equal(mainCards.length, 5);

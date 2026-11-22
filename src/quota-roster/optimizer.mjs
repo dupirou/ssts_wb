@@ -836,7 +836,56 @@ export function runMonteCarloRoster(candidates, opts = {}) {
   const rng = createRng(seed);
   const n = problem.n;
 
-  const deterministic = solveRosterMilp(problem, constraints, lambdas0);
+  const wtActiveIndices = [];
+  for (let i = 0; i < n; i++) {
+    if (pool[i].qualification_path === 'WT_2026_27') wtActiveIndices.push(i);
+  }
+  const normCons = normConstraints(constraints);
+  const useActiveSquadAnchor = wtActiveIndices.length >= Math.min(4, normCons.nMax);
+  function selectRoster(weights, sampledMu) {
+    if (!useActiveSquadAnchor) return solveRosterMilp(problem, constraints, weights);
+    const activeSubset = pool.flatMap((c, i) =>
+      c.qualification_path === 'WT_2026_27' ||
+      (c.qualification_path && Math.max(sampledMu[i*3], sampledMu[i*3+1], sampledMu[i*3+2]) >= 2.2) ? [i] : []
+    );
+    // Rank active candidates by transparent standing score to pick top nMax starters
+    const standingScore = (idx) => {
+      const c = pool[idx];
+      const isWt = c.qualification_path === 'WT_2026_27';
+      const stops = c.wt_2026_27?.stops_count ?? (isWt ? 1 : 0);
+      const top40 = c.world_ranking_top40_distances || [];
+      const wr = c.world_ranks || {};
+      let wrScore = 0;
+      for (const d of top40) {
+        const rk = wr[d]?.rank ?? 30;
+        const slotNeed = d === 500 ? normCons.k500 : d === 1000 ? normCons.k1000 : normCons.k1500;
+        const distMult = slotNeed >= 3 ? 1.0 : 0.82;
+        wrScore += distMult * (0.25 + 0.55 * ((41 - Math.min(40, rk)) / 40));
+      }
+      const vSum =
+        problem.V[idx * 3] +
+        problem.V[idx * 3 + 1] +
+        problem.V[idx * 3 + 2] +
+        weights.relay * problem.R[idx];
+      return (isWt ? 2.0 : 1.5) + 0.22 * Math.min(3, stops) + wrScore + 2.2 * vSum;
+    };
+    const sortedActive = [...activeSubset].sort(
+      (a, b) => standingScore(b) - standingScore(a) || problem.ids[a].localeCompare(problem.ids[b])
+    );
+    const chosenMembers = sortedActive.slice(0, normCons.nMax);
+    // When nMax >= 6 (full WT roster), raise 3-distance fatigue penalty so 12 slots split 2x6 cleanly
+    const assignLambdas =
+      normCons.nMax >= 6
+        ? { ...weights, fatigue: Math.max(weights.fatigue, 0.25) }
+        : weights;
+    const sol = solveRosterMilp(problem, constraints, assignLambdas, {
+      subset: chosenMembers,
+      forced: chosenMembers,
+      prune: false
+    });
+    return sol.feasible ? sol : solveRosterMilp(problem, constraints, weights);
+  }
+  const deterministic = selectRoster(lambdas0, problem.mu);
   const muBase = Float64Array.from(problem.mu);
   const muDraw = new Float64Array(n * 3);
   const xCount = new Float64Array(n);
@@ -851,7 +900,7 @@ export function runMonteCarloRoster(candidates, opts = {}) {
     lam.relay = lambdas0.relay * (1 + pct * (2 * rng.nextUniform() - 1));
     lam.fatigue = lambdas0.fatigue * (1 + pct * (2 * rng.nextUniform() - 1));
     scoreProblemInPlace(problem, muDraw);
-    const sol = solveRosterMilp(problem, constraints, lam);
+    const sol = selectRoster(lam, muDraw);
     if (!sol.feasible) continue;
     feasibleDraws++;
     objSum += sol.objective;
@@ -886,6 +935,7 @@ export function runMonteCarloRoster(candidates, opts = {}) {
     age_group: c.age_group ?? null,
     is_dual_eligible: Boolean(c.is_dual_eligible),
     data_sources: c.data_sources || [],
+    ...(problem.blocked[i] ? { blocked_distances: DISTANCES.filter((d, k) => problem.blocked[i] & (1 << k)) } : {}),
     qualification_path: c.qualification_path ?? null,
     world_ranking_top40_distances: Array.isArray(c.world_ranking_top40_distances)
       ? c.world_ranking_top40_distances
@@ -932,74 +982,16 @@ export function runMonteCarloRoster(candidates, opts = {}) {
     modal_entries: modalEntries(problem, lu)
   }));
 
-  // Preferred roster: when an active current-season WT squad exists (>= 4 WT_2026_27 skaters),
-  // anchor selection on active WT skaters (plus any breakout candidate with mu >= 2.2),
-  // and balance 6-skater WT workloads so travelling starters don't sit with 1 distance while
-  // teammates skate 3. For synthetic pools, use the MC mode (>= 5%) or deterministic MAP optimum.
-  const wtActiveIndices = [];
-  const starBreakoutIndices = [];
-  for (let i = 0; i < n; i++) {
-    const c = pool[i];
-    if (c.qualification_path === 'WT_2026_27') {
-      wtActiveIndices.push(i);
-    } else if (
-      Math.max(problem.mu[i * 3], problem.mu[i * 3 + 1], problem.mu[i * 3 + 2]) >= 2.2 &&
-      c.qualification_path
-    ) {
-      starBreakoutIndices.push(i);
-    }
-  }
-  const normCons = normConstraints(constraints);
-  const useActiveSquadAnchor = wtActiveIndices.length >= Math.min(4, normCons.nMax);
-
   let preferred = null;
-  if (useActiveSquadAnchor) {
-    const activeSubset = [...wtActiveIndices, ...starBreakoutIndices];
-    // Rank active candidates by transparent standing score to pick top nMax starters
-    const standingScore = (idx) => {
-      const c = pool[idx];
-      const isWt = c.qualification_path === 'WT_2026_27';
-      const stops = c.wt_2026_27?.stops_count ?? (isWt ? 1 : 0);
-      const top40 = c.world_ranking_top40_distances || [];
-      const wr = c.world_ranks || {};
-      let wrScore = 0;
-      for (const d of top40) {
-        const rk = wr[d]?.rank ?? 30;
-        const slotNeed = d === 500 ? normCons.k500 : d === 1000 ? normCons.k1000 : normCons.k1500;
-        const distMult = slotNeed >= 3 ? 1.0 : 0.82;
-        wrScore += distMult * (0.25 + 0.55 * ((41 - Math.min(40, rk)) / 40));
-      }
-      const vSum =
-        problem.V[idx * 3] +
-        problem.V[idx * 3 + 1] +
-        problem.V[idx * 3 + 2] +
-        lambdas0.relay * problem.R[idx];
-      return (isWt ? 2.0 : 1.5) + 0.22 * Math.min(3, stops) + wrScore + 2.2 * vSum;
-    };
-    const sortedActive = [...activeSubset].sort(
-      (a, b) => standingScore(b) - standingScore(a) || problem.ids[a].localeCompare(problem.ids[b])
-    );
-    const chosenMembers = sortedActive.slice(0, normCons.nMax);
-    // When nMax >= 6 (full WT roster), raise 3-distance fatigue penalty so 12 slots split 2x6 cleanly
-    const assignLambdas =
-      normCons.nMax >= 6
-        ? { ...lambdas0, fatigue: Math.max(lambdas0.fatigue, 0.25) }
-        : lambdas0;
-    const sol = solveRosterMilp(problem, constraints, assignLambdas, {
-      subset: chosenMembers,
-      forced: chosenMembers,
-      prune: false
-    });
-    const use = sol.feasible ? sol : deterministic;
-    const mKey = lineupKey(problem, chosenMembers);
-    const freqCount = lineups.get(mKey)?.count || 0;
+  if (useActiveSquadAnchor && deterministic.feasible) {
+    const members = deterministic.selected;
+    const key = lineupKey(problem, members);
     preferred = {
-      athlete_ids: chosenMembers.map((i) => problem.ids[i]).sort(),
-      ordered_ids: chosenMembers.map((i) => problem.ids[i]),
-      frequency: round(freqCount / denom),
-      objective_at_mean: round(use.objective),
-      entries: solutionToEntries(problem, use),
-      matches_deterministic_map: detKey === mKey
+      athlete_ids: members.map(i => problem.ids[i]).sort(),
+      frequency: round((lineups.get(key)?.count || 0) / denom),
+      objective_at_mean: round(deterministic.objective),
+      entries: solutionToEntries(problem, deterministic),
+      matches_deterministic_map: true
     };
   } else if (ranked.length || deterministic.feasible) {
     const topFreq = ranked.length ? ranked[0][1].count / denom : 0;
@@ -1105,12 +1097,14 @@ function deriveRecommendedEntries(cand, isStarter, mainEntries) {
     for (const k of ['500', '1000', '1500', 'relay']) {
       if ((mainEntries[k] || []).includes(cand.athlete_id)) out.push(k);
     }
-    if (out.length > 0) return out;
+    return out;
   }
+  const available = DISTANCES.filter(d => !cand.blocked_distances?.includes(d));
   const wtDists = (cand.wt_2026_27?.distances_entered || [])
     .map((d) => Number(d))
-    .filter((d) => DISTANCES.includes(d));
-  const ranked = [...DISTANCES].sort((a, b) => candidateMu(cand, b) - candidateMu(cand, a) || a - b);
+    .filter((d) => available.includes(d));
+  if (available.length <= 1) return available.map(String);
+  const ranked = [...available].sort((a, b) => candidateMu(cand, b) - candidateMu(cand, a) || a - b);
   if (wtDists.length > 0) {
     const wtRanked = [...wtDists].sort((a, b) => candidateMu(cand, b) - candidateMu(cand, a) || a - b);
     return wtRanked.slice(0, 2).sort((a, b) => a - b).map(String);
@@ -1456,9 +1450,7 @@ export function worldChampionshipConstraints(config, gender, opts = {}) {
 
 /** Full per-gender pipeline: MC + tier classification + reserves + timing. */
 export function forecastGender(candidates, opts = {}) {
-  const t0 = performance.now();
   const mc = runMonteCarloRoster(candidates, opts);
-  const t1 = performance.now();
 
   const candById = new Map(mc.candidates.map((c) => [c.athlete_id, c]));
   let orderedMain = mc.preferred_main_roster?.ordered_ids
@@ -1482,7 +1474,6 @@ export function forecastGender(candidates, opts = {}) {
     .map((c) => c.athlete_id);
 
   const reserves = selectSixReserves(mc, { ...opts, orderedMain, bubbleIds });
-  const t2 = performance.now();
   const reserveCap = Math.max(
     0,
     Math.floor(opts.maxReserves ?? opts.config?.roster_model?.reserve_pool?.total_size ?? 6)
@@ -1542,7 +1533,6 @@ export function forecastGender(candidates, opts = {}) {
       cut_ids: cutIds
     },
     reserve_cap: reserveCap,
-    reserves,
-    timing_ms: { monte_carlo: round(t1 - t0, 1), reserves: round(t2 - t1, 1), total: round(t2 - t0, 1) }
+    reserves
   };
 }

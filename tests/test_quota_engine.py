@@ -1,5 +1,8 @@
 """Unit & official-table back-calculation tests for tools/quota_engine.py."""
 
+import json
+import copy
+import tempfile
 import sys
 from pathlib import Path
 import unittest
@@ -10,6 +13,7 @@ if (ROOT / '.cache/pylib').exists():
     sys.path.insert(0, str(ROOT / '.cache/pylib'))
 
 import quota_engine as qe
+from sync_junior_isu import merge_standings
 
 
 class QuotaEngineTest(unittest.TestCase):
@@ -189,6 +193,41 @@ class QuotaEngineTest(unittest.TestCase):
         # Toggle switch OFF -> zero bans
         res_off = qe.compute_wt_2026_27_quotas(wrd, pens, self.cfg, enable_penalty_bans=False)
         self.assertEqual(res_off['next_stop_penalty_bans'], [])
+
+    def test_clean_build_preserves_verified_quotas_and_separates_rankings(self):
+        with tempfile.TemporaryDirectory() as directory:
+            out = Path(directory) / 'quotas.json'
+            result = qe.build_quotas_snapshot(out_path=out)
+            teams = result['world_championships_2027']['individual_and_roster']
+            self.assertEqual([len(teams[g]) for g in ('women', 'men')], [23, 36])
+            self.assertEqual(result['wc_2027_verification']['checked_cells'], 177)
+            with self.assertRaises(FileNotFoundError):
+                qe.build_quotas_snapshot(live_standings_path=out.with_name('missing.json'), out_path=out)
+            self.assertEqual(json.loads(out.read_text()), result)
+
+    def test_partial_ranking_refresh_keeps_missing_tables_and_dates(self):
+        previous = json.loads((ROOT / 'data/quota_roster/standings_2026_27.json').read_text())
+        fresh = copy.deepcopy(previous)
+        fresh['fetched_at'] = '2026-12-01T00:00:00Z'
+        missing = fresh['world_rankings_individual'].pop()
+        changed = fresh['world_rankings_individual'][0]
+        changed['items'][0]['points'] += 100
+        fresh['world_tour_relay_standings']['mixed_2000m'] = []
+        saved = merge_standings(previous, fresh)
+        tables = {t['list_id']: t for t in saved['world_rankings_individual']}
+        self.assertEqual(tables[missing['list_id']]['items'], missing['items'])
+        self.assertEqual(tables[missing['list_id']]['as_of'], missing.get('as_of', previous['fetched_at']))
+        self.assertEqual(tables[changed['list_id']]['as_of'], fresh['fetched_at'])
+        self.assertEqual(saved['world_tour_relay_standings'], previous['world_tour_relay_standings'])
+
+    def test_penalty_crossing_uses_canonical_id_and_is_not_repeated(self):
+        report = dict(athlete_id='ath-08caea4ad943373c94ab', country='CHN', gender='women', total=3)
+        ranking = {('women', '1000m'): [dict(athlete_id='skr-8080', country='CHN', rank=1)]}
+        bans = qe.compute_wt_2026_27_quotas(ranking, [dict(report, previous_total=2)])['next_stop_penalty_bans']
+        self.assertEqual([(r['athlete_id'], r['blocked_distances']) for r in bans], [('skr-8080', ['1000m'])])
+        self.assertFalse(
+            qe.compute_wt_2026_27_quotas(ranking, [dict(report, previous_total=3)])['next_stop_penalty_bans']
+        )
 
     def test_backcalc_2027_wc_matches_comm_2805_100_percent(self):
         worlds_pdf = ROOT / '.cache/isu/1_worlds.pdf'

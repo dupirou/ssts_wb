@@ -95,7 +95,8 @@ test('Real data pipeline: zero writes to data/heats/, positive cross-tier correl
   const predMtimeBefore = fs.statSync(predStatePath).mtimeMs;
   const heatsFilesBefore = fs.readdirSync(DEFAULT_PATHS.heatsDir).sort();
 
-  const pool = buildFusedCandidatePool({ asOfDate: '2026-11-21' });
+  const {world_tour_2026_27: {quotas: wtQuotas}} = JSON.parse(fs.readFileSync(new URL('../data/quota_roster/quotas_2026_27.json', import.meta.url)));
+  const pool = buildFusedCandidatePool({ asOfDate: '2026-11-21', wtQuotas });
 
   // (d) Zero writes to data/heats/
   assert.equal(sha256File(predStatePath), predHashBefore);
@@ -178,7 +179,7 @@ test('Real data pipeline: zero writes to data/heats/, positive cross-tier correl
       const w = watch[d];
       assert.equal(w.distance_m, d);
       assert.equal(w.cutoff_rank, 40);
-      assert.ok(w.slots === 3 || w.slots === 4);
+      assert.equal(w.slots, wtQuotas[gender].CHN['slots_' + d + 'm']);
       assert.ok(typeof w.cutoff_points === 'number' && w.cutoff_points > 0);
       assert.ok(typeof w.top40_total_chn === 'number');
       assert.ok(typeof w.top40_active_chn === 'number');
