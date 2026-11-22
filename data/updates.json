@@ -253,6 +253,7 @@
     "seoul/round/2026-11-21/repechage/women/1000/semifinal/-/results": "official",
     "seoul/round/2026-11-22/main/men/5000/final/-/groups": "published",
     "seoul/round/2026-11-22/main/mixed/2000/final/-/groups": "published",
+    "seoul/round/2026-11-22/main/women/500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/men/1000/heats/-/groups": "published",
     "seoul/round/2026-11-22/repechage/men/1000/heats/-/results": "official",
     "seoul/round/2026-11-22/repechage/men/1000/quarterfinal/-/groups": "published",
@@ -517,21 +518,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "04086892636f467d",
-      "station": "montreal",
-      "at": "2026-10-31T15:31:18+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
-    },
     {
       "id": "0bb81f9cebc2d6fb",
       "station": "montreal",
@@ -3828,6 +3814,26 @@
       "kind": "results",
       "china": [],
       "china_results": []
+    },
+    {
+      "id": "3d58af00dc7a0d3c",
+      "station": "seoul",
+      "at": "2026-11-22T03:11:33+00:00",
+      "local_date": "2026-11-22",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "Chutong ZHANG",
+        "Jiarui SONG",
+        "Li GONG",
+        "Xinran WANG"
+      ]
     }
   ]
 }

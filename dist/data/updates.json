@@ -2,6 +2,26 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "3d58af00dc7a0d3c",
+      "station": "seoul",
+      "at": "2026-11-22T03:11:33+00:00",
+      "local_date": "2026-11-22",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "张楚桐",
+        "宋佳蕊",
+        "公俐",
+        "王欣然"
+      ]
+    },
+    {
       "id": "9944e64823b33748",
       "station": "seoul",
       "at": "2026-11-22T03:01:36+00:00",
@@ -3395,21 +3415,6 @@
           "name_latin": "Kerui SONG"
         }
       ]
-    },
-    {
-      "id": "04086892636f467d",
-      "station": "montreal",
-      "at": "2026-10-31T15:31:18+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
     }
   ]
 }
