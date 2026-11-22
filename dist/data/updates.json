@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "df79cb16af2ee070",
+      "station": "seoul",
+      "at": "2026-11-22T02:41:53+00:00",
+      "local_date": "2026-11-22",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
       "id": "97e783245c7b13ea",
       "station": "seoul",
       "at": "2026-11-22T02:31:45+00:00",
@@ -3414,30 +3429,6 @@
           "rank": 3,
           "status": "out",
           "name_latin": "Zixia ZHANG"
-        }
-      ]
-    },
-    {
-      "id": "c12c6ed837b8a948",
-      "station": "montreal",
-      "at": "2026-10-31T14:41:18+00:00",
-      "local_date": "2026-10-31",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张珈宁"
-      ],
-      "china_results": [
-        {
-          "name": "张珈宁",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Jianing ZHANG"
         }
       ]
     }
