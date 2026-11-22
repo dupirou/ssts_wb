@@ -48,16 +48,10 @@
     USA: '美国'
   };
 
-  const SOURCE_LABELS = {
-    Senior: '成年世巡',
-    JWC: '青杯',
-    Domestic: '国内甲组'
-  };
-
   const ROLE_LABELS = {
     sprint_relay: '短距离 / 接力',
     mid_long: '中长距离',
-    versatile_upside: '综合 / 高潜力机动'
+    versatile_upside: '综合机动'
   };
 
   const QUAL_PATH_LABELS = {
@@ -73,7 +67,14 @@
     return `Top40: ${clean}m`;
   }
 
-  function channelAndTop40Tags(h, record, lookup) {
+  function hasAnyWorldRank(worldRanks) {
+    if (!worldRanks || typeof worldRanks !== 'object') return false;
+    return ['500', '1000', '1500'].some(
+      (d) => extractRankNumber(worldRanks[d] ?? worldRanks[d + 'm']) != null
+    );
+  }
+
+  function channelAndTop40Tags(h, record, lookup, showTop40Fallback = false) {
     const base = record.athlete_id ? lookup?.byId.get(record.athlete_id) : null;
     const qPath = record.qualification_path || base?.qualification_path || null;
     const top40 = record.world_ranking_top40_distances?.length
@@ -83,9 +84,11 @@
     if (qPath) {
       tags.push(h('span', { class: 'roster-tag is-qual', text: QUAL_PATH_LABELS[qPath] || qPath }));
     }
-    const top40Text = formatTop40Tag(top40);
-    if (top40Text) {
-      tags.push(h('span', { class: 'roster-tag is-top40', text: top40Text }));
+    if (showTop40Fallback) {
+      const top40Text = formatTop40Tag(top40);
+      if (top40Text) {
+        tags.push(h('span', { class: 'roster-tag is-top40', text: top40Text }));
+      }
     }
     return tags;
   }
@@ -248,15 +251,7 @@
     return h(
       'div',
       { class: 'roster-top40-watch', 'aria-label': '世界排名 Top-40 与 4 席名额守门' },
-      h(
-        'div',
-        { class: 'roster-subhead' },
-        h('h3', { text: '世界排名 Top-40 与 4 席名额线' }),
-        h('span', {
-          class: 'faint tiny',
-          text: '单项至少 3 人进 Top-40 解锁 4 席特例 · 依现役积分与 #40 门槛线对照'
-        })
-      ),
+      h('div', { class: 'roster-subhead' }, h('h3', { text: '世界排名 Top-40 与 4 席名额线' })),
       h(
         'div',
         { class: 'roster-top40-grid' },
@@ -323,7 +318,7 @@
                     );
                   })
                 )
-              : h('p', { class: 'faint tiny', text: '暂无中国队世界排名记录' })
+              : h('p', { class: 'faint tiny', text: '暂无排名记录' })
           );
         })
       )
@@ -351,28 +346,25 @@
     const upgradedSet = new Set(wcChn.host_upgraded_distances || []);
     const distCards = ['500m', '1000m', '1500m'].map((dist) => {
       const slots = chnQuota['slots_' + dist] ?? '—';
-      let note;
+      let note = null;
       if (isWt) {
-        const top40 = wtChn.top40_counts?.[dist];
-        note = fourSet.has(dist)
-          ? `WT Top-40 报 4 人特例${top40 != null ? `（Top-40 ${top40} 人）` : ''}`
-          : '常规 3 人上限';
-      } else {
-        note = upgradedSet.has(dist) ? 'Comm. 2805（东道主补足）' : 'Comm. 2805 核定席位';
+        if (fourSet.has(dist)) note = 'Top-40 4 人特例';
+      } else if (upgradedSet.has(dist)) {
+        note = '东道主补足';
       }
       return h(
         'div',
         { class: 'roster-quota-chip' },
         h('span', { class: 'roster-quota-label', text: `${dist} 席位` }),
         h('b', { class: 'roster-quota-val num', text: `${slots} 人` }),
-        h('small', { class: 'roster-quota-sub', text: note })
+        note ? h('small', { class: 'roster-quota-sub', text: note }) : null
       );
     });
 
     const relayText = (row, label) => {
       if (!row) return `${label}：暂无排名`;
-      const qual = row.qualified ? '已获资格' : '未获资格';
-      return `${label}：第 ${row.official_rank} 名 · ${row.points} 分 · ${qual}`;
+      const suffix = row.qualified === false ? ' · 未入围' : '';
+      return `${label}：第 ${row.official_rank} 名 · ${row.points} 分${suffix}`;
     };
 
     const quotaGrid = h(
@@ -382,17 +374,13 @@
         'div',
         { class: 'roster-quota-chip is-accent' },
         h('span', { class: 'roster-quota-label', text: `${genderLabel}总注册上限` }),
-        h('b', { class: 'roster-quota-val num', text: `${chnQuota.max_roster_size ?? '—'} 人` }),
-        h('small', {
-          class: 'roster-quota-sub',
-          text: isWt ? '2026/27 世巡赛单站上限' : '2027 首尔世锦赛 Comm. 2805'
-        })
+        h('b', { class: 'roster-quota-val num', text: `${chnQuota.max_roster_size ?? '—'} 人` })
       ),
       ...distCards,
       h(
         'div',
         { class: 'roster-quota-chip is-relay' },
-        h('span', { class: 'roster-quota-label', text: '接力资格状态' }),
+        h('span', { class: 'roster-quota-label', text: '接力排名' }),
         h('p', {
           class: 'roster-relay-line',
           text: relayText(genderRelayChn, genderRelayLabel)
@@ -423,20 +411,9 @@
           {
             class: `roster-status-pill ${chnBans.length ? 'is-danger' : 'is-safe'}`
           },
-          chnBans.length
-            ? `中国队触发禁报 ${chnBans.length} 人`
-            : '中国队当前 0 人触发 3/5/7 次禁报'
+          `中国队禁报 ${chnBans.length} 人`
         ),
-        h(
-          'span',
-          { class: 'roster-status-pill is-warn' },
-          `中国队 2 次犯规预警 ${chnWarnings.length} 人`
-        ),
-        h(
-          'span',
-          { class: 'roster-penalty-global faint' },
-          `全联盟已禁报 ${allBans.length} 人 · 2 次预警 ${allWarnings.length} 人`
-        )
+        h('span', { class: 'roster-status-pill is-warn' }, `2 次犯规预警 ${chnWarnings.length} 人`)
       ),
       chnBans.length || chnWarnings.length
         ? h(
@@ -473,25 +450,12 @@
                 }),
                 h('span', {
                   class: 'num',
-                  text: `累计 ${w.cumulative_penalties} 次犯规${
-                    top ? ` · 再犯禁报最高排名单项 ${top.dist} (#${top.rank})` : ''
+                  text: `累计 ${w.cumulative_penalties} 次${
+                    top ? ` · 临界 ${top.dist} (#${top.rank})` : ''
                   }`
                 })
               );
             })
-          )
-        : null,
-      allBans.length
-        ? h(
-            'p',
-            { class: 'roster-penalty-note faint' },
-            '全联盟禁报参考：' +
-              allBans
-                .map(
-                  (b) =>
-                    `${b.country} ${b.name}（${b.cumulative_penalties} 次 · 禁报 ${(b.blocked_distances || []).join('/')}）`
-                )
-                .join('；')
           )
         : null
     );
@@ -602,6 +566,10 @@
     );
 
     const top40WatchPanel = forecast ? renderTop40Watch(h, forecast, gender) : null;
+    const nextStopText =
+      isWt && forecast?.next_wt_stop
+        ? `下一站：${forecast.next_wt_stop.city || 'Shanghai'} (${forecast.next_wt_stop.date_start || ''})`
+        : null;
 
     return h(
       'section',
@@ -610,13 +578,7 @@
         'div',
         { class: 'panel-head' },
         h('h2', { text: '名额与规则看板' }),
-        h('p', {
-          text: isWt
-            ? forecast?.next_wt_stop
-              ? `下一站：${forecast.next_wt_stop.city || 'Shanghai'} (${forecast.next_wt_stop.date_start || ''})`
-              : '依据 ISU Communication 2806 核定'
-            : '依据 ISU Communication 2805 核定'
-        })
+        nextStopText ? h('p', { text: nextStopText }) : null
       ),
       quotaGrid,
       top40WatchPanel,
@@ -645,23 +607,27 @@
   function renderCandidateCard(h, candidate, preferredEntries, lookup, state, tier) {
     const nm = displayName(candidate, lookup);
     const isDual = candidate.is_dual_eligible === true || candidate.age_group === 'DUAL_ELIGIBLE';
-    const ageLabel =
-      candidate.is_dual_eligible != null || candidate.age_group
-        ? isDual
-          ? '双适龄 U-19'
-          : '成年'
-        : null;
-    const sources = (candidate.data_sources || []).map((s) => SOURCE_LABELS[s] || s);
     const badge = tierBadgeMeta(tier, state);
     const isMain = tier === 'core' || tier === 'bubble';
     const specLabel =
       candidate.specialty_label || SPECIALTY_LABELS[candidate.specialty_tag] || null;
     const entriesText = formatRecommendedEntries(candidate, preferredEntries);
+    const hasRanks = hasAnyWorldRank(candidate.world_ranks);
     const ranksText = formatWorldRanks(candidate.world_ranks);
-    const noteText =
-      candidate.status_note ||
-      candidate.recent_highlight ||
-      (tier === 'core' ? '本季主力阵容' : '国家队合格候选池');
+    const secondLabel = hasRanks || !candidate.recent_highlight ? '世界排名' : '近期成绩';
+    const secondValue = hasRanks ? ranksText : candidate.recent_highlight || ranksText;
+    const tags = [
+      ...(isDual ? [h('span', { class: 'roster-tag is-dual', text: '双适龄 U-19' })] : []),
+      ...channelAndTop40Tags(h, candidate, lookup, !hasRanks),
+      ...(specLabel
+        ? [
+            h('span', {
+              class: `roster-tag is-specialty is-spec-${candidate.specialty_tag || 'default'}`,
+              text: specLabel
+            })
+          ]
+        : [])
+    ];
 
     return h(
       'article',
@@ -680,41 +646,21 @@
         ),
         h('span', { class: `roster-tier-badge ${badge.cls}`, text: badge.text })
       ),
-      h(
-        'div',
-        { class: 'roster-tags' },
-        ageLabel
-          ? h('span', { class: `roster-tag ${isDual ? 'is-dual' : 'is-senior'}`, text: ageLabel })
-          : null,
-        ...channelAndTop40Tags(h, candidate, lookup),
-        ...sources.map((src) => h('span', { class: 'roster-tag is-source', text: src })),
-        specLabel
-          ? h('span', {
-              class: `roster-tag is-specialty is-spec-${candidate.specialty_tag || 'default'}`,
-              text: specLabel
-            })
-          : null
-      ),
+      tags.length ? h('div', { class: 'roster-tags' }, ...tags) : null,
       h(
         'dl',
         { class: 'roster-skater-facts' },
         h(
           'div',
           { class: 'roster-fact-row' },
-          h('dt', { text: '主攻 / 推荐报项' }),
+          h('dt', { text: '推荐报项' }),
           h('dd', { text: entriesText })
         ),
         h(
           'div',
           { class: 'roster-fact-row' },
-          h('dt', { text: '世界排名' }),
-          h('dd', { class: 'num', text: ranksText })
-        ),
-        h(
-          'div',
-          { class: 'roster-fact-row is-note' },
-          h('dt', { text: '位置与风险说明' }),
-          h('dd', { text: noteText })
+          h('dt', { text: secondLabel }),
+          h('dd', { class: 'num', text: secondValue })
         )
       )
     );
@@ -758,8 +704,7 @@
       h(
         'div',
         { class: 'roster-subhead' },
-        h('h3', { text: `稳固主力（${coreCandidates.length} 人）` }),
-        h('span', { class: 'faint tiny', text: '现役主力核心 · 出赛顺位稳固' })
+        h('h3', { text: `稳固主力（${coreCandidates.length} 人）` })
       ),
       h(
         'div',
@@ -780,13 +725,6 @@
               { class: 'roster-subhead' },
               h('h3', {
                 text: `淘汰 / 轮换边缘（${bubbleCandidates.length + cutCandidates.length} 人）`
-              }),
-              h('span', {
-                class: 'faint tiny',
-                text:
-                  state.event === 'wc'
-                    ? '5 人上限压线席位与 6 缩 5 裁撤竞争'
-                    : '现役轮换 / 保席边缘与队内竞争'
               })
             ),
             h(
@@ -808,7 +746,7 @@
             'details',
             { class: 'roster-all-candidates' },
             h('summary', {
-              text: `展开其余候选池（${otherCandidates.length} 人 · 共 ${candidates.length} 名适龄选手）`
+              text: `其余候选池（${otherCandidates.length} 人）`
             }),
             h(
               'div',
@@ -825,25 +763,15 @@
       ? h(
           'p',
           { class: 'roster-excluded-note faint' },
-          `青年适龄未入成年池（${excluded.length} 人）：` +
-            excluded
-              .map((e) => `${e.name_zh || e.name_en}（${e.birth_date || 'U-19 青年组'}）`)
-              .join('、')
+          `青年组未满成年龄（${excluded.length} 人）：` +
+            excluded.map((e) => e.name_zh || e.name_en).join('、')
         )
       : null;
 
     return h(
       'section',
       { class: 'panel roster-section', 'aria-label': '主力阵容与淘汰边缘' },
-      h(
-        'div',
-        { class: 'panel-head' },
-        h('h2', { text: '中国队主力与淘汰 / 轮换边缘' }),
-        h('p', {
-          class: 'num',
-          text: `正选 ${coreCandidates.length + bubbleCandidates.length} 人（稳固 ${coreCandidates.length} · 压线/轮换 ${bubbleCandidates.length}）${cutCandidates.length ? ` · 裁撤/轮换边缘 ${cutCandidates.length} 人` : ''}`
-        })
-      ),
+      h('div', { class: 'panel-head' }, h('h2', { text: '中国队主力与淘汰 / 轮换边缘' })),
       coreBlock,
       bubbleBlock,
       allToggle,
@@ -856,28 +784,10 @@
       (a, b) => (a.reserve_rank || 99) - (b.reserve_rank || 99)
     );
     const reserveCap = scenarioData.reserve_cap ?? reserves.length;
-    const isWt = state.event === 'wt';
-    const headingText = isWt
-      ? `替补梯队（限额 ${reserveCap} 人${reserves.length < reserveCap ? ` · 当前 ${reserves.length} 人` : ''}）`
-      : `替补梯队（最多 ${reserveCap} 人，当前 ${reserves.length} 人）`;
-    const subText = isWt
-      ? `世巡赛单站替补限额 ${reserveCap} 人 · 不足不强凑`
-      : '按短距离/接力 · 中长距离 · 综合机动三路配置';
-
-    const counts = { sprint_relay: 0, mid_long: 0, versatile_upside: 0 };
-    for (const r of reserves) {
-      if (counts[r.role_tag] != null) counts[r.role_tag]++;
-    }
-
-    const summaryChips = h(
-      'div',
-      { class: 'roster-reserve-summary' },
-      ...Object.entries(ROLE_LABELS)
-        .filter(([tag]) => counts[tag] > 0)
-        .map(([tag, label]) =>
-          h('span', { class: `roster-tag is-role-${tag}` }, `${label} ${counts[tag]} 人`)
-        )
-    );
+    const headingText =
+      reserves.length < reserveCap
+        ? `替补梯队（${reserves.length} / ${reserveCap} 人）`
+        : `替补梯队（${reserveCap} 人）`;
 
     const grid = h(
       'div',
@@ -888,12 +798,19 @@
           ? shortName(r.primary_replacement_for, lookup)
           : '—';
         const roleLabel = ROLE_LABELS[r.role_tag] || r.role_tag;
-        const sources = (r.data_sources || []).map((s) => SOURCE_LABELS[s] || s);
-        const extraTags = channelAndTop40Tags(h, r, lookup);
         const base = r.athlete_id ? lookup?.byId.get(r.athlete_id) : null;
+        const worldRanks = r.world_ranks || base?.world_ranks;
+        const hasRanks = hasAnyWorldRank(worldRanks);
+        const ranksText = formatWorldRanks(worldRanks);
+        const extraTags = channelAndTop40Tags(h, r, lookup, !hasRanks);
         const qPath = r.qualification_path || base?.qualification_path || null;
-        const qualText = QUAL_PATH_LABELS[qPath] || '合格候选池';
-        const reserveNote = r.status_note || r.recent_highlight;
+        const qualText = QUAL_PATH_LABELS[qPath] || '候选池';
+        const highlight = (r.recent_highlight || base?.recent_highlight || '').replace(
+          /^(?:2026\/27\s+|国内甲组\s+)/,
+          ''
+        );
+        const secondLabel = hasRanks ? '世界排名' : '近期成绩';
+        const secondVal = hasRanks ? ranksText : highlight || qualText;
 
         return h(
           'article',
@@ -903,10 +820,10 @@
             { class: 'roster-reserve-head' },
             h('span', { class: 'roster-reserve-rank num', text: `#${r.reserve_rank}` }),
             h('span', { class: `roster-tag is-role-${r.role_tag}`, text: roleLabel }),
-            h('span', {
-              class: `roster-tag ${r.is_dual_eligible ? 'is-dual' : 'is-senior'}`,
-              text: r.is_dual_eligible ? '双适龄 U-19' : '成年'
-            })
+            ...extraTags,
+            r.is_dual_eligible
+              ? h('span', { class: 'roster-tag is-dual', text: '双适龄 U-19' })
+              : null
           ),
           h(
             'div',
@@ -914,21 +831,12 @@
             h('b', { text: nm.zh }),
             nm.en ? h('small', { class: 'faint', text: nm.en }) : null
           ),
-          sources.length || extraTags.length
-            ? h(
-                'div',
-                { class: 'roster-tags' },
-                ...extraTags,
-                ...sources.map((src) => h('span', { class: 'roster-tag is-source', text: src }))
-              )
-            : null,
           h(
             'dl',
             { class: 'roster-reserve-stats' },
-            h('div', {}, h('dt', { text: '首要顶替对象' }), h('dd', { text: repName })),
-            h('div', {}, h('dt', { text: '选拔通道' }), h('dd', { text: qualText }))
-          ),
-          reserveNote ? h('p', { class: 'roster-highlight faint', text: reserveNote }) : null
+            h('div', {}, h('dt', { text: '对位顶替' }), h('dd', { text: repName })),
+            h('div', {}, h('dt', { text: secondLabel }), h('dd', { class: 'num', text: secondVal }))
+          )
         );
       })
     );
@@ -936,9 +844,8 @@
     return h(
       'section',
       { class: 'panel roster-section', 'aria-label': '替补梯队' },
-      h('div', { class: 'panel-head' }, h('h2', { text: headingText }), h('p', { text: subText })),
-      reserves.length ? summaryChips : null,
-      reserves.length ? grid : h('p', { class: 'faint', text: '当前合格候选池无额外替补人选。' })
+      h('div', { class: 'panel-head' }, h('h2', { text: headingText })),
+      reserves.length ? grid : h('p', { class: 'faint', text: '暂无替补人选' })
     );
   }
 
@@ -1024,14 +931,14 @@
     };
 
     const eventBtns = [
-      { id: 'wt', label: '2026/27 世巡赛', sub: '6 人上限 / 4 人特例' },
-      { id: 'wc', label: '2027 首尔世锦赛', sub: '5 人上限 / Comm. 2805' }
+      { id: 'wt', label: '2026/27 世巡赛' },
+      { id: 'wc', label: '2027 首尔世锦赛' }
     ].map((opt) =>
       h(
         'button',
         {
           type: 'button',
-          class: 'roster-seg-btn',
+          class: 'roster-seg-btn is-compact',
           dataset: { value: opt.id },
           'aria-pressed': String(state.event === opt.id),
           onclick: () => {
@@ -1042,8 +949,7 @@
             draw();
           }
         },
-        h('b', { text: opt.label }),
-        h('small', { text: opt.sub })
+        h('b', { text: opt.label })
       )
     );
 

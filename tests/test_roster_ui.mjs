@@ -157,7 +157,7 @@ test('/roster/ renders V2 simplified layout: quotas, penalty warnings, Core vs B
   const quotaSection = d.querySelector('[aria-label="名额与规则看板"]');
   assert.ok(quotaSection);
   assert.match(quotaSection.textContent, /6 人/);
-  assert.match(quotaSection.textContent, /WT Top-40 报 4 人特例/);
+  assert.match(quotaSection.textContent, /Top-40 4 人特例/);
   assert.match(quotaSection.textContent, /第 5 名/);
 
   const penaltyBar = d.querySelector('.roster-penalty-bar');
@@ -165,15 +165,17 @@ test('/roster/ renders V2 simplified layout: quotas, penalty warnings, Core vs B
   assert.match(penaltyBar.textContent, /张楚桐/);
   assert.match(penaltyBar.textContent, /公俐/);
   assert.match(penaltyBar.textContent, /2 次犯规预警 2 人/);
-  assert.match(penaltyBar.textContent, /PELLETIER Mathieu/);
 
-  // V1 Monte Carlo / MILP artifacts must be completely absent
+  // V1 Monte Carlo / MILP artifacts and redundant explanatory prose must be completely absent
   const pageText = d.querySelector('#app').textContent;
   assert.doesNotMatch(pageText, /μ ± σ/);
   assert.doesNotMatch(pageText, /状态动量/);
   assert.doesNotMatch(pageText, /边际替代损失/);
   assert.doesNotMatch(pageText, /正选边缘概率/);
   assert.doesNotMatch(pageText, /Top-3 最高频完整阵容方案/);
+  assert.doesNotMatch(pageText, /位置与风险说明/);
+  assert.doesNotMatch(pageText, /现役主力核心 · 出赛顺位稳固/);
+  assert.doesNotMatch(pageText, /单项至少 3 人进 Top-40 解锁 4 席特例/);
   assert.equal(d.querySelectorAll('.roster-prob-matrix').length, 0);
   assert.equal(d.querySelectorAll('.roster-lineup-card').length, 0);
 
@@ -183,11 +185,9 @@ test('/roster/ renders V2 simplified layout: quotas, penalty warnings, Core vs B
   const mainCards = [...d.querySelectorAll('.roster-main-grid > .roster-skater-card.is-main')];
   assert.equal(mainCards.length, 6);
   assert.match(mainCards[0].textContent, /稳固主力/);
-  assert.match(mainCards[0].textContent, /主攻 \/ 推荐报项/);
+  assert.match(mainCards[0].textContent, /推荐报项/);
   assert.match(mainCards[0].textContent, /世界排名/);
-  assert.match(mainCards[0].textContent, /位置与风险说明/);
-  assert.match(mainCards[0].textContent, /成年|双适龄 U-19/);
-  assert.match(mainCards[0].textContent, /成年世巡/);
+  assert.match(mainCards[0].textContent, /本季WT/);
 
   // Expanding full candidate pool shows dual-eligible skaters
   const allCandidates = d.querySelector('.roster-all-candidates');
@@ -201,7 +201,7 @@ test('/roster/ renders V2 simplified layout: quotas, penalty warnings, Core vs B
   const expectedCap = wtWomen.reserve_cap ?? wtWomen.reserves.length;
   const reservesSection = d.querySelector('[aria-label="替补梯队"]');
   assert.ok(reservesSection);
-  assert.match(reservesSection.querySelector('h2').textContent, new RegExp(`限额 ${expectedCap} 人`));
+  assert.match(reservesSection.querySelector('h2').textContent, new RegExp(`${expectedCap} 人`));
   const reserves = [...d.querySelectorAll('.roster-reserve-card')];
   assert.equal(reserves.length, wtWomen.reserves.length);
   assert.ok(reserves.length >= 1 && reserves.length <= expectedCap);
@@ -210,10 +210,8 @@ test('/roster/ renders V2 simplified layout: quotas, penalty warnings, Core vs B
     reserves.map((_, i) => '#' + (i + 1))
   );
   const reserveText = reserves.map((el) => el.textContent).join('\n');
-  assert.match(reserveText, /短距离 \/ 接力|中长距离|综合 \/ 高潜力机动/);
-  assert.match(reserveText, /双适龄 U-19|成年/);
-  assert.match(reserveText, /首要顶替对象/);
-  assert.match(reserveText, /选拔通道/);
+  assert.match(reserveText, /短距离 \/ 接力|中长距离|综合机动/);
+  assert.match(reserveText, /对位顶替/);
 });
 
 test('/roster/ renders Top-40 watch columns, Core vs Bubble/Cut tiers, world ranks, and WC 6-to-5 cut badges', async (t) => {
@@ -317,7 +315,6 @@ test('/roster/ renders Top-40 watch columns, Core vs Bubble/Cut tiers, world ran
   assert.ok(cutCard);
   assert.ok(!cutCard.classList.contains('is-main'));
   assert.match(cutCard.textContent, /本季WT轮换候补/);
-  assert.match(cutCard.textContent, /暂无世界排名/);
   assert.match(dWt.querySelector('.roster-skater-card.is-core').textContent, /500m #16 · 1000m #22/);
   assert.match(dWt.querySelector('.roster-skater-card.is-bubble').textContent, /轮换 \/ 保席边缘/);
 
@@ -329,7 +326,7 @@ test('/roster/ renders Top-40 watch columns, Core vs Bubble/Cut tiers, world ran
   assert.match(dWt.querySelector('.roster-skater-card.is-cut').textContent, /6缩5 裁撤边缘/);
 });
 
-test('/roster/ renders dynamic reserve_cap (WT=2, WC<=6), qualification_path, and Top40 badges', async (t) => {
+test('/roster/ renders dynamic reserve_cap (WT=2, WC<=6), qualification_path, and fallback Top40 badges', async (t) => {
   const forecast = JSON.parse(await file('dist/data/quota_roster/chn_roster_forecast.json'));
   const wtWomen = forecast.scenarios.world_tour_next_stop.women;
   const wtStarterId =
@@ -341,8 +338,10 @@ test('/roster/ renders dynamic reserve_cap (WT=2, WC<=6), qualification_path, an
   wtWomen.reserve_cap = 2;
   wtWomen.reserves = wtWomen.reserves.slice(0, 2);
   wtStarter.qualification_path = 'WT_2026_27';
+  wtStarter.world_ranks = {};
   wtStarter.world_ranking_top40_distances = [500, 1000, 1500];
   wtWomen.reserves[0].qualification_path = 'DOMESTIC_GOLD';
+  wtWomen.reserves[0].world_ranks = {};
   wtWomen.reserves[0].world_ranking_top40_distances = [1500];
 
   const wcWomen = forecast.scenarios.world_championships_2027.women;
@@ -360,21 +359,20 @@ test('/roster/ renders dynamic reserve_cap (WT=2, WC<=6), qualification_path, an
   const domWt = await loadPage('/roster/?event=wt&gender=women', { forecast });
   t.after(() => domWt.window.close());
   const dWt = domWt.window.document;
-  assert.match(dWt.querySelector('[aria-label="替补梯队"] h2').textContent, /替补梯队（限额 2 人）/);
+  assert.match(dWt.querySelector('[aria-label="替补梯队"] h2').textContent, /替补梯队（2 人）/);
   assert.equal(dWt.querySelectorAll('.roster-reserve-card').length, 2);
   const wtStarterCard = dWt.querySelector(`.roster-skater-card[data-athlete-id="${wtStarterId}"]`);
   assert.ok(wtStarterCard);
   assert.match(wtStarterCard.textContent, /本季WT/);
   assert.match(wtStarterCard.textContent, /Top40: 500·1000·1500m/);
   assert.match(dWt.querySelector('.roster-reserve-card').textContent, /七台河金牌/);
-  assert.match(dWt.querySelector('.roster-reserve-card').textContent, /Top40: 1500m/);
 
   const domWc = await loadPage('/roster/?event=wc&gender=women', { forecast });
   t.after(() => domWc.window.close());
   const dWc = domWc.window.document;
   assert.match(
     dWc.querySelector('[aria-label="替补梯队"] h2').textContent,
-    /替补梯队（最多 6 人，当前 4 人）/
+    /替补梯队（4 \/ 6 人）/
   );
   assert.equal(dWc.querySelectorAll('.roster-reserve-card').length, 4);
   const wcStarterCard = dWc.querySelector(`.roster-skater-card[data-athlete-id="${wcStarterId}"]`);
@@ -396,7 +394,6 @@ test('/roster/ supports URL-synced switching to 2027 WC, CHN Men, and country qu
   // CHN Men 2027 WC: 5 max, 3/2/2 individual slots, Men 5000m relay #3
   const quotaSection = d.querySelector('[aria-label="名额与规则看板"]');
   assert.match(quotaSection.textContent, /5 人/);
-  assert.match(quotaSection.textContent, /Comm\. 2805/);
   assert.match(quotaSection.textContent, /男子 5000m 接力：第 3 名/);
 
   const mainCards = [...d.querySelectorAll('.roster-main-grid > .roster-skater-card.is-main')];

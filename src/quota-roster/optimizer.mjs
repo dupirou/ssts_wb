@@ -1173,68 +1173,30 @@ function formatWorldRankBrief(cand) {
   return { entries, top25Count, top40Count: top40Entries.length, bubbleEntry, best };
 }
 
-function buildStatusNote(cand, tier, nMax, cutIndex = 0) {
+function buildStatusNote(cand, tier) {
   const wrInfo = formatWorldRankBrief(cand);
   const stops = cand.wt_2026_27?.stops_count || 0;
 
   if (tier === 'core') {
-    const parts = ['稳固主力'];
-    if (stops > 0) parts.push(`本季WT出战${stops}站`);
+    const parts = [];
+    if (stops > 0) parts.push(`本季WT ${stops}站`);
     if (wrInfo) {
-      if (wrInfo.top25Count >= 3) parts.push('三项世界排名前25');
-      else if (wrInfo.top40Count >= 3) parts.push(`${wrInfo.best.d}m #${wrInfo.best.rank} · 三项世界前40`);
-      else if (wrInfo.top40Count === 2) {
-        const top2 = wrInfo.entries.filter((e) => e.rank <= 40).map((e) => `${e.d}m #${e.rank}`);
-        parts.push(top2.join(' · '));
-      } else {
-        parts.push(`${wrInfo.best.d}m #${wrInfo.best.rank} 单科支柱`);
-      }
-    } else if (cand.qualification_path === 'WT_2026_27') {
-      parts.push('本季世巡赛核心');
-    } else {
-      parts.push('综合实力核心席位');
+      parts.push(`${wrInfo.best.d}m #${wrInfo.best.rank}`);
     }
-    return parts.join(' · ');
+    return parts.join(' · ') || cand.recent_highlight || '主力阵容';
   }
 
-  if (tier === 'bubble') {
-    let wrDetail = null;
+  if (tier === 'bubble' || tier === 'cut') {
+    if (wrInfo?.bubbleEntry) {
+      return `${wrInfo.bubbleEntry.d}m #${wrInfo.bubbleEntry.rank} 保席临界`;
+    }
     if (wrInfo) {
-      if (wrInfo.bubbleEntry) {
-        wrDetail = `${wrInfo.bubbleEntry.d}m #${wrInfo.bubbleEntry.rank} 保席临界`;
-      } else if (wrInfo.best.rank <= 40) {
-        const roleTxt = wrInfo.best.d === 500 ? '短距离轮换位' : wrInfo.best.d === 1500 ? '单科保席' : '中距离轮换位';
-        wrDetail = `${wrInfo.best.d}m #${wrInfo.best.rank} ${roleTxt}`;
-      }
+      return `${wrInfo.best.d}m #${wrInfo.best.rank}`;
     }
-    if (nMax === 5) {
-      return wrDetail
-        ? `世锦赛5人上限第5人压线席位 · ${wrDetail} · 面临缩编竞争`
-        : '世锦赛5人上限第5人压线席位 · 面临缩编竞争';
-    }
-    return wrDetail
-      ? `现役轮换 / 保席边缘 · ${wrDetail} · 面临替补梯队对位竞争`
-      : '现役轮换 / 保席边缘 · 面临替补梯队对位竞争';
+    return cand.recent_highlight || '轮换竞争';
   }
 
-  if (tier === 'cut') {
-    let wrHint = null;
-    if (wrInfo) {
-      if (wrInfo.bubbleEntry) wrHint = `${wrInfo.bubbleEntry.d}m #${wrInfo.bubbleEntry.rank} 保席临界`;
-      else if (wrInfo.best.rank <= 40) wrHint = `${wrInfo.best.d}m #${wrInfo.best.rank}`;
-    }
-    if (nMax === 5) {
-      const rankLabel = cutIndex === 0 ? '列为头号候补' : '列为优先候补';
-      return wrHint
-        ? `世锦赛 6 缩 5 裁撤边缘 · ${wrHint} · 现役世巡赛队员，${rankLabel}`
-        : `世锦赛 6 缩 5 裁撤边缘 · 现役世巡赛队员，${rankLabel}`;
-    }
-    return wrHint
-      ? `本季世巡赛轮换队员 · ${wrHint} · 与现役主力竞争上场席位`
-      : '本季世巡赛轮换队员 · 与现役主力竞争上场席位';
-  }
-
-  return cand.recent_highlight || '国家队合格候选池';
+  return cand.recent_highlight || '候选池';
 }
 
 /**
@@ -1493,10 +1455,8 @@ export function forecastGender(candidates, opts = {}) {
   const coreSet = new Set(coreIds);
   const bubbleSet = new Set(bubbleIds);
   const cutSet = new Set(cutIds);
-  const cutIdxById = new Map(cutIds.map((id, idx) => [id, idx]));
   const reserveSet = new Set(reserves.map((r) => r.athlete_id));
   const mainEntries = mc.preferred_main_roster?.entries || null;
-  const nMax = mc.constraints?.nMax ?? 6;
 
   for (const c of mc.candidates) {
     const id = c.athlete_id;
@@ -1515,7 +1475,7 @@ export function forecastGender(candidates, opts = {}) {
     c.specialty_tag = spec.tag;
     c.specialty_label = spec.label;
     c.recommended_entries = deriveRecommendedEntries(c, isStarter, mainEntries);
-    c.status_note = buildStatusNote(c, tier, nMax, cutIdxById.get(id) ?? 0);
+    c.status_note = buildStatusNote(c, tier);
   }
 
   for (const r of reserves) {
@@ -1533,7 +1493,7 @@ export function forecastGender(candidates, opts = {}) {
       r.specialty_tag = spec.tag;
       r.specialty_label = spec.label;
       r.recommended_entries = deriveRecommendedEntries(r, false, null);
-      r.status_note = buildStatusNote(r, tier, nMax, cutIdxById.get(r.athlete_id) ?? 0);
+      r.status_note = buildStatusNote(r, tier);
     }
   }
 
