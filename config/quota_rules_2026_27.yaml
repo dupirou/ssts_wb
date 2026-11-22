@@ -588,3 +588,20 @@ roster_model:
     post_hengshui_venues: ["七台河"]
     require_gold_or_station_top_n: 3
     note: "除本季 WT 现役队员与 2026/27 青杯适龄梯队外，自七台河站起仅单站单项金牌或单站总积分前三名可入选国家队候选池；候选池不足时不强行凑满替补名额。"
+    preliminary_post_hengshui_stops:
+      - stop_id: "pre_beijing_domestic_2026"
+        target_wt_stop: "beijing"
+        effective_from_date: "2026-11-30"
+        absent_wt_stops_exempt: ["seoul", "shanghai"]
+        absent_reserve_ids_exempt: ["dom-tmp-9df89a0e45"] # 南佳延 (上海站实际报名替补)
+        note: "北京站前国内选拔参考（首尔与上海世巡赛报名及替补人员未参赛，完整积分表待导入）：男队总积分前三 李文龙、郭骏达、张心喆，单项金牌 孙枭(1500m)、赵世强(1000m)、钟宇晨(500m)；女队总积分前三 邝俊雨、杨茸秒、李晶，单项金牌 贾惠凌(1000m)、邝俊雨(500m)、李晶(1500m)。"
+        men_top3_ids: ["skr-4176", "dom-tmp-a981360a9e", "skr-8110"]
+        men_gold_by_distance:
+          "500": "skr-8145"
+          "1000": "dom-tmp-933c3859e9"
+          "1500": "skr-18305"
+        women_top3_ids: ["skr-18282", "skr-22312", "dom-tmp-65cbbb7bf8"]
+        women_gold_by_distance:
+          "500": "skr-18282"
+          "1000": "skr-3032"
+          "1500": "dom-tmp-65cbbb7bf8"

@@ -1636,6 +1636,30 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
       }
     }
   }
+
+  // Incorporate date-gated preliminary post-Hengshui stop qualifiers (e.g. pre-Beijing stop before full PDF import)
+  const prelimStops = Array.isArray(selCfg.preliminary_post_hengshui_stops)
+    ? selCfg.preliminary_post_hengshui_stops
+    : [];
+  for (const ps of prelimStops) {
+    if (!ps || (ps.effective_from_date && (!asOfDate || asOfDate < ps.effective_from_date))) {
+      continue;
+    }
+    const top3Ids = [...(ps.men_top3_ids || []), ...(ps.women_top3_ids || [])];
+    for (const aid of top3Ids) {
+      if (aid && !postHengshuiQualifiers.has(aid)) {
+        postHengshuiQualifiers.set(aid, 'DOMESTIC_TOP3');
+      }
+    }
+    const goldMaps = [ps.men_gold_by_distance || {}, ps.women_gold_by_distance || {}];
+    for (const gm of goldMaps) {
+      for (const aid of Object.values(gm)) {
+        if (aid) {
+          postHengshuiQualifiers.set(aid, 'DOMESTIC_GOLD');
+        }
+      }
+    }
+  }
   const filtered = rawRecords.filter((r) => {
     if (!r || !r.athlete_id) return false;
     if (r.division && !allowedDivs.has(r.division)) return false;
@@ -1752,6 +1776,71 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
     if (r.is_cumulative) cur.hasCumulative = true;
     cur.count += 1;
     dAgg.set(aid, cur);
+  }
+
+  // Apply depleted-field skill & highlight updates for active preliminary post-Hengshui stops
+  for (const ps of prelimStops) {
+    if (!ps || (ps.effective_from_date && (!asOfDate || asOfDate < ps.effective_from_date))) {
+      continue;
+    }
+    const psDate = ps.effective_from_date || asOfDate || '';
+    const recencyScore = psDate ? Number(psDate.replace(/-/g, '')) : 0;
+    // Depleted-field z-scores (WT Seoul/Shanghai enrolled skaters + reserves absent)
+    const goldZ = Number(ps.depleted_field_gold_z ?? 1.45);
+    const top3Z = [1.25, 1.1, 0.95];
+
+    const applyPrelimScore = (gender, dist, aid, zVal, weight, effRank, hlText) => {
+      if (!aid) return;
+      const dk = disciplineKey(gender, dist);
+      let dAgg = aggByDisc.get(dk);
+      if (!dAgg) {
+        dAgg = new Map();
+        aggByDisc.set(dk, dAgg);
+      }
+      const cur = dAgg.get(aid) || {
+        sumWZ: 0,
+        sumW: 0,
+        bestRank: Infinity,
+        hasCumulative: false,
+        count: 0,
+      };
+      cur.sumWZ += weight * zVal;
+      cur.sumW += weight;
+      cur.bestRank = Math.min(cur.bestRank, effRank);
+      cur.count += 1;
+      dAgg.set(aid, cur);
+      if (psDate) {
+        const prev = lastDateByAthlete.get(aid);
+        if (!prev || psDate > prev) lastDateByAthlete.set(aid, psDate);
+      }
+      if (hlText) {
+        const prevHl = highlights.get(aid);
+        if (!prevHl || recencyScore > prevHl.recencyScore || (recencyScore === prevHl.recencyScore && effRank < prevHl.rank)) {
+          highlights.set(aid, { recencyScore, rank: effRank, text: hlText });
+        }
+      }
+    };
+
+    for (const [g, goldMapKey, top3Key] of [
+      ['men', 'men_gold_by_distance', 'men_top3_ids'],
+      ['women', 'women_gold_by_distance', 'women_top3_ids'],
+    ]) {
+      const goldMap = ps[goldMapKey] || {};
+      for (const [dStr, aid] of Object.entries(goldMap)) {
+        const dist = Number(dStr);
+        if (DISTANCES.includes(dist) && aid) {
+          applyPrelimScore(g, dist, aid, goldZ, 0.85, 1, `国内甲组 ${dist}m #1`);
+        }
+      }
+      const top3List = ps[top3Key] || [];
+      for (let idx = 0; idx < Math.min(3, top3List.length); idx++) {
+        const aid = top3List[idx];
+        const zT = top3Z[idx] ?? 0.95;
+        for (const dist of DISTANCES) {
+          applyPrelimScore(g, dist, aid, zT, 0.35, idx + 1, `国内甲组 总积分 #${idx + 1}`);
+        }
+      }
+    }
   }
 
   const calibrated = new Map();

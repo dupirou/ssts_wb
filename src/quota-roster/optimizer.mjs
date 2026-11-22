@@ -1238,7 +1238,11 @@ export function selectSixReserves(mc, opts = {}) {
   const baseSol = solveRosterMilp(problem, constraints, lambdas, baseOpts);
   const baseObj = baseSol.feasible ? baseSol.objective : 0;
   const roleOf = new Map();
+  const mainSpecOf = new Map();
   for (let s = 0; s < baseSol.selected.length; s++) roleOf.set(baseSol.selected[s], baseSol.patterns[s]);
+  for (const m of main) {
+    mainSpecOf.set(m, inferSpecialty(problem.candidates[m]).tag);
+  }
   if (mainEntries) {
     for (const m of main) {
       const id = problem.ids[m];
@@ -1250,6 +1254,14 @@ export function selectSixReserves(mc, opts = {}) {
       roleOf.set(m, mask);
     }
   }
+
+  const hasSpecInSet = (indices, pred) => indices.some((m) => pred(mainSpecOf.get(m)));
+  const mainArr = [...main];
+  const bubbleArr = [...bubbleSet];
+  const useSpecSprintMain = hasSpecInSet(mainArr, (sp) => sp === 'sprint_relay');
+  const useSpecMidMain = hasSpecInSet(mainArr, (sp) => sp === 'mid_long' || sp === 'all_round');
+  const useSpecSprintBub = hasSpecInSet(bubbleArr, (sp) => sp === 'sprint_relay');
+  const useSpecMidBub = hasSpecInSet(bubbleArr, (sp) => sp === 'mid_long' || sp === 'all_round');
 
   const rows = [];
   for (let j = 0; j < problem.n; j++) {
@@ -1270,14 +1282,19 @@ export function selectSixReserves(mc, opts = {}) {
       });
       const loss = sol.feasible ? baseObj - sol.objective : Infinity;
       const role = roleOf.get(m) || 0;
+      const mSpec = mainSpecOf.get(m);
       const isBub = bubbleSet.has(m);
+      const isSprintMain = useSpecSprintMain ? mSpec === 'sprint_relay' : Boolean(role & (1 | RELAY_BIT));
+      const isMidMain = useSpecMidMain ? mSpec === 'mid_long' || mSpec === 'all_round' : Boolean(role & (2 | 4));
       if (loss < best.loss) best = { loss, m };
-      if (role & (1 | RELAY_BIT) && loss < sprint.loss) sprint = { loss, m };
-      if (role & (2 | 4) && loss < mid.loss) mid = { loss, m };
+      if (isSprintMain && loss < sprint.loss) sprint = { loss, m };
+      if (isMidMain && loss < mid.loss) mid = { loss, m };
       if (isBub && sol.feasible) {
+        const isSprintBub = useSpecSprintBub ? mSpec === 'sprint_relay' : Boolean(role & (1 | RELAY_BIT));
+        const isMidBub = useSpecMidBub ? mSpec === 'mid_long' || mSpec === 'all_round' : Boolean(role & (2 | 4));
         if (loss < bestBubble.loss) bestBubble = { loss, m };
-        if (role & (1 | RELAY_BIT) && loss < sprintBubble.loss) sprintBubble = { loss, m };
-        if (role & (2 | 4) && loss < midBubble.loss) midBubble = { loss, m };
+        if (isSprintBub && loss < sprintBubble.loss) sprintBubble = { loss, m };
+        if (isMidBub && loss < midBubble.loss) midBubble = { loss, m };
       }
     }
     if (sprint.m === null) sprint = best;
@@ -1309,6 +1326,8 @@ export function selectSixReserves(mc, opts = {}) {
     });
   }
 
+  const probWeight = rp.prob_tiebreak_weight ?? 0.15;
+  const effLoss = (loss, prob) => (Number.isFinite(loss) ? loss - probWeight * prob : Infinity);
   const chosen = [];
   const taken = new Set();
   const pick = (tag, count, metric, cmp) => {
@@ -1323,15 +1342,27 @@ export function selectSixReserves(mc, opts = {}) {
   pick('sprint_relay', alloc.sprint_relay ?? 2, (r) => r.sprint, (a, b) => {
     const aPrio = a.isCutWt && a.spec !== 'mid_long' ? 1 : 0;
     const bPrio = b.isCutWt && b.spec !== 'mid_long' ? 1 : 0;
-    return bPrio - aPrio || a.sprint.loss - b.sprint.loss || b.prob - a.prob;
+    return (
+      bPrio - aPrio ||
+      effLoss(a.sprint.loss, a.prob) - effLoss(b.sprint.loss, b.prob) ||
+      b.prob - a.prob
+    );
   });
   pick('mid_long', alloc.mid_long ?? 2, (r) => r.mid, (a, b) => {
     const aPrio = a.isCutWt && a.spec !== 'sprint_relay' ? 1 : 0;
     const bPrio = b.isCutWt && b.spec !== 'sprint_relay' ? 1 : 0;
-    return bPrio - aPrio || a.mid.loss - b.mid.loss || b.prob - a.prob;
+    return (
+      bPrio - aPrio ||
+      effLoss(a.mid.loss, a.prob) - effLoss(b.mid.loss, b.prob) ||
+      b.prob - a.prob
+    );
   });
   pick('versatile_upside', alloc.versatile_upside ?? 2, (r) => r.best, (a, b) => {
-    return Number(b.isCutWt) - Number(a.isCutWt) || b.versatile - a.versatile || a.best.loss - b.best.loss;
+    return (
+      Number(b.isCutWt) - Number(a.isCutWt) ||
+      b.versatile - a.versatile ||
+      effLoss(a.best.loss, a.prob) - effLoss(b.best.loss, b.prob)
+    );
   });
 
   const targetCap = Math.min(maxReserves, rows.length);
@@ -1341,7 +1372,7 @@ export function selectSixReserves(mc, opts = {}) {
       .sort(
         (a, b) =>
           Number(b.isCutWt) - Number(a.isCutWt) ||
-          a.best.loss - b.best.loss ||
+          effLoss(a.best.loss, a.prob) - effLoss(b.best.loss, b.prob) ||
           b.prob - a.prob ||
           problem.ids[a.j].localeCompare(problem.ids[b.j])
       );
@@ -1353,7 +1384,12 @@ export function selectSixReserves(mc, opts = {}) {
 
   const ordered = chosen
     .slice(0, targetCap)
-    .sort((a, b) => Number(b.isCutWt) - Number(a.isCutWt) || a.metric.loss - b.metric.loss || b.prob - a.prob);
+    .sort(
+      (a, b) =>
+        Number(b.isCutWt) - Number(a.isCutWt) ||
+        effLoss(a.metric.loss, a.prob) - effLoss(b.metric.loss, b.prob) ||
+        b.prob - a.prob
+    );
   return ordered.map((r, idx) => {
     const c = problem.candidates[r.j];
     const m = r.metric.m;

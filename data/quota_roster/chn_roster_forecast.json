@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T13:54:57Z",
+  "generated_at": "2026-11-22T14:32:07Z",
   "as_of_date": "2026-11-21",
   "config_version": "2026.27.1",
   "next_wt_stop": {
@@ -2767,7 +2767,7 @@
               "relay": 0.0832,
               "form": 0.1506
             },
-            "roster_tier": "pool",
+            "roster_tier": "reserve",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
@@ -2827,7 +2827,7 @@
               "relay": 0.0913,
               "form": 0.4482
             },
-            "roster_tier": "reserve",
+            "roster_tier": "pool",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
@@ -3351,19 +3351,18 @@
           },
           {
             "reserve_rank": 2,
-            "athlete_id": "skr-22312",
-            "name_en": "RONGMIAO YANG",
-            "name_zh": "杨茸秒",
+            "athlete_id": "dom-tmp-9df89a0e45",
+            "name_en": "南佳延",
+            "name_zh": "南佳延",
             "role_tag": "mid_long",
-            "main_roster_prob": 0.308,
-            "primary_replacement_for": "skr-7613",
-            "marginal_loss": 0.0709,
-            "is_dual_eligible": true,
+            "main_roster_prob": 0.4,
+            "primary_replacement_for": "skr-19401",
+            "marginal_loss": 0.081,
+            "is_dual_eligible": false,
             "data_sources": [
-              "JWC",
               "Domestic"
             ],
-            "qualification_path": "JWC_2026_27",
+            "qualification_path": "DOMESTIC_GOLD",
             "world_ranking_top40_distances": [],
             "world_ranks": {},
             "wt_2026_27": {
@@ -3374,9 +3373,9 @@
               "final_a_count": 0,
               "best_rank": null
             },
-            "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
-            "upside_score": 0.2414,
-            "versatility_score": 0.5494,
+            "recent_highlight": "国内甲组 七台河 1000m #1",
+            "upside_score": 0.2671,
+            "versatility_score": 0.6671,
             "roster_tier": "reserve",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
@@ -3384,13 +3383,13 @@
               "500",
               "1000"
             ],
-            "status_note": "2026/27 JWC2 Bormio 1500m #1"
+            "status_note": "国内甲组 七台河 1000m #1"
           }
         ],
         "timing_ms": {
-          "monte_carlo": 2354,
-          "reserves": 220,
-          "total": 2574
+          "monte_carlo": 2200.7,
+          "reserves": 178.4,
+          "total": 2379.1
         }
       },
       "men": {
@@ -4843,9 +4842,9 @@
           }
         ],
         "timing_ms": {
-          "monte_carlo": 2060.7,
-          "reserves": 16.9,
-          "total": 2077.6
+          "monte_carlo": 2255.5,
+          "reserves": 15.8,
+          "total": 2271.3
         }
       }
     },
@@ -6125,6 +6124,42 @@
           },
           {
             "reserve_rank": 3,
+            "athlete_id": "dom-tmp-9df89a0e45",
+            "name_en": "南佳延",
+            "name_zh": "南佳延",
+            "role_tag": "mid_long",
+            "main_roster_prob": 0.371,
+            "primary_replacement_for": "skr-19401",
+            "marginal_loss": 0.0142,
+            "is_dual_eligible": false,
+            "data_sources": [
+              "Domestic"
+            ],
+            "qualification_path": "DOMESTIC_GOLD",
+            "world_ranking_top40_distances": [],
+            "world_ranks": {},
+            "wt_2026_27": {
+              "stops_count": 0,
+              "stops": [],
+              "distances_entered": [],
+              "relay_starts": 0,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "recent_highlight": "国内甲组 七台河 1000m #1",
+            "upside_score": 0.2671,
+            "versatility_score": 0.6381,
+            "roster_tier": "reserve",
+            "specialty_tag": "sprint_relay",
+            "specialty_label": "短距离 / 接力",
+            "recommended_entries": [
+              "500",
+              "1000"
+            ],
+            "status_note": "国内甲组 七台河 1000m #1"
+          },
+          {
+            "reserve_rank": 4,
             "athlete_id": "skr-22312",
             "name_en": "RONGMIAO YANG",
             "name_zh": "杨茸秒",
@@ -6161,11 +6196,11 @@
             "status_note": "2026/27 JWC2 Bormio 1500m #1"
           },
           {
-            "reserve_rank": 4,
+            "reserve_rank": 5,
             "athlete_id": "skr-4165",
             "name_en": "Jinzi LI",
             "name_zh": "李金恣",
-            "role_tag": "mid_long",
+            "role_tag": "versatile_upside",
             "main_roster_prob": 0.244,
             "primary_replacement_for": "skr-19401",
             "marginal_loss": 0.01,
@@ -6195,42 +6230,6 @@
               "1500"
             ],
             "status_note": "2026/27 JWC2 Bormio 1000m #2"
-          },
-          {
-            "reserve_rank": 5,
-            "athlete_id": "dom-tmp-9df89a0e45",
-            "name_en": "南佳延",
-            "name_zh": "南佳延",
-            "role_tag": "versatile_upside",
-            "main_roster_prob": 0.371,
-            "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0142,
-            "is_dual_eligible": false,
-            "data_sources": [
-              "Domestic"
-            ],
-            "qualification_path": "DOMESTIC_GOLD",
-            "world_ranking_top40_distances": [],
-            "world_ranks": {},
-            "wt_2026_27": {
-              "stops_count": 0,
-              "stops": [],
-              "distances_entered": [],
-              "relay_starts": 0,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "recent_highlight": "国内甲组 七台河 1000m #1",
-            "upside_score": 0.2671,
-            "versatility_score": 0.6381,
-            "roster_tier": "reserve",
-            "specialty_tag": "sprint_relay",
-            "specialty_label": "短距离 / 接力",
-            "recommended_entries": [
-              "500",
-              "1000"
-            ],
-            "status_note": "国内甲组 七台河 1000m #1"
           },
           {
             "reserve_rank": 6,
@@ -6270,9 +6269,9 @@
           }
         ],
         "timing_ms": {
-          "monte_carlo": 769.7,
+          "monte_carlo": 613.9,
           "reserves": 3.5,
-          "total": 773.2
+          "total": 617.4
         }
       },
       "men": {
@@ -7622,8 +7621,8 @@
             "name_zh": "宋柯睿",
             "role_tag": "mid_long",
             "main_roster_prob": 0.167,
-            "primary_replacement_for": "skr-20586",
-            "marginal_loss": 0.0725,
+            "primary_replacement_for": "skr-8157",
+            "marginal_loss": 0.0006,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -7715,6 +7714,41 @@
           },
           {
             "reserve_rank": 3,
+            "athlete_id": "dom-tmp-8f6d895133",
+            "name_en": "于翰琦",
+            "name_zh": "于翰琦",
+            "role_tag": "mid_long",
+            "main_roster_prob": 0.308,
+            "primary_replacement_for": "skr-8157",
+            "marginal_loss": -0.0038,
+            "is_dual_eligible": false,
+            "data_sources": [
+              "Domestic"
+            ],
+            "qualification_path": "DOMESTIC_TOP3",
+            "world_ranking_top40_distances": [],
+            "world_ranks": {},
+            "wt_2026_27": {
+              "stops_count": 0,
+              "stops": [],
+              "distances_entered": [],
+              "relay_starts": 0,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "recent_highlight": "国内甲组 七台河 1000m #2",
+            "upside_score": 0.3684,
+            "versatility_score": 0.6764,
+            "roster_tier": "reserve",
+            "specialty_tag": "mid_long",
+            "specialty_label": "中长距离",
+            "recommended_entries": [
+              "1000"
+            ],
+            "status_note": "国内甲组 七台河 1000m #2"
+          },
+          {
+            "reserve_rank": 4,
             "athlete_id": "dom-tmp-a981360a9e",
             "name_en": "郭骏达",
             "name_zh": "郭骏达",
@@ -7750,19 +7784,21 @@
             "status_note": "国内甲组 七台河 500m #2"
           },
           {
-            "reserve_rank": 4,
-            "athlete_id": "dom-tmp-8f6d895133",
-            "name_en": "于翰琦",
-            "name_zh": "于翰琦",
+            "reserve_rank": 5,
+            "athlete_id": "skr-20570",
+            "name_en": "Yuheng LI",
+            "name_zh": "李禹衡",
             "role_tag": "versatile_upside",
-            "main_roster_prob": 0.308,
+            "main_roster_prob": 0.25,
             "primary_replacement_for": "skr-4167",
-            "marginal_loss": 0.0471,
-            "is_dual_eligible": false,
+            "marginal_loss": 0.0394,
+            "is_dual_eligible": true,
             "data_sources": [
+              "Senior",
+              "JWC",
               "Domestic"
             ],
-            "qualification_path": "DOMESTIC_TOP3",
+            "qualification_path": "JWC_2026_27",
             "world_ranking_top40_distances": [],
             "world_ranks": {},
             "wt_2026_27": {
@@ -7773,19 +7809,19 @@
               "final_a_count": 0,
               "best_rank": null
             },
-            "recent_highlight": "国内甲组 七台河 1000m #2",
-            "upside_score": 0.3684,
-            "versatility_score": 0.6764,
+            "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
+            "upside_score": 0.2939,
+            "versatility_score": 0.5439,
             "roster_tier": "reserve",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
             "recommended_entries": [
               "1000"
             ],
-            "status_note": "国内甲组 七台河 1000m #2"
+            "status_note": "2026/27 JWC2 Bormio 1500m #1"
           },
           {
-            "reserve_rank": 5,
+            "reserve_rank": 6,
             "athlete_id": "dom-tmp-cb5896b60f",
             "name_en": "朱昱璋",
             "name_zh": "朱昱璋",
@@ -7819,49 +7855,12 @@
               "1500"
             ],
             "status_note": "国内甲组 七台河 1000m #3"
-          },
-          {
-            "reserve_rank": 6,
-            "athlete_id": "skr-20570",
-            "name_en": "Yuheng LI",
-            "name_zh": "李禹衡",
-            "role_tag": "mid_long",
-            "main_roster_prob": 0.25,
-            "primary_replacement_for": "skr-20586",
-            "marginal_loss": 0.0522,
-            "is_dual_eligible": true,
-            "data_sources": [
-              "Senior",
-              "JWC",
-              "Domestic"
-            ],
-            "qualification_path": "JWC_2026_27",
-            "world_ranking_top40_distances": [],
-            "world_ranks": {},
-            "wt_2026_27": {
-              "stops_count": 0,
-              "stops": [],
-              "distances_entered": [],
-              "relay_starts": 0,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
-            "upside_score": 0.2939,
-            "versatility_score": 0.5439,
-            "roster_tier": "reserve",
-            "specialty_tag": "mid_long",
-            "specialty_label": "中长距离",
-            "recommended_entries": [
-              "1000"
-            ],
-            "status_note": "2026/27 JWC2 Bormio 1500m #1"
           }
         ],
         "timing_ms": {
-          "monte_carlo": 539.9,
-          "reserves": 4.3,
-          "total": 544.2
+          "monte_carlo": 566.5,
+          "reserves": 3.1,
+          "total": 569.6
         }
       }
     }
