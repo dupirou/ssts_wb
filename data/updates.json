@@ -260,6 +260,8 @@
     "seoul/round/2026-11-22/repechage/men/1000/quarterfinal/-/results": "official",
     "seoul/round/2026-11-22/repechage/men/1000/semifinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/groups": "published",
+    "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/results": "official",
+    "seoul/round/2026-11-22/repechage/women/1500/semifinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/500/quarterfinal/-/results": "official",
     "seoul/round/2026-11-22/repechage/women/500/semifinal/-/groups": "published",
@@ -518,49 +520,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "0bb81f9cebc2d6fb",
-      "station": "montreal",
-      "at": "2026-10-31T15:31:18+00:00",
-      "local_date": "2026-10-31",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Kerui SONG"
-      ],
-      "china_results": [
-        {
-          "name": "Kerui SONG",
-          "rank": 4,
-          "status": "out"
-        }
-      ]
-    },
-    {
-      "id": "2c8b7b27ae069249",
-      "station": "montreal",
-      "at": "2026-10-31T15:41:33+00:00",
-      "local_date": "2026-10-31",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Li GONG",
-        "Yan ZHANG"
-      ]
-    },
     {
       "id": "843019b1a2426c63",
       "station": "montreal",
@@ -3834,6 +3793,36 @@
         "Li GONG",
         "Xinran WANG"
       ]
+    },
+    {
+      "id": "2cacb7cdb09ce9ec",
+      "station": "seoul",
+      "at": "2026-11-22T03:31:45+00:00",
+      "local_date": "2026-11-22",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "96156033cf1c7049",
+      "station": "seoul",
+      "at": "2026-11-22T03:31:45+00:00",
+      "local_date": "2026-11-22",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 1,
+      "china": []
     }
   ]
 }
