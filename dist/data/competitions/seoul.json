@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-22T01:41:32+00:00",
-    "updated_at": "2026-11-22T01:41:32+00:00",
+    "checked_at": "2026-11-22T02:11:30+00:00",
+    "updated_at": "2026-11-22T02:11:30+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -10917,22 +10917,22 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-22T11:00:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-22T11:01:12.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23454",
         "participants": [
           {
-            "athlete_id": "ath-993c4cb36d702de0a0b4",
-            "name": "Ivan MARTINIC",
-            "country": "CRO",
-            "official_skater_id": 4592,
-            "helmet_number": 130,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
+            "name": "Warre NOIRON",
+            "country": "BEL",
+            "official_skater_id": 5140,
+            "helmet_number": 54,
+            "starting_position": 5,
+            "rank": 1,
+            "result": "1:29.233",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -10942,9 +10942,9 @@
             "official_skater_id": 4648,
             "helmet_number": 63,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "1:29.469",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -10954,9 +10954,21 @@
             "official_skater_id": 20552,
             "helmet_number": 132,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "1:32.276",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-993c4cb36d702de0a0b4",
+            "name": "Ivan MARTINIC",
+            "country": "CRO",
+            "official_skater_id": 4592,
+            "helmet_number": 130,
+            "starting_position": 1,
+            "rank": 4,
+            "result": "1:36.573",
+            "qualification": "ADV",
             "penalty": null
           },
           {
@@ -10967,21 +10979,12 @@
             "helmet_number": 61,
             "starting_position": 4,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
-            "name": "Warre NOIRON",
-            "country": "BEL",
-            "official_skater_id": 5140,
-            "helmet_number": 54,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -10997,9 +11000,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-22T11:03:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-22T11:05:47.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23454",
         "participants": [
@@ -11010,33 +11013,9 @@
             "official_skater_id": 7235,
             "helmet_number": 93,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-da00551c0fe15e37c1ac",
-            "name": "Fredrik PEDERSEN",
-            "country": "NOR",
-            "official_skater_id": 5461,
-            "helmet_number": 120,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-077872580b1b8aae252d",
-            "name": "Sanzhar ZHANISSOV",
-            "country": "KAZ",
-            "official_skater_id": 8118,
-            "helmet_number": 137,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "1:29.404",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -11046,9 +11025,9 @@
             "official_skater_id": 859,
             "helmet_number": 109,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "1:29.422",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -11058,8 +11037,32 @@
             "official_skater_id": 2363,
             "helmet_number": 102,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "1:29.433",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-cddc13c7c1d1cd2cb0c7",
+            "name": "Sanzhar ZHANNISOV",
+            "country": "KAZ",
+            "official_skater_id": 8118,
+            "helmet_number": 137,
+            "starting_position": 3,
+            "rank": 4,
+            "result": "1:29.883",
+            "qualification": "p",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-da00551c0fe15e37c1ac",
+            "name": "Fredrik PEDERSEN",
+            "country": "NOR",
+            "official_skater_id": 5461,
+            "helmet_number": 120,
+            "starting_position": 2,
+            "rank": 5,
+            "result": "1:30.419",
             "qualification": null,
             "penalty": null
           }
@@ -11077,8 +11080,8 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-11-22T11:06:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-22T11:09:11.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23454",
@@ -11108,18 +11111,6 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-91ed24e9a56e745fb483",
-            "name": "Martin PRANTL",
-            "country": "CRO",
-            "official_skater_id": 5691,
-            "helmet_number": 131,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
             "athlete_id": "ath-a4c9e0fa92c31f6f11ce",
             "name": "Ivan DONCHEV",
             "country": "BUL",
@@ -11138,6 +11129,18 @@
             "official_skater_id": 18224,
             "helmet_number": 79,
             "starting_position": 5,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-91ed24e9a56e745fb483",
+            "name": "Martin PRANTL",
+            "country": "CRO",
+            "official_skater_id": 5691,
+            "helmet_number": 131,
+            "starting_position": 3,
             "rank": null,
             "result": null,
             "qualification": null,
