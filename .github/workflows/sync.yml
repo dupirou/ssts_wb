@@ -123,6 +123,7 @@ jobs:
             git add data/competitions data/distance_entries data/updates.json
             if [ -f data/world_tour_rankings.json ]; then git add data/world_tour_rankings.json; fi
             if [ -d data/penalties ]; then git add data/penalties; fi
+            if [ -d data/quota_roster ]; then git add data/quota_roster; fi
             git add data/stations.json data/schedules data/sync_meta.json data/china_auto.json
           }
           stage_updates

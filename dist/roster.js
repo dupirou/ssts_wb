@@ -327,7 +327,8 @@
 
   function renderQuotaSection(h, quotas, forecast, state, lookup) {
     const { event, gender } = state;
-    const isWt = event === 'wt';
+    const isWt = event === 'wt' || event === 'wt_beijing';
+    const isBeijing = event === 'wt_beijing';
     const genderLabel = gender === 'women' ? '女子' : '男子';
     const wcAll = quotas.world_championships_2027 || {};
     const wcRelays = wcAll.relays || {};
@@ -566,8 +567,10 @@
     );
 
     const top40WatchPanel = forecast ? renderTop40Watch(h, forecast, gender) : null;
-    const nextStopText =
-      isWt && forecast?.next_wt_stop
+    const bjMeta = forecast?.scenarios?.world_tour_beijing;
+    const nextStopText = isBeijing
+      ? `目标分站：${bjMeta?.city || 'Beijing'} (${bjMeta?.date_start || '2026-12-04'})`
+      : isWt && forecast?.next_wt_stop
         ? `下一站：${forecast.next_wt_stop.city || 'Shanghai'} (${forecast.next_wt_stop.date_start || ''})`
         : null;
 
@@ -852,8 +855,9 @@
   async function render(ctx, prefetched = {}) {
     const { h, root, fetchData } = ctx;
     const params = new URLSearchParams(location.search);
+    const rawEvent = params.get('event');
     const state = {
-      event: params.get('event') === 'wc' ? 'wc' : 'wt',
+      event: rawEvent === 'wc' ? 'wc' : rawEvent === 'wt_beijing' ? 'wt_beijing' : 'wt',
       gender: params.get('gender') === 'men' ? 'men' : 'women'
     };
 
@@ -931,7 +935,8 @@
     };
 
     const eventBtns = [
-      { id: 'wt', label: '2026/27 世巡赛' },
+      { id: 'wt', label: '世巡赛 · 上海站' },
+      { id: 'wt_beijing', label: '世巡赛 · 北京站' },
       { id: 'wc', label: '2027 首尔世锦赛' }
     ].map((opt) =>
       h(
@@ -990,7 +995,11 @@
         return;
       }
       const scenarioKey =
-        state.event === 'wc' ? 'world_championships_2027' : 'world_tour_next_stop';
+        state.event === 'wc'
+          ? 'world_championships_2027'
+          : state.event === 'wt_beijing' && forecast.scenarios?.world_tour_beijing
+            ? 'world_tour_beijing'
+            : 'world_tour_next_stop';
       const scenarioData = forecast.scenarios?.[scenarioKey]?.[state.gender];
       if (!scenarioData) {
         body.replaceChildren(

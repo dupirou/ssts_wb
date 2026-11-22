@@ -410,8 +410,14 @@ test('/roster/ supports URL-synced switching to 2027 WC, CHN Men, and country qu
   assert.equal(countryRows.length, 1);
   assert.match(countryRows[0].textContent, /KOR/);
 
-  // Interactive segmented switch back to WT + Women updates URL & DOM without re-fetching
+  // Interactive segmented switch to Beijing WT stop and back to Shanghai WT + Women updates URL & DOM without re-fetching
   const reqCountBefore = dom.requests.length;
+  const bjBtn = d.querySelector('.roster-seg-btn[data-value="wt_beijing"]');
+  assert.ok(bjBtn);
+  bjBtn.click();
+  assert.equal(new URL(dom.window.location.href).searchParams.get('event'), 'wt_beijing');
+  assert.match(d.querySelector('[aria-label="名额与规则看板"]').textContent, /目标分站：Beijing/);
+
   d.querySelector('.roster-seg-btn[data-value="wt"]').click();
   d.querySelector('.roster-seg-btn[data-value="women"]').click();
   assert.equal(dom.requests.length, reqCountBefore);

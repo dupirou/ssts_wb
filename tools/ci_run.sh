@@ -21,7 +21,12 @@ case "${1:-}" in
   penalties) python tools/sync_penalties.py ;;
   china) python tools/sync_china.py ;;
   entries) python tools/sync_distance_entries.py ;;
-  standings) python tools/sync_world_tour.py ;;
+  standings)
+    python tools/sync_world_tour.py
+    python tools/sync_junior_isu.py --standings-only
+    python tools/quota_engine.py
+    node tools/build_quota_roster.mjs --skip-backtest
+    ;;
   build) python tools/build.py ;;
   test) npm ci --ignore-scripts; run_tests ;;
   test-installed) run_tests ;;
@@ -35,6 +40,9 @@ case "${1:-}" in
     python tools/sync_china.py
     python tools/sync_distance_entries.py
     python tools/sync_world_tour.py
+    python tools/sync_junior_isu.py --standings-only
+    python tools/quota_engine.py
+    node tools/build_quota_roster.mjs --skip-backtest
     python tools/build.py
     npm ci --ignore-scripts
     run_tests

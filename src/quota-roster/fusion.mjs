@@ -1789,7 +1789,7 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
     const goldZ = Number(ps.depleted_field_gold_z ?? 1.45);
     const top3Z = [1.25, 1.1, 0.95];
 
-    const applyPrelimScore = (gender, dist, aid, zVal, weight, effRank, hlText) => {
+    const applyPrelimScore = (gender, dist, aid, zVal, effRank, hlText) => {
       if (!aid) return;
       const dk = disciplineKey(gender, dist);
       let dAgg = aggByDisc.get(dk);
@@ -1803,11 +1803,10 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
         bestRank: Infinity,
         hasCumulative: false,
         count: 0,
+        prelimZ: null,
       };
-      cur.sumWZ += weight * zVal;
-      cur.sumW += weight;
+      cur.prelimZ = cur.prelimZ != null ? Math.max(cur.prelimZ, zVal) : zVal;
       cur.bestRank = Math.min(cur.bestRank, effRank);
-      cur.count += 1;
       dAgg.set(aid, cur);
       if (psDate) {
         const prev = lastDateByAthlete.get(aid);
@@ -1829,7 +1828,7 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
       for (const [dStr, aid] of Object.entries(goldMap)) {
         const dist = Number(dStr);
         if (DISTANCES.includes(dist) && aid) {
-          applyPrelimScore(g, dist, aid, goldZ, 0.85, 1, `国内甲组 ${dist}m #1`);
+          applyPrelimScore(g, dist, aid, goldZ, 1, `国内甲组 ${dist}m #1`);
         }
       }
       const top3List = ps[top3Key] || [];
@@ -1837,7 +1836,7 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
         const aid = top3List[idx];
         const zT = top3Z[idx] ?? 0.95;
         for (const dist of DISTANCES) {
-          applyPrelimScore(g, dist, aid, zT, 0.35, idx + 1, `国内甲组 总积分 #${idx + 1}`);
+          applyPrelimScore(g, dist, aid, zT, idx + 1, `国内甲组 总积分 #${idx + 1}`);
         }
       }
     }
@@ -1886,14 +1885,19 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
 
       const calMap = new Map();
       for (const [aid, st] of dAgg.entries()) {
-        if (!(st.sumW > 0)) continue;
-        const zDom = st.sumWZ / st.sumW;
+        if (!(st.sumW > 0) && st.prelimZ == null) continue;
+        const baseZ = st.sumW > 0 ? st.sumWZ / st.sumW : st.prelimZ;
+        const zDom =
+          st.prelimZ != null && st.sumW > 0
+            ? Math.max(baseZ, 0.55 * st.prelimZ + 0.45 * baseZ)
+            : baseZ;
+        const effSumW = st.sumW > 0 ? st.sumW : 1.0;
         let muDom;
         let sigmaDom;
         if (!fit.usedFallback) {
           muDom = fit.alpha * zDom + fit.beta;
           // Cumulative multi-stop rankings get a slight stability bonus (smaller variance)
-          const effFactor = clamp(0.75 + 0.25 * st.sumW, 0.7, 1.35);
+          const effFactor = clamp(0.75 + 0.25 * effSumW, 0.7, 1.35);
           sigmaDom = sigmaDomAdapt / Math.sqrt(effFactor);
         } else {
           muDom = fallbackQuantileToMu(zDom, st.bestRank, fallbackQuantileCfg);
@@ -1905,8 +1909,8 @@ function buildDomesticPool({ asOfDate, config, paths, seniorPool, juniorPool, do
           z_dom: zDom,
           best_rank: st.bestRank,
           has_cumulative: st.hasCumulative,
-          weight_sum: st.sumW,
-          count: st.count,
+          weight_sum: effSumW,
+          count: Math.max(1, st.count),
         });
       }
 

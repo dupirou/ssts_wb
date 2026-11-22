@@ -878,6 +878,37 @@ def sync_all(
     }
 
 
+def sync_standings_only(
+    *, cache_dir: Path = DEFAULT_CACHE, out_dir: Path = DEFAULT_OUT_DIR, delay: float = 0.25
+) -> bool:
+    """Refresh data/quota_roster/standings_2026_27.json from ISU API; preserve previous snapshot on error."""
+    out_path = out_dir / 'standings_2026_27.json'
+    previous = json.loads(out_path.read_text(encoding='utf-8')) if out_path.exists() else None
+    try:
+        cache = JuniorSourceCache(cache_dir, delay=delay, offline=False)
+        stations_cfg = json.loads((ROOT / 'data/stations.json').read_text(encoding='utf-8'))
+        season_id = int(stations_cfg.get('world_tour_standings_season_id', 47))
+        standings = sync_standings_2026_27(cache, season_id=season_id)
+        if not standings.get('world_rankings_individual'):
+            raise ValueError('No WRD individual tables returned')
+    except Exception as exc:
+        print(
+            f'::warning::2026/27 WRD standings not verified, retained last accepted snapshot: {exc}',
+            file=sys.stderr,
+        )
+        return False
+
+    if previous:
+        old_cmp = {k: v for k, v in previous.items() if k != 'fetched_at'}
+        new_cmp = {k: v for k, v in standings.items() if k != 'fetched_at'}
+        if old_cmp == new_cmp:
+            return False
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(standings, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    return True
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cache', type=Path, default=DEFAULT_CACHE)
@@ -885,7 +916,12 @@ def main():
     parser.add_argument('--delay', type=float, default=0.25)
     parser.add_argument('--offline', action='store_true')
     parser.add_argument('--skip-dobs', action='store_true')
+    parser.add_argument('--standings-only', action='store_true')
     args = parser.parse_args()
+    if args.standings_only:
+        updated = sync_standings_only(cache_dir=args.cache, out_dir=args.out, delay=args.delay)
+        print('2026/27 WRD & relay standings updated:', updated)
+        return
     summary = sync_all(
         cache_dir=args.cache,
         out_dir=args.out,

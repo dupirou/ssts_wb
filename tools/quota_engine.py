@@ -875,6 +875,15 @@ def build_quotas_snapshot(
         'world_tour_2026_27': wt_summary,
     }
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    if out_path.exists():
+        try:
+            prev = json.loads(out_path.read_text(encoding='utf-8'))
+            if {k: v for k, v in prev.items() if k != 'generated_at'} == {
+                k: v for k, v in payload.items() if k != 'generated_at'
+            } and prev.get('generated_at'):
+                payload['generated_at'] = prev['generated_at']
+        except Exception:
+            pass
     out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     return payload
 

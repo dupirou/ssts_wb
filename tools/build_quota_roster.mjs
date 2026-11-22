@@ -44,6 +44,21 @@ function parseDistNum(dk) {
   return parseInt(String(dk), 10);
 }
 
+function detectLatestOfficialDate(stationsDoc, competitionsDir) {
+  let latest = '2026-11-21';
+  for (const s of stationsDoc?.stations || []) {
+    const compPath = path.join(competitionsDir, `${s.id}.json`);
+    if (!fs.existsSync(compPath)) continue;
+    const comp = readJson(compPath);
+    for (const h of comp?.rounds?.items || []) {
+      if (h.evidence !== 'official_results') continue;
+      const d = h.local_date || (h.source_start ? String(h.source_start).slice(0, 10) : '');
+      if (/^\d{4}-\d{2}-\d{2}$/.test(d) && d > latest) latest = d;
+    }
+  }
+  return latest;
+}
+
 function detectNextWtStop(stationsDoc, competitionsDir) {
   for (const s of stationsDoc?.stations || []) {
     const compPath = path.join(competitionsDir, `${s.id}.json`);
@@ -107,6 +122,41 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
     });
     const blocked = buildBlockedMapForGender(penaltyBans, gender);
     wtOut[gender] = forecastGender(fused[gender].eligible, {
+      config,
+      constraints: cons,
+      lambdas,
+      fieldByDistance: fields[gender],
+      blockedDistancesByAthlete: blocked,
+      maxReserves: wtMaxReserves,
+      reserveAllocation: wtReserveAlloc,
+      top40ProtectWeight: wtTop40Protect
+    });
+  }
+
+  // Also compute WT5 Beijing scenario (evaluating with pre-Beijing domestic selection qualifiers at >= 2026-11-30)
+  const beijingStop = (stationsDoc?.stations || []).find((s) => s.id === 'beijing') || {
+    id: 'beijing',
+    city: '北京',
+    city_en: 'Beijing',
+    country: 'CHN',
+    date_start: '2026-12-04',
+    date_end: '2026-12-06'
+  };
+  const beijingAsOf = asOfDate && asOfDate > '2026-11-30' ? asOfDate : '2026-11-30';
+  const fusedBeijing =
+    nextStop?.id === 'beijing' && asOfDate >= '2026-11-30'
+      ? fused
+      : buildFusedCandidatePool({ asOfDate: beijingAsOf, config });
+  const wtBeijingOut = {};
+  for (const gender of ['women', 'men']) {
+    const q = wtQuotas[gender]?.CHN || {};
+    const cons = worldTourConstraints(config, {
+      fourSkaterDistances: q.four_skater_distances || [],
+      hasGenderRelay: true
+    });
+    const blocked =
+      nextStop?.id === 'beijing' ? buildBlockedMapForGender(penaltyBans, gender) : {};
+    wtBeijingOut[gender] = forecastGender(fusedBeijing[gender].eligible, {
       config,
       constraints: cons,
       lambdas,
@@ -182,9 +232,21 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
         world_tour_next_stop: {
           label: '2026-27 World Tour Next Stop',
           stop_id: nextStop?.id || 'shanghai',
+          city: nextStop ? nextStop.city_en || nextStop.city : 'Shanghai',
+          date_start: nextStop?.date_start || '2026-11-27',
           event_dates: nextStop ? `${nextStop.date_start}..${nextStop.date_end}` : null,
           women: wtOut.women,
           men: wtOut.men
+        },
+        world_tour_beijing: {
+          label: '2026-27 World Tour Stop 5 (Beijing)',
+          stop_id: 'beijing',
+          city: beijingStop.city_en || beijingStop.city || 'Beijing',
+          date_start: beijingStop.date_start || '2026-12-04',
+          event_dates: `${beijingStop.date_start || '2026-12-04'}..${beijingStop.date_end || '2026-12-06'}`,
+          as_of_date: beijingAsOf,
+          women: wtBeijingOut.women,
+          men: wtBeijingOut.men
         },
         world_championships_2027: {
           label: '2027 ISU World Championships (Seoul)',
@@ -600,7 +662,7 @@ function formatBacktestMarkdown({ config, forecast, backtest, sensitivity }) {
 }
 
 function parseArgs(argv) {
-  const out = { asOf: '2026-11-21', skipBacktest: false };
+  const out = { asOf: null, skipBacktest: false };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--as-of' && argv[i + 1]) out.asOf = argv[++i];
     else if (argv[i] === '--skip-backtest') out.skipBacktest = true;
@@ -614,9 +676,10 @@ function main() {
   const quotasDoc = readJson(path.join(REPO_ROOT, 'data/quota_roster/quotas_2026_27.json'));
   const predState = readJson(DEFAULT_PATHS.predictionState);
   const stationsDoc = readJson(DEFAULT_PATHS.stations);
+  const asOfDate = args.asOf || detectLatestOfficialDate(stationsDoc, DEFAULT_PATHS.competitionsDir);
 
   const fc = computeForecast({
-    asOfDate: args.asOf,
+    asOfDate,
     config,
     quotasDoc,
     predState,
@@ -625,13 +688,23 @@ function main() {
 
   const outJsonPath = path.join(REPO_ROOT, 'data/quota_roster/chn_roster_forecast.json');
   fs.mkdirSync(path.dirname(outJsonPath), { recursive: true });
+  if (fs.existsSync(outJsonPath)) {
+    try {
+      const prev = readJson(outJsonPath);
+      const prevCmp = { ...prev, generated_at: null };
+      const nextCmp = { ...fc.payload, generated_at: null };
+      if (JSON.stringify(prevCmp) === JSON.stringify(nextCmp) && prev.generated_at) {
+        fc.payload.generated_at = prev.generated_at;
+      }
+    } catch {}
+  }
   fs.writeFileSync(outJsonPath, JSON.stringify(fc.payload, null, 2) + '\n', 'utf8');
   console.log(`Wrote ${outJsonPath}`);
 
   if (!args.skipBacktest) {
     const backtest = runHistoricalBacktest(config);
     const sensitivity = runDualEligibleSensitivity({
-      asOfDate: args.asOf,
+      asOfDate,
       config,
       quotasDoc,
       predState,
