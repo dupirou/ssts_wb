@@ -254,6 +254,8 @@
     "seoul/round/2026-11-22/main/men/5000/final/-/groups": "published",
     "seoul/round/2026-11-22/main/mixed/2000/final/-/groups": "published",
     "seoul/round/2026-11-22/repechage/men/1000/heats/-/groups": "published",
+    "seoul/round/2026-11-22/repechage/men/1000/heats/-/results": "official",
+    "seoul/round/2026-11-22/repechage/men/1000/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/1500/quarterfinal/-/groups": "published",
     "seoul/round/2026-11-22/repechage/women/500/quarterfinal/-/groups": "published",
     "seoul/schedule": "published",
@@ -510,41 +512,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "64519fe08bad686d",
-      "station": "montreal",
-      "at": "2026-10-31T14:01:25+00:00",
-      "local_date": "2026-10-31",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 5,
-      "china": [
-        "Kerui SONG"
-      ]
-    },
-    {
-      "id": "127036e0a02d70f9",
-      "station": "montreal",
-      "at": "2026-10-31T14:21:17+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "Bohao ZHANG",
-        "Zixia ZHANG"
-      ]
-    },
     {
       "id": "4b985a31cb6fe9be",
       "station": "montreal",
@@ -3873,6 +3840,36 @@
       "china": [
         "People's Republic of China"
       ]
+    },
+    {
+      "id": "05532e2fb366baf7",
+      "station": "seoul",
+      "at": "2026-11-22T02:21:43+00:00",
+      "local_date": "2026-11-22",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": []
+    },
+    {
+      "id": "38be00b36ca2715f",
+      "station": "seoul",
+      "at": "2026-11-22T02:21:43+00:00",
+      "local_date": "2026-11-22",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
     }
   ]
 }
