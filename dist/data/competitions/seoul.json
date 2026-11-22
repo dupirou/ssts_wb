@@ -1236,8 +1236,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-22T08:41:55+00:00",
-    "updated_at": "2026-11-22T08:41:55+00:00",
+    "checked_at": "2026-11-22T08:51:51+00:00",
+    "updated_at": "2026-11-22T08:51:51+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -16662,46 +16662,11 @@
         "heat_number": null,
         "heat_label": "Final",
         "source_start": "2026-11-22T17:35:59.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23520",
         "participants": [
-          {
-            "athlete_id": "team-NED-men",
-            "name": "荷兰队",
-            "country": "NED",
-            "official_skater_id": 12992,
-            "helmet_number": null,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-6be3e556e39507d16dc3",
-                "name": "Kay HUISMAN",
-                "official_skater_id": 2780
-              },
-              {
-                "athlete_id": "ath-98d77949cb6eb84d0b02",
-                "name": "Teun BOER",
-                "official_skater_id": 783
-              },
-              {
-                "athlete_id": "ath-ed4d41133f871dbcd2f6",
-                "name": "Niels KINGMA",
-                "official_skater_id": 3494
-              },
-              {
-                "athlete_id": "ath-3c121028999cfe671647",
-                "name": "Jens VAN 'T WOUT",
-                "official_skater_id": 7375
-              }
-            ],
-            "name_latin": "Netherlands"
-          },
           {
             "athlete_id": "team-KOR-men",
             "name": "韩国队",
@@ -16709,8 +16674,8 @@
             "official_skater_id": 12991,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "7:05.176",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -16738,14 +16703,84 @@
             "name_latin": "Republic of Korea"
           },
           {
+            "athlete_id": "team-NED-men",
+            "name": "荷兰队",
+            "country": "NED",
+            "official_skater_id": 12992,
+            "helmet_number": null,
+            "starting_position": 2,
+            "rank": 2,
+            "result": "7:05.440",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-6be3e556e39507d16dc3",
+                "name": "Kay HUISMAN",
+                "official_skater_id": 2780
+              },
+              {
+                "athlete_id": "ath-98d77949cb6eb84d0b02",
+                "name": "Teun BOER",
+                "official_skater_id": 783
+              },
+              {
+                "athlete_id": "ath-ed4d41133f871dbcd2f6",
+                "name": "Niels KINGMA",
+                "official_skater_id": 3494
+              },
+              {
+                "athlete_id": "ath-3c121028999cfe671647",
+                "name": "Jens VAN 'T WOUT",
+                "official_skater_id": 7375
+              }
+            ],
+            "name_latin": "Netherlands"
+          },
+          {
+            "athlete_id": "team-CAN-men",
+            "name": "加拿大队",
+            "country": "CAN",
+            "official_skater_id": 12986,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": 3,
+            "result": "7:05.896",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-ff84a70c32aaa0324d85",
+                "name": "William DANDJINOU",
+                "official_skater_id": 1422
+              },
+              {
+                "athlete_id": "ath-6a55e9fb6f1aecd29288",
+                "name": "Steven DUBOIS",
+                "official_skater_id": 1701
+              },
+              {
+                "athlete_id": "ath-295c31a30610e64d9499",
+                "name": "Mathieu PELLETIER",
+                "official_skater_id": 5474
+              },
+              {
+                "athlete_id": "ath-2f5775133539f6a7e0f7",
+                "name": "Felix ROUSSEL",
+                "official_skater_id": 5998
+              }
+            ],
+            "name_latin": "Canada"
+          },
+          {
             "athlete_id": "team-ITA-men",
             "name": "意大利队",
             "country": "ITA",
             "official_skater_id": 12988,
             "helmet_number": null,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "7:06.574",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -16779,8 +16814,8 @@
             "official_skater_id": 12994,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "7:07.849",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -16806,41 +16841,6 @@
               }
             ],
             "name_latin": "United States of America"
-          },
-          {
-            "athlete_id": "team-CAN-men",
-            "name": "加拿大队",
-            "country": "CAN",
-            "official_skater_id": 12986,
-            "helmet_number": null,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-ff84a70c32aaa0324d85",
-                "name": "William DANDJINOU",
-                "official_skater_id": 1422
-              },
-              {
-                "athlete_id": "ath-6a55e9fb6f1aecd29288",
-                "name": "Steven DUBOIS",
-                "official_skater_id": 1701
-              },
-              {
-                "athlete_id": "ath-295c31a30610e64d9499",
-                "name": "Mathieu PELLETIER",
-                "official_skater_id": 5474
-              },
-              {
-                "athlete_id": "ath-2f5775133539f6a7e0f7",
-                "name": "Felix ROUSSEL",
-                "official_skater_id": 5998
-              }
-            ],
-            "name_latin": "Canada"
           }
         ]
       },
