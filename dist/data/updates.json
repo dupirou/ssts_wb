@@ -2,6 +2,60 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "fb33fa4538607f07",
+      "station": "seoul",
+      "at": "2026-11-22T07:21:38+00:00",
+      "local_date": "2026-11-22",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 1,
+          "name": "Furkan AKAR",
+          "country": "TUR"
+        },
+        {
+          "rank": 2,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Semen ELISTRATOV",
+          "country": "AIN2"
+        },
+        {
+          "rank": 3,
+          "name": "Thomas NADALINI",
+          "country": "ITA"
+        },
+        {
+          "rank": 3,
+          "name": "Taesung KIM",
+          "country": "KOR"
+        }
+      ]
+    },
+    {
+      "id": "03d619cdd4b23a83",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-22T07:21:38+00:00",
+      "changed": true
+    },
+    {
       "id": "e83547f2605304de",
       "station": "seoul",
       "at": "2026-11-22T07:01:29+00:00",
@@ -3406,40 +3460,6 @@
           "name_latin": "Long SUN"
         }
       ]
-    },
-    {
-      "id": "6407391e092396e3",
-      "station": "montreal",
-      "at": "2026-10-31T18:41:20+00:00",
-      "local_date": "2026-10-31",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": [
-        "张珈宁",
-        "宋佳蕊",
-        "公俐"
-      ]
-    },
-    {
-      "id": "446a752ba8137764",
-      "station": "montreal",
-      "at": "2026-10-31T18:41:20+00:00",
-      "local_date": "2026-10-31",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
     }
   ]
 }

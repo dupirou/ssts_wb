@@ -1224,8 +1224,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-22T07:11:41+00:00",
-    "updated_at": "2026-11-22T07:11:41+00:00",
+    "checked_at": "2026-11-22T07:21:38+00:00",
+    "updated_at": "2026-11-22T07:21:38+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23410",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16339&round=23411",
@@ -16767,12 +16767,24 @@
         "group": "A",
         "heat_number": null,
         "heat_label": "Final",
-        "source_start": "2026-11-22T16:07:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-22T16:11:29.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-3-seoul/?tab=results_16216&type=16347&round=23537",
         "participants": [
+          {
+            "athlete_id": "ath-3c121028999cfe671647",
+            "name": "Jens VAN 'T WOUT",
+            "country": "NED",
+            "official_skater_id": 7375,
+            "helmet_number": 7,
+            "starting_position": 3,
+            "rank": 1,
+            "result": "1:28.988",
+            "qualification": null,
+            "penalty": null
+          },
           {
             "athlete_id": "ath-2f5775133539f6a7e0f7",
             "name": "Felix ROUSSEL",
@@ -16780,8 +16792,20 @@
             "official_skater_id": 5998,
             "helmet_number": 11,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "1:29.073",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-0b75c8b148a940d59dbb",
+            "name": "Thomas NADALINI",
+            "country": "ITA",
+            "official_skater_id": 4990,
+            "helmet_number": 6,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "1:30.099",
             "qualification": null,
             "penalty": null
           },
@@ -16792,20 +16816,8 @@
             "official_skater_id": 1422,
             "helmet_number": 1,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-3c121028999cfe671647",
-            "name": "Jens VAN 'T WOUT",
-            "country": "NED",
-            "official_skater_id": 7375,
-            "helmet_number": 7,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "2:06.082",
             "qualification": null,
             "penalty": null
           },
@@ -16817,21 +16829,12 @@
             "helmet_number": 41,
             "starting_position": 4,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-0b75c8b148a940d59dbb",
-            "name": "Thomas NADALINI",
-            "country": "ITA",
-            "official_skater_id": 4990,
-            "helmet_number": 6,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -16958,15 +16961,72 @@
   "rankings": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-22T07:01:29+00:00",
-    "updated_at": "2026-11-22T07:01:29+00:00",
+    "checked_at": "2026-11-22T07:21:38+00:00",
+    "updated_at": "2026-11-22T07:21:38+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16341/",
       "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16343/",
       "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16344/",
-      "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16345/"
+      "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16345/",
+      "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16347/"
     ],
     "items": [
+      {
+        "id": "event/men/1000/ath-78a6ed2c7eac904f5ca0",
+        "athlete_id": "ath-78a6ed2c7eac904f5ca0",
+        "ranking_type": "event",
+        "gender": "men",
+        "distance_m": 1000,
+        "format": "individual",
+        "name": "Long SUN",
+        "country": "CHN",
+        "rank": 15,
+        "points": null,
+        "official_details": "1:28.277",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16347/"
+      },
+      {
+        "id": "event/men/1000/ath-799c7f543fce635aeeb8",
+        "athlete_id": "ath-799c7f543fce635aeeb8",
+        "ranking_type": "event",
+        "gender": "men",
+        "distance_m": 1000,
+        "format": "individual",
+        "name": "Zixia ZHANG",
+        "country": "CHN",
+        "rank": 11,
+        "points": null,
+        "official_details": "1:26.938",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16347/"
+      },
+      {
+        "id": "event/men/1000/ath-872b8b25f1eda8723e33",
+        "athlete_id": "ath-872b8b25f1eda8723e33",
+        "ranking_type": "event",
+        "gender": "men",
+        "distance_m": 1000,
+        "format": "individual",
+        "name": "Kun LI",
+        "country": "CHN",
+        "rank": 19,
+        "points": null,
+        "official_details": "1:25.236",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16347/"
+      },
+      {
+        "id": "event/men/1000/ath-adac927b0b3d0c45aeb4",
+        "athlete_id": "ath-adac927b0b3d0c45aeb4",
+        "ranking_type": "event",
+        "gender": "men",
+        "distance_m": 1000,
+        "format": "individual",
+        "name": "Kerui SONG",
+        "country": "CHN",
+        "rank": 51,
+        "points": null,
+        "official_details": "1:27.511",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-3-seoul/16347/"
+      },
       {
         "id": "event/men/1500/ath-33784c1a829757d78105",
         "athlete_id": "ath-33784c1a829757d78105",
