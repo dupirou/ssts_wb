@@ -142,7 +142,9 @@ test('/roster/ hides predictions by default, unlocks via 5-tap title password fl
 });
 
 test('/roster/ renders V2 simplified layout: quotas, penalty warnings, Core vs Bubble/Cut tiers, and reserves without V1 MC metrics', async (t) => {
-  const dom = await loadPage('/roster/');
+  const quotas = JSON.parse(await file('dist/data/quota_roster/quotas_2026_27.json'));
+  quotas.penalty_target_stop = 'previous-stop';
+  const dom = await loadPage('/roster/', { quotas });
   t.after(() => dom.window.close());
   const d = dom.window.document;
 
@@ -157,7 +159,8 @@ test('/roster/ renders V2 simplified layout: quotas, penalty warnings, Core vs B
   assert.ok(quotaSection);
   assert.match(quotaSection.textContent, /6 人/);
   assert.match(quotaSection.textContent, /Top-40 4 人特例/);
-  assert.match(quotaSection.textContent, /第 5 名/);
+  const relay = quotas.world_championships_2027.relays.women_3000m.standings.find((r) => r.country === 'CHN');
+  assert.ok(quotaSection.textContent.includes(`女子 3000m 接力：暂列第 ${relay.official_rank} 名`));
 
   assert.equal(d.querySelector('.roster-penalty-bar'), null);
   assert.match(quotaSection.textContent, /本场禁报名单待核对/);
@@ -390,7 +393,9 @@ test('/roster/ supports URL-synced switching to 2027 WC, CHN Men, and country qu
   // CHN Men 2027 WC: 5 max, 3/2/2 individual slots, Men 5000m relay #3
   const quotaSection = d.querySelector('[aria-label="名额与规则看板"]');
   assert.match(quotaSection.textContent, /5 人/);
-  assert.match(quotaSection.textContent, /男子 5000m 接力：暂列第 3 名/);
+  const quotas = JSON.parse(await file('dist/data/quota_roster/quotas_2026_27.json'));
+  const relay = quotas.world_championships_2027.relays.men_5000m.standings.find((r) => r.country === 'CHN');
+  assert.ok(quotaSection.textContent.includes(`男子 5000m 接力：暂列第 ${relay.official_rank} 名`));
 
   const mainCards = [...d.querySelectorAll('.roster-main-grid > .roster-skater-card.is-main')];
   assert.equal(mainCards.length, 5);
