@@ -195,7 +195,7 @@
     "montreal/time/2026-11-01/repechage/women/500/quarterfinal/-": "2026-11-01 23:35",
     "montreal/time/2026-11-01/repechage/women/500/semifinal/-": "2026-11-02 00:08",
     "seoul/entries": "b9eda815ecb867ce",
-    "seoul/rankings": "5e05e7ca3bb1c4c4",
+    "seoul/rankings": "33cffbb09cf82a14",
     "seoul/round/2026-11-20/qualifying/men/1000/heats/-/groups": "published",
     "seoul/round/2026-11-20/qualifying/men/1000/heats/-/results": "official",
     "seoul/round/2026-11-20/qualifying/men/1000/preliminaries/-/groups": "published",
@@ -537,41 +537,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "980fbf1ea5e47e8b",
-      "station": "montreal",
-      "at": "2026-10-31T19:51:19+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Bohao ZHANG",
-        "Long SUN",
-        "Yiding ZHU"
-      ],
-      "china_results": [
-        {
-          "name": "Bohao ZHANG",
-          "rank": 4,
-          "status": "final_b"
-        },
-        {
-          "name": "Long SUN",
-          "rank": 3,
-          "status": "final_b"
-        },
-        {
-          "name": "Yiding ZHU",
-          "rank": 5,
-          "status": "final_b"
-        }
-      ]
-    },
     {
       "id": "e67cb9795528b9f7",
       "station": "montreal",
@@ -2911,7 +2876,7 @@
       "distance_m": 3000,
       "format": "relay",
       "kind": "groups",
-      "heats": 3,
+      "heats": 2,
       "china": [
         "People's Republic of China"
       ]
@@ -3013,10 +2978,6 @@
         {
           "name": "People's Republic of China",
           "rank": 1
-        },
-        {
-          "name": "People's Republic of China",
-          "rank": 1
         }
       ],
       "podium": [
@@ -3026,24 +2987,9 @@
           "country": "CHN"
         },
         {
-          "rank": 1,
-          "name": "People's Republic of China",
-          "country": "CHN"
-        },
-        {
           "rank": 2,
           "name": "Republic of Korea",
           "country": "KOR"
-        },
-        {
-          "rank": 2,
-          "name": "Republic of Korea",
-          "country": "KOR"
-        },
-        {
-          "rank": 3,
-          "name": "Ain2",
-          "country": "AIN2"
         },
         {
           "rank": 3,
@@ -3740,6 +3686,13 @@
       "station": "seoul",
       "kind": "rankings",
       "at": "2026-11-23T08:01:38+00:00",
+      "changed": true
+    },
+    {
+      "id": "78b1ccf9d69b968e",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-23T10:01:44+00:00",
       "changed": true
     }
   ]

@@ -64,7 +64,7 @@ def parse_entries(body, config):
     items = []
     # Do not infer registered distances from a whole-event roster.
     for line in text.splitlines():
-        match = re.fullmatch(r'([A-Z]{3})\s+(.+?)\s+([MFX])\s+(Active|Substitute)', line.strip())
+        match = re.fullmatch(r'([A-Z]{3}\d?)\s+(.+?)\s+([MFX])\s+(Active|Substitute)', line.strip())
         if not match:
             if re.match(r'^[A-Z]{3}\s+.+\s+[MFX]\s+', line.strip()):
                 raise ValueError('Unrecognized entry row; refusing partial roster')
@@ -157,7 +157,7 @@ def parse_reports(body, config, source_url):
                 team_col = header.index('Team')
                 rank_col = header.index('Rank')
                 for line in lines:
-                    team = re.match(r'([A-Z]{3})\s+-\s+(.+)', line[team_col:])
+                    team = re.match(r'([A-Z]{3}\d?)\s+-\s+(.+)', line[team_col:])
                     rank = line[rank_col:team_col].strip()
                     if not team or not rank.isdigit():
                         continue
@@ -194,8 +194,8 @@ def parse_reports(body, config, source_url):
                 continue
             name = line[name_col:country_col].strip()
             prefix = line[:name_col].split()
-            country = line[country_col : country_col + 3]
-            if not re.fullmatch(r'[A-Z]{3}', country) or not prefix:
+            country = line[country_col : country_col + 4].rstrip()
+            if not re.fullmatch(r'[A-Z]{3}\d?', country) or not prefix:
                 if (
                     last is not None
                     and not prefix
@@ -218,7 +218,7 @@ def parse_reports(body, config, source_url):
                 country=country,
                 rank=rank,
                 points=int(point[1]) if point else None,
-                official_details=line[country_col + 3 :].strip(),
+                official_details=line[country_col + len(country) :].strip(),
                 source_url=source_url,
             )
             # Re-key after all continuation lines have been appended.
@@ -347,6 +347,13 @@ def unique_final_heats(items):
             key = (heat['gender'], heat['distance_m'], heat['format'], heat['group'], heat['source_start'])
             # Preserve re-skates and revisions with different lineups, times, ranks or publication status.
             details = {k: v for k, v in heat.items() if k not in ('id', 'source_url', 'round_label')}
+            if heat.get('format') == 'relay':
+                details['participants'] = [
+                    dict(p, members=[dict(m, name=m['name'].casefold()) for m in p['members']])
+                    if p.get('members')
+                    else p
+                    for p in heat['participants']
+                ]
             copies = finals.setdefault(key, [])
             if details in copies:
                 continue

@@ -81,26 +81,7 @@ test('events page owns the full calendar and produces shareable nested event URL
   assert.match(d.querySelector('.st-card .st-foot').textContent, /已录入 61 个轮次/);
 });
 
-test('Shanghai ticket links appear on home, not the events overview or station detail', async t => {
-  const dom = await page('/?now=2026-10-30T04:00:00Z');
-  t.after(() => dom.window.close());
-  const d = dom.window.document;
-  const panel = d.querySelector('.ticket-panel[aria-label="上海站售票"]');
-  assert.ok(panel);
-  assert.match(panel.textContent, /门票已开售/);
-  const links = [...panel.querySelectorAll('a')];
-  const byText = text => links.find(a => a.textContent.includes(text));
-  assert.equal(
-    byText('大麦 赛事购票')?.href,
-    'https://m.damai.cn/shows/item.html?itemId=1095988161093&from=appshare'
-  );
-  for (const name of ['久事体育', '携程', 'MAISEAT']) {
-    assert.ok(byText(name + ' 平台入口'), name + ' must be a platform link');
-    assert.ok(!byText(name + ' 赛事购票'), name + ' has no verified event URL');
-  }
-  assert.ok(byText('售票渠道公告')?.href.includes('english.shanghai.gov.cn'));
-  assert.equal(links.length, 5);
-  assert.doesNotMatch(panel.textContent, /北京时间.*开售/);
+test('event pages omit ticket links', async t => {
   for (const route of ['/events/', '/events/2026-27/shanghai/', '/events/2026-27/seoul/']) {
     const event = await page(route);
     t.after(() => event.window.close());
@@ -109,7 +90,7 @@ test('Shanghai ticket links appear on home, not the events overview or station d
   }
 });
 
-test('home popup combines official updates and ticket alerts and remembers dismissal', async t => {
+test('home popup shows official updates and remembers dismissal', async t => {
   const feed = {
     schema_version: 1,
     events: [{ id: 'test-montreal-entries', station: 'montreal',
@@ -125,16 +106,11 @@ test('home popup combines official updates and ticket alerts and remembers dismi
   const popup = d.querySelector('.updates-dialog[open]');
   assert.ok(popup, 'a new update should open a home modal');
   assert.match(popup.textContent, /蒙特利尔站.*报名名单已公布/);
-  assert.match(popup.textContent, /上海站门票已开售/);
-  assert.doesNotMatch(popup.textContent, /首尔站门票/);
-  assert.ok([...popup.querySelectorAll('.upd-list a')].some(a =>
-    a.href.includes('m.damai.cn/shows/item.html?itemId=1095988161093')));
+  assert.doesNotMatch(popup.textContent, /门票/);
   popup.querySelector('.upd-close').click();
   assert.ok(Number(dom.window.localStorage.getItem('ssts.updates.seen')) > 0);
-  assert.equal(JSON.parse(dom.window.localStorage.getItem('ssts.tickets.seen')).length, 1);
   const storage = {
-    'ssts.updates.seen': dom.window.localStorage.getItem('ssts.updates.seen'),
-    'ssts.tickets.seen': dom.window.localStorage.getItem('ssts.tickets.seen')
+    'ssts.updates.seen': dom.window.localStorage.getItem('ssts.updates.seen')
   };
   const revisit = await page(url, '', null, {feed, storage});
   t.after(() => revisit.window.close());

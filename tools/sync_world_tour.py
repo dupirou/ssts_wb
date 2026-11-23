@@ -112,7 +112,8 @@ def known_skaters(directory, station_list):
                 if type(sid) is not int:
                     continue
                 identity = (participant['athlete_id'], participant['country'], heat['gender'])
-                if sid in identities and identities[sid] != identity:
+                # The same ISU skater may have a corrected spelling at a later station.
+                if sid in identities and identities[sid][1:] != identity[1:]:
                     raise ValueError('Conflicting ISU skater identity between stations')
                 identities[sid] = identity
     if not identities:

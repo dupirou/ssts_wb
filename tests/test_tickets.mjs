@@ -22,16 +22,16 @@ async function render(url) {
   };
   w.eval(script);
   for (let i=0; i<100; i++) {
-    if (w.document.querySelector('.ticket-panel')) return dom;
+    if (w.document.querySelector('.next-card')) return dom;
     await new Promise(r => setTimeout(r, 5));
   }
   dom.window.close();
-  throw new Error('Ticket section did not render');
+  throw new Error('Home page did not render');
 }
-test('home shows Shanghai ticketing and omits Seoul ticketing', async t => {
+test('home omits ticket links', async t => {
   const dom = await render('https://example.test/?now=2026-11-19T09:00:00Z');
   t.after(() => dom.window.close());
   const d = dom.window.document;
   assert.equal(d.querySelector('.ticket-panel[aria-label="首尔站售票"]'), null);
-  assert.ok(d.querySelector('.ticket-panel[aria-label="上海站售票"]'));
+  assert.equal(d.querySelector('.ticket-panel[aria-label="上海站售票"]'), null);
 });

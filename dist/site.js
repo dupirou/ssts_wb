@@ -211,7 +211,7 @@
     );
   }
   function home(ctx, calendar, details) {
-    const { h, root, nextCard, stationWindow, phase, ticketPanel } = ctx;
+    const { h, root, nextCard, stationWindow, phase } = ctx;
     const stations = calendar.stations.map((st, i) => ({
       ...st,
       n: i + 1,
@@ -268,8 +268,7 @@
               )
             )
           )
-        : null,
-      ...stations.map(ticketPanel).filter(Boolean)
+        : null
     );
   }
   async function athletes(ctx, calendar) {
@@ -2094,69 +2093,6 @@
     if (trigger) attachAnalysis(dialog, body, trigger, r, cells, heatHeads);
   }
 
-  const showHomeTickets = (st) => st.id !== 'seoul' && st.ticketing;
-  function ticketPanel(st) {
-    if (!showHomeTickets(st) || phase(st.win || stationWindow(st, null)) === 'done') return null;
-    if (st.ticketing.channels?.length) {
-      const channels = st.ticketing.channels;
-      return h(
-        'section',
-        { class: 'panel ticket-panel', 'aria-label': st.city + '站售票' },
-        h(
-          'div',
-          { class: 'ticket-copy' },
-          h('p', { class: 'eyebrow', text: st.city + '站 · 门票' }),
-          h('h2', { text: '门票已开售' }),
-          h('p', {
-            class: 'ticket-time',
-            text: '大麦提供赛事直达入口；其他为官方公布的售票平台，具体票务状态以平台为准。'
-          })
-        ),
-        h(
-          'div',
-          { class: 'ticket-actions' },
-          ...channels.map((channel) =>
-            external(
-              channel.url,
-              channel.name + (channel.kind === 'event' ? ' 赛事购票' : ' 平台入口')
-            )
-          ),
-          external(st.ticketing.source_url, '售票渠道公告')
-        )
-      );
-    }
-    const open = Date.parse(st.ticketing.sale_start);
-    const bj = parts(BJ, open),
-      local = parts(st.timezone, open);
-    const when = md(bj.date) + ' ' + wk(bj.date) + ' ' + dayPart(bj.hm) + ' ' + bj.hm;
-    const onSale = now() >= open;
-    return h(
-      'section',
-      { class: 'panel ticket-panel', 'aria-label': st.city + '站售票' },
-      h(
-        'div',
-        { class: 'ticket-copy' },
-        h('p', { class: 'eyebrow', text: st.city + '站 · 门票' }),
-        h('h2', { text: onSale ? '门票已开售' : '售票信息' }),
-        h(
-          'p',
-          { class: 'ticket-time' },
-          onSale ? '已于北京时间 ' : '北京时间 ',
-          h('span', { class: 'nowrap', text: when + ' 开售' }),
-          st.timezone === BJ
-            ? null
-            : ['\u00a0· ', h('small', { class: 'nowrap', text: st.city + '时间 ' + local.hm })]
-        )
-      ),
-      h(
-        'div',
-        { class: 'ticket-actions' },
-        external(st.ticketing.isu_url, 'ISU 售票说明'),
-        external(st.ticketing.booking_url, st.ticketing.booking_name + ' 订票')
-      )
-    );
-  }
-
   /* ---------- season page ---------- */
   function renderSeason(cal, details = {}) {
     setClocks([['北京时间', BJ]]);
@@ -2433,7 +2369,7 @@
         if (on) current.textContent = '正在进行 · ' + eventName(on) + ' ' + roundName(on);
       } else {
         label.textContent = st.dataError ? '赛程暂时无法读取' : '详细赛程待公布';
-        item.textContent = '比赛日期：' + dot(st.date_start) + ' — ' + dot(st.date_end);
+        item.hidden = true;
       }
       cd.hidden = !st.detail || target < now();
       if (!cd.hidden) cd.set(target - now());
@@ -3857,46 +3793,6 @@
         return null;
     }
   }
-  const TICKET_SEEN_KEY = 'ssts.tickets.seen';
-  // prettier-ignore
-  function seenTickets() {
-    try {
-      const stored = JSON.parse(localStorage.getItem(TICKET_SEEN_KEY) || '[]');
-      const ids = Array.isArray(stored) ? stored : [];
-      return new Set(ids.filter((id) => typeof id === 'string'));
-    } catch (_) {
-      return new Set();
-    }
-  }
-  // prettier-ignore
-  function ticketAlerts(stations) {
-    const seen = seenTickets();
-    return stations.flatMap((st) => {
-      const ticket = showHomeTickets(st);
-      if (!ticket || phase(stationWindow(st, null)) === 'done') return [];
-      const channel =
-        ticket.channels?.find((item) => item.kind === 'event') || ticket.channels?.[0];
-      const href = channel?.url || ticket.booking_url;
-      if (!href) return [];
-      const onSale = !ticket.sale_start || now() >= Date.parse(ticket.sale_start);
-      const salePhase = ticket.sale_start ? (onSale ? 'open' : 'upcoming') : 'available';
-      const id = [st.id, href, salePhase].join('|');
-      if (seen.has(id)) return [];
-      const seller = channel?.name || ticket.booking_name || '售票平台';
-      const sellerAction = channel?.kind === 'event' ? '赛事购票' : '售票入口';
-      return [
-        {
-          e: { station: st.id, kind: 'tickets', href },
-          ticketId: id,
-          n: {
-            text: st.city + '站门票' + (onSale ? '已开售' : '开售时间已公布'),
-            alert: true,
-            sub: h('span', { text: seller + ' · ' + sellerAction })
-          }
-        }
-      ];
-    });
-  }
   // prettier-ignore
   function updatesDialog(feed, stations) {
     const seen = seenAt();
@@ -3907,12 +3803,10 @@
     );
     // Official results replace the matching "groups published" notification.
     const resulted = new Set(fresh.filter((e) => e.kind === 'results').map(roundIdent));
-    const milestones = fresh
+    const items = fresh
       .filter((e) => !(e.kind === 'groups' && resulted.has(roundIdent(e))))
       .map((e) => ({ e, n: notice(e) }))
       .filter((item) => item.n);
-    const tickets = ticketAlerts(stations);
-    const items = [...tickets, ...milestones];
     if (!items.length) return null;
     const newest = Math.max(0, ...fresh.map((e) => Date.parse(e.at)));
     const toneOf = (n) => (n.chn ? 'is-chn' : n.gold ? 'is-a' : n.alert ? 'is-alert' : '');
@@ -3923,11 +3817,6 @@
     const acknowledge = () => {
       try {
         if (newest) localStorage.setItem(SEEN_KEY, String(Math.max(seenAt(), newest)));
-        if (tickets.length) {
-          const acknowledged = seenTickets();
-          tickets.forEach(({ ticketId }) => acknowledged.add(ticketId));
-          localStorage.setItem(TICKET_SEEN_KEY, JSON.stringify([...acknowledged]));
-        }
       } catch (_) {
         /* Storage unavailable in private browsing; notifications remain dismissible. */
       }
@@ -3944,21 +3833,16 @@
       'ol',
       { class: 'upd-list' },
       items.map(({ e, n }) => {
-        const where = e.kind === 'tickets' ? '' : byId.get(e.station).city + '站';
-        const externalTicket = e.kind === 'tickets';
         return h(
           'li',
           { class: toneOf(n) },
           h(
             'a',
-            {
-              href: externalTicket ? e.href : stationHref(e.station, e.local_date),
-              ...(externalTicket ? { target: '_blank', rel: 'noopener noreferrer' } : {})
-            },
+            { href: stationHref(e.station, e.local_date) },
             h(
               'span',
               { class: 'upd-text' },
-              where ? h('b', { text: where + ' ' }) : null,
+              h('b', { text: byId.get(e.station).city + '站 ' }),
               n.text
             ),
             n.sub && (!Array.isArray(n.sub) || n.sub.length)
@@ -4037,7 +3921,6 @@
       now,
       stationHref,
       nextCard,
-      ticketPanel,
       stationWindow,
       phase
     };
