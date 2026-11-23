@@ -2,6 +2,13 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "b4967982ef8a39a0",
+      "station": "seoul",
+      "kind": "rankings",
+      "at": "2026-11-23T08:01:38+00:00",
+      "changed": true
+    },
+    {
       "id": "253e068cfd0c0689",
       "station": "seoul",
       "kind": "rankings",
@@ -3299,21 +3306,6 @@
           "name_latin": "Yiding ZHU"
         }
       ]
-    },
-    {
-      "id": "9010836c148684e5",
-      "station": "montreal",
-      "at": "2026-10-31T19:51:19+00:00",
-      "local_date": "2026-10-31",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
     }
   ]
 }
