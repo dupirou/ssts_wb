@@ -1,21 +1,21 @@
 {
   "schema_version": 1,
   "season": "2026-2027",
-  "generated_at": "2026-11-22T16:30:22+00:00",
+  "generated_at": "2026-11-23T00:57:50+00:00",
   "config_version": "2026.27.1",
   "penalty_source": "montreal.json",
   "penalty_target_stop": "seoul",
   "wrd_as_of": {
-    "men_500": "2026-11-21T07:42:09+00:00",
-    "men_1000": "2026-11-21T07:42:09+00:00",
-    "men_1500": "2026-11-21T07:42:09+00:00",
-    "women_500": "2026-11-21T07:42:09+00:00",
-    "women_1000": "2026-11-21T07:42:09+00:00",
-    "women_1500": "2026-11-21T07:42:09+00:00"
+    "men_500": "2026-11-23T00:57:49+00:00",
+    "men_1000": "2026-11-23T00:57:49+00:00",
+    "men_1500": "2026-11-23T00:57:49+00:00",
+    "women_500": "2026-11-23T00:57:49+00:00",
+    "women_1000": "2026-11-23T00:57:49+00:00",
+    "women_1500": "2026-11-23T00:57:49+00:00"
   },
   "relay_as_of": {
-    "men_5000m": "2026-11-21T07:42:09+00:00",
     "women_3000m": "2026-11-21T07:42:09+00:00",
+    "men_5000m": "2026-11-21T07:42:09+00:00",
     "mixed_2000m": "2026-11-21T07:42:09+00:00"
   },
   "wc_2027_verification": {
@@ -859,6 +859,95 @@
       }
     },
     "relays": {
+      "women_3000m": {
+        "top_n": 12,
+        "host_member": "KOR",
+        "host_replaced_12th": false,
+        "qualified_countries": [
+          "ITA",
+          "CAN",
+          "KOR",
+          "NED",
+          "CHN",
+          "FRA",
+          "JPN",
+          "POL",
+          "KAZ",
+          "USA"
+        ],
+        "standings": [
+          {
+            "country": "ITA",
+            "points": 160,
+            "official_rank": 1,
+            "standing_rank": 1,
+            "qualified": true
+          },
+          {
+            "country": "CAN",
+            "points": 160,
+            "official_rank": 2,
+            "standing_rank": 2,
+            "qualified": true
+          },
+          {
+            "country": "KOR",
+            "points": 160,
+            "official_rank": 3,
+            "standing_rank": 3,
+            "qualified": true
+          },
+          {
+            "country": "NED",
+            "points": 140,
+            "official_rank": 4,
+            "standing_rank": 4,
+            "qualified": true
+          },
+          {
+            "country": "CHN",
+            "points": 100,
+            "official_rank": 5,
+            "standing_rank": 5,
+            "qualified": true
+          },
+          {
+            "country": "FRA",
+            "points": 80,
+            "official_rank": 6,
+            "standing_rank": 6,
+            "qualified": true
+          },
+          {
+            "country": "JPN",
+            "points": 76,
+            "official_rank": 7,
+            "standing_rank": 7,
+            "qualified": true
+          },
+          {
+            "country": "POL",
+            "points": 76,
+            "official_rank": 8,
+            "standing_rank": 8,
+            "qualified": true
+          },
+          {
+            "country": "KAZ",
+            "points": 72,
+            "official_rank": 9,
+            "standing_rank": 9,
+            "qualified": true
+          },
+          {
+            "country": "USA",
+            "points": 32,
+            "official_rank": 10,
+            "standing_rank": 10,
+            "qualified": true
+          }
+        ]
+      },
       "men_5000m": {
         "top_n": 12,
         "host_member": "KOR",
@@ -982,95 +1071,6 @@
             "official_rank": 15,
             "standing_rank": 15,
             "qualified": false
-          }
-        ]
-      },
-      "women_3000m": {
-        "top_n": 12,
-        "host_member": "KOR",
-        "host_replaced_12th": false,
-        "qualified_countries": [
-          "ITA",
-          "CAN",
-          "KOR",
-          "NED",
-          "CHN",
-          "FRA",
-          "JPN",
-          "POL",
-          "KAZ",
-          "USA"
-        ],
-        "standings": [
-          {
-            "country": "ITA",
-            "points": 160,
-            "official_rank": 1,
-            "standing_rank": 1,
-            "qualified": true
-          },
-          {
-            "country": "CAN",
-            "points": 160,
-            "official_rank": 2,
-            "standing_rank": 2,
-            "qualified": true
-          },
-          {
-            "country": "KOR",
-            "points": 160,
-            "official_rank": 3,
-            "standing_rank": 3,
-            "qualified": true
-          },
-          {
-            "country": "NED",
-            "points": 140,
-            "official_rank": 4,
-            "standing_rank": 4,
-            "qualified": true
-          },
-          {
-            "country": "CHN",
-            "points": 100,
-            "official_rank": 5,
-            "standing_rank": 5,
-            "qualified": true
-          },
-          {
-            "country": "FRA",
-            "points": 80,
-            "official_rank": 6,
-            "standing_rank": 6,
-            "qualified": true
-          },
-          {
-            "country": "JPN",
-            "points": 76,
-            "official_rank": 7,
-            "standing_rank": 7,
-            "qualified": true
-          },
-          {
-            "country": "POL",
-            "points": 76,
-            "official_rank": 8,
-            "standing_rank": 8,
-            "qualified": true
-          },
-          {
-            "country": "KAZ",
-            "points": 72,
-            "official_rank": 9,
-            "standing_rank": 9,
-            "qualified": true
-          },
-          {
-            "country": "USA",
-            "points": 32,
-            "official_rank": 10,
-            "standing_rank": 10,
-            "qualified": true
           }
         ]
       },
@@ -1226,9 +1226,9 @@
           "max_roster_size": 6,
           "four_skater_distances": [],
           "top40_counts": {
-            "500m": 0,
-            "1000m": 0,
-            "1500m": 0
+            "500m": 2,
+            "1000m": 2,
+            "1500m": 2
           },
           "slots_500m": 3,
           "slots_1000m": 3,
@@ -1241,7 +1241,7 @@
           "four_skater_distances": [],
           "top40_counts": {
             "500m": 0,
-            "1000m": 1,
+            "1000m": 0,
             "1500m": 0
           },
           "slots_500m": 3,
@@ -1255,7 +1255,7 @@
           "four_skater_distances": [],
           "top40_counts": {
             "500m": 2,
-            "1000m": 1,
+            "1000m": 2,
             "1500m": 2
           },
           "slots_500m": 3,
@@ -1273,7 +1273,7 @@
           ],
           "top40_counts": {
             "500m": 4,
-            "1000m": 3,
+            "1000m": 4,
             "1500m": 5
           },
           "slots_500m": 4,
@@ -1290,9 +1290,9 @@
             "1500m"
           ],
           "top40_counts": {
-            "500m": 5,
+            "500m": 6,
             "1000m": 6,
-            "1500m": 5
+            "1500m": 6
           },
           "slots_500m": 4,
           "slots_1000m": 4,
@@ -1305,7 +1305,7 @@
           "four_skater_distances": [],
           "top40_counts": {
             "500m": 1,
-            "1000m": 1,
+            "1000m": 0,
             "1500m": 1
           },
           "slots_500m": 3,
@@ -1320,7 +1320,7 @@
           "top40_counts": {
             "500m": 0,
             "1000m": 0,
-            "1500m": 1
+            "1500m": 0
           },
           "slots_500m": 3,
           "slots_1000m": 3,
@@ -1364,7 +1364,7 @@
           "top40_counts": {
             "500m": 1,
             "1000m": 0,
-            "1500m": 0
+            "1500m": 1
           },
           "slots_500m": 3,
           "slots_1000m": 3,
@@ -1392,7 +1392,7 @@
           "top40_counts": {
             "500m": 1,
             "1000m": 1,
-            "1500m": 2
+            "1500m": 1
           },
           "slots_500m": 3,
           "slots_1000m": 3,
@@ -1408,7 +1408,7 @@
             "1500m"
           ],
           "top40_counts": {
-            "500m": 5,
+            "500m": 6,
             "1000m": 4,
             "1500m": 4
           },
@@ -1421,16 +1421,15 @@
           "gender": "women",
           "max_roster_size": 6,
           "four_skater_distances": [
-            "1000m",
             "1500m"
           ],
           "top40_counts": {
             "500m": 1,
-            "1000m": 3,
-            "1500m": 4
+            "1000m": 1,
+            "1500m": 3
           },
           "slots_500m": 3,
-          "slots_1000m": 4,
+          "slots_1000m": 3,
           "slots_1500m": 4
         },
         "KAZ": {
@@ -1438,15 +1437,14 @@
           "gender": "women",
           "max_roster_size": 6,
           "four_skater_distances": [
-            "500m",
             "1500m"
           ],
           "top40_counts": {
-            "500m": 3,
+            "500m": 0,
             "1000m": 1,
             "1500m": 3
           },
-          "slots_500m": 4,
+          "slots_500m": 3,
           "slots_1000m": 3,
           "slots_1500m": 4
         },
@@ -1487,16 +1485,15 @@
           "gender": "women",
           "max_roster_size": 6,
           "four_skater_distances": [
-            "500m",
             "1000m",
             "1500m"
           ],
           "top40_counts": {
-            "500m": 3,
+            "500m": 2,
             "1000m": 5,
             "1500m": 5
           },
-          "slots_500m": 4,
+          "slots_500m": 3,
           "slots_1000m": 4,
           "slots_1500m": 4
         },
@@ -1539,7 +1536,7 @@
           "top40_counts": {
             "500m": 5,
             "1000m": 3,
-            "1500m": 2
+            "1500m": 1
           },
           "slots_500m": 4,
           "slots_1000m": 4,
@@ -1608,7 +1605,7 @@
           "four_skater_distances": [],
           "top40_counts": {
             "500m": 0,
-            "1000m": 0,
+            "1000m": 1,
             "1500m": 0
           },
           "slots_500m": 3,
@@ -1633,16 +1630,14 @@
           "country": "USA",
           "gender": "women",
           "max_roster_size": 6,
-          "four_skater_distances": [
-            "1000m"
-          ],
+          "four_skater_distances": [],
           "top40_counts": {
             "500m": 2,
-            "1000m": 3,
+            "1000m": 2,
             "1500m": 2
           },
           "slots_500m": 3,
-          "slots_1000m": 4,
+          "slots_1000m": 3,
           "slots_1500m": 3
         }
       },
@@ -1651,15 +1646,17 @@
           "country": "AIN2",
           "gender": "men",
           "max_roster_size": 6,
-          "four_skater_distances": [],
+          "four_skater_distances": [
+            "1500m"
+          ],
           "top40_counts": {
-            "500m": 0,
-            "1000m": 0,
-            "1500m": 1
+            "500m": 1,
+            "1000m": 2,
+            "1500m": 3
           },
           "slots_500m": 3,
           "slots_1000m": 3,
-          "slots_1500m": 3
+          "slots_1500m": 4
         },
         "AUS": {
           "country": "AUS",
@@ -1667,7 +1664,7 @@
           "max_roster_size": 6,
           "four_skater_distances": [],
           "top40_counts": {
-            "500m": 1,
+            "500m": 0,
             "1000m": 1,
             "1500m": 1
           },
@@ -1739,7 +1736,7 @@
           "top40_counts": {
             "500m": 0,
             "1000m": 0,
-            "1500m": 1
+            "1500m": 0
           },
           "slots_500m": 3,
           "slots_1000m": 3,
@@ -1757,7 +1754,7 @@
           "top40_counts": {
             "500m": 5,
             "1000m": 5,
-            "1500m": 3
+            "1500m": 4
           },
           "slots_500m": 4,
           "slots_1000m": 4,
@@ -1816,7 +1813,7 @@
           "four_skater_distances": [],
           "top40_counts": {
             "500m": 0,
-            "1000m": 1,
+            "1000m": 0,
             "1500m": 0
           },
           "slots_500m": 3,
@@ -1831,7 +1828,7 @@
           "top40_counts": {
             "500m": 0,
             "1000m": 1,
-            "1500m": 2
+            "1500m": 1
           },
           "slots_500m": 3,
           "slots_1000m": 3,
@@ -1858,7 +1855,7 @@
           "four_skater_distances": [],
           "top40_counts": {
             "500m": 0,
-            "1000m": 1,
+            "1000m": 0,
             "1500m": 1
           },
           "slots_500m": 3,
@@ -1874,6 +1871,20 @@
             "500m": 0,
             "1000m": 1,
             "1500m": 1
+          },
+          "slots_500m": 3,
+          "slots_1000m": 3,
+          "slots_1500m": 3
+        },
+        "INA": {
+          "country": "INA",
+          "gender": "men",
+          "max_roster_size": 6,
+          "four_skater_distances": [],
+          "top40_counts": {
+            "500m": 0,
+            "1000m": 0,
+            "1500m": 0
           },
           "slots_500m": 3,
           "slots_1000m": 3,
@@ -1946,16 +1957,14 @@
           "country": "KAZ",
           "gender": "men",
           "max_roster_size": 6,
-          "four_skater_distances": [
-            "1000m"
-          ],
+          "four_skater_distances": [],
           "top40_counts": {
             "500m": 2,
-            "1000m": 3,
+            "1000m": 1,
             "1500m": 2
           },
           "slots_500m": 3,
-          "slots_1000m": 4,
+          "slots_1000m": 3,
           "slots_1500m": 3
         },
         "KOR": {
@@ -1969,7 +1978,7 @@
           ],
           "top40_counts": {
             "500m": 5,
-            "1000m": 4,
+            "1000m": 5,
             "1500m": 5
           },
           "slots_500m": 4,
@@ -2057,7 +2066,7 @@
           ],
           "top40_counts": {
             "500m": 4,
-            "1000m": 4,
+            "1000m": 5,
             "1500m": 5
           },
           "slots_500m": 4,
@@ -2113,8 +2122,8 @@
           "four_skater_distances": [],
           "top40_counts": {
             "500m": 2,
-            "1000m": 2,
-            "1500m": 2
+            "1000m": 1,
+            "1500m": 1
           },
           "slots_500m": 3,
           "slots_1000m": 3,
@@ -2238,7 +2247,7 @@
           "max_roster_size": 6,
           "four_skater_distances": [],
           "top40_counts": {
-            "500m": 1,
+            "500m": 0,
             "1000m": 0,
             "1500m": 0
           },
@@ -2256,8 +2265,8 @@
             "1500m"
           ],
           "top40_counts": {
-            "500m": 3,
-            "1000m": 3,
+            "500m": 4,
+            "1000m": 4,
             "1500m": 3
           },
           "slots_500m": 4,
@@ -2289,12 +2298,12 @@
         "cumulative_penalties": 3,
         "blocked_count": 1,
         "blocked_distances": [
-          "1000m"
+          "500m"
         ],
         "world_ranks": {
-          "500m": 16,
-          "1000m": 12,
-          "1500m": 42
+          "500m": 7,
+          "1000m": 9,
+          "1500m": 16
         }
       }
     ],
@@ -2308,9 +2317,9 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 16,
-          "1000m": 22,
-          "1500m": 10
+          "500m": 13,
+          "1000m": 33,
+          "1500m": 11
         }
       },
       {
@@ -2322,8 +2331,8 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 7,
-          "1000m": 11,
+          "500m": 4,
+          "1000m": 4,
           "1500m": 2
         }
       },
@@ -2336,8 +2345,8 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "1000m": 55,
-          "1500m": 29
+          "1000m": 13,
+          "1500m": 19
         }
       },
       {
@@ -2349,8 +2358,8 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 12,
-          "1000m": 2,
+          "500m": 15,
+          "1000m": 4,
           "1500m": 6
         }
       },
@@ -2363,8 +2372,8 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 13,
-          "1000m": 6,
+          "500m": 26,
+          "1000m": 7,
           "1500m": 24
         }
       },
@@ -2377,9 +2386,9 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 47,
-          "1000m": 47,
-          "1500m": 77
+          "500m": 53,
+          "1000m": 48,
+          "1500m": 49
         }
       },
       {
@@ -2391,8 +2400,8 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 50,
-          "1000m": 68
+          "500m": 49,
+          "1000m": 73
         }
       },
       {
@@ -2404,8 +2413,9 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "1000m": 15,
-          "1500m": 11
+          "500m": 21,
+          "1000m": 14,
+          "1500m": 26
         }
       },
       {
@@ -2417,8 +2427,8 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 52,
-          "1000m": 135
+          "500m": 20,
+          "1000m": 39
         }
       },
       {
@@ -2430,9 +2440,9 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 39,
-          "1000m": 63,
-          "1500m": 107
+          "500m": 32,
+          "1000m": 41,
+          "1500m": 98
         }
       },
       {
@@ -2444,9 +2454,9 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 22,
-          "1000m": 17,
-          "1500m": 12
+          "500m": 23,
+          "1000m": 23,
+          "1500m": 33
         }
       },
       {
@@ -2458,9 +2468,9 @@
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 33,
-          "1000m": 57,
-          "1500m": 82
+          "500m": 28,
+          "1000m": 51,
+          "1500m": 51
         }
       }
     ]

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T16:33:13Z",
+  "generated_at": "2026-11-23T00:57:51Z",
   "as_of_date": "2026-11-22",
   "config_version": "2026.27.1",
   "next_wt_stop": {
@@ -1482,9 +1482,9 @@
       "blocked_count": 0,
       "blocked_distances": [],
       "world_ranks": {
-        "500m": 16,
-        "1000m": 22,
-        "1500m": 10
+        "500m": 13,
+        "1000m": 33,
+        "1500m": 11
       }
     },
     {
@@ -1496,8 +1496,9 @@
       "blocked_count": 0,
       "blocked_distances": [],
       "world_ranks": {
-        "1000m": 15,
-        "1500m": 11
+        "500m": 21,
+        "1000m": 14,
+        "1500m": 26
       }
     }
   ],
@@ -1506,14 +1507,14 @@
     "women": {
       "500": {
         "distance_m": 500,
-        "as_of": "2026-11-21T07:42:09+00:00",
+        "as_of": "2026-11-23T00:57:49+00:00",
         "slots": 4,
         "required_top40_for_4_slots": 3,
         "cutoff_rank": 40,
-        "cutoff_points": 579,
-        "top40_total_chn": 5,
-        "top40_active_chn": 5,
-        "buffer_active": 2,
+        "cutoff_points": 668,
+        "top40_total_chn": 6,
+        "top40_active_chn": 6,
+        "buffer_active": 3,
         "status": "SAFE",
         "skaters": [
           {
@@ -1522,8 +1523,21 @@
             "name_en": "Ye WANG",
             "rank": 7,
             "points": 9367,
-            "cutoff_points": 579,
-            "margin_vs_top40": 8788,
+            "cutoff_points": 668,
+            "margin_vs_top40": 8699,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          },
+          {
+            "athlete_id": "skr-6617",
+            "name_zh": "宋佳蕊",
+            "name_en": "Jiarui SONG",
+            "rank": 9,
+            "points": 9209,
+            "cutoff_points": 668,
+            "margin_vs_top40": 8541,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -1533,10 +1547,23 @@
             "athlete_id": "skr-8080",
             "name_zh": "张楚桐",
             "name_en": "Chutong ZHANG",
+            "rank": 13,
+            "points": 6601,
+            "cutoff_points": 668,
+            "margin_vs_top40": 5933,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          },
+          {
+            "athlete_id": "skr-7609",
+            "name_zh": "王欣然",
+            "name_en": "Xinran WANG",
             "rank": 16,
-            "points": 5494,
-            "cutoff_points": 579,
-            "margin_vs_top40": 4915,
+            "points": 5465,
+            "cutoff_points": 668,
+            "margin_vs_top40": 4797,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -1548,74 +1575,8 @@
             "name_en": "Jianing ZHANG",
             "rank": 17,
             "points": 5465,
-            "cutoff_points": 579,
-            "margin_vs_top40": 4886,
-            "in_top40": true,
-            "is_active_eligible": true,
-            "is_active_wt": true,
-            "zone": "SAFE"
-          },
-          {
-            "athlete_id": "skr-6617",
-            "name_zh": "宋佳蕊",
-            "name_en": "Jiarui SONG",
-            "rank": 21,
-            "points": 3989,
-            "cutoff_points": 579,
-            "margin_vs_top40": 3410,
-            "in_top40": true,
-            "is_active_eligible": true,
-            "is_active_wt": true,
-            "zone": "SAFE"
-          },
-          {
-            "athlete_id": "skr-7609",
-            "name_zh": "王欣然",
-            "name_en": "Xinran WANG",
-            "rank": 29,
-            "points": 1659,
-            "cutoff_points": 579,
-            "margin_vs_top40": 1080,
-            "in_top40": true,
-            "is_active_eligible": true,
-            "is_active_wt": true,
-            "zone": "PROTECT"
-          },
-          {
-            "athlete_id": "skr-1876",
-            "name_zh": "范可新",
-            "name_en": "Kexin FAN",
-            "rank": 48,
-            "points": 369,
-            "cutoff_points": 579,
-            "margin_vs_top40": -210,
-            "in_top40": false,
-            "is_active_eligible": false,
-            "is_active_wt": false,
-            "zone": "INACTIVE"
-          }
-        ]
-      },
-      "1000": {
-        "distance_m": 1000,
-        "as_of": "2026-11-21T07:42:09+00:00",
-        "slots": 4,
-        "required_top40_for_4_slots": 3,
-        "cutoff_rank": 40,
-        "cutoff_points": 638,
-        "top40_total_chn": 6,
-        "top40_active_chn": 5,
-        "buffer_active": 2,
-        "status": "SAFE",
-        "skaters": [
-          {
-            "athlete_id": "skr-6617",
-            "name_zh": "宋佳蕊",
-            "name_en": "Jiarui SONG",
-            "rank": 13,
-            "points": 5522,
-            "cutoff_points": 638,
-            "margin_vs_top40": 4884,
+            "cutoff_points": 668,
+            "margin_vs_top40": 4797,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -1625,10 +1586,50 @@
             "athlete_id": "skr-2262",
             "name_zh": "公俐",
             "name_en": "Li GONG",
+            "rank": 21,
+            "points": 3206,
+            "cutoff_points": 668,
+            "margin_vs_top40": 2538,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          }
+        ]
+      },
+      "1000": {
+        "distance_m": 1000,
+        "as_of": "2026-11-23T00:57:49+00:00",
+        "slots": 4,
+        "required_top40_for_4_slots": 3,
+        "cutoff_rank": 40,
+        "cutoff_points": 747,
+        "top40_total_chn": 6,
+        "top40_active_chn": 5,
+        "buffer_active": 2,
+        "status": "SAFE",
+        "skaters": [
+          {
+            "athlete_id": "skr-2262",
+            "name_zh": "公俐",
+            "name_en": "Li GONG",
+            "rank": 14,
+            "points": 6071,
+            "cutoff_points": 747,
+            "margin_vs_top40": 5324,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          },
+          {
+            "athlete_id": "skr-6617",
+            "name_zh": "宋佳蕊",
+            "name_en": "Jiarui SONG",
             "rank": 15,
-            "points": 5029,
-            "cutoff_points": 638,
-            "margin_vs_top40": 4391,
+            "points": 6058,
+            "cutoff_points": 747,
+            "margin_vs_top40": 5311,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -1638,10 +1639,10 @@
             "athlete_id": "skr-8090",
             "name_zh": "张珈宁",
             "name_en": "Jianing ZHANG",
-            "rank": 17,
-            "points": 4655,
-            "cutoff_points": 638,
-            "margin_vs_top40": 4017,
+            "rank": 16,
+            "points": 5398,
+            "cutoff_points": 747,
+            "margin_vs_top40": 4651,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -1652,9 +1653,9 @@
             "name_zh": "张延",
             "name_en": "Yan ZHANG",
             "rank": 20,
-            "points": 3095,
-            "cutoff_points": 638,
-            "margin_vs_top40": 2457,
+            "points": 3726,
+            "cutoff_points": 747,
+            "margin_vs_top40": 2979,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -1664,23 +1665,23 @@
             "athlete_id": "skr-8080",
             "name_zh": "张楚桐",
             "name_en": "Chutong ZHANG",
-            "rank": 22,
-            "points": 2237,
-            "cutoff_points": 638,
-            "margin_vs_top40": 1599,
+            "rank": 33,
+            "points": 1209,
+            "cutoff_points": 747,
+            "margin_vs_top40": 462,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
-            "zone": "SAFE"
+            "zone": "PROTECT"
           },
           {
             "athlete_id": "skr-7874",
             "name_zh": "杨婧茹",
             "name_en": "Jingru YANG",
-            "rank": 34,
-            "points": 1051,
-            "cutoff_points": 638,
-            "margin_vs_top40": 413,
+            "rank": 39,
+            "points": 874,
+            "cutoff_points": 747,
+            "margin_vs_top40": 127,
             "in_top40": true,
             "is_active_eligible": false,
             "is_active_wt": false,
@@ -1690,24 +1691,63 @@
       },
       "1500": {
         "distance_m": 1500,
-        "as_of": "2026-11-21T07:42:09+00:00",
+        "as_of": "2026-11-23T00:57:49+00:00",
         "slots": 4,
         "required_top40_for_4_slots": 3,
         "cutoff_rank": 40,
-        "cutoff_points": 495,
-        "top40_total_chn": 5,
-        "top40_active_chn": 4,
-        "buffer_active": 1,
+        "cutoff_points": 737,
+        "top40_total_chn": 6,
+        "top40_active_chn": 5,
+        "buffer_active": 2,
         "status": "SAFE",
         "skaters": [
+          {
+            "athlete_id": "skr-8090",
+            "name_zh": "张珈宁",
+            "name_en": "Jianing ZHANG",
+            "rank": 7,
+            "points": 10976,
+            "cutoff_points": 737,
+            "margin_vs_top40": 10239,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          },
           {
             "athlete_id": "skr-8080",
             "name_zh": "张楚桐",
             "name_en": "Chutong ZHANG",
-            "rank": 10,
-            "points": 6387,
-            "cutoff_points": 495,
-            "margin_vs_top40": 5892,
+            "rank": 11,
+            "points": 7140,
+            "cutoff_points": 737,
+            "margin_vs_top40": 6403,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          },
+          {
+            "athlete_id": "skr-6617",
+            "name_zh": "宋佳蕊",
+            "name_en": "Jiarui SONG",
+            "rank": 21,
+            "points": 3771,
+            "cutoff_points": 737,
+            "margin_vs_top40": 3034,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          },
+          {
+            "athlete_id": "skr-19401",
+            "name_zh": "张延",
+            "name_en": "Yan ZHANG",
+            "rank": 23,
+            "points": 3366,
+            "cutoff_points": 737,
+            "margin_vs_top40": 2629,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -1717,66 +1757,27 @@
             "athlete_id": "skr-2262",
             "name_zh": "公俐",
             "name_en": "Li GONG",
-            "rank": 11,
-            "points": 6008,
-            "cutoff_points": 495,
-            "margin_vs_top40": 5513,
-            "in_top40": true,
-            "is_active_eligible": true,
-            "is_active_wt": true,
-            "zone": "SAFE"
-          },
-          {
-            "athlete_id": "skr-8090",
-            "name_zh": "张珈宁",
-            "name_en": "Jianing ZHANG",
-            "rank": 13,
-            "points": 5756,
-            "cutoff_points": 495,
-            "margin_vs_top40": 5261,
-            "in_top40": true,
-            "is_active_eligible": true,
-            "is_active_wt": true,
-            "zone": "SAFE"
-          },
-          {
-            "athlete_id": "skr-7874",
-            "name_zh": "杨婧茹",
-            "name_en": "Jingru YANG",
-            "rank": 17,
-            "points": 4632,
-            "cutoff_points": 495,
-            "margin_vs_top40": 4137,
-            "in_top40": true,
-            "is_active_eligible": false,
-            "is_active_wt": false,
-            "zone": "INACTIVE_TOP40"
-          },
-          {
-            "athlete_id": "skr-19401",
-            "name_zh": "张延",
-            "name_en": "Yan ZHANG",
-            "rank": 31,
-            "points": 1397,
-            "cutoff_points": 495,
-            "margin_vs_top40": 902,
+            "rank": 26,
+            "points": 2647,
+            "cutoff_points": 737,
+            "margin_vs_top40": 1910,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
             "zone": "PROTECT"
           },
           {
-            "athlete_id": "skr-8039",
-            "name_zh": "臧一泽",
-            "name_en": "Yize ZANG",
-            "rank": 67,
-            "points": 104,
-            "cutoff_points": 495,
-            "margin_vs_top40": -391,
-            "in_top40": false,
+            "athlete_id": "skr-7874",
+            "name_zh": "杨婧茹",
+            "name_en": "Jingru YANG",
+            "rank": 27,
+            "points": 2316,
+            "cutoff_points": 737,
+            "margin_vs_top40": 1579,
+            "in_top40": true,
             "is_active_eligible": false,
             "is_active_wt": false,
-            "zone": "INACTIVE"
+            "zone": "INACTIVE_TOP40"
           }
         ]
       }
@@ -1784,37 +1785,24 @@
     "men": {
       "500": {
         "distance_m": 500,
-        "as_of": "2026-11-21T07:42:09+00:00",
+        "as_of": "2026-11-23T00:57:49+00:00",
         "slots": 4,
         "required_top40_for_4_slots": 3,
         "cutoff_rank": 40,
-        "cutoff_points": 606,
+        "cutoff_points": 631,
         "top40_total_chn": 6,
         "top40_active_chn": 4,
         "buffer_active": 1,
         "status": "SAFE",
         "skaters": [
           {
-            "athlete_id": "skr-4247",
-            "name_zh": "林孝埈",
-            "name_en": "Xiaojun LIN",
-            "rank": 10,
-            "points": 9709,
-            "cutoff_points": 606,
-            "margin_vs_top40": 9103,
-            "in_top40": true,
-            "is_active_eligible": false,
-            "is_active_wt": false,
-            "zone": "INACTIVE_TOP40"
-          },
-          {
             "athlete_id": "skr-6784",
             "name_zh": "孙龙",
             "name_en": "Long SUN",
-            "rank": 13,
-            "points": 7838,
-            "cutoff_points": 606,
-            "margin_vs_top40": 7232,
+            "rank": 15,
+            "points": 6396,
+            "cutoff_points": 631,
+            "margin_vs_top40": 5765,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -1824,10 +1812,10 @@
             "athlete_id": "skr-4312",
             "name_zh": "刘少昂",
             "name_en": "Shaoang LIU",
-            "rank": 18,
-            "points": 5740,
-            "cutoff_points": 606,
-            "margin_vs_top40": 5134,
+            "rank": 21,
+            "points": 3771,
+            "cutoff_points": 631,
+            "margin_vs_top40": 3140,
             "in_top40": true,
             "is_active_eligible": false,
             "is_active_wt": false,
@@ -1837,115 +1825,128 @@
             "athlete_id": "skr-8078",
             "name_zh": "张柏浩",
             "name_en": "Bohao ZHANG",
-            "rank": 26,
-            "points": 2042,
-            "cutoff_points": 606,
-            "margin_vs_top40": 1436,
+            "rank": 22,
+            "points": 3464,
+            "cutoff_points": 631,
+            "margin_vs_top40": 2833,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          },
+          {
+            "athlete_id": "skr-20586",
+            "name_zh": "张子夏",
+            "name_en": "Zixia ZHANG",
+            "rank": 24,
+            "points": 2478,
+            "cutoff_points": 631,
+            "margin_vs_top40": 1847,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          },
+          {
+            "athlete_id": "skr-4167",
+            "name_zh": "李坤",
+            "name_en": "Kun LI",
+            "rank": 33,
+            "points": 1282,
+            "cutoff_points": 631,
+            "margin_vs_top40": 651,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
             "zone": "PROTECT"
+          },
+          {
+            "athlete_id": "skr-4247",
+            "name_zh": "林孝埈",
+            "name_en": "Xiaojun LIN",
+            "rank": 34,
+            "points": 1209,
+            "cutoff_points": 631,
+            "margin_vs_top40": 578,
+            "in_top40": true,
+            "is_active_eligible": false,
+            "is_active_wt": false,
+            "zone": "INACTIVE_TOP40"
+          }
+        ]
+      },
+      "1000": {
+        "distance_m": 1000,
+        "as_of": "2026-11-23T00:57:49+00:00",
+        "slots": 4,
+        "required_top40_for_4_slots": 3,
+        "cutoff_rank": 40,
+        "cutoff_points": 874,
+        "top40_total_chn": 6,
+        "top40_active_chn": 4,
+        "buffer_active": 1,
+        "status": "SAFE",
+        "skaters": [
+          {
+            "athlete_id": "skr-4312",
+            "name_zh": "刘少昂",
+            "name_en": "Shaoang LIU",
+            "rank": 10,
+            "points": 8500,
+            "cutoff_points": 874,
+            "margin_vs_top40": 7626,
+            "in_top40": true,
+            "is_active_eligible": false,
+            "is_active_wt": false,
+            "zone": "INACTIVE_TOP40"
+          },
+          {
+            "athlete_id": "skr-6784",
+            "name_zh": "孙龙",
+            "name_en": "Long SUN",
+            "rank": 24,
+            "points": 3453,
+            "cutoff_points": 874,
+            "margin_vs_top40": 2579,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          },
+          {
+            "athlete_id": "skr-4247",
+            "name_zh": "林孝埈",
+            "name_en": "Xiaojun LIN",
+            "rank": 26,
+            "points": 3206,
+            "cutoff_points": 874,
+            "margin_vs_top40": 2332,
+            "in_top40": true,
+            "is_active_eligible": false,
+            "is_active_wt": false,
+            "zone": "INACTIVE_TOP40"
           },
           {
             "athlete_id": "skr-20586",
             "name_zh": "张子夏",
             "name_en": "Zixia ZHANG",
             "rank": 27,
-            "points": 1942,
-            "cutoff_points": 606,
-            "margin_vs_top40": 1336,
+            "points": 2997,
+            "cutoff_points": 874,
+            "margin_vs_top40": 2123,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
             "zone": "PROTECT"
-          },
-          {
-            "athlete_id": "skr-4167",
-            "name_zh": "李坤",
-            "name_en": "Kun LI",
-            "rank": 32,
-            "points": 950,
-            "cutoff_points": 606,
-            "margin_vs_top40": 344,
-            "in_top40": true,
-            "is_active_eligible": true,
-            "is_active_wt": true,
-            "zone": "PROTECT"
-          }
-        ]
-      },
-      "1000": {
-        "distance_m": 1000,
-        "as_of": "2026-11-21T07:42:09+00:00",
-        "slots": 4,
-        "required_top40_for_4_slots": 3,
-        "cutoff_rank": 40,
-        "cutoff_points": 541,
-        "top40_total_chn": 6,
-        "top40_active_chn": 4,
-        "buffer_active": 1,
-        "status": "SAFE",
-        "skaters": [
-          {
-            "athlete_id": "skr-4312",
-            "name_zh": "刘少昂",
-            "name_en": "Shaoang LIU",
-            "rank": 5,
-            "points": 13720,
-            "cutoff_points": 541,
-            "margin_vs_top40": 13179,
-            "in_top40": true,
-            "is_active_eligible": false,
-            "is_active_wt": false,
-            "zone": "INACTIVE_TOP40"
-          },
-          {
-            "athlete_id": "skr-4247",
-            "name_zh": "林孝埈",
-            "name_en": "Xiaojun LIN",
-            "rank": 9,
-            "points": 9347,
-            "cutoff_points": 541,
-            "margin_vs_top40": 8806,
-            "in_top40": true,
-            "is_active_eligible": false,
-            "is_active_wt": false,
-            "zone": "INACTIVE_TOP40"
-          },
-          {
-            "athlete_id": "skr-6784",
-            "name_zh": "孙龙",
-            "name_en": "Long SUN",
-            "rank": 21,
-            "points": 5150,
-            "cutoff_points": 541,
-            "margin_vs_top40": 4609,
-            "in_top40": true,
-            "is_active_eligible": true,
-            "is_active_wt": true,
-            "zone": "SAFE"
           },
           {
             "athlete_id": "skr-18320",
             "name_zh": "宋柯睿",
             "name_en": "Kerui SONG",
-            "rank": 32,
-            "points": 1211,
-            "cutoff_points": 541,
-            "margin_vs_top40": 670,
-            "in_top40": true,
-            "is_active_eligible": true,
-            "is_active_wt": true,
-            "zone": "PROTECT"
-          },
-          {
-            "athlete_id": "skr-20586",
-            "name_zh": "张子夏",
-            "name_en": "Zixia ZHANG",
-            "rank": 33,
-            "points": 1028,
-            "cutoff_points": 541,
-            "margin_vs_top40": 487,
+            "rank": 37,
+            "points": 1229,
+            "cutoff_points": 874,
+            "margin_vs_top40": 355,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -1955,50 +1956,50 @@
             "athlete_id": "skr-8078",
             "name_zh": "张柏浩",
             "name_en": "Bohao ZHANG",
-            "rank": 35,
+            "rank": 40,
             "points": 874,
-            "cutoff_points": 541,
-            "margin_vs_top40": 333,
+            "cutoff_points": 874,
+            "margin_vs_top40": 0,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
             "zone": "PROTECT"
           },
           {
-            "athlete_id": "skr-8157",
-            "name_zh": "朱祎玎",
-            "name_en": "Yiding ZHU",
-            "rank": 46,
-            "points": 410,
-            "cutoff_points": 541,
-            "margin_vs_top40": -131,
+            "athlete_id": "skr-4167",
+            "name_zh": "李坤",
+            "name_en": "Kun LI",
+            "rank": 43,
+            "points": 569,
+            "cutoff_points": 874,
+            "margin_vs_top40": -305,
             "in_top40": false,
             "is_active_eligible": true,
             "is_active_wt": true,
             "zone": "CHASE"
           },
           {
-            "athlete_id": "skr-4167",
-            "name_zh": "李坤",
-            "name_en": "Kun LI",
-            "rank": 92,
-            "points": 33,
-            "cutoff_points": 541,
-            "margin_vs_top40": -508,
+            "athlete_id": "skr-8157",
+            "name_zh": "朱祎玎",
+            "name_en": "Yiding ZHU",
+            "rank": 52,
+            "points": 410,
+            "cutoff_points": 874,
+            "margin_vs_top40": -464,
             "in_top40": false,
             "is_active_eligible": true,
             "is_active_wt": true,
-            "zone": "OUT"
+            "zone": "CHASE"
           }
         ]
       },
       "1500": {
         "distance_m": 1500,
-        "as_of": "2026-11-21T07:42:09+00:00",
+        "as_of": "2026-11-23T00:57:49+00:00",
         "slots": 4,
         "required_top40_for_4_slots": 3,
         "cutoff_rank": 40,
-        "cutoff_points": 485,
+        "cutoff_points": 743,
         "top40_total_chn": 3,
         "top40_active_chn": 3,
         "buffer_active": 0,
@@ -2008,23 +2009,10 @@
             "athlete_id": "skr-6784",
             "name_zh": "孙龙",
             "name_en": "Long SUN",
-            "rank": 6,
-            "points": 13312,
-            "cutoff_points": 485,
-            "margin_vs_top40": 12827,
-            "in_top40": true,
-            "is_active_eligible": true,
-            "is_active_wt": true,
-            "zone": "SAFE"
-          },
-          {
-            "athlete_id": "skr-8157",
-            "name_zh": "朱祎玎",
-            "name_en": "Yiding ZHU",
-            "rank": 14,
-            "points": 5193,
-            "cutoff_points": 485,
-            "margin_vs_top40": 4708,
+            "rank": 8,
+            "points": 11214,
+            "cutoff_points": 743,
+            "margin_vs_top40": 10471,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -2034,10 +2022,23 @@
             "athlete_id": "skr-8078",
             "name_zh": "张柏浩",
             "name_en": "Bohao ZHANG",
-            "rank": 20,
-            "points": 3995,
-            "cutoff_points": 485,
-            "margin_vs_top40": 3510,
+            "rank": 11,
+            "points": 8187,
+            "cutoff_points": 743,
+            "margin_vs_top40": 7444,
+            "in_top40": true,
+            "is_active_eligible": true,
+            "is_active_wt": true,
+            "zone": "SAFE"
+          },
+          {
+            "athlete_id": "skr-8157",
+            "name_zh": "朱祎玎",
+            "name_en": "Yiding ZHU",
+            "rank": 13,
+            "points": 5462,
+            "cutoff_points": 743,
+            "margin_vs_top40": 4719,
             "in_top40": true,
             "is_active_eligible": true,
             "is_active_wt": true,
@@ -2047,40 +2048,40 @@
             "athlete_id": "skr-20586",
             "name_zh": "张子夏",
             "name_en": "Zixia ZHANG",
-            "rank": 41,
+            "rank": 43,
             "points": 456,
-            "cutoff_points": 485,
-            "margin_vs_top40": -29,
+            "cutoff_points": 743,
+            "margin_vs_top40": -287,
             "in_top40": false,
             "is_active_eligible": true,
             "is_active_wt": true,
             "zone": "CHASE"
           },
           {
-            "athlete_id": "skr-4176",
-            "name_zh": "李文龙",
-            "name_en": "Wenlong LI",
-            "rank": 44,
-            "points": 401,
-            "cutoff_points": 485,
-            "margin_vs_top40": -84,
-            "in_top40": false,
-            "is_active_eligible": false,
-            "is_active_wt": false,
-            "zone": "INACTIVE"
-          },
-          {
             "athlete_id": "skr-18320",
             "name_zh": "宋柯睿",
             "name_en": "Kerui SONG",
-            "rank": 70,
-            "points": 130,
-            "cutoff_points": 485,
-            "margin_vs_top40": -355,
+            "rank": 59,
+            "points": 206,
+            "cutoff_points": 743,
+            "margin_vs_top40": -537,
             "in_top40": false,
             "is_active_eligible": true,
             "is_active_wt": true,
             "zone": "OUT"
+          },
+          {
+            "athlete_id": "skr-4176",
+            "name_zh": "李文龙",
+            "name_en": "Wenlong LI",
+            "rank": 67,
+            "points": 159,
+            "cutoff_points": 743,
+            "margin_vs_top40": -584,
+            "in_top40": false,
+            "is_active_eligible": false,
+            "is_active_wt": false,
+            "zone": "INACTIVE"
           }
         ]
       }
@@ -2110,8 +2111,8 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.0574,
-        "distinct_lineups": 14,
+        "mean_objective": 2.0129,
+        "distinct_lineups": 12,
         "candidates": [
           {
             "athlete_id": "skr-2262",
@@ -2125,22 +2126,30 @@
             ],
             "qualification_path": "WT_2026_27",
             "world_ranking_top40_distances": [
+              500,
               1000,
               1500
             ],
             "world_ranks": {
+              "500": {
+                "rank": 21,
+                "points": 3206,
+                "cutoff_points": 668,
+                "margin_vs_top40": 2538,
+                "in_top40": true
+              },
               "1000": {
-                "rank": 15,
-                "points": 5029,
-                "cutoff_points": 638,
-                "margin_vs_top40": 4391,
+                "rank": 14,
+                "points": 6071,
+                "cutoff_points": 747,
+                "margin_vs_top40": 5324,
                 "in_top40": true
               },
               "1500": {
-                "rank": 11,
-                "points": 6008,
-                "cutoff_points": 495,
-                "margin_vs_top40": 5513,
+                "rank": 26,
+                "points": 2647,
+                "cutoff_points": 737,
+                "margin_vs_top40": 1910,
                 "in_top40": true
               }
             },
@@ -2178,10 +2187,10 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.364,
-              "1000": 0.784,
-              "1500": 0.84,
-              "relay": 0.778
+              "500": 0.482,
+              "1000": 0.782,
+              "1500": 0.72,
+              "relay": 0.767
             },
             "value_scores": {
               "500": 0.0539,
@@ -2198,7 +2207,101 @@
               "1500",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #11"
+            "status_note": "本季WT 3站 · 1000m #14"
+          },
+          {
+            "athlete_id": "skr-6617",
+            "name_en": "Jiarui SONG",
+            "name_zh": "宋佳蕊",
+            "age_group": "SENIOR_ONLY",
+            "is_dual_eligible": false,
+            "data_sources": [
+              "Senior",
+              "Domestic"
+            ],
+            "qualification_path": "WT_2026_27",
+            "world_ranking_top40_distances": [
+              500,
+              1000,
+              1500
+            ],
+            "world_ranks": {
+              "500": {
+                "rank": 9,
+                "points": 9209,
+                "cutoff_points": 668,
+                "margin_vs_top40": 8541,
+                "in_top40": true
+              },
+              "1000": {
+                "rank": 15,
+                "points": 6058,
+                "cutoff_points": 747,
+                "margin_vs_top40": 5311,
+                "in_top40": true
+              },
+              "1500": {
+                "rank": 21,
+                "points": 3771,
+                "cutoff_points": 737,
+                "margin_vs_top40": 3034,
+                "in_top40": true
+              }
+            },
+            "wt_2026_27": {
+              "stops_count": 3,
+              "stops": [
+                "Montreal",
+                "Seoul",
+                "Vancouver"
+              ],
+              "distances_entered": [
+                500,
+                1000,
+                1500
+              ],
+              "relay_starts": 4,
+              "final_a_count": 2,
+              "best_rank": 5
+            },
+            "form_momentum": 0.1944,
+            "recent_highlight": "2026/27 WT Seoul 1500m #7",
+            "skills": {
+              "500": {
+                "mu": 1.1372,
+                "sigma": 1.0106
+              },
+              "1000": {
+                "mu": 0.9656,
+                "sigma": 1.0904
+              },
+              "1500": {
+                "mu": 0.8144,
+                "sigma": 1.0042
+              }
+            },
+            "main_roster_prob": 1,
+            "entry_prob_matrix": {
+              "500": 0.66,
+              "1000": 0.69,
+              "1500": 0.64,
+              "relay": 0.405
+            },
+            "value_scores": {
+              "500": 0.0787,
+              "1000": 0.0578,
+              "1500": 0.0394,
+              "relay": 0.3354,
+              "form": 0.1944
+            },
+            "roster_tier": "core",
+            "specialty_tag": "all_round",
+            "specialty_label": "全能主力",
+            "recommended_entries": [
+              "500",
+              "1000"
+            ],
+            "status_note": "本季WT 3站 · 500m #9"
           },
           {
             "athlete_id": "skr-8080",
@@ -2218,24 +2321,24 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 16,
-                "points": 5494,
-                "cutoff_points": 579,
-                "margin_vs_top40": 4915,
+                "rank": 13,
+                "points": 6601,
+                "cutoff_points": 668,
+                "margin_vs_top40": 5933,
                 "in_top40": true
               },
               "1000": {
-                "rank": 22,
-                "points": 2237,
-                "cutoff_points": 638,
-                "margin_vs_top40": 1599,
+                "rank": 33,
+                "points": 1209,
+                "cutoff_points": 747,
+                "margin_vs_top40": 462,
                 "in_top40": true
               },
               "1500": {
-                "rank": 10,
-                "points": 6387,
-                "cutoff_points": 495,
-                "margin_vs_top40": 5892,
+                "rank": 11,
+                "points": 7140,
+                "cutoff_points": 737,
+                "margin_vs_top40": 6403,
                 "in_top40": true
               }
             },
@@ -2272,9 +2375,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.795,
-              "1000": 0.624,
-              "1500": 0.58,
+              "500": 0.808,
+              "1000": 0.688,
+              "1500": 0.502,
               "relay": 0.952
             },
             "value_scores": {
@@ -2292,7 +2395,7 @@
               "1000",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #10"
+            "status_note": "本季WT 3站 · 1500m #11"
           },
           {
             "athlete_id": "skr-8090",
@@ -2314,22 +2417,22 @@
               "500": {
                 "rank": 17,
                 "points": 5465,
-                "cutoff_points": 579,
-                "margin_vs_top40": 4886,
+                "cutoff_points": 668,
+                "margin_vs_top40": 4797,
                 "in_top40": true
               },
               "1000": {
-                "rank": 17,
-                "points": 4655,
-                "cutoff_points": 638,
-                "margin_vs_top40": 4017,
+                "rank": 16,
+                "points": 5398,
+                "cutoff_points": 747,
+                "margin_vs_top40": 4651,
                 "in_top40": true
               },
               "1500": {
-                "rank": 13,
-                "points": 5756,
-                "cutoff_points": 495,
-                "margin_vs_top40": 5261,
+                "rank": 7,
+                "points": 10976,
+                "cutoff_points": 737,
+                "margin_vs_top40": 10239,
                 "in_top40": true
               }
             },
@@ -2367,10 +2470,10 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.672,
-              "1000": 0.525,
-              "1500": 0.8,
-              "relay": 0.593
+              "500": 0.689,
+              "1000": 0.591,
+              "1500": 0.715,
+              "relay": 0.58
             },
             "value_scores": {
               "500": 0.0884,
@@ -2387,93 +2490,7 @@
               "1500",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #13"
-          },
-          {
-            "athlete_id": "skr-6617",
-            "name_en": "Jiarui SONG",
-            "name_zh": "宋佳蕊",
-            "age_group": "SENIOR_ONLY",
-            "is_dual_eligible": false,
-            "data_sources": [
-              "Senior",
-              "Domestic"
-            ],
-            "qualification_path": "WT_2026_27",
-            "world_ranking_top40_distances": [
-              500,
-              1000
-            ],
-            "world_ranks": {
-              "500": {
-                "rank": 21,
-                "points": 3989,
-                "cutoff_points": 579,
-                "margin_vs_top40": 3410,
-                "in_top40": true
-              },
-              "1000": {
-                "rank": 13,
-                "points": 5522,
-                "cutoff_points": 638,
-                "margin_vs_top40": 4884,
-                "in_top40": true
-              }
-            },
-            "wt_2026_27": {
-              "stops_count": 3,
-              "stops": [
-                "Montreal",
-                "Seoul",
-                "Vancouver"
-              ],
-              "distances_entered": [
-                500,
-                1000,
-                1500
-              ],
-              "relay_starts": 4,
-              "final_a_count": 2,
-              "best_rank": 5
-            },
-            "form_momentum": 0.1944,
-            "recent_highlight": "2026/27 WT Seoul 1500m #7",
-            "skills": {
-              "500": {
-                "mu": 1.1372,
-                "sigma": 1.0106
-              },
-              "1000": {
-                "mu": 0.9656,
-                "sigma": 1.0904
-              },
-              "1500": {
-                "mu": 0.8144,
-                "sigma": 1.0042
-              }
-            },
-            "main_roster_prob": 0.998,
-            "entry_prob_matrix": {
-              "500": 0.775,
-              "1000": 0.793,
-              "1500": 0.405,
-              "relay": 0.414
-            },
-            "value_scores": {
-              "500": 0.0787,
-              "1000": 0.0578,
-              "1500": 0.0394,
-              "relay": 0.3354,
-              "form": 0.1944
-            },
-            "roster_tier": "core",
-            "specialty_tag": "all_round",
-            "specialty_label": "全能主力",
-            "recommended_entries": [
-              "500",
-              "1000"
-            ],
-            "status_note": "本季WT 3站 · 1000m #13"
+            "status_note": "本季WT 3站 · 1500m #7"
           },
           {
             "athlete_id": "skr-19401",
@@ -2493,16 +2510,16 @@
             "world_ranks": {
               "1000": {
                 "rank": 20,
-                "points": 3095,
-                "cutoff_points": 638,
-                "margin_vs_top40": 2457,
+                "points": 3726,
+                "cutoff_points": 747,
+                "margin_vs_top40": 2979,
                 "in_top40": true
               },
               "1500": {
-                "rank": 31,
-                "points": 1397,
-                "cutoff_points": 495,
-                "margin_vs_top40": 902,
+                "rank": 23,
+                "points": 3366,
+                "cutoff_points": 737,
+                "margin_vs_top40": 2629,
                 "in_top40": true
               }
             },
@@ -2539,10 +2556,10 @@
             },
             "main_roster_prob": 0.99,
             "entry_prob_matrix": {
-              "500": 0.412,
-              "1000": 0.754,
-              "1500": 0.802,
-              "relay": 0.604
+              "500": 0.421,
+              "1000": 0.798,
+              "1500": 0.733,
+              "relay": 0.592
             },
             "value_scores": {
               "500": 0.0462,
@@ -2559,7 +2576,7 @@
               "1500",
               "relay"
             ],
-            "status_note": "1500m #31 保席临界"
+            "status_note": "1000m #20"
           },
           {
             "athlete_id": "skr-7613",
@@ -2579,8 +2596,8 @@
               "500": {
                 "rank": 7,
                 "points": 9367,
-                "cutoff_points": 579,
-                "margin_vs_top40": 8788,
+                "cutoff_points": 668,
+                "margin_vs_top40": 8699,
                 "in_top40": true
               }
             },
@@ -2613,12 +2630,12 @@
                 "sigma": 1.1304
               }
             },
-            "main_roster_prob": 0.875,
+            "main_roster_prob": 0.805,
             "entry_prob_matrix": {
-              "500": 0.818,
-              "1000": 0.407,
-              "1500": 0.49,
-              "relay": 0.537
+              "500": 0.734,
+              "1000": 0.328,
+              "1500": 0.533,
+              "relay": 0.516
             },
             "value_scores": {
               "500": 0.1158,
@@ -2652,10 +2669,10 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 29,
-                "points": 1659,
-                "cutoff_points": 579,
-                "margin_vs_top40": 1080,
+                "rank": 16,
+                "points": 5465,
+                "cutoff_points": 668,
+                "margin_vs_top40": 4797,
                 "in_top40": true
               }
             },
@@ -2687,12 +2704,12 @@
                 "sigma": 1.0667
               }
             },
-            "main_roster_prob": 0.104,
+            "main_roster_prob": 0.176,
             "entry_prob_matrix": {
-              "500": 0.1,
-              "1000": 0.061,
-              "1500": 0.044,
-              "relay": 0.103
+              "500": 0.168,
+              "1000": 0.084,
+              "1500": 0.095,
+              "relay": 0.17
             },
             "value_scores": {
               "500": 0.1121,
@@ -2707,7 +2724,7 @@
             "recommended_entries": [
               "500"
             ],
-            "status_note": "500m #29 保席临界"
+            "status_note": "500m #16"
           },
           {
             "athlete_id": "skr-4165",
@@ -2745,11 +2762,11 @@
                 "sigma": 1.5091
               }
             },
-            "main_roster_prob": 0.011,
+            "main_roster_prob": 0.01,
             "entry_prob_matrix": {
-              "500": 0.009,
-              "1000": 0.008,
-              "1500": 0.006,
+              "500": 0.008,
+              "1000": 0.006,
+              "1500": 0.007,
               "relay": 0.005
             },
             "value_scores": {
@@ -2804,10 +2821,10 @@
                 "sigma": 1.4311
               }
             },
-            "main_roster_prob": 0.01,
+            "main_roster_prob": 0.009,
             "entry_prob_matrix": {
               "500": 0.007,
-              "1000": 0.008,
+              "1000": 0.007,
               "1500": 0.004,
               "relay": 0.006
             },
@@ -2864,12 +2881,12 @@
                 "sigma": 1.1004
               }
             },
-            "main_roster_prob": 0.008,
+            "main_roster_prob": 0.007,
             "entry_prob_matrix": {
-              "500": 0.008,
-              "1000": 0.008,
+              "500": 0.007,
+              "1000": 0.007,
               "1500": 0,
-              "relay": 0.008
+              "relay": 0.007
             },
             "value_scores": {
               "500": 0.0544,
@@ -2982,10 +2999,10 @@
                 "sigma": 1.485
               }
             },
-            "main_roster_prob": 0.002,
+            "main_roster_prob": 0.001,
             "entry_prob_matrix": {
-              "500": 0.001,
-              "1000": 0.002,
+              "500": 0,
+              "1000": 0.001,
               "1500": 0,
               "relay": 0
             },
@@ -3076,8 +3093,8 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.864,
-            "avg_objective": 2.0069,
+            "frequency": 0.796,
+            "avg_objective": 1.9672,
             "modal_entries": {
               "500": [
                 "skr-6617",
@@ -3095,8 +3112,8 @@
               "1500": [
                 "skr-19401",
                 "skr-2262",
+                "skr-6617",
                 "skr-7613",
-                "skr-8080",
                 "skr-8090"
               ],
               "relay": [
@@ -3117,8 +3134,8 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.098,
-            "avg_objective": 2.2217,
+            "frequency": 0.171,
+            "avg_objective": 2.0868,
             "modal_entries": {
               "500": [
                 "skr-6617",
@@ -3130,13 +3147,14 @@
                 "skr-19401",
                 "skr-2262",
                 "skr-6617",
-                "skr-7609",
-                "skr-8080"
+                "skr-8080",
+                "skr-8090"
               ],
               "1500": [
                 "skr-19401",
                 "skr-2262",
-                "skr-8080",
+                "skr-6617",
+                "skr-7609",
                 "skr-8090"
               ],
               "relay": [
@@ -3156,25 +3174,28 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.009,
-            "avg_objective": 2.7786,
+            "frequency": 0.008,
+            "avg_objective": 2.6596,
             "modal_entries": {
               "500": [
                 "dom-tmp-9df89a0e45",
                 "skr-2262",
                 "skr-6617",
-                "skr-8080"
+                "skr-8080",
+                "skr-8090"
               ],
               "1000": [
                 "dom-tmp-9df89a0e45",
                 "skr-19401",
                 "skr-2262",
-                "skr-6617",
+                "skr-8080",
                 "skr-8090"
               ],
               "1500": [
+                "dom-tmp-9df89a0e45",
                 "skr-19401",
                 "skr-2262",
+                "skr-6617",
                 "skr-8080",
                 "skr-8090"
               ],
@@ -3197,8 +3218,8 @@
             "skr-8080",
             "skr-8090"
           ],
-          "frequency": 0.864,
-          "objective_at_mean": 1.3874,
+          "frequency": 0.796,
+          "objective_at_mean": 1.3154,
           "entries": {
             "500": [
               "skr-6617",
@@ -3236,7 +3257,7 @@
             "skr-8080",
             "skr-8090"
           ],
-          "objective": 1.3874,
+          "objective": 1.3154,
           "entries": {
             "500": [
               "skr-6617",
@@ -3268,8 +3289,8 @@
           "core_ids": [
             "skr-8080",
             "skr-8090",
-            "skr-2262",
-            "skr-6617"
+            "skr-6617",
+            "skr-2262"
           ],
           "bubble_ids": [
             "skr-19401",
@@ -3287,9 +3308,9 @@
             "name_en": "Xinran WANG",
             "name_zh": "王欣然",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.104,
+            "main_roster_prob": 0.176,
             "primary_replacement_for": "skr-7613",
-            "marginal_loss": 0.0021,
+            "marginal_loss": 0.0108,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -3301,10 +3322,10 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 29,
-                "points": 1659,
-                "cutoff_points": 579,
-                "margin_vs_top40": 1080,
+                "rank": 16,
+                "points": 5465,
+                "cutoff_points": 668,
+                "margin_vs_top40": 4797,
                 "in_top40": true
               }
             },
@@ -3322,14 +3343,14 @@
             },
             "recent_highlight": "国内甲组 七台河 500m #1",
             "upside_score": 0.3233,
-            "versatility_score": 0.4273,
+            "versatility_score": 0.4993,
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
               "500"
             ],
-            "status_note": "500m #29 保席临界"
+            "status_note": "500m #16"
           },
           {
             "reserve_rank": 2,
@@ -3339,7 +3360,7 @@
             "role_tag": "mid_long",
             "main_roster_prob": 0,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0784,
+            "marginal_loss": 0.0625,
             "is_dual_eligible": true,
             "data_sources": [
               "JWC",
@@ -3387,7 +3408,7 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.196,
+        "mean_objective": 2.2086,
         "distinct_lineups": 35,
         "candidates": [
           {
@@ -3408,24 +3429,24 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 27,
-                "points": 1942,
-                "cutoff_points": 606,
-                "margin_vs_top40": 1336,
+                "rank": 24,
+                "points": 2478,
+                "cutoff_points": 631,
+                "margin_vs_top40": 1847,
                 "in_top40": true
               },
               "1000": {
-                "rank": 33,
-                "points": 1028,
-                "cutoff_points": 541,
-                "margin_vs_top40": 487,
+                "rank": 27,
+                "points": 2997,
+                "cutoff_points": 874,
+                "margin_vs_top40": 2123,
                 "in_top40": true
               },
               "1500": {
-                "rank": 41,
+                "rank": 43,
                 "points": 456,
-                "cutoff_points": 485,
-                "margin_vs_top40": -29,
+                "cutoff_points": 743,
+                "margin_vs_top40": -287,
                 "in_top40": false
               }
             },
@@ -3463,10 +3484,10 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.742,
-              "1000": 0.764,
-              "1500": 0.488,
-              "relay": 0.848
+              "500": 0.741,
+              "1000": 0.766,
+              "1500": 0.487,
+              "relay": 0.845
             },
             "value_scores": {
               "500": 0.0492,
@@ -3483,7 +3504,7 @@
               "1000",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 500m #27"
+            "status_note": "本季WT 3站 · 500m #24"
           },
           {
             "athlete_id": "skr-6784",
@@ -3503,24 +3524,24 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 13,
-                "points": 7838,
-                "cutoff_points": 606,
-                "margin_vs_top40": 7232,
+                "rank": 15,
+                "points": 6396,
+                "cutoff_points": 631,
+                "margin_vs_top40": 5765,
                 "in_top40": true
               },
               "1000": {
-                "rank": 21,
-                "points": 5150,
-                "cutoff_points": 541,
-                "margin_vs_top40": 4609,
+                "rank": 24,
+                "points": 3453,
+                "cutoff_points": 874,
+                "margin_vs_top40": 2579,
                 "in_top40": true
               },
               "1500": {
-                "rank": 6,
-                "points": 13312,
-                "cutoff_points": 485,
-                "margin_vs_top40": 12827,
+                "rank": 8,
+                "points": 11214,
+                "cutoff_points": 743,
+                "margin_vs_top40": 10471,
                 "in_top40": true
               }
             },
@@ -3558,10 +3579,10 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.508,
-              "1000": 0.635,
-              "1500": 0.859,
-              "relay": 0.942
+              "500": 0.51,
+              "1000": 0.634,
+              "1500": 0.858,
+              "relay": 0.944
             },
             "value_scores": {
               "500": 0.0681,
@@ -3578,7 +3599,7 @@
               "1500",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #6"
+            "status_note": "本季WT 3站 · 1500m #8"
           },
           {
             "athlete_id": "skr-8078",
@@ -3599,24 +3620,24 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 26,
-                "points": 2042,
-                "cutoff_points": 606,
-                "margin_vs_top40": 1436,
+                "rank": 22,
+                "points": 3464,
+                "cutoff_points": 631,
+                "margin_vs_top40": 2833,
                 "in_top40": true
               },
               "1000": {
-                "rank": 35,
+                "rank": 40,
                 "points": 874,
-                "cutoff_points": 541,
-                "margin_vs_top40": 333,
+                "cutoff_points": 874,
+                "margin_vs_top40": 0,
                 "in_top40": true
               },
               "1500": {
-                "rank": 20,
-                "points": 3995,
-                "cutoff_points": 485,
-                "margin_vs_top40": 3510,
+                "rank": 11,
+                "points": 8187,
+                "cutoff_points": 743,
+                "margin_vs_top40": 7444,
                 "in_top40": true
               }
             },
@@ -3655,8 +3676,8 @@
             "main_roster_prob": 1,
             "entry_prob_matrix": {
               "500": 0.708,
-              "1000": 0.418,
-              "1500": 0.876,
+              "1000": 0.419,
+              "1500": 0.875,
               "relay": 0.903
             },
             "value_scores": {
@@ -3674,7 +3695,7 @@
               "1500",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #20"
+            "status_note": "本季WT 3站 · 1500m #11"
           },
           {
             "athlete_id": "skr-8157",
@@ -3692,17 +3713,17 @@
             ],
             "world_ranks": {
               "1000": {
-                "rank": 46,
+                "rank": 52,
                 "points": 410,
-                "cutoff_points": 541,
-                "margin_vs_top40": -131,
+                "cutoff_points": 874,
+                "margin_vs_top40": -464,
                 "in_top40": false
               },
               "1500": {
-                "rank": 14,
-                "points": 5193,
-                "cutoff_points": 485,
-                "margin_vs_top40": 4708,
+                "rank": 13,
+                "points": 5462,
+                "cutoff_points": 743,
+                "margin_vs_top40": 4719,
                 "in_top40": true
               }
             },
@@ -3737,11 +3758,11 @@
                 "sigma": 1.0149
               }
             },
-            "main_roster_prob": 0.993,
+            "main_roster_prob": 0.995,
             "entry_prob_matrix": {
-              "500": 0.488,
-              "1000": 0.5,
-              "1500": 0.95,
+              "500": 0.485,
+              "1000": 0.503,
+              "1500": 0.954,
               "relay": 0.448
             },
             "value_scores": {
@@ -3758,7 +3779,7 @@
               "500",
               "1500"
             ],
-            "status_note": "本季WT 3站 · 1500m #14"
+            "status_note": "本季WT 3站 · 1500m #13"
           },
           {
             "athlete_id": "skr-4167",
@@ -3776,17 +3797,17 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 32,
-                "points": 950,
-                "cutoff_points": 606,
-                "margin_vs_top40": 344,
+                "rank": 33,
+                "points": 1282,
+                "cutoff_points": 631,
+                "margin_vs_top40": 651,
                 "in_top40": true
               },
               "1000": {
-                "rank": 92,
-                "points": 33,
-                "cutoff_points": 541,
-                "margin_vs_top40": -508,
+                "rank": 43,
+                "points": 569,
+                "cutoff_points": 874,
+                "margin_vs_top40": -305,
                 "in_top40": false
               }
             },
@@ -3821,12 +3842,12 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.92,
+            "main_roster_prob": 0.929,
             "entry_prob_matrix": {
-              "500": 0.895,
-              "1000": 0.646,
-              "1500": 0.232,
-              "relay": 0.512
+              "500": 0.904,
+              "1000": 0.657,
+              "1500": 0.23,
+              "relay": 0.511
             },
             "value_scores": {
               "500": 0.0561,
@@ -3843,7 +3864,7 @@
               "1000",
               "relay"
             ],
-            "status_note": "500m #32 保席临界"
+            "status_note": "500m #33 保席临界"
           },
           {
             "athlete_id": "skr-18320",
@@ -3861,17 +3882,17 @@
             ],
             "world_ranks": {
               "1000": {
-                "rank": 32,
-                "points": 1211,
-                "cutoff_points": 541,
-                "margin_vs_top40": 670,
+                "rank": 37,
+                "points": 1229,
+                "cutoff_points": 874,
+                "margin_vs_top40": 355,
                 "in_top40": true
               },
               "1500": {
-                "rank": 70,
-                "points": 130,
-                "cutoff_points": 485,
-                "margin_vs_top40": -355,
+                "rank": 59,
+                "points": 206,
+                "cutoff_points": 743,
+                "margin_vs_top40": -537,
                 "in_top40": false
               }
             },
@@ -3906,12 +3927,12 @@
                 "sigma": 1.0391
               }
             },
-            "main_roster_prob": 0.882,
+            "main_roster_prob": 0.85,
             "entry_prob_matrix": {
-              "500": 0.487,
-              "1000": 0.827,
-              "1500": 0.404,
-              "relay": 0.291
+              "500": 0.469,
+              "1000": 0.796,
+              "1500": 0.39,
+              "relay": 0.288
             },
             "value_scores": {
               "500": 0.0206,
@@ -3927,7 +3948,7 @@
               "1000",
               "1500"
             ],
-            "status_note": "1000m #32 保席临界"
+            "status_note": "1000m #37 保席临界"
           },
           {
             "athlete_id": "dom-tmp-8f6d895133",
@@ -3965,12 +3986,12 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.06,
+            "main_roster_prob": 0.065,
             "entry_prob_matrix": {
-              "500": 0.021,
-              "1000": 0.049,
-              "1500": 0.051,
-              "relay": 0.011
+              "500": 0.023,
+              "1000": 0.053,
+              "1500": 0.055,
+              "relay": 0.012
             },
             "value_scores": {
               "500": 0.0147,
@@ -4023,11 +4044,11 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.036,
+            "main_roster_prob": 0.042,
             "entry_prob_matrix": {
-              "500": 0.015,
-              "1000": 0.028,
-              "1500": 0.029,
+              "500": 0.02,
+              "1000": 0.029,
+              "1500": 0.035,
               "relay": 0.005
             },
             "value_scores": {
@@ -4082,12 +4103,12 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.025,
+            "main_roster_prob": 0.028,
             "entry_prob_matrix": {
-              "500": 0.017,
-              "1000": 0.019,
-              "1500": 0.014,
-              "relay": 0.01
+              "500": 0.018,
+              "1000": 0.022,
+              "1500": 0.015,
+              "relay": 0.011
             },
             "value_scores": {
               "500": 0.0224,
@@ -4104,6 +4125,65 @@
               "1000"
             ],
             "status_note": "国内甲组 七台河 1000m #1"
+          },
+          {
+            "athlete_id": "dom-tmp-a981360a9e",
+            "name_en": "郭骏达",
+            "name_zh": "郭骏达",
+            "age_group": "UNKNOWN",
+            "is_dual_eligible": false,
+            "data_sources": [
+              "Domestic"
+            ],
+            "qualification_path": "DOMESTIC_TOP3",
+            "world_ranking_top40_distances": [],
+            "world_ranks": {},
+            "wt_2026_27": {
+              "stops_count": 0,
+              "stops": [],
+              "distances_entered": [],
+              "relay_starts": 0,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "form_momentum": 0.105,
+            "recent_highlight": "国内甲组 七台河 500m #2",
+            "skills": {
+              "500": {
+                "mu": 0.8748,
+                "sigma": 1.4306
+              },
+              "1000": {
+                "mu": 0.7191,
+                "sigma": 1.4306
+              },
+              "1500": {
+                "mu": -0.5736,
+                "sigma": 1.75
+              }
+            },
+            "main_roster_prob": 0.02,
+            "entry_prob_matrix": {
+              "500": 0.013,
+              "1000": 0.014,
+              "1500": 0.012,
+              "relay": 0.006
+            },
+            "value_scores": {
+              "500": 0.0376,
+              "1000": 0.038,
+              "1500": 0.0144,
+              "relay": 0.1254,
+              "form": 0.105
+            },
+            "roster_tier": "pool",
+            "specialty_tag": "sprint_relay",
+            "specialty_label": "短距离 / 接力",
+            "recommended_entries": [
+              "500",
+              "1000"
+            ],
+            "status_note": "国内甲组 七台河 500m #2"
           },
           {
             "athlete_id": "skr-22883",
@@ -4166,65 +4246,6 @@
             "status_note": "2026/27 JWC1 Bormio 1000m #2"
           },
           {
-            "athlete_id": "dom-tmp-a981360a9e",
-            "name_en": "郭骏达",
-            "name_zh": "郭骏达",
-            "age_group": "UNKNOWN",
-            "is_dual_eligible": false,
-            "data_sources": [
-              "Domestic"
-            ],
-            "qualification_path": "DOMESTIC_TOP3",
-            "world_ranking_top40_distances": [],
-            "world_ranks": {},
-            "wt_2026_27": {
-              "stops_count": 0,
-              "stops": [],
-              "distances_entered": [],
-              "relay_starts": 0,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "form_momentum": 0.105,
-            "recent_highlight": "国内甲组 七台河 500m #2",
-            "skills": {
-              "500": {
-                "mu": 0.8748,
-                "sigma": 1.4306
-              },
-              "1000": {
-                "mu": 0.7191,
-                "sigma": 1.4306
-              },
-              "1500": {
-                "mu": -0.5736,
-                "sigma": 1.75
-              }
-            },
-            "main_roster_prob": 0.017,
-            "entry_prob_matrix": {
-              "500": 0.011,
-              "1000": 0.012,
-              "1500": 0.01,
-              "relay": 0.006
-            },
-            "value_scores": {
-              "500": 0.0376,
-              "1000": 0.038,
-              "1500": 0.0144,
-              "relay": 0.1254,
-              "form": 0.105
-            },
-            "roster_tier": "pool",
-            "specialty_tag": "sprint_relay",
-            "specialty_label": "短距离 / 接力",
-            "recommended_entries": [
-              "500",
-              "1000"
-            ],
-            "status_note": "国内甲组 七台河 500m #2"
-          },
-          {
             "athlete_id": "skr-22630",
             "name_en": "ZHIBO SUN",
             "name_zh": "孙志博",
@@ -4260,12 +4281,12 @@
                 "sigma": 1.3
               }
             },
-            "main_roster_prob": 0.015,
+            "main_roster_prob": 0.017,
             "entry_prob_matrix": {
-              "500": 0.007,
-              "1000": 0.013,
-              "1500": 0.01,
-              "relay": 0.006
+              "500": 0.008,
+              "1000": 0.015,
+              "1500": 0.011,
+              "relay": 0.007
             },
             "value_scores": {
               "500": 0.0219,
@@ -4326,7 +4347,7 @@
               "500": 0.004,
               "1000": 0.013,
               "1500": 0.011,
-              "relay": 0.009
+              "relay": 0.01
             },
             "value_scores": {
               "500": 0.0148,
@@ -4380,12 +4401,12 @@
                 "sigma": 1.2319
               }
             },
-            "main_roster_prob": 0.011,
+            "main_roster_prob": 0.012,
             "entry_prob_matrix": {
-              "500": 0.009,
-              "1000": 0.011,
+              "500": 0.01,
+              "1000": 0.012,
               "1500": 0.002,
-              "relay": 0.004
+              "relay": 0.005
             },
             "value_scores": {
               "500": 0.0475,
@@ -4440,11 +4461,11 @@
                 "sigma": 1.1808
               }
             },
-            "main_roster_prob": 0.005,
+            "main_roster_prob": 0.006,
             "entry_prob_matrix": {
               "500": 0.003,
-              "1000": 0.003,
-              "1500": 0.004,
+              "1000": 0.004,
+              "1500": 0.005,
               "relay": 0.002
             },
             "value_scores": {
@@ -4534,8 +4555,8 @@
               "skr-8078",
               "skr-8157"
             ],
-            "frequency": 0.806,
-            "avg_objective": 2.0383,
+            "frequency": 0.786,
+            "avg_objective": 2.0392,
             "modal_entries": {
               "500": [
                 "skr-18320",
@@ -4571,8 +4592,8 @@
               "skr-8078",
               "skr-8157"
             ],
-            "frequency": 0.031,
-            "avg_objective": 2.8173,
+            "frequency": 0.037,
+            "avg_objective": 2.7947,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -4610,15 +4631,15 @@
               "skr-8078",
               "skr-8157"
             ],
-            "frequency": 0.022,
-            "avg_objective": 2.9106,
+            "frequency": 0.028,
+            "avg_objective": 2.8857,
             "modal_entries": {
               "500": [
+                "dom-tmp-cb5896b60f",
                 "skr-20586",
                 "skr-4167",
                 "skr-6784",
-                "skr-8078",
-                "skr-8157"
+                "skr-8078"
               ],
               "1000": [
                 "dom-tmp-cb5896b60f",
@@ -4652,7 +4673,7 @@
             "skr-8078",
             "skr-8157"
           ],
-          "frequency": 0.806,
+          "frequency": 0.786,
           "objective_at_mean": 1.4889,
           "entries": {
             "500": [
@@ -4777,7 +4798,7 @@
             "name_en": "Tianyou WANG",
             "name_zh": "王天佑",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.011,
+            "main_roster_prob": 0.012,
             "primary_replacement_for": "skr-4167",
             "marginal_loss": 0.0287,
             "is_dual_eligible": true,
@@ -4798,7 +4819,7 @@
             },
             "recent_highlight": "2026/27 JWC2 Bormio 500m #1",
             "upside_score": 0.2856,
-            "versatility_score": 0.2966,
+            "versatility_score": 0.2976,
             "roster_tier": "reserve",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
@@ -4835,9 +4856,198 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.0586,
-        "distinct_lineups": 16,
+        "mean_objective": 2.0126,
+        "distinct_lineups": 11,
         "candidates": [
+          {
+            "athlete_id": "skr-2262",
+            "name_en": "Li GONG",
+            "name_zh": "公俐",
+            "age_group": "SENIOR_ONLY",
+            "is_dual_eligible": false,
+            "data_sources": [
+              "Senior",
+              "Domestic"
+            ],
+            "qualification_path": "WT_2026_27",
+            "world_ranking_top40_distances": [
+              500,
+              1000,
+              1500
+            ],
+            "world_ranks": {
+              "500": {
+                "rank": 21,
+                "points": 3206,
+                "cutoff_points": 668,
+                "margin_vs_top40": 2538,
+                "in_top40": true
+              },
+              "1000": {
+                "rank": 14,
+                "points": 6071,
+                "cutoff_points": 747,
+                "margin_vs_top40": 5324,
+                "in_top40": true
+              },
+              "1500": {
+                "rank": 26,
+                "points": 2647,
+                "cutoff_points": 737,
+                "margin_vs_top40": 1910,
+                "in_top40": true
+              }
+            },
+            "wt_2026_27": {
+              "stops_count": 3,
+              "stops": [
+                "Montreal",
+                "Seoul",
+                "Vancouver"
+              ],
+              "distances_entered": [
+                500,
+                1000,
+                1500
+              ],
+              "relay_starts": 8,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "form_momentum": 0.1561,
+            "recent_highlight": "国内甲组 衡水 1500m #5",
+            "skills": {
+              "500": {
+                "mu": 0.765,
+                "sigma": 1.0929
+              },
+              "1000": {
+                "mu": 1.0698,
+                "sigma": 0.9292
+              },
+              "1500": {
+                "mu": 1.0361,
+                "sigma": 0.9954
+              }
+            },
+            "main_roster_prob": 1,
+            "entry_prob_matrix": {
+              "500": 0.504,
+              "1000": 0.772,
+              "1500": 0.711,
+              "relay": 0.768
+            },
+            "value_scores": {
+              "500": 0.0539,
+              "1000": 0.0675,
+              "1500": 0.049,
+              "relay": 0.4361,
+              "form": 0.1561
+            },
+            "roster_tier": "core",
+            "specialty_tag": "all_round",
+            "specialty_label": "全能主力",
+            "recommended_entries": [
+              "1000",
+              "1500",
+              "relay"
+            ],
+            "status_note": "本季WT 3站 · 1000m #14"
+          },
+          {
+            "athlete_id": "skr-6617",
+            "name_en": "Jiarui SONG",
+            "name_zh": "宋佳蕊",
+            "age_group": "SENIOR_ONLY",
+            "is_dual_eligible": false,
+            "data_sources": [
+              "Senior",
+              "Domestic"
+            ],
+            "qualification_path": "WT_2026_27",
+            "world_ranking_top40_distances": [
+              500,
+              1000,
+              1500
+            ],
+            "world_ranks": {
+              "500": {
+                "rank": 9,
+                "points": 9209,
+                "cutoff_points": 668,
+                "margin_vs_top40": 8541,
+                "in_top40": true
+              },
+              "1000": {
+                "rank": 15,
+                "points": 6058,
+                "cutoff_points": 747,
+                "margin_vs_top40": 5311,
+                "in_top40": true
+              },
+              "1500": {
+                "rank": 21,
+                "points": 3771,
+                "cutoff_points": 737,
+                "margin_vs_top40": 3034,
+                "in_top40": true
+              }
+            },
+            "wt_2026_27": {
+              "stops_count": 3,
+              "stops": [
+                "Montreal",
+                "Seoul",
+                "Vancouver"
+              ],
+              "distances_entered": [
+                500,
+                1000,
+                1500
+              ],
+              "relay_starts": 4,
+              "final_a_count": 2,
+              "best_rank": 5
+            },
+            "form_momentum": 0.1902,
+            "recent_highlight": "2026/27 WT Seoul 1500m #7",
+            "skills": {
+              "500": {
+                "mu": 1.1373,
+                "sigma": 1.0136
+              },
+              "1000": {
+                "mu": 0.9658,
+                "sigma": 1.0932
+              },
+              "1500": {
+                "mu": 0.8144,
+                "sigma": 1.0071
+              }
+            },
+            "main_roster_prob": 1,
+            "entry_prob_matrix": {
+              "500": 0.654,
+              "1000": 0.7,
+              "1500": 0.639,
+              "relay": 0.422
+            },
+            "value_scores": {
+              "500": 0.0787,
+              "1000": 0.0578,
+              "1500": 0.0394,
+              "relay": 0.3272,
+              "form": 0.1902
+            },
+            "roster_tier": "core",
+            "specialty_tag": "all_round",
+            "specialty_label": "全能主力",
+            "recommended_entries": [
+              "500",
+              "1000"
+            ],
+            "status_note": "本季WT 3站 · 500m #9"
+          },
           {
             "athlete_id": "skr-8080",
             "name_en": "Chutong ZHANG",
@@ -4856,24 +5066,24 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 16,
-                "points": 5494,
-                "cutoff_points": 579,
-                "margin_vs_top40": 4915,
+                "rank": 13,
+                "points": 6601,
+                "cutoff_points": 668,
+                "margin_vs_top40": 5933,
                 "in_top40": true
               },
               "1000": {
-                "rank": 22,
-                "points": 2237,
-                "cutoff_points": 638,
-                "margin_vs_top40": 1599,
+                "rank": 33,
+                "points": 1209,
+                "cutoff_points": 747,
+                "margin_vs_top40": 462,
                 "in_top40": true
               },
               "1500": {
-                "rank": 10,
-                "points": 6387,
-                "cutoff_points": 495,
-                "margin_vs_top40": 5892,
+                "rank": 11,
+                "points": 7140,
+                "cutoff_points": 737,
+                "margin_vs_top40": 6403,
                 "in_top40": true
               }
             },
@@ -4910,10 +5120,10 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.817,
-              "1000": 0.604,
-              "1500": 0.58,
-              "relay": 0.958
+              "500": 0.829,
+              "1000": 0.671,
+              "1500": 0.5,
+              "relay": 0.956
             },
             "value_scores": {
               "500": 0.1506,
@@ -4930,7 +5140,7 @@
               "1000",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #10"
+            "status_note": "本季WT 3站 · 1500m #11"
           },
           {
             "athlete_id": "skr-8090",
@@ -4952,22 +5162,22 @@
               "500": {
                 "rank": 17,
                 "points": 5465,
-                "cutoff_points": 579,
-                "margin_vs_top40": 4886,
+                "cutoff_points": 668,
+                "margin_vs_top40": 4797,
                 "in_top40": true
               },
               "1000": {
-                "rank": 17,
-                "points": 4655,
-                "cutoff_points": 638,
-                "margin_vs_top40": 4017,
+                "rank": 16,
+                "points": 5398,
+                "cutoff_points": 747,
+                "margin_vs_top40": 4651,
                 "in_top40": true
               },
               "1500": {
-                "rank": 13,
-                "points": 5756,
-                "cutoff_points": 495,
-                "margin_vs_top40": 5261,
+                "rank": 7,
+                "points": 10976,
+                "cutoff_points": 737,
+                "margin_vs_top40": 10239,
                 "in_top40": true
               }
             },
@@ -5005,10 +5215,10 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.654,
-              "1000": 0.512,
-              "1500": 0.831,
-              "relay": 0.537
+              "500": 0.665,
+              "1000": 0.568,
+              "1500": 0.76,
+              "relay": 0.526
             },
             "value_scores": {
               "500": 0.0884,
@@ -5025,180 +5235,7 @@
               "1500",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #13"
-          },
-          {
-            "athlete_id": "skr-2262",
-            "name_en": "Li GONG",
-            "name_zh": "公俐",
-            "age_group": "SENIOR_ONLY",
-            "is_dual_eligible": false,
-            "data_sources": [
-              "Senior",
-              "Domestic"
-            ],
-            "qualification_path": "WT_2026_27",
-            "world_ranking_top40_distances": [
-              1000,
-              1500
-            ],
-            "world_ranks": {
-              "1000": {
-                "rank": 15,
-                "points": 5029,
-                "cutoff_points": 638,
-                "margin_vs_top40": 4391,
-                "in_top40": true
-              },
-              "1500": {
-                "rank": 11,
-                "points": 6008,
-                "cutoff_points": 495,
-                "margin_vs_top40": 5513,
-                "in_top40": true
-              }
-            },
-            "wt_2026_27": {
-              "stops_count": 3,
-              "stops": [
-                "Montreal",
-                "Seoul",
-                "Vancouver"
-              ],
-              "distances_entered": [
-                500,
-                1000,
-                1500
-              ],
-              "relay_starts": 8,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "form_momentum": 0.1561,
-            "recent_highlight": "国内甲组 衡水 1500m #5",
-            "skills": {
-              "500": {
-                "mu": 0.765,
-                "sigma": 1.0929
-              },
-              "1000": {
-                "mu": 1.0698,
-                "sigma": 0.9292
-              },
-              "1500": {
-                "mu": 1.0361,
-                "sigma": 0.9954
-              }
-            },
-            "main_roster_prob": 0.999,
-            "entry_prob_matrix": {
-              "500": 0.385,
-              "1000": 0.774,
-              "1500": 0.83,
-              "relay": 0.772
-            },
-            "value_scores": {
-              "500": 0.0539,
-              "1000": 0.0675,
-              "1500": 0.049,
-              "relay": 0.4361,
-              "form": 0.1561
-            },
-            "roster_tier": "core",
-            "specialty_tag": "all_round",
-            "specialty_label": "全能主力",
-            "recommended_entries": [
-              "1000",
-              "1500",
-              "relay"
-            ],
-            "status_note": "本季WT 3站 · 1500m #11"
-          },
-          {
-            "athlete_id": "skr-6617",
-            "name_en": "Jiarui SONG",
-            "name_zh": "宋佳蕊",
-            "age_group": "SENIOR_ONLY",
-            "is_dual_eligible": false,
-            "data_sources": [
-              "Senior",
-              "Domestic"
-            ],
-            "qualification_path": "WT_2026_27",
-            "world_ranking_top40_distances": [
-              500,
-              1000
-            ],
-            "world_ranks": {
-              "500": {
-                "rank": 21,
-                "points": 3989,
-                "cutoff_points": 579,
-                "margin_vs_top40": 3410,
-                "in_top40": true
-              },
-              "1000": {
-                "rank": 13,
-                "points": 5522,
-                "cutoff_points": 638,
-                "margin_vs_top40": 4884,
-                "in_top40": true
-              }
-            },
-            "wt_2026_27": {
-              "stops_count": 3,
-              "stops": [
-                "Montreal",
-                "Seoul",
-                "Vancouver"
-              ],
-              "distances_entered": [
-                500,
-                1000,
-                1500
-              ],
-              "relay_starts": 4,
-              "final_a_count": 2,
-              "best_rank": 5
-            },
-            "form_momentum": 0.1902,
-            "recent_highlight": "2026/27 WT Seoul 1500m #7",
-            "skills": {
-              "500": {
-                "mu": 1.1373,
-                "sigma": 1.0136
-              },
-              "1000": {
-                "mu": 0.9658,
-                "sigma": 1.0932
-              },
-              "1500": {
-                "mu": 0.8144,
-                "sigma": 1.0071
-              }
-            },
-            "main_roster_prob": 0.997,
-            "entry_prob_matrix": {
-              "500": 0.771,
-              "1000": 0.785,
-              "1500": 0.422,
-              "relay": 0.435
-            },
-            "value_scores": {
-              "500": 0.0787,
-              "1000": 0.0578,
-              "1500": 0.0394,
-              "relay": 0.3272,
-              "form": 0.1902
-            },
-            "roster_tier": "core",
-            "specialty_tag": "all_round",
-            "specialty_label": "全能主力",
-            "recommended_entries": [
-              "500",
-              "1000"
-            ],
-            "status_note": "本季WT 3站 · 1000m #13"
+            "status_note": "本季WT 3站 · 1500m #7"
           },
           {
             "athlete_id": "skr-19401",
@@ -5218,16 +5255,16 @@
             "world_ranks": {
               "1000": {
                 "rank": 20,
-                "points": 3095,
-                "cutoff_points": 638,
-                "margin_vs_top40": 2457,
+                "points": 3726,
+                "cutoff_points": 747,
+                "margin_vs_top40": 2979,
                 "in_top40": true
               },
               "1500": {
-                "rank": 31,
-                "points": 1397,
-                "cutoff_points": 495,
-                "margin_vs_top40": 902,
+                "rank": 23,
+                "points": 3366,
+                "cutoff_points": 737,
+                "margin_vs_top40": 2629,
                 "in_top40": true
               }
             },
@@ -5262,12 +5299,12 @@
                 "sigma": 1.0248
               }
             },
-            "main_roster_prob": 0.987,
+            "main_roster_prob": 0.99,
             "entry_prob_matrix": {
-              "500": 0.377,
-              "1000": 0.791,
-              "1500": 0.794,
-              "relay": 0.611
+              "500": 0.396,
+              "1000": 0.825,
+              "1500": 0.739,
+              "relay": 0.604
             },
             "value_scores": {
               "500": 0.0461,
@@ -5284,7 +5321,7 @@
               "1500",
               "relay"
             ],
-            "status_note": "1500m #31 保席临界"
+            "status_note": "1000m #20"
           },
           {
             "athlete_id": "skr-7613",
@@ -5304,8 +5341,8 @@
               "500": {
                 "rank": 7,
                 "points": 9367,
-                "cutoff_points": 579,
-                "margin_vs_top40": 8788,
+                "cutoff_points": 668,
+                "margin_vs_top40": 8699,
                 "in_top40": true
               }
             },
@@ -5338,12 +5375,12 @@
                 "sigma": 1.1322
               }
             },
-            "main_roster_prob": 0.869,
+            "main_roster_prob": 0.792,
             "entry_prob_matrix": {
-              "500": 0.825,
-              "1000": 0.411,
-              "1500": 0.469,
-              "relay": 0.559
+              "500": 0.741,
+              "1000": 0.325,
+              "1500": 0.504,
+              "relay": 0.527
             },
             "value_scores": {
               "500": 0.1157,
@@ -5377,10 +5414,10 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 29,
-                "points": 1659,
-                "cutoff_points": 579,
-                "margin_vs_top40": 1080,
+                "rank": 16,
+                "points": 5465,
+                "cutoff_points": 668,
+                "margin_vs_top40": 4797,
                 "in_top40": true
               }
             },
@@ -5412,12 +5449,12 @@
                 "sigma": 1.0699
               }
             },
-            "main_roster_prob": 0.11,
+            "main_roster_prob": 0.185,
             "entry_prob_matrix": {
-              "500": 0.11,
-              "1000": 0.066,
-              "1500": 0.04,
-              "relay": 0.107
+              "500": 0.179,
+              "1000": 0.091,
+              "1500": 0.097,
+              "relay": 0.178
             },
             "value_scores": {
               "500": 0.1119,
@@ -5432,7 +5469,7 @@
             "recommended_entries": [
               "500"
             ],
-            "status_note": "500m #29 保席临界"
+            "status_note": "500m #16"
           },
           {
             "athlete_id": "skr-22312",
@@ -5471,11 +5508,11 @@
                 "sigma": 1.1026
               }
             },
-            "main_roster_prob": 0.011,
+            "main_roster_prob": 0.008,
             "entry_prob_matrix": {
-              "500": 0.006,
-              "1000": 0.011,
-              "1500": 0.005,
+              "500": 0.005,
+              "1000": 0.008,
+              "1500": 0.003,
               "relay": 0.005
             },
             "value_scores": {
@@ -5530,12 +5567,12 @@
                 "sigma": 1.5106
               }
             },
-            "main_roster_prob": 0.01,
+            "main_roster_prob": 0.008,
             "entry_prob_matrix": {
-              "500": 0.007,
-              "1000": 0.007,
+              "500": 0.005,
+              "1000": 0.005,
               "1500": 0.005,
-              "relay": 0.006
+              "relay": 0.004
             },
             "value_scores": {
               "500": 0.0191,
@@ -5861,10 +5898,11 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.853,
-            "avg_objective": 1.9997,
+            "frequency": 0.782,
+            "avg_objective": 1.9625,
             "modal_entries": {
               "500": [
+                "skr-2262",
                 "skr-6617",
                 "skr-7613",
                 "skr-8080",
@@ -5880,8 +5918,8 @@
               "1500": [
                 "skr-19401",
                 "skr-2262",
+                "skr-6617",
                 "skr-7613",
-                "skr-8080",
                 "skr-8090"
               ],
               "relay": [
@@ -5902,10 +5940,11 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.1,
-            "avg_objective": 2.2334,
+            "frequency": 0.178,
+            "avg_objective": 2.0807,
             "modal_entries": {
               "500": [
+                "skr-2262",
                 "skr-6617",
                 "skr-7609",
                 "skr-8080",
@@ -5915,12 +5954,14 @@
                 "skr-19401",
                 "skr-2262",
                 "skr-6617",
-                "skr-7609",
-                "skr-8080"
+                "skr-8080",
+                "skr-8090"
               ],
               "1500": [
                 "skr-19401",
                 "skr-2262",
+                "skr-6617",
+                "skr-7609",
                 "skr-8080",
                 "skr-8090"
               ],
@@ -5942,10 +5983,9 @@
               "skr-8090"
             ],
             "frequency": 0.008,
-            "avg_objective": 2.7279,
+            "avg_objective": 2.7978,
             "modal_entries": {
               "500": [
-                "skr-19401",
                 "skr-4165",
                 "skr-6617",
                 "skr-8080",
@@ -5955,7 +5995,6 @@
                 "skr-19401",
                 "skr-2262",
                 "skr-4165",
-                "skr-6617",
                 "skr-8080"
               ],
               "1500": [
@@ -5984,8 +6023,8 @@
             "skr-8080",
             "skr-8090"
           ],
-          "frequency": 0.853,
-          "objective_at_mean": 1.3825,
+          "frequency": 0.782,
+          "objective_at_mean": 1.3105,
           "entries": {
             "500": [
               "skr-6617",
@@ -6023,7 +6062,7 @@
             "skr-8080",
             "skr-8090"
           ],
-          "objective": 1.3825,
+          "objective": 1.3105,
           "entries": {
             "500": [
               "skr-6617",
@@ -6055,8 +6094,8 @@
           "core_ids": [
             "skr-8080",
             "skr-8090",
-            "skr-2262",
-            "skr-6617"
+            "skr-6617",
+            "skr-2262"
           ],
           "bubble_ids": [
             "skr-19401",
@@ -6074,9 +6113,9 @@
             "name_en": "Xinran WANG",
             "name_zh": "王欣然",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.11,
+            "main_roster_prob": 0.185,
             "primary_replacement_for": "skr-7613",
-            "marginal_loss": 0.0011,
+            "marginal_loss": 0.0098,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -6088,10 +6127,10 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 29,
-                "points": 1659,
-                "cutoff_points": 579,
-                "margin_vs_top40": 1080,
+                "rank": 16,
+                "points": 5465,
+                "cutoff_points": 668,
+                "margin_vs_top40": 4797,
                 "in_top40": true
               }
             },
@@ -6109,14 +6148,14 @@
             },
             "recent_highlight": "国内甲组 七台河 500m #1",
             "upside_score": 0.3243,
-            "versatility_score": 0.4343,
+            "versatility_score": 0.5093,
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
               "500"
             ],
-            "status_note": "500m #29 保席临界"
+            "status_note": "500m #16"
           },
           {
             "reserve_rank": 2,
@@ -6126,7 +6165,7 @@
             "role_tag": "mid_long",
             "main_roster_prob": 0.001,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0773,
+            "marginal_loss": 0.0588,
             "is_dual_eligible": true,
             "data_sources": [
               "JWC",
@@ -6174,7 +6213,7 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.2403,
+        "mean_objective": 2.2536,
         "distinct_lineups": 42,
         "candidates": [
           {
@@ -6195,24 +6234,24 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 13,
-                "points": 7838,
-                "cutoff_points": 606,
-                "margin_vs_top40": 7232,
+                "rank": 15,
+                "points": 6396,
+                "cutoff_points": 631,
+                "margin_vs_top40": 5765,
                 "in_top40": true
               },
               "1000": {
-                "rank": 21,
-                "points": 5150,
-                "cutoff_points": 541,
-                "margin_vs_top40": 4609,
+                "rank": 24,
+                "points": 3453,
+                "cutoff_points": 874,
+                "margin_vs_top40": 2579,
                 "in_top40": true
               },
               "1500": {
-                "rank": 6,
-                "points": 13312,
-                "cutoff_points": 485,
-                "margin_vs_top40": 12827,
+                "rank": 8,
+                "points": 11214,
+                "cutoff_points": 743,
+                "margin_vs_top40": 10471,
                 "in_top40": true
               }
             },
@@ -6250,9 +6289,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.496,
-              "1000": 0.649,
-              "1500": 0.858,
+              "500": 0.494,
+              "1000": 0.652,
+              "1500": 0.857,
               "relay": 0.955
             },
             "value_scores": {
@@ -6270,7 +6309,7 @@
               "1500",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #6"
+            "status_note": "本季WT 3站 · 1500m #8"
           },
           {
             "athlete_id": "skr-8078",
@@ -6291,24 +6330,24 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 26,
-                "points": 2042,
-                "cutoff_points": 606,
-                "margin_vs_top40": 1436,
+                "rank": 22,
+                "points": 3464,
+                "cutoff_points": 631,
+                "margin_vs_top40": 2833,
                 "in_top40": true
               },
               "1000": {
-                "rank": 35,
+                "rank": 40,
                 "points": 874,
-                "cutoff_points": 541,
-                "margin_vs_top40": 333,
+                "cutoff_points": 874,
+                "margin_vs_top40": 0,
                 "in_top40": true
               },
               "1500": {
-                "rank": 20,
-                "points": 3995,
-                "cutoff_points": 485,
-                "margin_vs_top40": 3510,
+                "rank": 11,
+                "points": 8187,
+                "cutoff_points": 743,
+                "margin_vs_top40": 7444,
                 "in_top40": true
               }
             },
@@ -6346,8 +6385,8 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.699,
-              "1000": 0.403,
+              "500": 0.698,
+              "1000": 0.404,
               "1500": 0.901,
               "relay": 0.895
             },
@@ -6366,7 +6405,7 @@
               "1500",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #20"
+            "status_note": "本季WT 3站 · 1500m #11"
           },
           {
             "athlete_id": "skr-20586",
@@ -6386,24 +6425,24 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 27,
-                "points": 1942,
-                "cutoff_points": 606,
-                "margin_vs_top40": 1336,
+                "rank": 24,
+                "points": 2478,
+                "cutoff_points": 631,
+                "margin_vs_top40": 1847,
                 "in_top40": true
               },
               "1000": {
-                "rank": 33,
-                "points": 1028,
-                "cutoff_points": 541,
-                "margin_vs_top40": 487,
+                "rank": 27,
+                "points": 2997,
+                "cutoff_points": 874,
+                "margin_vs_top40": 2123,
                 "in_top40": true
               },
               "1500": {
-                "rank": 41,
+                "rank": 43,
                 "points": 456,
-                "cutoff_points": 485,
-                "margin_vs_top40": -29,
+                "cutoff_points": 743,
+                "margin_vs_top40": -287,
                 "in_top40": false
               }
             },
@@ -6439,12 +6478,12 @@
                 "sigma": 1.1366
               }
             },
-            "main_roster_prob": 0.998,
+            "main_roster_prob": 0.999,
             "entry_prob_matrix": {
-              "500": 0.747,
-              "1000": 0.776,
-              "1500": 0.469,
-              "relay": 0.869
+              "500": 0.748,
+              "1000": 0.777,
+              "1500": 0.468,
+              "relay": 0.868
             },
             "value_scores": {
               "500": 0.0492,
@@ -6461,7 +6500,7 @@
               "1000",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 500m #27"
+            "status_note": "本季WT 3站 · 500m #24"
           },
           {
             "athlete_id": "skr-8157",
@@ -6479,17 +6518,17 @@
             ],
             "world_ranks": {
               "1000": {
-                "rank": 46,
+                "rank": 52,
                 "points": 410,
-                "cutoff_points": 541,
-                "margin_vs_top40": -131,
+                "cutoff_points": 874,
+                "margin_vs_top40": -464,
                 "in_top40": false
               },
               "1500": {
-                "rank": 14,
-                "points": 5193,
-                "cutoff_points": 485,
-                "margin_vs_top40": 4708,
+                "rank": 13,
+                "points": 5462,
+                "cutoff_points": 743,
+                "margin_vs_top40": 4719,
                 "in_top40": true
               }
             },
@@ -6524,10 +6563,10 @@
                 "sigma": 1.017
               }
             },
-            "main_roster_prob": 0.995,
+            "main_roster_prob": 0.996,
             "entry_prob_matrix": {
-              "500": 0.467,
-              "1000": 0.519,
+              "500": 0.468,
+              "1000": 0.52,
               "1500": 0.962,
               "relay": 0.442
             },
@@ -6545,7 +6584,7 @@
               "500",
               "1500"
             ],
-            "status_note": "本季WT 3站 · 1500m #14"
+            "status_note": "本季WT 3站 · 1500m #13"
           },
           {
             "athlete_id": "skr-4167",
@@ -6563,17 +6602,17 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 32,
-                "points": 950,
-                "cutoff_points": 606,
-                "margin_vs_top40": 344,
+                "rank": 33,
+                "points": 1282,
+                "cutoff_points": 631,
+                "margin_vs_top40": 651,
                 "in_top40": true
               },
               "1000": {
-                "rank": 92,
-                "points": 33,
-                "cutoff_points": 541,
-                "margin_vs_top40": -508,
+                "rank": 43,
+                "points": 569,
+                "cutoff_points": 874,
+                "margin_vs_top40": -305,
                 "in_top40": false
               }
             },
@@ -6608,11 +6647,11 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.915,
+            "main_roster_prob": 0.918,
             "entry_prob_matrix": {
-              "500": 0.883,
-              "1000": 0.657,
-              "1500": 0.221,
+              "500": 0.886,
+              "1000": 0.66,
+              "1500": 0.222,
               "relay": 0.514
             },
             "value_scores": {
@@ -6630,7 +6669,7 @@
               "1000",
               "relay"
             ],
-            "status_note": "500m #32 保席临界"
+            "status_note": "500m #33 保席临界"
           },
           {
             "athlete_id": "skr-18320",
@@ -6648,17 +6687,17 @@
             ],
             "world_ranks": {
               "1000": {
-                "rank": 32,
-                "points": 1211,
-                "cutoff_points": 541,
-                "margin_vs_top40": 670,
+                "rank": 37,
+                "points": 1229,
+                "cutoff_points": 874,
+                "margin_vs_top40": 355,
                 "in_top40": true
               },
               "1500": {
-                "rank": 70,
-                "points": 130,
-                "cutoff_points": 485,
-                "margin_vs_top40": -355,
+                "rank": 59,
+                "points": 206,
+                "cutoff_points": 743,
+                "margin_vs_top40": -537,
                 "in_top40": false
               }
             },
@@ -6693,12 +6732,12 @@
                 "sigma": 1.041
               }
             },
-            "main_roster_prob": 0.858,
+            "main_roster_prob": 0.831,
             "entry_prob_matrix": {
-              "500": 0.499,
-              "1000": 0.8,
-              "1500": 0.384,
-              "relay": 0.262
+              "500": 0.484,
+              "1000": 0.776,
+              "1500": 0.372,
+              "relay": 0.254
             },
             "value_scores": {
               "500": 0.0206,
@@ -6714,7 +6753,7 @@
               "1000",
               "1500"
             ],
-            "status_note": "1000m #32 保席临界"
+            "status_note": "1000m #37 保席临界"
           },
           {
             "athlete_id": "dom-tmp-8f6d895133",
@@ -6752,12 +6791,12 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.044,
+            "main_roster_prob": 0.047,
             "entry_prob_matrix": {
-              "500": 0.017,
-              "1000": 0.037,
-              "1500": 0.033,
-              "relay": 0.01
+              "500": 0.019,
+              "1000": 0.039,
+              "1500": 0.035,
+              "relay": 0.011
             },
             "value_scores": {
               "500": 0.0147,
@@ -6810,11 +6849,11 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.037,
+            "main_roster_prob": 0.041,
             "entry_prob_matrix": {
-              "500": 0.013,
-              "1000": 0.031,
-              "1500": 0.03,
+              "500": 0.016,
+              "1000": 0.034,
+              "1500": 0.032,
               "relay": 0.006
             },
             "value_scores": {
@@ -6869,11 +6908,11 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.035,
+            "main_roster_prob": 0.036,
             "entry_prob_matrix": {
               "500": 0.028,
-              "1000": 0.022,
-              "1500": 0.02,
+              "1000": 0.023,
+              "1500": 0.021,
               "relay": 0.011
             },
             "value_scores": {
@@ -6929,11 +6968,11 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.02,
+            "main_roster_prob": 0.021,
             "entry_prob_matrix": {
-              "500": 0.012,
+              "500": 0.013,
               "1000": 0.008,
-              "1500": 0.02,
+              "1500": 0.021,
               "relay": 0.002
             },
             "value_scores": {
@@ -6988,11 +7027,11 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.019,
+            "main_roster_prob": 0.02,
             "entry_prob_matrix": {
               "500": 0.013,
-              "1000": 0.013,
-              "1500": 0.011,
+              "1000": 0.014,
+              "1500": 0.012,
               "relay": 0.006
             },
             "value_scores": {
@@ -7047,12 +7086,12 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.015,
+            "main_roster_prob": 0.016,
             "entry_prob_matrix": {
-              "500": 0.013,
-              "1000": 0.011,
+              "500": 0.014,
+              "1000": 0.012,
               "1500": 0.006,
-              "relay": 0.003
+              "relay": 0.004
             },
             "value_scores": {
               "500": 0.0247,
@@ -7106,11 +7145,11 @@
                 "sigma": 1.3
               }
             },
-            "main_roster_prob": 0.014,
+            "main_roster_prob": 0.015,
             "entry_prob_matrix": {
               "500": 0.011,
-              "1000": 0.01,
-              "1500": 0.007,
+              "1000": 0.011,
+              "1500": 0.008,
               "relay": 0.004
             },
             "value_scores": {
@@ -7168,9 +7207,9 @@
             },
             "main_roster_prob": 0.012,
             "entry_prob_matrix": {
-              "500": 0.008,
+              "500": 0.009,
               "1000": 0.012,
-              "1500": 0.004,
+              "1500": 0.003,
               "relay": 0.007
             },
             "value_scores": {
@@ -7188,6 +7227,66 @@
               "1000"
             ],
             "status_note": "2026/27 JWC2 Bormio 500m #1"
+          },
+          {
+            "athlete_id": "skr-20570",
+            "name_en": "Yuheng LI",
+            "name_zh": "李禹衡",
+            "age_group": "DUAL_ELIGIBLE",
+            "is_dual_eligible": true,
+            "data_sources": [
+              "Senior",
+              "JWC",
+              "Domestic"
+            ],
+            "qualification_path": "JWC_2026_27",
+            "world_ranking_top40_distances": [],
+            "world_ranks": {},
+            "wt_2026_27": {
+              "stops_count": 0,
+              "stops": [],
+              "distances_entered": [],
+              "relay_starts": 0,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "form_momentum": -0.3354,
+            "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
+            "skills": {
+              "500": {
+                "mu": -0.1893,
+                "sigma": 1.0954
+              },
+              "1000": {
+                "mu": 1.1522,
+                "sigma": 1.1526
+              },
+              "1500": {
+                "mu": 0.439,
+                "sigma": 1.2427
+              }
+            },
+            "main_roster_prob": 0.012,
+            "entry_prob_matrix": {
+              "500": 0.004,
+              "1000": 0.012,
+              "1500": 0.008,
+              "relay": 0.007
+            },
+            "value_scores": {
+              "500": 0.0148,
+              "1000": 0.0633,
+              "1500": 0.0462,
+              "relay": 0.2807,
+              "form": -0.3354
+            },
+            "roster_tier": "reserve",
+            "specialty_tag": "mid_long",
+            "specialty_label": "中长距离",
+            "recommended_entries": [
+              "1000"
+            ],
+            "status_note": "2026/27 JWC2 Bormio 1500m #1"
           },
           {
             "athlete_id": "skr-18305",
@@ -7250,19 +7349,26 @@
             "status_note": "国内甲组 1500m #1"
           },
           {
-            "athlete_id": "skr-20570",
-            "name_en": "Yuheng LI",
-            "name_zh": "李禹衡",
-            "age_group": "DUAL_ELIGIBLE",
-            "is_dual_eligible": true,
+            "athlete_id": "skr-4176",
+            "name_en": "Wenlong LI",
+            "name_zh": "李文龙",
+            "age_group": "SENIOR_ONLY",
+            "is_dual_eligible": false,
             "data_sources": [
               "Senior",
-              "JWC",
               "Domestic"
             ],
-            "qualification_path": "JWC_2026_27",
+            "qualification_path": "DOMESTIC_TOP3",
             "world_ranking_top40_distances": [],
-            "world_ranks": {},
+            "world_ranks": {
+              "1500": {
+                "rank": 67,
+                "points": 159,
+                "cutoff_points": 743,
+                "margin_vs_top40": -584,
+                "in_top40": false
+              }
+            },
             "wt_2026_27": {
               "stops_count": 0,
               "stops": [],
@@ -7271,43 +7377,44 @@
               "final_a_count": 0,
               "best_rank": null
             },
-            "form_momentum": -0.3354,
-            "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
+            "form_momentum": 0.0937,
+            "recent_highlight": "国内甲组 总积分 #1",
             "skills": {
               "500": {
-                "mu": -0.1893,
-                "sigma": 1.0954
+                "mu": 0.4593,
+                "sigma": 1.0697
               },
               "1000": {
-                "mu": 1.1522,
-                "sigma": 1.1526
+                "mu": 0.7978,
+                "sigma": 1.0697
               },
               "1500": {
-                "mu": 0.439,
-                "sigma": 1.2427
+                "mu": 0.4946,
+                "sigma": 1.0457
               }
             },
-            "main_roster_prob": 0.007,
+            "main_roster_prob": 0.008,
             "entry_prob_matrix": {
-              "500": 0.002,
-              "1000": 0.007,
-              "1500": 0.005,
-              "relay": 0.004
+              "500": 0.003,
+              "1000": 0.006,
+              "1500": 0.007,
+              "relay": 0.007
             },
             "value_scores": {
-              "500": 0.0148,
-              "1000": 0.0633,
-              "1500": 0.0462,
-              "relay": 0.2807,
-              "form": -0.3354
+              "500": 0.0284,
+              "1000": 0.0463,
+              "1500": 0.0521,
+              "relay": 0.3551,
+              "form": 0.0937
             },
-            "roster_tier": "reserve",
+            "roster_tier": "pool",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
             "recommended_entries": [
-              "1000"
+              "1000",
+              "1500"
             ],
-            "status_note": "2026/27 JWC2 Bormio 1500m #1"
+            "status_note": "国内甲组 总积分 #1"
           },
           {
             "athlete_id": "skr-8110",
@@ -7371,6 +7478,66 @@
             "status_note": "国内甲组 总积分 #3"
           },
           {
+            "athlete_id": "skr-8107",
+            "name_en": "Tianyi ZHANG",
+            "name_zh": "张添翼",
+            "age_group": "SENIOR_ONLY",
+            "is_dual_eligible": false,
+            "data_sources": [
+              "Senior",
+              "Domestic"
+            ],
+            "qualification_path": "DOMESTIC_GOLD",
+            "world_ranking_top40_distances": [],
+            "world_ranks": {},
+            "wt_2026_27": {
+              "stops_count": 0,
+              "stops": [],
+              "distances_entered": [],
+              "relay_starts": 0,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "form_momentum": 0.0486,
+            "recent_highlight": "国内甲组 七台河 1500m #1",
+            "skills": {
+              "500": {
+                "mu": 0.3322,
+                "sigma": 1.1207
+              },
+              "1000": {
+                "mu": -0.12,
+                "sigma": 1.5702
+              },
+              "1500": {
+                "mu": 0.3854,
+                "sigma": 1.1808
+              }
+            },
+            "main_roster_prob": 0.005,
+            "entry_prob_matrix": {
+              "500": 0.003,
+              "1000": 0.005,
+              "1500": 0.002,
+              "relay": 0.002
+            },
+            "value_scores": {
+              "500": 0.0246,
+              "1000": 0.0159,
+              "1500": 0.0448,
+              "relay": 0.019,
+              "form": 0.0486
+            },
+            "roster_tier": "pool",
+            "specialty_tag": "mid_long",
+            "specialty_label": "中长距离",
+            "recommended_entries": [
+              "500",
+              "1500"
+            ],
+            "status_note": "国内甲组 七台河 1500m #1"
+          },
+          {
             "athlete_id": "skr-8145",
             "name_en": "Yuchen ZHONG",
             "name_zh": "钟宇晨",
@@ -7429,134 +7596,6 @@
               "1000"
             ],
             "status_note": "国内甲组 500m #1"
-          },
-          {
-            "athlete_id": "skr-4176",
-            "name_en": "Wenlong LI",
-            "name_zh": "李文龙",
-            "age_group": "SENIOR_ONLY",
-            "is_dual_eligible": false,
-            "data_sources": [
-              "Senior",
-              "Domestic"
-            ],
-            "qualification_path": "DOMESTIC_TOP3",
-            "world_ranking_top40_distances": [],
-            "world_ranks": {
-              "1500": {
-                "rank": 44,
-                "points": 401,
-                "cutoff_points": 485,
-                "margin_vs_top40": -84,
-                "in_top40": false
-              }
-            },
-            "wt_2026_27": {
-              "stops_count": 0,
-              "stops": [],
-              "distances_entered": [],
-              "relay_starts": 0,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "form_momentum": 0.0937,
-            "recent_highlight": "国内甲组 总积分 #1",
-            "skills": {
-              "500": {
-                "mu": 0.4593,
-                "sigma": 1.0697
-              },
-              "1000": {
-                "mu": 0.7978,
-                "sigma": 1.0697
-              },
-              "1500": {
-                "mu": 0.4946,
-                "sigma": 1.0457
-              }
-            },
-            "main_roster_prob": 0.004,
-            "entry_prob_matrix": {
-              "500": 0.001,
-              "1000": 0.003,
-              "1500": 0.004,
-              "relay": 0.004
-            },
-            "value_scores": {
-              "500": 0.0284,
-              "1000": 0.0463,
-              "1500": 0.0521,
-              "relay": 0.3551,
-              "form": 0.0937
-            },
-            "roster_tier": "pool",
-            "specialty_tag": "mid_long",
-            "specialty_label": "中长距离",
-            "recommended_entries": [
-              "1000",
-              "1500"
-            ],
-            "status_note": "国内甲组 总积分 #1"
-          },
-          {
-            "athlete_id": "skr-8107",
-            "name_en": "Tianyi ZHANG",
-            "name_zh": "张添翼",
-            "age_group": "SENIOR_ONLY",
-            "is_dual_eligible": false,
-            "data_sources": [
-              "Senior",
-              "Domestic"
-            ],
-            "qualification_path": "DOMESTIC_GOLD",
-            "world_ranking_top40_distances": [],
-            "world_ranks": {},
-            "wt_2026_27": {
-              "stops_count": 0,
-              "stops": [],
-              "distances_entered": [],
-              "relay_starts": 0,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "form_momentum": 0.0486,
-            "recent_highlight": "国内甲组 七台河 1500m #1",
-            "skills": {
-              "500": {
-                "mu": 0.3322,
-                "sigma": 1.1207
-              },
-              "1000": {
-                "mu": -0.12,
-                "sigma": 1.5702
-              },
-              "1500": {
-                "mu": 0.3854,
-                "sigma": 1.1808
-              }
-            },
-            "main_roster_prob": 0.004,
-            "entry_prob_matrix": {
-              "500": 0.002,
-              "1000": 0.004,
-              "1500": 0.002,
-              "relay": 0.001
-            },
-            "value_scores": {
-              "500": 0.0246,
-              "1000": 0.0159,
-              "1500": 0.0448,
-              "relay": 0.019,
-              "form": 0.0486
-            },
-            "roster_tier": "pool",
-            "specialty_tag": "mid_long",
-            "specialty_label": "中长距离",
-            "recommended_entries": [
-              "500",
-              "1500"
-            ],
-            "status_note": "国内甲组 七台河 1500m #1"
           }
         ],
         "top_3_lineups": [
@@ -7569,8 +7608,8 @@
               "skr-8078",
               "skr-8157"
             ],
-            "frequency": 0.778,
-            "avg_objective": 2.0628,
+            "frequency": 0.756,
+            "avg_objective": 2.0651,
             "modal_entries": {
               "500": [
                 "skr-18320",
@@ -7607,13 +7646,12 @@
               "skr-8078",
               "skr-8157"
             ],
-            "frequency": 0.021,
-            "avg_objective": 2.7037,
+            "frequency": 0.027,
+            "avg_objective": 2.6824,
             "modal_entries": {
               "500": [
                 "skr-20586",
                 "skr-4167",
-                "skr-6784",
                 "skr-8078",
                 "skr-8157"
               ],
@@ -7647,8 +7685,8 @@
               "skr-8078",
               "skr-8157"
             ],
-            "frequency": 0.02,
-            "avg_objective": 2.8796,
+            "frequency": 0.025,
+            "avg_objective": 2.826,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -7672,8 +7710,7 @@
                 "skr-20586",
                 "skr-4167",
                 "skr-6784",
-                "skr-8078",
-                "skr-8157"
+                "skr-8078"
               ]
             }
           }
@@ -7687,7 +7724,7 @@
             "skr-8078",
             "skr-8157"
           ],
-          "frequency": 0.778,
+          "frequency": 0.756,
           "objective_at_mean": 1.4874,
           "entries": {
             "500": [
@@ -7775,7 +7812,7 @@
             "name_en": "Yuheng LI",
             "name_zh": "李禹衡",
             "role_tag": "mid_long",
-            "main_roster_prob": 0.007,
+            "main_roster_prob": 0.012,
             "primary_replacement_for": "skr-18320",
             "marginal_loss": -0.0029,
             "is_dual_eligible": true,
@@ -7797,7 +7834,7 @@
             },
             "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
             "upside_score": 0.2563,
-            "versatility_score": 0.2633,
+            "versatility_score": 0.2683,
             "roster_tier": "reserve",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
@@ -7868,103 +7905,9 @@
           "k1500": 2,
           "relay": 4
         },
-        "mean_objective": 1.5623,
-        "distinct_lineups": 16,
+        "mean_objective": 1.5421,
+        "distinct_lineups": 12,
         "candidates": [
-          {
-            "athlete_id": "skr-8080",
-            "name_en": "Chutong ZHANG",
-            "name_zh": "张楚桐",
-            "age_group": "SENIOR_ONLY",
-            "is_dual_eligible": false,
-            "data_sources": [
-              "Senior",
-              "Domestic"
-            ],
-            "qualification_path": "WT_2026_27",
-            "world_ranking_top40_distances": [
-              500,
-              1000,
-              1500
-            ],
-            "world_ranks": {
-              "500": {
-                "rank": 16,
-                "points": 5494,
-                "cutoff_points": 579,
-                "margin_vs_top40": 4915,
-                "in_top40": true
-              },
-              "1000": {
-                "rank": 22,
-                "points": 2237,
-                "cutoff_points": 638,
-                "margin_vs_top40": 1599,
-                "in_top40": true
-              },
-              "1500": {
-                "rank": 10,
-                "points": 6387,
-                "cutoff_points": 495,
-                "margin_vs_top40": 5892,
-                "in_top40": true
-              }
-            },
-            "wt_2026_27": {
-              "stops_count": 3,
-              "stops": [
-                "Montreal",
-                "Seoul",
-                "Vancouver"
-              ],
-              "distances_entered": [
-                500,
-                1500
-              ],
-              "relay_starts": 7,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "form_momentum": -0.1318,
-            "recent_highlight": "国内甲组 衡水 1500m #3",
-            "skills": {
-              "500": {
-                "mu": 1.8288,
-                "sigma": 0.9498
-              },
-              "1000": {
-                "mu": 1.2894,
-                "sigma": 1.0261
-              },
-              "1500": {
-                "mu": 0.9667,
-                "sigma": 0.9673
-              }
-            },
-            "main_roster_prob": 1,
-            "entry_prob_matrix": {
-              "500": 0.81,
-              "1000": 0.67,
-              "1500": 0.35,
-              "relay": 0.979
-            },
-            "value_scores": {
-              "500": 0.1507,
-              "1000": 0.0804,
-              "1500": 0.0463,
-              "relay": 0.6101,
-              "form": -0.1318
-            },
-            "roster_tier": "core",
-            "specialty_tag": "all_round",
-            "specialty_label": "全能主力",
-            "recommended_entries": [
-              "500",
-              "1000",
-              "relay"
-            ],
-            "status_note": "本季WT 3站 · 1500m #10"
-          },
           {
             "athlete_id": "skr-8090",
             "name_en": "Jianing ZHANG",
@@ -7985,22 +7928,22 @@
               "500": {
                 "rank": 17,
                 "points": 5465,
-                "cutoff_points": 579,
-                "margin_vs_top40": 4886,
+                "cutoff_points": 668,
+                "margin_vs_top40": 4797,
                 "in_top40": true
               },
               "1000": {
-                "rank": 17,
-                "points": 4655,
-                "cutoff_points": 638,
-                "margin_vs_top40": 4017,
+                "rank": 16,
+                "points": 5398,
+                "cutoff_points": 747,
+                "margin_vs_top40": 4651,
                 "in_top40": true
               },
               "1500": {
-                "rank": 13,
-                "points": 5756,
-                "cutoff_points": 495,
-                "margin_vs_top40": 5261,
+                "rank": 7,
+                "points": 10976,
+                "cutoff_points": 737,
+                "margin_vs_top40": 10239,
                 "in_top40": true
               }
             },
@@ -8038,10 +7981,10 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.606,
-              "1000": 0.498,
-              "1500": 0.482,
-              "relay": 0.718
+              "500": 0.623,
+              "1000": 0.502,
+              "1500": 0.484,
+              "relay": 0.74
             },
             "value_scores": {
               "500": 0.0884,
@@ -8058,12 +8001,12 @@
               "1500",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #13"
+            "status_note": "本季WT 3站 · 1500m #7"
           },
           {
-            "athlete_id": "skr-2262",
-            "name_en": "Li GONG",
-            "name_zh": "公俐",
+            "athlete_id": "skr-8080",
+            "name_en": "Chutong ZHANG",
+            "name_zh": "张楚桐",
             "age_group": "SENIOR_ONLY",
             "is_dual_eligible": false,
             "data_sources": [
@@ -8072,22 +8015,30 @@
             ],
             "qualification_path": "WT_2026_27",
             "world_ranking_top40_distances": [
+              500,
               1000,
               1500
             ],
             "world_ranks": {
+              "500": {
+                "rank": 13,
+                "points": 6601,
+                "cutoff_points": 668,
+                "margin_vs_top40": 5933,
+                "in_top40": true
+              },
               "1000": {
-                "rank": 15,
-                "points": 5029,
-                "cutoff_points": 638,
-                "margin_vs_top40": 4391,
+                "rank": 33,
+                "points": 1209,
+                "cutoff_points": 747,
+                "margin_vs_top40": 462,
                 "in_top40": true
               },
               "1500": {
                 "rank": 11,
-                "points": 6008,
-                "cutoff_points": 495,
-                "margin_vs_top40": 5513,
+                "points": 7140,
+                "cutoff_points": 737,
+                "margin_vs_top40": 6403,
                 "in_top40": true
               }
             },
@@ -8100,49 +8051,48 @@
               ],
               "distances_entered": [
                 500,
-                1000,
                 1500
               ],
-              "relay_starts": 8,
+              "relay_starts": 7,
               "final_a_count": 0,
               "best_rank": null
             },
-            "form_momentum": 0.1595,
-            "recent_highlight": "国内甲组 衡水 1500m #5",
+            "form_momentum": -0.1318,
+            "recent_highlight": "国内甲组 衡水 1500m #3",
             "skills": {
               "500": {
-                "mu": 0.7647,
-                "sigma": 1.0901
+                "mu": 1.8288,
+                "sigma": 0.9498
               },
               "1000": {
-                "mu": 1.07,
-                "sigma": 0.926
+                "mu": 1.2894,
+                "sigma": 1.0261
               },
               "1500": {
-                "mu": 1.0361,
-                "sigma": 0.9924
+                "mu": 0.9667,
+                "sigma": 0.9673
               }
             },
-            "main_roster_prob": 0.971,
+            "main_roster_prob": 0.999,
             "entry_prob_matrix": {
-              "500": 0.385,
-              "1000": 0.633,
-              "1500": 0.441,
-              "relay": 0.851
+              "500": 0.817,
+              "1000": 0.672,
+              "1500": 0.357,
+              "relay": 0.98
             },
             "value_scores": {
-              "500": 0.0539,
-              "1000": 0.0675,
-              "1500": 0.049,
-              "relay": 0.4426,
-              "form": 0.1595
+              "500": 0.1507,
+              "1000": 0.0804,
+              "1500": 0.0463,
+              "relay": 0.6101,
+              "form": -0.1318
             },
             "roster_tier": "core",
             "specialty_tag": "all_round",
             "specialty_label": "全能主力",
             "recommended_entries": [
+              "500",
               "1000",
-              "1500",
               "relay"
             ],
             "status_note": "本季WT 3站 · 1500m #11"
@@ -8160,21 +8110,29 @@
             "qualification_path": "WT_2026_27",
             "world_ranking_top40_distances": [
               500,
-              1000
+              1000,
+              1500
             ],
             "world_ranks": {
               "500": {
-                "rank": 21,
-                "points": 3989,
-                "cutoff_points": 579,
-                "margin_vs_top40": 3410,
+                "rank": 9,
+                "points": 9209,
+                "cutoff_points": 668,
+                "margin_vs_top40": 8541,
                 "in_top40": true
               },
               "1000": {
-                "rank": 13,
-                "points": 5522,
-                "cutoff_points": 638,
-                "margin_vs_top40": 4884,
+                "rank": 15,
+                "points": 6058,
+                "cutoff_points": 747,
+                "margin_vs_top40": 5311,
+                "in_top40": true
+              },
+              "1500": {
+                "rank": 21,
+                "points": 3771,
+                "cutoff_points": 737,
+                "margin_vs_top40": 3034,
                 "in_top40": true
               }
             },
@@ -8210,12 +8168,12 @@
                 "sigma": 1.0042
               }
             },
-            "main_roster_prob": 0.956,
+            "main_roster_prob": 0.994,
             "entry_prob_matrix": {
-              "500": 0.54,
-              "1000": 0.557,
-              "1500": 0.325,
-              "relay": 0.527
+              "500": 0.566,
+              "1000": 0.569,
+              "1500": 0.338,
+              "relay": 0.543
             },
             "value_scores": {
               "500": 0.0787,
@@ -8230,7 +8188,102 @@
             "recommended_entries": [
               "500"
             ],
-            "status_note": "本季WT 3站 · 1000m #13"
+            "status_note": "本季WT 3站 · 500m #9"
+          },
+          {
+            "athlete_id": "skr-2262",
+            "name_en": "Li GONG",
+            "name_zh": "公俐",
+            "age_group": "SENIOR_ONLY",
+            "is_dual_eligible": false,
+            "data_sources": [
+              "Senior",
+              "Domestic"
+            ],
+            "qualification_path": "WT_2026_27",
+            "world_ranking_top40_distances": [
+              500,
+              1000,
+              1500
+            ],
+            "world_ranks": {
+              "500": {
+                "rank": 21,
+                "points": 3206,
+                "cutoff_points": 668,
+                "margin_vs_top40": 2538,
+                "in_top40": true
+              },
+              "1000": {
+                "rank": 14,
+                "points": 6071,
+                "cutoff_points": 747,
+                "margin_vs_top40": 5324,
+                "in_top40": true
+              },
+              "1500": {
+                "rank": 26,
+                "points": 2647,
+                "cutoff_points": 737,
+                "margin_vs_top40": 1910,
+                "in_top40": true
+              }
+            },
+            "wt_2026_27": {
+              "stops_count": 3,
+              "stops": [
+                "Montreal",
+                "Seoul",
+                "Vancouver"
+              ],
+              "distances_entered": [
+                500,
+                1000,
+                1500
+              ],
+              "relay_starts": 8,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "form_momentum": 0.1595,
+            "recent_highlight": "国内甲组 衡水 1500m #5",
+            "skills": {
+              "500": {
+                "mu": 0.7647,
+                "sigma": 1.0901
+              },
+              "1000": {
+                "mu": 1.07,
+                "sigma": 0.926
+              },
+              "1500": {
+                "mu": 1.0361,
+                "sigma": 0.9924
+              }
+            },
+            "main_roster_prob": 0.993,
+            "entry_prob_matrix": {
+              "500": 0.395,
+              "1000": 0.645,
+              "1500": 0.449,
+              "relay": 0.874
+            },
+            "value_scores": {
+              "500": 0.0539,
+              "1000": 0.0675,
+              "1500": 0.049,
+              "relay": 0.4426,
+              "form": 0.1595
+            },
+            "roster_tier": "core",
+            "specialty_tag": "all_round",
+            "specialty_label": "全能主力",
+            "recommended_entries": [
+              "1000",
+              "1500",
+              "relay"
+            ],
+            "status_note": "本季WT 3站 · 1000m #14"
           },
           {
             "athlete_id": "skr-19401",
@@ -8250,16 +8303,16 @@
             "world_ranks": {
               "1000": {
                 "rank": 20,
-                "points": 3095,
-                "cutoff_points": 638,
-                "margin_vs_top40": 2457,
+                "points": 3726,
+                "cutoff_points": 747,
+                "margin_vs_top40": 2979,
                 "in_top40": true
               },
               "1500": {
-                "rank": 31,
-                "points": 1397,
-                "cutoff_points": 495,
-                "margin_vs_top40": 902,
+                "rank": 23,
+                "points": 3366,
+                "cutoff_points": 737,
+                "margin_vs_top40": 2629,
                 "in_top40": true
               }
             },
@@ -8294,12 +8347,12 @@
                 "sigma": 1.0218
               }
             },
-            "main_roster_prob": 0.776,
+            "main_roster_prob": 0.794,
             "entry_prob_matrix": {
-              "500": 0.394,
-              "1000": 0.511,
-              "1500": 0.277,
-              "relay": 0.644
+              "500": 0.396,
+              "1000": 0.514,
+              "1500": 0.28,
+              "relay": 0.651
             },
             "value_scores": {
               "500": 0.0462,
@@ -8315,7 +8368,7 @@
               "1000",
               "relay"
             ],
-            "status_note": "1500m #31 保席临界"
+            "status_note": "1000m #20"
           },
           {
             "athlete_id": "skr-7613",
@@ -8335,8 +8388,8 @@
               "500": {
                 "rank": 7,
                 "points": 9367,
-                "cutoff_points": 579,
-                "margin_vs_top40": 8788,
+                "cutoff_points": 668,
+                "margin_vs_top40": 8699,
                 "in_top40": true
               }
             },
@@ -8369,12 +8422,12 @@
                 "sigma": 1.1304
               }
             },
-            "main_roster_prob": 0.256,
+            "main_roster_prob": 0.176,
             "entry_prob_matrix": {
-              "500": 0.229,
-              "1000": 0.111,
-              "1500": 0.108,
-              "relay": 0.242
+              "500": 0.163,
+              "1000": 0.077,
+              "1500": 0.076,
+              "relay": 0.169
             },
             "value_scores": {
               "500": 0.1158,
@@ -8407,10 +8460,10 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 29,
-                "points": 1659,
-                "cutoff_points": 579,
-                "margin_vs_top40": 1080,
+                "rank": 16,
+                "points": 5465,
+                "cutoff_points": 668,
+                "margin_vs_top40": 4797,
                 "in_top40": true
               }
             },
@@ -8442,12 +8495,12 @@
                 "sigma": 1.0667
               }
             },
-            "main_roster_prob": 0.029,
+            "main_roster_prob": 0.035,
             "entry_prob_matrix": {
-              "500": 0.027,
-              "1000": 0.009,
+              "500": 0.033,
+              "1000": 0.012,
               "1500": 0.012,
-              "relay": 0.029
+              "relay": 0.035
             },
             "value_scores": {
               "500": 0.1121,
@@ -8462,7 +8515,7 @@
             "recommended_entries": [
               "500"
             ],
-            "status_note": "500m #29 保席临界"
+            "status_note": "500m #16"
           },
           {
             "athlete_id": "skr-4165",
@@ -8500,12 +8553,12 @@
                 "sigma": 1.5091
               }
             },
-            "main_roster_prob": 0.005,
+            "main_roster_prob": 0.004,
             "entry_prob_matrix": {
-              "500": 0.003,
+              "500": 0.002,
               "1000": 0.004,
-              "1500": 0.003,
-              "relay": 0.004
+              "1500": 0.002,
+              "relay": 0.003
             },
             "value_scores": {
               "500": 0.0191,
@@ -8619,12 +8672,12 @@
                 "sigma": 1.1004
               }
             },
-            "main_roster_prob": 0.003,
+            "main_roster_prob": 0.002,
             "entry_prob_matrix": {
-              "500": 0.003,
-              "1000": 0.003,
+              "500": 0.002,
+              "1000": 0.002,
               "1500": 0.001,
-              "relay": 0.003
+              "relay": 0.002
             },
             "value_scores": {
               "500": 0.0544,
@@ -8641,65 +8694,6 @@
               "1000"
             ],
             "status_note": "2026/27 JWC2 Bormio 1500m #1"
-          },
-          {
-            "athlete_id": "skr-22880",
-            "name_en": "YIAIDI ZONG",
-            "name_zh": "宗艾迪",
-            "age_group": "DUAL_ELIGIBLE",
-            "is_dual_eligible": true,
-            "data_sources": [
-              "JWC"
-            ],
-            "qualification_path": "JWC_2026_27",
-            "world_ranking_top40_distances": [],
-            "world_ranks": {},
-            "wt_2026_27": {
-              "stops_count": 0,
-              "stops": [],
-              "distances_entered": [],
-              "relay_starts": 0,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "form_momentum": 0.2116,
-            "recent_highlight": "2026/27 JWC2 Bormio 1500m #2",
-            "skills": {
-              "500": {
-                "mu": 0.0832,
-                "sigma": 1.3
-              },
-              "1000": {
-                "mu": 0.178,
-                "sigma": 1.5162
-              },
-              "1500": {
-                "mu": 0.3741,
-                "sigma": 1.485
-              }
-            },
-            "main_roster_prob": 0.001,
-            "entry_prob_matrix": {
-              "500": 0,
-              "1000": 0.001,
-              "1500": 0,
-              "relay": 0
-            },
-            "value_scores": {
-              "500": 0.0259,
-              "1000": 0.0232,
-              "1500": 0.0218,
-              "relay": 0.0174,
-              "form": 0.2116
-            },
-            "roster_tier": "pool",
-            "specialty_tag": "mid_long",
-            "specialty_label": "中长距离",
-            "recommended_entries": [
-              "1000",
-              "1500"
-            ],
-            "status_note": "2026/27 JWC2 Bormio 1500m #2"
           },
           {
             "athlete_id": "dom-tmp-65cbbb7bf8",
@@ -8819,6 +8813,65 @@
               "1000"
             ],
             "status_note": "2026/27 JWC2 Bormio 1000m #1"
+          },
+          {
+            "athlete_id": "skr-22880",
+            "name_en": "YIAIDI ZONG",
+            "name_zh": "宗艾迪",
+            "age_group": "DUAL_ELIGIBLE",
+            "is_dual_eligible": true,
+            "data_sources": [
+              "JWC"
+            ],
+            "qualification_path": "JWC_2026_27",
+            "world_ranking_top40_distances": [],
+            "world_ranks": {},
+            "wt_2026_27": {
+              "stops_count": 0,
+              "stops": [],
+              "distances_entered": [],
+              "relay_starts": 0,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "form_momentum": 0.2116,
+            "recent_highlight": "2026/27 JWC2 Bormio 1500m #2",
+            "skills": {
+              "500": {
+                "mu": 0.0832,
+                "sigma": 1.3
+              },
+              "1000": {
+                "mu": 0.178,
+                "sigma": 1.5162
+              },
+              "1500": {
+                "mu": 0.3741,
+                "sigma": 1.485
+              }
+            },
+            "main_roster_prob": 0,
+            "entry_prob_matrix": {
+              "500": 0,
+              "1000": 0,
+              "1500": 0,
+              "relay": 0
+            },
+            "value_scores": {
+              "500": 0.0259,
+              "1000": 0.0232,
+              "1500": 0.0218,
+              "relay": 0.0174,
+              "form": 0.2116
+            },
+            "roster_tier": "pool",
+            "specialty_tag": "mid_long",
+            "specialty_label": "中长距离",
+            "recommended_entries": [
+              "1000",
+              "1500"
+            ],
+            "status_note": "2026/27 JWC2 Bormio 1500m #2"
           }
         ],
         "top_3_lineups": [
@@ -8830,11 +8883,10 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.708,
-            "avg_objective": 1.4897,
+            "frequency": 0.78,
+            "avg_objective": 1.4864,
             "modal_entries": {
               "500": [
-                "skr-19401",
                 "skr-6617",
                 "skr-8080",
                 "skr-8090"
@@ -8845,9 +8897,7 @@
                 "skr-6617",
                 "skr-8080"
               ],
-              "1500": [
-                "skr-8090"
-              ],
+              "1500": [],
               "relay": [
                 "skr-19401",
                 "skr-2262",
@@ -8865,8 +8915,8 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.193,
-            "avg_objective": 1.6122,
+            "frequency": 0.165,
+            "avg_objective": 1.673,
             "modal_entries": {
               "500": [
                 "skr-7613",
@@ -8891,33 +8941,31 @@
           },
           {
             "athlete_ids": [
-              "skr-19401",
               "skr-2262",
-              "skr-7613",
+              "skr-6617",
+              "skr-7609",
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.034,
-            "avg_objective": 1.9374,
+            "frequency": 0.033,
+            "avg_objective": 1.7709,
             "modal_entries": {
               "500": [
-                "skr-19401",
-                "skr-7613",
-                "skr-8080",
-                "skr-8090"
+                "skr-7609",
+                "skr-8080"
               ],
               "1000": [
-                "skr-19401",
                 "skr-2262",
-                "skr-8080",
-                "skr-8090"
+                "skr-6617",
+                "skr-8080"
               ],
               "1500": [],
               "relay": [
-                "skr-19401",
                 "skr-2262",
-                "skr-7613",
-                "skr-8080"
+                "skr-6617",
+                "skr-7609",
+                "skr-8080",
+                "skr-8090"
               ]
             }
           }
@@ -8930,7 +8978,7 @@
             "skr-8080",
             "skr-8090"
           ],
-          "frequency": 0.708,
+          "frequency": 0.78,
           "objective_at_mean": 0.8936,
           "entries": {
             "500": [
@@ -8992,8 +9040,8 @@
           "core_ids": [
             "skr-8080",
             "skr-8090",
-            "skr-2262",
-            "skr-6617"
+            "skr-6617",
+            "skr-2262"
           ],
           "bubble_ids": [
             "skr-19401"
@@ -9011,7 +9059,7 @@
             "name_en": "Ye WANG",
             "name_zh": "王晔",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.256,
+            "main_roster_prob": 0.176,
             "primary_replacement_for": "skr-19401",
             "marginal_loss": -0.0305,
             "is_dual_eligible": false,
@@ -9027,8 +9075,8 @@
               "500": {
                 "rank": 7,
                 "points": 9367,
-                "cutoff_points": 579,
-                "margin_vs_top40": 8788,
+                "cutoff_points": 668,
+                "margin_vs_top40": 8699,
                 "in_top40": true
               }
             },
@@ -9047,7 +9095,7 @@
             },
             "recent_highlight": "2026/27 WT Montreal 500m #5",
             "upside_score": 0.3303,
-            "versatility_score": 0.5863,
+            "versatility_score": 0.5063,
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
@@ -9062,7 +9110,7 @@
             "name_en": "Xinran WANG",
             "name_zh": "王欣然",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.029,
+            "main_roster_prob": 0.035,
             "primary_replacement_for": "skr-19401",
             "marginal_loss": -0.0304,
             "is_dual_eligible": false,
@@ -9076,10 +9124,10 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 29,
-                "points": 1659,
-                "cutoff_points": 579,
-                "margin_vs_top40": 1080,
+                "rank": 16,
+                "points": 5465,
+                "cutoff_points": 668,
+                "margin_vs_top40": 4797,
                 "in_top40": true
               }
             },
@@ -9097,14 +9145,14 @@
             },
             "recent_highlight": "国内甲组 七台河 500m #1",
             "upside_score": 0.3233,
-            "versatility_score": 0.3523,
+            "versatility_score": 0.3583,
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
               "500"
             ],
-            "status_note": "500m #29 保席临界"
+            "status_note": "500m #16"
           },
           {
             "reserve_rank": 3,
@@ -9112,7 +9160,7 @@
             "name_en": "RONGMIAO YANG",
             "name_zh": "杨茸秒",
             "role_tag": "mid_long",
-            "main_roster_prob": 0.003,
+            "main_roster_prob": 0.002,
             "primary_replacement_for": "skr-19401",
             "marginal_loss": 0.0034,
             "is_dual_eligible": true,
@@ -9133,7 +9181,7 @@
             },
             "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
             "upside_score": 0.2416,
-            "versatility_score": 0.2446,
+            "versatility_score": 0.2436,
             "roster_tier": "reserve",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
@@ -9149,7 +9197,7 @@
             "name_en": "Jinzi LI",
             "name_zh": "李金恣",
             "role_tag": "mid_long",
-            "main_roster_prob": 0.005,
+            "main_roster_prob": 0.004,
             "primary_replacement_for": "skr-19401",
             "marginal_loss": 0.0052,
             "is_dual_eligible": true,
@@ -9169,7 +9217,7 @@
             },
             "recent_highlight": "2026/27 JWC2 Bormio 1000m #2",
             "upside_score": 0.202,
-            "versatility_score": 0.207,
+            "versatility_score": 0.206,
             "roster_tier": "reserve",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
@@ -9270,9 +9318,104 @@
           "k1500": 2,
           "relay": 4
         },
-        "mean_objective": 1.5206,
-        "distinct_lineups": 36,
+        "mean_objective": 1.5214,
+        "distinct_lineups": 35,
         "candidates": [
+          {
+            "athlete_id": "skr-20586",
+            "name_en": "Zixia ZHANG",
+            "name_zh": "张子夏",
+            "age_group": "DUAL_ELIGIBLE",
+            "is_dual_eligible": true,
+            "data_sources": [
+              "Senior",
+              "JWC",
+              "Domestic"
+            ],
+            "qualification_path": "WT_2026_27",
+            "world_ranking_top40_distances": [
+              500,
+              1000
+            ],
+            "world_ranks": {
+              "500": {
+                "rank": 24,
+                "points": 2478,
+                "cutoff_points": 631,
+                "margin_vs_top40": 1847,
+                "in_top40": true
+              },
+              "1000": {
+                "rank": 27,
+                "points": 2997,
+                "cutoff_points": 874,
+                "margin_vs_top40": 2123,
+                "in_top40": true
+              },
+              "1500": {
+                "rank": 43,
+                "points": 456,
+                "cutoff_points": 743,
+                "margin_vs_top40": -287,
+                "in_top40": false
+              }
+            },
+            "wt_2026_27": {
+              "stops_count": 3,
+              "stops": [
+                "Montreal",
+                "Seoul",
+                "Vancouver"
+              ],
+              "distances_entered": [
+                500,
+                1000,
+                1500
+              ],
+              "relay_starts": 8,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "form_momentum": 0.2979,
+            "recent_highlight": "国内甲组 衡水 1500m #1",
+            "skills": {
+              "500": {
+                "mu": 1.0102,
+                "sigma": 1.0242
+              },
+              "1000": {
+                "mu": 1.0254,
+                "sigma": 1.0172
+              },
+              "1500": {
+                "mu": 0.8263,
+                "sigma": 1.1352
+              }
+            },
+            "main_roster_prob": 1,
+            "entry_prob_matrix": {
+              "500": 0.558,
+              "1000": 0.383,
+              "1500": 0.37,
+              "relay": 0.885
+            },
+            "value_scores": {
+              "500": 0.0492,
+              "1000": 0.0587,
+              "1500": 0.0694,
+              "relay": 0.5114,
+              "form": 0.2979
+            },
+            "roster_tier": "core",
+            "specialty_tag": "all_round",
+            "specialty_label": "全能主力",
+            "recommended_entries": [
+              "500",
+              "1000",
+              "relay"
+            ],
+            "status_note": "本季WT 3站 · 500m #24"
+          },
           {
             "athlete_id": "skr-6784",
             "name_en": "Long SUN",
@@ -9291,24 +9434,24 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 13,
-                "points": 7838,
-                "cutoff_points": 606,
-                "margin_vs_top40": 7232,
+                "rank": 15,
+                "points": 6396,
+                "cutoff_points": 631,
+                "margin_vs_top40": 5765,
                 "in_top40": true
               },
               "1000": {
-                "rank": 21,
-                "points": 5150,
-                "cutoff_points": 541,
-                "margin_vs_top40": 4609,
+                "rank": 24,
+                "points": 3453,
+                "cutoff_points": 874,
+                "margin_vs_top40": 2579,
                 "in_top40": true
               },
               "1500": {
-                "rank": 6,
-                "points": 13312,
-                "cutoff_points": 485,
-                "margin_vs_top40": 12827,
+                "rank": 8,
+                "points": 11214,
+                "cutoff_points": 743,
+                "margin_vs_top40": 10471,
                 "in_top40": true
               }
             },
@@ -9346,10 +9489,10 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.625,
-              "1000": 0.547,
-              "1500": 0.54,
-              "relay": 0.959
+              "500": 0.629,
+              "1000": 0.549,
+              "1500": 0.541,
+              "relay": 0.962
             },
             "value_scores": {
               "500": 0.0681,
@@ -9366,7 +9509,7 @@
               "1500",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #6"
+            "status_note": "本季WT 3站 · 1500m #8"
           },
           {
             "athlete_id": "skr-8078",
@@ -9387,24 +9530,24 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 26,
-                "points": 2042,
-                "cutoff_points": 606,
-                "margin_vs_top40": 1436,
+                "rank": 22,
+                "points": 3464,
+                "cutoff_points": 631,
+                "margin_vs_top40": 2833,
                 "in_top40": true
               },
               "1000": {
-                "rank": 35,
+                "rank": 40,
                 "points": 874,
-                "cutoff_points": 541,
-                "margin_vs_top40": 333,
+                "cutoff_points": 874,
+                "margin_vs_top40": 0,
                 "in_top40": true
               },
               "1500": {
-                "rank": 20,
-                "points": 3995,
-                "cutoff_points": 485,
-                "margin_vs_top40": 3510,
+                "rank": 11,
+                "points": 8187,
+                "cutoff_points": 743,
+                "margin_vs_top40": 7444,
                 "in_top40": true
               }
             },
@@ -9442,10 +9585,10 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.739,
-              "1000": 0.331,
+              "500": 0.74,
+              "1000": 0.332,
               "1500": 0.578,
-              "relay": 0.917
+              "relay": 0.92
             },
             "value_scores": {
               "500": 0.08,
@@ -9462,102 +9605,7 @@
               "1500",
               "relay"
             ],
-            "status_note": "本季WT 3站 · 1500m #20"
-          },
-          {
-            "athlete_id": "skr-20586",
-            "name_en": "Zixia ZHANG",
-            "name_zh": "张子夏",
-            "age_group": "DUAL_ELIGIBLE",
-            "is_dual_eligible": true,
-            "data_sources": [
-              "Senior",
-              "JWC",
-              "Domestic"
-            ],
-            "qualification_path": "WT_2026_27",
-            "world_ranking_top40_distances": [
-              500,
-              1000
-            ],
-            "world_ranks": {
-              "500": {
-                "rank": 27,
-                "points": 1942,
-                "cutoff_points": 606,
-                "margin_vs_top40": 1336,
-                "in_top40": true
-              },
-              "1000": {
-                "rank": 33,
-                "points": 1028,
-                "cutoff_points": 541,
-                "margin_vs_top40": 487,
-                "in_top40": true
-              },
-              "1500": {
-                "rank": 41,
-                "points": 456,
-                "cutoff_points": 485,
-                "margin_vs_top40": -29,
-                "in_top40": false
-              }
-            },
-            "wt_2026_27": {
-              "stops_count": 3,
-              "stops": [
-                "Montreal",
-                "Seoul",
-                "Vancouver"
-              ],
-              "distances_entered": [
-                500,
-                1000,
-                1500
-              ],
-              "relay_starts": 8,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "form_momentum": 0.2979,
-            "recent_highlight": "国内甲组 衡水 1500m #1",
-            "skills": {
-              "500": {
-                "mu": 1.0102,
-                "sigma": 1.0242
-              },
-              "1000": {
-                "mu": 1.0254,
-                "sigma": 1.0172
-              },
-              "1500": {
-                "mu": 0.8263,
-                "sigma": 1.1352
-              }
-            },
-            "main_roster_prob": 0.999,
-            "entry_prob_matrix": {
-              "500": 0.556,
-              "1000": 0.383,
-              "1500": 0.368,
-              "relay": 0.886
-            },
-            "value_scores": {
-              "500": 0.0492,
-              "1000": 0.0587,
-              "1500": 0.0694,
-              "relay": 0.5114,
-              "form": 0.2979
-            },
-            "roster_tier": "core",
-            "specialty_tag": "all_round",
-            "specialty_label": "全能主力",
-            "recommended_entries": [
-              "500",
-              "1000",
-              "relay"
-            ],
-            "status_note": "本季WT 3站 · 500m #27"
+            "status_note": "本季WT 3站 · 1500m #11"
           },
           {
             "athlete_id": "skr-8157",
@@ -9575,17 +9623,17 @@
             ],
             "world_ranks": {
               "1000": {
-                "rank": 46,
+                "rank": 52,
                 "points": 410,
-                "cutoff_points": 541,
-                "margin_vs_top40": -131,
+                "cutoff_points": 874,
+                "margin_vs_top40": -464,
                 "in_top40": false
               },
               "1500": {
-                "rank": 14,
-                "points": 5193,
-                "cutoff_points": 485,
-                "margin_vs_top40": 4708,
+                "rank": 13,
+                "points": 5462,
+                "cutoff_points": 743,
+                "margin_vs_top40": 4719,
                 "in_top40": true
               }
             },
@@ -9620,12 +9668,12 @@
                 "sigma": 1.0149
               }
             },
-            "main_roster_prob": 0.858,
+            "main_roster_prob": 0.877,
             "entry_prob_matrix": {
               "500": 0.345,
-              "1000": 0.231,
-              "1500": 0.29,
-              "relay": 0.478
+              "1000": 0.233,
+              "1500": 0.289,
+              "relay": 0.486
             },
             "value_scores": {
               "500": 0.0219,
@@ -9638,7 +9686,7 @@
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
             "recommended_entries": [],
-            "status_note": "本季WT 3站 · 1500m #14"
+            "status_note": "本季WT 3站 · 1500m #13"
           },
           {
             "athlete_id": "skr-4167",
@@ -9656,17 +9704,17 @@
             ],
             "world_ranks": {
               "500": {
-                "rank": 32,
-                "points": 950,
-                "cutoff_points": 606,
-                "margin_vs_top40": 344,
+                "rank": 33,
+                "points": 1282,
+                "cutoff_points": 631,
+                "margin_vs_top40": 651,
                 "in_top40": true
               },
               "1000": {
-                "rank": 92,
-                "points": 33,
-                "cutoff_points": 541,
-                "margin_vs_top40": -508,
+                "rank": 43,
+                "points": 569,
+                "cutoff_points": 874,
+                "margin_vs_top40": -305,
                 "in_top40": false
               }
             },
@@ -9701,12 +9749,12 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.656,
+            "main_roster_prob": 0.68,
             "entry_prob_matrix": {
-              "500": 0.472,
-              "1000": 0.255,
-              "1500": 0.061,
-              "relay": 0.471
+              "500": 0.483,
+              "1000": 0.263,
+              "1500": 0.063,
+              "relay": 0.483
             },
             "value_scores": {
               "500": 0.0561,
@@ -9722,7 +9770,7 @@
               "500",
               "relay"
             ],
-            "status_note": "500m #32 保席临界"
+            "status_note": "500m #33 保席临界"
           },
           {
             "athlete_id": "skr-18320",
@@ -9740,17 +9788,17 @@
             ],
             "world_ranks": {
               "1000": {
-                "rank": 32,
-                "points": 1211,
-                "cutoff_points": 541,
-                "margin_vs_top40": 670,
+                "rank": 37,
+                "points": 1229,
+                "cutoff_points": 874,
+                "margin_vs_top40": 355,
                 "in_top40": true
               },
               "1500": {
-                "rank": 70,
-                "points": 130,
-                "cutoff_points": 485,
-                "margin_vs_top40": -355,
+                "rank": 59,
+                "points": 206,
+                "cutoff_points": 743,
+                "margin_vs_top40": -537,
                 "in_top40": false
               }
             },
@@ -9785,12 +9833,12 @@
                 "sigma": 1.0391
               }
             },
-            "main_roster_prob": 0.34,
+            "main_roster_prob": 0.292,
             "entry_prob_matrix": {
-              "500": 0.201,
-              "1000": 0.15,
-              "1500": 0.069,
-              "relay": 0.244
+              "500": 0.181,
+              "1000": 0.135,
+              "1500": 0.062,
+              "relay": 0.217
             },
             "value_scores": {
               "500": 0.0206,
@@ -9806,7 +9854,7 @@
               "1000",
               "1500"
             ],
-            "status_note": "1000m #32 保席临界"
+            "status_note": "1000m #37 保席临界"
           },
           {
             "athlete_id": "dom-tmp-8f6d895133",
@@ -9844,12 +9892,12 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.045,
+            "main_roster_prob": 0.047,
             "entry_prob_matrix": {
-              "500": 0.018,
-              "1000": 0.034,
-              "1500": 0.033,
-              "relay": 0.012
+              "500": 0.019,
+              "1000": 0.035,
+              "1500": 0.034,
+              "relay": 0.013
             },
             "value_scores": {
               "500": 0.0147,
@@ -9902,11 +9950,11 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.026,
+            "main_roster_prob": 0.027,
             "entry_prob_matrix": {
               "500": 0.004,
-              "1000": 0.018,
-              "1500": 0.019,
+              "1000": 0.019,
+              "1500": 0.02,
               "relay": 0.005
             },
             "value_scores": {
@@ -10020,12 +10068,12 @@
                 "sigma": 1.75
               }
             },
-            "main_roster_prob": 0.011,
+            "main_roster_prob": 0.012,
             "entry_prob_matrix": {
-              "500": 0.005,
+              "500": 0.006,
               "1000": 0.007,
-              "1500": 0.005,
-              "relay": 0.003
+              "1500": 0.006,
+              "relay": 0.004
             },
             "value_scores": {
               "500": 0.0376,
@@ -10412,8 +10460,8 @@
               "skr-8078",
               "skr-8157"
             ],
-            "frequency": 0.537,
-            "avg_objective": 1.3868,
+            "frequency": 0.578,
+            "avg_objective": 1.3841,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -10445,8 +10493,8 @@
               "skr-8078",
               "skr-8157"
             ],
-            "frequency": 0.233,
-            "avg_objective": 1.4061,
+            "frequency": 0.206,
+            "avg_objective": 1.4158,
             "modal_entries": {
               "500": [
                 "skr-18320",
@@ -10458,6 +10506,7 @@
                 "skr-6784"
               ],
               "1500": [
+                "skr-6784",
                 "skr-8078"
               ],
               "relay": [
@@ -10477,11 +10526,12 @@
               "skr-6784",
               "skr-8078"
             ],
-            "frequency": 0.087,
-            "avg_objective": 1.5686,
+            "frequency": 0.07,
+            "avg_objective": 1.6085,
             "modal_entries": {
               "500": [
                 "skr-18320",
+                "skr-20586",
                 "skr-4167",
                 "skr-8078"
               ],
@@ -10510,7 +10560,7 @@
             "skr-8078",
             "skr-8157"
           ],
-          "frequency": 0.537,
+          "frequency": 0.578,
           "objective_at_mean": 0.875,
           "entries": {
             "500": [
@@ -10588,7 +10638,7 @@
             "name_en": "Kerui SONG",
             "name_zh": "宋柯睿",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.34,
+            "main_roster_prob": 0.292,
             "primary_replacement_for": "skr-4167",
             "marginal_loss": 0.0471,
             "is_dual_eligible": false,
@@ -10602,17 +10652,17 @@
             ],
             "world_ranks": {
               "1000": {
-                "rank": 32,
-                "points": 1211,
-                "cutoff_points": 541,
-                "margin_vs_top40": 670,
+                "rank": 37,
+                "points": 1229,
+                "cutoff_points": 874,
+                "margin_vs_top40": 355,
                 "in_top40": true
               },
               "1500": {
-                "rank": 70,
-                "points": 130,
-                "cutoff_points": 485,
-                "margin_vs_top40": -355,
+                "rank": 59,
+                "points": 206,
+                "cutoff_points": 743,
+                "margin_vs_top40": -537,
                 "in_top40": false
               }
             },
@@ -10633,7 +10683,7 @@
             },
             "recent_highlight": "国内甲组 衡水 1000m #5",
             "upside_score": 0.1601,
-            "versatility_score": 0.5001,
+            "versatility_score": 0.4521,
             "roster_tier": "cut",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
@@ -10641,7 +10691,7 @@
               "1000",
               "1500"
             ],
-            "status_note": "1000m #32 保席临界"
+            "status_note": "1000m #37 保席临界"
           },
           {
             "reserve_rank": 2,
@@ -10649,7 +10699,7 @@
             "name_en": "于翰琦",
             "name_zh": "于翰琦",
             "role_tag": "mid_long",
-            "main_roster_prob": 0.045,
+            "main_roster_prob": 0.047,
             "primary_replacement_for": "skr-8157",
             "marginal_loss": -0.0013,
             "is_dual_eligible": false,
@@ -10669,7 +10719,7 @@
             },
             "recent_highlight": "国内甲组 七台河 1000m #2",
             "upside_score": 0.3325,
-            "versatility_score": 0.3775,
+            "versatility_score": 0.3795,
             "roster_tier": "reserve",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
@@ -10684,7 +10734,7 @@
             "name_en": "朱昱璋",
             "name_zh": "朱昱璋",
             "role_tag": "mid_long",
-            "main_roster_prob": 0.026,
+            "main_roster_prob": 0.027,
             "primary_replacement_for": "skr-8157",
             "marginal_loss": -0.0015,
             "is_dual_eligible": false,
@@ -10704,7 +10754,7 @@
             },
             "recent_highlight": "国内甲组 七台河 1000m #3",
             "upside_score": 0.3279,
-            "versatility_score": 0.3539,
+            "versatility_score": 0.3549,
             "roster_tier": "reserve",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
