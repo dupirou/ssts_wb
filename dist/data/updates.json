@@ -725,9 +725,19 @@
         {
           "name": "People's Republic of China",
           "rank": 1
+        },
+        {
+          "name": "People's Republic of China",
+          "rank": 1
         }
       ],
       "podium": [
+        {
+          "rank": 1,
+          "name": "中国队",
+          "country": "CHN",
+          "name_latin": "People's Republic of China"
+        },
         {
           "rank": 1,
           "name": "中国队",
@@ -739,6 +749,17 @@
           "name": "韩国队",
           "country": "KOR",
           "name_latin": "Republic of Korea"
+        },
+        {
+          "rank": 2,
+          "name": "韩国队",
+          "country": "KOR",
+          "name_latin": "Republic of Korea"
+        },
+        {
+          "rank": 3,
+          "name": "Ain2",
+          "country": "AIN2"
         },
         {
           "rank": 3,
@@ -775,6 +796,11 @@
           "name": "张柏浩",
           "rank": 5,
           "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "孙龙",
+          "rank": 4,
+          "name_latin": "Long SUN"
         },
         {
           "name": "孙龙",
@@ -835,7 +861,7 @@
       "distance_m": 3000,
       "format": "relay",
       "kind": "groups",
-      "heats": 2,
+      "heats": 3,
       "china": [
         "People's Republic of China"
       ]
@@ -883,7 +909,7 @@
       "distance_m": 1500,
       "format": "individual",
       "kind": "groups",
-      "heats": 2,
+      "heats": 3,
       "china": [
         "张柏浩",
         "孙龙"
