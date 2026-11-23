@@ -1,9 +1,23 @@
 {
   "schema_version": 1,
   "season": "2026-2027",
-  "generated_at": "2026-11-21T07:42:20+00:00",
+  "generated_at": "2026-11-22T16:30:22+00:00",
   "config_version": "2026.27.1",
   "penalty_source": "montreal.json",
+  "penalty_target_stop": "seoul",
+  "wrd_as_of": {
+    "men_500": "2026-11-21T07:42:09+00:00",
+    "men_1000": "2026-11-21T07:42:09+00:00",
+    "men_1500": "2026-11-21T07:42:09+00:00",
+    "women_500": "2026-11-21T07:42:09+00:00",
+    "women_1000": "2026-11-21T07:42:09+00:00",
+    "women_1500": "2026-11-21T07:42:09+00:00"
+  },
+  "relay_as_of": {
+    "men_5000m": "2026-11-21T07:42:09+00:00",
+    "women_3000m": "2026-11-21T07:42:09+00:00",
+    "mixed_2000m": "2026-11-21T07:42:09+00:00"
+  },
   "wc_2027_verification": {
     "checked_cells": 177,
     "mismatch_count": 0,
@@ -2268,7 +2282,7 @@
     },
     "next_stop_penalty_bans": [
       {
-        "athlete_id": "ath-295c31a30610e64d9499",
+        "athlete_id": "skr-5474",
         "name": "PELLETIER Mathieu",
         "country": "CAN",
         "gender": "men",
@@ -2286,7 +2300,7 @@
     ],
     "one_away_from_ban_warnings": [
       {
-        "athlete_id": "ath-08caea4ad943373c94ab",
+        "athlete_id": "skr-8080",
         "name": "ZHANG Chutong",
         "country": "CHN",
         "gender": "women",
@@ -2300,7 +2314,7 @@
         }
       },
       {
-        "athlete_id": "ath-2f5775133539f6a7e0f7",
+        "athlete_id": "skr-5998",
         "name": "ROUSSEL Felix",
         "country": "CAN",
         "gender": "men",
@@ -2314,7 +2328,7 @@
         }
       },
       {
-        "athlete_id": "ath-32780e84744937993fa2",
+        "athlete_id": "skr-457",
         "name": "BACHAND Ann-Sophie",
         "country": "CAN",
         "gender": "women",
@@ -2327,7 +2341,7 @@
         }
       },
       {
-        "athlete_id": "ath-3bd809dcd4f058d4b540",
+        "athlete_id": "skr-1566",
         "name": "DESMET Hanne",
         "country": "BEL",
         "gender": "women",
@@ -2341,7 +2355,7 @@
         }
       },
       {
-        "athlete_id": "ath-513b3ec2cc3a073a75d3",
+        "athlete_id": "skr-6152",
         "name": "SANTOS-GRISWOLD Kristen",
         "country": "USA",
         "gender": "women",
@@ -2355,7 +2369,7 @@
         }
       },
       {
-        "athlete_id": "ath-623779beeda587847aba",
+        "athlete_id": "skr-314",
         "name": "ANDERMANN Nicolas",
         "country": "AUT",
         "gender": "men",
@@ -2369,7 +2383,7 @@
         }
       },
       {
-        "athlete_id": "ath-64a844d676fa24746b6b",
+        "athlete_id": "skr-5039",
         "name": "NASSEN Aibek",
         "country": "KAZ",
         "gender": "men",
@@ -2382,7 +2396,7 @@
         }
       },
       {
-        "athlete_id": "ath-7526110b176497878d3f",
+        "athlete_id": "skr-2262",
         "name": "GONG Li",
         "country": "CHN",
         "gender": "women",
@@ -2395,7 +2409,7 @@
         }
       },
       {
-        "athlete_id": "ath-bf41d212ebfe992891e6",
+        "athlete_id": "skr-4302",
         "name": "LIU Justin",
         "country": "USA",
         "gender": "men",
@@ -2408,7 +2422,7 @@
         }
       },
       {
-        "athlete_id": "ath-bf93d274dece11d17ae7",
+        "athlete_id": "skr-5703",
         "name": "PREVITALI Lorenzo",
         "country": "ITA",
         "gender": "men",
@@ -2422,7 +2436,7 @@
         }
       },
       {
-        "athlete_id": "ath-e7991c93e1479da1d3f5",
+        "athlete_id": "skr-3785",
         "name": "KRUZBERGS Roberts",
         "country": "LAT",
         "gender": "men",
@@ -2436,7 +2450,7 @@
         }
       },
       {
-        "athlete_id": "ath-ee4b7a824eb8cb36d140",
+        "athlete_id": "skr-18274",
         "name": "SOLOVIOVA Kateryna",
         "country": "GER",
         "gender": "women",

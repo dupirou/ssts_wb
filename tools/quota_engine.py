@@ -560,12 +560,21 @@ def compute_wt_2026_27_quotas(
             or athlete_ranks_by_name.get((row.get('country') or '', _name_key(row.get('name'))))
             or {}
         )
-        # Rank distances by best (lowest) World Ranking rank; fallback deterministic order 500/1000/1500
-        ordered_dists = sorted(DIST_KEYS, key=lambda dk: (ranks.get(dk, 9999), DIST_KEYS.index(dk)))
+        ordered_dists = sorted(ranks, key=ranks.get)
         blocked_n = _blocked_count_for_penalties(total, thresholds) if pen_enabled else 0
         blocked_dists = ordered_dists[:blocked_n]
+        if blocked_n == len(DIST_KEYS):
+            blocked_dists = list(DIST_KEYS)
+        elif blocked_n and (
+            len(ordered_dists) < blocked_n
+            or (
+                len(ordered_dists) > blocked_n
+                and ranks[ordered_dists[blocked_n - 1]] == ranks[ordered_dists[blocked_n]]
+            )
+        ):
+            blocked_dists = []
         rec = {
-            'athlete_id': aid,
+            'athlete_id': skr_id,
             'name': row.get('name'),
             'country': row.get('country'),
             'gender': row.get('gender'),
@@ -574,9 +583,10 @@ def compute_wt_2026_27_quotas(
             'blocked_distances': blocked_dists,
             'world_ranks': ranks,
         }
-        if blocked_n > 0:
+        previous_total = row.get('previous_total', 0)
+        if blocked_n > _blocked_count_for_penalties(previous_total, thresholds):
             penalty_bans.append(rec)
-        elif total == 2:
+        elif pen_enabled and any(total + 1 == int(t['sanctions']) for t in thresholds):
             penalty_warnings.append(rec)
 
     return {
@@ -745,13 +755,13 @@ def verify_wc_2027_against_comm_2805(
     }
 
 
-def load_latest_penalties(penalties_dir: Path = ROOT / 'data/penalties') -> tuple[str | None, list[dict]]:
+def load_latest_penalties(penalties_dir: Path = ROOT / 'data/penalties') -> tuple[str | None, list[dict], str | None]:
     """Load the latest verified C98P cumulative penalties snapshot by completed_events."""
     best_path = None
     best_data = None
     best_n = -1
     if not penalties_dir.exists():
-        return None, []
+        return None, [], None
     for p in sorted(penalties_dir.glob('*.json')):
         d = json.loads(p.read_text(encoding='utf-8'))
         n = int(d.get('completed_events', 0))
@@ -760,8 +770,12 @@ def load_latest_penalties(penalties_dir: Path = ROOT / 'data/penalties') -> tupl
             best_path = p.name
             best_data = d
     if not best_data:
-        return None, []
-    return best_path, best_data.get('official', [])
+        return None, [], None
+    rows = best_data.get('official', [])
+    for row in rows:
+        row['previous_total'] = sum(row['station_counts'][: best_n - 1])
+    stations = json.loads((ROOT / 'data/stations.json').read_text())['stations']
+    return best_path, rows, stations[best_n]['id'] if best_n < len(stations) else None
 
 
 def build_quotas_snapshot(
@@ -769,70 +783,32 @@ def build_quotas_snapshot(
     cfg_path: Path = DEFAULT_CONFIG_PATH,
     worlds_2026_pdf: Path | None = None,
     comm_2805_pdf: Path | None = None,
-    wt_rankings_path: Path = ROOT / 'data/world_tour_rankings.json',
-    live_standings_path: Path | None = None,
+    live_standings_path: Path = ROOT / 'data/quota_roster/standings_2026_27.json',
     out_path: Path = ROOT / 'data/quota_roster/quotas_2026_27.json',
 ) -> dict:
     """Build deterministic 2026-27 WT & 2027 WC quota snapshot JSON."""
     cfg = load_rules_config(cfg_path)
 
     # 1. 2027 WC Individual quotas
-    wc_verification = None
-    if worlds_2026_pdf and worlds_2026_pdf.exists() and comm_2805_pdf and comm_2805_pdf.exists():
-        wc_verification = verify_wc_2027_against_comm_2805(worlds_2026_pdf, comm_2805_pdf, cfg)
-        wc_individual = wc_verification['computed_quotas']
-    elif comm_2805_pdf and comm_2805_pdf.exists():
-        official = extract_comm_2805_wc_quotas_from_pdf(comm_2805_pdf)
-        wc_individual = {'women': {}, 'men': {}}
-        for gender in ('women', 'men'):
-            for c, dmap in official[gender].items():
-                wc_individual[gender][c] = {
-                    'country': c,
-                    'gender': gender,
-                    'slots_500m': dmap['500m'],
-                    'slots_1000m': dmap['1000m'],
-                    'slots_1500m': dmap['1500m'],
-                    'earned_500m': dmap['500m'],
-                    'earned_1000m': dmap['1000m'],
-                    'earned_1500m': dmap['1500m'],
-                    'host_upgraded_distances': [],
-                }
-    else:
-        # Fallback to verified CHN status in config
-        chn_cfg = cfg['world_championships_2027']['china_chn_verified_status']['individual_quotas']
-        wc_individual = {
-            gender: {
-                'CHN': {
-                    'country': 'CHN',
-                    'gender': gender,
-                    'slots_500m': chn_cfg[gender]['500m'],
-                    'slots_1000m': chn_cfg[gender]['1000m'],
-                    'slots_1500m': chn_cfg[gender]['1500m'],
-                    'earned_500m': chn_cfg[gender]['500m'],
-                    'earned_1000m': chn_cfg[gender]['1000m'],
-                    'earned_1500m': chn_cfg[gender]['1500m'],
-                    'host_upgraded_distances': [],
-                }
-            }
-            for gender in ('women', 'men')
-        }
+    baseline = json.loads((ROOT / 'config/wc_2027_individual_quotas.json').read_text(encoding='utf-8'))
+    wc_individual = baseline['individual']
+    wc_verification = baseline['verification']
+    if worlds_2026_pdf and comm_2805_pdf and worlds_2026_pdf.exists() and comm_2805_pdf.exists():
+        check = verify_wc_2027_against_comm_2805(worlds_2026_pdf, comm_2805_pdf, cfg)
+        if not check['exact_match'] or check['computed_quotas'] != wc_individual:
+            raise ValueError('Worlds quota baseline differs from official verification')
 
-    # 2. World Ranking (WRD) + WT Relay (WCD) from live standings cache if available, else local rankings fallback
-    wrd_by_dist: dict[tuple[str, str], list[dict]] = {}
-    relay_standings: dict[str, list[dict]] = {}
-    if live_standings_path and live_standings_path.exists():
-        live = json.loads(live_standings_path.read_text(encoding='utf-8'))
-        for tbl in live.get('world_rankings_individual', []):
-            wrd_by_dist[(tbl['gender'], _norm_dist_key(tbl['distance_m']))] = tbl['items']
-        for key, items in (live.get('world_tour_relay_standings') or {}).items():
-            relay_standings[key] = items
-    elif wt_rankings_path.exists():
-        wtr = json.loads(wt_rankings_path.read_text(encoding='utf-8'))
-        for tbl in wtr.get('tables', []):
-            wrd_by_dist[(tbl['gender'], _norm_dist_key(tbl['distance_m']))] = tbl['items']
-
-    wc_relays = compute_wc_2027_relay_quotas(relay_standings, cfg) if relay_standings else {}
-
+    live = json.loads(live_standings_path.read_text(encoding='utf-8'))
+    wrd_by_dist = {
+        (t['gender'], _norm_dist_key(t['distance_m'])): t['items'] for t in live['world_rankings_individual']
+    }
+    required = {(g, d) for g in ('women', 'men') for d in DIST_KEYS}
+    if set(wrd_by_dist) != required or not all(wrd_by_dist.values()):
+        raise ValueError('Expected six complete WRD individual standings')
+    relay_standings = live['world_tour_relay_standings']
+    if set(relay_standings) != {'women_3000m', 'men_5000m', 'mixed_2000m'} or not all(relay_standings.values()):
+        raise ValueError('Expected three WCD relay standings')
+    wc_relays = compute_wc_2027_relay_quotas(relay_standings, cfg)
     # Attach relay flags + max_roster_size to every country in wc_individual
     w_rel_qual = set(wc_relays.get('women_3000m', {}).get('qualified_countries', []))
     m_rel_qual = set(wc_relays.get('men_5000m', {}).get('qualified_countries', []))
@@ -840,8 +816,8 @@ def build_quotas_snapshot(
     for gender in ('women', 'men'):
         g_rel_set = w_rel_qual if gender == 'women' else m_rel_qual
         for country, row in wc_individual[gender].items():
-            has_g = country in g_rel_set if wc_relays else (country == 'CHN')
-            has_x = country in x_rel_qual if wc_relays else (country == 'CHN')
+            has_g = country in g_rel_set
+            has_x = country in x_rel_qual
             row['has_gender_relay'] = has_g
             row['has_mixed_relay'] = has_x
             row['max_roster_size'] = compute_wc_2027_max_roster(
@@ -852,7 +828,7 @@ def build_quotas_snapshot(
             )
 
     # 3. 2026-27 WT quotas + cumulative penalties
-    pen_source, pen_rows = load_latest_penalties()
+    pen_source, pen_rows, penalty_target = load_latest_penalties()
     wt_summary = compute_wt_2026_27_quotas(wrd_by_dist, pen_rows, cfg)
 
     payload = {
@@ -861,13 +837,13 @@ def build_quotas_snapshot(
         'generated_at': datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         'config_version': cfg['schema_version'],
         'penalty_source': pen_source,
-        'wc_2027_verification': {
-            'checked_cells': wc_verification['checked_cells'],
-            'mismatch_count': wc_verification['mismatch_count'],
-            'exact_match': wc_verification['exact_match'],
-        }
-        if wc_verification
-        else None,
+        'penalty_target_stop': penalty_target,
+        'wrd_as_of': {
+            t['gender'] + '_' + str(t['distance_m']): t.get('as_of', live['fetched_at'])
+            for t in live['world_rankings_individual']
+        },
+        'relay_as_of': live.get('relay_as_of', {key: live['fetched_at'] for key in relay_standings}),
+        'wc_2027_verification': wc_verification,
         'world_championships_2027': {
             'individual_and_roster': wc_individual,
             'relays': wc_relays,
@@ -913,7 +889,7 @@ def main():
         cfg_path=args.config,
         worlds_2026_pdf=args.worlds_2026_pdf if args.worlds_2026_pdf.exists() else None,
         comm_2805_pdf=args.comm_2805_pdf if args.comm_2805_pdf.exists() else None,
-        live_standings_path=args.live_standings if args.live_standings.exists() else None,
+        live_standings_path=args.live_standings,
         out_path=args.out,
     )
     print(f'Wrote {args.out}')

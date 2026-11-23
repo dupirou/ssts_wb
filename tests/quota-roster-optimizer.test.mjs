@@ -490,7 +490,13 @@ test('Active WT squad tier classification, cut-skater reserve priority, and bubb
     assert.ok(['core', 'bubble', 'cut', 'reserve', 'pool'].includes(c.roster_tier));
     assert.ok(['sprint_relay', 'mid_long', 'all_round'].includes(c.specialty_tag));
     assert.ok(['短距离 / 接力', '中长距离', '全能主力'].includes(c.specialty_label));
-    assert.ok(Array.isArray(c.recommended_entries) && c.recommended_entries.length >= 1);
+    if (wcRes.preferred_main_roster.athlete_ids.includes(c.athlete_id)) {
+      const assigned = Object.entries(wcRes.preferred_main_roster.entries)
+        .filter(([, ids]) => ids.includes(c.athlete_id)).map(([distance]) => distance);
+      assert.deepEqual(c.recommended_entries, assigned);
+    } else {
+      assert.ok(c.recommended_entries.length >= 1);
+    }
     assert.equal(typeof c.status_note, 'string');
     assert.ok(c.status_note.length > 0);
   }

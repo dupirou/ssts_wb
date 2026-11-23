@@ -338,6 +338,23 @@ def collect_event_classifications(body, config, api_fetcher, heats, problems):
     return results
 
 
+def unique_final_heats(items):
+    """ISU sometimes publishes the same final under both Final and Finals, with distinct IDs."""
+    finals = {}
+    unique = []
+    for heat in items:
+        if heat['id'].startswith('isu-heat-') and heat.get('round') == 'final' and heat.get('source_start'):
+            key = (heat['gender'], heat['distance_m'], heat['format'], heat['group'], heat['source_start'])
+            # Preserve re-skates and revisions with different lineups, times, ranks or publication status.
+            details = {k: v for k, v in heat.items() if k not in ('id', 'source_url', 'round_label')}
+            copies = finals.setdefault(key, [])
+            if details in copies:
+                continue
+            copies.append(details)
+        unique.append(heat)
+    return unique
+
+
 def update_dataset(dataset, items, urls, now, published_at=None):
     if not items:
         return
@@ -431,12 +448,10 @@ def sync_event(event_id, config, fetcher=fetch, now=None, directory=data.DATA, a
             replaced_sources = {p['source_url'] for p in proposed}
             merged = {p['id']: p for p in snapshot[kind]['items'] if p['source_url'] not in replaced_sources}
             merged.update({p['id']: p for p in proposed})
-            update_dataset(
-                snapshot[kind],
-                sorted(merged.values(), key=lambda i: i['id']),
-                [p['source_url'] for p in merged.values()],
-                now,
-            )
+            items = sorted(merged.values(), key=lambda i: i['id'])
+            if kind == 'rounds':
+                items = unique_final_heats(items)
+            update_dataset(snapshot[kind], items, [p['source_url'] for p in items], now)
         elif snapshot[kind]['items']:
             snapshot[kind].update(
                 update_status='error', error='Previously published data absent; retained last snapshot'

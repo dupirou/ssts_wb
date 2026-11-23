@@ -84,7 +84,7 @@ class JuniorSourceCache:
         if not isu_transport.allowed(url, HOSTS):
             raise ValueError(f'Unexpected ISU host: {url}')
         path = self._path_for(url, form, json_payload)
-        if path.exists():
+        if path.exists() and (self.offline or json_payload is None):
             return path.read_bytes()
         if self.offline:
             raise FileNotFoundError(f'Cache miss in offline mode: {url} form={form} json={json_payload}')
@@ -515,6 +515,8 @@ def sync_standings_2026_27(cache: JuniorSourceCache, season_id: int = 47) -> dic
             obj = cache.api_json(
                 'get-world-standings-fsk-detail-skater-single', {'world_standings_list_fsk_id': rid, 'page': page}
             )
+            if obj.get('current_page') != page or (obj.get('detail') or {}).get('world_standings_list_fsk_id') != rid:
+                return []
             for row in obj.get('data') or []:
                 sid = row.get('skaters_id')
                 sk = row.get('skaters') or {}
@@ -534,6 +536,8 @@ def sync_standings_2026_27(cache: JuniorSourceCache, season_id: int = 47) -> dic
                 )
             if page >= int(obj.get('total_page') or 1):
                 break
+        if page != int(obj.get('total_page') or 1) or len(items) != obj.get('total_items'):
+            return []
         return items
 
     def fetch_team_rows(meta: dict) -> list[dict]:
@@ -551,6 +555,8 @@ def sync_standings_2026_27(cache: JuniorSourceCache, season_id: int = 47) -> dic
                     'get-world-standings-fsk-detail-skater-single',
                     {'world_standings_list_fsk_id': rid, 'page': page},
                 )
+            if obj.get('current_page') != page or (obj.get('detail') or {}).get('world_standings_list_fsk_id') != rid:
+                return []
             for row in obj.get('data') or []:
                 st = row.get('skaters_team') or row.get('skaters') or {}
                 team_name = st.get('full_name') or st.get('name') or ''
@@ -571,6 +577,8 @@ def sync_standings_2026_27(cache: JuniorSourceCache, season_id: int = 47) -> dic
                 )
             if page >= int(obj.get('total_page') or 1):
                 break
+        if page != int(obj.get('total_page') or 1) or len(items) != obj.get('total_items'):
+            return []
         return items
 
     wrd_individual = []
@@ -742,10 +750,10 @@ def sync_all(
     # 2. Fetch 2026/27 standings (WRD + WT Relay WCD + JWC WCD)
     stations_cfg = json.loads((ROOT / 'data/stations.json').read_text(encoding='utf-8'))
     season_id = int(stations_cfg.get('world_tour_standings_season_id', 47))
-    standings = sync_standings_2026_27(cache, season_id=season_id)
-    (out_dir / 'standings_2026_27.json').write_text(
-        json.dumps(standings, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
-    )
+    standings_path = out_dir / 'standings_2026_27.json'
+    previous = json.loads(standings_path.read_text()) if standings_path.exists() else None
+    standings = merge_standings(previous, sync_standings_2026_27(cache, season_id=season_id))
+    standings_path.write_text(json.dumps(standings, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
     # 3. Merge CHN profiles (Senior + Junior) & fetch official ISU birth dates
     chn_profiles = collect_senior_chn_slugs(cache, standings)
@@ -878,6 +886,69 @@ def sync_all(
     }
 
 
+def merge_standings(previous, fresh):
+    """Replace a ranking only after its full table arrives; keep each table's data date."""
+    previous = previous or {}
+    merged = dict(fresh)
+
+    def complete(rows, identity):
+        return (
+            bool(rows)
+            and all(
+                row.get(identity)
+                and row.get('country')
+                and isinstance(row.get('rank'), int)
+                and row['rank'] > 0
+                and isinstance(row.get('points'), (int, float))
+                for row in rows
+            )
+            and len({r[identity] for r in rows}) == len(rows)
+        )
+
+    for section in ('world_rankings_individual', 'junior_world_cup_individual'):
+        key = lambda table: (table['gender'], table['distance_m'])
+        old = {key(t): t for t in previous.get(section, [])}
+        tables = {}
+        for table in fresh[section]:
+            k = key(table)
+            if k in tables:
+                raise ValueError(f'Duplicate {section} table: {k}')
+            if complete(table['items'], 'athlete_id'):
+                tables[k] = table
+        expected = [(g, d) for g in ('men', 'women') for d in (500, 1000, 1500)]
+        merged[section] = []
+        for k in expected:
+            current = tables.get(k)
+            prior = old.get(k)
+            if current is None and prior is None:
+                raise ValueError(f'Missing {section} table: {k}')
+            if current is None or (
+                prior and current['items'] == prior['items'] and current['list_id'] == prior['list_id']
+            ):
+                merged[section].append({**prior, 'as_of': prior.get('as_of', previous['fetched_at'])})
+            else:
+                merged[section].append({**current, 'as_of': fresh['fetched_at']})
+
+    relays = {}
+    dates = {}
+    for key in ('women_3000m', 'men_5000m', 'mixed_2000m'):
+        rows = fresh['world_tour_relay_standings'].get(key)
+        prior = previous.get('world_tour_relay_standings', {}).get(key)
+        if not complete(rows, 'country'):
+            if not prior:
+                raise ValueError(f'Missing relay standings: {key}')
+            rows = prior
+        relays[key] = rows
+        dates[key] = (
+            (previous.get('relay_as_of', {}).get(key) or previous.get('fetched_at'))
+            if rows == prior
+            else fresh['fetched_at']
+        )
+    merged['world_tour_relay_standings'] = relays
+    merged['relay_as_of'] = dates
+    return merged
+
+
 def sync_standings_only(
     *, cache_dir: Path = DEFAULT_CACHE, out_dir: Path = DEFAULT_OUT_DIR, delay: float = 0.25
 ) -> bool:
@@ -885,12 +956,11 @@ def sync_standings_only(
     out_path = out_dir / 'standings_2026_27.json'
     previous = json.loads(out_path.read_text(encoding='utf-8')) if out_path.exists() else None
     try:
-        cache = JuniorSourceCache(cache_dir, delay=delay, offline=False)
         stations_cfg = json.loads((ROOT / 'data/stations.json').read_text(encoding='utf-8'))
         season_id = int(stations_cfg.get('world_tour_standings_season_id', 47))
-        standings = sync_standings_2026_27(cache, season_id=season_id)
-        if not standings.get('world_rankings_individual'):
-            raise ValueError('No WRD individual tables returned')
+        cache = JuniorSourceCache(cache_dir, delay=delay, offline=False)
+        fresh = sync_standings_2026_27(cache, season_id=season_id)
+        standings = merge_standings(previous, fresh)
     except Exception as exc:
         print(
             f'::warning::2026/27 WRD standings not verified, retained last accepted snapshot: {exc}',

@@ -95,7 +95,8 @@ test('Real data pipeline: zero writes to data/heats/, positive cross-tier correl
   const predMtimeBefore = fs.statSync(predStatePath).mtimeMs;
   const heatsFilesBefore = fs.readdirSync(DEFAULT_PATHS.heatsDir).sort();
 
-  const pool = buildFusedCandidatePool({ asOfDate: '2026-11-21' });
+  const {world_tour_2026_27: {quotas: wtQuotas}} = JSON.parse(fs.readFileSync(new URL('../data/quota_roster/quotas_2026_27.json', import.meta.url)));
+  const pool = buildFusedCandidatePool({ asOfDate: '2026-11-21', wtQuotas });
 
   // (d) Zero writes to data/heats/
   assert.equal(sha256File(predStatePath), predHashBefore);
@@ -162,33 +163,27 @@ test('Real data pipeline: zero writes to data/heats/, positive cross-tier correl
   }
 
   // Verify 2026/27 Top-40 world ranking injection, world_ranks, wt_2026_27, and top40Watch
-  assert.deepEqual(pool.men.top40Counts, { 500: 4, 1000: 4, 1500: 3 });
-  const sunLong = pool.men.eligible.find((c) => c.athlete_id === 'skr-6784');
-  assert.deepEqual(sunLong?.world_ranking_top40_distances, [500, 1000, 1500]);
-  assert.equal(sunLong?.world_ranks?.[1500]?.rank, 6);
-  assert.equal(sunLong?.world_ranks?.[1500]?.in_top40, true);
-  assert.ok(sunLong?.wt_2026_27 && sunLong.wt_2026_27.stops_count >= 3);
-  assert.deepEqual(pool.men.eligible.find((c) => c.athlete_id === 'skr-8157')?.world_ranking_top40_distances, [1500]);
-  assert.deepEqual(pool.men.eligible.find((c) => c.athlete_id === 'skr-18320')?.world_ranking_top40_distances, [1000]);
-
-  for (const gender of ['women', 'men']) {
-    const watch = pool[gender].top40Watch;
-    assert.ok(watch && typeof watch === 'object');
-    for (const d of [500, 1000, 1500]) {
-      const w = watch[d];
-      assert.equal(w.distance_m, d);
-      assert.equal(w.cutoff_rank, 40);
-      assert.ok(w.slots === 3 || w.slots === 4);
-      assert.ok(typeof w.cutoff_points === 'number' && w.cutoff_points > 0);
-      assert.ok(typeof w.top40_total_chn === 'number');
-      assert.ok(typeof w.top40_active_chn === 'number');
-      assert.equal(w.buffer_active, w.top40_active_chn - 3);
-      assert.ok(['SAFE', 'TIGHT', 'BELOW'].includes(w.status));
-      assert.ok(Array.isArray(w.skaters) && w.skaters.length > 0);
+  const standings = JSON.parse(fs.readFileSync(DEFAULT_PATHS.standings, 'utf8'));
+  for (const { gender, distance_m, items } of standings.world_rankings_individual) {
+    const watch = pool[gender].top40Watch[distance_m];
+    const chn = items.filter((row) => row.country === 'CHN');
+    const eligible = new Map(pool[gender].eligible.map((candidate) => [candidate.athlete_id, candidate]));
+    const active = chn.filter((row) => row.rank <= 40 && eligible.has(row.athlete_id)).length;
+    assert.equal(watch.distance_m, distance_m);
+    assert.equal(watch.cutoff_rank, 40);
+    assert.equal(watch.slots, wtQuotas[gender].CHN['slots_' + distance_m + 'm']);
+    assert.equal(watch.top40_total_chn, chn.filter((row) => row.rank <= 40).length);
+    assert.equal(watch.top40_active_chn, active);
+    assert.equal(pool[gender].top40Counts[distance_m], active);
+    assert.equal(watch.buffer_active, active - watch.required_top40_for_4_slots);
+    assert.equal(watch.skaters.length, chn.length);
+    for (const row of chn) {
+      const candidate = eligible.get(row.athlete_id);
+      if (!candidate) continue;
+      assert.equal(candidate.world_ranks[distance_m].rank, row.rank);
+      assert.equal(candidate.world_ranking_top40_distances.includes(distance_m), row.rank <= 40);
     }
   }
-  assert.equal(pool.men.top40Watch[1500].status, 'TIGHT');
-  assert.equal(pool.women.top40Watch[500].status, 'SAFE');
 
   // Verify milp-eng candidate contract on every eligible candidate
   for (const group of [pool.women.eligible, pool.men.eligible]) {

@@ -68,7 +68,7 @@ function detectNextWtStop(stationsDoc, competitionsDir) {
     const officialCount = items.filter((h) => h.evidence === 'official_results').length;
     if (officialCount === 0) return s;
   }
-  return stationsDoc?.stations?.[stationsDoc.stations.length - 1] || null;
+  return null;
 }
 
 function buildBlockedMapForGender(penaltyBans, gender) {
@@ -96,14 +96,15 @@ function buildFieldMap(ratingState, athleteCountries, activeSinceMs) {
 }
 
 function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }) {
-  const fused = buildFusedCandidatePool({ asOfDate, config });
+  const wtQuotas = quotasDoc.world_tour_2026_27.quotas;
+  const fused = buildFusedCandidatePool({ asOfDate, config, wtQuotas });
   const activeSinceMs = Date.parse('2025-07-01T00:00:00Z');
   const fields = buildFieldMap(predState.rating, predState.athlete_countries, activeSinceMs);
   const lambdas = lambdasFromConfig(config);
 
   const nextStop = detectNextWtStop(stationsDoc, DEFAULT_PATHS.competitionsDir);
-  const wtQuotas = quotasDoc?.world_tour_2026_27?.quotas || {};
-  const penaltyBans = quotasDoc?.world_tour_2026_27?.next_stop_penalty_bans || [];
+  const bansFor = (stop) => stop && stop === quotasDoc.penalty_target_stop ? quotasDoc.world_tour_2026_27.next_stop_penalty_bans : [];
+  const penaltyBans = bansFor(nextStop?.id);
   const penaltyWarnings = quotasDoc?.world_tour_2026_27?.one_away_from_ban_warnings || [];
 
   const rp = config.roster_model?.reserve_pool || {};
@@ -146,7 +147,7 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
   const fusedBeijing =
     nextStop?.id === 'beijing' && asOfDate >= '2026-11-30'
       ? fused
-      : buildFusedCandidatePool({ asOfDate: beijingAsOf, config });
+      : buildFusedCandidatePool({ asOfDate: beijingAsOf, config, wtQuotas });
   const wtBeijingOut = {};
   for (const gender of ['women', 'men']) {
     const q = wtQuotas[gender]?.CHN || {};
@@ -155,7 +156,7 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
       hasGenderRelay: true
     });
     const blocked =
-      nextStop?.id === 'beijing' ? buildBlockedMapForGender(penaltyBans, gender) : {};
+      buildBlockedMapForGender(bansFor('beijing'), gender);
     wtBeijingOut[gender] = forecastGender(fusedBeijing[gender].eligible, {
       config,
       constraints: cons,
@@ -202,6 +203,7 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
       next_wt_stop: nextStop
         ? {
             id: nextStop.id,
+            city_zh: nextStop.city,
             city: nextStop.city_en || nextStop.city,
             country: nextStop.country,
             date_start: nextStop.date_start,
@@ -229,15 +231,15 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
         men: fused.men.top40Watch
       },
       scenarios: {
-        world_tour_next_stop: {
+        world_tour_next_stop: nextStop ? {
           label: '2026-27 World Tour Next Stop',
-          stop_id: nextStop?.id || 'shanghai',
+          stop_id: nextStop?.id ?? null,
           city: nextStop ? nextStop.city_en || nextStop.city : 'Shanghai',
           date_start: nextStop?.date_start || '2026-11-27',
           event_dates: nextStop ? `${nextStop.date_start}..${nextStop.date_end}` : null,
           women: wtOut.women,
           men: wtOut.men
-        },
+        } : null,
         world_tour_beijing: {
           label: '2026-27 World Tour Stop 5 (Beijing)',
           stop_id: 'beijing',
@@ -252,7 +254,7 @@ function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }
           label: '2027 ISU World Championships (Seoul)',
           location: config.world_championships_2027?.location || 'Seoul, KOR',
           event_dates: `${config.world_championships_2027?.dates?.start}..${config.world_championships_2027?.dates?.end}`,
-          relay_status: config.world_championships_2027?.china_chn_verified_status?.relay_status,
+          relay_status: 'provisional',
           women: wcOut.women,
           men: wcOut.men
         }
@@ -421,7 +423,8 @@ function runDualEligibleSensitivity({ asOfDate, config, quotasDoc, predState, fu
   const results = [];
   for (const gender of ['women', 'men']) {
     const dualCands = fused[gender].eligible.filter((c) => c.is_dual_eligible);
-    const baseFc = baselineForecast.scenarios.world_tour_next_stop[gender];
+    const baseFc = baselineForecast.scenarios.world_tour_next_stop?.[gender];
+    if (!baseFc) continue;
     const baseMain = new Set(baseFc.preferred_main_roster.athlete_ids);
     const target =
       dualCands.find((c) => !baseMain.has(c.athlete_id)) || dualCands[dualCands.length - 1];
@@ -486,7 +489,7 @@ function runDualEligibleSensitivity({ asOfDate, config, quotasDoc, predState, fu
       hasGenderRelay: true
     });
     const blocked = buildBlockedMapForGender(
-      quotasDoc?.world_tour_2026_27?.next_stop_penalty_bans || [],
+      baselineForecast.penalty_bans_applied,
       gender
     );
     const afterFc = forecastGender(boostedFused[gender].eligible, {
@@ -553,10 +556,11 @@ function formatBacktestMarkdown({ config, forecast, backtest, sensitivity }) {
     lines.push('');
   }
   for (const [scKey, title] of [
-    ['world_tour_next_stop', '2026-27 世巡赛下一站 (WT4 上海)'],
+    ['world_tour_next_stop', '2026-27 世巡赛下一站'],
     ['world_championships_2027', '2027 首尔世锦赛 (5人上限 / 已核验单项名额)']
   ]) {
     const sc = forecast.scenarios[scKey];
+    if (!sc) continue;
     lines.push(`### ${title}`);
     for (const gender of ['women', 'men']) {
       const g = sc[gender];
@@ -593,7 +597,7 @@ function formatBacktestMarkdown({ config, forecast, backtest, sensitivity }) {
         : '无';
       const capLabel = g.reserve_cap ?? g.reserves.length;
       lines.push(
-        `- **${gender === 'women' ? '女队' : '男队'}**（约束 \`N=${g.constraints.nMax}, K=${g.constraints.k500}/${g.constraints.k1000}/${g.constraints.k1500}, R=${g.constraints.relay}\`, 耗时 \`${g.timing_ms.total} ms\`）：`
+        `- **${gender === 'women' ? '女队' : '男队'}**（约束 \`N=${g.constraints.nMax}, K=${g.constraints.k500}/${g.constraints.k1000}/${g.constraints.k1500}, R=${g.constraints.relay}\`）：`
       );
       lines.push(`  - 稳固主力（${tiers.core_ids.length}人）：${coreStr}`);
       lines.push(`  - 淘汰 / 轮换边缘：${bubbleStr}`);
@@ -602,10 +606,10 @@ function formatBacktestMarkdown({ config, forecast, backtest, sensitivity }) {
     lines.push('');
   }
 
-  lines.push('## 2. 2024/25 & 2025/26 两赛季严格时间前向回测（零未来数据泄露）');
+  lines.push('## 2. 2024/25 & 2025/26 两赛季赛前名单回测（给定实际报名规模）');
   lines.push('');
   lines.push(
-    '> 对 2024/25–2025/26 全部 12 站完整覆盖赛事（另有 1 站部分覆盖 `2025-26-worldtour-montreal-2` 单独标注），在赛前 1 日截断三池数据并重训国际对手池，检验正选名单与分项席位命中率，以及 `lambda_fatigue` 对兼三项核心的调控效果。'
+    '> 对 2024/25–2025/26 全部 12 站完整覆盖赛事（另有 1 站部分覆盖 `2025-26-worldtour-montreal-2` 单独标注），在赛前 1 日截断三池数据并重训国际对手池，以实际报名人数和各项报名数为约束，检验选人和分项分配命中率，以及 `lambda_fatigue` 对兼三项核心的调控效果。'
   );
   lines.push('');
   const defaultLf = config.roster_model?.objective_weights?.lambda_fatigue ?? 0.045;

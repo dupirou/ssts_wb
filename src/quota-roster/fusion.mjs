@@ -884,6 +884,10 @@ function buildSeniorPool({ asOfDate, asOfSeason, paths, seniorStateOverride }) {
         for (const p of h.participants || []) {
           if (p.status === 'DNS') continue;
           recordSeniorActivity(p.athlete_id, localDate);
+          if (p.country === 'CHN' && ev.season === asOfSeason && meta.kind === 'worldtour') {
+            currentSeasonWtAthletes.add(p.athlete_id);
+            recordCurrentWtStat(p.athlete_id, ev.city, h.distance_m, false, h.round === 'final' && h.final_group === 'A', p.rank);
+          }
           if (p.status === 'OK' && isValidCleanTime(h.distance_m, p.time_s)) {
             let arr = seniorRawTimes.get(dk);
             if (!arr) {
@@ -2126,6 +2130,7 @@ export function buildFusedCandidatePool({
   asOfDate = new Date().toISOString().slice(0, 10),
   config = null,
   paths = {},
+  wtQuotas = null,
   domesticOverrideRecords = null,
   juniorEventsOverride = null,
   seniorStateOverride = null,
@@ -2169,6 +2174,7 @@ export function buildFusedCandidatePool({
   const top40DistancesByAthlete = new Map();
   const worldRanksByAthlete = new Map();
   const rawWorldRankingChn = { women: { 500: [], 1000: [], 1500: [] }, men: { 500: [], 1000: [], 1500: [] } };
+  const rankingDates = {};
   const worldRankingCutoffs = { women: { 500: 0, 1000: 0, 1500: 0 }, men: { 500: 0, 1000: 0, 1500: 0 } };
   if (asOfSeason === '2026/27') {
     const standingsDoc = readJsonOptional(mergedPaths.standings);
@@ -2176,6 +2182,7 @@ export function buildFusedCandidatePool({
       const dist = Number(tbl.distance_m);
       const g = tbl.gender;
       if (!DISTANCES.includes(dist) || !GENDERS.includes(g)) continue;
+      rankingDates[g + dist] = tbl.as_of || standingsDoc.fetched_at;
       const items = tbl.items || [];
       const rank40Row = items.find((r) => r.rank === 40) || items[Math.min(39, items.length - 1)];
       const cutoffPts = Number(rank40Row?.points || 0);
@@ -2638,18 +2645,20 @@ export function buildFusedCandidatePool({
       });
       const totalTop40 = enriched.filter((r) => r.in_top40).length;
       const activeTop40 = enriched.filter((r) => r.in_top40 && r.is_active_eligible).length;
-      const slots = totalTop40 >= 3 ? 4 : 3;
+      const slots = wtQuotas?.[gender]?.CHN?.['slots_' + d + 'm'] ?? null;
+      const required = cfg.world_tour.entries.four_skater_exception.required_skater_count;
       const status =
-        activeTop40 >= 4 ? 'SAFE' : activeTop40 === 3 || totalTop40 >= 3 ? 'TIGHT' : 'BELOW';
+        activeTop40 > required ? 'SAFE' : totalTop40 >= required ? 'TIGHT' : 'BELOW';
       out[d] = {
         distance_m: d,
+        as_of: rankingDates[gender + d],
         slots,
-        required_top40_for_4_slots: 3,
+        required_top40_for_4_slots: required,
         cutoff_rank: 40,
         cutoff_points: cutoffPts,
         top40_total_chn: totalTop40,
         top40_active_chn: activeTop40,
-        buffer_active: activeTop40 - 3,
+        buffer_active: activeTop40 - required,
         status,
         skaters: enriched,
       };
