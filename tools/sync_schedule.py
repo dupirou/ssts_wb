@@ -310,7 +310,7 @@ def main():
         return 0
     unexpected = False
     taken = {s['isu']['slug'] for s in config['stations'] + config['championships'] if s.get('isu')}
-    for station in config['stations']:
+    for station in stations.stations_to_sync(config['stations']):
         if args.station and station['id'] != args.station:
             continue
         if not args.station and not stations.within(station, now, LOOKAHEAD_DAYS, 0):

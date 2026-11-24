@@ -87,3 +87,5 @@ ruff format --check tools tests && ruff check tools tests
 - [audit/2026-10-28-second-pass/README.md](audit/2026-10-28-second-pass/README.md)：第二轮历史来源审计结论与证据清单
 
 最近一次代码与界面检查：[代码与界面检查（2026-10-30）](docs/reviews/code-ui-audit-20261030.md)。
+
+完赛分站的报名、赛程、成绩、排名和判罚核对完成后，在 `data/stations.json` 将该站的 `results_archived` 设为 `true`。分站同步随即停止请求 ISU，构建和展示继续使用仓库快照。后续官方勘误通过仓库审核更新。赛季总榜仍随赛季更新。

@@ -337,7 +337,7 @@ def main():
     a = p.parse_args()
     now = datetime.now(timezone.utc)
     unexpected = False
-    for station in stations.stations():
+    for station in stations.stations_to_sync(stations.stations()):
         if a.station and station['id'] != a.station:
             continue
         if not a.station and not stations.within(station, now, WINDOW_BEFORE_DAYS, WINDOW_AFTER_DAYS):

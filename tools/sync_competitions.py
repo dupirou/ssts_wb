@@ -347,17 +347,33 @@ def unique_final_heats(items):
             key = (heat['gender'], heat['distance_m'], heat['format'], heat['group'], heat['source_start'])
             # Preserve re-skates and revisions with different lineups, times, ranks or publication status.
             details = {k: v for k, v in heat.items() if k not in ('id', 'source_url', 'round_label')}
-            if heat.get('format') == 'relay':
-                details['participants'] = [
-                    dict(p, members=[dict(m, name=m['name'].casefold()) for m in p['members']])
-                    if p.get('members')
-                    else p
-                    for p in heat['participants']
-                ]
+            participants = []
+            for participant in heat['participants']:
+                row = dict(participant)
+                if row.get('members'):
+                    row['members'] = [dict(m, name=m['name'].casefold()) for m in row['members']]
+                if row.get('penalty'):
+                    row['penalty'] = dict(row['penalty'], infringement_code=None)
+                participants.append(row)
+            details['participants'] = participants
             copies = finals.setdefault(key, [])
-            if details in copies:
-                continue
-            copies.append(details)
+            for previous, kept in copies:
+                if previous != details:
+                    continue
+                for old, new in zip(kept['participants'], heat['participants']):
+                    if not new.get('penalty'):
+                        continue
+                    code = new['penalty'].get('infringement_code')
+                    saved = old['penalty'].get('infringement_code')
+                    if code and saved and saved != code:
+                        raise ValueError(f'Conflicting referee codes for duplicate final {key}')
+                    if code and not saved:
+                        old['penalty'] = dict(new['penalty'])
+                break
+            else:
+                copies.append((details, heat))
+                unique.append(heat)
+            continue
         unique.append(heat)
     return unique
 
@@ -488,7 +504,7 @@ def main():
     args = parser.parse_args()
     now = stations.utc_now()
     unexpected = False
-    for station in stations.stations():
+    for station in stations.stations_to_sync(stations.stations()):
         if args.event and station['id'] != args.event:
             continue
         if not station.get('isu') or (not args.event and not stations.within(station, now, WINDOW_BEFORE_DAYS)):

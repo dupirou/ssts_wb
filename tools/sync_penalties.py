@@ -102,7 +102,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--event', help='One World Tour station (otherwise active station windows)')
     args = parser.parse_args()
-    for station in stations.stations():
+    for station in stations.stations_to_sync(stations.stations()):
         if args.event and station['id'] != args.event:
             continue
         if not args.event and not stations.within(station, stations.utc_now(), 14):
