@@ -46,6 +46,10 @@ def stations(path=CONFIG):
     return load(path)['stations']
 
 
+def stations_to_sync(station_list):
+    return [station for station in station_list if not station.get('results_archived')]
+
+
 def get(station_id, path=CONFIG):
     found = [s for s in stations(path) if s['id'] == station_id]
     if not found:

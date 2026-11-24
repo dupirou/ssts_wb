@@ -344,6 +344,11 @@ def export(out, config, source=None):
             or not isinstance(value.get('infringements'), list)
         ):
             raise ValueError('Invalid accepted penalty report: ' + station['id'])
+        competition_path = Path(out) / 'data/competitions' / (station['id'] + '.json')
+        if competition_path.exists():
+            # A single referee decision must not describe multiple published heats.
+            competition = json.loads(competition_path.read_text(encoding='utf-8'))
+            attach_codes(competition, value, unmatched=[])
         (folder / (station['id'] + '.json')).write_text(
             json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8'
         )

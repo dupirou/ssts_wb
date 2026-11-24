@@ -287,6 +287,9 @@ class FailureIsolationTests(unittest.TestCase):
 
         racing = datetime(2026, 10, 31, tzinfo=timezone.utc)
         with (
+            patch.object(
+                stations, 'stations', return_value=[dict(s, results_archived=False) for s in stations.stations()]
+            ),
             patch.object(sync_competitions, 'sync_event', flaky),
             patch.object(sync_competitions.stations, 'utc_now', lambda: racing),
             patch.object(sys, 'argv', ['sync_competitions.py']),
@@ -375,6 +378,9 @@ class SyncOutcomeTests(unittest.TestCase):
             raise OSError('network unavailable')
 
         with (
+            patch.object(
+                stations, 'stations', return_value=[dict(s, results_archived=False) for s in stations.stations()]
+            ),
             patch.object(sync_competitions, 'sync_event', unreachable),
             patch.object(sync_competitions.stations, 'utc_now', lambda: datetime(2026, 10, 31, tzinfo=timezone.utc)),
             patch.object(sys, 'argv', ['sync_competitions.py']),

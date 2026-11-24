@@ -50,11 +50,14 @@ class CompetitionTests(unittest.TestCase):
         copy_final['participants'] = [
             dict(final['participants'][0], members=[dict(athlete_id='same', name='Ayano Sekiguchi')])
         ]
+        final['participants'][0]['penalty'] = dict(code='PEN', infringement_code=None)
+        copy_final['participants'][0]['penalty'] = dict(code='PEN', infringement_code='R1')
         other_group = dict(copy_final, group='B')
         reskate = dict(copy_final, source_start='2026-11-21T18:00:00Z')
         revision = dict(copy_final, participants=[dict(country='CHN', rank=1, result='4:12.680')])
         expected = [final, other_group, reskate, revision]
         self.assertEqual(sync.unique_final_heats([final, copy_final, *expected[1:]]), expected)
+        self.assertEqual(final['participants'][0]['penalty']['infringement_code'], 'R1')
 
     def test_relay_event_classification_is_distinct_from_world_tour(self):
         page = """Vancouver 2026

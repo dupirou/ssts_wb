@@ -180,7 +180,7 @@ def main():
     args = parser.parse_args()
     now = stations.utc_now()
     unexpected = False
-    for station in stations.stations():
+    for station in stations.stations_to_sync(stations.stations()):
         if args.event and station['id'] != args.event:
             continue
         if not station.get('isu') or not stations.within(station, now, WINDOW_BEFORE_DAYS):
