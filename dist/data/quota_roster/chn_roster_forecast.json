@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T02:03:05Z",
+  "generated_at": "2026-11-24T02:33:10Z",
   "as_of_date": "2026-11-22",
   "config_version": "2026.27.1",
   "next_wt_stop": {
@@ -2191,7 +2191,7 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 1.9897,
+        "mean_objective": 1.978,
         "distinct_lineups": 12,
         "candidates": [
           {
@@ -2245,7 +2245,7 @@
                 1000,
                 1500
               ],
-              "relay_starts": 9,
+              "relay_starts": 8,
               "final_a_count": 0,
               "best_rank": null
             },
@@ -2267,16 +2267,16 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.437,
-              "1000": 0.75,
+              "500": 0.436,
+              "1000": 0.751,
               "1500": 0.788,
-              "relay": 0.742
+              "relay": 0.767
             },
             "value_scores": {
               "500": 0.0539,
               "1000": 0.0675,
               "1500": 0.049,
-              "relay": 0.4545,
+              "relay": 0.4426,
               "form": 0.1595
             },
             "roster_tier": "core",
@@ -2365,7 +2365,7 @@
               "500": 0.632,
               "1000": 0.634,
               "1500": 0.719,
-              "relay": 0.342
+              "relay": 0.405
             },
             "value_scores": {
               "500": 0.0787,
@@ -2436,7 +2436,7 @@
                 500,
                 1500
               ],
-              "relay_starts": 8,
+              "relay_starts": 7,
               "final_a_count": 0,
               "best_rank": null
             },
@@ -2461,13 +2461,13 @@
               "500": 0.953,
               "1000": 0.962,
               "1500": 0,
-              "relay": 0.947
+              "relay": 0.952
             },
             "value_scores": {
               "500": 0.1507,
               "1000": 0.0804,
               "1500": 0.0463,
-              "relay": 0.6235,
+              "relay": 0.6101,
               "form": -0.1318
             },
             "roster_tier": "core",
@@ -2531,7 +2531,7 @@
                 1000,
                 1500
               ],
-              "relay_starts": 4,
+              "relay_starts": 3,
               "final_a_count": 2,
               "best_rank": 5
             },
@@ -2556,13 +2556,13 @@
               "500": 0.66,
               "1000": 0.532,
               "1500": 0.795,
-              "relay": 0.711
+              "relay": 0.58
             },
             "value_scores": {
               "500": 0.0884,
               "1000": 0.0492,
               "1500": 0.0558,
-              "relay": 0.434,
+              "relay": 0.3733,
               "form": 0.084
             },
             "roster_tier": "core",
@@ -2617,7 +2617,7 @@
                 1000,
                 1500
               ],
-              "relay_starts": 8,
+              "relay_starts": 7,
               "final_a_count": 0,
               "best_rank": null
             },
@@ -2637,18 +2637,18 @@
                 "sigma": 1.0218
               }
             },
-            "main_roster_prob": 0.991,
+            "main_roster_prob": 0.99,
             "entry_prob_matrix": {
               "500": 0.395,
-              "1000": 0.758,
-              "1500": 0.797,
-              "relay": 0.648
+              "1000": 0.757,
+              "1500": 0.796,
+              "relay": 0.592
             },
             "value_scores": {
               "500": 0.0462,
               "1000": 0.0657,
               "1500": 0.0372,
-              "relay": 0.403,
+              "relay": 0.3653,
               "form": 0.0121
             },
             "roster_tier": "bubble",
@@ -2713,12 +2713,12 @@
                 "sigma": 1.1304
               }
             },
-            "main_roster_prob": 0.804,
+            "main_roster_prob": 0.805,
             "entry_prob_matrix": {
-              "500": 0.715,
+              "500": 0.716,
               "1000": 0.254,
-              "1500": 0.62,
-              "relay": 0.43
+              "1500": 0.621,
+              "relay": 0.516
             },
             "value_scores": {
               "500": 0.1158,
@@ -2792,7 +2792,7 @@
               "500": 0.168,
               "1000": 0.072,
               "1500": 0.109,
-              "relay": 0.163
+              "relay": 0.17
             },
             "value_scores": {
               "500": 0.1121,
@@ -2850,7 +2850,7 @@
               "500": 0.007,
               "1000": 0.006,
               "1500": 0.007,
-              "relay": 0.004
+              "relay": 0.005
             },
             "value_scores": {
               "500": 0.0191,
@@ -3177,7 +3177,7 @@
               "skr-8090"
             ],
             "frequency": 0.796,
-            "avg_objective": 1.9461,
+            "avg_objective": 1.9339,
             "modal_entries": {
               "500": [
                 "skr-6617",
@@ -3217,8 +3217,8 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.172,
-            "avg_objective": 2.056,
+            "frequency": 0.171,
+            "avg_objective": 2.0483,
             "modal_entries": {
               "500": [
                 "skr-6617",
@@ -3244,8 +3244,7 @@
                 "skr-19401",
                 "skr-2262",
                 "skr-7609",
-                "skr-8080",
-                "skr-8090"
+                "skr-8080"
               ]
             }
           },
@@ -3259,7 +3258,7 @@
               "skr-8090"
             ],
             "frequency": 0.008,
-            "avg_objective": 2.6355,
+            "avg_objective": 2.6242,
             "modal_entries": {
               "500": [
                 "dom-tmp-9df89a0e45",
@@ -3302,7 +3301,7 @@
             "skr-8090"
           ],
           "frequency": 0.796,
-          "objective_at_mean": 1.3327,
+          "objective_at_mean": 1.3154,
           "entries": {
             "500": [
               "skr-6617",
@@ -3340,7 +3339,7 @@
             "skr-8080",
             "skr-8090"
           ],
-          "objective": 1.3327,
+          "objective": 1.3154,
           "entries": {
             "500": [
               "skr-6617",
@@ -3393,7 +3392,7 @@
             "role_tag": "sprint_relay",
             "main_roster_prob": 0.176,
             "primary_replacement_for": "skr-7613",
-            "marginal_loss": 0.0156,
+            "marginal_loss": 0.0108,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -3443,7 +3442,7 @@
             "role_tag": "mid_long",
             "main_roster_prob": 0,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0677,
+            "marginal_loss": 0.0625,
             "is_dual_eligible": true,
             "data_sources": [
               "JWC",
@@ -4939,7 +4938,7 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.024,
+        "mean_objective": 2.0126,
         "distinct_lineups": 11,
         "candidates": [
           {
@@ -4993,7 +4992,7 @@
                 1000,
                 1500
               ],
-              "relay_starts": 9,
+              "relay_starts": 8,
               "final_a_count": 0,
               "best_rank": null
             },
@@ -5018,13 +5017,13 @@
               "500": 0.504,
               "1000": 0.772,
               "1500": 0.711,
-              "relay": 0.74
+              "relay": 0.768
             },
             "value_scores": {
               "500": 0.0539,
               "1000": 0.0675,
               "1500": 0.049,
-              "relay": 0.4481,
+              "relay": 0.4361,
               "form": 0.1561
             },
             "roster_tier": "core",
@@ -5113,7 +5112,7 @@
               "500": 0.654,
               "1000": 0.7,
               "1500": 0.639,
-              "relay": 0.345
+              "relay": 0.422
             },
             "value_scores": {
               "500": 0.0787,
@@ -5181,7 +5180,7 @@
                 500,
                 1500
               ],
-              "relay_starts": 8,
+              "relay_starts": 7,
               "final_a_count": 0,
               "best_rank": null
             },
@@ -5206,13 +5205,13 @@
               "500": 0.829,
               "1000": 0.671,
               "1500": 0.5,
-              "relay": 0.954
+              "relay": 0.956
             },
             "value_scores": {
               "500": 0.1506,
               "1000": 0.0804,
               "1500": 0.0462,
-              "relay": 0.6191,
+              "relay": 0.6058,
               "form": -0.1289
             },
             "roster_tier": "core",
@@ -5276,7 +5275,7 @@
                 1000,
                 1500
               ],
-              "relay_starts": 4,
+              "relay_starts": 3,
               "final_a_count": 2,
               "best_rank": 5
             },
@@ -5301,13 +5300,13 @@
               "500": 0.665,
               "1000": 0.568,
               "1500": 0.76,
-              "relay": 0.658
+              "relay": 0.526
             },
             "value_scores": {
               "500": 0.0884,
               "1000": 0.0491,
               "1500": 0.0558,
-              "relay": 0.4238,
+              "relay": 0.3631,
               "form": 0.0822
             },
             "roster_tier": "core",
@@ -5362,7 +5361,7 @@
                 1000,
                 1500
               ],
-              "relay_starts": 8,
+              "relay_starts": 7,
               "final_a_count": 0,
               "best_rank": null
             },
@@ -5387,13 +5386,13 @@
               "500": 0.396,
               "1000": 0.825,
               "1500": 0.739,
-              "relay": 0.655
+              "relay": 0.604
             },
             "value_scores": {
               "500": 0.0461,
               "1000": 0.0657,
               "1500": 0.0372,
-              "relay": 0.3961,
+              "relay": 0.3584,
               "form": 0.0118
             },
             "roster_tier": "bubble",
@@ -5463,7 +5462,7 @@
               "500": 0.741,
               "1000": 0.325,
               "1500": 0.504,
-              "relay": 0.465
+              "relay": 0.527
             },
             "value_scores": {
               "500": 0.1157,
@@ -5537,7 +5536,7 @@
               "500": 0.179,
               "1000": 0.091,
               "1500": 0.097,
-              "relay": 0.168
+              "relay": 0.178
             },
             "value_scores": {
               "500": 0.1119,
@@ -5596,7 +5595,7 @@
               "500": 0.005,
               "1000": 0.008,
               "1500": 0.003,
-              "relay": 0.003
+              "relay": 0.005
             },
             "value_scores": {
               "500": 0.0599,
@@ -5655,7 +5654,7 @@
               "500": 0.005,
               "1000": 0.005,
               "1500": 0.005,
-              "relay": 0.003
+              "relay": 0.004
             },
             "value_scores": {
               "500": 0.0191,
@@ -5892,7 +5891,7 @@
               "500": 0.001,
               "1000": 0,
               "1500": 0.001,
-              "relay": 0
+              "relay": 0.001
             },
             "value_scores": {
               "500": 0.049,
@@ -5982,7 +5981,7 @@
               "skr-8090"
             ],
             "frequency": 0.782,
-            "avg_objective": 1.9741,
+            "avg_objective": 1.9625,
             "modal_entries": {
               "500": [
                 "skr-2262",
@@ -6024,7 +6023,7 @@
               "skr-8090"
             ],
             "frequency": 0.178,
-            "avg_objective": 2.091,
+            "avg_objective": 2.0807,
             "modal_entries": {
               "500": [
                 "skr-2262",
@@ -6052,8 +6051,7 @@
                 "skr-19401",
                 "skr-2262",
                 "skr-7609",
-                "skr-8080",
-                "skr-8090"
+                "skr-8080"
               ]
             }
           },
@@ -6067,7 +6065,7 @@
               "skr-8090"
             ],
             "frequency": 0.008,
-            "avg_objective": 2.811,
+            "avg_objective": 2.7978,
             "modal_entries": {
               "500": [
                 "skr-4165",
@@ -6091,6 +6089,7 @@
               "relay": [
                 "skr-19401",
                 "skr-2262",
+                "skr-4165",
                 "skr-8080",
                 "skr-8090"
               ]
@@ -6107,7 +6106,7 @@
             "skr-8090"
           ],
           "frequency": 0.782,
-          "objective_at_mean": 1.3278,
+          "objective_at_mean": 1.3105,
           "entries": {
             "500": [
               "skr-6617",
@@ -6145,7 +6144,7 @@
             "skr-8080",
             "skr-8090"
           ],
-          "objective": 1.3278,
+          "objective": 1.3105,
           "entries": {
             "500": [
               "skr-6617",
@@ -6198,7 +6197,7 @@
             "role_tag": "sprint_relay",
             "main_roster_prob": 0.185,
             "primary_replacement_for": "skr-7613",
-            "marginal_loss": 0.0151,
+            "marginal_loss": 0.0098,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -6248,7 +6247,7 @@
             "role_tag": "mid_long",
             "main_roster_prob": 0.001,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.064,
+            "marginal_loss": 0.0588,
             "is_dual_eligible": true,
             "data_sources": [
               "JWC",
@@ -7988,7 +7987,7 @@
           "k1500": 2,
           "relay": 4
         },
-        "mean_objective": 1.5547,
+        "mean_objective": 1.5421,
         "distinct_lineups": 12,
         "candidates": [
           {
@@ -8042,7 +8041,7 @@
                 1000,
                 1500
               ],
-              "relay_starts": 4,
+              "relay_starts": 3,
               "final_a_count": 2,
               "best_rank": 5
             },
@@ -8066,14 +8065,14 @@
             "entry_prob_matrix": {
               "500": 0.623,
               "1000": 0.502,
-              "1500": 0.483,
-              "relay": 0.843
+              "1500": 0.484,
+              "relay": 0.74
             },
             "value_scores": {
               "500": 0.0884,
               "1000": 0.0492,
               "1500": 0.0558,
-              "relay": 0.434,
+              "relay": 0.3733,
               "form": 0.084
             },
             "roster_tier": "core",
@@ -8136,7 +8135,7 @@
                 500,
                 1500
               ],
-              "relay_starts": 8,
+              "relay_starts": 7,
               "final_a_count": 0,
               "best_rank": null
             },
@@ -8158,16 +8157,16 @@
             },
             "main_roster_prob": 0.999,
             "entry_prob_matrix": {
-              "500": 0.818,
-              "1000": 0.673,
+              "500": 0.817,
+              "1000": 0.672,
               "1500": 0.357,
-              "relay": 0.977
+              "relay": 0.98
             },
             "value_scores": {
               "500": 0.1507,
               "1000": 0.0804,
               "1500": 0.0463,
-              "relay": 0.6235,
+              "relay": 0.6101,
               "form": -0.1318
             },
             "roster_tier": "core",
@@ -8255,8 +8254,8 @@
             "entry_prob_matrix": {
               "500": 0.566,
               "1000": 0.569,
-              "1500": 0.339,
-              "relay": 0.451
+              "1500": 0.338,
+              "relay": 0.543
             },
             "value_scores": {
               "500": 0.0787,
@@ -8324,7 +8323,7 @@
                 1000,
                 1500
               ],
-              "relay_starts": 9,
+              "relay_starts": 8,
               "final_a_count": 0,
               "best_rank": null
             },
@@ -8346,16 +8345,16 @@
             },
             "main_roster_prob": 0.993,
             "entry_prob_matrix": {
-              "500": 0.397,
-              "1000": 0.644,
-              "1500": 0.448,
-              "relay": 0.849
+              "500": 0.395,
+              "1000": 0.645,
+              "1500": 0.449,
+              "relay": 0.874
             },
             "value_scores": {
               "500": 0.0539,
               "1000": 0.0675,
               "1500": 0.049,
-              "relay": 0.4545,
+              "relay": 0.4426,
               "form": 0.1595
             },
             "roster_tier": "core",
@@ -8410,7 +8409,7 @@
                 1000,
                 1500
               ],
-              "relay_starts": 8,
+              "relay_starts": 7,
               "final_a_count": 0,
               "best_rank": null
             },
@@ -8430,18 +8429,18 @@
                 "sigma": 1.0218
               }
             },
-            "main_roster_prob": 0.799,
+            "main_roster_prob": 0.794,
             "entry_prob_matrix": {
-              "500": 0.398,
-              "1000": 0.516,
-              "1500": 0.282,
-              "relay": 0.676
+              "500": 0.396,
+              "1000": 0.514,
+              "1500": 0.28,
+              "relay": 0.651
             },
             "value_scores": {
               "500": 0.0462,
               "1000": 0.0657,
               "1500": 0.0372,
-              "relay": 0.403,
+              "relay": 0.3653,
               "form": 0.0121
             },
             "roster_tier": "bubble",
@@ -8505,12 +8504,12 @@
                 "sigma": 1.1304
               }
             },
-            "main_roster_prob": 0.172,
+            "main_roster_prob": 0.176,
             "entry_prob_matrix": {
-              "500": 0.159,
-              "1000": 0.075,
-              "1500": 0.075,
-              "relay": 0.163
+              "500": 0.163,
+              "1000": 0.077,
+              "1500": 0.076,
+              "relay": 0.169
             },
             "value_scores": {
               "500": 0.1158,
@@ -8578,12 +8577,12 @@
                 "sigma": 1.0667
               }
             },
-            "main_roster_prob": 0.034,
+            "main_roster_prob": 0.035,
             "entry_prob_matrix": {
-              "500": 0.032,
+              "500": 0.033,
               "1000": 0.012,
               "1500": 0.012,
-              "relay": 0.033
+              "relay": 0.035
             },
             "value_scores": {
               "500": 0.1121,
@@ -8966,8 +8965,8 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.785,
-            "avg_objective": 1.5003,
+            "frequency": 0.78,
+            "avg_objective": 1.4864,
             "modal_entries": {
               "500": [
                 "skr-6617",
@@ -8984,6 +8983,7 @@
               "relay": [
                 "skr-19401",
                 "skr-2262",
+                "skr-6617",
                 "skr-8080",
                 "skr-8090"
               ]
@@ -8997,11 +8997,10 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.161,
-            "avg_objective": 1.6845,
+            "frequency": 0.165,
+            "avg_objective": 1.673,
             "modal_entries": {
               "500": [
-                "skr-6617",
                 "skr-7613",
                 "skr-8080",
                 "skr-8090"
@@ -9015,6 +9014,7 @@
               "1500": [],
               "relay": [
                 "skr-2262",
+                "skr-6617",
                 "skr-7613",
                 "skr-8080",
                 "skr-8090"
@@ -9029,8 +9029,8 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.032,
-            "avg_objective": 1.7881,
+            "frequency": 0.033,
+            "avg_objective": 1.7709,
             "modal_entries": {
               "500": [
                 "skr-7609",
@@ -9044,6 +9044,7 @@
               "1500": [],
               "relay": [
                 "skr-2262",
+                "skr-6617",
                 "skr-7609",
                 "skr-8080",
                 "skr-8090"
@@ -9059,8 +9060,8 @@
             "skr-8080",
             "skr-8090"
           ],
-          "frequency": 0.785,
-          "objective_at_mean": 0.9109,
+          "frequency": 0.78,
+          "objective_at_mean": 0.8936,
           "entries": {
             "500": [
               "skr-6617",
@@ -9093,7 +9094,7 @@
             "skr-8080",
             "skr-8090"
           ],
-          "objective": 0.9109,
+          "objective": 0.8936,
           "entries": {
             "500": [
               "skr-6617",
@@ -9140,9 +9141,9 @@
             "name_en": "Ye WANG",
             "name_zh": "王晔",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.172,
+            "main_roster_prob": 0.176,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": -0.0252,
+            "marginal_loss": -0.0305,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -9176,7 +9177,7 @@
             },
             "recent_highlight": "2026/27 WT Montreal 500m #5",
             "upside_score": 0.3303,
-            "versatility_score": 0.5023,
+            "versatility_score": 0.5063,
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
@@ -9191,9 +9192,9 @@
             "name_en": "Xinran WANG",
             "name_zh": "王欣然",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.034,
+            "main_roster_prob": 0.035,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": -0.0251,
+            "marginal_loss": -0.0304,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -9226,7 +9227,7 @@
             },
             "recent_highlight": "国内甲组 七台河 500m #1",
             "upside_score": 0.3233,
-            "versatility_score": 0.3573,
+            "versatility_score": 0.3583,
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
@@ -9243,7 +9244,7 @@
             "role_tag": "mid_long",
             "main_roster_prob": 0.002,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0087,
+            "marginal_loss": 0.0034,
             "is_dual_eligible": true,
             "data_sources": [
               "JWC",
@@ -9280,7 +9281,7 @@
             "role_tag": "mid_long",
             "main_roster_prob": 0.004,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0105,
+            "marginal_loss": 0.0052,
             "is_dual_eligible": true,
             "data_sources": [
               "JWC"
@@ -9316,7 +9317,7 @@
             "role_tag": "versatile_upside",
             "main_roster_prob": 0.003,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0146,
+            "marginal_loss": 0.0093,
             "is_dual_eligible": false,
             "data_sources": [
               "Domestic"
@@ -9352,7 +9353,7 @@
             "role_tag": "versatile_upside",
             "main_roster_prob": 0,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0163,
+            "marginal_loss": 0.011,
             "is_dual_eligible": false,
             "data_sources": [
               "Domestic"
