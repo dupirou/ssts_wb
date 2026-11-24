@@ -1,0 +1,125 @@
+✔ official cumulative penalties render seven checkpoint cells and preserve restrictions (144.0254ms)
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+{"event":"heartbeat_read_fallback","message":"KV binding not configured"}
+✔ entries, country filter, empty rankings and unknown events (45.8541ms)
+✔ round filter selects matching heats and retains opponents (1.3514ms)
+✔ results exclude start lists; penalties exclude nonpenalized opponents (3.1806ms)
+✔ fresh start lists do not pretend results have been published (1.1746ms)
+✔ malformed/duplicate/unknown filters and write methods rejected (2.7658ms)
+✔ upstream failure serves previous snapshot with stale flag (1.9127ms)
+✔ built real snapshot and unconfigured event empty states are served (32.7041ms)
+{"event":"sync_dispatch","result":"dispatched:session"}
+{"event":"sync_dispatch","result":"skip"}
+{"event":"sync_dispatch","result":"outside_window"}
+{"event":"sync_dispatch_error","code":"no_token"}
+{"event":"sync_dispatch","result":"no_token"}
+{"event":"sync_calendar_unavailable","error":"calendar.json unavailable: 503"}
+{"event":"sync_calendar_unavailable","error":"calendar.json unavailable: 503"}
+{"event":"sync_invalid_schedule_time","local_date":"2026-10-24","utc_start":"invalid"}
+{"event":"sync_invalid_schedule_time","local_date":"2026-10-24","utc_start":"invalid"}
+{"event":"sync_dispatch_error","code":"github_permission_denied","status":403}
+{"event":"sync_dispatch_exception","message":"GitHub dispatch failed: 403","stack":"Error: GitHub dispatch failed: 403\n    at dispatchSync (file:///C:/Users/Administrator/.codex/visualizations/2026/10/27/01a17d8c-c2b4-7922-91a6-8859c04c093b/ssts-audit-20261028/src/worker.mjs:162:11)\n    at async Promise.all (index 0)\n    at async waitForActual (node:assert:646:5)\n    at async strict.rejects (node:assert:769:25)\n    at async TestContext.<anonymous> (file:///C:/Users/Administrator/.codex/visualizations/2026/10/27/01a17d8c-c2b4-7922-91a6-8859c04c093b/ssts-audit-20261028/tests/test_api.mjs:177:5)\n    at async Test.run (node:internal/test_runner/test:1332:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)"}
+✔ race-window cron: 10-min syncs around sessions, hourly between them, none outside windows (1713.9853ms)
+✔ calendar failure falls back to hourly dispatch and invalid start times are ignored (1.2078ms)
+✔ 403 dispatch is rejected by waitUntil so the failure remains observable (1.6529ms)
+{"event":"heartbeat_read_fallback","message":"KV outage"}
+{"event":"api_error","message":"Cannot read properties of undefined (reading 'filter')","stack":"TypeError: Cannot read properties of undefined (reading 'filter')\n    at Object.fetch (file:///C:/Users/Administrator/.codex/visualizations/2026/10/27/01a17d8c-c2b4-7922-91a6-8859c04c093b/ssts-audit-20261028/src/worker.mjs:245:23)\n    at async TestContext.<anonymous> (file:///C:/Users/Administrator/.codex/visualizations/2026/10/27/01a17d8c-c2b4-7922-91a6-8859c04c093b/ssts-audit-20261028/tests/test_api.mjs:253:16)\n    at async Test.run (node:internal/test_runner/test:1332:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)"}
+✔ heartbeat requires a shared secret and rejects other methods (4.6941ms)
+✔ freshness uses current heartbeat, expires at 30 minutes in session, and falls back on KV failure (3.7455ms)
+✔ unsupported resource filters reject instead of pretending to return zero matches (1.5062ms)
+✔ missing assets return 503, malformed runtime snapshot returns 500 with no private details (1.3452ms)
+✔ CHN rows list each heat once with an approximate time and open the official groups (498.0609ms)
+✔ a round shows its published qualification rule, in the row and in the group dialog (258.4374ms)
+✔ round meter has one dot per round the event actually races (189.1609ms)
+✔ real roster defaults to CHN; country and gender filters compose (260.7714ms)
+✔ a relay team in the group dialog lists the skaters ISU names (146.5274ms)
+✔ roster cards list the distances each athlete entered (164.819ms)
+✔ not-published data stays empty and never fabricates heat buttons (134.8265ms)
+✔ source failure preserves schedule and successful roster, retry restores details (207.7908ms)
+✔ official heat opens participant results and penalties without HTML injection (165.4811ms)
+✔ prediction waits for distance entries, exposes rules and leaves official highlights untouched (147.1939ms)
+✔ stations without distance entries have no prediction tab (51.4769ms)
+✔ projection places known seeds, counts the rest, filters CHN and yields to official groups (137.5894ms)
+✔ schedule first: one API, no roster/prediction or overview work until requested (181.3814ms)
+✔ slow rankings do not block entries; rapid tab changes deduplicate in-flight requests (166.7481ms)
+✔ retry only fetches failed resource and keeps successful roster filters (171.7532ms)
+✔ day, timezone and overview work after navigating between content tabs (286.2567ms)
+✔ tab keyboard navigation and prediction URL survive reload (130.1102ms)
+✔ expired data refreshes while retaining country and gender selections (187.2258ms)
+✔ what's new bar: newest first, results supersede groups, closing remembers the newest notice (129.2219ms)
+✔ what's new bar says what results meant for China: advanced, repechage, out, a place or a medal (111.0589ms)
+✔ what's new bar stays hidden when everything was already seen (147.6484ms)
+✔ what's new bar announces another station's newly published programme with a link to its first day (119.7524ms)
+✔ a confirmed heat remains visible when no estimation model exists (112.2082ms)
+✔ events page keeps seven World Tour cards and offers a distinct World Championships page (251.8585ms)
+✔ Worlds detail uses schedule and roster waiting states without World Tour forecasts or API calls (72.9198ms)
+✔ all real event/season/cycle metrics agree with pre-refactor statistics (362.3355ms)
+✔ comparison best rank uses official overall classification, never final-heat place (0.8241ms)
+✔ partial catalogue cannot assert not offered or zero from imported subset (0.8875ms)
+✔ unknown inventories, future seasons and empty verified inventories stay distinct (0.2996ms)
+✔ confirmed scope excludes all around/super 3000 and keeps relay without lineup (0.4802ms)
+✔ built index contains no result rows or source document blobs; shards preserve all evidence (119.5471ms)
+✔ Chinese/English aliases and name order use one identity, relay search uses actual members (1.687ms)
+✔ every real index projection agrees with detail matching for combined filters (507.3514ms)
+✔ only full row matches occupy event pages; combined aliases, gender, distance, kind and page restore (220.2957ms)
+✔ no matching event differs from a selected event without matching rows, neither fetches false detail (40.1542ms)
+✔ raw groups retain controls while loading and ignore out-of-order successes and errors (51.8953ms)
+✔ close/reopen invalidates old work; current failures retry successfully (30.0776ms)
+✔ changing comparison objects invalidates old work before the new summary resolves (27.9672ms)
+✔ coverage diagnostics remain in data but not as front-end explanations (34.3731ms)
+✔ detail requests are bounded, deduplicated and cached, failed requests retry (60.3707ms)
+✔ overview does not request summaries or details; each selected season summary loads once (3.226ms)
+✔ invalid schemas and identity mismatches are evicted rather than cached forever (1.724ms)
+✔ old search contracts and malformed row projections reject and retry without full-feed fallback (1.8236ms)
+✔ home shows the next event without results or explanatory copy (245.8446ms)
+✔ events page owns the full calendar and produces shareable nested event URLs (120.674ms)
+✔ legacy and nested event links preserve view and country selection and use root data addresses (587.5611ms)
+✔ the athlete directory filters real roster data, tolerates name order, and shares its search (171.3923ms)
+✔ results overview links to separate season, cycle and comparison pages without dumping scores (33.6075ms)
+✔ event browser retains current and archived scores and legacy result links (202.3128ms)
+✔ unified filters share selected season, discipline, event and actual relay lineups (190.8939ms)
+✔ a failed results feed preserves global navigation and provides a retry (36.0361ms)
+✔ after the World Tour, the homepage points to the upcoming championship (21.8491ms)
+✔ comparison preserves official PEN places, expands contributing results and shares metric choices (139.9314ms)
+✔ cycle comparison distinguishes missing archives and never awards a B-final winner gold (110.9892ms)
+✔ statistics count relay medals once and exclude DNS, B-final wins and superfinal medals (26.6669ms)
+✔ all-season pagination is bounded, shares the page and does not load unused details (126.9902ms)
+✔ review and compare use summaries, fetch raw evidence only on expansion (68.4754ms)
+✔ zero participation stays visible while backend coverage diagnostics stay out of the UI (67.9113ms)
+✔ event comparison selects exact stations, reuses season summaries, and expands only selected events (51.3554ms)
+✔ event comparison restores three cross-season objects and supports changing their season (73.6348ms)
+✔ event detail links into comparison and duplicate event choices stay editable (78.0841ms)
+✔ results pages do not depend on the live calendar (28.9055ms)
+✔ comparison defaults follow recorded scopes and preserve explicit shared selections (73.615ms)
+✔ comparison defaults advance with new archived seasons instead of hardcoded years (34.4375ms)
+✔ current station and its archived result link to each other only when matched (192.9805ms)
+✔ previous station comparison stays in the same season and sources are grouped (71.6127ms)
+▶ Seoul ticket links appear on season home and station details
+  ✔ /events/?now=2026-10-21T09:00:00Z (258.7673ms)
+  ✔ /?station=seoul&now=2026-10-21T09:00:00Z (63.8652ms)
+✔ Seoul ticket links appear on season home and station details (324.4144ms)
+▶ ticket notice says on sale after opening and disappears once Seoul is over
+  ✔ on sale (50.3934ms)
+  ✔ after the stage (42.3038ms)
+✔ ticket notice says on sale after opening and disappears once Seoul is over (93.7564ms)
+ℹ tests 87
+ℹ suites 0
+ℹ pass 87
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5705.3432
