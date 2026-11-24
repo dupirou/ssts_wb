@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "season": "2026-2027",
-  "generated_at": "2026-11-23T10:03:14+00:00",
+  "generated_at": "2026-11-24T02:03:03+00:00",
   "config_version": "2026.27.1",
-  "penalty_source": "montreal.json",
-  "penalty_target_stop": "seoul",
+  "penalty_source": "seoul.json",
+  "penalty_target_stop": "shanghai",
   "wrd_as_of": {
     "men_500": "2026-11-23T10:03:14+00:00",
     "men_1000": "2026-11-23T10:03:14+00:00",
@@ -2291,9 +2291,25 @@
     },
     "next_stop_penalty_bans": [
       {
-        "athlete_id": "skr-5474",
-        "name": "PELLETIER Mathieu",
-        "country": "CAN",
+        "athlete_id": "skr-8080",
+        "name": "ZHANG Chutong",
+        "country": "CHN",
+        "gender": "women",
+        "cumulative_penalties": 3,
+        "blocked_count": 1,
+        "blocked_distances": [
+          "1500m"
+        ],
+        "world_ranks": {
+          "500m": 13,
+          "1000m": 33,
+          "1500m": 11
+        }
+      },
+      {
+        "athlete_id": "ath-672e318a34c40e9d2d36",
+        "name": "GYUROV Asen",
+        "country": "BUL",
         "gender": "men",
         "cumulative_penalties": 3,
         "blocked_count": 1,
@@ -2301,25 +2317,41 @@
           "500m"
         ],
         "world_ranks": {
-          "500m": 7,
-          "1000m": 9,
-          "1500m": 16
+          "500m": 85,
+          "1000m": 111,
+          "1500m": 92
+        }
+      },
+      {
+        "athlete_id": "skr-5703",
+        "name": "PREVITALI Lorenzo",
+        "country": "ITA",
+        "gender": "men",
+        "cumulative_penalties": 3,
+        "blocked_count": 1,
+        "blocked_distances": [
+          "500m"
+        ],
+        "world_ranks": {
+          "500m": 32,
+          "1000m": 41,
+          "1500m": 98
         }
       }
     ],
     "one_away_from_ban_warnings": [
       {
-        "athlete_id": "skr-8080",
-        "name": "ZHANG Chutong",
-        "country": "CHN",
-        "gender": "women",
+        "athlete_id": "skr-4030",
+        "name": "LEE Jeongmin",
+        "country": "KOR",
+        "gender": "men",
         "cumulative_penalties": 2,
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 13,
-          "1000m": 33,
-          "1500m": 11
+          "500m": 10,
+          "1000m": 65,
+          "1500m": 25
         }
       },
       {
@@ -2347,6 +2379,34 @@
         "world_ranks": {
           "1000m": 13,
           "1500m": 19
+        }
+      },
+      {
+        "athlete_id": "skr-16355",
+        "name": "MOON Wonjun",
+        "country": "HUN",
+        "gender": "men",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 64,
+          "1000m": 21,
+          "1500m": 26
+        }
+      },
+      {
+        "athlete_id": "skr-6617",
+        "name": "SONG Jiarui",
+        "country": "CHN",
+        "gender": "women",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 9,
+          "1000m": 15,
+          "1500m": 21
         }
       },
       {
@@ -2419,6 +2479,48 @@
         }
       },
       {
+        "athlete_id": "skr-20586",
+        "name": "ZHANG Zixia",
+        "country": "CHN",
+        "gender": "men",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 24,
+          "1000m": 27,
+          "1500m": 43
+        }
+      },
+      {
+        "athlete_id": "skr-18348",
+        "name": "KIM Minji",
+        "country": "KOR",
+        "gender": "women",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 52,
+          "1000m": 25,
+          "1500m": 17
+        }
+      },
+      {
+        "athlete_id": "skr-226",
+        "name": "AKAR Furkan",
+        "country": "TUR",
+        "gender": "men",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 8,
+          "1000m": 5,
+          "1500m": 61
+        }
+      },
+      {
         "athlete_id": "skr-4302",
         "name": "LIU Justin",
         "country": "USA",
@@ -2432,17 +2534,31 @@
         }
       },
       {
-        "athlete_id": "skr-5703",
-        "name": "PREVITALI Lorenzo",
-        "country": "ITA",
+        "athlete_id": "skr-4367",
+        "name": "LOU Zhanshuo",
+        "country": "HKG",
         "gender": "men",
         "cumulative_penalties": 2,
         "blocked_count": 0,
         "blocked_distances": [],
         "world_ranks": {
-          "500m": 32,
-          "1000m": 41,
-          "1500m": 98
+          "500m": 65,
+          "1000m": 42,
+          "1500m": 37
+        }
+      },
+      {
+        "athlete_id": "skr-22070",
+        "name": "BAE Seochan",
+        "country": "KOR",
+        "gender": "men",
+        "cumulative_penalties": 2,
+        "blocked_count": 0,
+        "blocked_distances": [],
+        "world_ranks": {
+          "500m": 29,
+          "1000m": 11,
+          "1500m": 10
         }
       },
       {

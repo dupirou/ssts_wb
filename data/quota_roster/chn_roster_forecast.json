@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-23T10:03:15Z",
+  "generated_at": "2026-11-24T02:03:05Z",
   "as_of_date": "2026-11-22",
   "config_version": "2026.27.1",
   "next_wt_stop": {
@@ -1471,20 +1471,37 @@
       }
     ]
   },
-  "penalty_bans_applied": [],
-  "penalty_warnings_chn": [
+  "penalty_bans_applied": [
     {
       "athlete_id": "skr-8080",
       "name": "ZHANG Chutong",
+      "country": "CHN",
+      "gender": "women",
+      "cumulative_penalties": 3,
+      "blocked_count": 1,
+      "blocked_distances": [
+        "1500m"
+      ],
+      "world_ranks": {
+        "500m": 13,
+        "1000m": 33,
+        "1500m": 11
+      }
+    }
+  ],
+  "penalty_warnings_chn": [
+    {
+      "athlete_id": "skr-6617",
+      "name": "SONG Jiarui",
       "country": "CHN",
       "gender": "women",
       "cumulative_penalties": 2,
       "blocked_count": 0,
       "blocked_distances": [],
       "world_ranks": {
-        "500m": 13,
-        "1000m": 33,
-        "1500m": 11
+        "500m": 9,
+        "1000m": 15,
+        "1500m": 21
       }
     },
     {
@@ -1500,9 +1517,72 @@
         "1000m": 14,
         "1500m": 26
       }
+    },
+    {
+      "athlete_id": "skr-20586",
+      "name": "ZHANG Zixia",
+      "country": "CHN",
+      "gender": "men",
+      "cumulative_penalties": 2,
+      "blocked_count": 0,
+      "blocked_distances": [],
+      "world_ranks": {
+        "500m": 24,
+        "1000m": 27,
+        "1500m": 43
+      }
     }
   ],
-  "penalty_bans_all_members": [],
+  "penalty_bans_all_members": [
+    {
+      "athlete_id": "skr-8080",
+      "name": "ZHANG Chutong",
+      "country": "CHN",
+      "gender": "women",
+      "cumulative_penalties": 3,
+      "blocked_count": 1,
+      "blocked_distances": [
+        "1500m"
+      ],
+      "world_ranks": {
+        "500m": 13,
+        "1000m": 33,
+        "1500m": 11
+      }
+    },
+    {
+      "athlete_id": "ath-672e318a34c40e9d2d36",
+      "name": "GYUROV Asen",
+      "country": "BUL",
+      "gender": "men",
+      "cumulative_penalties": 3,
+      "blocked_count": 1,
+      "blocked_distances": [
+        "500m"
+      ],
+      "world_ranks": {
+        "500m": 85,
+        "1000m": 111,
+        "1500m": 92
+      }
+    },
+    {
+      "athlete_id": "skr-5703",
+      "name": "PREVITALI Lorenzo",
+      "country": "ITA",
+      "gender": "men",
+      "cumulative_penalties": 3,
+      "blocked_count": 1,
+      "blocked_distances": [
+        "500m"
+      ],
+      "world_ranks": {
+        "500m": 32,
+        "1000m": 41,
+        "1500m": 98
+      }
+    }
+  ],
   "top40_watch": {
     "women": {
       "500": {
@@ -2111,7 +2191,7 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.0246,
+        "mean_objective": 1.9897,
         "distinct_lineups": 12,
         "candidates": [
           {
@@ -2187,9 +2267,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.483,
-              "1000": 0.782,
-              "1500": 0.719,
+              "500": 0.437,
+              "1000": 0.75,
+              "1500": 0.788,
               "relay": 0.742
             },
             "value_scores": {
@@ -2282,9 +2362,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.66,
-              "1000": 0.69,
-              "1500": 0.64,
+              "500": 0.632,
+              "1000": 0.634,
+              "1500": 0.719,
               "relay": 0.342
             },
             "value_scores": {
@@ -2312,6 +2392,9 @@
             "data_sources": [
               "Senior",
               "Domestic"
+            ],
+            "blocked_distances": [
+              1500
             ],
             "qualification_path": "WT_2026_27",
             "world_ranking_top40_distances": [
@@ -2375,9 +2458,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.808,
-              "1000": 0.688,
-              "1500": 0.502,
+              "500": 0.953,
+              "1000": 0.962,
+              "1500": 0,
               "relay": 0.947
             },
             "value_scores": {
@@ -2470,9 +2553,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.689,
-              "1000": 0.591,
-              "1500": 0.715,
+              "500": 0.66,
+              "1000": 0.532,
+              "1500": 0.795,
               "relay": 0.711
             },
             "value_scores": {
@@ -2556,9 +2639,9 @@
             },
             "main_roster_prob": 0.991,
             "entry_prob_matrix": {
-              "500": 0.421,
-              "1000": 0.799,
-              "1500": 0.734,
+              "500": 0.395,
+              "1000": 0.758,
+              "1500": 0.797,
               "relay": 0.648
             },
             "value_scores": {
@@ -2632,9 +2715,9 @@
             },
             "main_roster_prob": 0.804,
             "entry_prob_matrix": {
-              "500": 0.733,
-              "1000": 0.327,
-              "1500": 0.533,
+              "500": 0.715,
+              "1000": 0.254,
+              "1500": 0.62,
               "relay": 0.43
             },
             "value_scores": {
@@ -2707,8 +2790,8 @@
             "main_roster_prob": 0.176,
             "entry_prob_matrix": {
               "500": 0.168,
-              "1000": 0.084,
-              "1500": 0.095,
+              "1000": 0.072,
+              "1500": 0.109,
               "relay": 0.163
             },
             "value_scores": {
@@ -2764,7 +2847,7 @@
             },
             "main_roster_prob": 0.01,
             "entry_prob_matrix": {
-              "500": 0.008,
+              "500": 0.007,
               "1000": 0.006,
               "1500": 0.007,
               "relay": 0.004
@@ -2885,7 +2968,7 @@
             "entry_prob_matrix": {
               "500": 0.007,
               "1000": 0.007,
-              "1500": 0,
+              "1500": 0.001,
               "relay": 0.007
             },
             "value_scores": {
@@ -3003,7 +3086,7 @@
             "entry_prob_matrix": {
               "500": 0,
               "1000": 0.001,
-              "1500": 0,
+              "1500": 0.001,
               "relay": 0
             },
             "value_scores": {
@@ -3094,7 +3177,7 @@
               "skr-8090"
             ],
             "frequency": 0.796,
-            "avg_objective": 1.9793,
+            "avg_objective": 1.9461,
             "modal_entries": {
               "500": [
                 "skr-6617",
@@ -3135,7 +3218,7 @@
               "skr-8090"
             ],
             "frequency": 0.172,
-            "avg_objective": 2.0951,
+            "avg_objective": 2.056,
             "modal_entries": {
               "500": [
                 "skr-6617",
@@ -3155,7 +3238,6 @@
                 "skr-2262",
                 "skr-6617",
                 "skr-7609",
-                "skr-8080",
                 "skr-8090"
               ],
               "relay": [
@@ -3177,7 +3259,7 @@
               "skr-8090"
             ],
             "frequency": 0.008,
-            "avg_objective": 2.6709,
+            "avg_objective": 2.6355,
             "modal_entries": {
               "500": [
                 "dom-tmp-9df89a0e45",
@@ -3198,7 +3280,6 @@
                 "skr-19401",
                 "skr-2262",
                 "skr-6617",
-                "skr-8080",
                 "skr-8090"
               ],
               "relay": [
