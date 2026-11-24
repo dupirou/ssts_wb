@@ -46,6 +46,10 @@ class CompetitionTests(unittest.TestCase):
             participants=[dict(country='CHN', rank=1, result='4:12.679')],
         )
         copy_final = dict(final, id='isu-heat-2', source_url='round2', round_label='Finals')
+        final['participants'][0]['members'] = [dict(athlete_id='same', name='Ayano SEKIGUCHI')]
+        copy_final['participants'] = [
+            dict(final['participants'][0], members=[dict(athlete_id='same', name='Ayano Sekiguchi')])
+        ]
         other_group = dict(copy_final, group='B')
         reskate = dict(copy_final, source_start='2026-11-21T18:00:00Z')
         revision = dict(copy_final, participants=[dict(country='CHN', rank=1, result='4:12.680')])

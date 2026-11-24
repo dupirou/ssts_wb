@@ -16,7 +16,7 @@ import competition_data
 
 STATUSES = {'PEN', 'YC', 'RC'}
 MAX_PDF_BYTES = 20_000_000
-ROW = re.compile(r'^\s*(\d+)\s{2,}(.+?)\s{2,}([A-Z]{3})\s+((?:\d+|-)(?:\s+(?:\d+|-)){7})\s*$')
+ROW = re.compile(r'^\s*(\d+)\s{2,}(.+?)\s{2,}([A-Z]{3}\d?)\s+((?:\d+|-)(?:\s+(?:\d+|-)){7})\s*$')
 INFRINGEMENT = re.compile(
     r'^\s*(\d+)\s+(\d+)\s+(Women|Men|Mixed)\s+'
     r'(?:(\d+)\s*m(\s+Relay)?|(Team\s+Relay))\s{2,}(.+)$',
@@ -45,6 +45,9 @@ def parse_pages(pages, config, source_url, sha256=''):
     for page_number, page in totals:
         progress = re.search(r'After\s+(\d+)\s+of\s+7\s+World Tour Events', page, re.I)
         gender = re.search(r'^\s*(Women|Men)\s*$', page, re.M)
+        if not progress and not gender and 'This report does not include the following penalties:' in page:
+            if not any(ROW.match(line) for line in page.splitlines()):
+                continue  # C98P can put its exclusion note alone on the last page.
         if not progress or not gender:
             raise ValueError('Missing season penalty gender or progress')
         completed.add(int(progress.group(1)))
@@ -107,7 +110,7 @@ def parse_pages(pages, config, source_url, sha256=''):
             is_relay = bool(relay or team_relay)
             meters = 2000 if team_relay else int(distance)
             parts = re.split(r'\s{2,}', remainder.strip())
-            member = next((i for i, value in enumerate(parts) if re.fullmatch(r'[A-Z]{3}', value) and i >= 2), None)
+            member = next((i for i, value in enumerate(parts) if re.fullmatch(r'[A-Z]{3}\d?', value) and i >= 2), None)
             if member is None or member + 1 >= len(parts):
                 continue
             status = parts[member + 1].strip().split()[0]

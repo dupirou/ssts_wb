@@ -11,7 +11,7 @@
     );
   }
   function home(ctx, calendar, details) {
-    const { h, root, nextCard, stationWindow, phase, ticketPanel } = ctx;
+    const { h, root, nextCard, stationWindow, phase } = ctx;
     const stations = calendar.stations.map((st, i) => ({
       ...st,
       n: i + 1,
@@ -68,8 +68,7 @@
               )
             )
           )
-        : null,
-      ...stations.map(ticketPanel).filter(Boolean)
+        : null
     );
   }
   async function athletes(ctx, calendar) {

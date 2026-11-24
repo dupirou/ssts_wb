@@ -37,6 +37,17 @@ class PenaltyProtocolTests(unittest.TestCase):
             pages or fixture(), {'city': 'Vancouver', 'year': 2026}, 'https://isu.example/protocol.pdf'
         )
 
+    def test_separate_exclusion_note_and_numbered_country(self):
+        women, men, infra = fixture()
+        body, note = men.split('This report')
+        pages = [
+            women.replace('CHN', 'AIN2'),
+            body,
+            'WORLD TOUR PENALTIES\nThis report' + note,
+            infra.replace('CHN    PEN', 'AIN2   PEN', 1),
+        ]
+        self.assertEqual(self.report(pages)['pages']['penalties'], [1, 2, 3])
+
     def test_s6_is_not_the_excluded_st6_and_off_does_not_count(self):
         value = self.report()
         self.assertEqual(value['completed_events'], 1)
