@@ -2,6 +2,13 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "1986889b009ee8f1",
+      "station": "beijing",
+      "kind": "entries",
+      "at": "2026-11-25T15:01:40+00:00",
+      "count": 215
+    },
+    {
       "id": "78b1ccf9d69b968e",
       "station": "seoul",
       "kind": "rankings",
@@ -3235,25 +3242,6 @@
       "kind": "groups",
       "heats": 1,
       "china": []
-    },
-    {
-      "id": "e67cb9795528b9f7",
-      "station": "montreal",
-      "at": "2026-10-31T19:51:19+00:00",
-      "local_date": "2026-10-31",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": [
-        "张柏浩",
-        "孙龙",
-        "朱祎玎"
-      ]
     }
   ]
 }

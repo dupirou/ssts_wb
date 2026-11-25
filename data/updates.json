@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "facts": {
+    "beijing/entries": "676462dfe59fade1",
     "montreal/entries": "6d94f2316ada41bc",
     "montreal/rankings": "559728432e8b3fe2",
     "montreal/round/2026-10-30/qualifying/men/1000/heats/-/groups": "published",
@@ -537,25 +538,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "e67cb9795528b9f7",
-      "station": "montreal",
-      "at": "2026-10-31T19:51:19+00:00",
-      "local_date": "2026-10-31",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": [
-        "Bohao ZHANG",
-        "Long SUN",
-        "Yiding ZHU"
-      ]
-    },
     {
       "id": "24d2ed5ddfd1b642",
       "station": "montreal",
@@ -3694,6 +3676,13 @@
       "kind": "rankings",
       "at": "2026-11-23T10:01:44+00:00",
       "changed": true
+    },
+    {
+      "id": "1986889b009ee8f1",
+      "station": "beijing",
+      "kind": "entries",
+      "at": "2026-11-25T15:01:40+00:00",
+      "count": 215
     }
   ]
 }
