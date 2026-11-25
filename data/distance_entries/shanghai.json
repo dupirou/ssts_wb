@@ -1,7 +1,2390 @@
 {
   "schema_version": 1,
   "event_id": "shanghai",
-  "lists": [],
-  "update_status": "error",
-  "error": "Invalid or duplicate ISU distance entrant"
+  "update_status": "ok",
+  "checked_at": "2026-11-25T12:50:45+00:00",
+  "lists": [
+    {
+      "gender": "men",
+      "distance_m": 500,
+      "participants": [
+        {
+          "athlete_id": "ath-284e4e30ce2b8e981154",
+          "official_skater_id": 491,
+          "name": "Vladimir BALBEKOV",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-766b41e307ecb7b3445a",
+          "official_skater_id": 2908,
+          "name": "Konstantin IVLIEV",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-821d652846ad8c51e882",
+          "official_skater_id": 22580,
+          "name": "Nikita NIKOLAEV",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-83cf68476818bb34df2a",
+          "official_skater_id": 1342,
+          "name": "Brendan COREY",
+          "country": "AUS"
+        },
+        {
+          "athlete_id": "ath-e0867fdf3c14aab30440",
+          "official_skater_id": 7625,
+          "name": "Lucas WAREHAM",
+          "country": "AUS"
+        },
+        {
+          "athlete_id": "ath-234078166799fe66f9af",
+          "official_skater_id": 18358,
+          "name": "Steven CHEN",
+          "country": "AUS"
+        },
+        {
+          "athlete_id": "ath-623779beeda587847aba",
+          "official_skater_id": 314,
+          "name": "Nicolas ANDERMANN",
+          "country": "AUT"
+        },
+        {
+          "athlete_id": "ath-3e4f8461219f16c88e65",
+          "official_skater_id": 7759,
+          "name": "Tobias Wolf",
+          "country": "AUT"
+        },
+        {
+          "athlete_id": "ath-9868a34ec503aeddc132",
+          "official_skater_id": 1569,
+          "name": "Adriaan DEWAGTERE",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
+          "official_skater_id": 5140,
+          "name": "Warre NOIRON",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-d3696da65ab1eef0c652",
+          "official_skater_id": 5923,
+          "name": "Aleyandro RIVERO MAERSCHALCK",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-a4c9e0fa92c31f6f11ce",
+          "official_skater_id": 1657,
+          "name": "Ivan DONCHEV",
+          "country": "BUL"
+        },
+        {
+          "athlete_id": "ath-27143c296ec97522a767",
+          "official_skater_id": 4648,
+          "name": "Maxim MAXIMOV",
+          "country": "BUL"
+        },
+        {
+          "athlete_id": "ath-ff84a70c32aaa0324d85",
+          "official_skater_id": 1422,
+          "name": "William DANDJINOU",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-fc00bf7d3e213bcf4f68",
+          "official_skater_id": 3951,
+          "name": "Maxime LAOUN",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-295c31a30610e64d9499",
+          "official_skater_id": 5474,
+          "name": "Mathieu PELLETIER",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-2f5775133539f6a7e0f7",
+          "official_skater_id": 5998,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-872b8b25f1eda8723e33",
+          "official_skater_id": 4167,
+          "name": "Kun LI",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-78a6ed2c7eac904f5ca0",
+          "official_skater_id": 6784,
+          "name": "Long SUN",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-c1101796a5a03fa62c35",
+          "official_skater_id": 20570,
+          "name": "Yuheng LI",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-799c7f543fce635aeeb8",
+          "official_skater_id": 20586,
+          "name": "Zixia ZHANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-993c4cb36d702de0a0b4",
+          "official_skater_id": 4592,
+          "name": "Ivan MARTINIC",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-91ed24e9a56e745fb483",
+          "official_skater_id": 5691,
+          "name": "Martin PRANTL",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-f48b158cdb376de3796f",
+          "official_skater_id": 1870,
+          "name": "Radek FAJKUS",
+          "country": "CZE"
+        },
+        {
+          "athlete_id": "ath-95a05227a237238b7f28",
+          "official_skater_id": 5653,
+          "name": "Matej POPL",
+          "country": "CZE"
+        },
+        {
+          "athlete_id": "ath-039907ab5c24748ad431",
+          "official_skater_id": 18306,
+          "name": "Samuel Oliver SULC",
+          "country": "CZE"
+        },
+        {
+          "athlete_id": "ath-a59812c330ba5762181b",
+          "official_skater_id": 4970,
+          "name": "Willem MURRAY",
+          "country": "GBR"
+        },
+        {
+          "athlete_id": "ath-2c7bf7881e6dda162f51",
+          "official_skater_id": 7129,
+          "name": "Niall TREACY",
+          "country": "GBR"
+        },
+        {
+          "athlete_id": "ath-85622049b960167a565d",
+          "official_skater_id": 18327,
+          "name": "Albie BARLOW",
+          "country": "GBR"
+        },
+        {
+          "athlete_id": "ath-78b1997e73d6897f4a5d",
+          "official_skater_id": 3114,
+          "name": "Yanghun Ben JUNG",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-deb7324d5b25a9ec103c",
+          "official_skater_id": 18224,
+          "name": "Marten TAUBERT",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-388d1df985f23bc41a5c",
+          "official_skater_id": 3877,
+          "name": "Tsz Fung KWOK",
+          "country": "HKG"
+        },
+        {
+          "athlete_id": "ath-91511b3c9de89e30bfa8",
+          "official_skater_id": 2986,
+          "name": "Peter JASZAPATI",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-dca7784fc8fdf2fbec50",
+          "official_skater_id": 7047,
+          "name": "Daniel TIBORCZ",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-154610d4b0cb7055236f",
+          "official_skater_id": 18333,
+          "name": "Borisz Z MOLNAR",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-3e4b0c909237d556e304",
+          "official_skater_id": 20562,
+          "name": "Marva Kayana Putra FIRDAUS",
+          "country": "INA"
+        },
+        {
+          "athlete_id": "ath-b94dfa98131e8ff1906a",
+          "official_skater_id": 4560,
+          "name": "Pietro MARINELLI",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-0b75c8b148a940d59dbb",
+          "official_skater_id": 4990,
+          "name": "Thomas Nadalini",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-d92eaba24dcaf8aca602",
+          "official_skater_id": 6644,
+          "name": "Luca SPECHENHAUSER",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-050bd069f71a453ce726",
+          "official_skater_id": 8033,
+          "name": "Daniele Zampedri",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-5412f5778387aad9a803",
+          "official_skater_id": 4633,
+          "name": "Shuta Matsuzu",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-dae50584eb222f8f7725",
+          "official_skater_id": 4847,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-c28e18c99f0af84ca8d0",
+          "official_skater_id": 7563,
+          "name": "Takumi WADA",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-26292f2efadb197ddb94",
+          "official_skater_id": 7960,
+          "name": "Kazuki YOSHINAGA",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-2fb137b7530e2d3409db",
+          "official_skater_id": 2905,
+          "name": "Gleb IVCHENKO",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-64a844d676fa24746b6b",
+          "official_skater_id": 5039,
+          "name": "Aibek NASSEN",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-49385aad096bc1c84902",
+          "official_skater_id": 18246,
+          "name": "Tamirlan ZHOLDAS",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-312405ae84ff65c4ae3a",
+          "official_skater_id": 3473,
+          "name": "Taesung KIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-2eea258e3a0d28fc0ba5",
+          "official_skater_id": 4030,
+          "name": "Jeongmin LEE",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-732f4fad920fa4946f20",
+          "official_skater_id": 5906,
+          "name": "Jongun RIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-d17ee33a3816179f80fc",
+          "official_skater_id": 22070,
+          "name": "Seochan BAE",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-d756eadf9d099abd465c",
+          "official_skater_id": 1816,
+          "name": "Munkh-Erdene ERDENEBILEG",
+          "country": "MGL"
+        },
+        {
+          "athlete_id": "ath-98d77949cb6eb84d0b02",
+          "official_skater_id": 783,
+          "name": "Teun BOER",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-6be3e556e39507d16dc3",
+          "official_skater_id": 2780,
+          "name": "Kay HUISMAN",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-ed4d41133f871dbcd2f6",
+          "official_skater_id": 3494,
+          "name": "Niels KINGMA",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-3c121028999cfe671647",
+          "official_skater_id": 7375,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-da00551c0fe15e37c1ac",
+          "official_skater_id": 5461,
+          "name": "Fredrik Pedersen",
+          "country": "NOR"
+        },
+        {
+          "athlete_id": "ath-1eb080ffb8c8df4c372f",
+          "official_skater_id": 5921,
+          "name": "Linus August RISNES",
+          "country": "NOR"
+        },
+        {
+          "athlete_id": "ath-add78a12fa310b75e8b7",
+          "official_skater_id": 2363,
+          "name": "Peter Joseph GROSECLOSE",
+          "country": "PHI"
+        },
+        {
+          "athlete_id": "ath-775d347cc69597e5a04c",
+          "official_skater_id": 5097,
+          "name": "Michal NIEWINSKI",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-ad9946db70088f23d4ac",
+          "official_skater_id": 5581,
+          "name": "Felix PIGEON",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-b398294b57be8d0bdfb8",
+          "official_skater_id": 18242,
+          "name": "Franciszek IZBICKI",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-787f9ebe942ff234f15c",
+          "official_skater_id": 3613,
+          "name": "Tibor KOMERICKI",
+          "country": "SLO"
+        },
+        {
+          "athlete_id": "ath-4d45ed1e46ea24682647",
+          "official_skater_id": 21070,
+          "name": "Kritsanapon PHUATRAKUL",
+          "country": "THA"
+        },
+        {
+          "athlete_id": "ath-b4a8c039b087b2f48af1",
+          "official_skater_id": 4231,
+          "name": "Chun-Chieh LIN",
+          "country": "TPE"
+        },
+        {
+          "athlete_id": "ath-a9ddcbdd069f5c0a1198",
+          "official_skater_id": 226,
+          "name": "Furkan AKAR",
+          "country": "TUR"
+        },
+        {
+          "athlete_id": "ath-10150460017447b98409",
+          "official_skater_id": 859,
+          "name": "Muhammed BOZDAG",
+          "country": "TUR"
+        },
+        {
+          "athlete_id": "ath-4b56413b1bd7406aff55",
+          "official_skater_id": 19040,
+          "name": "Denis ORS",
+          "country": "TUR"
+        },
+        {
+          "athlete_id": "ath-46668ca5ada4dd8805a3",
+          "official_skater_id": 3338,
+          "name": "Tymofii KHOKHELKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-3f9d60cf0c2e341bf39f",
+          "official_skater_id": 4114,
+          "name": "Rostyslav LEONTENKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-09c3bd64993a90200cc2",
+          "official_skater_id": 4901,
+          "name": "Yaroslav MOROZOV",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-84f0d8c76ad7b4d4c9ad",
+          "official_skater_id": 2616,
+          "name": "Andrew HEO",
+          "country": "USA"
+        },
+        {
+          "athlete_id": "ath-827e905d163c7f93c593",
+          "official_skater_id": 3385,
+          "name": "Brandon KIM",
+          "country": "USA"
+        },
+        {
+          "athlete_id": "ath-bf41d212ebfe992891e6",
+          "official_skater_id": 4302,
+          "name": "Justin LIU",
+          "country": "USA"
+        },
+        {
+          "athlete_id": "ath-386e02e7887f7b96867e",
+          "official_skater_id": 19467,
+          "name": "Benjamin SULLIVAN",
+          "country": "USA"
+        }
+      ],
+      "source_urls": [
+        "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=entries_16265&type=16435"
+      ],
+      "verified_at": "2026-11-25T12:50:45+00:00"
+    },
+    {
+      "gender": "men",
+      "distance_m": 1000,
+      "participants": [
+        {
+          "athlete_id": "ath-284e4e30ce2b8e981154",
+          "official_skater_id": 491,
+          "name": "Vladimir BALBEKOV",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-957beb23a9901b33af6b",
+          "official_skater_id": 1774,
+          "name": "Semen ELISTRATOV",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-ae059245c19305b299b6",
+          "official_skater_id": 20499,
+          "name": "Daniil NIKOLAEV",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-83cf68476818bb34df2a",
+          "official_skater_id": 1342,
+          "name": "Brendan COREY",
+          "country": "AUS"
+        },
+        {
+          "athlete_id": "ath-e0867fdf3c14aab30440",
+          "official_skater_id": 7625,
+          "name": "Lucas WAREHAM",
+          "country": "AUS"
+        },
+        {
+          "athlete_id": "ath-234078166799fe66f9af",
+          "official_skater_id": 18358,
+          "name": "Steven CHEN",
+          "country": "AUS"
+        },
+        {
+          "athlete_id": "ath-623779beeda587847aba",
+          "official_skater_id": 314,
+          "name": "Nicolas ANDERMANN",
+          "country": "AUT"
+        },
+        {
+          "athlete_id": "ath-3e4f8461219f16c88e65",
+          "official_skater_id": 7759,
+          "name": "Tobias Wolf",
+          "country": "AUT"
+        },
+        {
+          "athlete_id": "ath-9868a34ec503aeddc132",
+          "official_skater_id": 1569,
+          "name": "Adriaan DEWAGTERE",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-d3696da65ab1eef0c652",
+          "official_skater_id": 5923,
+          "name": "Aleyandro RIVERO MAERSCHALCK",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-9f8261b4f03d9bcbec9a",
+          "official_skater_id": 7327,
+          "name": "Fre VAN DAMME",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-a4c9e0fa92c31f6f11ce",
+          "official_skater_id": 1657,
+          "name": "Ivan DONCHEV",
+          "country": "BUL"
+        },
+        {
+          "athlete_id": "ath-672e318a34c40e9d2d36",
+          "official_skater_id": 2435,
+          "name": "Asen GYUROV",
+          "country": "BUL"
+        },
+        {
+          "athlete_id": "ath-27143c296ec97522a767",
+          "official_skater_id": 4648,
+          "name": "Maxim MAXIMOV",
+          "country": "BUL"
+        },
+        {
+          "athlete_id": "ath-ff84a70c32aaa0324d85",
+          "official_skater_id": 1422,
+          "name": "William DANDJINOU",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-6a55e9fb6f1aecd29288",
+          "official_skater_id": 1701,
+          "name": "Steven DUBOIS",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-295c31a30610e64d9499",
+          "official_skater_id": 5474,
+          "name": "Mathieu PELLETIER",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-2f5775133539f6a7e0f7",
+          "official_skater_id": 5998,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-78a6ed2c7eac904f5ca0",
+          "official_skater_id": 6784,
+          "name": "Long SUN",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-49a455de09fadeaad9c9",
+          "official_skater_id": 8078,
+          "name": "Bohao ZHANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-dd2b3b0d39813eac69b7",
+          "official_skater_id": 20551,
+          "name": "Tianyou WANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-799c7f543fce635aeeb8",
+          "official_skater_id": 20586,
+          "name": "Zixia ZHANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-993c4cb36d702de0a0b4",
+          "official_skater_id": 4592,
+          "name": "Ivan MARTINIC",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-91ed24e9a56e745fb483",
+          "official_skater_id": 5691,
+          "name": "Martin PRANTL",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-f48b158cdb376de3796f",
+          "official_skater_id": 1870,
+          "name": "Radek FAJKUS",
+          "country": "CZE"
+        },
+        {
+          "athlete_id": "ath-d3145034c2029008b732",
+          "official_skater_id": 5717,
+          "name": "Marek PROCHAZKA",
+          "country": "CZE"
+        },
+        {
+          "athlete_id": "ath-039907ab5c24748ad431",
+          "official_skater_id": 18306,
+          "name": "Samuel Oliver SULC",
+          "country": "CZE"
+        },
+        {
+          "athlete_id": "ath-de020c06bdbb9947dc74",
+          "official_skater_id": 2652,
+          "name": "Adam HILL JNR",
+          "country": "GBR"
+        },
+        {
+          "athlete_id": "ath-a59812c330ba5762181b",
+          "official_skater_id": 4970,
+          "name": "Willem MURRAY",
+          "country": "GBR"
+        },
+        {
+          "athlete_id": "ath-2c7bf7881e6dda162f51",
+          "official_skater_id": 7129,
+          "name": "Niall TREACY",
+          "country": "GBR"
+        },
+        {
+          "athlete_id": "ath-78b1997e73d6897f4a5d",
+          "official_skater_id": 3114,
+          "name": "Yanghun Ben JUNG",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-deb7324d5b25a9ec103c",
+          "official_skater_id": 18224,
+          "name": "Marten TAUBERT",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-388d1df985f23bc41a5c",
+          "official_skater_id": 3877,
+          "name": "Tsz Fung KWOK",
+          "country": "HKG"
+        },
+        {
+          "athlete_id": "ath-c717ef5022b3c1c56264",
+          "official_skater_id": 4367,
+          "name": "Zhanshuo LOU",
+          "country": "HKG"
+        },
+        {
+          "athlete_id": "ath-91511b3c9de89e30bfa8",
+          "official_skater_id": 2986,
+          "name": "Peter JASZAPATI",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-dca7784fc8fdf2fbec50",
+          "official_skater_id": 7047,
+          "name": "Daniel TIBORCZ",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-98db35bb9bcbaa999fe0",
+          "official_skater_id": 7798,
+          "name": "Jiawei David WU",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-3e4b0c909237d556e304",
+          "official_skater_id": 20562,
+          "name": "Marva Kayana Putra FIRDAUS",
+          "country": "INA"
+        },
+        {
+          "athlete_id": "ath-0b75c8b148a940d59dbb",
+          "official_skater_id": 4990,
+          "name": "Thomas Nadalini",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-bf93d274dece11d17ae7",
+          "official_skater_id": 5703,
+          "name": "Lorenzo PREVITALI",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-d92eaba24dcaf8aca602",
+          "official_skater_id": 6644,
+          "name": "Luca SPECHENHAUSER",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-050bd069f71a453ce726",
+          "official_skater_id": 8033,
+          "name": "Daniele Zampedri",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-dae50584eb222f8f7725",
+          "official_skater_id": 4847,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-26292f2efadb197ddb94",
+          "official_skater_id": 7960,
+          "name": "Kazuki YOSHINAGA",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-e5c572b5a7978d920d74",
+          "official_skater_id": 18294,
+          "name": "Taiga Sasaki",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-e015f1fce69e77d9e54e",
+          "official_skater_id": 2074,
+          "name": "Adil GALIAKHMETOV",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-2fb137b7530e2d3409db",
+          "official_skater_id": 2905,
+          "name": "Gleb IVCHENKO",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-a21e5100fc37bb837ec4",
+          "official_skater_id": 18324,
+          "name": "Bogdan VEKHOV",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-312405ae84ff65c4ae3a",
+          "official_skater_id": 3473,
+          "name": "Taesung KIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-2eea258e3a0d28fc0ba5",
+          "official_skater_id": 4030,
+          "name": "Jeongmin LEE",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-732f4fad920fa4946f20",
+          "official_skater_id": 5906,
+          "name": "Jongun RIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-d17ee33a3816179f80fc",
+          "official_skater_id": 22070,
+          "name": "Seochan BAE",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-d756eadf9d099abd465c",
+          "official_skater_id": 1816,
+          "name": "Munkh-Erdene ERDENEBILEG",
+          "country": "MGL"
+        },
+        {
+          "athlete_id": "ath-98d77949cb6eb84d0b02",
+          "official_skater_id": 783,
+          "name": "Teun BOER",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-6be3e556e39507d16dc3",
+          "official_skater_id": 2780,
+          "name": "Kay HUISMAN",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-3c121028999cfe671647",
+          "official_skater_id": 7375,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-dd44b2a84774da47ab8d",
+          "official_skater_id": 7376,
+          "name": "Melle VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-da00551c0fe15e37c1ac",
+          "official_skater_id": 5461,
+          "name": "Fredrik Pedersen",
+          "country": "NOR"
+        },
+        {
+          "athlete_id": "ath-1eb080ffb8c8df4c372f",
+          "official_skater_id": 5921,
+          "name": "Linus August RISNES",
+          "country": "NOR"
+        },
+        {
+          "athlete_id": "ath-add78a12fa310b75e8b7",
+          "official_skater_id": 2363,
+          "name": "Peter Joseph GROSECLOSE",
+          "country": "PHI"
+        },
+        {
+          "athlete_id": "ath-0e38b751b0d28ae491f5",
+          "official_skater_id": 152,
+          "name": "Pawel ADAMSKI",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-775d347cc69597e5a04c",
+          "official_skater_id": 5097,
+          "name": "Michal NIEWINSKI",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-ad9946db70088f23d4ac",
+          "official_skater_id": 5581,
+          "name": "Felix PIGEON",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-787f9ebe942ff234f15c",
+          "official_skater_id": 3613,
+          "name": "Tibor KOMERICKI",
+          "country": "SLO"
+        },
+        {
+          "athlete_id": "ath-4d45ed1e46ea24682647",
+          "official_skater_id": 21070,
+          "name": "Kritsanapon PHUATRAKUL",
+          "country": "THA"
+        },
+        {
+          "athlete_id": "ath-b4a8c039b087b2f48af1",
+          "official_skater_id": 4231,
+          "name": "Chun-Chieh LIN",
+          "country": "TPE"
+        },
+        {
+          "athlete_id": "ath-a9ddcbdd069f5c0a1198",
+          "official_skater_id": 226,
+          "name": "Furkan AKAR",
+          "country": "TUR"
+        },
+        {
+          "athlete_id": "ath-10150460017447b98409",
+          "official_skater_id": 859,
+          "name": "Muhammed BOZDAG",
+          "country": "TUR"
+        },
+        {
+          "athlete_id": "ath-4b56413b1bd7406aff55",
+          "official_skater_id": 19040,
+          "name": "Denis ORS",
+          "country": "TUR"
+        },
+        {
+          "athlete_id": "ath-46668ca5ada4dd8805a3",
+          "official_skater_id": 3338,
+          "name": "Tymofii KHOKHELKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-3f9d60cf0c2e341bf39f",
+          "official_skater_id": 4114,
+          "name": "Rostyslav LEONTENKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-09c3bd64993a90200cc2",
+          "official_skater_id": 4901,
+          "name": "Yaroslav MOROZOV",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-472493cfd4ab7c1d5088",
+          "official_skater_id": 1471,
+          "name": "Clayton DE CLEMENTE",
+          "country": "USA"
+        },
+        {
+          "athlete_id": "ath-827e905d163c7f93c593",
+          "official_skater_id": 3385,
+          "name": "Brandon KIM",
+          "country": "USA"
+        },
+        {
+          "athlete_id": "ath-bf41d212ebfe992891e6",
+          "official_skater_id": 4302,
+          "name": "Justin LIU",
+          "country": "USA"
+        },
+        {
+          "athlete_id": "ath-d80247670bca0ac35858",
+          "official_skater_id": 21071,
+          "name": "Noah TROPPE",
+          "country": "USA"
+        }
+      ],
+      "source_urls": [
+        "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=entries_16265&type=16430"
+      ],
+      "verified_at": "2026-11-25T12:50:45+00:00"
+    },
+    {
+      "gender": "men",
+      "distance_m": 1500,
+      "participants": [
+        {
+          "athlete_id": "ath-284e4e30ce2b8e981154",
+          "official_skater_id": 491,
+          "name": "Vladimir BALBEKOV",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-957beb23a9901b33af6b",
+          "official_skater_id": 1774,
+          "name": "Semen ELISTRATOV",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-ae059245c19305b299b6",
+          "official_skater_id": 20499,
+          "name": "Daniil NIKOLAEV",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-821d652846ad8c51e882",
+          "official_skater_id": 22580,
+          "name": "Nikita NIKOLAEV",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-83cf68476818bb34df2a",
+          "official_skater_id": 1342,
+          "name": "Brendan COREY",
+          "country": "AUS"
+        },
+        {
+          "athlete_id": "ath-e0867fdf3c14aab30440",
+          "official_skater_id": 7625,
+          "name": "Lucas WAREHAM",
+          "country": "AUS"
+        },
+        {
+          "athlete_id": "ath-234078166799fe66f9af",
+          "official_skater_id": 18358,
+          "name": "Steven CHEN",
+          "country": "AUS"
+        },
+        {
+          "athlete_id": "ath-623779beeda587847aba",
+          "official_skater_id": 314,
+          "name": "Nicolas ANDERMANN",
+          "country": "AUT"
+        },
+        {
+          "athlete_id": "ath-3e4f8461219f16c88e65",
+          "official_skater_id": 7759,
+          "name": "Tobias Wolf",
+          "country": "AUT"
+        },
+        {
+          "athlete_id": "ath-f14f6ec4ac20e39bef35",
+          "official_skater_id": 5726,
+          "name": "Enzo PROOST",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-9f8261b4f03d9bcbec9a",
+          "official_skater_id": 7327,
+          "name": "Fre VAN DAMME",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-9f7cbe745e1593f62ee3",
+          "official_skater_id": 7328,
+          "name": "Warre VAN DAMME",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-a4c9e0fa92c31f6f11ce",
+          "official_skater_id": 1657,
+          "name": "Ivan DONCHEV",
+          "country": "BUL"
+        },
+        {
+          "athlete_id": "ath-672e318a34c40e9d2d36",
+          "official_skater_id": 2435,
+          "name": "Asen GYUROV",
+          "country": "BUL"
+        },
+        {
+          "athlete_id": "ath-27143c296ec97522a767",
+          "official_skater_id": 4648,
+          "name": "Maxim MAXIMOV",
+          "country": "BUL"
+        },
+        {
+          "athlete_id": "ath-66f405825cafc7701e42",
+          "official_skater_id": 1444,
+          "name": "Philippe DAUDELIN",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-6a55e9fb6f1aecd29288",
+          "official_skater_id": 1701,
+          "name": "Steven DUBOIS",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-fc00bf7d3e213bcf4f68",
+          "official_skater_id": 3951,
+          "name": "Maxime LAOUN",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-2f5775133539f6a7e0f7",
+          "official_skater_id": 5998,
+          "name": "Felix ROUSSEL",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-49a455de09fadeaad9c9",
+          "official_skater_id": 8078,
+          "name": "Bohao ZHANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-dd2b3b0d39813eac69b7",
+          "official_skater_id": 20551,
+          "name": "Tianyou WANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-c1101796a5a03fa62c35",
+          "official_skater_id": 20570,
+          "name": "Yuheng LI",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-799c7f543fce635aeeb8",
+          "official_skater_id": 20586,
+          "name": "Zixia ZHANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-993c4cb36d702de0a0b4",
+          "official_skater_id": 4592,
+          "name": "Ivan MARTINIC",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-91ed24e9a56e745fb483",
+          "official_skater_id": 5691,
+          "name": "Martin PRANTL",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-f48b158cdb376de3796f",
+          "official_skater_id": 1870,
+          "name": "Radek FAJKUS",
+          "country": "CZE"
+        },
+        {
+          "athlete_id": "ath-d3145034c2029008b732",
+          "official_skater_id": 5717,
+          "name": "Marek PROCHAZKA",
+          "country": "CZE"
+        },
+        {
+          "athlete_id": "ath-039907ab5c24748ad431",
+          "official_skater_id": 18306,
+          "name": "Samuel Oliver SULC",
+          "country": "CZE"
+        },
+        {
+          "athlete_id": "ath-a59812c330ba5762181b",
+          "official_skater_id": 4970,
+          "name": "Willem MURRAY",
+          "country": "GBR"
+        },
+        {
+          "athlete_id": "ath-2c7bf7881e6dda162f51",
+          "official_skater_id": 7129,
+          "name": "Niall TREACY",
+          "country": "GBR"
+        },
+        {
+          "athlete_id": "ath-6dbf1d717f86a3553740",
+          "official_skater_id": 18301,
+          "name": "Joseph ARMSTRONG",
+          "country": "GBR"
+        },
+        {
+          "athlete_id": "ath-78b1997e73d6897f4a5d",
+          "official_skater_id": 3114,
+          "name": "Yanghun Ben JUNG",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-deb7324d5b25a9ec103c",
+          "official_skater_id": 18224,
+          "name": "Marten TAUBERT",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-388d1df985f23bc41a5c",
+          "official_skater_id": 3877,
+          "name": "Tsz Fung KWOK",
+          "country": "HKG"
+        },
+        {
+          "athlete_id": "ath-c717ef5022b3c1c56264",
+          "official_skater_id": 4367,
+          "name": "Zhanshuo LOU",
+          "country": "HKG"
+        },
+        {
+          "athlete_id": "ath-91511b3c9de89e30bfa8",
+          "official_skater_id": 2986,
+          "name": "Peter JASZAPATI",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-98db35bb9bcbaa999fe0",
+          "official_skater_id": 7798,
+          "name": "Jiawei David WU",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-154610d4b0cb7055236f",
+          "official_skater_id": 18333,
+          "name": "Borisz Z MOLNAR",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-3e4b0c909237d556e304",
+          "official_skater_id": 20562,
+          "name": "Marva Kayana Putra FIRDAUS",
+          "country": "INA"
+        },
+        {
+          "athlete_id": "ath-b94dfa98131e8ff1906a",
+          "official_skater_id": 4560,
+          "name": "Pietro MARINELLI",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-0b75c8b148a940d59dbb",
+          "official_skater_id": 4990,
+          "name": "Thomas Nadalini",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-bf93d274dece11d17ae7",
+          "official_skater_id": 5703,
+          "name": "Lorenzo PREVITALI",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-d92eaba24dcaf8aca602",
+          "official_skater_id": 6644,
+          "name": "Luca SPECHENHAUSER",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-5412f5778387aad9a803",
+          "official_skater_id": 4633,
+          "name": "Shuta Matsuzu",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-dae50584eb222f8f7725",
+          "official_skater_id": 4847,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-26292f2efadb197ddb94",
+          "official_skater_id": 7960,
+          "name": "Kazuki YOSHINAGA",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-e5c572b5a7978d920d74",
+          "official_skater_id": 18294,
+          "name": "Taiga Sasaki",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-e015f1fce69e77d9e54e",
+          "official_skater_id": 2074,
+          "name": "Adil GALIAKHMETOV",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-64a844d676fa24746b6b",
+          "official_skater_id": 5039,
+          "name": "Aibek NASSEN",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-a21e5100fc37bb837ec4",
+          "official_skater_id": 18324,
+          "name": "Bogdan VEKHOV",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-732f4fad920fa4946f20",
+          "official_skater_id": 5906,
+          "name": "Jongun RIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-7c9576fc5f305230747a",
+          "official_skater_id": 6390,
+          "name": "Dong Min SHIN",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-d17ee33a3816179f80fc",
+          "official_skater_id": 22070,
+          "name": "Seochan BAE",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-c9500eb167ae2d20c117",
+          "official_skater_id": 22072,
+          "name": "Gyuho LEE",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-d756eadf9d099abd465c",
+          "official_skater_id": 1816,
+          "name": "Munkh-Erdene ERDENEBILEG",
+          "country": "MGL"
+        },
+        {
+          "athlete_id": "ath-6be3e556e39507d16dc3",
+          "official_skater_id": 2780,
+          "name": "Kay HUISMAN",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-ed4d41133f871dbcd2f6",
+          "official_skater_id": 3494,
+          "name": "Niels KINGMA",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-a00eed0777b06861a02d",
+          "official_skater_id": 7341,
+          "name": "Bas VAN DER VALK",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-3c121028999cfe671647",
+          "official_skater_id": 7375,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-da00551c0fe15e37c1ac",
+          "official_skater_id": 5461,
+          "name": "Fredrik Pedersen",
+          "country": "NOR"
+        },
+        {
+          "athlete_id": "ath-1eb080ffb8c8df4c372f",
+          "official_skater_id": 5921,
+          "name": "Linus August RISNES",
+          "country": "NOR"
+        },
+        {
+          "athlete_id": "ath-add78a12fa310b75e8b7",
+          "official_skater_id": 2363,
+          "name": "Peter Joseph GROSECLOSE",
+          "country": "PHI"
+        },
+        {
+          "athlete_id": "ath-2e2dffc68de9b2b1504b",
+          "official_skater_id": 3795,
+          "name": "Lukasz KUCZYNSKI",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-cf536d673d68730e75f0",
+          "official_skater_id": 4451,
+          "name": "Krzysztof MADRY",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-775d347cc69597e5a04c",
+          "official_skater_id": 5097,
+          "name": "Michal NIEWINSKI",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-787f9ebe942ff234f15c",
+          "official_skater_id": 3613,
+          "name": "Tibor KOMERICKI",
+          "country": "SLO"
+        },
+        {
+          "athlete_id": "ath-4d45ed1e46ea24682647",
+          "official_skater_id": 21070,
+          "name": "Kritsanapon PHUATRAKUL",
+          "country": "THA"
+        },
+        {
+          "athlete_id": "ath-a9ddcbdd069f5c0a1198",
+          "official_skater_id": 226,
+          "name": "Furkan AKAR",
+          "country": "TUR"
+        },
+        {
+          "athlete_id": "ath-cedc15305e504b579972",
+          "official_skater_id": 419,
+          "name": "Metehan ATAN",
+          "country": "TUR"
+        },
+        {
+          "athlete_id": "ath-10150460017447b98409",
+          "official_skater_id": 859,
+          "name": "Muhammed BOZDAG",
+          "country": "TUR"
+        },
+        {
+          "athlete_id": "ath-46668ca5ada4dd8805a3",
+          "official_skater_id": 3338,
+          "name": "Tymofii KHOKHELKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-3f9d60cf0c2e341bf39f",
+          "official_skater_id": 4114,
+          "name": "Rostyslav LEONTENKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-09c3bd64993a90200cc2",
+          "official_skater_id": 4901,
+          "name": "Yaroslav MOROZOV",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-472493cfd4ab7c1d5088",
+          "official_skater_id": 1471,
+          "name": "Clayton DE CLEMENTE",
+          "country": "USA"
+        },
+        {
+          "athlete_id": "ath-84f0d8c76ad7b4d4c9ad",
+          "official_skater_id": 2616,
+          "name": "Andrew HEO",
+          "country": "USA"
+        },
+        {
+          "athlete_id": "ath-386e02e7887f7b96867e",
+          "official_skater_id": 19467,
+          "name": "Benjamin SULLIVAN",
+          "country": "USA"
+        },
+        {
+          "athlete_id": "ath-d80247670bca0ac35858",
+          "official_skater_id": 21071,
+          "name": "Noah TROPPE",
+          "country": "USA"
+        }
+      ],
+      "source_urls": [
+        "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=entries_16265&type=16436"
+      ],
+      "verified_at": "2026-11-25T12:50:45+00:00"
+    },
+    {
+      "gender": "women",
+      "distance_m": 500,
+      "participants": [
+        {
+          "athlete_id": "ath-483550788c35bdf02032",
+          "official_skater_id": 20498,
+          "name": "Alena KRYLOVA",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-878b429516890d2356ef",
+          "official_skater_id": 20501,
+          "name": "Elena SEREGINA",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-717c711871e3b1d5f841",
+          "official_skater_id": 21980,
+          "name": "Anastasiia KONSTANTINOVA",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-4c7366f027ce91fd36df",
+          "official_skater_id": 1545,
+          "name": "Tineke DEN DULK",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-3bd809dcd4f058d4b540",
+          "official_skater_id": 1566,
+          "name": "Hanne DESMET",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-3eaa973ae7925d335ead",
+          "official_skater_id": 743,
+          "name": "Danae BLAIS",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+          "official_skater_id": 924,
+          "name": "Florence BRUNELLE",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-d07ff35989421c041f6e",
+          "official_skater_id": 2993,
+          "name": "Victoria JEAN-BAPTISTE",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+          "official_skater_id": 6159,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-7526110b176497878d3f",
+          "official_skater_id": 2262,
+          "name": "Li GONG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-387545148a759a14a937",
+          "official_skater_id": 6617,
+          "name": "Jiarui SONG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-f538c26b063aaebfc376",
+          "official_skater_id": 7609,
+          "name": "Xinran WANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-f5df095326a0281962ea",
+          "official_skater_id": 8090,
+          "name": "Jianing ZHANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-d6c338d00b9f0f27ba8a",
+          "official_skater_id": 407,
+          "name": "Valentina ASCIC",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-241970bee5835179fa24",
+          "official_skater_id": 947,
+          "name": "Katarina BURIC",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-4fe64c204a3ae6446d70",
+          "official_skater_id": 1318,
+          "name": "Berenice COMBY",
+          "country": "FRA"
+        },
+        {
+          "athlete_id": "ath-8a1d16baa2b5cd400e4d",
+          "official_skater_id": 2330,
+          "name": "Eva GRENOUILLOUX",
+          "country": "FRA"
+        },
+        {
+          "athlete_id": "ath-257fbdf229c3007f9a9f",
+          "official_skater_id": 4137,
+          "name": "Aurelie LEVEQUE",
+          "country": "FRA"
+        },
+        {
+          "athlete_id": "ath-8e82dc2af25e8e98a240",
+          "official_skater_id": 5231,
+          "name": "Cloe OLLIVIER",
+          "country": "FRA"
+        },
+        {
+          "athlete_id": "ath-2aff26915e477356a31f",
+          "official_skater_id": 4857,
+          "name": "Betty MOESKE",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-ee4b7a824eb8cb36d140",
+          "official_skater_id": 18274,
+          "name": "Kateryna SOLOVIOVA",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-996d4f6ccb8210b8921d",
+          "official_skater_id": 3923,
+          "name": "Ching Yan LAM",
+          "country": "HKG"
+        },
+        {
+          "athlete_id": "ath-ca017e1d514c206e3241",
+          "official_skater_id": 6603,
+          "name": "Maja Dora SOMODI",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-cdc04f60f74742612112",
+          "official_skater_id": 7437,
+          "name": "Diana Laura VEGI",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-950324020eca0420a24c",
+          "official_skater_id": 690,
+          "name": "Margherita Betti",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-10b4e338d1b0cc128837",
+          "official_skater_id": 1324,
+          "name": "Elisa CONFORTOLA",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-4ee0f4f305dd7e06cf81",
+          "official_skater_id": 2861,
+          "name": "Gloria IORIATTI",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-a1633c7b189dc8822212",
+          "official_skater_id": 16282,
+          "name": "Katia Filippi",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-3612b246d8bc6f06f928",
+          "official_skater_id": 4995,
+          "name": "Haruna NAGAMORI",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-ccb448108645fa010aff",
+          "official_skater_id": 17693,
+          "name": "Ayano Sekiguchi",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-eb740365f54e07425ea8",
+          "official_skater_id": 18322,
+          "name": "Wakaba KENJO",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-a45aacdb0c84739c0ec3",
+          "official_skater_id": 3815,
+          "name": "Zeinep KUMARKAN",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-3db9b82d1690d02d78cf",
+          "official_skater_id": 5238,
+          "name": "Polina OMELCHUK",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-c4d9ec09e1031114684f",
+          "official_skater_id": 8073,
+          "name": "Guldana ZHALMUKHAN",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-fd0ac8fcf99b108ede4f",
+          "official_skater_id": 1227,
+          "name": "Ji Hyun CHOI",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-27654e207b20ca51c8bf",
+          "official_skater_id": 1231,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-8361e1c91aab972b6ca4",
+          "official_skater_id": 6380,
+          "name": "Sukhee SHIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-856445cfa3a2dc493db7",
+          "official_skater_id": 18348,
+          "name": "Minji KIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-6015217f50457d7cc862",
+          "official_skater_id": 1534,
+          "name": "Zoe Florence DELTRAP",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-fdc4ee292490f2789298",
+          "official_skater_id": 5679,
+          "name": "Selma POUTSMA",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-990ecbf9d406d93654b3",
+          "official_skater_id": 7447,
+          "name": "Xandra VELZEBOER",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-0741a07ece1921c12d58",
+          "official_skater_id": 3543,
+          "name": "Pauliina KLEVSTUEN",
+          "country": "NOR"
+        },
+        {
+          "athlete_id": "ath-5a3f248799f00b9b908f",
+          "official_skater_id": 17877,
+          "name": "Lia MEAD",
+          "country": "NZL"
+        },
+        {
+          "athlete_id": "ath-c1d7bd7451e837684ae7",
+          "official_skater_id": 1874,
+          "name": "Anna FALKOWSKA",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-d1ae30d3ef9795ec186b",
+          "official_skater_id": 4662,
+          "name": "Nikola MAZUR",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-7a90548f25275fc9709d",
+          "official_skater_id": 7104,
+          "name": "Gabriela TOPOLSKA",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-19acc54c4991181cfe31",
+          "official_skater_id": 7784,
+          "name": "Kornelia WOZNIAK",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-1d9dcd7e59fddd804ce7",
+          "official_skater_id": 1122,
+          "name": "Thanutchaya CHATTHAISONG",
+          "country": "THA"
+        },
+        {
+          "athlete_id": "ath-0efa1bfb83724dc340f2",
+          "official_skater_id": 4983,
+          "name": "Diana MYKHALCHUK",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-c44d65de6562a975eff8",
+          "official_skater_id": 6835,
+          "name": "Yelyzaveta SYDORKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-5473e6b679d75d058541",
+          "official_skater_id": 19466,
+          "name": "Mariia KHOKHELKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-69176211234ea45cd0aa",
+          "official_skater_id": 4412,
+          "name": "Kamryn LUTE",
+          "country": "USA"
+        }
+      ],
+      "source_urls": [
+        "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=entries_16265&type=16431"
+      ],
+      "verified_at": "2026-11-25T12:50:45+00:00"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1000,
+      "participants": [
+        {
+          "athlete_id": "ath-f8b3fd093e7538654fab",
+          "official_skater_id": 20671,
+          "name": "Anastasiia ZHEGANOVA",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-0cee84be0110c19e9257",
+          "official_skater_id": 22109,
+          "name": "Mariia METELKINA",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-f9ba3790fd71cb6f2f00",
+          "official_skater_id": 22123,
+          "name": "Failia AIMALETDINOVA",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-4c7366f027ce91fd36df",
+          "official_skater_id": 1545,
+          "name": "Tineke DEN DULK",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-3bd809dcd4f058d4b540",
+          "official_skater_id": 1566,
+          "name": "Hanne DESMET",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-32780e84744937993fa2",
+          "official_skater_id": 457,
+          "name": "Ann-Sophie BACHAND",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-3eaa973ae7925d335ead",
+          "official_skater_id": 743,
+          "name": "Danae BLAIS",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+          "official_skater_id": 924,
+          "name": "Florence BRUNELLE",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+          "official_skater_id": 6159,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-7526110b176497878d3f",
+          "official_skater_id": 2262,
+          "name": "Li GONG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-f538c26b063aaebfc376",
+          "official_skater_id": 7609,
+          "name": "Xinran WANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-c9d7d5a38485bd9c344f",
+          "official_skater_id": 19401,
+          "name": "Yan ZHANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-0f29f7a792674f648f26",
+          "official_skater_id": 23351,
+          "name": "JIAYAN NAN",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-d6c338d00b9f0f27ba8a",
+          "official_skater_id": 407,
+          "name": "Valentina ASCIC",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-241970bee5835179fa24",
+          "official_skater_id": 947,
+          "name": "Katarina BURIC",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-4fe64c204a3ae6446d70",
+          "official_skater_id": 1318,
+          "name": "Berenice COMBY",
+          "country": "FRA"
+        },
+        {
+          "athlete_id": "ath-8a1d16baa2b5cd400e4d",
+          "official_skater_id": 2330,
+          "name": "Eva GRENOUILLOUX",
+          "country": "FRA"
+        },
+        {
+          "athlete_id": "ath-8e82dc2af25e8e98a240",
+          "official_skater_id": 5231,
+          "name": "Cloe OLLIVIER",
+          "country": "FRA"
+        },
+        {
+          "athlete_id": "ath-2aff26915e477356a31f",
+          "official_skater_id": 4857,
+          "name": "Betty MOESKE",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-ee4b7a824eb8cb36d140",
+          "official_skater_id": 18274,
+          "name": "Kateryna SOLOVIOVA",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-996d4f6ccb8210b8921d",
+          "official_skater_id": 3923,
+          "name": "Ching Yan LAM",
+          "country": "HKG"
+        },
+        {
+          "athlete_id": "ath-ca017e1d514c206e3241",
+          "official_skater_id": 6603,
+          "name": "Maja Dora SOMODI",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-cdc04f60f74742612112",
+          "official_skater_id": 7437,
+          "name": "Diana Laura VEGI",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-950324020eca0420a24c",
+          "official_skater_id": 690,
+          "name": "Margherita Betti",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-10b4e338d1b0cc128837",
+          "official_skater_id": 1324,
+          "name": "Elisa CONFORTOLA",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-4ee0f4f305dd7e06cf81",
+          "official_skater_id": 2861,
+          "name": "Gloria IORIATTI",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-a1633c7b189dc8822212",
+          "official_skater_id": 16282,
+          "name": "Katia Filippi",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-3612b246d8bc6f06f928",
+          "official_skater_id": 4995,
+          "name": "Haruna NAGAMORI",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-df765364c74846f50d97",
+          "official_skater_id": 7851,
+          "name": "Rina YAMANA",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-ccb448108645fa010aff",
+          "official_skater_id": 17693,
+          "name": "Ayano Sekiguchi",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-3c87cc73801139f1ee27",
+          "official_skater_id": 414,
+          "name": "Anastassiya GALECHINA",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-d7393090231b3ef25ede",
+          "official_skater_id": 446,
+          "name": "Alina AZHGALIYEVA",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-3db9b82d1690d02d78cf",
+          "official_skater_id": 5238,
+          "name": "Polina OMELCHUK",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-27654e207b20ca51c8bf",
+          "official_skater_id": 1231,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-3e79769fe95fdcfb1c3e",
+          "official_skater_id": 3406,
+          "name": "Gilli KIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-8361e1c91aab972b6ca4",
+          "official_skater_id": 6380,
+          "name": "Sukhee SHIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-856445cfa3a2dc493db7",
+          "official_skater_id": 18348,
+          "name": "Minji KIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-6015217f50457d7cc862",
+          "official_skater_id": 1534,
+          "name": "Zoe Florence DELTRAP",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-51a17d72df4d726dbcde",
+          "official_skater_id": 6730,
+          "name": "Kiek STRAATHOF",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-6341667ddb63ec55f914",
+          "official_skater_id": 7365,
+          "name": "Diede VAN OORSCHOT",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-990ecbf9d406d93654b3",
+          "official_skater_id": 7447,
+          "name": "Xandra VELZEBOER",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-0741a07ece1921c12d58",
+          "official_skater_id": 3543,
+          "name": "Pauliina KLEVSTUEN",
+          "country": "NOR"
+        },
+        {
+          "athlete_id": "ath-5a3f248799f00b9b908f",
+          "official_skater_id": 17877,
+          "name": "Lia MEAD",
+          "country": "NZL"
+        },
+        {
+          "athlete_id": "ath-c1d7bd7451e837684ae7",
+          "official_skater_id": 1874,
+          "name": "Anna FALKOWSKA",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-0e39cee94f2bfbcab40f",
+          "official_skater_id": 4512,
+          "name": "Natalia MALISZEWSKA",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-7a90548f25275fc9709d",
+          "official_skater_id": 7104,
+          "name": "Gabriela TOPOLSKA",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-fb0b1c5c8fdf1dde7879",
+          "official_skater_id": 7642,
+          "name": "Michalina WAWER",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-1d9dcd7e59fddd804ce7",
+          "official_skater_id": 1122,
+          "name": "Thanutchaya CHATTHAISONG",
+          "country": "THA"
+        },
+        {
+          "athlete_id": "ath-718c9eb2f816ecc25ced",
+          "official_skater_id": 18356,
+          "name": "Chien Hua Huang",
+          "country": "TPE"
+        },
+        {
+          "athlete_id": "ath-0efa1bfb83724dc340f2",
+          "official_skater_id": 4983,
+          "name": "Diana MYKHALCHUK",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-c44d65de6562a975eff8",
+          "official_skater_id": 6835,
+          "name": "Yelyzaveta SYDORKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-5473e6b679d75d058541",
+          "official_skater_id": 19466,
+          "name": "Mariia KHOKHELKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-69176211234ea45cd0aa",
+          "official_skater_id": 4412,
+          "name": "Kamryn LUTE",
+          "country": "USA"
+        }
+      ],
+      "source_urls": [
+        "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=entries_16265&type=16433"
+      ],
+      "verified_at": "2026-11-25T12:50:45+00:00"
+    },
+    {
+      "gender": "women",
+      "distance_m": 1500,
+      "participants": [
+        {
+          "athlete_id": "ath-483550788c35bdf02032",
+          "official_skater_id": 20498,
+          "name": "Alena KRYLOVA",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-0cee84be0110c19e9257",
+          "official_skater_id": 22109,
+          "name": "Mariia METELKINA",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-f9ba3790fd71cb6f2f00",
+          "official_skater_id": 22123,
+          "name": "Failia AIMALETDINOVA",
+          "country": "AIN2"
+        },
+        {
+          "athlete_id": "ath-4c7366f027ce91fd36df",
+          "official_skater_id": 1545,
+          "name": "Tineke DEN DULK",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-3bd809dcd4f058d4b540",
+          "official_skater_id": 1566,
+          "name": "Hanne DESMET",
+          "country": "BEL"
+        },
+        {
+          "athlete_id": "ath-32780e84744937993fa2",
+          "official_skater_id": 457,
+          "name": "Ann-Sophie BACHAND",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+          "official_skater_id": 924,
+          "name": "Florence BRUNELLE",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-5a7cd29016a92caa9dfb",
+          "official_skater_id": 2052,
+          "name": "Claudia GAGNON",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+          "official_skater_id": 6159,
+          "name": "Courtney SARAULT",
+          "country": "CAN"
+        },
+        {
+          "athlete_id": "ath-387545148a759a14a937",
+          "official_skater_id": 6617,
+          "name": "Jiarui SONG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-f5df095326a0281962ea",
+          "official_skater_id": 8090,
+          "name": "Jianing ZHANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-c9d7d5a38485bd9c344f",
+          "official_skater_id": 19401,
+          "name": "Yan ZHANG",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-0f29f7a792674f648f26",
+          "official_skater_id": 23351,
+          "name": "JIAYAN NAN",
+          "country": "CHN"
+        },
+        {
+          "athlete_id": "ath-d6c338d00b9f0f27ba8a",
+          "official_skater_id": 407,
+          "name": "Valentina ASCIC",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-241970bee5835179fa24",
+          "official_skater_id": 947,
+          "name": "Katarina BURIC",
+          "country": "CRO"
+        },
+        {
+          "athlete_id": "ath-8a1d16baa2b5cd400e4d",
+          "official_skater_id": 2330,
+          "name": "Eva GRENOUILLOUX",
+          "country": "FRA"
+        },
+        {
+          "athlete_id": "ath-257fbdf229c3007f9a9f",
+          "official_skater_id": 4137,
+          "name": "Aurelie LEVEQUE",
+          "country": "FRA"
+        },
+        {
+          "athlete_id": "ath-8e82dc2af25e8e98a240",
+          "official_skater_id": 5231,
+          "name": "Cloe OLLIVIER",
+          "country": "FRA"
+        },
+        {
+          "athlete_id": "ath-2aff26915e477356a31f",
+          "official_skater_id": 4857,
+          "name": "Betty MOESKE",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-ee4b7a824eb8cb36d140",
+          "official_skater_id": 18274,
+          "name": "Kateryna SOLOVIOVA",
+          "country": "GER"
+        },
+        {
+          "athlete_id": "ath-996d4f6ccb8210b8921d",
+          "official_skater_id": 3923,
+          "name": "Ching Yan LAM",
+          "country": "HKG"
+        },
+        {
+          "athlete_id": "ath-ca017e1d514c206e3241",
+          "official_skater_id": 6603,
+          "name": "Maja Dora SOMODI",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-cdc04f60f74742612112",
+          "official_skater_id": 7437,
+          "name": "Diana Laura VEGI",
+          "country": "HUN"
+        },
+        {
+          "athlete_id": "ath-950324020eca0420a24c",
+          "official_skater_id": 690,
+          "name": "Margherita Betti",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-10b4e338d1b0cc128837",
+          "official_skater_id": 1324,
+          "name": "Elisa CONFORTOLA",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-4ee0f4f305dd7e06cf81",
+          "official_skater_id": 2861,
+          "name": "Gloria IORIATTI",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-a1633c7b189dc8822212",
+          "official_skater_id": 16282,
+          "name": "Katia Filippi",
+          "country": "ITA"
+        },
+        {
+          "athlete_id": "ath-3612b246d8bc6f06f928",
+          "official_skater_id": 4995,
+          "name": "Haruna NAGAMORI",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-df765364c74846f50d97",
+          "official_skater_id": 7851,
+          "name": "Rina YAMANA",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-ccb448108645fa010aff",
+          "official_skater_id": 17693,
+          "name": "Ayano Sekiguchi",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-451f02bf280332aefea5",
+          "official_skater_id": 21016,
+          "name": "Sarasa Kinami",
+          "country": "JPN"
+        },
+        {
+          "athlete_id": "ath-3c87cc73801139f1ee27",
+          "official_skater_id": 414,
+          "name": "Anastassiya GALECHINA",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-d7393090231b3ef25ede",
+          "official_skater_id": 446,
+          "name": "Alina AZHGALIYEVA",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-a45aacdb0c84739c0ec3",
+          "official_skater_id": 3815,
+          "name": "Zeinep KUMARKAN",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-c4d9ec09e1031114684f",
+          "official_skater_id": 8073,
+          "name": "Guldana ZHALMUKHAN",
+          "country": "KAZ"
+        },
+        {
+          "athlete_id": "ath-27654e207b20ca51c8bf",
+          "official_skater_id": 1231,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-3e79769fe95fdcfb1c3e",
+          "official_skater_id": 3406,
+          "name": "Gilli KIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-8361e1c91aab972b6ca4",
+          "official_skater_id": 6380,
+          "name": "Sukhee SHIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-856445cfa3a2dc493db7",
+          "official_skater_id": 18348,
+          "name": "Minji KIM",
+          "country": "KOR"
+        },
+        {
+          "athlete_id": "ath-6015217f50457d7cc862",
+          "official_skater_id": 1534,
+          "name": "Zoe Florence DELTRAP",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-6341667ddb63ec55f914",
+          "official_skater_id": 7365,
+          "name": "Diede VAN OORSCHOT",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-990ecbf9d406d93654b3",
+          "official_skater_id": 7447,
+          "name": "Xandra VELZEBOER",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-1a356fb1a14816511cf1",
+          "official_skater_id": 14376,
+          "name": "Bibi ARTS",
+          "country": "NED"
+        },
+        {
+          "athlete_id": "ath-0741a07ece1921c12d58",
+          "official_skater_id": 3543,
+          "name": "Pauliina KLEVSTUEN",
+          "country": "NOR"
+        },
+        {
+          "athlete_id": "ath-5a3f248799f00b9b908f",
+          "official_skater_id": 17877,
+          "name": "Lia MEAD",
+          "country": "NZL"
+        },
+        {
+          "athlete_id": "ath-d1ae30d3ef9795ec186b",
+          "official_skater_id": 4662,
+          "name": "Nikola MAZUR",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-7a90548f25275fc9709d",
+          "official_skater_id": 7104,
+          "name": "Gabriela TOPOLSKA",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-fb0b1c5c8fdf1dde7879",
+          "official_skater_id": 7642,
+          "name": "Michalina WAWER",
+          "country": "POL"
+        },
+        {
+          "athlete_id": "ath-1d9dcd7e59fddd804ce7",
+          "official_skater_id": 1122,
+          "name": "Thanutchaya CHATTHAISONG",
+          "country": "THA"
+        },
+        {
+          "athlete_id": "ath-718c9eb2f816ecc25ced",
+          "official_skater_id": 18356,
+          "name": "Chien Hua Huang",
+          "country": "TPE"
+        },
+        {
+          "athlete_id": "ath-0efa1bfb83724dc340f2",
+          "official_skater_id": 4983,
+          "name": "Diana MYKHALCHUK",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-e5738e9c7d7fe4108eaa",
+          "official_skater_id": 5862,
+          "name": "Svitlana REPETSKA",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-5473e6b679d75d058541",
+          "official_skater_id": 19466,
+          "name": "Mariia KHOKHELKO",
+          "country": "UKR"
+        },
+        {
+          "athlete_id": "ath-69176211234ea45cd0aa",
+          "official_skater_id": 4412,
+          "name": "Kamryn LUTE",
+          "country": "USA"
+        }
+      ],
+      "source_urls": [
+        "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=entries_16265&type=16434"
+      ],
+      "verified_at": "2026-11-25T12:50:45+00:00"
+    }
+  ]
 }

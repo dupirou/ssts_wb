@@ -97,7 +97,7 @@ def parse_entries(body, event, key, cfg):
             or sid in seen
             or not isinstance(name, str)
             or not name.strip()
-            or not re.fullmatch(r'[A-Z]{3}', country or '')
+            or not re.fullmatch(r'[A-Z]{3}|AIN[0-9]+', country or '')
             or skater.get('gender') != ('F' if gender == 'women' else 'M')
             or skater.get('id') != sid
         ):

@@ -100,6 +100,14 @@ class EntrySourceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             source.parse_entries(json.dumps(dict(status=200, data=[row])).encode(), event, ('men', 500), CONFIG)
 
+    def test_numbered_neutral_team_keeps_its_official_code(self):
+        row = entry_row('men', 75, 491, 'Vladimir BALBEKOV')
+        row['started_for_nf_code'] = 'AIN2'
+        body = json.dumps(dict(status=200, data=[row])).encode()
+        (person,) = source.parse_entries(body, {'event_result_id': 75}, ('men', 500), CONFIG)
+        self.assertEqual(person['country'], 'AIN2')
+        self.assertEqual(person['athlete_id'], competition_data.athlete_id('BALBEKOV Vladimir', 'AIN2', 'men'))
+
     def test_sync_failure_preserves_known_data(self):
         old = dict(
             schema_version=1,
