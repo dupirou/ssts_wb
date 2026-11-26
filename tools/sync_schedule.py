@@ -229,12 +229,7 @@ def dynamic_programme(body, station):
             stamp = datetime.fromisoformat(item['start_time'])
             if stamp.tzinfo is None:
                 raise ValueError('Missing schedule timezone')
-            venue_zone = ZoneInfo(station['timezone'])
-            # Shanghai 2026's schedule feed labels venue wall-clock times with Z.
-            if station['isu']['event_id'] == 16265 and item['start_time'].endswith('Z'):
-                local = stamp.replace(tzinfo=venue_zone)
-            else:
-                local = stamp.astimezone(venue_zone)
+            local = stamp.astimezone(ZoneInfo(station['timezone']))
             title, stage = item['event_schedule_title'], item['round_information']
             if title.casefold() == 'mixed team relay':
                 title = 'Mixed 2000 m Relay'
