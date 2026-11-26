@@ -1,0 +1,1411 @@
+{
+  "schema_version": 1,
+  "event_id": "shanghai",
+  "source_url": "https://front-api.isu.org/events/getschedule/isu-short-track-world-tour-4-shanghai",
+  "source_timezone": "Asia/Shanghai",
+  "status": "provisional",
+  "source_checked_at": "2026-11-26",
+  "sync": {
+    "last_successful_schedule_check_utc": "2026-11-26T07:18:38+00:00",
+    "source": "official_isu_schedule_api",
+    "source_url": "https://front-api.isu.org/events/getschedule/isu-short-track-world-tour-4-shanghai",
+    "notes": "Full programme verification passed: every discipline reaches its finals on the station's dates."
+  },
+  "notice": "ISU暂定轮次时间；中国队单组时间仅是非官方模型估算。",
+  "day_counts": {
+    "2026-11-27": 14,
+    "2026-11-28": 20,
+    "2026-11-29": 18
+  },
+  "total_items": 52,
+  "entries": [
+    {
+      "id": "2026-11-27-qualifying-women-500-preliminaries--",
+      "round_key": "2026-11-27/qualifying/women/500/preliminaries/-",
+      "local_date": "2026-11-27",
+      "local_time": "09:00",
+      "local_start": "2026-11-27T09:00:00+08:00",
+      "utc_start": "2026-11-27T01:00:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "09:00",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "preliminaries",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-men-500-preliminaries--",
+      "round_key": "2026-11-27/qualifying/men/500/preliminaries/-",
+      "local_date": "2026-11-27",
+      "local_time": "09:21",
+      "local_start": "2026-11-27T09:21:00+08:00",
+      "utc_start": "2026-11-27T01:21:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "09:21",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "preliminaries",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 1,
+            "athletes": [
+              "Yuheng LI"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T09:21:00+08:00",
+              "latest_local": "2026-11-27T09:21:00+08:00",
+              "earliest_beijing": "2026-11-27T09:21:00+08:00",
+              "latest_beijing": "2026-11-27T09:21:00+08:00",
+              "assumed_minutes_per_heat": [
+                2.5,
+                4.0
+              ]
+            }
+          },
+          {
+            "number": 5,
+            "athletes": [
+              "李坤"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T09:31:00+08:00",
+              "latest_local": "2026-11-27T09:37:00+08:00",
+              "earliest_beijing": "2026-11-27T09:31:00+08:00",
+              "latest_beijing": "2026-11-27T09:37:00+08:00",
+              "assumed_minutes_per_heat": [
+                2.5,
+                4.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16435&round=23661",
+        "verified_at": "2026-11-26T07:01:22+00:00"
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-women-1000-preliminaries--",
+      "round_key": "2026-11-27/qualifying/women/1000/preliminaries/-",
+      "local_date": "2026-11-27",
+      "local_time": "10:09",
+      "local_start": "2026-11-27T10:09:00+08:00",
+      "utc_start": "2026-11-27T02:09:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "10:09",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "preliminaries",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 1,
+            "athletes": [
+              "Jiayan NAN"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T10:09:00+08:00",
+              "latest_local": "2026-11-27T10:09:00+08:00",
+              "earliest_beijing": "2026-11-27T10:09:00+08:00",
+              "latest_beijing": "2026-11-27T10:09:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          },
+          {
+            "number": 4,
+            "athletes": [
+              "王欣然"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T10:18:00+08:00",
+              "latest_local": "2026-11-27T10:24:00+08:00",
+              "earliest_beijing": "2026-11-27T10:18:00+08:00",
+              "latest_beijing": "2026-11-27T10:24:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16433&round=23639",
+        "verified_at": "2026-11-26T07:01:22+00:00"
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-men-1000-preliminaries--",
+      "round_key": "2026-11-27/qualifying/men/1000/preliminaries/-",
+      "local_date": "2026-11-27",
+      "local_time": "10:37",
+      "local_start": "2026-11-27T10:37:00+08:00",
+      "utc_start": "2026-11-27T02:37:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "10:37",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "preliminaries",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 3,
+            "athletes": [
+              "Tianyou WANG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T10:43:00+08:00",
+              "latest_local": "2026-11-27T10:47:00+08:00",
+              "earliest_beijing": "2026-11-27T10:43:00+08:00",
+              "latest_beijing": "2026-11-27T10:47:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          },
+          {
+            "number": 8,
+            "athletes": [
+              "张柏浩"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T10:58:00+08:00",
+              "latest_local": "2026-11-27T11:12:00+08:00",
+              "earliest_beijing": "2026-11-27T10:58:00+08:00",
+              "latest_beijing": "2026-11-27T11:12:00+08:00",
+              "assumed_minutes_per_heat": [
+                3.0,
+                5.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
+        "verified_at": "2026-11-26T07:01:22+00:00"
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-men-1500-heats--",
+      "round_key": "2026-11-27/qualifying/men/1500/heats/-",
+      "local_date": "2026-11-27",
+      "local_time": "11:40",
+      "local_start": "2026-11-27T11:40:00+08:00",
+      "utc_start": "2026-11-27T03:40:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "11:40",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 5,
+            "athletes": [
+              "张子夏"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T11:56:00+08:00",
+              "latest_local": "2026-11-27T12:08:00+08:00",
+              "earliest_beijing": "2026-11-27T11:56:00+08:00",
+              "latest_beijing": "2026-11-27T12:08:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          },
+          {
+            "number": 6,
+            "athletes": [
+              "Yuheng LI"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T12:00:00+08:00",
+              "latest_local": "2026-11-27T12:15:00+08:00",
+              "earliest_beijing": "2026-11-27T12:00:00+08:00",
+              "latest_beijing": "2026-11-27T12:15:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          },
+          {
+            "number": 8,
+            "athletes": [
+              "Tianyou WANG"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T12:08:00+08:00",
+              "latest_local": "2026-11-27T12:29:00+08:00",
+              "earliest_beijing": "2026-11-27T12:08:00+08:00",
+              "latest_beijing": "2026-11-27T12:29:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16436&round=23651",
+        "verified_at": "2026-11-26T07:01:22+00:00"
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-women-500-heats--",
+      "round_key": "2026-11-27/qualifying/women/500/heats/-",
+      "local_date": "2026-11-27",
+      "local_time": "13:30",
+      "local_start": "2026-11-27T13:30:00+08:00",
+      "utc_start": "2026-11-27T05:30:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "13:30",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-men-500-heats--",
+      "round_key": "2026-11-27/qualifying/men/500/heats/-",
+      "local_date": "2026-11-27",
+      "local_time": "13:54",
+      "local_start": "2026-11-27T13:54:00+08:00",
+      "utc_start": "2026-11-27T05:54:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "13:54",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-women-1000-heats--",
+      "round_key": "2026-11-27/qualifying/women/1000/heats/-",
+      "local_date": "2026-11-27",
+      "local_time": "14:33",
+      "local_start": "2026-11-27T14:33:00+08:00",
+      "utc_start": "2026-11-27T06:33:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "14:33",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-men-1000-heats--",
+      "round_key": "2026-11-27/qualifying/men/1000/heats/-",
+      "local_date": "2026-11-27",
+      "local_time": "15:05",
+      "local_start": "2026-11-27T15:05:00+08:00",
+      "utc_start": "2026-11-27T07:05:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "15:05",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-women-1500-quarterfinal--",
+      "round_key": "2026-11-27/qualifying/women/1500/quarterfinal/-",
+      "local_date": "2026-11-27",
+      "local_time": "15:52",
+      "local_start": "2026-11-27T15:52:00+08:00",
+      "utc_start": "2026-11-27T07:52:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "15:52",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 1,
+            "athletes": [
+              "Jiayan NAN"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T15:52:00+08:00",
+              "latest_local": "2026-11-27T15:52:00+08:00",
+              "earliest_beijing": "2026-11-27T15:52:00+08:00",
+              "latest_beijing": "2026-11-27T15:52:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          },
+          {
+            "number": 2,
+            "athletes": [
+              "宋佳蕊"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T15:56:00+08:00",
+              "latest_local": "2026-11-27T15:59:00+08:00",
+              "earliest_beijing": "2026-11-27T15:56:00+08:00",
+              "latest_beijing": "2026-11-27T15:59:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          },
+          {
+            "number": 4,
+            "athletes": [
+              "张延"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T16:04:00+08:00",
+              "latest_local": "2026-11-27T16:13:00+08:00",
+              "earliest_beijing": "2026-11-27T16:04:00+08:00",
+              "latest_beijing": "2026-11-27T16:13:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          },
+          {
+            "number": 7,
+            "athletes": [
+              "张珈宁"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T16:16:00+08:00",
+              "latest_local": "2026-11-27T16:34:00+08:00",
+              "earliest_beijing": "2026-11-27T16:16:00+08:00",
+              "latest_beijing": "2026-11-27T16:34:00+08:00",
+              "assumed_minutes_per_heat": [
+                4.0,
+                7.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16434&round=23646",
+        "verified_at": "2026-11-26T07:01:22+00:00"
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-men-1500-quarterfinal--",
+      "round_key": "2026-11-27/qualifying/men/1500/quarterfinal/-",
+      "local_date": "2026-11-27",
+      "local_time": "16:32",
+      "local_start": "2026-11-27T16:32:00+08:00",
+      "utc_start": "2026-11-27T08:32:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "16:32",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-mixed-2000-quarterfinal--",
+      "round_key": "2026-11-27/qualifying/mixed/2000/quarterfinal/-",
+      "local_date": "2026-11-27",
+      "local_time": "17:27",
+      "local_start": "2026-11-27T17:27:00+08:00",
+      "utc_start": "2026-11-27T09:27:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "17:27",
+      "session": "qualifying",
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 3,
+            "athletes": [
+              "People's Republic of China"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T17:39:00+08:00",
+              "latest_local": "2026-11-27T17:47:00+08:00",
+              "earliest_beijing": "2026-11-27T17:39:00+08:00",
+              "latest_beijing": "2026-11-27T17:47:00+08:00",
+              "assumed_minutes_per_heat": [
+                6.0,
+                10.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16437&round=23658",
+        "verified_at": "2026-11-26T07:01:22+00:00"
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-women-3000-quarterfinal--",
+      "round_key": "2026-11-27/qualifying/women/3000/quarterfinal/-",
+      "local_date": "2026-11-27",
+      "local_time": "18:00",
+      "local_start": "2026-11-27T18:00:00+08:00",
+      "utc_start": "2026-11-27T10:00:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "18:00",
+      "session": "qualifying",
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 2,
+            "athletes": [
+              "People's Republic of China"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T18:07:00+08:00",
+              "latest_local": "2026-11-27T18:12:00+08:00",
+              "earliest_beijing": "2026-11-27T18:07:00+08:00",
+              "latest_beijing": "2026-11-27T18:12:00+08:00",
+              "assumed_minutes_per_heat": [
+                7.0,
+                12.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16438&round=23669",
+        "verified_at": "2026-11-26T07:01:22+00:00"
+      }
+    },
+    {
+      "id": "2026-11-27-qualifying-men-5000-quarterfinal--",
+      "round_key": "2026-11-27/qualifying/men/5000/quarterfinal/-",
+      "local_date": "2026-11-27",
+      "local_time": "18:24",
+      "local_start": "2026-11-27T18:24:00+08:00",
+      "utc_start": "2026-11-27T10:24:00Z",
+      "beijing_date": "2026-11-27",
+      "beijing_time": "18:24",
+      "session": "qualifying",
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "confirmed",
+        "heats": [
+          {
+            "number": 3,
+            "athletes": [
+              "People's Republic of China"
+            ],
+            "estimate": {
+              "status": "model_estimate_not_official",
+              "earliest_local": "2026-11-27T18:40:00+08:00",
+              "latest_local": "2026-11-27T18:54:00+08:00",
+              "earliest_beijing": "2026-11-27T18:40:00+08:00",
+              "latest_beijing": "2026-11-27T18:54:00+08:00",
+              "assumed_minutes_per_heat": [
+                8.0,
+                15.0
+              ]
+            }
+          }
+        ],
+        "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16432&round=23636",
+        "verified_at": "2026-11-26T07:01:22+00:00"
+      }
+    },
+    {
+      "id": "2026-11-28-repechage-men-500-heats--",
+      "round_key": "2026-11-28/repechage/men/500/heats/-",
+      "local_date": "2026-11-28",
+      "local_time": "09:30",
+      "local_start": "2026-11-28T09:30:00+08:00",
+      "utc_start": "2026-11-28T01:30:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "09:30",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-repechage-men-1500-heats--",
+      "round_key": "2026-11-28/repechage/men/1500/heats/-",
+      "local_date": "2026-11-28",
+      "local_time": "09:52",
+      "local_start": "2026-11-28T09:52:00+08:00",
+      "utc_start": "2026-11-28T01:52:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "09:52",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-repechage-men-500-quarterfinal--",
+      "round_key": "2026-11-28/repechage/men/500/quarterfinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "10:27",
+      "local_start": "2026-11-28T10:27:00+08:00",
+      "utc_start": "2026-11-28T02:27:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "10:27",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-repechage-women-1000-quarterfinal--",
+      "round_key": "2026-11-28/repechage/women/1000/quarterfinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "10:45",
+      "local_start": "2026-11-28T10:45:00+08:00",
+      "utc_start": "2026-11-28T02:45:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "10:45",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-repechage-men-500-semifinal--",
+      "round_key": "2026-11-28/repechage/men/500/semifinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "11:09",
+      "local_start": "2026-11-28T11:09:00+08:00",
+      "utc_start": "2026-11-28T03:09:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "11:09",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-repechage-men-1500-quarterfinal--",
+      "round_key": "2026-11-28/repechage/men/1500/quarterfinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "11:30",
+      "local_start": "2026-11-28T11:30:00+08:00",
+      "utc_start": "2026-11-28T03:30:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "11:30",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-repechage-women-1000-semifinal--",
+      "round_key": "2026-11-28/repechage/women/1000/semifinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "11:55",
+      "local_start": "2026-11-28T11:55:00+08:00",
+      "utc_start": "2026-11-28T03:55:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "11:55",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-repechage-men-1500-semifinal--",
+      "round_key": "2026-11-28/repechage/men/1500/semifinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "12:10",
+      "local_start": "2026-11-28T12:10:00+08:00",
+      "utc_start": "2026-11-28T04:10:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "12:10",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-mixed-2000-semifinal--",
+      "round_key": "2026-11-28/main/mixed/2000/semifinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "12:40",
+      "local_start": "2026-11-28T12:40:00+08:00",
+      "utc_start": "2026-11-28T04:40:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "12:40",
+      "session": "main",
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-men-500-quarterfinal--",
+      "round_key": "2026-11-28/main/men/500/quarterfinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "14:05",
+      "local_start": "2026-11-28T14:05:00+08:00",
+      "utc_start": "2026-11-28T06:05:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "14:05",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-women-1000-quarterfinal--",
+      "round_key": "2026-11-28/main/women/1000/quarterfinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "14:18",
+      "local_start": "2026-11-28T14:18:00+08:00",
+      "utc_start": "2026-11-28T06:18:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "14:18",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-men-500-semifinal--",
+      "round_key": "2026-11-28/main/men/500/semifinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "14:35",
+      "local_start": "2026-11-28T14:35:00+08:00",
+      "utc_start": "2026-11-28T06:35:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "14:35",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-women-1000-semifinal--",
+      "round_key": "2026-11-28/main/women/1000/semifinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "14:59",
+      "local_start": "2026-11-28T14:59:00+08:00",
+      "utc_start": "2026-11-28T06:59:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "14:59",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-men-500-final--",
+      "round_key": "2026-11-28/main/men/500/final/-",
+      "local_date": "2026-11-28",
+      "local_time": "15:08",
+      "local_start": "2026-11-28T15:08:00+08:00",
+      "utc_start": "2026-11-28T07:08:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "15:08",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "final",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-women-1000-final--",
+      "round_key": "2026-11-28/main/women/1000/final/-",
+      "local_date": "2026-11-28",
+      "local_time": "15:27",
+      "local_start": "2026-11-28T15:27:00+08:00",
+      "utc_start": "2026-11-28T07:27:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "15:27",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "final",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-men-1500-semifinal--",
+      "round_key": "2026-11-28/main/men/1500/semifinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "15:59",
+      "local_start": "2026-11-28T15:59:00+08:00",
+      "utc_start": "2026-11-28T07:59:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "15:59",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-women-3000-semifinal--",
+      "round_key": "2026-11-28/main/women/3000/semifinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "16:18",
+      "local_start": "2026-11-28T16:18:00+08:00",
+      "utc_start": "2026-11-28T08:18:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "16:18",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-men-1500-final--",
+      "round_key": "2026-11-28/main/men/1500/final/-",
+      "local_date": "2026-11-28",
+      "local_time": "16:49",
+      "local_start": "2026-11-28T16:49:00+08:00",
+      "utc_start": "2026-11-28T08:49:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "16:49",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "final",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-women-3000-final--",
+      "round_key": "2026-11-28/main/women/3000/final/-",
+      "local_date": "2026-11-28",
+      "local_time": "17:10",
+      "local_start": "2026-11-28T17:10:00+08:00",
+      "utc_start": "2026-11-28T09:10:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "17:10",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "round": "final",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-28-main-men-5000-semifinal--",
+      "round_key": "2026-11-28/main/men/5000/semifinal/-",
+      "local_date": "2026-11-28",
+      "local_time": "17:36",
+      "local_start": "2026-11-28T17:36:00+08:00",
+      "utc_start": "2026-11-28T09:36:00Z",
+      "beijing_date": "2026-11-28",
+      "beijing_time": "17:36",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-repechage-women-500-heats--",
+      "round_key": "2026-11-29/repechage/women/500/heats/-",
+      "local_date": "2026-11-29",
+      "local_time": "10:15",
+      "local_start": "2026-11-29T10:15:00+08:00",
+      "utc_start": "2026-11-29T02:15:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "10:15",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-repechage-men-1000-heats--",
+      "round_key": "2026-11-29/repechage/men/1000/heats/-",
+      "local_date": "2026-11-29",
+      "local_time": "10:24",
+      "local_start": "2026-11-29T10:24:00+08:00",
+      "utc_start": "2026-11-29T02:24:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "10:24",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "heats",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-repechage-women-500-quarterfinal--",
+      "round_key": "2026-11-29/repechage/women/500/quarterfinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "10:44",
+      "local_start": "2026-11-29T10:44:00+08:00",
+      "utc_start": "2026-11-29T02:44:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "10:44",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-repechage-men-1000-quarterfinal--",
+      "round_key": "2026-11-29/repechage/men/1000/quarterfinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "11:17",
+      "local_start": "2026-11-29T11:17:00+08:00",
+      "utc_start": "2026-11-29T03:17:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "11:17",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-repechage-women-500-semifinal--",
+      "round_key": "2026-11-29/repechage/women/500/semifinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "11:41",
+      "local_start": "2026-11-29T11:41:00+08:00",
+      "utc_start": "2026-11-29T03:41:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "11:41",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-repechage-women-1500-quarterfinal--",
+      "round_key": "2026-11-29/repechage/women/1500/quarterfinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "12:02",
+      "local_start": "2026-11-29T12:02:00+08:00",
+      "utc_start": "2026-11-29T04:02:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "12:02",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-repechage-men-1000-semifinal--",
+      "round_key": "2026-11-29/repechage/men/1000/semifinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "12:27",
+      "local_start": "2026-11-29T12:27:00+08:00",
+      "utc_start": "2026-11-29T04:27:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "12:27",
+      "session": "repechage",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-repechage-women-1500-semifinal--",
+      "round_key": "2026-11-29/repechage/women/1500/semifinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "12:42",
+      "local_start": "2026-11-29T12:42:00+08:00",
+      "utc_start": "2026-11-29T04:42:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "12:42",
+      "session": "repechage",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-main-mixed-2000-final--",
+      "round_key": "2026-11-29/main/mixed/2000/final/-",
+      "local_date": "2026-11-29",
+      "local_time": "14:05",
+      "local_start": "2026-11-29T14:05:00+08:00",
+      "utc_start": "2026-11-29T06:05:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "14:05",
+      "session": "main",
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "round": "final",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-main-women-500-quarterfinal--",
+      "round_key": "2026-11-29/main/women/500/quarterfinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "14:43",
+      "local_start": "2026-11-29T14:43:00+08:00",
+      "utc_start": "2026-11-29T06:43:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "14:43",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-main-men-1000-quarterfinal--",
+      "round_key": "2026-11-29/main/men/1000/quarterfinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "14:56",
+      "local_start": "2026-11-29T14:56:00+08:00",
+      "utc_start": "2026-11-29T06:56:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "14:56",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "quarterfinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-main-women-500-semifinal--",
+      "round_key": "2026-11-29/main/women/500/semifinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "15:13",
+      "local_start": "2026-11-29T15:13:00+08:00",
+      "utc_start": "2026-11-29T07:13:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "15:13",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-main-men-1000-semifinal--",
+      "round_key": "2026-11-29/main/men/1000/semifinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "15:36",
+      "local_start": "2026-11-29T15:36:00+08:00",
+      "utc_start": "2026-11-29T07:36:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "15:36",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-main-women-500-final--",
+      "round_key": "2026-11-29/main/women/500/final/-",
+      "local_date": "2026-11-29",
+      "local_time": "15:45",
+      "local_start": "2026-11-29T15:45:00+08:00",
+      "utc_start": "2026-11-29T07:45:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "15:45",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "round": "final",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-main-men-1000-final--",
+      "round_key": "2026-11-29/main/men/1000/final/-",
+      "local_date": "2026-11-29",
+      "local_time": "16:04",
+      "local_start": "2026-11-29T16:04:00+08:00",
+      "utc_start": "2026-11-29T08:04:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "16:04",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "round": "final",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-main-women-1500-semifinal--",
+      "round_key": "2026-11-29/main/women/1500/semifinal/-",
+      "local_date": "2026-11-29",
+      "local_time": "16:21",
+      "local_start": "2026-11-29T16:21:00+08:00",
+      "utc_start": "2026-11-29T08:21:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "16:21",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "semifinal",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-main-women-1500-final--",
+      "round_key": "2026-11-29/main/women/1500/final/-",
+      "local_date": "2026-11-29",
+      "local_time": "16:59",
+      "local_start": "2026-11-29T16:59:00+08:00",
+      "utc_start": "2026-11-29T08:59:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "16:59",
+      "session": "main",
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "round": "final",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    },
+    {
+      "id": "2026-11-29-main-men-5000-final--",
+      "round_key": "2026-11-29/main/men/5000/final/-",
+      "local_date": "2026-11-29",
+      "local_time": "17:19",
+      "local_start": "2026-11-29T17:19:00+08:00",
+      "utc_start": "2026-11-29T09:19:00Z",
+      "beijing_date": "2026-11-29",
+      "beijing_time": "17:19",
+      "session": "main",
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "round": "final",
+      "group": null,
+      "status": "scheduled",
+      "china": {
+        "status": "unknown",
+        "heats": []
+      }
+    }
+  ]
+}

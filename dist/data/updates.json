@@ -2,10 +2,52 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "27b7bd552f4bd0d3",
+      "station": "shanghai",
+      "kind": "schedule",
+      "at": "2026-11-26T07:18:38+00:00",
+      "local_date": "2026-11-27",
+      "count": 52
+    },
+    {
       "id": "ffdc4eb7cbe4c57b",
       "station": "shanghai",
       "at": "2026-11-26T07:01:22+00:00",
       "local_date": null,
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 9,
+      "china": [
+        "Tianyou WANG",
+        "Yuheng LI",
+        "张子夏"
+      ]
+    },
+    {
+      "id": "fe9f8dc173f97a4a",
+      "station": "shanghai",
+      "at": "2026-11-26T07:01:22+00:00",
+      "local_date": "2026-11-27",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 7,
+      "china": []
+    },
+    {
+      "id": "f01a6c3a7f42fd71",
+      "station": "shanghai",
+      "at": "2026-11-26T07:01:22+00:00",
+      "local_date": "2026-11-27",
       "round": "heats",
       "group": null,
       "repechage": false,
@@ -30,6 +72,78 @@
       "repechage": false,
       "gender": "men",
       "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 3,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "da7a79171562ba3a",
+      "station": "shanghai",
+      "at": "2026-11-26T07:01:22+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 3,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "c1e4b592d2fbda3c",
+      "station": "shanghai",
+      "at": "2026-11-26T07:01:22+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "张珈宁",
+        "宋佳蕊",
+        "Jiayan NAN",
+        "张延"
+      ]
+    },
+    {
+      "id": "b2838e5336a2a951",
+      "station": "shanghai",
+      "at": "2026-11-26T07:01:22+00:00",
+      "local_date": "2026-11-27",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 7,
+      "china": [
+        "Jiayan NAN",
+        "王欣然"
+      ]
+    },
+    {
+      "id": "ad1c056044a2da27",
+      "station": "shanghai",
+      "at": "2026-11-26T07:01:22+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
       "format": "relay",
       "kind": "groups",
       "heats": 3,
@@ -67,6 +181,41 @@
       "heats": 3,
       "china": [
         "People's Republic of China"
+      ]
+    },
+    {
+      "id": "8739afad17da71d6",
+      "station": "shanghai",
+      "at": "2026-11-26T07:01:22+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 3,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "7c4cc6572aeb1bbb",
+      "station": "shanghai",
+      "at": "2026-11-26T07:01:22+00:00",
+      "local_date": "2026-11-27",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 12,
+      "china": [
+        "张柏浩",
+        "Tianyou WANG"
       ]
     },
     {
@@ -120,6 +269,24 @@
       "heats": 3,
       "china": [
         "People's Republic of China"
+      ]
+    },
+    {
+      "id": "466ec81fd6f932cc",
+      "station": "shanghai",
+      "at": "2026-11-26T07:01:22+00:00",
+      "local_date": "2026-11-27",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 11,
+      "china": [
+        "李坤",
+        "Yuheng LI"
       ]
     },
     {
@@ -3013,198 +3180,6 @@
       "kind": "results",
       "china": [],
       "china_results": []
-    },
-    {
-      "id": "60696d4bb116a238",
-      "station": "montreal",
-      "at": "2026-11-01T17:11:23+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "张楚桐",
-        "张珈宁",
-        "宋佳蕊",
-        "王晔"
-      ]
-    },
-    {
-      "id": "2d61860e05ca1b1c",
-      "station": "montreal",
-      "at": "2026-11-01T17:11:23+00:00",
-      "local_date": "2026-11-01",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张柏浩"
-      ],
-      "china_results": [
-        {
-          "name": "张柏浩",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Bohao ZHANG"
-        }
-      ]
-    },
-    {
-      "id": "dcf36acb73631271",
-      "station": "montreal",
-      "at": "2026-11-01T16:31:22+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张柏浩"
-      ],
-      "china_results": [
-        {
-          "name": "张柏浩",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Bohao ZHANG"
-        }
-      ]
-    },
-    {
-      "id": "435d9c76c746cd10",
-      "station": "montreal",
-      "at": "2026-11-01T16:31:22+00:00",
-      "local_date": "2026-11-01",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "张柏浩"
-      ]
-    },
-    {
-      "id": "c7bbe333176fc118",
-      "station": "montreal",
-      "at": "2026-11-01T16:01:18+00:00",
-      "local_date": "2026-11-01",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
-    },
-    {
-      "id": "580ebf20979f9727",
-      "station": "montreal",
-      "at": "2026-11-01T15:51:24+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "f95f6573102d132a",
-      "station": "montreal",
-      "at": "2026-11-01T15:41:16+00:00",
-      "local_date": "2026-11-01",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "3566584ebc9fcaec",
-      "station": "montreal",
-      "at": "2026-11-01T15:41:16+00:00",
-      "local_date": "2026-11-01",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 6,
-      "china": [
-        "张柏浩"
-      ]
-    },
-    {
-      "id": "fd4462c10345e222",
-      "station": "montreal",
-      "at": "2026-11-01T01:59:26+00:00",
-      "local_date": "2026-10-31",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 2,
-          "status": "advanced"
-        }
-      ]
-    },
-    {
-      "id": "b10fe762b4920c1b",
-      "station": "montreal",
-      "at": "2026-11-01T01:59:26+00:00",
-      "local_date": "2026-10-31",
-      "round": "final",
-      "group": "B",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "results",
-      "china": [
-        "China"
-      ],
-      "china_results": [
-        {
-          "name": "China",
-          "rank": 1
-        }
-      ]
     }
   ]
 }
