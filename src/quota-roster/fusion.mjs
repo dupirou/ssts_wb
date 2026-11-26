@@ -2134,6 +2134,7 @@ export function buildFusedCandidatePool({
   domesticOverrideRecords = null,
   juniorEventsOverride = null,
   seniorStateOverride = null,
+  includeDebutRatings = false,
 } = {}) {
   const mergedPaths = { ...DEFAULT_PATHS, ...paths };
   const cfg = config || loadQuotaRulesConfig(mergedPaths.rulesConfig);
@@ -2668,6 +2669,19 @@ export function buildFusedCandidatePool({
 
   return {
     asOfDate,
+    ...(includeDebutRatings && {
+      debutRatings: Object.fromEntries([...juniorPool.calibrated.keys()].map(dk => {
+        const junior = juniorPool.calibrated.get(dk);
+        const domestic = domesticPool.calibrated.get(dk);
+        const ratings = {};
+        for (const id of new Set([...junior.keys(), ...(domestic?.keys() || [])])) {
+          if (seniorPool.engine.disciplines.get(dk)?.get(id)?.nStarts > 0) continue;
+          const fused = fusePoolsIVW([junior.get(id), domestic?.get(id)]);
+          if (fused) ratings[id] = { mu: +fused.mu.toFixed(6), sigma: +fused.sigma.toFixed(6) };
+        }
+        return [dk, ratings];
+      })),
+    }),
     calibrationDiagnostics: {
       senior: {
         incrementalHeatsReplayed: seniorPool.incrementalHeatsReplayed,

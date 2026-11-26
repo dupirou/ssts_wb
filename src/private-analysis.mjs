@@ -314,6 +314,12 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
   incrementalHeats.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : (a.heat.heat_number ?? 0) - (b.heat.heat_number ?? 0)));
 
   const firstStation = (pendingItems[0] || selected[0])?.station;
+  const priorStations = new Set(incrementalHeats.map(item => item.station));
+  if (firstStation) priorStations.add(firstStation);
+  const debutRatings = new Map(await Promise.all([...priorStations].map(async station => {
+    const snapshot = await optionalAsset(env, '/data/quota_roster/debut/' + station.id + '.json');
+    return [station.id, snapshot?.as_of_date < station.date_start ? snapshot.ratings : null];
+  })));
   const useForm = /\/main\/.*\/(?:quarterfinal|semifinal)\//.test(roundKey) && [500, 1000, 1500].includes(distance);
   const stationHeats = [];
   const roundStart = selected.map(({ heat }) => heat.source_start || heat.local_date).filter(Boolean).sort()[0];
@@ -329,6 +335,7 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
     if (useForm && station.id === firstStation?.id && heat.distance_m === distance && beforeRound) {
       stationHeats.push(rows);
     }
+    ratingEngine.debutRatings = debutRatings.get(station.id);
     ratingEngine.updateHeat(rows);
     if (heat.distance_m === distance) {
       for (const r of rows) {
@@ -425,6 +432,7 @@ async function reportV2({ env, calendar, stations, sets, gender, distance, round
 
     if (!hasForecast(item) || active.length === 0) continue;
 
+    ratingEngine.debutRatings = debutRatings.get(station.id);
     const features = buildHeatFeatures(active, ratingEngine, openingTracker, paceTracker, {
       extended: true,
       includeFinishKick: true,
