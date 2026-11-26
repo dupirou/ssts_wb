@@ -133,6 +133,14 @@ class ScheduleSyncTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Partial'):
             sync_schedule.validate([first, final], station)
 
+    def test_shanghai_schedule_keeps_beijing_clock_on_last_evening(self):
+        item = dict(
+            start_time='2026-11-29T17:19:00.000Z', event_schedule_title='Men 5000 m Relay', round_information='Finals'
+        )
+        body = dict(data=dict(discipline=dict(discipline_id=3), value=[item]))
+        (final,) = sync_schedule.dynamic_programme(json.dumps(body), stations.get('shanghai'))
+        self.assertEqual((final['date'], final['time']), ('2026-11-29', '17:19'))
+
     def test_real_isu_page_text_parses_to_the_pre_race_programme(self):
         # Text of ISU's Vancouver schedule tab as served on 2026-10-21, and the programme it gave.
         # The stored programme has since taken race-day corrections (docs/log.md, 2026-10-23).
