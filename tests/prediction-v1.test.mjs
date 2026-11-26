@@ -274,3 +274,22 @@ test('AIN2 and verified Russian AIN skaters share the same distance-specific fed
   engine.updateHeat([row('entrant', 'AIN2', 1), row('peer', 'CAN', 2)]);
   assert.deepEqual([...engine.fedStats.keys()].sort(), ['CAN:men:1500', 'RUS:men:1500']);
 });
+
+test('a calibrated debut rating initializes only the first senior start at that distance', () => {
+  const engine = new DynamicRatingEngine();
+  engine.debutRatings = { 'men:500': { rookie: { mu: 1.2, sigma: 1.3 } } };
+  const peek = (distance = 500) => engine.peekAthlete('rookie', 'men', distance);
+  assert.equal(peek().mu, 1.2);
+  assert.equal(peek().sigma, 1.3);
+  assert.equal(peek().nStarts, 0);
+  assert.equal(peek(1000).mu, 0);
+  const rows = ['rookie', 'other'].map((athlete_id, i) => ({
+    athlete_id, gender: 'men', distance_m: 500, rank: i + 1, status: 'OK',
+  }));
+  engine.updateHeat(rows);
+  const after = peek();
+  assert.equal(after.nStarts, 1);
+  assert.ok(after.mu > 1.2);
+  engine.debutRatings = null;
+  assert.deepEqual(peek(), after);
+});

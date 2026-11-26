@@ -120,6 +120,7 @@ export class DynamicRatingEngine {
     this.disciplines = new Map();
     // Map<"country:gender:distance", { sumMu, w }>
     this.fedStats = new Map();
+    this.debutRatings = null;
   }
 
   _cfgFor(distanceM) {
@@ -138,6 +139,10 @@ export class DynamicRatingEngine {
   }
 
   _coldStartPrior(athleteId, gender, distanceM, country, cfg) {
+    const observed = this.debutRatings?.[disciplineKey(gender, distanceM)]?.[athleteId];
+    if (observed && Number.isFinite(observed.mu) && Number.isFinite(observed.sigma) && observed.sigma > 0) {
+      return { muPrior: observed.mu, sigmaInit: observed.sigma };
+    }
     let crossSum = 0;
     let crossW = 0;
     if (cfg.enableCrossDistTransfer) {

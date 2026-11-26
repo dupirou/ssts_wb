@@ -97,7 +97,7 @@ function buildFieldMap(ratingState, athleteCountries, activeSinceMs) {
 
 function computeForecast({ asOfDate, config, quotasDoc, predState, stationsDoc }) {
   const wtQuotas = quotasDoc.world_tour_2026_27.quotas;
-  const fused = buildFusedCandidatePool({ asOfDate, config, wtQuotas });
+  const fused = buildFusedCandidatePool({ asOfDate, config, wtQuotas, includeDebutRatings: true });
   const activeSinceMs = Date.parse('2025-07-01T00:00:00Z');
   const fields = buildFieldMap(predState.rating, predState.athlete_countries, activeSinceMs);
   const lambdas = lambdasFromConfig(config);
@@ -689,6 +689,15 @@ function main() {
     predState,
     stationsDoc
   });
+
+  const next = fc.payload.next_wt_stop;
+  if (next && asOfDate < next.date_start) {
+    const dir = path.join(REPO_ROOT, 'data/quota_roster/debut');
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, next.id + '.json'), JSON.stringify({
+      as_of_date: asOfDate, ratings: fc.fused.debutRatings
+    }) + '\n');
+  }
 
   const outJsonPath = path.join(REPO_ROOT, 'data/quota_roster/chn_roster_forecast.json');
   fs.mkdirSync(path.dirname(outJsonPath), { recursive: true });

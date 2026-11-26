@@ -473,6 +473,10 @@ def _compile(now, out, prior, source_log):
         if src_path.exists():
             quota_roster_out.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(src_path, quota_roster_out / filename)
+    for prior in (quota_roster_dir / 'debut').glob('*.json'):
+        target = quota_roster_out / 'debut' / prior.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(prior, target)
     # Preserve the whole-event download while serving API requests from compact, localized resources.
     for event_id, *_ in venues:
         directory = out / 'data/competitions'
