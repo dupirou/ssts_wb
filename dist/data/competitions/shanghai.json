@@ -2408,8 +2408,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-27T04:31:18+00:00",
-    "updated_at": "2026-11-27T04:31:18+00:00",
+    "checked_at": "2026-11-27T05:41:16+00:00",
+    "updated_at": "2026-11-27T05:41:16+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23622",
@@ -4644,9 +4644,9 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-27T13:30:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T13:30:55.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23630",
         "participants": [
@@ -4657,21 +4657,9 @@
             "official_skater_id": 6159,
             "helmet_number": 1,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-d6c338d00b9f0f27ba8a",
-            "name": "Valentina ASCIC",
-            "country": "CRO",
-            "official_skater_id": 407,
-            "helmet_number": 29,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "42.601",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4681,9 +4669,21 @@
             "official_skater_id": 1318,
             "helmet_number": 58,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "42.942",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-d6c338d00b9f0f27ba8a",
+            "name": "Valentina ASCIC",
+            "country": "CRO",
+            "official_skater_id": 407,
+            "helmet_number": 29,
+            "starting_position": 2,
+            "rank": 3,
+            "result": "42.966",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -4693,8 +4693,8 @@
             "official_skater_id": 1534,
             "helmet_number": 49,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "43.282",
             "qualification": null,
             "penalty": null
           },
@@ -4705,8 +4705,8 @@
             "official_skater_id": 4995,
             "helmet_number": 69,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "43.857",
             "qualification": null,
             "penalty": null
           }
@@ -4724,9 +4724,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-27T13:32:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T13:33:30.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23630",
         "participants": [
@@ -4737,8 +4737,32 @@
             "official_skater_id": 7447,
             "helmet_number": 3,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "42.389",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-4c7366f027ce91fd36df",
+            "name": "Tineke DEN DULK",
+            "country": "BEL",
+            "official_skater_id": 1545,
+            "helmet_number": 44,
+            "starting_position": 5,
+            "rank": 2,
+            "result": "44.046",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-2aff26915e477356a31f",
+            "name": "Betty MOESKE",
+            "country": "GER",
+            "official_skater_id": 4857,
+            "helmet_number": 63,
+            "starting_position": 4,
+            "rank": 3,
+            "result": "44.163",
             "qualification": null,
             "penalty": null
           },
@@ -4749,9 +4773,9 @@
             "official_skater_id": 2262,
             "helmet_number": 19,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 4,
+            "result": "1:06.637",
+            "qualification": "ADV",
             "penalty": null,
             "name_latin": "Li GONG"
           },
@@ -4763,33 +4787,12 @@
             "helmet_number": 21,
             "starting_position": 3,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-2aff26915e477356a31f",
-            "name": "Betty MOESKE",
-            "country": "GER",
-            "official_skater_id": 4857,
-            "helmet_number": 63,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-4c7366f027ce91fd36df",
-            "name": "Tineke DEN DULK",
-            "country": "BEL",
-            "official_skater_id": 1545,
-            "helmet_number": 44,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -4805,9 +4808,9 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-11-27T13:34:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T13:38:18.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23630",
         "participants": [
@@ -4818,9 +4821,9 @@
             "official_skater_id": 924,
             "helmet_number": 10,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "43.117",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4830,21 +4833,9 @@
             "official_skater_id": 1227,
             "helmet_number": 76,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-ee4b7a824eb8cb36d140",
-            "name": "Kateryna SOLOVIOVA",
-            "country": "GER",
-            "official_skater_id": 18274,
-            "helmet_number": 64,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "43.222",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4854,8 +4845,8 @@
             "official_skater_id": 3923,
             "helmet_number": 97,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "44.692",
             "qualification": null,
             "penalty": null
           },
@@ -4866,8 +4857,20 @@
             "official_skater_id": 16282,
             "helmet_number": 101,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "44.729",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-ee4b7a824eb8cb36d140",
+            "name": "Kateryna SOLOVIOVA",
+            "country": "GER",
+            "official_skater_id": 18274,
+            "helmet_number": 64,
+            "starting_position": 3,
+            "rank": 5,
+            "result": "45.725",
             "qualification": null,
             "penalty": null
           }
@@ -4885,8 +4888,8 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-11-27T13:36:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-27T13:40:47.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23630",
