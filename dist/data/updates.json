@@ -2,6 +2,51 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "cb1858c4e0962333",
+      "station": "shanghai",
+      "at": "2026-11-27T07:51:25+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张柏浩",
+        "孙龙",
+        "王天佑",
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "张柏浩",
+          "rank": 4,
+          "status": "out",
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "孙龙",
+          "rank": 4,
+          "status": "advanced",
+          "name_latin": "Long SUN"
+        },
+        {
+          "name": "王天佑",
+          "rank": 3,
+          "status": "advanced",
+          "name_latin": "Tianyou WANG"
+        },
+        {
+          "name": "张子夏",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
       "id": "c31851cd0a68d589",
       "station": "shanghai",
       "at": "2026-11-27T07:21:11+00:00",
@@ -2521,13 +2566,6 @@
           "country": "ITA"
         }
       ]
-    },
-    {
-      "id": "03d619cdd4b23a83",
-      "station": "seoul",
-      "kind": "rankings",
-      "at": "2026-11-22T07:21:38+00:00",
-      "changed": true
     }
   ]
 }

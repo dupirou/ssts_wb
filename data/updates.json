@@ -332,6 +332,7 @@
     "seoul/time/2026-11-22/repechage/women/500/semifinal/-": "2026-11-22 10:52",
     "shanghai/entries": "41503a275c5c1394",
     "shanghai/round/2026-11-27/qualifying/men/1000/heats/-/groups": "published",
+    "shanghai/round/2026-11-27/qualifying/men/1000/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/men/1000/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/men/1000/preliminaries/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/men/1500/heats/-/groups": "published",
@@ -627,13 +628,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "03d619cdd4b23a83",
-      "station": "seoul",
-      "kind": "rankings",
-      "at": "2026-11-22T07:21:38+00:00",
-      "changed": true
-    },
     {
       "id": "fb33fa4538607f07",
       "station": "seoul",
@@ -3122,6 +3116,47 @@
         },
         {
           "name": "Yan ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "cb1858c4e0962333",
+      "station": "shanghai",
+      "at": "2026-11-27T07:51:25+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Long SUN",
+        "Tianyou WANG",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": 4,
+          "status": "out"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 4,
+          "status": "advanced"
+        },
+        {
+          "name": "Tianyou WANG",
+          "rank": 3,
+          "status": "advanced"
+        },
+        {
+          "name": "Zixia ZHANG",
           "rank": 2,
           "status": "advanced"
         }
