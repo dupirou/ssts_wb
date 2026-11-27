@@ -338,6 +338,7 @@
     "shanghai/round/2026-11-27/qualifying/men/1500/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/men/1500/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/men/500/heats/-/groups": "published",
+    "shanghai/round/2026-11-27/qualifying/men/500/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/men/500/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/men/500/preliminaries/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/men/5000/quarterfinal/-/groups": "published",
@@ -353,6 +354,7 @@
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/1500/heats/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/500/heats/-/groups": "published",
+    "shanghai/round/2026-11-29/repechage/men/1000/heats/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/women/500/heats/-/groups": "published",
     "shanghai/round/men/1000/individual/Preliminaries/None/groups": "published",
     "shanghai/round/men/1500/individual/Heats/None/groups": "published",
@@ -623,36 +625,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "310c6e37222d0f96",
-      "station": "seoul",
-      "at": "2026-11-22T06:51:52+00:00",
-      "local_date": "2026-11-22",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
-    },
-    {
-      "id": "bebc7e564853cc94",
-      "station": "seoul",
-      "at": "2026-11-22T06:51:52+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
     {
       "id": "33aee1aff765d108",
       "station": "seoul",
@@ -3099,6 +3071,62 @@
       "china": [
         "Zixia ZHANG"
       ]
+    },
+    {
+      "id": "0a43d3c88ed3880b",
+      "station": "shanghai",
+      "at": "2026-11-27T06:31:11+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Kun LI",
+        "Long SUN",
+        "Yuheng LI",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Kun LI",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Long SUN",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Yuheng LI",
+          "rank": 3,
+          "status": "out"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": 3,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "d8a06be118eac51b",
+      "station": "shanghai",
+      "at": "2026-11-27T06:31:11+00:00",
+      "local_date": "2026-11-29",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": []
     }
   ]
 }

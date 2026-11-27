@@ -2,6 +2,66 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "d8a06be118eac51b",
+      "station": "shanghai",
+      "at": "2026-11-27T06:31:11+00:00",
+      "local_date": "2026-11-29",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": []
+    },
+    {
+      "id": "0a43d3c88ed3880b",
+      "station": "shanghai",
+      "at": "2026-11-27T06:31:11+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "李坤",
+        "孙龙",
+        "李禹衡",
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "李坤",
+          "rank": 3,
+          "status": "out",
+          "name_latin": "Kun LI"
+        },
+        {
+          "name": "孙龙",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Long SUN"
+        },
+        {
+          "name": "李禹衡",
+          "rank": 3,
+          "status": "out",
+          "name_latin": "Yuheng LI"
+        },
+        {
+          "name": "张子夏",
+          "rank": 3,
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
       "id": "87e4ca4541341be6",
       "station": "shanghai",
       "at": "2026-11-27T06:11:11+00:00",
@@ -2471,36 +2531,6 @@
       "kind": "rankings",
       "at": "2026-11-22T07:01:29+00:00",
       "changed": true
-    },
-    {
-      "id": "bebc7e564853cc94",
-      "station": "seoul",
-      "at": "2026-11-22T06:51:52+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "310c6e37222d0f96",
-      "station": "seoul",
-      "at": "2026-11-22T06:51:52+00:00",
-      "local_date": "2026-11-22",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
     }
   ]
 }
