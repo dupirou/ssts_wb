@@ -2,6 +2,68 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "60162c24c832982a",
+      "station": "shanghai",
+      "at": "2026-11-27T08:41:16+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张珈宁",
+        "宋佳蕊",
+        "南佳延",
+        "张延"
+      ],
+      "china_results": [
+        {
+          "name": "张珈宁",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Jianing ZHANG"
+        },
+        {
+          "name": "宋佳蕊",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Jiarui SONG"
+        },
+        {
+          "name": "南佳延",
+          "rank": 6,
+          "status": "repechage",
+          "name_latin": "Jiayan NAN"
+        },
+        {
+          "name": "张延",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Yan ZHANG"
+        }
+      ]
+    },
+    {
+      "id": "335124e8b96f9c8b",
+      "station": "shanghai",
+      "at": "2026-11-27T08:41:16+00:00",
+      "local_date": "2026-11-29",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": [
+        "南佳延"
+      ]
+    },
+    {
       "id": "cb1858c4e0962333",
       "station": "shanghai",
       "at": "2026-11-27T07:51:25+00:00",
@@ -2512,58 +2574,6 @@
           "rank": 4,
           "status": "final_b",
           "name_latin": "Yan ZHANG"
-        }
-      ]
-    },
-    {
-      "id": "634495678559e3be",
-      "station": "seoul",
-      "at": "2026-11-22T07:41:29+00:00",
-      "local_date": "2026-11-22",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "张楚桐",
-        "张珈宁",
-        "宋佳蕊",
-        "张延"
-      ]
-    },
-    {
-      "id": "fb33fa4538607f07",
-      "station": "seoul",
-      "at": "2026-11-22T07:21:38+00:00",
-      "local_date": "2026-11-22",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": [],
-      "podium": [
-        {
-          "rank": 1,
-          "name": "Jens VAN 'T WOUT",
-          "country": "NED"
-        },
-        {
-          "rank": 2,
-          "name": "Felix ROUSSEL",
-          "country": "CAN"
-        },
-        {
-          "rank": 3,
-          "name": "Thomas NADALINI",
-          "country": "ITA"
         }
       ]
     }
