@@ -2,6 +2,44 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "0521b4f87c83959c",
+      "station": "shanghai",
+      "at": "2026-11-27T09:21:13+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张柏浩",
+        "王天佑",
+        "李禹衡"
+      ],
+      "china_results": [
+        {
+          "name": "张柏浩",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "王天佑",
+          "rank": 4,
+          "status": "out",
+          "name_latin": "Tianyou WANG"
+        },
+        {
+          "name": "李禹衡",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Yuheng LI"
+        }
+      ]
+    },
+    {
       "id": "60162c24c832982a",
       "station": "shanghai",
       "at": "2026-11-27T08:41:16+00:00",
@@ -2529,51 +2567,6 @@
           "rank": 3,
           "name": "Failia AIMALETDINOVA",
           "country": "AIN2"
-        }
-      ]
-    },
-    {
-      "id": "c03f2ffacb73e037",
-      "station": "seoul",
-      "at": "2026-11-22T07:41:29+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张楚桐",
-        "张珈宁",
-        "宋佳蕊",
-        "张延"
-      ],
-      "china_results": [
-        {
-          "name": "张楚桐",
-          "rank": 3,
-          "status": "final_b",
-          "name_latin": "Chutong ZHANG"
-        },
-        {
-          "name": "张珈宁",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Jianing ZHANG"
-        },
-        {
-          "name": "宋佳蕊",
-          "rank": 1,
-          "status": "advanced",
-          "name_latin": "Jiarui SONG"
-        },
-        {
-          "name": "张延",
-          "rank": 4,
-          "status": "final_b",
-          "name_latin": "Yan ZHANG"
         }
       ]
     }
