@@ -1696,8 +1696,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-27T03:01:16+00:00",
-    "updated_at": "2026-11-27T03:01:16+00:00",
+    "checked_at": "2026-11-27T03:11:22+00:00",
+    "updated_at": "2026-11-27T03:11:22+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23628",
@@ -2078,7 +2078,7 @@
           },
           {
             "athlete_id": "ath-3e4f8461219f16c88e65",
-            "name": "Tobias Wolf",
+            "name": "Tobias WOLF",
             "country": "AUT",
             "official_skater_id": 7759,
             "helmet_number": 52,
@@ -2126,24 +2126,12 @@
         "group": null,
         "heat_number": 6,
         "heat_label": "Heat 6",
-        "source_start": "2026-11-27T10:52:00.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T10:57:26.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
         "participants": [
-          {
-            "athlete_id": "ath-e5c572b5a7978d920d74",
-            "name": "Taiga Sasaki",
-            "country": "JPN",
-            "official_skater_id": 18294,
-            "helmet_number": 146,
-            "starting_position": 5,
-            "rank": 1,
-            "result": "1:27.870",
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-e015f1fce69e77d9e54e",
             "name": "Adil GALIAKHMETOV",
@@ -2151,9 +2139,9 @@
             "official_skater_id": 2074,
             "helmet_number": 43,
             "starting_position": 2,
-            "rank": 2,
-            "result": "1:28.080",
-            "qualification": null,
+            "rank": 1,
+            "result": "1:27.238",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -2163,9 +2151,9 @@
             "official_skater_id": 1657,
             "helmet_number": 60,
             "starting_position": 3,
-            "rank": 3,
-            "result": "1:28.140",
-            "qualification": null,
+            "rank": 2,
+            "result": "1:27.292",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -2175,8 +2163,8 @@
             "official_skater_id": 7047,
             "helmet_number": 82,
             "starting_position": 4,
-            "rank": 4,
-            "result": "1:28.400",
+            "rank": 3,
+            "result": "1:27.507",
             "qualification": null,
             "penalty": null
           },
@@ -2187,10 +2175,25 @@
             "official_skater_id": 3494,
             "helmet_number": 99,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 4,
+            "result": "1:59.520",
+            "qualification": "ADV",
             "penalty": null
+          },
+          {
+            "athlete_id": "ath-e5c572b5a7978d920d74",
+            "name": "Taiga SASAKI",
+            "country": "JPN",
+            "official_skater_id": 18294,
+            "helmet_number": 146,
+            "starting_position": 5,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -2206,24 +2209,12 @@
         "group": null,
         "heat_number": 7,
         "heat_label": "Heat 7",
-        "source_start": "2026-11-27T10:55:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T11:03:16.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
         "participants": [
-          {
-            "athlete_id": "ath-bf41d212ebfe992891e6",
-            "name": "Justin LIU",
-            "country": "USA",
-            "official_skater_id": 4302,
-            "helmet_number": 111,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-ae059245c19305b299b6",
             "name": "Daniil NIKOLAEV",
@@ -2231,32 +2222,32 @@
             "official_skater_id": 20499,
             "helmet_number": 126,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "1:29.370",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-bf41d212ebfe992891e6",
+            "name": "Justin LIU",
+            "country": "USA",
+            "official_skater_id": 4302,
+            "helmet_number": 111,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "1:29.504",
+            "qualification": "p",
             "penalty": null
           },
           {
             "athlete_id": "ath-050bd069f71a453ce726",
-            "name": "Daniele Zampedri",
+            "name": "Daniele ZAMPEDRI",
             "country": "ITA",
             "official_skater_id": 8033,
             "helmet_number": 116,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-993c4cb36d702de0a0b4",
-            "name": "Ivan MARTINIC",
-            "country": "CRO",
-            "official_skater_id": 4592,
-            "helmet_number": 130,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "1:29.589",
             "qualification": null,
             "penalty": null
           },
@@ -2267,8 +2258,20 @@
             "official_skater_id": 18306,
             "helmet_number": 144,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "1:29.751",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-993c4cb36d702de0a0b4",
+            "name": "Ivan MARTINIC",
+            "country": "CRO",
+            "official_skater_id": 4592,
+            "helmet_number": 130,
+            "starting_position": 4,
+            "rank": 5,
+            "result": "1:30.750",
             "qualification": null,
             "penalty": null
           }
@@ -2286,24 +2289,12 @@
         "group": null,
         "heat_number": 8,
         "heat_label": "Heat 8",
-        "source_start": "2026-11-27T10:58:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T11:06:51.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
         "participants": [
-          {
-            "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "Bohao ZHANG",
-            "country": "CHN",
-            "official_skater_id": 8078,
-            "helmet_number": 42,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-ad9946db70088f23d4ac",
             "name": "Felix PIGEON",
@@ -2311,9 +2302,21 @@
             "official_skater_id": 5581,
             "helmet_number": 23,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "1:27.204",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-49a455de09fadeaad9c9",
+            "name": "Bohao ZHANG",
+            "country": "CHN",
+            "official_skater_id": 8078,
+            "helmet_number": 42,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "1:27.215",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -2323,20 +2326,8 @@
             "official_skater_id": 21071,
             "helmet_number": 141,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-d3145034c2029008b732",
-            "name": "Marek PROCHAZKA",
-            "country": "CZE",
-            "official_skater_id": 5717,
-            "helmet_number": 72,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "1:27.337",
             "qualification": null,
             "penalty": null
           },
@@ -2347,8 +2338,20 @@
             "official_skater_id": 3338,
             "helmet_number": 148,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "1:27.933",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-d3145034c2029008b732",
+            "name": "Marek PROCHAZKA",
+            "country": "CZE",
+            "official_skater_id": 5717,
+            "helmet_number": 72,
+            "starting_position": 4,
+            "rank": 5,
+            "result": "1:28.359",
             "qualification": null,
             "penalty": null
           }
@@ -2490,7 +2493,7 @@
           },
           {
             "athlete_id": "ath-da00551c0fe15e37c1ac",
-            "name": "Fredrik Pedersen",
+            "name": "Fredrik PEDERSEN",
             "country": "NOR",
             "official_skater_id": 5461,
             "helmet_number": 120,
@@ -3509,7 +3512,7 @@
           },
           {
             "athlete_id": "ath-a1633c7b189dc8822212",
-            "name": "Katia Filippi",
+            "name": "Katia FILIPPI",
             "country": "ITA",
             "official_skater_id": 16282,
             "helmet_number": 101,
@@ -3805,7 +3808,7 @@
           },
           {
             "athlete_id": "ath-950324020eca0420a24c",
-            "name": "Margherita Betti",
+            "name": "Margherita BETTI",
             "country": "ITA",
             "official_skater_id": 690,
             "helmet_number": 66,
@@ -4768,7 +4771,7 @@
           },
           {
             "athlete_id": "ath-718c9eb2f816ecc25ced",
-            "name": "Chien Hua Huang",
+            "name": "Chien Hua HUANG",
             "country": "TPE",
             "official_skater_id": 18356,
             "helmet_number": 85,
@@ -4940,7 +4943,7 @@
           },
           {
             "athlete_id": "ath-a1633c7b189dc8822212",
-            "name": "Katia Filippi",
+            "name": "Katia FILIPPI",
             "country": "ITA",
             "official_skater_id": 16282,
             "helmet_number": 101,
@@ -5076,7 +5079,7 @@
           },
           {
             "athlete_id": "ath-ccb448108645fa010aff",
-            "name": "Ayano Sekiguchi",
+            "name": "Ayano SEKIGUCHI",
             "country": "JPN",
             "official_skater_id": 17693,
             "helmet_number": 98,
@@ -5168,7 +5171,7 @@
           },
           {
             "athlete_id": "ath-950324020eca0420a24c",
-            "name": "Margherita Betti",
+            "name": "Margherita BETTI",
             "country": "ITA",
             "official_skater_id": 690,
             "helmet_number": 66,
@@ -5633,7 +5636,7 @@
           },
           {
             "athlete_id": "ath-950324020eca0420a24c",
-            "name": "Margherita Betti",
+            "name": "Margherita BETTI",
             "country": "ITA",
             "official_skater_id": 690,
             "helmet_number": 66,
@@ -5672,7 +5675,7 @@
           },
           {
             "athlete_id": "ath-a1633c7b189dc8822212",
-            "name": "Katia Filippi",
+            "name": "Katia FILIPPI",
             "country": "ITA",
             "official_skater_id": 16282,
             "helmet_number": 101,
@@ -5855,7 +5858,7 @@
           },
           {
             "athlete_id": "ath-718c9eb2f816ecc25ced",
-            "name": "Chien Hua Huang",
+            "name": "Chien Hua HUANG",
             "country": "TPE",
             "official_skater_id": 18356,
             "helmet_number": 85,
@@ -6103,7 +6106,7 @@
           },
           {
             "athlete_id": "ath-ccb448108645fa010aff",
-            "name": "Ayano Sekiguchi",
+            "name": "Ayano SEKIGUCHI",
             "country": "JPN",
             "official_skater_id": 17693,
             "helmet_number": 98,
@@ -6632,7 +6635,7 @@
           },
           {
             "athlete_id": "ath-e5c572b5a7978d920d74",
-            "name": "Taiga Sasaki",
+            "name": "Taiga SASAKI",
             "country": "JPN",
             "official_skater_id": 18294,
             "helmet_number": 146,
@@ -6900,7 +6903,7 @@
         "participants": [
           {
             "athlete_id": "ath-3e4f8461219f16c88e65",
-            "name": "Tobias Wolf",
+            "name": "Tobias WOLF",
             "country": "AUT",
             "official_skater_id": 7759,
             "helmet_number": 52,
@@ -6939,7 +6942,7 @@
           },
           {
             "athlete_id": "ath-da00551c0fe15e37c1ac",
-            "name": "Fredrik Pedersen",
+            "name": "Fredrik PEDERSEN",
             "country": "NOR",
             "official_skater_id": 5461,
             "helmet_number": 120,
