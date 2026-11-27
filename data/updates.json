@@ -344,6 +344,7 @@
     "shanghai/round/2026-11-27/qualifying/men/5000/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/mixed/2000/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/1000/heats/-/groups": "published",
+    "shanghai/round/2026-11-27/qualifying/women/1000/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/women/1000/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/1000/preliminaries/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/women/1500/quarterfinal/-/groups": "published",
@@ -354,6 +355,7 @@
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/1500/heats/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/500/heats/-/groups": "published",
+    "shanghai/round/2026-11-28/repechage/women/1000/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/men/1000/heats/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/women/500/heats/-/groups": "published",
     "shanghai/round/men/1000/individual/Preliminaries/None/groups": "published",
@@ -625,62 +627,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "33aee1aff765d108",
-      "station": "seoul",
-      "kind": "rankings",
-      "at": "2026-11-22T07:01:29+00:00",
-      "changed": true
-    },
-    {
-      "id": "e83547f2605304de",
-      "station": "seoul",
-      "at": "2026-11-22T07:01:29+00:00",
-      "local_date": "2026-11-22",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Jiarui SONG",
-        "Li GONG",
-        "Xinran WANG"
-      ],
-      "china_results": [
-        {
-          "name": "Jiarui SONG",
-          "rank": 5
-        },
-        {
-          "name": "Li GONG",
-          "rank": 3
-        },
-        {
-          "name": "Xinran WANG",
-          "rank": 1
-        }
-      ],
-      "podium": [
-        {
-          "rank": 1,
-          "name": "Courtney SARAULT",
-          "country": "CAN"
-        },
-        {
-          "rank": 2,
-          "name": "Danae BLAIS",
-          "country": "CAN"
-        },
-        {
-          "rank": 3,
-          "name": "Florence BRUNELLE",
-          "country": "CAN"
-        }
-      ]
-    },
     {
       "id": "03d619cdd4b23a83",
       "station": "seoul",
@@ -2887,7 +2833,7 @@
         {
           "name": "Jiayan NAN",
           "rank": 4,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Xinran WANG",
@@ -3127,6 +3073,59 @@
       "kind": "groups",
       "heats": 5,
       "china": []
+    },
+    {
+      "id": "82ecef8cbe76a24a",
+      "station": "shanghai",
+      "at": "2026-11-27T07:21:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "Jiayan NAN",
+        "Xinran WANG"
+      ]
+    },
+    {
+      "id": "c31851cd0a68d589",
+      "station": "shanghai",
+      "at": "2026-11-27T07:21:11+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Li GONG",
+        "Xinran WANG",
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Li GONG",
+          "rank": null,
+          "status": "out"
+        },
+        {
+          "name": "Xinran WANG",
+          "rank": 3,
+          "status": "repechage"
+        },
+        {
+          "name": "Yan ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
     }
   ]
 }
