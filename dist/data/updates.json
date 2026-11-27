@@ -2,6 +2,46 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "6d5fedd08d46d3e1",
+      "station": "shanghai",
+      "at": "2026-11-27T10:31:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "5b8f07e855d77908",
+      "station": "shanghai",
+      "at": "2026-11-27T10:31:13+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "b0c5ea327da66b35",
       "station": "shanghai",
       "at": "2026-11-27T10:21:13+00:00",
@@ -2530,20 +2570,6 @@
       "kind": "entries",
       "at": "2026-11-25T15:01:40+00:00",
       "count": 215
-    },
-    {
-      "id": "78b1ccf9d69b968e",
-      "station": "seoul",
-      "kind": "rankings",
-      "at": "2026-11-23T10:01:44+00:00",
-      "changed": true
-    },
-    {
-      "id": "b4967982ef8a39a0",
-      "station": "seoul",
-      "kind": "rankings",
-      "at": "2026-11-23T08:01:38+00:00",
-      "changed": true
     }
   ]
 }
