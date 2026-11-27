@@ -344,6 +344,7 @@
     "shanghai/round/2026-11-27/qualifying/women/500/heats/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/results": "official",
+    "shanghai/round/2026-11-29/repechage/women/500/heats/-/groups": "published",
     "shanghai/round/men/1000/individual/Preliminaries/None/groups": "published",
     "shanghai/round/men/1500/individual/Heats/None/groups": "published",
     "shanghai/round/men/500/individual/Preliminaries/None/groups": "published",
@@ -613,21 +614,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "09a0f1808d7f9737",
-      "station": "seoul",
-      "at": "2026-11-22T03:41:38+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
     {
       "id": "9f62c8c0271c4fac",
       "station": "seoul",
@@ -3091,6 +3077,21 @@
         "Yuheng LI",
         "Zixia ZHANG"
       ]
+    },
+    {
+      "id": "c9e7cbe4c7e0e6f3",
+      "station": "shanghai",
+      "at": "2026-11-27T02:21:13+00:00",
+      "local_date": "2026-11-29",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
     }
   ]
 }
