@@ -1696,8 +1696,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-27T08:23:29+00:00",
-    "updated_at": "2026-11-27T08:23:29+00:00",
+    "checked_at": "2026-11-27T08:31:12+00:00",
+    "updated_at": "2026-11-27T08:31:12+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -7468,7 +7468,7 @@
             "starting_position": 3,
             "rank": 3,
             "result": "2:30.009",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null,
             "last_four_seconds": 39.319
           },
@@ -7538,9 +7538,9 @@
         "group": null,
         "heat_number": 6,
         "heat_label": "Heat 6",
-        "source_start": "2026-11-27T16:12:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T16:23:46.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16434&round=23646",
         "participants": [
@@ -7551,11 +7551,11 @@
             "official_skater_id": 1566,
             "helmet_number": 6,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "2:30.084",
+            "qualification": "Q",
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 37.574
           },
           {
             "athlete_id": "ath-8361e1c91aab972b6ca4",
@@ -7564,11 +7564,11 @@
             "official_skater_id": 6380,
             "helmet_number": 79,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "2:30.124",
+            "qualification": "Q",
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 37.644
           },
           {
             "athlete_id": "ath-5a7cd29016a92caa9dfb",
@@ -7577,24 +7577,11 @@
             "official_skater_id": 2052,
             "helmet_number": 52,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "2:30.171",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-4c7366f027ce91fd36df",
-            "name": "Tineke DEN DULK",
-            "country": "BEL",
-            "official_skater_id": 1545,
-            "helmet_number": 44,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 38.171
           },
           {
             "athlete_id": "ath-8a1d16baa2b5cd400e4d",
@@ -7603,11 +7590,24 @@
             "official_skater_id": 2330,
             "helmet_number": 59,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "2:31.390",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 39.06
+          },
+          {
+            "athlete_id": "ath-4c7366f027ce91fd36df",
+            "name": "Tineke DEN DULK",
+            "country": "BEL",
+            "official_skater_id": 1545,
+            "helmet_number": 44,
+            "starting_position": 4,
+            "rank": 5,
+            "result": "2:33.296",
+            "qualification": "ADV",
+            "penalty": null,
+            "last_four_seconds": 40.556
           },
           {
             "athlete_id": "ath-3c87cc73801139f1ee27",
@@ -7617,9 +7617,12 @@
             "helmet_number": 72,
             "starting_position": 6,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            },
             "last_four_seconds": null
           }
         ]
@@ -7636,19 +7639,32 @@
         "group": null,
         "heat_number": 7,
         "heat_label": "Heat 7",
-        "source_start": "2026-11-27T16:16:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-27T16:28:59.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16434&round=23646",
         "participants": [
           {
-            "athlete_id": "ath-f5df095326a0281962ea",
-            "name": "Jianing ZHANG",
-            "country": "CHN",
-            "official_skater_id": 8090,
-            "helmet_number": 55,
-            "starting_position": 1,
+            "athlete_id": "ath-2aff26915e477356a31f",
+            "name": "Betty MOESKE",
+            "country": "GER",
+            "official_skater_id": 4857,
+            "helmet_number": 63,
+            "starting_position": 4,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": null
+          },
+          {
+            "athlete_id": "ath-69176211234ea45cd0aa",
+            "name": "Kamryn LUTE",
+            "country": "USA",
+            "official_skater_id": 4412,
+            "helmet_number": 43,
+            "starting_position": 5,
             "rank": null,
             "result": null,
             "qualification": null,
@@ -7682,38 +7698,25 @@
             "last_four_seconds": null
           },
           {
-            "athlete_id": "ath-2aff26915e477356a31f",
-            "name": "Betty MOESKE",
-            "country": "GER",
-            "official_skater_id": 4857,
-            "helmet_number": 63,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-69176211234ea45cd0aa",
-            "name": "Kamryn LUTE",
-            "country": "USA",
-            "official_skater_id": 4412,
-            "helmet_number": 43,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
-          {
             "athlete_id": "ath-0efa1bfb83724dc340f2",
             "name": "Diana MYKHALCHUK",
             "country": "UKR",
             "official_skater_id": 4983,
             "helmet_number": 104,
             "starting_position": 6,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": null
+          },
+          {
+            "athlete_id": "ath-f5df095326a0281962ea",
+            "name": "Jianing ZHANG",
+            "country": "CHN",
+            "official_skater_id": 8090,
+            "helmet_number": 55,
+            "starting_position": 1,
             "rank": null,
             "result": null,
             "qualification": null,
