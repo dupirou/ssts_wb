@@ -1696,8 +1696,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-27T09:21:13+00:00",
-    "updated_at": "2026-11-27T09:21:13+00:00",
+    "checked_at": "2026-11-27T09:31:17+00:00",
+    "updated_at": "2026-11-27T09:31:17+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -10415,8 +10415,8 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-27T17:27:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-27T17:29:07.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16437&round=23658",
@@ -10432,7 +10432,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-6be3e556e39507d16dc3",
+                "name": "Kay HUISMAN",
+                "official_skater_id": 2780
+              },
+              {
+                "athlete_id": "ath-990ecbf9d406d93654b3",
+                "name": "Xandra VELZEBOER",
+                "official_skater_id": 7447
+              },
+              {
+                "athlete_id": "ath-98d77949cb6eb84d0b02",
+                "name": "Teun BOER",
+                "official_skater_id": 783
+              },
+              {
+                "athlete_id": "ath-6015217f50457d7cc862",
+                "name": "Zoe Florence DELTRAP",
+                "official_skater_id": 1534
+              }
+            ]
           },
           {
             "athlete_id": "team-POL-mixed",
@@ -10445,7 +10466,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-19acc54c4991181cfe31",
+                "name": "Kornelia WOZNIAK",
+                "official_skater_id": 7784
+              },
+              {
+                "athlete_id": "ath-d1ae30d3ef9795ec186b",
+                "name": "Nikola MAZUR",
+                "official_skater_id": 4662
+              },
+              {
+                "athlete_id": "ath-ad9946db70088f23d4ac",
+                "name": "Felix PIGEON",
+                "official_skater_id": 5581
+              },
+              {
+                "athlete_id": "ath-775d347cc69597e5a04c",
+                "name": "Michal NIEWINSKI",
+                "official_skater_id": 5097
+              }
+            ]
           },
           {
             "athlete_id": "team-JPN-mixed",
@@ -10458,20 +10500,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
-          },
-          {
-            "athlete_id": "team-CRO-mixed",
-            "name": "Croatia",
-            "country": "CRO",
-            "official_skater_id": 13195,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-26292f2efadb197ddb94",
+                "name": "Kazuki YOSHINAGA",
+                "official_skater_id": 7960
+              },
+              {
+                "athlete_id": "ath-3612b246d8bc6f06f928",
+                "name": "Haruna NAGAMORI",
+                "official_skater_id": 4995
+              },
+              {
+                "athlete_id": "ath-dae50584eb222f8f7725",
+                "name": "Shogo MIYATA",
+                "official_skater_id": 4847
+              },
+              {
+                "athlete_id": "ath-df765364c74846f50d97",
+                "name": "Rina YAMANA",
+                "official_skater_id": 7851
+              }
+            ]
           },
           {
             "athlete_id": "team-UKR-mixed",
@@ -10484,7 +10534,62 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-c44d65de6562a975eff8",
+                "name": "Yelyzaveta SYDORKO",
+                "official_skater_id": 6835
+              },
+              {
+                "athlete_id": "ath-5473e6b679d75d058541",
+                "name": "Mariia KHOKHELKO",
+                "official_skater_id": 19466
+              },
+              {
+                "athlete_id": "ath-3f9d60cf0c2e341bf39f",
+                "name": "Rostyslav LEONTENKO",
+                "official_skater_id": 4114
+              },
+              {
+                "athlete_id": "ath-46668ca5ada4dd8805a3",
+                "name": "Tymofii KHOKHELKO",
+                "official_skater_id": 3338
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-CRO-mixed",
+            "name": "Croatia",
+            "country": "CRO",
+            "official_skater_id": 13195,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-993c4cb36d702de0a0b4",
+                "name": "Ivan MARTINIC",
+                "official_skater_id": 4592
+              },
+              {
+                "athlete_id": "ath-d6c338d00b9f0f27ba8a",
+                "name": "Valentina ASCIC",
+                "official_skater_id": 407
+              },
+              {
+                "athlete_id": "ath-91ed24e9a56e745fb483",
+                "name": "Martin PRANTL",
+                "official_skater_id": 5691
+              },
+              {
+                "athlete_id": "ath-241970bee5835179fa24",
+                "name": "Katarina BURIC",
+                "official_skater_id": 947
+              }
+            ]
           }
         ]
       },
@@ -10517,7 +10622,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-fd0ac8fcf99b108ede4f",
+                "name": "Ji Hyun CHOI",
+                "official_skater_id": 1227
+              },
+              {
+                "athlete_id": "ath-d17ee33a3816179f80fc",
+                "name": "Seochan BAE",
+                "official_skater_id": 22070
+              },
+              {
+                "athlete_id": "ath-2eea258e3a0d28fc0ba5",
+                "name": "Jeongmin LEE",
+                "official_skater_id": 4030
+              },
+              {
+                "athlete_id": "ath-856445cfa3a2dc493db7",
+                "name": "Minji KIM",
+                "official_skater_id": 18348
+              }
+            ]
           },
           {
             "athlete_id": "team-ITA-mixed",
@@ -10530,7 +10656,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-0b75c8b148a940d59dbb",
+                "name": "Thomas NADALINI",
+                "official_skater_id": 4990
+              },
+              {
+                "athlete_id": "ath-10b4e338d1b0cc128837",
+                "name": "Elisa CONFORTOLA",
+                "official_skater_id": 1324
+              },
+              {
+                "athlete_id": "ath-4ee0f4f305dd7e06cf81",
+                "name": "Gloria IORIATTI",
+                "official_skater_id": 2861
+              },
+              {
+                "athlete_id": "ath-d92eaba24dcaf8aca602",
+                "name": "Luca SPECHENHAUSER",
+                "official_skater_id": 6644
+              }
+            ]
           },
           {
             "athlete_id": "team-GER-mixed",
@@ -10543,7 +10690,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-deb7324d5b25a9ec103c",
+                "name": "Marten TAUBERT",
+                "official_skater_id": 18224
+              },
+              {
+                "athlete_id": "ath-ee4b7a824eb8cb36d140",
+                "name": "Kateryna SOLOVIOVA",
+                "official_skater_id": 18274
+              },
+              {
+                "athlete_id": "ath-2aff26915e477356a31f",
+                "name": "Betty MOESKE",
+                "official_skater_id": 4857
+              },
+              {
+                "athlete_id": "ath-78b1997e73d6897f4a5d",
+                "name": "Yanghun Ben JUNG",
+                "official_skater_id": 3114
+              }
+            ]
           },
           {
             "athlete_id": "team-HUN-mixed",
@@ -10556,7 +10724,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-cdc04f60f74742612112",
+                "name": "Diana Laura VEGI",
+                "official_skater_id": 7437
+              },
+              {
+                "athlete_id": "ath-ca017e1d514c206e3241",
+                "name": "Maja Dora SOMODI",
+                "official_skater_id": 6603
+              },
+              {
+                "athlete_id": "ath-dca7784fc8fdf2fbec50",
+                "name": "Daniel TIBORCZ",
+                "official_skater_id": 7047
+              },
+              {
+                "athlete_id": "ath-91511b3c9de89e30bfa8",
+                "name": "Peter JASZAPATI",
+                "official_skater_id": 2986
+              }
+            ]
           }
         ]
       },
@@ -10589,7 +10778,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-5a7cd29016a92caa9dfb",
+                "name": "Claudia GAGNON",
+                "official_skater_id": 2052
+              },
+              {
+                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+                "name": "Courtney SARAULT",
+                "official_skater_id": 6159
+              },
+              {
+                "athlete_id": "ath-ff84a70c32aaa0324d85",
+                "name": "William DANDJINOU",
+                "official_skater_id": 1422
+              },
+              {
+                "athlete_id": "ath-295c31a30610e64d9499",
+                "name": "Mathieu PELLETIER",
+                "official_skater_id": 5474
+              }
+            ]
           },
           {
             "athlete_id": "team-CHN-mixed",
@@ -10602,7 +10812,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-387545148a759a14a937",
+                "name": "Jiarui SONG",
+                "official_skater_id": 6617
+              },
+              {
+                "athlete_id": "ath-799c7f543fce635aeeb8",
+                "name": "Zixia ZHANG",
+                "official_skater_id": 20586
+              },
+              {
+                "athlete_id": "ath-49a455de09fadeaad9c9",
+                "name": "Bohao ZHANG",
+                "official_skater_id": 8078
+              },
+              {
+                "athlete_id": "ath-f538c26b063aaebfc376",
+                "name": "Xinran WANG",
+                "official_skater_id": 7609
+              }
+            ]
           },
           {
             "athlete_id": "team-AIN2-mixed",
@@ -10615,7 +10846,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-284e4e30ce2b8e981154",
+                "name": "Vladimir BALBEKOV",
+                "official_skater_id": 491
+              },
+              {
+                "athlete_id": "ath-483550788c35bdf02032",
+                "name": "Alena KRYLOVA",
+                "official_skater_id": 20498
+              },
+              {
+                "athlete_id": "ath-f9ba3790fd71cb6f2f00",
+                "name": "Failia AIMALETDINOVA",
+                "official_skater_id": 22123
+              },
+              {
+                "athlete_id": "ath-957beb23a9901b33af6b",
+                "name": "Semen ELISTRATOV",
+                "official_skater_id": 1774
+              }
+            ]
           },
           {
             "athlete_id": "team-KAZ-mixed",
@@ -10628,7 +10880,28 @@
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-e015f1fce69e77d9e54e",
+                "name": "Adil GALIAKHMETOV",
+                "official_skater_id": 2074
+              },
+              {
+                "athlete_id": "ath-d7393090231b3ef25ede",
+                "name": "Alina AZHGALIYEVA",
+                "official_skater_id": 446
+              },
+              {
+                "athlete_id": "ath-a45aacdb0c84739c0ec3",
+                "name": "Zeinep KUMARKAN",
+                "official_skater_id": 3815
+              },
+              {
+                "athlete_id": "ath-a21e5100fc37bb837ec4",
+                "name": "Bogdan VEKHOV",
+                "official_skater_id": 18324
+              }
+            ]
           }
         ]
       },
