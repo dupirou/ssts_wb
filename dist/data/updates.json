@@ -2,6 +2,63 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "a30ff64e97f035ce",
+      "station": "shanghai",
+      "at": "2026-11-27T04:31:18+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "王天佑",
+        "李禹衡",
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "王天佑",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Tianyou WANG"
+        },
+        {
+          "name": "李禹衡",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Yuheng LI"
+        },
+        {
+          "name": "张子夏",
+          "rank": 7,
+          "status": "out",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
+      "id": "49bf6fe7e07e3b5e",
+      "station": "shanghai",
+      "at": "2026-11-27T04:31:18+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 7,
+      "china": [
+        "张柏浩",
+        "王天佑",
+        "李禹衡"
+      ]
+    },
+    {
       "id": "1b12a40aa130e395",
       "station": "shanghai",
       "at": "2026-11-27T03:31:15+00:00",
@@ -2466,41 +2523,6 @@
       "kind": "groups",
       "heats": 2,
       "china": [
-        "宋佳蕊",
-        "公俐",
-        "王欣然"
-      ]
-    },
-    {
-      "id": "519c96afb7aef58d",
-      "station": "seoul",
-      "at": "2026-11-22T06:21:29+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": []
-    },
-    {
-      "id": "ff9a0f7628771326",
-      "station": "seoul",
-      "at": "2026-11-22T06:01:33+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "张楚桐",
         "宋佳蕊",
         "公俐",
         "王欣然"
