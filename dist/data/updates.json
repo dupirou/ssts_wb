@@ -2,6 +2,57 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "1b12a40aa130e395",
+      "station": "shanghai",
+      "at": "2026-11-27T03:31:15+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "张柏浩",
+        "孙龙",
+        "王天佑",
+        "张子夏"
+      ]
+    },
+    {
+      "id": "136a91269916f851",
+      "station": "shanghai",
+      "at": "2026-11-27T03:31:15+00:00",
+      "local_date": "2026-11-27",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张柏浩",
+        "王天佑"
+      ],
+      "china_results": [
+        {
+          "name": "张柏浩",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "王天佑",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Tianyou WANG"
+        }
+      ]
+    },
+    {
       "id": "bab0bfd429f62aea",
       "station": "shanghai",
       "at": "2026-11-27T02:41:13+00:00",
@@ -2454,66 +2505,6 @@
         "公俐",
         "王欣然"
       ]
-    },
-    {
-      "id": "64eab49721327be4",
-      "station": "seoul",
-      "at": "2026-11-22T06:01:33+00:00",
-      "local_date": "2026-11-22",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张楚桐",
-        "宋佳蕊",
-        "公俐",
-        "王欣然"
-      ],
-      "china_results": [
-        {
-          "name": "张楚桐",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Chutong ZHANG"
-        },
-        {
-          "name": "宋佳蕊",
-          "rank": 3,
-          "status": "advanced",
-          "name_latin": "Jiarui SONG"
-        },
-        {
-          "name": "公俐",
-          "rank": 3,
-          "status": "advanced",
-          "name_latin": "Li GONG"
-        },
-        {
-          "name": "王欣然",
-          "rank": 2,
-          "status": "advanced",
-          "name_latin": "Xinran WANG"
-        }
-      ]
-    },
-    {
-      "id": "caf00ff1d2544e6b",
-      "station": "seoul",
-      "at": "2026-11-22T04:01:37+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
     }
   ]
 }
