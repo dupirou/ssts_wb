@@ -2408,8 +2408,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-27T05:41:16+00:00",
-    "updated_at": "2026-11-27T05:41:16+00:00",
+    "checked_at": "2026-11-27T05:51:15+00:00",
+    "updated_at": "2026-11-27T05:51:15+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23622",
@@ -4888,9 +4888,9 @@
         "group": null,
         "heat_number": 4,
         "heat_label": "Heat 4",
-        "source_start": "2026-11-27T13:40:47.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T13:36:00.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23630",
         "participants": [
@@ -4901,9 +4901,9 @@
             "official_skater_id": 743,
             "helmet_number": 25,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "42.948",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4913,9 +4913,9 @@
             "official_skater_id": 4662,
             "helmet_number": 34,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "43.196",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4925,8 +4925,8 @@
             "official_skater_id": 1324,
             "helmet_number": 8,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "43.240",
             "qualification": null,
             "penalty": null
           },
@@ -4937,8 +4937,8 @@
             "official_skater_id": 3815,
             "helmet_number": 73,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "43.820",
             "qualification": null,
             "penalty": null
           },
@@ -4949,8 +4949,8 @@
             "official_skater_id": 5231,
             "helmet_number": 24,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "45.011",
             "qualification": null,
             "penalty": null
           }
@@ -4968,9 +4968,9 @@
         "group": null,
         "heat_number": 5,
         "heat_label": "Heat 5",
-        "source_start": "2026-11-27T13:38:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T13:46:04.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23630",
         "participants": [
@@ -4981,9 +4981,9 @@
             "official_skater_id": 1231,
             "helmet_number": 4,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "42.978",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -4993,9 +4993,9 @@
             "official_skater_id": 8090,
             "helmet_number": 55,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "43.600",
+            "qualification": "Q",
             "penalty": null,
             "name_latin": "Jianing ZHANG"
           },
@@ -5006,8 +5006,8 @@
             "official_skater_id": 20498,
             "helmet_number": 92,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "43.603",
             "qualification": null,
             "penalty": null
           },
@@ -5018,8 +5018,8 @@
             "official_skater_id": 1874,
             "helmet_number": 82,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "44.180",
             "qualification": null,
             "penalty": null
           },
@@ -5030,8 +5030,8 @@
             "official_skater_id": 6603,
             "helmet_number": 32,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "44.351",
             "qualification": null,
             "penalty": null
           }
@@ -5050,23 +5050,11 @@
         "heat_number": 6,
         "heat_label": "Heat 6",
         "source_start": "2026-11-27T13:40:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23630",
         "participants": [
-          {
-            "athlete_id": "ath-19acc54c4991181cfe31",
-            "name": "Kornelia WOZNIAK",
-            "country": "POL",
-            "official_skater_id": 7784,
-            "helmet_number": 84,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-f538c26b063aaebfc376",
             "name": "王欣然",
@@ -5074,19 +5062,19 @@
             "official_skater_id": 7609,
             "helmet_number": 28,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "43.200",
             "qualification": null,
             "penalty": null,
             "name_latin": "Xinran WANG"
           },
           {
-            "athlete_id": "ath-878b429516890d2356ef",
-            "name": "Elena SEREGINA",
-            "country": "AIN2",
-            "official_skater_id": 20501,
-            "helmet_number": 94,
-            "starting_position": 3,
+            "athlete_id": "ath-8361e1c91aab972b6ca4",
+            "name": "Sukhee SHIM",
+            "country": "KOR",
+            "official_skater_id": 6380,
+            "helmet_number": 79,
+            "starting_position": 5,
             "rank": null,
             "result": null,
             "qualification": null,
@@ -5105,12 +5093,24 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-8361e1c91aab972b6ca4",
-            "name": "Sukhee SHIM",
-            "country": "KOR",
-            "official_skater_id": 6380,
-            "helmet_number": 79,
-            "starting_position": 5,
+            "athlete_id": "ath-19acc54c4991181cfe31",
+            "name": "Kornelia WOZNIAK",
+            "country": "POL",
+            "official_skater_id": 7784,
+            "helmet_number": 84,
+            "starting_position": 1,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-878b429516890d2356ef",
+            "name": "Elena SEREGINA",
+            "country": "AIN2",
+            "official_skater_id": 20501,
+            "helmet_number": 94,
+            "starting_position": 3,
             "rank": null,
             "result": null,
             "qualification": null,
@@ -9226,10 +9226,10 @@
             "name_latin": "Japan"
           },
           {
-            "athlete_id": "team-HUN-mixed",
-            "name": "匈牙利队",
-            "country": "HUN",
-            "official_skater_id": 13197,
+            "athlete_id": "team-CRO-mixed",
+            "name": "克罗地亚队",
+            "country": "CRO",
+            "official_skater_id": 13195,
             "helmet_number": null,
             "starting_position": 4,
             "rank": null,
@@ -9237,13 +9237,13 @@
             "qualification": null,
             "penalty": null,
             "members": [],
-            "name_latin": "Hungary"
+            "name_latin": "Croatia"
           },
           {
-            "athlete_id": "team-CRO-mixed",
-            "name": "克罗地亚队",
-            "country": "CRO",
-            "official_skater_id": 13195,
+            "athlete_id": "team-UKR-mixed",
+            "name": "乌克兰队",
+            "country": "UKR",
+            "official_skater_id": 13204,
             "helmet_number": null,
             "starting_position": 5,
             "rank": null,
@@ -9251,7 +9251,7 @@
             "qualification": null,
             "penalty": null,
             "members": [],
-            "name_latin": "Croatia"
+            "name_latin": "Ukraine"
           }
         ]
       },
@@ -9302,10 +9302,10 @@
             "name_latin": "Italy"
           },
           {
-            "athlete_id": "team-BEL-mixed",
-            "name": "比利时队",
-            "country": "BEL",
-            "official_skater_id": 13192,
+            "athlete_id": "team-GER-mixed",
+            "name": "德国队",
+            "country": "GER",
+            "official_skater_id": 13196,
             "helmet_number": null,
             "starting_position": 3,
             "rank": null,
@@ -9313,13 +9313,13 @@
             "qualification": null,
             "penalty": null,
             "members": [],
-            "name_latin": "Belgium"
+            "name_latin": "Germany"
           },
           {
-            "athlete_id": "team-KAZ-mixed",
-            "name": "哈萨克斯坦队",
-            "country": "KAZ",
-            "official_skater_id": 13200,
+            "athlete_id": "team-HUN-mixed",
+            "name": "匈牙利队",
+            "country": "HUN",
+            "official_skater_id": 13197,
             "helmet_number": null,
             "starting_position": 4,
             "rank": null,
@@ -9327,21 +9327,7 @@
             "qualification": null,
             "penalty": null,
             "members": [],
-            "name_latin": "Kazakhstan"
-          },
-          {
-            "athlete_id": "team-UKR-mixed",
-            "name": "乌克兰队",
-            "country": "UKR",
-            "official_skater_id": 13204,
-            "helmet_number": null,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [],
-            "name_latin": "Ukraine"
+            "name_latin": "Hungary"
           }
         ]
       },
@@ -9392,31 +9378,31 @@
             "name_latin": "People's Republic of China"
           },
           {
-            "athlete_id": "team-GER-mixed",
-            "name": "德国队",
-            "country": "GER",
-            "official_skater_id": 13196,
+            "athlete_id": "team-AIN2-mixed",
+            "name": "Ain2",
+            "country": "AIN2",
+            "official_skater_id": 13191,
             "helmet_number": null,
             "starting_position": 3,
             "rank": null,
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": [],
-            "name_latin": "Germany"
+            "members": []
           },
           {
-            "athlete_id": "team-AIN2-mixed",
-            "name": "Ain2",
-            "country": "AIN2",
-            "official_skater_id": 13191,
+            "athlete_id": "team-KAZ-mixed",
+            "name": "哈萨克斯坦队",
+            "country": "KAZ",
+            "official_skater_id": 13200,
             "helmet_number": null,
             "starting_position": 4,
             "rank": null,
             "result": null,
             "qualification": null,
             "penalty": null,
-            "members": []
+            "members": [],
+            "name_latin": "Kazakhstan"
           }
         ]
       },
