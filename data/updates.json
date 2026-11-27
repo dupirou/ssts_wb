@@ -344,6 +344,7 @@
     "shanghai/round/2026-11-27/qualifying/men/500/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/men/500/preliminaries/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/men/5000/quarterfinal/-/groups": "published",
+    "shanghai/round/2026-11-27/qualifying/men/5000/quarterfinal/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/mixed/2000/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/mixed/2000/quarterfinal/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/women/1000/heats/-/groups": "published",
@@ -358,6 +359,7 @@
     "shanghai/round/2026-11-27/qualifying/women/500/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/results": "official",
+    "shanghai/round/2026-11-28/main/men/5000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/mixed/2000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/women/3000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/1500/heats/-/groups": "published",
@@ -635,33 +637,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "1986889b009ee8f1",
-      "station": "beijing",
-      "kind": "entries",
-      "at": "2026-11-25T15:01:40+00:00",
-      "count": 215
-    },
-    {
-      "id": "0ba670091762212f",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Jiayan NAN",
-        "Yan ZHANG"
-      ]
-    },
     {
       "id": "1d094fa41d6f0eb2",
       "station": "shanghai",
@@ -3167,6 +3142,46 @@
       "repechage": false,
       "gender": "women",
       "distance_m": 3000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "52d3f446f4d56955",
+      "station": "shanghai",
+      "at": "2026-11-27T11:01:30+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "cadd8f64bb1e4db6",
+      "station": "shanghai",
+      "at": "2026-11-27T11:01:30+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
       "format": "relay",
       "kind": "groups",
       "heats": 2,

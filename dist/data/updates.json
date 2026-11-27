@@ -2,6 +2,46 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "cadd8f64bb1e4db6",
+      "station": "shanghai",
+      "at": "2026-11-27T11:01:30+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "52d3f446f4d56955",
+      "station": "shanghai",
+      "at": "2026-11-27T11:01:30+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
       "id": "6d5fedd08d46d3e1",
       "station": "shanghai",
       "at": "2026-11-27T10:31:13+00:00",
@@ -2543,33 +2583,6 @@
         "李坤",
         "李禹衡"
       ]
-    },
-    {
-      "id": "0ba670091762212f",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "张珈宁",
-        "宋佳蕊",
-        "南佳延",
-        "张延"
-      ]
-    },
-    {
-      "id": "1986889b009ee8f1",
-      "station": "beijing",
-      "kind": "entries",
-      "at": "2026-11-25T15:01:40+00:00",
-      "count": 215
     }
   ]
 }
