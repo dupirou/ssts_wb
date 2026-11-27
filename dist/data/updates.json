@@ -2,6 +2,29 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "71a4ed96ebccb61f",
+      "station": "shanghai",
+      "at": "2026-11-27T09:51:12+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 4,
+          "status": "out"
+        }
+      ]
+    },
+    {
       "id": "0521b4f87c83959c",
       "station": "shanghai",
       "at": "2026-11-27T09:21:13+00:00",
@@ -2511,64 +2534,6 @@
       "kind": "rankings",
       "at": "2026-11-22T08:21:42+00:00",
       "changed": true
-    },
-    {
-      "id": "03ebb4e73eedfb6a",
-      "station": "seoul",
-      "at": "2026-11-22T08:21:42+00:00",
-      "local_date": "2026-11-22",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "张楚桐",
-        "张珈宁",
-        "宋佳蕊",
-        "张延"
-      ],
-      "china_results": [
-        {
-          "name": "张楚桐",
-          "rank": 7,
-          "name_latin": "Chutong ZHANG"
-        },
-        {
-          "name": "张珈宁",
-          "rank": 5,
-          "name_latin": "Jianing ZHANG"
-        },
-        {
-          "name": "宋佳蕊",
-          "rank": 7,
-          "name_latin": "Jiarui SONG"
-        },
-        {
-          "name": "张延",
-          "rank": 4,
-          "name_latin": "Yan ZHANG"
-        }
-      ],
-      "podium": [
-        {
-          "rank": 1,
-          "name": "Elisa CONFORTOLA",
-          "country": "ITA"
-        },
-        {
-          "rank": 2,
-          "name": "Gilli KIM",
-          "country": "KOR"
-        },
-        {
-          "rank": 3,
-          "name": "Failia AIMALETDINOVA",
-          "country": "AIN2"
-        }
-      ]
     }
   ]
 }

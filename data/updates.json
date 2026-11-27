@@ -345,6 +345,7 @@
     "shanghai/round/2026-11-27/qualifying/men/500/preliminaries/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/men/5000/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/mixed/2000/quarterfinal/-/groups": "published",
+    "shanghai/round/2026-11-27/qualifying/mixed/2000/quarterfinal/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/women/1000/heats/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/1000/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/women/1000/preliminaries/-/groups": "published",
@@ -631,60 +632,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "03ebb4e73eedfb6a",
-      "station": "seoul",
-      "at": "2026-11-22T08:21:42+00:00",
-      "local_date": "2026-11-22",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Chutong ZHANG",
-        "Jianing ZHANG",
-        "Jiarui SONG",
-        "Yan ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Chutong ZHANG",
-          "rank": 7
-        },
-        {
-          "name": "Jianing ZHANG",
-          "rank": 5
-        },
-        {
-          "name": "Jiarui SONG",
-          "rank": 7
-        },
-        {
-          "name": "Yan ZHANG",
-          "rank": 4
-        }
-      ],
-      "podium": [
-        {
-          "rank": 1,
-          "name": "Elisa CONFORTOLA",
-          "country": "ITA"
-        },
-        {
-          "rank": 2,
-          "name": "Gilli KIM",
-          "country": "KOR"
-        },
-        {
-          "rank": 3,
-          "name": "Failia AIMALETDINOVA",
-          "country": "AIN2"
-        }
-      ]
-    },
     {
       "id": "253e068cfd0c0689",
       "station": "seoul",
@@ -3162,6 +3109,29 @@
           "name": "Yuheng LI",
           "rank": 2,
           "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "71a4ed96ebccb61f",
+      "station": "shanghai",
+      "at": "2026-11-27T09:51:12+00:00",
+      "local_date": "2026-11-27",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 4,
+          "status": "out"
         }
       ]
     }
