@@ -2,6 +2,56 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "bab0bfd429f62aea",
+      "station": "shanghai",
+      "at": "2026-11-27T02:41:13+00:00",
+      "local_date": "2026-11-27",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "南佳延",
+        "王欣然"
+      ],
+      "china_results": [
+        {
+          "name": "南佳延",
+          "rank": 4,
+          "status": "out",
+          "name_latin": "Jiayan NAN"
+        },
+        {
+          "name": "王欣然",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Xinran WANG"
+        }
+      ]
+    },
+    {
+      "id": "4ddfd088c5183899",
+      "station": "shanghai",
+      "at": "2026-11-27T02:41:13+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "公俐",
+        "王欣然",
+        "张延"
+      ]
+    },
+    {
       "id": "c9e7cbe4c7e0e6f3",
       "station": "shanghai",
       "at": "2026-11-27T02:21:13+00:00",
@@ -2464,45 +2514,6 @@
       "kind": "results",
       "china": [],
       "china_results": []
-    },
-    {
-      "id": "8583e6274a371299",
-      "station": "seoul",
-      "at": "2026-11-22T04:01:37+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "张楚桐",
-        "张珈宁",
-        "宋佳蕊",
-        "张延"
-      ]
-    },
-    {
-      "id": "9f62c8c0271c4fac",
-      "station": "seoul",
-      "at": "2026-11-22T03:51:34+00:00",
-      "local_date": "2026-11-22",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "李坤",
-        "孙龙",
-        "张子夏"
-      ]
     }
   ]
 }
