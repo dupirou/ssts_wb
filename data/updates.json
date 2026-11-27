@@ -339,7 +339,9 @@
     "shanghai/round/2026-11-27/qualifying/women/1000/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/1500/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/3000/quarterfinal/-/groups": "published",
+    "shanghai/round/2026-11-27/qualifying/women/500/heats/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/groups": "published",
+    "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/results": "official",
     "shanghai/round/men/1000/individual/Preliminaries/None/groups": "published",
     "shanghai/round/men/1500/individual/Heats/None/groups": "published",
     "shanghai/round/men/500/individual/Preliminaries/None/groups": "published",
@@ -609,41 +611,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "9944e64823b33748",
-      "station": "seoul",
-      "at": "2026-11-22T03:01:36+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "3d58af00dc7a0d3c",
-      "station": "seoul",
-      "at": "2026-11-22T03:11:33+00:00",
-      "local_date": "2026-11-22",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "Chutong ZHANG",
-        "Jiarui SONG",
-        "Li GONG",
-        "Xinran WANG"
-      ]
-    },
     {
       "id": "2cacb7cdb09ce9ec",
       "station": "seoul",
@@ -3068,6 +3035,41 @@
       "format": "individual",
       "previous": "2026-11-27 05:54",
       "current": "2026-11-27 13:54"
+    },
+    {
+      "id": "1c1ce4e975a3a5a0",
+      "station": "shanghai",
+      "at": "2026-11-27T01:31:15+00:00",
+      "local_date": "2026-11-27",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "452a28602acff01c",
+      "station": "shanghai",
+      "at": "2026-11-27T01:31:15+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG",
+        "Xinran WANG"
+      ]
     }
   ]
 }

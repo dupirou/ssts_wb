@@ -2,6 +2,41 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "452a28602acff01c",
+      "station": "shanghai",
+      "at": "2026-11-27T01:31:15+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "张珈宁",
+        "宋佳蕊",
+        "公俐",
+        "王欣然"
+      ]
+    },
+    {
+      "id": "1c1ce4e975a3a5a0",
+      "station": "shanghai",
+      "at": "2026-11-27T01:31:15+00:00",
+      "local_date": "2026-11-27",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
       "id": "ecd5612609ac71f0",
       "station": "shanghai",
       "kind": "time_change",
@@ -2443,41 +2478,6 @@
       "repechage": true,
       "gender": "women",
       "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "3d58af00dc7a0d3c",
-      "station": "seoul",
-      "at": "2026-11-22T03:11:33+00:00",
-      "local_date": "2026-11-22",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 4,
-      "china": [
-        "张楚桐",
-        "宋佳蕊",
-        "公俐",
-        "王欣然"
-      ]
-    },
-    {
-      "id": "9944e64823b33748",
-      "station": "seoul",
-      "at": "2026-11-22T03:01:36+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
       "format": "individual",
       "kind": "results",
       "china": [],
