@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T09:03:24Z",
+  "generated_at": "2026-11-27T09:13:06Z",
   "as_of_date": "2026-11-27",
   "config_version": "2026.27.1",
   "next_wt_stop": {
@@ -13,7 +13,7 @@
   },
   "calibration_diagnostics": {
     "senior": {
-      "incrementalHeatsReplayed": 627
+      "incrementalHeatsReplayed": 629
     },
     "junior": {
       "eventsLoaded": 9,
@@ -72,9 +72,9 @@
         "men:1500": {
           "crossTierPairs": 45,
           "usedFallback": false,
-          "alpha": 0.6809,
-          "beta": -0.2803,
-          "correlationR": 0.548,
+          "alpha": 0.6793,
+          "beta": -0.2795,
+          "correlationR": 0.5502,
           "paceWeight": 0.2,
           "juniorSkatersCalibrated": 170,
           "juniorMedianTimeS": 144.079
@@ -129,7 +129,7 @@
           "usedFallback": true,
           "alpha": null,
           "beta": null,
-          "correlationR": -0.0175,
+          "correlationR": -0.03,
           "domesticSkatersCalibrated": 52
         }
       }
@@ -3434,7 +3434,7 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.1691,
+        "mean_objective": 2.162,
         "distinct_lineups": 31,
         "candidates": [
           {
@@ -3511,9 +3511,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.841,
+              "500": 0.84,
               "1000": 0.868,
-              "1500": 0.282,
+              "1500": 0.283,
               "relay": 0.851
             },
             "value_scores": {
@@ -3607,9 +3607,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.561,
+              "500": 0.56,
               "1000": 0.591,
-              "1500": 0.85,
+              "1500": 0.851,
               "relay": 0.941
             },
             "value_scores": {
@@ -3686,7 +3686,7 @@
               "final_a_count": 1,
               "best_rank": 5
             },
-            "form_momentum": 0.0949,
+            "form_momentum": 0.0369,
             "recent_highlight": "2026/27 WT Seoul 1500m #5",
             "skills": {
               "500": {
@@ -3698,23 +3698,23 @@
                 "sigma": 1.0456
               },
               "1500": {
-                "mu": 1.4101,
-                "sigma": 1.0334
+                "mu": 1.3636,
+                "sigma": 1.0201
               }
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.671,
-              "1000": 0.409,
-              "1500": 0.919,
+              "500": 0.673,
+              "1000": 0.41,
+              "1500": 0.916,
               "relay": 0.861
             },
             "value_scores": {
               "500": 0.0796,
               "1000": 0.0486,
-              "1500": 0.1232,
+              "1500": 0.1186,
               "relay": 0.5402,
-              "form": 0.0949
+              "form": 0.0369
             },
             "roster_tier": "core",
             "specialty_tag": "all_round",
@@ -3789,7 +3789,7 @@
             },
             "main_roster_prob": 0.993,
             "entry_prob_matrix": {
-              "500": 0.423,
+              "500": 0.422,
               "1000": 0.545,
               "1500": 0.969,
               "relay": 0.427
@@ -4019,8 +4019,8 @@
                 "sigma": 0.8666
               },
               "1500": {
-                "mu": 0.2757,
-                "sigma": 0.89
+                "mu": 0.2754,
+                "sigma": 0.8897
               }
             },
             "main_roster_prob": 0.059,
@@ -4085,14 +4085,14 @@
                 "sigma": 1.0808
               },
               "1500": {
-                "mu": 0.5492,
-                "sigma": 0.9045
+                "mu": 0.5488,
+                "sigma": 0.9042
               }
             },
             "main_roster_prob": 0.049,
             "entry_prob_matrix": {
-              "500": 0.009,
-              "1000": 0.044,
+              "500": 0.01,
+              "1000": 0.043,
               "1500": 0.045,
               "relay": 0.035
             },
@@ -4599,7 +4599,7 @@
               "skr-8157"
             ],
             "frequency": 0.735,
-            "avg_objective": 2.013,
+            "avg_objective": 2.0057,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -4638,7 +4638,7 @@
               "skr-8157"
             ],
             "frequency": 0.04,
-            "avg_objective": 2.2675,
+            "avg_objective": 2.2605,
             "modal_entries": {
               "500": [
                 "skr-20551",
@@ -4678,7 +4678,7 @@
               "skr-8157"
             ],
             "frequency": 0.034,
-            "avg_objective": 2.2897,
+            "avg_objective": 2.2828,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -4719,7 +4719,7 @@
             "skr-8157"
           ],
           "frequency": 0.735,
-          "objective_at_mean": 1.4757,
+          "objective_at_mean": 1.47,
           "entries": {
             "500": [
               "skr-20586",
@@ -4757,7 +4757,7 @@
             "skr-8078",
             "skr-8157"
           ],
-          "objective": 1.4757,
+          "objective": 1.47,
           "entries": {
             "500": [
               "skr-20586",
@@ -6282,7 +6282,7 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.2155,
+        "mean_objective": 2.208,
         "distinct_lineups": 41,
         "candidates": [
           {
@@ -6359,9 +6359,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.808,
+              "500": 0.807,
               "1000": 0.884,
-              "1500": 0.299,
+              "1500": 0.3,
               "relay": 0.861
             },
             "value_scores": {
@@ -6455,9 +6455,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.51,
-              "1000": 0.62,
-              "1500": 0.872,
+              "500": 0.508,
+              "1000": 0.621,
+              "1500": 0.873,
               "relay": 0.937
             },
             "value_scores": {
@@ -6534,7 +6534,7 @@
               "final_a_count": 1,
               "best_rank": 5
             },
-            "form_momentum": 0.0941,
+            "form_momentum": 0.0366,
             "recent_highlight": "2026/27 WT Seoul 1500m #5",
             "skills": {
               "500": {
@@ -6546,23 +6546,23 @@
                 "sigma": 1.0467
               },
               "1500": {
-                "mu": 1.4095,
-                "sigma": 1.0341
+                "mu": 1.3631,
+                "sigma": 1.0208
               }
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.686,
-              "1000": 0.39,
-              "1500": 0.925,
+              "500": 0.689,
+              "1000": 0.392,
+              "1500": 0.92,
               "relay": 0.879
             },
             "value_scores": {
               "500": 0.0796,
               "1000": 0.0486,
-              "1500": 0.1231,
+              "1500": 0.1185,
               "relay": 0.5401,
-              "form": 0.0941
+              "form": 0.0366
             },
             "roster_tier": "core",
             "specialty_tag": "all_round",
@@ -6638,7 +6638,7 @@
             "main_roster_prob": 0.995,
             "entry_prob_matrix": {
               "500": 0.473,
-              "1000": 0.493,
+              "1000": 0.492,
               "1500": 0.968,
               "relay": 0.449
             },
@@ -6723,8 +6723,8 @@
             "main_roster_prob": 0.909,
             "entry_prob_matrix": {
               "500": 0.88,
-              "1000": 0.626,
-              "1500": 0.253,
+              "1000": 0.625,
+              "1500": 0.254,
               "relay": 0.477
             },
             "value_scores": {
@@ -6808,8 +6808,8 @@
             "main_roster_prob": 0.794,
             "entry_prob_matrix": {
               "500": 0.417,
-              "1000": 0.724,
-              "1500": 0.414,
+              "1000": 0.723,
+              "1500": 0.415,
               "relay": 0.281
             },
             "value_scores": {
@@ -6867,8 +6867,8 @@
                 "sigma": 0.8673
               },
               "1500": {
-                "mu": 0.2753,
-                "sigma": 0.8904
+                "mu": 0.275,
+                "sigma": 0.8901
               }
             },
             "main_roster_prob": 0.06,
@@ -6933,8 +6933,8 @@
                 "sigma": 1.0816
               },
               "1500": {
-                "mu": 0.549,
-                "sigma": 0.9049
+                "mu": 0.5485,
+                "sigma": 0.9046
               }
             },
             "main_roster_prob": 0.047,
@@ -7657,7 +7657,7 @@
               },
               "1500": {
                 "mu": 0.123,
-                "sigma": 1.1744
+                "sigma": 1.1737
               }
             },
             "main_roster_prob": 0.003,
@@ -7695,12 +7695,11 @@
               "skr-8157"
             ],
             "frequency": 0.709,
-            "avg_objective": 2.04,
+            "avg_objective": 2.0324,
             "modal_entries": {
               "500": [
                 "skr-20586",
                 "skr-4167",
-                "skr-6784",
                 "skr-8078"
               ],
               "1000": [
@@ -7733,7 +7732,7 @@
               "skr-8157"
             ],
             "frequency": 0.04,
-            "avg_objective": 2.3035,
+            "avg_objective": 2.2988,
             "modal_entries": {
               "500": [
                 "skr-20551",
@@ -7774,7 +7773,7 @@
               "skr-8157"
             ],
             "frequency": 0.034,
-            "avg_objective": 2.3898,
+            "avg_objective": 2.3811,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -7815,7 +7814,7 @@
             "skr-8157"
           ],
           "frequency": 0.709,
-          "objective_at_mean": 1.4752,
+          "objective_at_mean": 1.4695,
           "entries": {
             "500": [
               "skr-20586",
@@ -7853,7 +7852,7 @@
             "skr-8078",
             "skr-8157"
           ],
-          "objective": 1.4752,
+          "objective": 1.4695,
           "entries": {
             "500": [
               "skr-20586",
@@ -9440,7 +9439,7 @@
           "k1500": 2,
           "relay": 4
         },
-        "mean_objective": 1.4862,
+        "mean_objective": 1.4798,
         "distinct_lineups": 38,
         "candidates": [
           {
@@ -9517,9 +9516,9 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.661,
-              "1000": 0.515,
-              "1500": 0.588,
+              "500": 0.66,
+              "1000": 0.514,
+              "1500": 0.593,
               "relay": 0.957
             },
             "value_scores": {
@@ -9596,7 +9595,7 @@
               "final_a_count": 1,
               "best_rank": 5
             },
-            "form_momentum": 0.0949,
+            "form_momentum": 0.0369,
             "recent_highlight": "2026/27 WT Seoul 1500m #5",
             "skills": {
               "500": {
@@ -9608,23 +9607,23 @@
                 "sigma": 1.0456
               },
               "1500": {
-                "mu": 1.4101,
-                "sigma": 1.0334
+                "mu": 1.3636,
+                "sigma": 1.0201
               }
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
               "500": 0.699,
-              "1000": 0.301,
-              "1500": 0.605,
+              "1000": 0.303,
+              "1500": 0.595,
               "relay": 0.901
             },
             "value_scores": {
               "500": 0.0796,
               "1000": 0.0486,
-              "1500": 0.1232,
+              "1500": 0.1186,
               "relay": 0.5402,
-              "form": 0.0949
+              "form": 0.0369
             },
             "roster_tier": "core",
             "specialty_tag": "all_round",
@@ -9712,7 +9711,7 @@
             "entry_prob_matrix": {
               "500": 0.559,
               "1000": 0.457,
-              "1500": 0.198,
+              "1500": 0.199,
               "relay": 0.892
             },
             "value_scores": {
@@ -9797,7 +9796,7 @@
             "entry_prob_matrix": {
               "500": 0.292,
               "1000": 0.235,
-              "1500": 0.366,
+              "1500": 0.368,
               "relay": 0.469
             },
             "value_scores": {
@@ -9877,7 +9876,7 @@
             },
             "main_roster_prob": 0.671,
             "entry_prob_matrix": {
-              "500": 0.498,
+              "500": 0.499,
               "1000": 0.263,
               "1500": 0.069,
               "relay": 0.492
@@ -9962,8 +9961,8 @@
             "main_roster_prob": 0.274,
             "entry_prob_matrix": {
               "500": 0.183,
-              "1000": 0.12,
-              "1500": 0.061,
+              "1000": 0.119,
+              "1500": 0.063,
               "relay": 0.205
             },
             "value_scores": {
@@ -10021,8 +10020,8 @@
                 "sigma": 0.8666
               },
               "1500": {
-                "mu": 0.2757,
-                "sigma": 0.89
+                "mu": 0.2754,
+                "sigma": 0.8897
               }
             },
             "main_roster_prob": 0.031,
@@ -10205,8 +10204,8 @@
                 "sigma": 1.0808
               },
               "1500": {
-                "mu": 0.5492,
-                "sigma": 0.9045
+                "mu": 0.5488,
+                "sigma": 0.9042
               }
             },
             "main_roster_prob": 0.026,
@@ -10600,7 +10599,7 @@
               "skr-8157"
             ],
             "frequency": 0.572,
-            "avg_objective": 1.3669,
+            "avg_objective": 1.3602,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -10633,7 +10632,7 @@
               "skr-8157"
             ],
             "frequency": 0.202,
-            "avg_objective": 1.3756,
+            "avg_objective": 1.3691,
             "modal_entries": {
               "500": [
                 "skr-18320",
@@ -10666,7 +10665,7 @@
               "skr-8078"
             ],
             "frequency": 0.055,
-            "avg_objective": 1.546,
+            "avg_objective": 1.5405,
             "modal_entries": {
               "500": [
                 "skr-18320",
@@ -10699,7 +10698,7 @@
             "skr-8157"
           ],
           "frequency": 0.572,
-          "objective_at_mean": 0.8617,
+          "objective_at_mean": 0.856,
           "entries": {
             "500": [
               "skr-20586",
@@ -10731,7 +10730,7 @@
             "skr-8078",
             "skr-8157"
           ],
-          "objective": 0.8617,
+          "objective": 0.856,
           "entries": {
             "500": [
               "skr-20586",
