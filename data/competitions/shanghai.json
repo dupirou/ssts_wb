@@ -1696,8 +1696,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-27T00:41:10+00:00",
-    "updated_at": "2026-11-27T00:41:10+00:00",
+    "checked_at": "2026-11-27T01:11:14+00:00",
+    "updated_at": "2026-11-27T01:11:14+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23628",
@@ -2634,12 +2634,24 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-27T09:00:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T09:00:55.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23628",
         "participants": [
+          {
+            "athlete_id": "ath-c1d7bd7451e837684ae7",
+            "name": "Anna FALKOWSKA",
+            "country": "POL",
+            "official_skater_id": 1874,
+            "helmet_number": 82,
+            "starting_position": 3,
+            "rank": 1,
+            "result": "45.125",
+            "qualification": "Q",
+            "penalty": null
+          },
           {
             "athlete_id": "ath-4c7366f027ce91fd36df",
             "name": "Tineke DEN DULK",
@@ -2647,9 +2659,21 @@
             "official_skater_id": 1545,
             "helmet_number": 44,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "45.190",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-8361e1c91aab972b6ca4",
+            "name": "Sukhee SHIM",
+            "country": "KOR",
+            "official_skater_id": 6380,
+            "helmet_number": 79,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "45.247",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -2659,20 +2683,8 @@
             "official_skater_id": 21980,
             "helmet_number": 91,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-c1d7bd7451e837684ae7",
-            "name": "Anna FALKOWSKA",
-            "country": "POL",
-            "official_skater_id": 1874,
-            "helmet_number": 82,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "45.298",
             "qualification": null,
             "penalty": null
           },
@@ -2683,20 +2695,8 @@
             "official_skater_id": 4412,
             "helmet_number": 43,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-8361e1c91aab972b6ca4",
-            "name": "Sukhee SHIM",
-            "country": "KOR",
-            "official_skater_id": 6380,
-            "helmet_number": 79,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "45.498",
             "qualification": null,
             "penalty": null
           }
@@ -2714,9 +2714,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-27T09:02:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T09:03:31.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23628",
         "participants": [
@@ -2727,9 +2727,9 @@
             "official_skater_id": 690,
             "helmet_number": 66,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "44.646",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -2739,8 +2739,32 @@
             "official_skater_id": 3923,
             "helmet_number": 97,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "44.706",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-5473e6b679d75d058541",
+            "name": "Mariia KHOKHELKO",
+            "country": "UKR",
+            "official_skater_id": 19466,
+            "helmet_number": 103,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "1:03.299",
+            "qualification": "p",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-1d9dcd7e59fddd804ce7",
+            "name": "Thanutchaya CHATTHAISONG",
+            "country": "THA",
+            "official_skater_id": 1122,
+            "helmet_number": 102,
+            "starting_position": 4,
+            "rank": 4,
+            "result": "1:05.146",
             "qualification": null,
             "penalty": null
           },
@@ -2752,31 +2776,7 @@
             "helmet_number": 78,
             "starting_position": 3,
             "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-1d9dcd7e59fddd804ce7",
-            "name": "Thanutchaya CHATTHAISONG",
-            "country": "THA",
-            "official_skater_id": 1122,
-            "helmet_number": 102,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-5473e6b679d75d058541",
-            "name": "Mariia KHOKHELKO",
-            "country": "UKR",
-            "official_skater_id": 19466,
-            "helmet_number": 103,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "result": "DNS",
             "qualification": null,
             "penalty": null
           }
@@ -2794,9 +2794,9 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-11-27T09:04:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T09:06:58.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23628",
         "participants": [
@@ -2807,9 +2807,9 @@
             "official_skater_id": 7437,
             "helmet_number": 46,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "44.986",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -2819,8 +2819,32 @@
             "official_skater_id": 4857,
             "helmet_number": 63,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "45.083",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-a1633c7b189dc8822212",
+            "name": "Katia FILIPPI",
+            "country": "ITA",
+            "official_skater_id": 16282,
+            "helmet_number": 101,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "45.263",
+            "qualification": "ADV",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-0efa1bfb83724dc340f2",
+            "name": "Diana MYKHALCHUK",
+            "country": "UKR",
+            "official_skater_id": 4983,
+            "helmet_number": 104,
+            "starting_position": 4,
+            "rank": 4,
+            "result": "45.687",
             "qualification": null,
             "penalty": null
           },
@@ -2832,33 +2856,12 @@
             "helmet_number": 98,
             "starting_position": 3,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-0efa1bfb83724dc340f2",
-            "name": "Diana MYKHALCHUK",
-            "country": "UKR",
-            "official_skater_id": 4983,
-            "helmet_number": 104,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-a1633c7b189dc8822212",
-            "name": "Katia FILIPPI",
-            "country": "ITA",
-            "official_skater_id": 16282,
-            "helmet_number": 101,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
