@@ -348,8 +348,11 @@
     "shanghai/round/2026-11-27/qualifying/women/1500/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/3000/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/500/heats/-/groups": "published",
+    "shanghai/round/2026-11-27/qualifying/women/500/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/results": "official",
+    "shanghai/round/2026-11-28/repechage/men/1500/heats/-/groups": "published",
+    "shanghai/round/2026-11-28/repechage/men/500/heats/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/women/500/heats/-/groups": "published",
     "shanghai/round/men/1000/individual/Preliminaries/None/groups": "published",
     "shanghai/round/men/1500/individual/Heats/None/groups": "published",
@@ -620,102 +623,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "6548c4935f4930f7",
-      "station": "seoul",
-      "at": "2026-11-22T06:21:29+00:00",
-      "local_date": "2026-11-22",
-      "round": "final",
-      "group": "A",
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 2,
-      "china": [
-        "Jiarui SONG",
-        "Li GONG",
-        "Xinran WANG"
-      ]
-    },
-    {
-      "id": "7bbb73fd7d6a2b2e",
-      "station": "seoul",
-      "at": "2026-11-22T06:21:29+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Chutong ZHANG",
-        "Jiarui SONG",
-        "Li GONG",
-        "Xinran WANG"
-      ],
-      "china_results": [
-        {
-          "name": "Chutong ZHANG",
-          "rank": null,
-          "penalty": "PEN",
-          "status": "out"
-        },
-        {
-          "name": "Jiarui SONG",
-          "rank": 2,
-          "status": "advanced"
-        },
-        {
-          "name": "Li GONG",
-          "rank": 5,
-          "status": "final_b"
-        },
-        {
-          "name": "Xinran WANG",
-          "rank": 4,
-          "status": "final_b"
-        }
-      ]
-    },
-    {
-      "id": "ae08c4a55350d898",
-      "station": "seoul",
-      "at": "2026-11-22T06:21:29+00:00",
-      "local_date": "2026-11-22",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [
-        "Kun LI",
-        "Long SUN",
-        "Zixia ZHANG"
-      ],
-      "china_results": [
-        {
-          "name": "Kun LI",
-          "rank": 5,
-          "status": "out"
-        },
-        {
-          "name": "Long SUN",
-          "rank": 4,
-          "status": "out"
-        },
-        {
-          "name": "Zixia ZHANG",
-          "rank": 3,
-          "status": "out"
-        }
-      ]
-    },
     {
       "id": "310c6e37222d0f96",
       "station": "seoul",
@@ -3116,8 +3023,81 @@
         {
           "name": "Zixia ZHANG",
           "rank": 7,
-          "status": "out"
+          "status": "repechage"
         }
+      ]
+    },
+    {
+      "id": "6db9fa988b24fad2",
+      "station": "shanghai",
+      "at": "2026-11-27T06:11:11+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jianing ZHANG",
+        "Jiarui SONG",
+        "Li GONG",
+        "Xinran WANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jianing ZHANG",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Jiarui SONG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Li GONG",
+          "rank": 4,
+          "status": "advanced"
+        },
+        {
+          "name": "Xinran WANG",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "836d913b9895f66e",
+      "station": "shanghai",
+      "at": "2026-11-27T06:11:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": []
+    },
+    {
+      "id": "87e4ca4541341be6",
+      "station": "shanghai",
+      "at": "2026-11-27T06:11:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "Zixia ZHANG"
       ]
     }
   ]
