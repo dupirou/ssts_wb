@@ -2408,8 +2408,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-27T10:31:13+00:00",
-    "updated_at": "2026-11-27T10:31:13+00:00",
+    "checked_at": "2026-11-27T10:41:17+00:00",
+    "updated_at": "2026-11-27T10:41:17+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -5768,81 +5768,11 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-11-27T18:28:46.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16432&round=23636",
         "participants": [
-          {
-            "athlete_id": "team-HUN-men",
-            "name": "匈牙利队",
-            "country": "HUN",
-            "official_skater_id": 13182,
-            "helmet_number": null,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-91511b3c9de89e30bfa8",
-                "name": "Peter JASZAPATI",
-                "official_skater_id": 2986
-              },
-              {
-                "athlete_id": "ath-dc0c79c56cc790edd7de",
-                "name": "David WU JIA WEI",
-                "official_skater_id": 7798
-              },
-              {
-                "athlete_id": "ath-dca7784fc8fdf2fbec50",
-                "name": "Daniel TIBORCZ",
-                "official_skater_id": 7047
-              },
-              {
-                "athlete_id": "ath-154610d4b0cb7055236f",
-                "name": "Borisz Z MOLNAR",
-                "official_skater_id": 18333
-              }
-            ],
-            "name_latin": "Hungary"
-          },
-          {
-            "athlete_id": "team-GBR-men",
-            "name": "英国队",
-            "country": "GBR",
-            "official_skater_id": 13181,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-2c7bf7881e6dda162f51",
-                "name": "Niall TREACY",
-                "official_skater_id": 7129
-              },
-              {
-                "athlete_id": "ath-de020c06bdbb9947dc74",
-                "name": "Adam HILL JNR",
-                "official_skater_id": 2652
-              },
-              {
-                "athlete_id": "ath-85622049b960167a565d",
-                "name": "Albie BARLOW",
-                "official_skater_id": 18327
-              },
-              {
-                "athlete_id": "ath-a59812c330ba5762181b",
-                "name": "Willem MURRAY",
-                "official_skater_id": 4970
-              }
-            ],
-            "name_latin": "Great Britain"
-          },
           {
             "athlete_id": "team-KOR-men",
             "name": "韩国队",
@@ -5850,9 +5780,9 @@
             "official_skater_id": 13186,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "6:58.375",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -5885,9 +5815,9 @@
             "official_skater_id": 13184,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "6:58.649",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -5920,9 +5850,9 @@
             "official_skater_id": 13189,
             "helmet_number": null,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "7:00.649",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -5947,6 +5877,76 @@
               }
             ],
             "name_latin": "Turkiye"
+          },
+          {
+            "athlete_id": "team-HUN-men",
+            "name": "匈牙利队",
+            "country": "HUN",
+            "official_skater_id": 13182,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": 4,
+            "result": "7:01.220",
+            "qualification": "p",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-91511b3c9de89e30bfa8",
+                "name": "Peter JASZAPATI",
+                "official_skater_id": 2986
+              },
+              {
+                "athlete_id": "ath-dc0c79c56cc790edd7de",
+                "name": "David WU JIA WEI",
+                "official_skater_id": 7798
+              },
+              {
+                "athlete_id": "ath-dca7784fc8fdf2fbec50",
+                "name": "Daniel TIBORCZ",
+                "official_skater_id": 7047
+              },
+              {
+                "athlete_id": "ath-154610d4b0cb7055236f",
+                "name": "Borisz Z MOLNAR",
+                "official_skater_id": 18333
+              }
+            ],
+            "name_latin": "Hungary"
+          },
+          {
+            "athlete_id": "team-GBR-men",
+            "name": "英国队",
+            "country": "GBR",
+            "official_skater_id": 13181,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": 5,
+            "result": "7:01.343",
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-2c7bf7881e6dda162f51",
+                "name": "Niall TREACY",
+                "official_skater_id": 7129
+              },
+              {
+                "athlete_id": "ath-de020c06bdbb9947dc74",
+                "name": "Adam HILL JNR",
+                "official_skater_id": 2652
+              },
+              {
+                "athlete_id": "ath-85622049b960167a565d",
+                "name": "Albie BARLOW",
+                "official_skater_id": 18327
+              },
+              {
+                "athlete_id": "ath-a59812c330ba5762181b",
+                "name": "Willem MURRAY",
+                "official_skater_id": 4970
+              }
+            ],
+            "name_latin": "Great Britain"
           }
         ]
       },
@@ -5962,8 +5962,8 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-27T18:32:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-27T18:38:22.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16432&round=23636",
@@ -6039,6 +6039,40 @@
             "name_latin": "Italy"
           },
           {
+            "athlete_id": "team-AIN2-men",
+            "name": "Ain2",
+            "country": "AIN2",
+            "official_skater_id": 13176,
+            "helmet_number": null,
+            "starting_position": 5,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-957beb23a9901b33af6b",
+                "name": "Semen ELISTRATOV",
+                "official_skater_id": 1774
+              },
+              {
+                "athlete_id": "ath-766b41e307ecb7b3445a",
+                "name": "Konstantin IVLIEV",
+                "official_skater_id": 2908
+              },
+              {
+                "athlete_id": "ath-284e4e30ce2b8e981154",
+                "name": "Vladimir BALBEKOV",
+                "official_skater_id": 491
+              },
+              {
+                "athlete_id": "ath-ae059245c19305b299b6",
+                "name": "Daniil NIKOLAEV",
+                "official_skater_id": 20499
+              }
+            ]
+          },
+          {
             "athlete_id": "team-USA-men",
             "name": "美国队",
             "country": "USA",
@@ -6107,40 +6141,6 @@
               }
             ],
             "name_latin": "Belgium"
-          },
-          {
-            "athlete_id": "team-AIN2-men",
-            "name": "Ain2",
-            "country": "AIN2",
-            "official_skater_id": 13176,
-            "helmet_number": null,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-957beb23a9901b33af6b",
-                "name": "Semen ELISTRATOV",
-                "official_skater_id": 1774
-              },
-              {
-                "athlete_id": "ath-766b41e307ecb7b3445a",
-                "name": "Konstantin IVLIEV",
-                "official_skater_id": 2908
-              },
-              {
-                "athlete_id": "ath-284e4e30ce2b8e981154",
-                "name": "Vladimir BALBEKOV",
-                "official_skater_id": 491
-              },
-              {
-                "athlete_id": "ath-ae059245c19305b299b6",
-                "name": "Daniil NIKOLAEV",
-                "official_skater_id": 20499
-              }
-            ]
           }
         ]
       },
