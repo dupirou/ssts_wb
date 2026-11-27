@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T02:23:09Z",
+  "generated_at": "2026-11-27T02:33:30Z",
   "as_of_date": "2026-11-27",
   "config_version": "2026.27.1",
   "next_wt_stop": {
@@ -13,7 +13,7 @@
   },
   "calibration_diagnostics": {
     "senior": {
-      "incrementalHeatsReplayed": 559
+      "incrementalHeatsReplayed": 562
     },
     "junior": {
       "eventsLoaded": 9,
@@ -32,9 +32,9 @@
         "women:1000": {
           "crossTierPairs": 29,
           "usedFallback": false,
-          "alpha": 0.7942,
-          "beta": -0.5735,
-          "correlationR": 0.7502,
+          "alpha": 0.806,
+          "beta": -0.5567,
+          "correlationR": 0.7636,
           "paceWeight": 0.35,
           "juniorSkatersCalibrated": 149,
           "juniorMedianTimeS": 95.728
@@ -95,9 +95,9 @@
         "women:1000": {
           "anchorCount": 14,
           "usedFallback": false,
-          "alpha": 0.4198,
-          "beta": 0.1872,
-          "correlationR": 0.4743,
+          "alpha": 0.4052,
+          "beta": 0.214,
+          "correlationR": 0.4543,
           "domesticSkatersCalibrated": 50
         },
         "women:1500": {
@@ -1521,7 +1521,7 @@
     "women": {
       "500": {
         "distance_m": 500,
-        "as_of": "2026-11-26T07:03:37+00:00",
+        "as_of": "2026-11-27T02:33:29+00:00",
         "slots": 4,
         "required_top40_for_4_slots": 3,
         "cutoff_rank": 40,
@@ -1613,7 +1613,7 @@
       },
       "1000": {
         "distance_m": 1000,
-        "as_of": "2026-11-26T07:03:37+00:00",
+        "as_of": "2026-11-27T02:33:29+00:00",
         "slots": 4,
         "required_top40_for_4_slots": 3,
         "cutoff_rank": 40,
@@ -1705,7 +1705,7 @@
       },
       "1500": {
         "distance_m": 1500,
-        "as_of": "2026-11-26T07:03:37+00:00",
+        "as_of": "2026-11-27T02:33:29+00:00",
         "slots": 4,
         "required_top40_for_4_slots": 3,
         "cutoff_rank": 40,
@@ -1799,7 +1799,7 @@
     "men": {
       "500": {
         "distance_m": 500,
-        "as_of": "2026-11-27T02:13:09+00:00",
+        "as_of": "2026-11-27T02:33:29+00:00",
         "slots": 4,
         "required_top40_for_4_slots": 3,
         "cutoff_rank": 40,
@@ -1891,7 +1891,7 @@
       },
       "1000": {
         "distance_m": 1000,
-        "as_of": "2026-11-27T02:13:09+00:00",
+        "as_of": "2026-11-27T02:33:29+00:00",
         "slots": 4,
         "required_top40_for_4_slots": 3,
         "cutoff_rank": 40,
@@ -2009,7 +2009,7 @@
       },
       "1500": {
         "distance_m": 1500,
-        "as_of": "2026-11-27T02:13:09+00:00",
+        "as_of": "2026-11-27T02:33:29+00:00",
         "slots": 4,
         "required_top40_for_4_slots": 3,
         "cutoff_rank": 40,
@@ -2125,8 +2125,8 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.0176,
-        "distinct_lineups": 11,
+        "mean_objective": 2.0357,
+        "distinct_lineups": 14,
         "candidates": [
           {
             "athlete_id": "skr-2262",
@@ -2191,7 +2191,7 @@
                 "sigma": 1.0918
               },
               "1000": {
-                "mu": 1.0729,
+                "mu": 1.0769,
                 "sigma": 0.928
               },
               "1500": {
@@ -2201,16 +2201,16 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.483,
-              "1000": 0.779,
-              "1500": 0.722,
-              "relay": 0.765
+              "500": 0.481,
+              "1000": 0.773,
+              "1500": 0.73,
+              "relay": 0.748
             },
             "value_scores": {
               "500": 0.0537,
-              "1000": 0.0677,
+              "1000": 0.0679,
               "1500": 0.049,
-              "relay": 0.4423,
+              "relay": 0.44,
               "form": 0.1574
             },
             "roster_tier": "core",
@@ -2286,7 +2286,7 @@
                 "sigma": 1.0125
               },
               "1000": {
-                "mu": 0.9705,
+                "mu": 0.9731,
                 "sigma": 1.0922
               },
               "1500": {
@@ -2296,16 +2296,16 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.66,
-              "1000": 0.69,
-              "1500": 0.639,
-              "relay": 0.404
+              "500": 0.651,
+              "1000": 0.687,
+              "1500": 0.65,
+              "relay": 0.391
             },
             "value_scores": {
               "500": 0.0785,
-              "1000": 0.0581,
+              "1000": 0.0582,
               "1500": 0.0394,
-              "relay": 0.3354,
+              "relay": 0.3324,
               "form": 0.1918
             },
             "roster_tier": "core",
@@ -2379,7 +2379,7 @@
                 "sigma": 0.9517
               },
               "1000": {
-                "mu": 1.2927,
+                "mu": 1.3005,
                 "sigma": 1.028
               },
               "1500": {
@@ -2389,16 +2389,16 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.809,
-              "1000": 0.686,
-              "1500": 0.503,
-              "relay": 0.955
+              "500": 0.808,
+              "1000": 0.682,
+              "1500": 0.506,
+              "relay": 0.951
             },
             "value_scores": {
               "500": 0.1503,
-              "1000": 0.0807,
+              "1000": 0.0812,
               "1500": 0.0462,
-              "relay": 0.6099,
+              "relay": 0.6088,
               "form": -0.13
             },
             "roster_tier": "core",
@@ -2474,7 +2474,7 @@
                 "sigma": 1.0786
               },
               "1000": {
-                "mu": 0.7777,
+                "mu": 0.7785,
                 "sigma": 1.0239
               },
               "1500": {
@@ -2484,16 +2484,16 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.69,
-              "1000": 0.589,
-              "1500": 0.716,
-              "relay": 0.578
+              "500": 0.682,
+              "1000": 0.587,
+              "1500": 0.725,
+              "relay": 0.554
             },
             "value_scores": {
               "500": 0.0881,
               "1000": 0.0494,
               "1500": 0.0558,
-              "relay": 0.3731,
+              "relay": 0.3692,
               "form": 0.0829
             },
             "roster_tier": "core",
@@ -2560,7 +2560,7 @@
                 "sigma": 1.6004
               },
               "1000": {
-                "mu": 1.0838,
+                "mu": 1.0821,
                 "sigma": 1.0332
               },
               "1500": {
@@ -2568,18 +2568,18 @@
                 "sigma": 1.0237
               }
             },
-            "main_roster_prob": 0.989,
+            "main_roster_prob": 0.975,
             "entry_prob_matrix": {
-              "500": 0.419,
-              "1000": 0.796,
-              "1500": 0.734,
-              "relay": 0.597
+              "500": 0.412,
+              "1000": 0.782,
+              "1500": 0.73,
+              "relay": 0.568
             },
             "value_scores": {
               "500": 0.0459,
-              "1000": 0.066,
+              "1000": 0.0659,
               "1500": 0.0372,
-              "relay": 0.3648,
+              "relay": 0.3614,
               "form": 0.0119
             },
             "roster_tier": "bubble",
@@ -2636,7 +2636,7 @@
                 "sigma": 0.9344
               },
               "1000": {
-                "mu": 0.2555,
+                "mu": 0.2691,
                 "sigma": 1.1315
               },
               "1500": {
@@ -2644,16 +2644,16 @@
                 "sigma": 1.1315
               }
             },
-            "main_roster_prob": 0.802,
+            "main_roster_prob": 0.642,
             "entry_prob_matrix": {
-              "500": 0.731,
-              "1000": 0.329,
-              "1500": 0.529,
-              "relay": 0.512
+              "500": 0.596,
+              "1000": 0.258,
+              "1500": 0.424,
+              "relay": 0.451
             },
             "value_scores": {
               "500": 0.1154,
-              "1000": 0.0286,
+              "1000": 0.029,
               "1500": 0.0314,
               "relay": 0.3511,
               "form": 0.1722
@@ -2691,18 +2691,20 @@
               }
             },
             "wt_2026_27": {
-              "stops_count": 1,
+              "stops_count": 2,
               "stops": [
-                "Seoul"
+                "Seoul",
+                "Shanghai"
               ],
               "distances_entered": [
-                500
+                500,
+                1000
               ],
               "relay_starts": 0,
               "final_a_count": 0,
               "best_rank": null
             },
-            "form_momentum": 0.0213,
+            "form_momentum": 0.1049,
             "recent_highlight": "国内甲组 七台河 500m #1",
             "skills": {
               "500": {
@@ -2710,33 +2712,34 @@
                 "sigma": 0.9405
               },
               "1000": {
-                "mu": 0.1156,
-                "sigma": 1.0687
+                "mu": 0.2305,
+                "sigma": 1.0627
               },
               "1500": {
                 "mu": 0.2677,
                 "sigma": 1.0687
               }
             },
-            "main_roster_prob": 0.177,
+            "main_roster_prob": 0.354,
             "entry_prob_matrix": {
-              "500": 0.169,
-              "1000": 0.084,
-              "1500": 0.096,
-              "relay": 0.17
+              "500": 0.335,
+              "1000": 0.187,
+              "1500": 0.178,
+              "relay": 0.322
             },
             "value_scores": {
               "500": 0.1116,
-              "1000": 0.0255,
+              "1000": 0.0286,
               "1500": 0.0226,
               "relay": 0.3992,
-              "form": 0.0213
+              "form": 0.1049
             },
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
-              "500"
+              "500",
+              "1000"
             ],
             "status_note": "500m #16"
           },
@@ -2768,7 +2771,7 @@
                 "sigma": 1.436
               },
               "1000": {
-                "mu": 0.7469,
+                "mu": 0.7543,
                 "sigma": 1.436
               },
               "1500": {
@@ -2776,18 +2779,18 @@
                 "sigma": 1.436
               }
             },
-            "main_roster_prob": 0.015,
+            "main_roster_prob": 0.012,
             "entry_prob_matrix": {
-              "500": 0.012,
-              "1000": 0.013,
-              "1500": 0.005,
-              "relay": 0.008
+              "500": 0.009,
+              "1000": 0.011,
+              "1500": 0.004,
+              "relay": 0.006
             },
             "value_scores": {
               "500": 0.0496,
-              "1000": 0.0417,
+              "1000": 0.042,
               "1500": 0.0248,
-              "relay": 0.0886,
+              "relay": 0.0852,
               "form": 0.1481
             },
             "roster_tier": "pool",
@@ -2828,7 +2831,7 @@
                 "sigma": 1.0935
               },
               "1000": {
-                "mu": 0.5671,
+                "mu": 0.5807,
                 "sigma": 1.6004
               },
               "1500": {
@@ -2836,16 +2839,16 @@
                 "sigma": 1.1018
               }
             },
-            "main_roster_prob": 0.007,
+            "main_roster_prob": 0.005,
             "entry_prob_matrix": {
-              "500": 0.007,
-              "1000": 0.007,
-              "1500": 0,
-              "relay": 0.007
+              "500": 0.003,
+              "1000": 0.005,
+              "1500": 0.002,
+              "relay": 0.003
             },
             "value_scores": {
               "500": 0.0538,
-              "1000": 0.0331,
+              "1000": 0.0335,
               "1500": 0.0213,
               "relay": 0.0935,
               "form": 0.4409
@@ -2858,6 +2861,65 @@
               "1000"
             ],
             "status_note": "2026/27 JWC2 Bormio 1500m #1"
+          },
+          {
+            "athlete_id": "skr-22880",
+            "name_en": "YIAIDI ZONG",
+            "name_zh": "宗艾迪",
+            "age_group": "DUAL_ELIGIBLE",
+            "is_dual_eligible": true,
+            "data_sources": [
+              "JWC"
+            ],
+            "qualification_path": "JWC_2026_27",
+            "world_ranking_top40_distances": [],
+            "world_ranks": {},
+            "wt_2026_27": {
+              "stops_count": 0,
+              "stops": [],
+              "distances_entered": [],
+              "relay_starts": 0,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "form_momentum": 0.2088,
+            "recent_highlight": "2026/27 JWC2 Bormio 1500m #2",
+            "skills": {
+              "500": {
+                "mu": 0.0983,
+                "sigma": 1.3
+              },
+              "1000": {
+                "mu": 0.2328,
+                "sigma": 1.5597
+              },
+              "1500": {
+                "mu": 0.3741,
+                "sigma": 1.4859
+              }
+            },
+            "main_roster_prob": 0.005,
+            "entry_prob_matrix": {
+              "500": 0.003,
+              "1000": 0.004,
+              "1500": 0.003,
+              "relay": 0.002
+            },
+            "value_scores": {
+              "500": 0.0263,
+              "1000": 0.0242,
+              "1500": 0.0218,
+              "relay": 0.0174,
+              "form": 0.2088
+            },
+            "roster_tier": "pool",
+            "specialty_tag": "mid_long",
+            "specialty_label": "中长距离",
+            "recommended_entries": [
+              "1000",
+              "1500"
+            ],
+            "status_note": "2026/27 JWC2 Bormio 1500m #2"
           },
           {
             "athlete_id": "skr-4165",
@@ -2887,8 +2949,8 @@
                 "sigma": 1.5351
               },
               "1000": {
-                "mu": 0.4249,
-                "sigma": 1.6
+                "mu": 0.4514,
+                "sigma": 1.6116
               },
               "1500": {
                 "mu": 0.3469,
@@ -2904,7 +2966,7 @@
             },
             "value_scores": {
               "500": 0.0192,
-              "1000": 0.0288,
+              "1000": 0.0294,
               "1500": 0.021,
               "relay": 0.0369,
               "form": 0.3521
@@ -2917,65 +2979,6 @@
               "1500"
             ],
             "status_note": "2026/27 JWC2 Bormio 1000m #2"
-          },
-          {
-            "athlete_id": "skr-22880",
-            "name_en": "YIAIDI ZONG",
-            "name_zh": "宗艾迪",
-            "age_group": "DUAL_ELIGIBLE",
-            "is_dual_eligible": true,
-            "data_sources": [
-              "JWC"
-            ],
-            "qualification_path": "JWC_2026_27",
-            "world_ranking_top40_distances": [],
-            "world_ranks": {},
-            "wt_2026_27": {
-              "stops_count": 0,
-              "stops": [],
-              "distances_entered": [],
-              "relay_starts": 0,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "form_momentum": 0.2088,
-            "recent_highlight": "2026/27 JWC2 Bormio 1500m #2",
-            "skills": {
-              "500": {
-                "mu": 0.0921,
-                "sigma": 1.3
-              },
-              "1000": {
-                "mu": 0.2101,
-                "sigma": 1.5493
-              },
-              "1500": {
-                "mu": 0.3741,
-                "sigma": 1.4859
-              }
-            },
-            "main_roster_prob": 0.004,
-            "entry_prob_matrix": {
-              "500": 0.002,
-              "1000": 0.003,
-              "1500": 0.003,
-              "relay": 0.001
-            },
-            "value_scores": {
-              "500": 0.0261,
-              "1000": 0.0237,
-              "1500": 0.0218,
-              "relay": 0.0174,
-              "form": 0.2088
-            },
-            "roster_tier": "pool",
-            "specialty_tag": "mid_long",
-            "specialty_label": "中长距离",
-            "recommended_entries": [
-              "1000",
-              "1500"
-            ],
-            "status_note": "2026/27 JWC2 Bormio 1500m #2"
           },
           {
             "athlete_id": "dom-tmp-65cbbb7bf8",
@@ -3005,7 +3008,7 @@
                 "sigma": 1.436
               },
               "1000": {
-                "mu": 0.0354,
+                "mu": 0.0674,
                 "sigma": 1.436
               },
               "1500": {
@@ -3022,7 +3025,7 @@
             },
             "value_scores": {
               "500": 0.0338,
-              "1000": 0.0208,
+              "1000": 0.0214,
               "1500": 0.0332,
               "relay": 0.0051,
               "form": 0.0654
@@ -3065,26 +3068,26 @@
                 "sigma": 1.0719
               },
               "1000": {
-                "mu": 0.7673,
-                "sigma": 1.1264
+                "mu": 0.7856,
+                "sigma": 1.1304
               },
               "1500": {
                 "mu": 0.3182,
                 "sigma": 1.1298
               }
             },
-            "main_roster_prob": 0,
+            "main_roster_prob": 0.001,
             "entry_prob_matrix": {
-              "500": 0,
-              "1000": 0,
-              "1500": 0,
-              "relay": 0
+              "500": 0.001,
+              "1000": 0.001,
+              "1500": 0.001,
+              "relay": 0.001
             },
             "value_scores": {
               "500": 0.0448,
-              "1000": 0.0472,
+              "1000": 0.048,
               "1500": 0.0233,
-              "relay": 0.1329,
+              "relay": 0.1314,
               "form": 0.2627
             },
             "roster_tier": "reserve",
@@ -3107,8 +3110,8 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.791,
-            "avg_objective": 1.968,
+            "frequency": 0.619,
+            "avg_objective": 1.9888,
             "modal_entries": {
               "500": [
                 "skr-6617",
@@ -3148,8 +3151,8 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.171,
-            "avg_objective": 2.0899,
+            "frequency": 0.334,
+            "avg_objective": 2.0431,
             "modal_entries": {
               "500": [
                 "skr-6617",
@@ -3161,6 +3164,7 @@
                 "skr-19401",
                 "skr-2262",
                 "skr-6617",
+                "skr-7609",
                 "skr-8080",
                 "skr-8090"
               ],
@@ -3182,40 +3186,42 @@
           },
           {
             "athlete_ids": [
-              "dom-tmp-9df89a0e45",
-              "skr-19401",
               "skr-2262",
               "skr-6617",
+              "skr-7609",
+              "skr-7613",
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.014,
-            "avg_objective": 2.622,
+            "frequency": 0.018,
+            "avg_objective": 2.2992,
             "modal_entries": {
               "500": [
-                "dom-tmp-9df89a0e45",
                 "skr-6617",
+                "skr-7609",
+                "skr-7613",
                 "skr-8080",
                 "skr-8090"
               ],
               "1000": [
-                "dom-tmp-9df89a0e45",
-                "skr-19401",
                 "skr-2262",
                 "skr-6617",
-                "skr-8080"
+                "skr-7609",
+                "skr-7613",
+                "skr-8080",
+                "skr-8090"
               ],
               "1500": [
-                "skr-19401",
                 "skr-2262",
                 "skr-6617",
+                "skr-7613",
                 "skr-8080",
                 "skr-8090"
               ],
               "relay": [
-                "dom-tmp-9df89a0e45",
-                "skr-19401",
                 "skr-2262",
+                "skr-7609",
+                "skr-7613",
                 "skr-8080",
                 "skr-8090"
               ]
@@ -3231,8 +3237,8 @@
             "skr-8080",
             "skr-8090"
           ],
-          "frequency": 0.791,
-          "objective_at_mean": 1.3144,
+          "frequency": 0.619,
+          "objective_at_mean": 1.3138,
           "entries": {
             "500": [
               "skr-6617",
@@ -3270,7 +3276,7 @@
             "skr-8080",
             "skr-8090"
           ],
-          "objective": 1.3144,
+          "objective": 1.3138,
           "entries": {
             "500": [
               "skr-6617",
@@ -3321,9 +3327,9 @@
             "name_en": "Xinran WANG",
             "name_zh": "王欣然",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.177,
+            "main_roster_prob": 0.354,
             "primary_replacement_for": "skr-7613",
-            "marginal_loss": 0.0108,
+            "marginal_loss": 0.0086,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -3343,12 +3349,14 @@
               }
             },
             "wt_2026_27": {
-              "stops_count": 1,
+              "stops_count": 2,
               "stops": [
-                "Seoul"
+                "Seoul",
+                "Shanghai"
               ],
               "distances_entered": [
-                500
+                500,
+                1000
               ],
               "relay_starts": 0,
               "final_a_count": 0,
@@ -3356,12 +3364,13 @@
             },
             "recent_highlight": "国内甲组 七台河 500m #1",
             "upside_score": 0.323,
-            "versatility_score": 0.5,
+            "versatility_score": 0.677,
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
-              "500"
+              "500",
+              "1000"
             ],
             "status_note": "500m #16"
           },
@@ -3371,9 +3380,9 @@
             "name_en": "Junyu KUANG",
             "name_zh": "邝俊雨",
             "role_tag": "mid_long",
-            "main_roster_prob": 0,
+            "main_roster_prob": 0.001,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0616,
+            "marginal_loss": 0.0603,
             "is_dual_eligible": true,
             "data_sources": [
               "JWC",
@@ -3391,8 +3400,8 @@
               "best_rank": null
             },
             "recent_highlight": "2026/27 JWC2 Bormio 1000m #1",
-            "upside_score": 0.1934,
-            "versatility_score": 0.1934,
+            "upside_score": 0.1971,
+            "versatility_score": 0.1981,
             "roster_tier": "reserve",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
@@ -4881,7 +4890,7 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.0168,
+        "mean_objective": 2.0321,
         "distinct_lineups": 11,
         "candidates": [
           {
@@ -4947,7 +4956,7 @@
                 "sigma": 1.0929
               },
               "1000": {
-                "mu": 1.0728,
+                "mu": 1.0769,
                 "sigma": 0.9292
               },
               "1500": {
@@ -4957,16 +4966,16 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.505,
-              "1000": 0.771,
-              "1500": 0.711,
-              "relay": 0.768
+              "500": 0.5,
+              "1000": 0.766,
+              "1500": 0.722,
+              "relay": 0.749
             },
             "value_scores": {
               "500": 0.0537,
-              "1000": 0.0676,
+              "1000": 0.0679,
               "1500": 0.049,
-              "relay": 0.4362,
+              "relay": 0.428,
               "form": 0.1561
             },
             "roster_tier": "core",
@@ -5042,7 +5051,7 @@
                 "sigma": 1.0136
               },
               "1000": {
-                "mu": 0.9706,
+                "mu": 0.9732,
                 "sigma": 1.0932
               },
               "1500": {
@@ -5052,16 +5061,16 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.655,
+              "500": 0.653,
               "1000": 0.701,
-              "1500": 0.637,
-              "relay": 0.422
+              "1500": 0.64,
+              "relay": 0.404
             },
             "value_scores": {
               "500": 0.0785,
-              "1000": 0.0581,
+              "1000": 0.0582,
               "1500": 0.0394,
-              "relay": 0.3276,
+              "relay": 0.3169,
               "form": 0.1902
             },
             "roster_tier": "core",
@@ -5135,7 +5144,7 @@
                 "sigma": 0.9529
               },
               "1000": {
-                "mu": 1.2928,
+                "mu": 1.3006,
                 "sigma": 1.0291
               },
               "1500": {
@@ -5145,16 +5154,16 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.829,
-              "1000": 0.671,
-              "1500": 0.5,
-              "relay": 0.957
+              "500": 0.827,
+              "1000": 0.668,
+              "1500": 0.505,
+              "relay": 0.95
             },
             "value_scores": {
               "500": 0.1502,
-              "1000": 0.0806,
+              "1000": 0.0812,
               "1500": 0.0462,
-              "relay": 0.6058,
+              "relay": 0.6008,
               "form": -0.1289
             },
             "roster_tier": "core",
@@ -5230,7 +5239,7 @@
                 "sigma": 1.0797
               },
               "1000": {
-                "mu": 0.7777,
+                "mu": 0.7785,
                 "sigma": 1.025
               },
               "1500": {
@@ -5240,16 +5249,16 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.663,
-              "1000": 0.571,
-              "1500": 0.759,
-              "relay": 0.529
+              "500": 0.653,
+              "1000": 0.575,
+              "1500": 0.763,
+              "relay": 0.507
             },
             "value_scores": {
               "500": 0.0881,
-              "1000": 0.0493,
+              "1000": 0.0494,
               "1500": 0.0558,
-              "relay": 0.3634,
+              "relay": 0.35,
               "form": 0.0822
             },
             "roster_tier": "core",
@@ -5316,7 +5325,7 @@
                 "sigma": 1.6022
               },
               "1000": {
-                "mu": 1.0838,
+                "mu": 1.0821,
                 "sigma": 1.0343
               },
               "1500": {
@@ -5324,18 +5333,18 @@
                 "sigma": 1.0248
               }
             },
-            "main_roster_prob": 0.991,
+            "main_roster_prob": 0.974,
             "entry_prob_matrix": {
-              "500": 0.396,
-              "1000": 0.826,
-              "1500": 0.74,
-              "relay": 0.603
+              "500": 0.393,
+              "1000": 0.806,
+              "1500": 0.732,
+              "relay": 0.575
             },
             "value_scores": {
               "500": 0.0458,
-              "1000": 0.066,
+              "1000": 0.0659,
               "1500": 0.0372,
-              "relay": 0.3583,
+              "relay": 0.3487,
               "form": 0.0118
             },
             "roster_tier": "bubble",
@@ -5343,8 +5352,7 @@
             "specialty_label": "中长距离",
             "recommended_entries": [
               "1000",
-              "1500",
-              "relay"
+              "1500"
             ],
             "status_note": "1000m #20"
           },
@@ -5392,7 +5400,7 @@
                 "sigma": 0.9356
               },
               "1000": {
-                "mu": 0.2556,
+                "mu": 0.2692,
                 "sigma": 1.1322
               },
               "1500": {
@@ -5400,16 +5408,16 @@
                 "sigma": 1.1322
               }
             },
-            "main_roster_prob": 0.787,
+            "main_roster_prob": 0.632,
             "entry_prob_matrix": {
-              "500": 0.738,
-              "1000": 0.315,
-              "1500": 0.508,
-              "relay": 0.523
+              "500": 0.599,
+              "1000": 0.254,
+              "1500": 0.405,
+              "relay": 0.464
             },
             "value_scores": {
               "500": 0.1154,
-              "1000": 0.0286,
+              "1000": 0.029,
               "1500": 0.0314,
               "relay": 0.351,
               "form": 0.1708
@@ -5419,7 +5427,8 @@
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
               "500",
-              "1500"
+              "1500",
+              "relay"
             ],
             "status_note": "500m #7"
           },
@@ -5447,18 +5456,20 @@
               }
             },
             "wt_2026_27": {
-              "stops_count": 1,
+              "stops_count": 2,
               "stops": [
-                "Seoul"
+                "Seoul",
+                "Shanghai"
               ],
               "distances_entered": [
-                500
+                500,
+                1000
               ],
               "relay_starts": 0,
               "final_a_count": 0,
               "best_rank": null
             },
-            "form_momentum": 0.0212,
+            "form_momentum": 0.1041,
             "recent_highlight": "国内甲组 七台河 500m #1",
             "skills": {
               "500": {
@@ -5466,94 +5477,36 @@
                 "sigma": 0.9419
               },
               "1000": {
-                "mu": 0.1158,
-                "sigma": 1.0699
+                "mu": 0.2307,
+                "sigma": 1.0643
               },
               "1500": {
                 "mu": 0.2674,
                 "sigma": 1.0699
               }
             },
-            "main_roster_prob": 0.182,
+            "main_roster_prob": 0.362,
             "entry_prob_matrix": {
-              "500": 0.177,
-              "1000": 0.09,
-              "1500": 0.094,
-              "relay": 0.175
+              "500": 0.341,
+              "1000": 0.186,
+              "1500": 0.189,
+              "relay": 0.332
             },
             "value_scores": {
               "500": 0.1115,
-              "1000": 0.0255,
+              "1000": 0.0286,
               "1500": 0.0226,
               "relay": 0.3992,
-              "form": 0.0212
+              "form": 0.1041
             },
             "roster_tier": "cut",
-            "specialty_tag": "sprint_relay",
-            "specialty_label": "短距离 / 接力",
-            "recommended_entries": [
-              "500"
-            ],
-            "status_note": "500m #16"
-          },
-          {
-            "athlete_id": "dom-tmp-9df89a0e45",
-            "name_en": "南佳延",
-            "name_zh": "南佳延",
-            "age_group": "UNKNOWN",
-            "is_dual_eligible": false,
-            "data_sources": [
-              "Domestic"
-            ],
-            "qualification_path": "DOMESTIC_GOLD",
-            "world_ranking_top40_distances": [],
-            "world_ranks": {},
-            "wt_2026_27": {
-              "stops_count": 0,
-              "stops": [],
-              "distances_entered": [],
-              "relay_starts": 0,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "form_momentum": 0.1469,
-            "recent_highlight": "国内甲组 七台河 1000m #1",
-            "skills": {
-              "500": {
-                "mu": 0.7997,
-                "sigma": 1.439
-              },
-              "1000": {
-                "mu": 0.7469,
-                "sigma": 1.439
-              },
-              "1500": {
-                "mu": 0.491,
-                "sigma": 1.439
-              }
-            },
-            "main_roster_prob": 0.01,
-            "entry_prob_matrix": {
-              "500": 0.007,
-              "1000": 0.007,
-              "1500": 0.006,
-              "relay": 0.008
-            },
-            "value_scores": {
-              "500": 0.0496,
-              "1000": 0.0416,
-              "1500": 0.0248,
-              "relay": 0.0767,
-              "form": 0.1469
-            },
-            "roster_tier": "pool",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
               "500",
               "1000"
             ],
-            "status_note": "国内甲组 七台河 1000m #1"
+            "status_note": "500m #16"
           },
           {
             "athlete_id": "skr-4165",
@@ -5583,24 +5536,24 @@
                 "sigma": 1.5356
               },
               "1000": {
-                "mu": 0.4249,
-                "sigma": 1.6007
+                "mu": 0.4514,
+                "sigma": 1.6123
               },
               "1500": {
                 "mu": 0.3469,
                 "sigma": 1.5106
               }
             },
-            "main_roster_prob": 0.009,
+            "main_roster_prob": 0.008,
             "entry_prob_matrix": {
               "500": 0.007,
-              "1000": 0.008,
-              "1500": 0.003,
+              "1000": 0.007,
+              "1500": 0.002,
               "relay": 0.004
             },
             "value_scores": {
               "500": 0.0192,
-              "1000": 0.0288,
+              "1000": 0.0294,
               "1500": 0.021,
               "relay": 0.0369,
               "form": 0.3492
@@ -5643,7 +5596,7 @@
                 "sigma": 1.0943
               },
               "1000": {
-                "mu": 0.6121,
+                "mu": 0.6241,
                 "sigma": 1.6022
               },
               "1500": {
@@ -5651,16 +5604,16 @@
                 "sigma": 1.1026
               }
             },
-            "main_roster_prob": 0.008,
+            "main_roster_prob": 0.007,
             "entry_prob_matrix": {
-              "500": 0.005,
-              "1000": 0.008,
+              "500": 0.004,
+              "1000": 0.007,
               "1500": 0.003,
-              "relay": 0.005
+              "relay": 0.004
             },
             "value_scores": {
               "500": 0.059,
-              "1000": 0.0345,
+              "1000": 0.0349,
               "1500": 0.026,
               "relay": 0.1058,
               "form": 0.4592
@@ -5702,7 +5655,7 @@
                 "sigma": 1.439
               },
               "1000": {
-                "mu": 0.3382,
+                "mu": 0.3597,
                 "sigma": 1.439
               },
               "1500": {
@@ -5710,16 +5663,16 @@
                 "sigma": 1.439
               }
             },
-            "main_roster_prob": 0.007,
+            "main_roster_prob": 0.006,
             "entry_prob_matrix": {
               "500": 0.004,
-              "1000": 0.006,
-              "1500": 0.004,
+              "1000": 0.005,
+              "1500": 0.003,
               "relay": 0.003
             },
             "value_scores": {
               "500": 0.0419,
-              "1000": 0.0279,
+              "1000": 0.0285,
               "1500": 0.0332,
               "relay": 0.0328,
               "form": 0.1406
@@ -5732,6 +5685,65 @@
               "1500"
             ],
             "status_note": "国内甲组 1500m #1"
+          },
+          {
+            "athlete_id": "dom-tmp-9df89a0e45",
+            "name_en": "南佳延",
+            "name_zh": "南佳延",
+            "age_group": "UNKNOWN",
+            "is_dual_eligible": false,
+            "data_sources": [
+              "Domestic"
+            ],
+            "qualification_path": "DOMESTIC_GOLD",
+            "world_ranking_top40_distances": [],
+            "world_ranks": {},
+            "wt_2026_27": {
+              "stops_count": 0,
+              "stops": [],
+              "distances_entered": [],
+              "relay_starts": 0,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "form_momentum": 0.1469,
+            "recent_highlight": "国内甲组 七台河 1000m #1",
+            "skills": {
+              "500": {
+                "mu": 0.7997,
+                "sigma": 1.439
+              },
+              "1000": {
+                "mu": 0.7543,
+                "sigma": 1.439
+              },
+              "1500": {
+                "mu": 0.491,
+                "sigma": 1.439
+              }
+            },
+            "main_roster_prob": 0.006,
+            "entry_prob_matrix": {
+              "500": 0.004,
+              "1000": 0.004,
+              "1500": 0.004,
+              "relay": 0.005
+            },
+            "value_scores": {
+              "500": 0.0496,
+              "1000": 0.0419,
+              "1500": 0.0248,
+              "relay": 0.0622,
+              "form": 0.1469
+            },
+            "roster_tier": "pool",
+            "specialty_tag": "sprint_relay",
+            "specialty_label": "短距离 / 接力",
+            "recommended_entries": [
+              "500",
+              "1000"
+            ],
+            "status_note": "国内甲组 七台河 1000m #1"
           },
           {
             "athlete_id": "skr-22880",
@@ -5757,28 +5769,28 @@
             "recent_highlight": "2026/27 JWC2 Bormio 1500m #2",
             "skills": {
               "500": {
-                "mu": 0.0921,
+                "mu": 0.0983,
                 "sigma": 1.3
               },
               "1000": {
-                "mu": 0.2101,
-                "sigma": 1.5501
+                "mu": 0.2328,
+                "sigma": 1.5604
               },
               "1500": {
                 "mu": 0.3741,
                 "sigma": 1.4865
               }
             },
-            "main_roster_prob": 0.005,
+            "main_roster_prob": 0.004,
             "entry_prob_matrix": {
               "500": 0.003,
-              "1000": 0.004,
+              "1000": 0.003,
               "1500": 0.002,
               "relay": 0.002
             },
             "value_scores": {
-              "500": 0.0261,
-              "1000": 0.0237,
+              "500": 0.0263,
+              "1000": 0.0241,
               "1500": 0.0218,
               "relay": 0.0174,
               "form": 0.207
@@ -5821,8 +5833,8 @@
                 "sigma": 1.0727
               },
               "1000": {
-                "mu": 0.7673,
-                "sigma": 1.1273
+                "mu": 0.7856,
+                "sigma": 1.1313
               },
               "1500": {
                 "mu": 0.4254,
@@ -5838,9 +5850,9 @@
             },
             "value_scores": {
               "500": 0.0481,
-              "1000": 0.0472,
+              "1000": 0.048,
               "1500": 0.0259,
-              "relay": 0.1319,
+              "relay": 0.1209,
               "form": 0.2722
             },
             "roster_tier": "reserve",
@@ -5881,7 +5893,7 @@
                 "sigma": 1.439
               },
               "1000": {
-                "mu": 0.1998,
+                "mu": 0.2109,
                 "sigma": 1.0699
               },
               "1500": {
@@ -5898,7 +5910,7 @@
             },
             "value_scores": {
               "500": 0.0314,
-              "1000": 0.0277,
+              "1000": 0.028,
               "1500": 0.0191,
               "relay": 0,
               "form": -0.2752
@@ -5923,11 +5935,10 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.778,
-            "avg_objective": 1.9604,
+            "frequency": 0.607,
+            "avg_objective": 1.9816,
             "modal_entries": {
               "500": [
-                "skr-2262",
                 "skr-6617",
                 "skr-7613",
                 "skr-8080",
@@ -5945,6 +5956,7 @@
                 "skr-2262",
                 "skr-6617",
                 "skr-7613",
+                "skr-8080",
                 "skr-8090"
               ],
               "relay": [
@@ -5965,8 +5977,8 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.175,
-            "avg_objective": 2.0764,
+            "frequency": 0.337,
+            "avg_objective": 2.0314,
             "modal_entries": {
               "500": [
                 "skr-2262",
@@ -5979,6 +5991,7 @@
                 "skr-19401",
                 "skr-2262",
                 "skr-6617",
+                "skr-7609",
                 "skr-8080",
                 "skr-8090"
               ],
@@ -5987,7 +6000,6 @@
                 "skr-2262",
                 "skr-6617",
                 "skr-7609",
-                "skr-8080",
                 "skr-8090"
               ],
               "relay": [
@@ -6000,41 +6012,41 @@
           },
           {
             "athlete_ids": [
-              "skr-19401",
               "skr-2262",
-              "skr-4165",
               "skr-6617",
+              "skr-7609",
+              "skr-7613",
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.009,
-            "avg_objective": 2.9446,
+            "frequency": 0.024,
+            "avg_objective": 2.3092,
             "modal_entries": {
               "500": [
-                "skr-19401",
-                "skr-2262",
-                "skr-4165",
                 "skr-6617",
+                "skr-7609",
+                "skr-7613",
                 "skr-8080"
               ],
               "1000": [
-                "skr-19401",
                 "skr-2262",
-                "skr-4165",
                 "skr-6617",
+                "skr-7609",
+                "skr-8080",
                 "skr-8090"
               ],
               "1500": [
-                "skr-19401",
                 "skr-2262",
                 "skr-6617",
+                "skr-7613",
                 "skr-8080",
                 "skr-8090"
               ],
               "relay": [
                 "skr-2262",
-                "skr-8080",
-                "skr-8090"
+                "skr-7609",
+                "skr-7613",
+                "skr-8080"
               ]
             }
           }
@@ -6048,8 +6060,8 @@
             "skr-8080",
             "skr-8090"
           ],
-          "frequency": 0.778,
-          "objective_at_mean": 1.3104,
+          "frequency": 0.607,
+          "objective_at_mean": 1.3065,
           "entries": {
             "500": [
               "skr-6617",
@@ -6070,8 +6082,8 @@
               "skr-8090"
             ],
             "relay": [
-              "skr-19401",
               "skr-2262",
+              "skr-7613",
               "skr-8080",
               "skr-8090"
             ]
@@ -6087,7 +6099,7 @@
             "skr-8080",
             "skr-8090"
           ],
-          "objective": 1.3104,
+          "objective": 1.3065,
           "entries": {
             "500": [
               "skr-6617",
@@ -6108,8 +6120,8 @@
               "skr-8090"
             ],
             "relay": [
-              "skr-19401",
               "skr-2262",
+              "skr-7613",
               "skr-8080",
               "skr-8090"
             ]
@@ -6138,9 +6150,9 @@
             "name_en": "Xinran WANG",
             "name_zh": "王欣然",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.182,
+            "main_roster_prob": 0.362,
             "primary_replacement_for": "skr-7613",
-            "marginal_loss": 0.0099,
+            "marginal_loss": 0.0072,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -6160,12 +6172,14 @@
               }
             },
             "wt_2026_27": {
-              "stops_count": 1,
+              "stops_count": 2,
               "stops": [
-                "Seoul"
+                "Seoul",
+                "Shanghai"
               ],
               "distances_entered": [
-                500
+                500,
+                1000
               ],
               "relay_starts": 0,
               "final_a_count": 0,
@@ -6173,12 +6187,13 @@
             },
             "recent_highlight": "国内甲组 七台河 500m #1",
             "upside_score": 0.3233,
-            "versatility_score": 0.5053,
+            "versatility_score": 0.6853,
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
-              "500"
+              "500",
+              "1000"
             ],
             "status_note": "500m #16"
           },
@@ -6190,7 +6205,7 @@
             "role_tag": "mid_long",
             "main_roster_prob": 0.001,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0579,
+            "marginal_loss": 0.056,
             "is_dual_eligible": true,
             "data_sources": [
               "JWC",
@@ -6208,8 +6223,8 @@
               "best_rank": null
             },
             "recent_highlight": "国内甲组 500m #1",
-            "upside_score": 0.1935,
-            "versatility_score": 0.1945,
+            "upside_score": 0.1973,
+            "versatility_score": 0.1983,
             "roster_tier": "reserve",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
@@ -7945,8 +7960,8 @@
           "k1500": 2,
           "relay": 4
         },
-        "mean_objective": 1.5439,
-        "distinct_lineups": 12,
+        "mean_objective": 1.5525,
+        "distinct_lineups": 11,
         "candidates": [
           {
             "athlete_id": "skr-8090",
@@ -8011,7 +8026,7 @@
                 "sigma": 1.0786
               },
               "1000": {
-                "mu": 0.7777,
+                "mu": 0.7785,
                 "sigma": 1.0239
               },
               "1500": {
@@ -8021,16 +8036,16 @@
             },
             "main_roster_prob": 1,
             "entry_prob_matrix": {
-              "500": 0.623,
-              "1000": 0.502,
-              "1500": 0.484,
-              "relay": 0.74
+              "500": 0.615,
+              "1000": 0.503,
+              "1500": 0.485,
+              "relay": 0.737
             },
             "value_scores": {
               "500": 0.0881,
               "1000": 0.0494,
               "1500": 0.0558,
-              "relay": 0.3731,
+              "relay": 0.3692,
               "form": 0.0829
             },
             "roster_tier": "core",
@@ -8105,7 +8120,7 @@
                 "sigma": 0.9517
               },
               "1000": {
-                "mu": 1.2927,
+                "mu": 1.3005,
                 "sigma": 1.028
               },
               "1500": {
@@ -8115,16 +8130,16 @@
             },
             "main_roster_prob": 0.999,
             "entry_prob_matrix": {
-              "500": 0.818,
-              "1000": 0.67,
-              "1500": 0.358,
-              "relay": 0.982
+              "500": 0.812,
+              "1000": 0.671,
+              "1500": 0.36,
+              "relay": 0.98
             },
             "value_scores": {
               "500": 0.1503,
-              "1000": 0.0807,
+              "1000": 0.0812,
               "1500": 0.0462,
-              "relay": 0.6099,
+              "relay": 0.6088,
               "form": -0.13
             },
             "roster_tier": "core",
@@ -8200,7 +8215,7 @@
                 "sigma": 1.0918
               },
               "1000": {
-                "mu": 1.0729,
+                "mu": 1.0769,
                 "sigma": 0.928
               },
               "1500": {
@@ -8210,16 +8225,16 @@
             },
             "main_roster_prob": 0.994,
             "entry_prob_matrix": {
-              "500": 0.396,
+              "500": 0.388,
               "1000": 0.644,
-              "1500": 0.449,
+              "1500": 0.448,
               "relay": 0.873
             },
             "value_scores": {
               "500": 0.0537,
-              "1000": 0.0677,
+              "1000": 0.0679,
               "1500": 0.049,
-              "relay": 0.4423,
+              "relay": 0.44,
               "form": 0.1574
             },
             "roster_tier": "core",
@@ -8295,7 +8310,7 @@
                 "sigma": 1.0125
               },
               "1000": {
-                "mu": 0.9705,
+                "mu": 0.9731,
                 "sigma": 1.0922
               },
               "1500": {
@@ -8305,16 +8320,16 @@
             },
             "main_roster_prob": 0.994,
             "entry_prob_matrix": {
-              "500": 0.565,
-              "1000": 0.569,
+              "500": 0.563,
+              "1000": 0.572,
               "1500": 0.339,
-              "relay": 0.545
+              "relay": 0.538
             },
             "value_scores": {
               "500": 0.0785,
-              "1000": 0.0581,
+              "1000": 0.0582,
               "1500": 0.0394,
-              "relay": 0.3354,
+              "relay": 0.3324,
               "form": 0.1918
             },
             "roster_tier": "core",
@@ -8379,7 +8394,7 @@
                 "sigma": 1.6004
               },
               "1000": {
-                "mu": 1.0838,
+                "mu": 1.0821,
                 "sigma": 1.0332
               },
               "1500": {
@@ -8387,18 +8402,18 @@
                 "sigma": 1.0237
               }
             },
-            "main_roster_prob": 0.794,
+            "main_roster_prob": 0.76,
             "entry_prob_matrix": {
-              "500": 0.397,
-              "1000": 0.516,
-              "1500": 0.281,
-              "relay": 0.651
+              "500": 0.388,
+              "1000": 0.496,
+              "1500": 0.267,
+              "relay": 0.629
             },
             "value_scores": {
               "500": 0.0459,
-              "1000": 0.066,
+              "1000": 0.0659,
               "1500": 0.0372,
-              "relay": 0.3648,
+              "relay": 0.3614,
               "form": 0.0119
             },
             "roster_tier": "bubble",
@@ -8454,7 +8469,7 @@
                 "sigma": 0.9344
               },
               "1000": {
-                "mu": 0.2555,
+                "mu": 0.2691,
                 "sigma": 1.1315
               },
               "1500": {
@@ -8462,16 +8477,16 @@
                 "sigma": 1.1315
               }
             },
-            "main_roster_prob": 0.175,
+            "main_roster_prob": 0.172,
             "entry_prob_matrix": {
-              "500": 0.161,
-              "1000": 0.077,
-              "1500": 0.075,
-              "relay": 0.168
+              "500": 0.159,
+              "1000": 0.076,
+              "1500": 0.072,
+              "relay": 0.165
             },
             "value_scores": {
               "500": 0.1154,
-              "1000": 0.0286,
+              "1000": 0.029,
               "1500": 0.0314,
               "relay": 0.3511,
               "form": 0.1722
@@ -8508,18 +8523,20 @@
               }
             },
             "wt_2026_27": {
-              "stops_count": 1,
+              "stops_count": 2,
               "stops": [
-                "Seoul"
+                "Seoul",
+                "Shanghai"
               ],
               "distances_entered": [
-                500
+                500,
+                1000
               ],
               "relay_starts": 0,
               "final_a_count": 0,
               "best_rank": null
             },
-            "form_momentum": 0.0213,
+            "form_momentum": 0.1049,
             "recent_highlight": "国内甲组 七台河 500m #1",
             "skills": {
               "500": {
@@ -8527,33 +8544,34 @@
                 "sigma": 0.9405
               },
               "1000": {
-                "mu": 0.1156,
-                "sigma": 1.0687
+                "mu": 0.2305,
+                "sigma": 1.0627
               },
               "1500": {
                 "mu": 0.2677,
                 "sigma": 1.0687
               }
             },
-            "main_roster_prob": 0.034,
+            "main_roster_prob": 0.073,
             "entry_prob_matrix": {
-              "500": 0.032,
-              "1000": 0.013,
-              "1500": 0.012,
-              "relay": 0.034
+              "500": 0.07,
+              "1000": 0.031,
+              "1500": 0.027,
+              "relay": 0.073
             },
             "value_scores": {
               "500": 0.1116,
-              "1000": 0.0255,
+              "1000": 0.0286,
               "1500": 0.0226,
               "relay": 0.3992,
-              "form": 0.0213
+              "form": 0.1049
             },
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
-              "500"
+              "500",
+              "1000"
             ],
             "status_note": "500m #16"
           },
@@ -8585,7 +8603,7 @@
                 "sigma": 1.436
               },
               "1000": {
-                "mu": 0.7469,
+                "mu": 0.7543,
                 "sigma": 1.436
               },
               "1500": {
@@ -8598,13 +8616,13 @@
               "500": 0.004,
               "1000": 0.003,
               "1500": 0.001,
-              "relay": 0.003
+              "relay": 0.004
             },
             "value_scores": {
               "500": 0.0496,
-              "1000": 0.0417,
+              "1000": 0.042,
               "1500": 0.0248,
-              "relay": 0.0886,
+              "relay": 0.0852,
               "form": 0.1481
             },
             "roster_tier": "reserve",
@@ -8617,14 +8635,13 @@
             "status_note": "国内甲组 七台河 1000m #1"
           },
           {
-            "athlete_id": "skr-22312",
-            "name_en": "RONGMIAO YANG",
-            "name_zh": "杨茸秒",
+            "athlete_id": "skr-22880",
+            "name_en": "YIAIDI ZONG",
+            "name_zh": "宗艾迪",
             "age_group": "DUAL_ELIGIBLE",
             "is_dual_eligible": true,
             "data_sources": [
-              "JWC",
-              "Domestic"
+              "JWC"
             ],
             "qualification_path": "JWC_2026_27",
             "world_ranking_top40_distances": [],
@@ -8637,44 +8654,44 @@
               "final_a_count": 0,
               "best_rank": null
             },
-            "form_momentum": 0.4409,
-            "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
+            "form_momentum": 0.2088,
+            "recent_highlight": "2026/27 JWC2 Bormio 1500m #2",
             "skills": {
               "500": {
-                "mu": 0.7643,
-                "sigma": 1.0935
+                "mu": 0.0983,
+                "sigma": 1.3
               },
               "1000": {
-                "mu": 0.5671,
-                "sigma": 1.6004
+                "mu": 0.2328,
+                "sigma": 1.5597
               },
               "1500": {
-                "mu": 0.215,
-                "sigma": 1.1018
+                "mu": 0.3741,
+                "sigma": 1.4859
               }
             },
-            "main_roster_prob": 0.003,
+            "main_roster_prob": 0.002,
             "entry_prob_matrix": {
-              "500": 0.003,
-              "1000": 0.003,
+              "500": 0,
+              "1000": 0.002,
               "1500": 0.001,
-              "relay": 0.003
+              "relay": 0
             },
             "value_scores": {
-              "500": 0.0538,
-              "1000": 0.0331,
-              "1500": 0.0213,
-              "relay": 0.0935,
-              "form": 0.4409
+              "500": 0.0263,
+              "1000": 0.0242,
+              "1500": 0.0218,
+              "relay": 0.0174,
+              "form": 0.2088
             },
-            "roster_tier": "reserve",
-            "specialty_tag": "sprint_relay",
-            "specialty_label": "短距离 / 接力",
+            "roster_tier": "pool",
+            "specialty_tag": "mid_long",
+            "specialty_label": "中长距离",
             "recommended_entries": [
-              "500",
-              "1000"
+              "1000",
+              "1500"
             ],
-            "status_note": "2026/27 JWC2 Bormio 1500m #1"
+            "status_note": "2026/27 JWC2 Bormio 1500m #2"
           },
           {
             "athlete_id": "skr-4165",
@@ -8704,8 +8721,8 @@
                 "sigma": 1.5351
               },
               "1000": {
-                "mu": 0.4249,
-                "sigma": 1.6
+                "mu": 0.4514,
+                "sigma": 1.6116
               },
               "1500": {
                 "mu": 0.3469,
@@ -8721,7 +8738,7 @@
             },
             "value_scores": {
               "500": 0.0192,
-              "1000": 0.0288,
+              "1000": 0.0294,
               "1500": 0.021,
               "relay": 0.0369,
               "form": 0.3521
@@ -8734,65 +8751,6 @@
               "1500"
             ],
             "status_note": "2026/27 JWC2 Bormio 1000m #2"
-          },
-          {
-            "athlete_id": "skr-22880",
-            "name_en": "YIAIDI ZONG",
-            "name_zh": "宗艾迪",
-            "age_group": "DUAL_ELIGIBLE",
-            "is_dual_eligible": true,
-            "data_sources": [
-              "JWC"
-            ],
-            "qualification_path": "JWC_2026_27",
-            "world_ranking_top40_distances": [],
-            "world_ranks": {},
-            "wt_2026_27": {
-              "stops_count": 0,
-              "stops": [],
-              "distances_entered": [],
-              "relay_starts": 0,
-              "final_a_count": 0,
-              "best_rank": null
-            },
-            "form_momentum": 0.2088,
-            "recent_highlight": "2026/27 JWC2 Bormio 1500m #2",
-            "skills": {
-              "500": {
-                "mu": 0.0921,
-                "sigma": 1.3
-              },
-              "1000": {
-                "mu": 0.2101,
-                "sigma": 1.5493
-              },
-              "1500": {
-                "mu": 0.3741,
-                "sigma": 1.4859
-              }
-            },
-            "main_roster_prob": 0.001,
-            "entry_prob_matrix": {
-              "500": 0,
-              "1000": 0.001,
-              "1500": 0,
-              "relay": 0
-            },
-            "value_scores": {
-              "500": 0.0261,
-              "1000": 0.0237,
-              "1500": 0.0218,
-              "relay": 0.0174,
-              "form": 0.2088
-            },
-            "roster_tier": "pool",
-            "specialty_tag": "mid_long",
-            "specialty_label": "中长距离",
-            "recommended_entries": [
-              "1000",
-              "1500"
-            ],
-            "status_note": "2026/27 JWC2 Bormio 1500m #2"
           },
           {
             "athlete_id": "dom-tmp-65cbbb7bf8",
@@ -8822,7 +8780,7 @@
                 "sigma": 1.436
               },
               "1000": {
-                "mu": 0.0354,
+                "mu": 0.0674,
                 "sigma": 1.436
               },
               "1500": {
@@ -8839,7 +8797,7 @@
             },
             "value_scores": {
               "500": 0.0338,
-              "1000": 0.0208,
+              "1000": 0.0214,
               "1500": 0.0332,
               "relay": 0.0051,
               "form": 0.0654
@@ -8882,8 +8840,8 @@
                 "sigma": 1.0719
               },
               "1000": {
-                "mu": 0.7673,
-                "sigma": 1.1264
+                "mu": 0.7856,
+                "sigma": 1.1304
               },
               "1500": {
                 "mu": 0.3182,
@@ -8899,9 +8857,9 @@
             },
             "value_scores": {
               "500": 0.0448,
-              "1000": 0.0472,
+              "1000": 0.048,
               "1500": 0.0233,
-              "relay": 0.1329,
+              "relay": 0.1314,
               "form": 0.2627
             },
             "roster_tier": "pool",
@@ -8912,6 +8870,66 @@
               "1000"
             ],
             "status_note": "2026/27 JWC2 Bormio 1000m #1"
+          },
+          {
+            "athlete_id": "skr-22312",
+            "name_en": "RONGMIAO YANG",
+            "name_zh": "杨茸秒",
+            "age_group": "DUAL_ELIGIBLE",
+            "is_dual_eligible": true,
+            "data_sources": [
+              "JWC",
+              "Domestic"
+            ],
+            "qualification_path": "JWC_2026_27",
+            "world_ranking_top40_distances": [],
+            "world_ranks": {},
+            "wt_2026_27": {
+              "stops_count": 0,
+              "stops": [],
+              "distances_entered": [],
+              "relay_starts": 0,
+              "final_a_count": 0,
+              "best_rank": null
+            },
+            "form_momentum": 0.4409,
+            "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
+            "skills": {
+              "500": {
+                "mu": 0.7643,
+                "sigma": 1.0935
+              },
+              "1000": {
+                "mu": 0.5807,
+                "sigma": 1.6004
+              },
+              "1500": {
+                "mu": 0.215,
+                "sigma": 1.1018
+              }
+            },
+            "main_roster_prob": 0,
+            "entry_prob_matrix": {
+              "500": 0,
+              "1000": 0,
+              "1500": 0,
+              "relay": 0
+            },
+            "value_scores": {
+              "500": 0.0538,
+              "1000": 0.0335,
+              "1500": 0.0213,
+              "relay": 0.0935,
+              "form": 0.4409
+            },
+            "roster_tier": "reserve",
+            "specialty_tag": "sprint_relay",
+            "specialty_label": "短距离 / 接力",
+            "recommended_entries": [
+              "500",
+              "1000"
+            ],
+            "status_note": "2026/27 JWC2 Bormio 1500m #1"
           }
         ],
         "top_3_lineups": [
@@ -8923,10 +8941,11 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.781,
-            "avg_objective": 1.4871,
+            "frequency": 0.747,
+            "avg_objective": 1.4922,
             "modal_entries": {
               "500": [
+                "skr-19401",
                 "skr-6617",
                 "skr-8080",
                 "skr-8090"
@@ -8955,11 +8974,10 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.164,
-            "avg_objective": 1.671,
+            "frequency": 0.161,
+            "avg_objective": 1.6775,
             "modal_entries": {
               "500": [
-                "skr-6617",
                 "skr-7613",
                 "skr-8080",
                 "skr-8090"
@@ -8988,17 +9006,19 @@
               "skr-8080",
               "skr-8090"
             ],
-            "frequency": 0.032,
-            "avg_objective": 1.7804,
+            "frequency": 0.071,
+            "avg_objective": 1.7185,
             "modal_entries": {
               "500": [
+                "skr-6617",
                 "skr-7609",
                 "skr-8080"
               ],
               "1000": [
                 "skr-2262",
                 "skr-6617",
-                "skr-8080"
+                "skr-8080",
+                "skr-8090"
               ],
               "1500": [],
               "relay": [
@@ -9019,8 +9039,8 @@
             "skr-8080",
             "skr-8090"
           ],
-          "frequency": 0.781,
-          "objective_at_mean": 0.8929,
+          "frequency": 0.747,
+          "objective_at_mean": 0.8922,
           "entries": {
             "500": [
               "skr-6617",
@@ -9053,7 +9073,7 @@
             "skr-8080",
             "skr-8090"
           ],
-          "objective": 0.8929,
+          "objective": 0.8922,
           "entries": {
             "500": [
               "skr-6617",
@@ -9100,9 +9120,9 @@
             "name_en": "Ye WANG",
             "name_zh": "王晔",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.175,
+            "main_roster_prob": 0.172,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": -0.0302,
+            "marginal_loss": -0.031,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -9136,7 +9156,7 @@
             },
             "recent_highlight": "2026/27 WT Montreal 500m #5",
             "upside_score": 0.3299,
-            "versatility_score": 0.5049,
+            "versatility_score": 0.5019,
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
@@ -9151,9 +9171,9 @@
             "name_en": "Xinran WANG",
             "name_zh": "王欣然",
             "role_tag": "sprint_relay",
-            "main_roster_prob": 0.034,
+            "main_roster_prob": 0.073,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": -0.0301,
+            "marginal_loss": -0.0325,
             "is_dual_eligible": false,
             "data_sources": [
               "Senior",
@@ -9173,12 +9193,14 @@
               }
             },
             "wt_2026_27": {
-              "stops_count": 1,
+              "stops_count": 2,
               "stops": [
-                "Seoul"
+                "Seoul",
+                "Shanghai"
               ],
               "distances_entered": [
-                500
+                500,
+                1000
               ],
               "relay_starts": 0,
               "final_a_count": 0,
@@ -9186,12 +9208,13 @@
             },
             "recent_highlight": "国内甲组 七台河 500m #1",
             "upside_score": 0.323,
-            "versatility_score": 0.357,
+            "versatility_score": 0.396,
             "roster_tier": "cut",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
             "recommended_entries": [
-              "500"
+              "500",
+              "1000"
             ],
             "status_note": "500m #16"
           },
@@ -9201,9 +9224,9 @@
             "name_en": "RONGMIAO YANG",
             "name_zh": "杨茸秒",
             "role_tag": "mid_long",
-            "main_roster_prob": 0.003,
+            "main_roster_prob": 0,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0035,
+            "marginal_loss": 0.0032,
             "is_dual_eligible": true,
             "data_sources": [
               "JWC",
@@ -9221,8 +9244,8 @@
               "best_rank": null
             },
             "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
-            "upside_score": 0.2439,
-            "versatility_score": 0.2469,
+            "upside_score": 0.2467,
+            "versatility_score": 0.2467,
             "roster_tier": "reserve",
             "specialty_tag": "sprint_relay",
             "specialty_label": "短距离 / 接力",
@@ -9240,7 +9263,7 @@
             "role_tag": "mid_long",
             "main_roster_prob": 0.002,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0052,
+            "marginal_loss": 0.005,
             "is_dual_eligible": true,
             "data_sources": [
               "JWC"
@@ -9257,8 +9280,8 @@
               "best_rank": null
             },
             "recent_highlight": "2026/27 JWC2 Bormio 1000m #2",
-            "upside_score": 0.2164,
-            "versatility_score": 0.2184,
+            "upside_score": 0.2235,
+            "versatility_score": 0.2255,
             "roster_tier": "reserve",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
@@ -9276,7 +9299,7 @@
             "role_tag": "versatile_upside",
             "main_roster_prob": 0.004,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.0093,
+            "marginal_loss": 0.009,
             "is_dual_eligible": false,
             "data_sources": [
               "Domestic"
@@ -9312,7 +9335,7 @@
             "role_tag": "versatile_upside",
             "main_roster_prob": 0,
             "primary_replacement_for": "skr-19401",
-            "marginal_loss": 0.011,
+            "marginal_loss": 0.0107,
             "is_dual_eligible": false,
             "data_sources": [
               "Domestic"
