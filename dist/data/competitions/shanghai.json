@@ -2408,8 +2408,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-27T03:11:22+00:00",
-    "updated_at": "2026-11-27T03:11:22+00:00",
+    "checked_at": "2026-11-27T03:21:27+00:00",
+    "updated_at": "2026-11-27T03:21:27+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16431&round=23628",
@@ -2705,7 +2705,7 @@
             "starting_position": 2,
             "rank": 2,
             "result": "1:29.579",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -2949,7 +2949,7 @@
             "starting_position": 1,
             "rank": 2,
             "result": "1:29.504",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null
           },
           {
@@ -3083,9 +3083,9 @@
         "group": null,
         "heat_number": 9,
         "heat_label": "Heat 9",
-        "source_start": "2026-11-27T11:01:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T11:10:35.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
         "participants": [
@@ -3096,9 +3096,21 @@
             "official_skater_id": 5703,
             "helmet_number": 48,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "1:28.503",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-dc0c79c56cc790edd7de",
+            "name": "David WU JIA WEI",
+            "country": "HUN",
+            "official_skater_id": 7798,
+            "helmet_number": 83,
+            "starting_position": 4,
+            "rank": 2,
+            "result": "1:29.112",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -3108,8 +3120,8 @@
             "official_skater_id": 7327,
             "helmet_number": 57,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "1:30.863",
             "qualification": null,
             "penalty": null
           },
@@ -3120,20 +3132,8 @@
             "official_skater_id": 4648,
             "helmet_number": 63,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-dc0c79c56cc790edd7de",
-            "name": "David WU JIA WEI",
-            "country": "HUN",
-            "official_skater_id": 7798,
-            "helmet_number": 83,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "1:31.010",
             "qualification": null,
             "penalty": null
           },
@@ -3144,8 +3144,8 @@
             "official_skater_id": 18358,
             "helmet_number": 142,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "1:51.361",
             "qualification": null,
             "penalty": null
           }
@@ -3163,9 +3163,9 @@
         "group": null,
         "heat_number": 10,
         "heat_label": "Heat 10",
-        "source_start": "2026-11-27T11:04:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T11:14:18.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
         "participants": [
@@ -3176,9 +3176,9 @@
             "official_skater_id": 4367,
             "helmet_number": 45,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "1:27.968",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -3188,9 +3188,9 @@
             "official_skater_id": 314,
             "helmet_number": 51,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "1:27.983",
+            "qualification": "p",
             "penalty": null
           },
           {
@@ -3200,8 +3200,8 @@
             "official_skater_id": 3613,
             "helmet_number": 106,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "1:28.727",
             "qualification": null,
             "penalty": null
           },
@@ -3212,8 +3212,8 @@
             "official_skater_id": 5461,
             "helmet_number": 120,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "1:30.179",
             "qualification": null,
             "penalty": null
           },
@@ -3224,8 +3224,8 @@
             "official_skater_id": 21070,
             "helmet_number": 147,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "1:31.604",
             "qualification": null,
             "penalty": null
           }
@@ -3244,23 +3244,11 @@
         "heat_number": 11,
         "heat_label": "Heat 11",
         "source_start": "2026-11-27T11:07:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
         "participants": [
-          {
-            "athlete_id": "ath-2fb137b7530e2d3409db",
-            "name": "Gleb IVCHENKO",
-            "country": "KAZ",
-            "official_skater_id": 2905,
-            "helmet_number": 47,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-91511b3c9de89e30bfa8",
             "name": "Peter JASZAPATI",
@@ -3268,20 +3256,20 @@
             "official_skater_id": 2986,
             "helmet_number": 81,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "1:32.090",
             "qualification": null,
             "penalty": null
           },
           {
-            "athlete_id": "ath-1eb080ffb8c8df4c372f",
-            "name": "Linus August RISNES",
-            "country": "NOR",
-            "official_skater_id": 5921,
-            "helmet_number": 121,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "athlete_id": "ath-2fb137b7530e2d3409db",
+            "name": "Gleb IVCHENKO",
+            "country": "KAZ",
+            "official_skater_id": 2905,
+            "helmet_number": 47,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "1:32.230",
             "qualification": null,
             "penalty": null
           },
@@ -3292,8 +3280,8 @@
             "official_skater_id": 3877,
             "helmet_number": 80,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "1:32.940",
             "qualification": null,
             "penalty": null
           },
@@ -3304,8 +3292,20 @@
             "official_skater_id": 20562,
             "helmet_number": 145,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "1:35.590",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-1eb080ffb8c8df4c372f",
+            "name": "Linus August RISNES",
+            "country": "NOR",
+            "official_skater_id": 5921,
+            "helmet_number": 121,
+            "starting_position": 3,
+            "rank": 5,
+            "result": "1:46.780",
             "qualification": null,
             "penalty": null
           }
@@ -7245,7 +7245,7 @@
             "helmet_number": 61,
             "starting_position": 4,
             "rank": null,
-            "result": null,
+            "result": "DNS",
             "qualification": null,
             "penalty": null,
             "last_four_seconds": null
