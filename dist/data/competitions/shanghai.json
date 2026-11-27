@@ -2408,8 +2408,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-27T10:41:17+00:00",
-    "updated_at": "2026-11-27T10:41:17+00:00",
+    "checked_at": "2026-11-27T10:51:16+00:00",
+    "updated_at": "2026-11-27T10:51:16+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -5887,7 +5887,7 @@
             "starting_position": 3,
             "rank": 4,
             "result": "7:01.220",
-            "qualification": "p",
+            "qualification": null,
             "penalty": null,
             "members": [
               {
@@ -5963,8 +5963,8 @@
         "heat_number": 2,
         "heat_label": "Heat 2",
         "source_start": "2026-11-27T18:38:22.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16432&round=23636",
         "participants": [
@@ -5975,9 +5975,9 @@
             "official_skater_id": 13178,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "6:54.254",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -6004,15 +6004,49 @@
             "name_latin": "Canada"
           },
           {
+            "athlete_id": "team-AIN2-men",
+            "name": "Ain2",
+            "country": "AIN2",
+            "official_skater_id": 13176,
+            "helmet_number": null,
+            "starting_position": 5,
+            "rank": 2,
+            "result": "6:54.403",
+            "qualification": "Q",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-957beb23a9901b33af6b",
+                "name": "Semen ELISTRATOV",
+                "official_skater_id": 1774
+              },
+              {
+                "athlete_id": "ath-766b41e307ecb7b3445a",
+                "name": "Konstantin IVLIEV",
+                "official_skater_id": 2908
+              },
+              {
+                "athlete_id": "ath-284e4e30ce2b8e981154",
+                "name": "Vladimir BALBEKOV",
+                "official_skater_id": 491
+              },
+              {
+                "athlete_id": "ath-ae059245c19305b299b6",
+                "name": "Daniil NIKOLAEV",
+                "official_skater_id": 20499
+              }
+            ]
+          },
+          {
             "athlete_id": "team-ITA-men",
             "name": "意大利队",
             "country": "ITA",
             "official_skater_id": 13183,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "6:54.658",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -6039,38 +6073,39 @@
             "name_latin": "Italy"
           },
           {
-            "athlete_id": "team-AIN2-men",
-            "name": "Ain2",
-            "country": "AIN2",
-            "official_skater_id": 13176,
+            "athlete_id": "team-BEL-men",
+            "name": "比利时队",
+            "country": "BEL",
+            "official_skater_id": 13177,
             "helmet_number": null,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "starting_position": 4,
+            "rank": 4,
+            "result": "6:59.987",
+            "qualification": "p",
             "penalty": null,
             "members": [
               {
-                "athlete_id": "ath-957beb23a9901b33af6b",
-                "name": "Semen ELISTRATOV",
-                "official_skater_id": 1774
+                "athlete_id": "ath-9868a34ec503aeddc132",
+                "name": "Adriaan DEWAGTERE",
+                "official_skater_id": 1569
               },
               {
-                "athlete_id": "ath-766b41e307ecb7b3445a",
-                "name": "Konstantin IVLIEV",
-                "official_skater_id": 2908
+                "athlete_id": "ath-9f8261b4f03d9bcbec9a",
+                "name": "Fre VAN DAMME",
+                "official_skater_id": 7327
               },
               {
-                "athlete_id": "ath-284e4e30ce2b8e981154",
-                "name": "Vladimir BALBEKOV",
-                "official_skater_id": 491
+                "athlete_id": "ath-9f7cbe745e1593f62ee3",
+                "name": "Warre VAN DAMME",
+                "official_skater_id": 7328
               },
               {
-                "athlete_id": "ath-ae059245c19305b299b6",
-                "name": "Daniil NIKOLAEV",
-                "official_skater_id": 20499
+                "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
+                "name": "Warre NOIRON",
+                "official_skater_id": 5140
               }
-            ]
+            ],
+            "name_latin": "Belgium"
           },
           {
             "athlete_id": "team-USA-men",
@@ -6079,8 +6114,8 @@
             "official_skater_id": 13190,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "7:12.630",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -6106,41 +6141,6 @@
               }
             ],
             "name_latin": "United States of America"
-          },
-          {
-            "athlete_id": "team-BEL-men",
-            "name": "比利时队",
-            "country": "BEL",
-            "official_skater_id": 13177,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-9868a34ec503aeddc132",
-                "name": "Adriaan DEWAGTERE",
-                "official_skater_id": 1569
-              },
-              {
-                "athlete_id": "ath-9f8261b4f03d9bcbec9a",
-                "name": "Fre VAN DAMME",
-                "official_skater_id": 7327
-              },
-              {
-                "athlete_id": "ath-9f7cbe745e1593f62ee3",
-                "name": "Warre VAN DAMME",
-                "official_skater_id": 7328
-              },
-              {
-                "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
-                "name": "Warre NOIRON",
-                "official_skater_id": 5140
-              }
-            ],
-            "name_latin": "Belgium"
           }
         ]
       },
@@ -6156,8 +6156,8 @@
         "group": null,
         "heat_number": 3,
         "heat_label": "Heat 3",
-        "source_start": "2026-11-27T18:40:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-27T18:48:06.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16432&round=23636",
@@ -6237,41 +6237,6 @@
             "name_latin": "People's Republic of China"
           },
           {
-            "athlete_id": "team-POL-men",
-            "name": "波兰队",
-            "country": "POL",
-            "official_skater_id": 13188,
-            "helmet_number": null,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-b398294b57be8d0bdfb8",
-                "name": "Franciszek IZBICKI",
-                "official_skater_id": 18242
-              },
-              {
-                "athlete_id": "ath-cf536d673d68730e75f0",
-                "name": "Krzysztof MADRY",
-                "official_skater_id": 4451
-              },
-              {
-                "athlete_id": "ath-775d347cc69597e5a04c",
-                "name": "Michal NIEWINSKI",
-                "official_skater_id": 5097
-              },
-              {
-                "athlete_id": "ath-ad9946db70088f23d4ac",
-                "name": "Felix PIGEON",
-                "official_skater_id": 5581
-              }
-            ],
-            "name_latin": "Poland"
-          },
-          {
             "athlete_id": "team-KAZ-men",
             "name": "哈萨克斯坦队",
             "country": "KAZ",
@@ -6305,6 +6270,41 @@
               }
             ],
             "name_latin": "Kazakhstan"
+          },
+          {
+            "athlete_id": "team-POL-men",
+            "name": "波兰队",
+            "country": "POL",
+            "official_skater_id": 13188,
+            "helmet_number": null,
+            "starting_position": 3,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-b398294b57be8d0bdfb8",
+                "name": "Franciszek IZBICKI",
+                "official_skater_id": 18242
+              },
+              {
+                "athlete_id": "ath-cf536d673d68730e75f0",
+                "name": "Krzysztof MADRY",
+                "official_skater_id": 4451
+              },
+              {
+                "athlete_id": "ath-775d347cc69597e5a04c",
+                "name": "Michal NIEWINSKI",
+                "official_skater_id": 5097
+              },
+              {
+                "athlete_id": "ath-ad9946db70088f23d4ac",
+                "name": "Felix PIGEON",
+                "official_skater_id": 5581
+              }
+            ],
+            "name_latin": "Poland"
           },
           {
             "athlete_id": "team-CZE-men",
