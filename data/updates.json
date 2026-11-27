@@ -333,7 +333,9 @@
     "shanghai/entries": "41503a275c5c1394",
     "shanghai/round/2026-11-27/qualifying/men/1000/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/men/1500/heats/-/groups": "published",
+    "shanghai/round/2026-11-27/qualifying/men/500/heats/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/men/500/preliminaries/-/groups": "published",
+    "shanghai/round/2026-11-27/qualifying/men/500/preliminaries/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/men/5000/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/mixed/2000/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/1000/preliminaries/-/groups": "published",
@@ -611,36 +613,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "2cacb7cdb09ce9ec",
-      "station": "seoul",
-      "at": "2026-11-22T03:31:45+00:00",
-      "local_date": "2026-11-22",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "96156033cf1c7049",
-      "station": "seoul",
-      "at": "2026-11-22T03:31:45+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
     {
       "id": "09a0f1808d7f9737",
       "station": "seoul",
@@ -3069,6 +3041,55 @@
         "Jiarui SONG",
         "Li GONG",
         "Xinran WANG"
+      ]
+    },
+    {
+      "id": "d9e39e0fd42ba820",
+      "station": "shanghai",
+      "at": "2026-11-27T02:01:17+00:00",
+      "local_date": "2026-11-27",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Kun LI",
+        "Yuheng LI"
+      ],
+      "china_results": [
+        {
+          "name": "Kun LI",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Yuheng LI",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "f6e034c9bda5e586",
+      "station": "shanghai",
+      "at": "2026-11-27T02:01:17+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "Kun LI",
+        "Long SUN",
+        "Yuheng LI",
+        "Zixia ZHANG"
       ]
     }
   ]

@@ -2,6 +2,57 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "f6e034c9bda5e586",
+      "station": "shanghai",
+      "at": "2026-11-27T02:01:17+00:00",
+      "local_date": "2026-11-27",
+      "round": "heats",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 8,
+      "china": [
+        "李坤",
+        "孙龙",
+        "李禹衡",
+        "张子夏"
+      ]
+    },
+    {
+      "id": "d9e39e0fd42ba820",
+      "station": "shanghai",
+      "at": "2026-11-27T02:01:17+00:00",
+      "local_date": "2026-11-27",
+      "round": "preliminaries",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "李坤",
+        "李禹衡"
+      ],
+      "china_results": [
+        {
+          "name": "李坤",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Kun LI"
+        },
+        {
+          "name": "李禹衡",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Yuheng LI"
+        }
+      ]
+    },
+    {
       "id": "452a28602acff01c",
       "station": "shanghai",
       "at": "2026-11-27T01:31:15+00:00",
@@ -2448,36 +2499,6 @@
       "repechage": true,
       "gender": "men",
       "distance_m": 1000,
-      "format": "individual",
-      "kind": "results",
-      "china": [],
-      "china_results": []
-    },
-    {
-      "id": "96156033cf1c7049",
-      "station": "seoul",
-      "at": "2026-11-22T03:31:45+00:00",
-      "local_date": "2026-11-22",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 1,
-      "china": []
-    },
-    {
-      "id": "2cacb7cdb09ce9ec",
-      "station": "seoul",
-      "at": "2026-11-22T03:31:45+00:00",
-      "local_date": "2026-11-22",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
       "format": "individual",
       "kind": "results",
       "china": [],
