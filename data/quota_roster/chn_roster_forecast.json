@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T08:43:06Z",
+  "generated_at": "2026-11-27T08:52:59Z",
   "as_of_date": "2026-11-27",
   "config_version": "2026.27.1",
   "next_wt_stop": {
@@ -13,7 +13,7 @@
   },
   "calibration_diagnostics": {
     "senior": {
-      "incrementalHeatsReplayed": 623
+      "incrementalHeatsReplayed": 625
     },
     "junior": {
       "eventsLoaded": 9,
@@ -72,9 +72,9 @@
         "men:1500": {
           "crossTierPairs": 45,
           "usedFallback": false,
-          "alpha": 0.651,
-          "beta": -0.2728,
-          "correlationR": 0.5297,
+          "alpha": 0.6572,
+          "beta": -0.2767,
+          "correlationR": 0.5337,
           "paceWeight": 0.2,
           "juniorSkatersCalibrated": 170,
           "juniorMedianTimeS": 144.079
@@ -129,7 +129,7 @@
           "usedFallback": true,
           "alpha": null,
           "beta": null,
-          "correlationR": 0.0002,
+          "correlationR": 0,
           "domesticSkatersCalibrated": 52
         }
       }
@@ -4019,8 +4019,8 @@
                 "sigma": 0.8666
               },
               "1500": {
-                "mu": 0.2371,
-                "sigma": 0.8944
+                "mu": 0.2375,
+                "sigma": 0.8956
               }
             },
             "main_roster_prob": 0.056,
@@ -4085,8 +4085,8 @@
                 "sigma": 1.0808
               },
               "1500": {
-                "mu": 0.4575,
-                "sigma": 0.9022
+                "mu": 0.4583,
+                "sigma": 0.9035
               }
             },
             "main_roster_prob": 0.044,
@@ -4638,7 +4638,7 @@
               "skr-8157"
             ],
             "frequency": 0.038,
-            "avg_objective": 2.2995,
+            "avg_objective": 2.2996,
             "modal_entries": {
               "500": [
                 "skr-20551",
@@ -4678,7 +4678,7 @@
               "skr-8157"
             ],
             "frequency": 0.031,
-            "avg_objective": 2.264,
+            "avg_objective": 2.2644,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -6867,8 +6867,8 @@
                 "sigma": 0.8673
               },
               "1500": {
-                "mu": 0.2368,
-                "sigma": 0.8948
+                "mu": 0.2371,
+                "sigma": 0.896
               }
             },
             "main_roster_prob": 0.059,
@@ -6933,8 +6933,8 @@
                 "sigma": 1.0816
               },
               "1500": {
-                "mu": 0.4573,
-                "sigma": 0.9026
+                "mu": 0.4581,
+                "sigma": 0.9038
               }
             },
             "main_roster_prob": 0.042,
@@ -6947,7 +6947,7 @@
             "value_scores": {
               "500": 0.0264,
               "1000": 0.0492,
-              "1500": 0.0527,
+              "1500": 0.0528,
               "relay": 0.2482,
               "form": 0.0646
             },
@@ -7656,8 +7656,8 @@
                 "sigma": 1.0658
               },
               "1500": {
-                "mu": 0.1193,
-                "sigma": 1.161
+                "mu": 0.1191,
+                "sigma": 1.1638
               }
             },
             "main_roster_prob": 0.003,
@@ -7670,7 +7670,7 @@
             "value_scores": {
               "500": 0.0288,
               "1000": 0.023,
-              "1500": 0.0349,
+              "1500": 0.0348,
               "relay": 0,
               "form": 0.1844
             },
@@ -7733,7 +7733,7 @@
               "skr-8157"
             ],
             "frequency": 0.039,
-            "avg_objective": 2.2883,
+            "avg_objective": 2.2884,
             "modal_entries": {
               "500": [
                 "skr-20551",
@@ -10021,8 +10021,8 @@
                 "sigma": 0.8666
               },
               "1500": {
-                "mu": 0.2371,
-                "sigma": 0.8944
+                "mu": 0.2375,
+                "sigma": 0.8956
               }
             },
             "main_roster_prob": 0.03,
@@ -10205,8 +10205,8 @@
                 "sigma": 1.0808
               },
               "1500": {
-                "mu": 0.4575,
-                "sigma": 0.9022
+                "mu": 0.4583,
+                "sigma": 0.9035
               }
             },
             "main_roster_prob": 0.022,
