@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T03:54:03Z",
+  "generated_at": "2026-11-27T04:03:35Z",
   "as_of_date": "2026-11-27",
   "config_version": "2026.27.1",
   "next_wt_stop": {
@@ -13,7 +13,7 @@
   },
   "calibration_diagnostics": {
     "senior": {
-      "incrementalHeatsReplayed": 577
+      "incrementalHeatsReplayed": 578
     },
     "junior": {
       "eventsLoaded": 9,
@@ -129,7 +129,7 @@
           "usedFallback": true,
           "alpha": null,
           "beta": null,
-          "correlationR": 0.0329,
+          "correlationR": 0.0328,
           "domesticSkatersCalibrated": 52
         }
       }
@@ -7449,7 +7449,7 @@
                 "sigma": 1.0734
               },
               "1500": {
-                "mu": 0.1611,
+                "mu": 0.1612,
                 "sigma": 1.2797
               }
             },
