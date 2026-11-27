@@ -2408,8 +2408,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-27T06:41:14+00:00",
-    "updated_at": "2026-11-27T06:41:14+00:00",
+    "checked_at": "2026-11-27T06:51:12+00:00",
+    "updated_at": "2026-11-27T06:51:12+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -3393,6 +3393,18 @@
             "result": null,
             "qualification": null,
             "penalty": null
+          },
+          {
+            "athlete_id": "ath-91ed24e9a56e745fb483",
+            "name": "Martin PRANTL",
+            "country": "CRO",
+            "official_skater_id": 5691,
+            "helmet_number": 131,
+            "starting_position": 6,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
           }
         ]
       },
@@ -3469,6 +3481,18 @@
             "official_skater_id": 4648,
             "helmet_number": 63,
             "starting_position": 5,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-d3696da65ab1eef0c652",
+            "name": "Aleyandro RIVERO MAERSCHALCK",
+            "country": "BEL",
+            "official_skater_id": 5923,
+            "helmet_number": 56,
+            "starting_position": 6,
             "rank": null,
             "result": null,
             "qualification": null,
@@ -3553,6 +3577,18 @@
             "result": null,
             "qualification": null,
             "penalty": null
+          },
+          {
+            "athlete_id": "ath-4d45ed1e46ea24682647",
+            "name": "Kritsanapon PHUATRAKUL",
+            "country": "THA",
+            "official_skater_id": 21070,
+            "helmet_number": 147,
+            "starting_position": 6,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
           }
         ]
       },
@@ -3633,6 +3669,18 @@
             "result": null,
             "qualification": null,
             "penalty": null
+          },
+          {
+            "athlete_id": "ath-993c4cb36d702de0a0b4",
+            "name": "Ivan MARTINIC",
+            "country": "CRO",
+            "official_skater_id": 4592,
+            "helmet_number": 130,
+            "starting_position": 6,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
           }
         ]
       },
@@ -3709,6 +3757,18 @@
             "official_skater_id": 5717,
             "helmet_number": 72,
             "starting_position": 5,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-d756eadf9d099abd465c",
+            "name": "Munkh-Erdene ERDENEBILEG",
+            "country": "MGL",
+            "official_skater_id": 1816,
+            "helmet_number": 138,
+            "starting_position": 6,
             "rank": null,
             "result": null,
             "qualification": null,
@@ -6502,8 +6562,8 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-11-27T14:39:43.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16433&round=23640",
         "participants": [
@@ -6514,9 +6574,9 @@
             "official_skater_id": 1231,
             "helmet_number": 4,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "1:34.724",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -6526,8 +6586,20 @@
             "official_skater_id": 18356,
             "helmet_number": 85,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "1:34.935",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-51a17d72df4d726dbcde",
+            "name": "Kiek STRAATHOF",
+            "country": "NED",
+            "official_skater_id": 6730,
+            "helmet_number": 80,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "1:35.332",
             "qualification": null,
             "penalty": null
           },
@@ -6538,21 +6610,9 @@
             "official_skater_id": 1545,
             "helmet_number": 44,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-51a17d72df4d726dbcde",
-            "name": "Kiek STRAATHOF",
-            "country": "NED",
-            "official_skater_id": 6730,
-            "helmet_number": 80,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 4,
+            "result": "1:35.344",
+            "qualification": "ADV",
             "penalty": null
           },
           {
@@ -6563,9 +6623,12 @@
             "helmet_number": 13,
             "starting_position": 2,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -6581,9 +6644,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-27T14:36:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-27T14:45:42.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16433&round=23640",
         "participants": [
@@ -6594,21 +6657,9 @@
             "official_skater_id": 6159,
             "helmet_number": 1,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-df765364c74846f50d97",
-            "name": "Rina YAMANA",
-            "country": "JPN",
-            "official_skater_id": 7851,
-            "helmet_number": 70,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "1:31.223",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -6618,8 +6669,32 @@
             "official_skater_id": 18348,
             "helmet_number": 78,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "1:31.653",
+            "qualification": "Q",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-ca017e1d514c206e3241",
+            "name": "Maja Dora SOMODI",
+            "country": "HUN",
+            "official_skater_id": 6603,
+            "helmet_number": 32,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "1:31.744",
+            "qualification": "p",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-df765364c74846f50d97",
+            "name": "Rina YAMANA",
+            "country": "JPN",
+            "official_skater_id": 7851,
+            "helmet_number": 70,
+            "starting_position": 2,
+            "rank": 4,
+            "result": "1:31.891",
             "qualification": null,
             "penalty": null
           },
@@ -6630,20 +6705,8 @@
             "official_skater_id": 4512,
             "helmet_number": 17,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-ca017e1d514c206e3241",
-            "name": "Maja Dora SOMODI",
-            "country": "HUN",
-            "official_skater_id": 6603,
-            "helmet_number": 32,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "1:32.727",
             "qualification": null,
             "penalty": null
           }
@@ -6662,7 +6725,7 @@
         "heat_number": 3,
         "heat_label": "Heat 3",
         "source_start": "2026-11-27T14:39:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16433&round=23640",
@@ -6674,8 +6737,8 @@
             "official_skater_id": 7447,
             "helmet_number": 3,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "1:31.140",
             "qualification": null,
             "penalty": null
           },
@@ -6686,8 +6749,8 @@
             "official_skater_id": 19401,
             "helmet_number": 56,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "1:31.540",
             "qualification": null,
             "penalty": null,
             "name_latin": "Yan ZHANG"
@@ -6705,18 +6768,6 @@
             "penalty": null
           },
           {
-            "athlete_id": "ath-3c87cc73801139f1ee27",
-            "name": "Anastassiya GALECHINA",
-            "country": "KAZ",
-            "official_skater_id": 414,
-            "helmet_number": 72,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
             "athlete_id": "ath-a1633c7b189dc8822212",
             "name": "Katia FILIPPI",
             "country": "ITA",
@@ -6725,6 +6776,18 @@
             "starting_position": 5,
             "rank": null,
             "result": null,
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-3c87cc73801139f1ee27",
+            "name": "Anastassiya GALECHINA",
+            "country": "KAZ",
+            "official_skater_id": 414,
+            "helmet_number": 72,
+            "starting_position": 4,
+            "rank": 5,
+            "result": "1:32.230",
             "qualification": null,
             "penalty": null
           }
