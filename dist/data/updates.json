@@ -2,6 +2,23 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "b0c5ea327da66b35",
+      "station": "shanghai",
+      "at": "2026-11-27T10:21:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "People's Republic of China"
+      ]
+    },
+    {
       "id": "71a4ed96ebccb61f",
       "station": "shanghai",
       "at": "2026-11-27T09:51:12+00:00",
@@ -2526,13 +2543,6 @@
       "station": "seoul",
       "kind": "rankings",
       "at": "2026-11-23T08:01:38+00:00",
-      "changed": true
-    },
-    {
-      "id": "253e068cfd0c0689",
-      "station": "seoul",
-      "kind": "rankings",
-      "at": "2026-11-22T08:21:42+00:00",
       "changed": true
     }
   ]
