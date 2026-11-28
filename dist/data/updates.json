@@ -2,6 +2,45 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "e0e12b17d846d834",
+      "station": "shanghai",
+      "at": "2026-11-28T07:51:19+00:00",
+      "local_date": "2026-11-28",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": [],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Minjeong CHOI",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Xandra VELZEBOER",
+          "country": "NED"
+        },
+        {
+          "rank": 3,
+          "name": "Gilli KIM",
+          "country": "KOR"
+        }
+      ]
+    },
+    {
+      "id": "8001ea6dbc74736e",
+      "station": "shanghai",
+      "kind": "rankings",
+      "at": "2026-11-28T07:51:19+00:00",
+      "changed": true
+    },
+    {
       "id": "c36a7a516148ec33",
       "station": "shanghai",
       "kind": "rankings",
@@ -2704,36 +2743,6 @@
       "format": "individual",
       "previous": "2026-11-27 14:33",
       "current": "2026-11-27 06:33"
-    },
-    {
-      "id": "3e42096554ae5689",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-29",
-      "round": "heats",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-29 10:15",
-      "current": "2026-11-29 02:15"
-    },
-    {
-      "id": "3949213cda44ef55",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-29",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-29 14:56",
-      "current": "2026-11-29 06:56"
     }
   ]
 }
