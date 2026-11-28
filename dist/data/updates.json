@@ -2,6 +2,37 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "628dae5d153ceb9f",
+      "station": "shanghai",
+      "at": "2026-11-28T04:41:16+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "王天佑",
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "王天佑",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Tianyou WANG"
+        },
+        {
+          "name": "张子夏",
+          "rank": 2,
+          "status": "out",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
       "id": "da1f6a5c7dc50dff",
       "station": "shanghai",
       "at": "2026-11-28T04:31:20+00:00",
@@ -2631,25 +2662,6 @@
       "kind": "groups",
       "heats": 7,
       "china": []
-    },
-    {
-      "id": "f01a6c3a7f42fd71",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "王天佑",
-        "李禹衡",
-        "张子夏"
-      ]
     }
   ]
 }

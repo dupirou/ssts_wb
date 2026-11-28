@@ -369,6 +369,7 @@
     "shanghai/round/2026-11-28/repechage/men/1500/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/1500/quarterfinal/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/1500/semifinal/-/groups": "published",
+    "shanghai/round/2026-11-28/repechage/men/1500/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/500/heats/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/500/heats/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/500/quarterfinal/-/groups": "published",
@@ -651,25 +652,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "f01a6c3a7f42fd71",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "Tianyou WANG",
-        "Yuheng LI",
-        "Zixia ZHANG"
-      ]
-    },
     {
       "id": "fe9f8dc173f97a4a",
       "station": "shanghai",
@@ -3256,6 +3238,35 @@
         {
           "name": "Xinran WANG",
           "rank": 5,
+          "status": "out"
+        }
+      ]
+    },
+    {
+      "id": "628dae5d153ceb9f",
+      "station": "shanghai",
+      "at": "2026-11-28T04:41:16+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Tianyou WANG",
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Tianyou WANG",
+          "rank": 1,
+          "status": "advanced"
+        },
+        {
+          "name": "Zixia ZHANG",
+          "rank": 2,
           "status": "out"
         }
       ]
