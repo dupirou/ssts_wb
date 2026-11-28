@@ -1696,8 +1696,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-28T04:51:13+00:00",
-    "updated_at": "2026-11-28T04:51:13+00:00",
+    "checked_at": "2026-11-28T05:01:15+00:00",
+    "updated_at": "2026-11-28T05:01:15+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -12979,25 +12979,12 @@
         "group": null,
         "heat_number": 1,
         "heat_label": "Heat 1",
-        "source_start": "2026-11-28T12:40:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-28T12:55:43.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16437&round=23659",
         "participants": [
-          {
-            "athlete_id": "team-AIN2-mixed",
-            "name": "Ain2",
-            "country": "AIN2",
-            "official_skater_id": 13191,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": []
-          },
           {
             "athlete_id": "team-CAN-mixed",
             "name": "Canada",
@@ -13005,11 +12992,32 @@
             "official_skater_id": 13193,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "2:38.008",
+            "qualification": "Q",
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-b4c0d7a64d2a48d2b32c",
+                "name": "Florence BRUNELLE",
+                "official_skater_id": 924
+              },
+              {
+                "athlete_id": "ath-ff84a70c32aaa0324d85",
+                "name": "William DANDJINOU",
+                "official_skater_id": 1422
+              },
+              {
+                "athlete_id": "ath-5a7e933f9339f1d8f8c6",
+                "name": "Courtney SARAULT",
+                "official_skater_id": 6159
+              },
+              {
+                "athlete_id": "ath-295c31a30610e64d9499",
+                "name": "Mathieu PELLETIER",
+                "official_skater_id": 5474
+              }
+            ]
           },
           {
             "athlete_id": "team-ITA-mixed",
@@ -13018,11 +13026,66 @@
             "official_skater_id": 13198,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "2:38.698",
+            "qualification": "Q",
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-bf93d274dece11d17ae7",
+                "name": "Lorenzo PREVITALI",
+                "official_skater_id": 5703
+              },
+              {
+                "athlete_id": "ath-0b75c8b148a940d59dbb",
+                "name": "Thomas NADALINI",
+                "official_skater_id": 4990
+              },
+              {
+                "athlete_id": "ath-10b4e338d1b0cc128837",
+                "name": "Elisa CONFORTOLA",
+                "official_skater_id": 1324
+              },
+              {
+                "athlete_id": "ath-4ee0f4f305dd7e06cf81",
+                "name": "Gloria IORIATTI",
+                "official_skater_id": 2861
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-AIN2-mixed",
+            "name": "Ain2",
+            "country": "AIN2",
+            "official_skater_id": 13191,
+            "helmet_number": null,
+            "starting_position": 1,
+            "rank": 3,
+            "result": "2:39.028",
+            "qualification": "p",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-483550788c35bdf02032",
+                "name": "Alena KRYLOVA",
+                "official_skater_id": 20498
+              },
+              {
+                "athlete_id": "ath-878b429516890d2356ef",
+                "name": "Elena SEREGINA",
+                "official_skater_id": 20501
+              },
+              {
+                "athlete_id": "ath-284e4e30ce2b8e981154",
+                "name": "Vladimir BALBEKOV",
+                "official_skater_id": 491
+              },
+              {
+                "athlete_id": "ath-957beb23a9901b33af6b",
+                "name": "Semen ELISTRATOV",
+                "official_skater_id": 1774
+              }
+            ]
           },
           {
             "athlete_id": "team-HUN-mixed",
@@ -13031,11 +13094,32 @@
             "official_skater_id": 13197,
             "helmet_number": null,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 4,
+            "result": "2:39.642",
+            "qualification": "QB",
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-cdc04f60f74742612112",
+                "name": "Diana Laura VEGI",
+                "official_skater_id": 7437
+              },
+              {
+                "athlete_id": "ath-ca017e1d514c206e3241",
+                "name": "Maja Dora SOMODI",
+                "official_skater_id": 6603
+              },
+              {
+                "athlete_id": "ath-91511b3c9de89e30bfa8",
+                "name": "Peter JASZAPATI",
+                "official_skater_id": 2986
+              },
+              {
+                "athlete_id": "ath-dca7784fc8fdf2fbec50",
+                "name": "Daniel TIBORCZ",
+                "official_skater_id": 7047
+              }
+            ]
           },
           {
             "athlete_id": "team-JPN-mixed",
@@ -13044,11 +13128,32 @@
             "official_skater_id": 13199,
             "helmet_number": null,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 5,
+            "result": "2:51.354",
+            "qualification": "QB",
             "penalty": null,
-            "members": []
+            "members": [
+              {
+                "athlete_id": "ath-e5c572b5a7978d920d74",
+                "name": "Taiga SASAKI",
+                "official_skater_id": 18294
+              },
+              {
+                "athlete_id": "ath-ccb448108645fa010aff",
+                "name": "Ayano SEKIGUCHI",
+                "official_skater_id": 17693
+              },
+              {
+                "athlete_id": "ath-dae50584eb222f8f7725",
+                "name": "Shogo MIYATA",
+                "official_skater_id": 4847
+              },
+              {
+                "athlete_id": "ath-df765364c74846f50d97",
+                "name": "Rina YAMANA",
+                "official_skater_id": 7851
+              }
+            ]
           }
         ]
       },
