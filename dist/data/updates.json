@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "03c13d833589cc7a",
+      "station": "shanghai",
+      "at": "2026-11-28T07:21:12+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
       "id": "957d27c1c2d9b2d5",
       "station": "shanghai",
       "at": "2026-11-28T07:01:19+00:00",
@@ -2702,21 +2717,6 @@
       "format": "individual",
       "previous": "2026-11-29 12:27",
       "current": "2026-11-29 04:27"
-    },
-    {
-      "id": "2fe785513ddc46d3",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-28",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-28 11:09",
-      "current": "2026-11-28 03:09"
     }
   ]
 }
