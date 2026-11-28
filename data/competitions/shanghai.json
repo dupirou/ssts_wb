@@ -1792,8 +1792,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-28T10:11:12+00:00",
-    "updated_at": "2026-11-28T10:11:12+00:00",
+    "checked_at": "2026-11-28T10:21:16+00:00",
+    "updated_at": "2026-11-28T10:21:16+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -5810,7 +5810,7 @@
             "starting_position": 3,
             "rank": 3,
             "result": "6:56.344",
-            "qualification": "p",
+            "qualification": "q",
             "penalty": null,
             "members": [
               {
@@ -5921,45 +5921,11 @@
         "heat_number": 2,
         "heat_label": "Heat 2",
         "source_start": "2026-11-28T18:09:38.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16432&round=23637",
         "participants": [
-          {
-            "athlete_id": "team-ITA-men",
-            "name": "Italy",
-            "country": "ITA",
-            "official_skater_id": 13183,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [
-              {
-                "athlete_id": "ath-bf93d274dece11d17ae7",
-                "name": "Lorenzo PREVITALI",
-                "official_skater_id": 5703
-              },
-              {
-                "athlete_id": "ath-0b75c8b148a940d59dbb",
-                "name": "Thomas NADALINI",
-                "official_skater_id": 4990
-              },
-              {
-                "athlete_id": "ath-b94dfa98131e8ff1906a",
-                "name": "Pietro MARINELLI",
-                "official_skater_id": 4560
-              },
-              {
-                "athlete_id": "ath-d92eaba24dcaf8aca602",
-                "name": "Luca SPECHENHAUSER",
-                "official_skater_id": 6644
-              }
-            ]
-          },
           {
             "athlete_id": "team-NED-men",
             "name": "Netherlands",
@@ -5967,9 +5933,9 @@
             "official_skater_id": 13187,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "6:52.844",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
@@ -5995,36 +5961,70 @@
             ]
           },
           {
-            "athlete_id": "team-CHN-men",
-            "name": "People's Republic of China",
-            "country": "CHN",
-            "official_skater_id": 13179,
+            "athlete_id": "team-ITA-men",
+            "name": "Italy",
+            "country": "ITA",
+            "official_skater_id": 13183,
             "helmet_number": null,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "starting_position": 4,
+            "rank": 2,
+            "result": "6:56.885",
+            "qualification": "Q",
             "penalty": null,
             "members": [
               {
-                "athlete_id": "ath-49a455de09fadeaad9c9",
-                "name": "Bohao ZHANG",
-                "official_skater_id": 8078
+                "athlete_id": "ath-bf93d274dece11d17ae7",
+                "name": "Lorenzo PREVITALI",
+                "official_skater_id": 5703
               },
               {
-                "athlete_id": "ath-78a6ed2c7eac904f5ca0",
-                "name": "Long SUN",
-                "official_skater_id": 6784
+                "athlete_id": "ath-0b75c8b148a940d59dbb",
+                "name": "Thomas NADALINI",
+                "official_skater_id": 4990
               },
               {
-                "athlete_id": "ath-799c7f543fce635aeeb8",
-                "name": "Zixia ZHANG",
-                "official_skater_id": 20586
+                "athlete_id": "ath-b94dfa98131e8ff1906a",
+                "name": "Pietro MARINELLI",
+                "official_skater_id": 4560
               },
               {
-                "athlete_id": "ath-c1101796a5a03fa62c35",
-                "name": "Yuheng LI",
-                "official_skater_id": 20570
+                "athlete_id": "ath-d92eaba24dcaf8aca602",
+                "name": "Luca SPECHENHAUSER",
+                "official_skater_id": 6644
+              }
+            ]
+          },
+          {
+            "athlete_id": "team-BEL-men",
+            "name": "Belgium",
+            "country": "BEL",
+            "official_skater_id": 13177,
+            "helmet_number": null,
+            "starting_position": 5,
+            "rank": 3,
+            "result": "6:57.102",
+            "qualification": "QB",
+            "penalty": null,
+            "members": [
+              {
+                "athlete_id": "ath-9f8261b4f03d9bcbec9a",
+                "name": "Fre VAN DAMME",
+                "official_skater_id": 7327
+              },
+              {
+                "athlete_id": "ath-9868a34ec503aeddc132",
+                "name": "Adriaan DEWAGTERE",
+                "official_skater_id": 1569
+              },
+              {
+                "athlete_id": "ath-9f7cbe745e1593f62ee3",
+                "name": "Warre VAN DAMME",
+                "official_skater_id": 7328
+              },
+              {
+                "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
+                "name": "Warre NOIRON",
+                "official_skater_id": 5140
               }
             ]
           },
@@ -6035,9 +6035,9 @@
             "official_skater_id": 13186,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 4,
+            "result": "7:08.793",
+            "qualification": "QB",
             "penalty": null,
             "members": [
               {
@@ -6063,36 +6063,39 @@
             ]
           },
           {
-            "athlete_id": "team-BEL-men",
-            "name": "Belgium",
-            "country": "BEL",
-            "official_skater_id": 13177,
+            "athlete_id": "team-CHN-men",
+            "name": "People's Republic of China",
+            "country": "CHN",
+            "official_skater_id": 13179,
             "helmet_number": null,
-            "starting_position": 5,
+            "starting_position": 3,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            },
             "members": [
               {
-                "athlete_id": "ath-9f8261b4f03d9bcbec9a",
-                "name": "Fre VAN DAMME",
-                "official_skater_id": 7327
+                "athlete_id": "ath-49a455de09fadeaad9c9",
+                "name": "Bohao ZHANG",
+                "official_skater_id": 8078
               },
               {
-                "athlete_id": "ath-9868a34ec503aeddc132",
-                "name": "Adriaan DEWAGTERE",
-                "official_skater_id": 1569
+                "athlete_id": "ath-78a6ed2c7eac904f5ca0",
+                "name": "Long SUN",
+                "official_skater_id": 6784
               },
               {
-                "athlete_id": "ath-9f7cbe745e1593f62ee3",
-                "name": "Warre VAN DAMME",
-                "official_skater_id": 7328
+                "athlete_id": "ath-799c7f543fce635aeeb8",
+                "name": "Zixia ZHANG",
+                "official_skater_id": 20586
               },
               {
-                "athlete_id": "ath-ba57aa7fe4f9e7cebb65",
-                "name": "Warre NOIRON",
-                "official_skater_id": 5140
+                "athlete_id": "ath-c1101796a5a03fa62c35",
+                "name": "Yuheng LI",
+                "official_skater_id": 20570
               }
             ]
           }

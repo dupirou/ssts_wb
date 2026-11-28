@@ -371,6 +371,7 @@
     "shanghai/round/2026-11-28/main/men/500/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/men/500/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/main/men/5000/semifinal/-/groups": "published",
+    "shanghai/round/2026-11-28/main/men/5000/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/main/mixed/2000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/mixed/2000/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/main/women/1000/final/-/groups": "published",
@@ -672,21 +673,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "80ea140c55fa2428",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-27",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-27 10:37",
-      "current": "2026-11-27 02:37"
-    },
     {
       "id": "844427e82cf69e66",
       "station": "shanghai",
@@ -3436,6 +3422,30 @@
           "rank": 3,
           "name": "People's Republic of China",
           "country": "CHN"
+        }
+      ]
+    },
+    {
+      "id": "b40bce3b55e0bb56",
+      "station": "shanghai",
+      "at": "2026-11-28T10:21:16+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
         }
       ]
     }
