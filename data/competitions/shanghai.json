@@ -1696,8 +1696,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-28T02:01:17+00:00",
-    "updated_at": "2026-11-28T02:01:17+00:00",
+    "checked_at": "2026-11-28T02:11:20+00:00",
+    "updated_at": "2026-11-28T02:11:20+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -9746,36 +9746,23 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-11-28T09:59:19.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16436&round=23652",
         "participants": [
           {
-            "athlete_id": "ath-623779beeda587847aba",
-            "name": "Nicolas ANDERMANN",
-            "country": "AUT",
-            "official_skater_id": 314,
-            "helmet_number": 51,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "athlete_id": "ath-91511b3c9de89e30bfa8",
+            "name": "Peter JASZAPATI",
+            "country": "HUN",
+            "official_skater_id": 2986,
+            "helmet_number": 81,
+            "starting_position": 1,
+            "rank": 1,
+            "result": "2:24.219",
+            "qualification": "Q",
             "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-3e4b0c909237d556e304",
-            "name": "Marva Kayana Putra FIRDAUS",
-            "country": "INA",
-            "official_skater_id": 20562,
-            "helmet_number": 145,
-            "starting_position": 7,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 36.869
           },
           {
             "athlete_id": "ath-821d652846ad8c51e882",
@@ -9784,11 +9771,11 @@
             "official_skater_id": 22580,
             "helmet_number": 127,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "2:24.328",
+            "qualification": "Q",
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 36.828
           },
           {
             "athlete_id": "ath-78b1997e73d6897f4a5d",
@@ -9797,11 +9784,11 @@
             "official_skater_id": 3114,
             "helmet_number": 78,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 3,
+            "result": "2:24.859",
+            "qualification": "p",
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 37.549
           },
           {
             "athlete_id": "ath-27143c296ec97522a767",
@@ -9810,24 +9797,24 @@
             "official_skater_id": 4648,
             "helmet_number": 63,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "2:25.472",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 38.062
           },
           {
-            "athlete_id": "ath-91511b3c9de89e30bfa8",
-            "name": "Peter JASZAPATI",
-            "country": "HUN",
-            "official_skater_id": 2986,
-            "helmet_number": 81,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "athlete_id": "ath-3e4b0c909237d556e304",
+            "name": "Marva Kayana Putra FIRDAUS",
+            "country": "INA",
+            "official_skater_id": 20562,
+            "helmet_number": 145,
+            "starting_position": 7,
+            "rank": 5,
+            "result": "2:29.836",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 42.126
           },
           {
             "athlete_id": "ath-f48b158cdb376de3796f",
@@ -9836,11 +9823,24 @@
             "official_skater_id": 1870,
             "helmet_number": 71,
             "starting_position": 6,
-            "rank": null,
-            "result": null,
+            "rank": 6,
+            "result": "3:03.467",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 44.497
+          },
+          {
+            "athlete_id": "ath-623779beeda587847aba",
+            "name": "Nicolas ANDERMANN",
+            "country": "AUT",
+            "official_skater_id": 314,
+            "helmet_number": 51,
+            "starting_position": 3,
+            "rank": 7,
+            "result": "3:16.072",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 48.862
           }
         ]
       },
@@ -9857,24 +9857,11 @@
         "heat_number": 2,
         "heat_label": "Heat 2",
         "source_start": "2026-11-28T09:56:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16436&round=23652",
         "participants": [
-          {
-            "athlete_id": "ath-388d1df985f23bc41a5c",
-            "name": "Tsz Fung KWOK",
-            "country": "HKG",
-            "official_skater_id": 3877,
-            "helmet_number": 80,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
           {
             "athlete_id": "ath-10150460017447b98409",
             "name": "Muhammed BOZDAG",
@@ -9882,37 +9869,24 @@
             "official_skater_id": 859,
             "helmet_number": 109,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "2:37.570",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 36.42
           },
           {
-            "athlete_id": "ath-6dbf1d717f86a3553740",
-            "name": "Joseph ARMSTRONG",
-            "country": "GBR",
-            "official_skater_id": 18301,
-            "helmet_number": 73,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "athlete_id": "ath-388d1df985f23bc41a5c",
+            "name": "Tsz Fung KWOK",
+            "country": "HKG",
+            "official_skater_id": 3877,
+            "helmet_number": 80,
+            "starting_position": 1,
+            "rank": 2,
+            "result": "2:38.030",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-3f9d60cf0c2e341bf39f",
-            "name": "Rostyslav LEONTENKO",
-            "country": "UKR",
-            "official_skater_id": 4114,
-            "helmet_number": 149,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 36.44
           },
           {
             "athlete_id": "ath-da00551c0fe15e37c1ac",
@@ -9921,11 +9895,11 @@
             "official_skater_id": 5461,
             "helmet_number": 120,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "2:38.300",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 37.35
           },
           {
             "athlete_id": "ath-dc0c79c56cc790edd7de",
@@ -9934,11 +9908,11 @@
             "official_skater_id": 7798,
             "helmet_number": 83,
             "starting_position": 6,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "2:38.470",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 37.21
           },
           {
             "athlete_id": "ath-46668ca5ada4dd8805a3",
@@ -9947,11 +9921,37 @@
             "official_skater_id": 3338,
             "helmet_number": 148,
             "starting_position": 7,
-            "rank": null,
-            "result": null,
+            "rank": 5,
+            "result": "2:38.700",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 37.21
+          },
+          {
+            "athlete_id": "ath-6dbf1d717f86a3553740",
+            "name": "Joseph ARMSTRONG",
+            "country": "GBR",
+            "official_skater_id": 18301,
+            "helmet_number": 73,
+            "starting_position": 3,
+            "rank": 6,
+            "result": "2:39.980",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 39.13
+          },
+          {
+            "athlete_id": "ath-3f9d60cf0c2e341bf39f",
+            "name": "Rostyslav LEONTENKO",
+            "country": "UKR",
+            "official_skater_id": 4114,
+            "helmet_number": 149,
+            "starting_position": 4,
+            "rank": 7,
+            "result": "2:41.080",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 39.23
           }
         ]
       },
