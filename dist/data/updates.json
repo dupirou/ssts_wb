@@ -2,6 +2,14 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "a490faf5b87c1acf",
+      "station": "shanghai",
+      "kind": "entries",
+      "at": "2026-11-28T09:31:27+00:00",
+      "count": 222,
+      "changed": true
+    },
+    {
       "id": "f67129c9a2a887e0",
       "station": "shanghai",
       "kind": "rankings",
@@ -2789,21 +2797,6 @@
       "format": "individual",
       "previous": "2026-11-28 14:05",
       "current": "2026-11-28 06:05"
-    },
-    {
-      "id": "78158d8fc05290bb",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-29",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-29 14:43",
-      "current": "2026-11-29 06:43"
     }
   ]
 }
