@@ -2,6 +2,55 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "8992a5535b2b6568",
+      "station": "shanghai",
+      "at": "2026-11-28T04:21:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "王天佑",
+        "张子夏"
+      ]
+    },
+    {
+      "id": "0115db90460a78cc",
+      "station": "shanghai",
+      "at": "2026-11-28T04:21:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "王天佑",
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "王天佑",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Tianyou WANG"
+        },
+        {
+          "name": "张子夏",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
       "id": "bc70b2d8fa53f9ba",
       "station": "shanghai",
       "at": "2026-11-28T03:41:19+00:00",
@@ -2586,44 +2635,6 @@
       "heats": 3,
       "china": [
         "People's Republic of China"
-      ]
-    },
-    {
-      "id": "c1e4b592d2fbda3c",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 8,
-      "china": [
-        "张珈宁",
-        "宋佳蕊",
-        "南佳延",
-        "张延"
-      ]
-    },
-    {
-      "id": "b2838e5336a2a951",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": [
-        "南佳延",
-        "王欣然"
       ]
     }
   ]
