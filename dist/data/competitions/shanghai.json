@@ -2545,8 +2545,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-28T09:31:27+00:00",
-    "updated_at": "2026-11-28T09:31:27+00:00",
+    "checked_at": "2026-11-28T09:41:10+00:00",
+    "updated_at": "2026-11-28T09:41:10+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -19111,26 +19111,12 @@
         "group": "A",
         "heat_number": null,
         "heat_label": "Final",
-        "source_start": "2026-11-28T17:16:00.000Z",
-        "result_status": "Start List",
+        "source_start": "2026-11-28T17:40:14.000Z",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16438&round=23706",
         "participants": [
-          {
-            "athlete_id": "team-ITA-women",
-            "name": "意大利队",
-            "country": "ITA",
-            "official_skater_id": 13209,
-            "helmet_number": null,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": [],
-            "name_latin": "Italy"
-          },
           {
             "athlete_id": "team-CAN-women",
             "name": "加拿大队",
@@ -19160,18 +19146,18 @@
             "name_latin": "Republic of Korea"
           },
           {
-            "athlete_id": "team-CHN-women",
-            "name": "中国队",
-            "country": "CHN",
-            "official_skater_id": 13207,
+            "athlete_id": "team-ITA-women",
+            "name": "意大利队",
+            "country": "ITA",
+            "official_skater_id": 13209,
             "helmet_number": null,
-            "starting_position": 4,
+            "starting_position": 1,
             "rank": null,
             "result": null,
             "qualification": null,
             "penalty": null,
             "members": [],
-            "name_latin": "People's Republic of China"
+            "name_latin": "Italy"
           },
           {
             "athlete_id": "team-POL-women",
@@ -19186,6 +19172,20 @@
             "penalty": null,
             "members": [],
             "name_latin": "Poland"
+          },
+          {
+            "athlete_id": "team-CHN-women",
+            "name": "中国队",
+            "country": "CHN",
+            "official_skater_id": 13207,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": null,
+            "result": null,
+            "qualification": null,
+            "penalty": null,
+            "members": [],
+            "name_latin": "People's Republic of China"
           }
         ]
       },
@@ -19202,8 +19202,8 @@
         "heat_number": null,
         "heat_label": "Final B",
         "source_start": "2026-11-28T17:30:44.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16438&round=23706",
         "participants": [
@@ -19214,8 +19214,8 @@
             "official_skater_id": 13213,
             "helmet_number": null,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "4:24.166",
             "qualification": null,
             "penalty": null,
             "members": [
@@ -19249,8 +19249,8 @@
             "official_skater_id": 13210,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "4:24.697",
             "qualification": null,
             "penalty": null,
             "members": [
