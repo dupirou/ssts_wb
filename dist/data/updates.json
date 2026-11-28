@@ -2,6 +2,68 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "c36a7a516148ec33",
+      "station": "shanghai",
+      "kind": "rankings",
+      "at": "2026-11-28T07:31:11+00:00"
+    },
+    {
+      "id": "a95c0b3e0771f0a7",
+      "station": "shanghai",
+      "at": "2026-11-28T07:31:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
+      "id": "26282f2a5952c8f0",
+      "station": "shanghai",
+      "at": "2026-11-28T07:31:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "张子夏",
+          "rank": 3,
+          "name_latin": "Zixia ZHANG"
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Jens VAN 'T WOUT",
+          "country": "NED"
+        },
+        {
+          "rank": 2,
+          "name": "Teun BOER",
+          "country": "NED"
+        },
+        {
+          "rank": 3,
+          "name": "张子夏",
+          "country": "CHN",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
       "id": "03c13d833589cc7a",
       "station": "shanghai",
       "at": "2026-11-28T07:21:12+00:00",
@@ -2672,51 +2734,6 @@
       "format": "individual",
       "previous": "2026-11-29 14:56",
       "current": "2026-11-29 06:56"
-    },
-    {
-      "id": "38f946248bed0245",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-28",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-28 11:55",
-      "current": "2026-11-28 03:55"
-    },
-    {
-      "id": "36993078e14aba84",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-28",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "previous": "2026-11-28 15:59",
-      "current": "2026-11-28 07:59"
-    },
-    {
-      "id": "3165313704473e13",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-29",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-29 12:27",
-      "current": "2026-11-29 04:27"
     }
   ]
 }
