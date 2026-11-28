@@ -3,7 +3,7 @@
   "event_id": "shanghai",
   "entries": {
     "status": "available",
-    "update_status": "ok",
+    "update_status": "error",
     "checked_at": "2026-11-28T00:01:14+00:00",
     "updated_at": "2026-11-19T08:43:34+00:00",
     "source_urls": [
@@ -1691,13 +1691,14 @@
         "participation": "active"
       }
     ],
-    "published_at": "2026-11-17"
+    "published_at": "2026-11-17",
+    "error": "unexpected: documents: The read operation timed out"
   },
   "rounds": {
     "status": "available",
-    "update_status": "ok",
-    "checked_at": "2026-11-28T09:11:16+00:00",
-    "updated_at": "2026-11-28T09:11:16+00:00",
+    "update_status": "error",
+    "checked_at": "2026-11-28T09:22:12+00:00",
+    "updated_at": "2026-11-28T09:22:12+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -17875,12 +17876,38 @@
         "group": "A",
         "heat_number": null,
         "heat_label": "Final",
-        "source_start": "2026-11-28T16:53:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-28T17:13:12.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16436&round=23705",
         "participants": [
+          {
+            "athlete_id": "ath-d17ee33a3816179f80fc",
+            "name": "Seochan BAE",
+            "country": "KOR",
+            "official_skater_id": 22070,
+            "helmet_number": 96,
+            "starting_position": 3,
+            "rank": 1,
+            "result": "2:30.189",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 34.289
+          },
+          {
+            "athlete_id": "ath-775d347cc69597e5a04c",
+            "name": "Michal NIEWINSKI",
+            "country": "POL",
+            "official_skater_id": 5097,
+            "helmet_number": 33,
+            "starting_position": 7,
+            "rank": 2,
+            "result": "2:30.841",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 34.601
+          },
           {
             "athlete_id": "ath-dae50584eb222f8f7725",
             "name": "Shogo MIYATA",
@@ -17888,11 +17915,11 @@
             "official_skater_id": 4847,
             "helmet_number": 9,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "rank": 3,
+            "result": "2:31.008",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 34.608
           },
           {
             "athlete_id": "ath-957beb23a9901b33af6b",
@@ -17901,24 +17928,24 @@
             "official_skater_id": 1774,
             "helmet_number": 123,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 4,
+            "result": "2:31.051",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 34.991
           },
           {
-            "athlete_id": "ath-d17ee33a3816179f80fc",
-            "name": "Seochan BAE",
-            "country": "KOR",
-            "official_skater_id": 22070,
-            "helmet_number": 96,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "athlete_id": "ath-fc00bf7d3e213bcf4f68",
+            "name": "Maxime LAOUN",
+            "country": "CAN",
+            "official_skater_id": 3951,
+            "helmet_number": 26,
+            "starting_position": 6,
+            "rank": 5,
+            "result": "2:31.077",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 35.127
           },
           {
             "athlete_id": "ath-6a55e9fb6f1aecd29288",
@@ -17927,10 +17954,26 @@
             "official_skater_id": 1701,
             "helmet_number": 3,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 6,
+            "result": "2:31.103",
             "qualification": null,
             "penalty": null,
+            "last_four_seconds": 34.333
+          },
+          {
+            "athlete_id": "ath-d92eaba24dcaf8aca602",
+            "name": "Luca SPECHENHAUSER",
+            "country": "ITA",
+            "official_skater_id": 6644,
+            "helmet_number": 24,
+            "starting_position": 8,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            },
             "last_four_seconds": null
           },
           {
@@ -17941,48 +17984,12 @@
             "helmet_number": 152,
             "starting_position": 5,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-fc00bf7d3e213bcf4f68",
-            "name": "Maxime LAOUN",
-            "country": "CAN",
-            "official_skater_id": 3951,
-            "helmet_number": 26,
-            "starting_position": 6,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-775d347cc69597e5a04c",
-            "name": "Michal NIEWINSKI",
-            "country": "POL",
-            "official_skater_id": 5097,
-            "helmet_number": 33,
-            "starting_position": 7,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-d92eaba24dcaf8aca602",
-            "name": "Luca SPECHENHAUSER",
-            "country": "ITA",
-            "official_skater_id": 6644,
-            "helmet_number": 24,
-            "starting_position": 8,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            },
             "last_four_seconds": null
           }
         ]
@@ -18274,18 +18281,76 @@
       "2026-11-29/repechage/women/500/heats/-": "The first, second and third placed skaters from each race and up to a maximum of two fastest fourth place skaters qualify for Rep Quarterfinals.",
       "2026-11-29/repechage/women/500/quarterfinal/-": "The first placed skater from each race and up to a maximum of four fastest second place skaters qualify for Rep Semifinals.",
       "2026-11-29/repechage/women/500/semifinal/-": "The first placed skater from each race qualify for Quarterfinals."
-    }
+    },
+    "error": "unexpected: documents: The read operation timed out"
   },
   "rankings": {
     "status": "available",
-    "update_status": "ok",
-    "checked_at": "2026-11-28T07:51:19+00:00",
-    "updated_at": "2026-11-28T07:51:19+00:00",
+    "update_status": "error",
+    "checked_at": "2026-11-28T09:22:12+00:00",
+    "updated_at": "2026-11-28T09:22:12+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-4-shanghai/16433/",
-      "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-4-shanghai/16435/"
+      "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-4-shanghai/16435/",
+      "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-4-shanghai/16436/"
     ],
     "items": [
+      {
+        "id": "event/men/1500/ath-49a455de09fadeaad9c9",
+        "athlete_id": "ath-49a455de09fadeaad9c9",
+        "ranking_type": "event",
+        "gender": "men",
+        "distance_m": 1500,
+        "format": "individual",
+        "name": "Bohao ZHANG",
+        "country": "CHN",
+        "rank": 21,
+        "points": null,
+        "official_details": "2:24.748",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-4-shanghai/16436/"
+      },
+      {
+        "id": "event/men/1500/ath-799c7f543fce635aeeb8",
+        "athlete_id": "ath-799c7f543fce635aeeb8",
+        "ranking_type": "event",
+        "gender": "men",
+        "distance_m": 1500,
+        "format": "individual",
+        "name": "Zixia ZHANG",
+        "country": "CHN",
+        "rank": 24,
+        "points": null,
+        "official_details": "2:21.745",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-4-shanghai/16436/"
+      },
+      {
+        "id": "event/men/1500/ath-c1101796a5a03fa62c35",
+        "athlete_id": "ath-c1101796a5a03fa62c35",
+        "ranking_type": "event",
+        "gender": "men",
+        "distance_m": 1500,
+        "format": "individual",
+        "name": "Yuheng LI",
+        "country": "CHN",
+        "rank": 5,
+        "points": null,
+        "official_details": "2:20.663",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-4-shanghai/16436/"
+      },
+      {
+        "id": "event/men/1500/ath-dd2b3b0d39813eac69b7",
+        "athlete_id": "ath-dd2b3b0d39813eac69b7",
+        "ranking_type": "event",
+        "gender": "men",
+        "distance_m": 1500,
+        "format": "individual",
+        "name": "Tianyou WANG",
+        "country": "CHN",
+        "rank": 14,
+        "points": null,
+        "official_details": "2:21.553",
+        "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-4-shanghai/16436/"
+      },
       {
         "id": "event/men/500/ath-78a6ed2c7eac904f5ca0",
         "athlete_id": "ath-78a6ed2c7eac904f5ca0",
@@ -18398,6 +18463,7 @@
         "official_details": "1:31.165",
         "source_url": "https://www.isu-skating.com/en/short-track/events/classification/isu-short-track-world-tour-4-shanghai/16433/"
       }
-    ]
+    ],
+    "error": "unexpected: documents: The read operation timed out"
   }
 }

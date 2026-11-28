@@ -331,7 +331,7 @@
     "seoul/time/2026-11-22/repechage/women/500/quarterfinal/-": "2026-11-22 10:16",
     "seoul/time/2026-11-22/repechage/women/500/semifinal/-": "2026-11-22 10:52",
     "shanghai/entries": "41503a275c5c1394",
-    "shanghai/rankings": "3253b56958af98ee",
+    "shanghai/rankings": "0973cf2b0fb5e068",
     "shanghai/round/2026-11-27/qualifying/men/1000/heats/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/men/1000/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/men/1000/preliminaries/-/groups": "published",
@@ -361,6 +361,7 @@
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/results": "official",
     "shanghai/round/2026-11-28/main/men/1500/final/-/groups": "published",
+    "shanghai/round/2026-11-28/main/men/1500/final/-/results": "official",
     "shanghai/round/2026-11-28/main/men/1500/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/men/1500/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/main/men/500/final/-/groups": "published",
@@ -670,36 +671,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "6c1c706cc3f6c1aa",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-28",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "previous": "2026-11-28 11:30",
-      "current": "2026-11-28 03:30"
-    },
-    {
-      "id": "75dbdb41b6e1de4c",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-29",
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-29 16:04",
-      "current": "2026-11-29 08:04"
-    },
     {
       "id": "78158d8fc05290bb",
       "station": "shanghai",
@@ -3397,6 +3368,58 @@
       "china": [
         "People's Republic of China"
       ]
+    },
+    {
+      "id": "ce8b6756399674f9",
+      "station": "shanghai",
+      "at": "2026-11-28T09:22:12+00:00",
+      "local_date": "2026-11-28",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Tianyou WANG",
+        "Yuheng LI"
+      ],
+      "china_results": [
+        {
+          "name": "Tianyou WANG",
+          "rank": 4
+        },
+        {
+          "name": "Yuheng LI",
+          "rank": null,
+          "penalty": "PEN"
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Seochan BAE",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Michal NIEWINSKI",
+          "country": "POL"
+        },
+        {
+          "rank": 3,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
+        }
+      ]
+    },
+    {
+      "id": "f67129c9a2a887e0",
+      "station": "shanghai",
+      "kind": "rankings",
+      "at": "2026-11-28T09:22:12+00:00",
+      "changed": true
     }
   ]
 }

@@ -2,6 +2,60 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "f67129c9a2a887e0",
+      "station": "shanghai",
+      "kind": "rankings",
+      "at": "2026-11-28T09:22:12+00:00",
+      "changed": true
+    },
+    {
+      "id": "ce8b6756399674f9",
+      "station": "shanghai",
+      "at": "2026-11-28T09:22:12+00:00",
+      "local_date": "2026-11-28",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "王天佑",
+        "李禹衡"
+      ],
+      "china_results": [
+        {
+          "name": "王天佑",
+          "rank": 4,
+          "name_latin": "Tianyou WANG"
+        },
+        {
+          "name": "李禹衡",
+          "rank": null,
+          "penalty": "PEN",
+          "name_latin": "Yuheng LI"
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Seochan BAE",
+          "country": "KOR"
+        },
+        {
+          "rank": 2,
+          "name": "Michal NIEWINSKI",
+          "country": "POL"
+        },
+        {
+          "rank": 3,
+          "name": "Shogo MIYATA",
+          "country": "JPN"
+        }
+      ]
+    },
+    {
       "id": "4b35760ab1e808ac",
       "station": "shanghai",
       "at": "2026-11-28T09:01:12+00:00",
@@ -2750,36 +2804,6 @@
       "format": "individual",
       "previous": "2026-11-29 14:43",
       "current": "2026-11-29 06:43"
-    },
-    {
-      "id": "75dbdb41b6e1de4c",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-29",
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-29 16:04",
-      "current": "2026-11-29 08:04"
-    },
-    {
-      "id": "6c1c706cc3f6c1aa",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-28",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": true,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "previous": "2026-11-28 11:30",
-      "current": "2026-11-28 03:30"
     }
   ]
 }
