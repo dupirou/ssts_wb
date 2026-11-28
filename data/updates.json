@@ -360,7 +360,9 @@
     "shanghai/round/2026-11-27/qualifying/women/500/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/results": "official",
+    "shanghai/round/2026-11-28/main/men/1500/final/-/groups": "published",
     "shanghai/round/2026-11-28/main/men/1500/semifinal/-/groups": "published",
+    "shanghai/round/2026-11-28/main/men/1500/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/main/men/500/final/-/groups": "published",
     "shanghai/round/2026-11-28/main/men/500/final/-/results": "official",
     "shanghai/round/2026-11-28/main/men/500/quarterfinal/-/groups": "published",
@@ -666,36 +668,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "4afd73c412cab503",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-27",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-27 14:33",
-      "current": "2026-11-27 06:33"
-    },
-    {
-      "id": "534f7c7dd29d99a4",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-29",
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "previous": "2026-11-29 16:59",
-      "current": "2026-11-29 08:59"
-    },
     {
       "id": "58bedfa647daa5be",
       "station": "shanghai",
@@ -3054,7 +3026,7 @@
         {
           "name": "Tianyou WANG",
           "rank": 1,
-          "status": "advanced"
+          "status": "final_b"
         },
         {
           "name": "Zixia ZHANG",
@@ -3358,6 +3330,60 @@
           "name": "Gilli KIM",
           "country": "KOR"
         }
+      ]
+    },
+    {
+      "id": "a8a4a5e243f6a025",
+      "station": "shanghai",
+      "at": "2026-11-28T08:41:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Bohao ZHANG",
+        "Tianyou WANG",
+        "Yuheng LI"
+      ],
+      "china_results": [
+        {
+          "name": "Bohao ZHANG",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
+        },
+        {
+          "name": "Tianyou WANG",
+          "rank": 5,
+          "status": "final_b"
+        },
+        {
+          "name": "Yuheng LI",
+          "rank": 2,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "ad81a2d761a995fd",
+      "station": "shanghai",
+      "at": "2026-11-28T08:41:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Tianyou WANG",
+        "Yuheng LI"
       ]
     }
   ]

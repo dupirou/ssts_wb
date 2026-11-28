@@ -2,6 +2,63 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "ad81a2d761a995fd",
+      "station": "shanghai",
+      "at": "2026-11-28T08:41:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "王天佑",
+        "李禹衡"
+      ]
+    },
+    {
+      "id": "a8a4a5e243f6a025",
+      "station": "shanghai",
+      "at": "2026-11-28T08:41:11+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张柏浩",
+        "王天佑",
+        "李禹衡"
+      ],
+      "china_results": [
+        {
+          "name": "张柏浩",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out",
+          "name_latin": "Bohao ZHANG"
+        },
+        {
+          "name": "王天佑",
+          "rank": 5,
+          "status": "final_b",
+          "name_latin": "Tianyou WANG"
+        },
+        {
+          "name": "李禹衡",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Yuheng LI"
+        }
+      ]
+    },
+    {
       "id": "e0e12b17d846d834",
       "station": "shanghai",
       "at": "2026-11-28T07:51:19+00:00",
@@ -324,7 +381,7 @@
         {
           "name": "王天佑",
           "rank": 1,
-          "status": "advanced",
+          "status": "final_b",
           "name_latin": "Tianyou WANG"
         },
         {
@@ -2713,36 +2770,6 @@
       "format": "relay",
       "previous": "2026-11-28 17:36",
       "current": "2026-11-28 09:36"
-    },
-    {
-      "id": "534f7c7dd29d99a4",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-29",
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "previous": "2026-11-29 16:59",
-      "current": "2026-11-29 08:59"
-    },
-    {
-      "id": "4afd73c412cab503",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-27",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-27 14:33",
-      "current": "2026-11-27 06:33"
     }
   ]
 }
