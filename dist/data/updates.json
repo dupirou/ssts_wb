@@ -2,6 +2,48 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "b98102ed71c0da34",
+      "station": "shanghai",
+      "at": "2026-11-28T02:31:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": [
+        "王天佑",
+        "张子夏"
+      ]
+    },
+    {
+      "id": "565810df154b99b2",
+      "station": "shanghai",
+      "at": "2026-11-28T02:31:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "张子夏",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
       "id": "2658b2adecf8da10",
       "station": "shanghai",
       "at": "2026-11-28T01:51:13+00:00",
@@ -181,7 +223,7 @@
         {
           "name": "王天佑",
           "rank": 4,
-          "status": "out",
+          "status": "repechage",
           "name_latin": "Tianyou WANG"
         },
         {
@@ -2544,41 +2586,6 @@
       "china": [
         "南佳延",
         "王欣然"
-      ]
-    },
-    {
-      "id": "5fdcfb0bc0cb6604",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 12,
-      "china": [
-        "张柏浩",
-        "王天佑"
-      ]
-    },
-    {
-      "id": "48c26523c5361949",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "People's Republic of China"
       ]
     }
   ]

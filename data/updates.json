@@ -363,6 +363,8 @@
     "shanghai/round/2026-11-28/main/mixed/2000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/women/3000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/1500/heats/-/groups": "published",
+    "shanghai/round/2026-11-28/repechage/men/1500/heats/-/results": "official",
+    "shanghai/round/2026-11-28/repechage/men/1500/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/500/heats/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/500/heats/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/500/quarterfinal/-/groups": "published",
@@ -639,41 +641,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "48c26523c5361949",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "People's Republic of China"
-      ]
-    },
-    {
-      "id": "5fdcfb0bc0cb6604",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 12,
-      "china": [
-        "Bohao ZHANG",
-        "Tianyou WANG"
-      ]
-    },
     {
       "id": "638d4dcf3ee28a9f",
       "station": "shanghai",
@@ -3026,7 +2993,7 @@
         {
           "name": "Tianyou WANG",
           "rank": 4,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Yuheng LI",
@@ -3186,6 +3153,47 @@
       "china": [
         "Kun LI",
         "Yuheng LI"
+      ]
+    },
+    {
+      "id": "565810df154b99b2",
+      "station": "shanghai",
+      "at": "2026-11-28T02:31:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Zixia ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Zixia ZHANG",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "b98102ed71c0da34",
+      "station": "shanghai",
+      "at": "2026-11-28T02:31:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 5,
+      "china": [
+        "Tianyou WANG",
+        "Zixia ZHANG"
       ]
     }
   ]
