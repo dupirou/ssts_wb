@@ -2408,8 +2408,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-28T08:21:15+00:00",
-    "updated_at": "2026-11-28T08:21:15+00:00",
+    "checked_at": "2026-11-28T08:31:16+00:00",
+    "updated_at": "2026-11-28T08:31:16+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -13128,7 +13128,7 @@
             "starting_position": 7,
             "rank": 3,
             "result": "2:21.021",
-            "qualification": "p",
+            "qualification": "QB",
             "penalty": null,
             "last_four_seconds": 36.161
           },
@@ -13167,7 +13167,7 @@
             "starting_position": 5,
             "rank": 6,
             "result": "2:49.642",
-            "qualification": "pB",
+            "qualification": null,
             "penalty": null,
             "last_four_seconds": 53.022
           },
@@ -13201,9 +13201,9 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-28T16:03:00.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-28T16:14:36.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16436&round=23656",
         "participants": [
@@ -13215,10 +13215,10 @@
             "helmet_number": 96,
             "starting_position": 2,
             "rank": 1,
-            "result": "2:22.540",
-            "qualification": null,
+            "result": "2:22.527",
+            "qualification": "Q",
             "penalty": null,
-            "last_four_seconds": 35.03
+            "last_four_seconds": 35.017
           },
           {
             "athlete_id": "ath-fc00bf7d3e213bcf4f68",
@@ -13228,10 +13228,10 @@
             "helmet_number": 26,
             "starting_position": 4,
             "rank": 2,
-            "result": "2:22.630",
-            "qualification": null,
+            "result": "2:22.615",
+            "qualification": "Q",
             "penalty": null,
-            "last_four_seconds": 34.72
+            "last_four_seconds": 34.705
           },
           {
             "athlete_id": "ath-d92eaba24dcaf8aca602",
@@ -13241,10 +13241,10 @@
             "helmet_number": 24,
             "starting_position": 3,
             "rank": 3,
-            "result": "2:22.740",
-            "qualification": null,
+            "result": "2:22.721",
+            "qualification": "ADV",
             "penalty": null,
-            "last_four_seconds": 35.18
+            "last_four_seconds": 35.161
           },
           {
             "athlete_id": "ath-472493cfd4ab7c1d5088",
@@ -13254,24 +13254,10 @@
             "helmet_number": 25,
             "starting_position": 7,
             "rank": 4,
-            "result": "2:23.270",
-            "qualification": null,
+            "result": "2:23.260",
+            "qualification": "QB",
             "penalty": null,
-            "last_four_seconds": 35.55
-          },
-          {
-            "athlete_id": "ath-49a455de09fadeaad9c9",
-            "name": "张柏浩",
-            "country": "CHN",
-            "official_skater_id": 8078,
-            "helmet_number": 42,
-            "starting_position": 5,
-            "rank": 5,
-            "result": "2:24.280",
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": 36.52,
-            "name_latin": "Bohao ZHANG"
+            "last_four_seconds": 35.54
           },
           {
             "athlete_id": "ath-bf93d274dece11d17ae7",
@@ -13280,11 +13266,11 @@
             "official_skater_id": 5703,
             "helmet_number": 48,
             "starting_position": 6,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 5,
+            "result": "2:49.263",
+            "qualification": "pB",
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 41.573
           },
           {
             "athlete_id": "ath-66f405825cafc7701e42",
@@ -13293,11 +13279,28 @@
             "official_skater_id": 1444,
             "helmet_number": 129,
             "starting_position": 1,
-            "rank": null,
-            "result": null,
+            "rank": 6,
+            "result": "2:52.829",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 43.659
+          },
+          {
+            "athlete_id": "ath-49a455de09fadeaad9c9",
+            "name": "张柏浩",
+            "country": "CHN",
+            "official_skater_id": 8078,
+            "helmet_number": 42,
+            "starting_position": 5,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            },
+            "last_four_seconds": null,
+            "name_latin": "Bohao ZHANG"
           }
         ]
       },
@@ -13314,37 +13317,11 @@
         "heat_number": 3,
         "heat_label": "Heat 3",
         "source_start": "2026-11-28T16:07:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16436&round=23656",
         "participants": [
-          {
-            "athlete_id": "ath-775d347cc69597e5a04c",
-            "name": "Michal NIEWINSKI",
-            "country": "POL",
-            "official_skater_id": 5097,
-            "helmet_number": 33,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-7c9576fc5f305230747a",
-            "name": "Dong Min SHIN",
-            "country": "KOR",
-            "official_skater_id": 6390,
-            "helmet_number": 16,
-            "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
           {
             "athlete_id": "ath-dae50584eb222f8f7725",
             "name": "Shogo MIYATA",
@@ -13352,11 +13329,11 @@
             "official_skater_id": 4847,
             "helmet_number": 9,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "2:19.800",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 34.47
           },
           {
             "athlete_id": "ath-6a55e9fb6f1aecd29288",
@@ -13365,11 +13342,77 @@
             "official_skater_id": 1701,
             "helmet_number": 3,
             "starting_position": 4,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "2:19.910",
             "qualification": null,
             "penalty": null,
-            "last_four_seconds": null
+            "last_four_seconds": 34.45
+          },
+          {
+            "athlete_id": "ath-775d347cc69597e5a04c",
+            "name": "Michal NIEWINSKI",
+            "country": "POL",
+            "official_skater_id": 5097,
+            "helmet_number": 33,
+            "starting_position": 1,
+            "rank": 3,
+            "result": "2:20.160",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 35.34
+          },
+          {
+            "athlete_id": "ath-284e4e30ce2b8e981154",
+            "name": "Vladimir BALBEKOV",
+            "country": "AIN2",
+            "official_skater_id": 491,
+            "helmet_number": 122,
+            "starting_position": 6,
+            "rank": 4,
+            "result": "2:20.340",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 35.07
+          },
+          {
+            "athlete_id": "ath-dd2b3b0d39813eac69b7",
+            "name": "王天佑",
+            "country": "CHN",
+            "official_skater_id": 20551,
+            "helmet_number": 153,
+            "starting_position": 8,
+            "rank": 5,
+            "result": "2:21.570",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 36.78,
+            "name_latin": "Tianyou WANG"
+          },
+          {
+            "athlete_id": "ath-2c7bf7881e6dda162f51",
+            "name": "Niall TREACY",
+            "country": "GBR",
+            "official_skater_id": 7129,
+            "helmet_number": 20,
+            "starting_position": 7,
+            "rank": 6,
+            "result": "2:23.650",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 38.98
+          },
+          {
+            "athlete_id": "ath-7c9576fc5f305230747a",
+            "name": "Dong Min SHIN",
+            "country": "KOR",
+            "official_skater_id": 6390,
+            "helmet_number": 16,
+            "starting_position": 2,
+            "rank": 7,
+            "result": "2:24.550",
+            "qualification": null,
+            "penalty": null,
+            "last_four_seconds": 39.39
           },
           {
             "athlete_id": "ath-3c121028999cfe671647",
@@ -13383,46 +13426,6 @@
             "qualification": null,
             "penalty": null,
             "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-284e4e30ce2b8e981154",
-            "name": "Vladimir BALBEKOV",
-            "country": "AIN2",
-            "official_skater_id": 491,
-            "helmet_number": 122,
-            "starting_position": 6,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-2c7bf7881e6dda162f51",
-            "name": "Niall TREACY",
-            "country": "GBR",
-            "official_skater_id": 7129,
-            "helmet_number": 20,
-            "starting_position": 7,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null
-          },
-          {
-            "athlete_id": "ath-dd2b3b0d39813eac69b7",
-            "name": "王天佑",
-            "country": "CHN",
-            "official_skater_id": 20551,
-            "helmet_number": 153,
-            "starting_position": 8,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "last_four_seconds": null,
-            "name_latin": "Tianyou WANG"
           }
         ]
       },
