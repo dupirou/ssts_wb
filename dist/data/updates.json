@@ -2,6 +2,54 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "da1f6a5c7dc50dff",
+      "station": "shanghai",
+      "at": "2026-11-28T04:31:20+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "南佳延",
+        "王欣然"
+      ],
+      "china_results": [
+        {
+          "name": "南佳延",
+          "rank": 4,
+          "status": "out",
+          "name_latin": "Jiayan NAN"
+        },
+        {
+          "name": "王欣然",
+          "rank": 5,
+          "status": "out",
+          "name_latin": "Xinran WANG"
+        }
+      ]
+    },
+    {
+      "id": "0dcba83254cf1bfc",
+      "station": "shanghai",
+      "at": "2026-11-28T04:31:20+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "张延"
+      ]
+    },
+    {
       "id": "8992a5535b2b6568",
       "station": "shanghai",
       "at": "2026-11-28T04:21:11+00:00",
@@ -2601,40 +2649,6 @@
         "王天佑",
         "李禹衡",
         "张子夏"
-      ]
-    },
-    {
-      "id": "ead73878ca01807c",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "People's Republic of China"
-      ]
-    },
-    {
-      "id": "da7a79171562ba3a",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "People's Republic of China"
       ]
     }
   ]
