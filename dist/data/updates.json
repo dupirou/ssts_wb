@@ -2,6 +2,54 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "4d111cfb0c873fe2",
+      "station": "shanghai",
+      "at": "2026-11-28T03:01:15+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "李坤",
+        "李禹衡"
+      ],
+      "china_results": [
+        {
+          "name": "李坤",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Kun LI"
+        },
+        {
+          "name": "李禹衡",
+          "rank": 2,
+          "status": "out",
+          "name_latin": "Yuheng LI"
+        }
+      ]
+    },
+    {
+      "id": "28a5888b6735b84c",
+      "station": "shanghai",
+      "at": "2026-11-28T03:01:15+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "李坤"
+      ]
+    },
+    {
       "id": "b98102ed71c0da34",
       "station": "shanghai",
       "at": "2026-11-28T02:31:13+00:00",
@@ -2550,42 +2598,6 @@
       "heats": 3,
       "china": [
         "People's Republic of China"
-      ]
-    },
-    {
-      "id": "7c4cc6572aeb1bbb",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 11,
-      "china": [
-        "张柏浩",
-        "王天佑"
-      ]
-    },
-    {
-      "id": "638d4dcf3ee28a9f",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 1000,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": [
-        "南佳延",
-        "王欣然"
       ]
     }
   ]
