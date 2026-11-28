@@ -2,6 +2,54 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "c1f69417ed27b015",
+      "station": "shanghai",
+      "at": "2026-11-28T06:31:14+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "孙龙",
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "孙龙",
+          "rank": 3,
+          "status": "out",
+          "name_latin": "Long SUN"
+        },
+        {
+          "name": "张子夏",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
+      "id": "9dc880abefae0b1b",
+      "station": "shanghai",
+      "at": "2026-11-28T06:31:14+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "张子夏"
+      ]
+    },
+    {
       "id": "598f124fbeef4fe7",
       "station": "shanghai",
       "at": "2026-11-28T05:21:12+00:00",
@@ -2648,36 +2696,6 @@
       "format": "individual",
       "previous": "2026-11-27 15:05",
       "current": "2026-11-27 07:05"
-    },
-    {
-      "id": "038bb28271427808",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-28",
-      "round": "final",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-28 15:08",
-      "current": "2026-11-28 07:08"
-    },
-    {
-      "id": "005f5a97ca704f8f",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-27",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-27 09:21",
-      "current": "2026-11-27 01:21"
     }
   ]
 }
