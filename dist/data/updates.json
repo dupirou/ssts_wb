@@ -2,6 +2,30 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "64adb40bd2511d02",
+      "station": "shanghai",
+      "at": "2026-11-28T05:11:16+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": null,
+          "penalty": "YC",
+          "status": "out"
+        }
+      ]
+    },
+    {
       "id": "7f2401dd917f2438",
       "station": "shanghai",
       "at": "2026-11-28T04:51:13+00:00",
@@ -2647,25 +2671,6 @@
       "at": "2026-11-26T07:18:38+00:00",
       "local_date": "2026-11-27",
       "count": 52
-    },
-    {
-      "id": "ffdc4eb7cbe4c57b",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 9,
-      "china": [
-        "王天佑",
-        "李禹衡",
-        "张子夏"
-      ]
     }
   ]
 }
