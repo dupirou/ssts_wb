@@ -364,6 +364,8 @@
     "shanghai/round/2026-11-28/main/women/3000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/1500/heats/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/500/heats/-/groups": "published",
+    "shanghai/round/2026-11-28/repechage/men/500/heats/-/results": "official",
+    "shanghai/round/2026-11-28/repechage/men/500/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/women/1000/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/men/1000/heats/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/women/1500/quarterfinal/-/groups": "published",
@@ -637,42 +639,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "1d094fa41d6f0eb2",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 11,
-      "china": [
-        "Kun LI",
-        "Yuheng LI"
-      ]
-    },
-    {
-      "id": "466ec81fd6f932cc",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 11,
-      "china": [
-        "Kun LI",
-        "Yuheng LI"
-      ]
-    },
     {
       "id": "48c26523c5361949",
       "station": "shanghai",
@@ -2848,7 +2814,7 @@
         {
           "name": "Kun LI",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Long SUN",
@@ -2858,7 +2824,7 @@
         {
           "name": "Yuheng LI",
           "rank": 3,
-          "status": "out"
+          "status": "repechage"
         },
         {
           "name": "Zixia ZHANG",
@@ -3187,6 +3153,39 @@
       "heats": 2,
       "china": [
         "People's Republic of China"
+      ]
+    },
+    {
+      "id": "1f22751b37087484",
+      "station": "shanghai",
+      "at": "2026-11-28T01:51:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
+      "id": "2658b2adecf8da10",
+      "station": "shanghai",
+      "at": "2026-11-28T01:51:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "Kun LI",
+        "Yuheng LI"
       ]
     }
   ]

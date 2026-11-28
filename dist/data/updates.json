@@ -2,6 +2,39 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "2658b2adecf8da10",
+      "station": "shanghai",
+      "at": "2026-11-28T01:51:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 6,
+      "china": [
+        "李坤",
+        "李禹衡"
+      ]
+    },
+    {
+      "id": "1f22751b37087484",
+      "station": "shanghai",
+      "at": "2026-11-28T01:51:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "heats",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [],
+      "china_results": []
+    },
+    {
       "id": "cadd8f64bb1e4db6",
       "station": "shanghai",
       "at": "2026-11-27T11:01:30+00:00",
@@ -359,7 +392,7 @@
         {
           "name": "李坤",
           "rank": 3,
-          "status": "out",
+          "status": "repechage",
           "name_latin": "Kun LI"
         },
         {
@@ -371,7 +404,7 @@
         {
           "name": "李禹衡",
           "rank": 3,
-          "status": "out",
+          "status": "repechage",
           "name_latin": "Yuheng LI"
         },
         {
@@ -2546,42 +2579,6 @@
       "heats": 3,
       "china": [
         "People's Republic of China"
-      ]
-    },
-    {
-      "id": "466ec81fd6f932cc",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 11,
-      "china": [
-        "李坤",
-        "李禹衡"
-      ]
-    },
-    {
-      "id": "1d094fa41d6f0eb2",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 11,
-      "china": [
-        "李坤",
-        "李禹衡"
       ]
     }
   ]

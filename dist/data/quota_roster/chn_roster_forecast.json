@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-28T01:42:52Z",
+  "generated_at": "2026-11-28T01:52:50Z",
   "as_of_date": "2026-11-28",
   "config_version": "2026.27.1",
   "next_wt_stop": {
@@ -13,7 +13,7 @@
   },
   "calibration_diagnostics": {
     "senior": {
-      "incrementalHeatsReplayed": 633
+      "incrementalHeatsReplayed": 635
     },
     "junior": {
       "eventsLoaded": 9,
@@ -52,9 +52,9 @@
         "men:500": {
           "crossTierPairs": 46,
           "usedFallback": false,
-          "alpha": 0.689,
-          "beta": -0.2392,
-          "correlationR": 0.4725,
+          "alpha": 0.6871,
+          "beta": -0.2359,
+          "correlationR": 0.4722,
           "paceWeight": 0.45,
           "juniorSkatersCalibrated": 191,
           "juniorMedianTimeS": 42.702
@@ -111,9 +111,9 @@
         "men:500": {
           "anchorCount": 13,
           "usedFallback": false,
-          "alpha": 0.3091,
-          "beta": 0.4225,
-          "correlationR": 0.3553,
+          "alpha": 0.309,
+          "beta": 0.4231,
+          "correlationR": 0.3552,
           "domesticSkatersCalibrated": 52
         },
         "men:1000": {
@@ -3434,7 +3434,7 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.1625,
+        "mean_objective": 2.1626,
         "distinct_lineups": 31,
         "candidates": [
           {
@@ -3497,7 +3497,7 @@
             "recent_highlight": "国内甲组 衡水 1500m #1",
             "skills": {
               "500": {
-                "mu": 1.0363,
+                "mu": 1.0365,
                 "sigma": 1.0103
               },
               "1000": {
@@ -3593,7 +3593,7 @@
             "recent_highlight": "国内甲组 衡水 500m #1",
             "skills": {
               "500": {
-                "mu": 1.4668,
+                "mu": 1.4669,
                 "sigma": 0.8838
               },
               "1000": {
@@ -3690,7 +3690,7 @@
             "recent_highlight": "2026/27 WT Seoul 1500m #5",
             "skills": {
               "500": {
-                "mu": 1.4936,
+                "mu": 1.4938,
                 "sigma": 0.9653
               },
               "1000": {
@@ -3713,7 +3713,7 @@
               "500": 0.0796,
               "1000": 0.0486,
               "1500": 0.1186,
-              "relay": 0.5391,
+              "relay": 0.539,
               "form": 0.0368
             },
             "roster_tier": "core",
@@ -3775,7 +3775,7 @@
             "recent_highlight": "2026/27 WT Vancouver 1500m #7",
             "skills": {
               "500": {
-                "mu": 0.489,
+                "mu": 0.4895,
                 "sigma": 1.6004
               },
               "1000": {
@@ -3860,7 +3860,7 @@
             "recent_highlight": "国内甲组 衡水 500m #2",
             "skills": {
               "500": {
-                "mu": 1.2311,
+                "mu": 1.2312,
                 "sigma": 1.008
               },
               "1000": {
@@ -3945,7 +3945,7 @@
             "recent_highlight": "国内甲组 衡水 1000m #5",
             "skills": {
               "500": {
-                "mu": 0.4445,
+                "mu": 0.4451,
                 "sigma": 1.6004
               },
               "1000": {
@@ -4011,8 +4011,8 @@
             "recent_highlight": "2026/27 JWC2 Bormio 500m #1",
             "skills": {
               "500": {
-                "mu": 1.0134,
-                "sigma": 1.0744
+                "mu": 1.0153,
+                "sigma": 1.0738
               },
               "1000": {
                 "mu": 0.8553,
@@ -4031,10 +4031,10 @@
               "relay": 0.034
             },
             "value_scores": {
-              "500": 0.0485,
+              "500": 0.0486,
               "1000": 0.0524,
               "1500": 0.0444,
-              "relay": 0.2115,
+              "relay": 0.2118,
               "form": 0.2392
             },
             "roster_tier": "cut",
@@ -4077,8 +4077,8 @@
             "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
             "skills": {
               "500": {
-                "mu": 0.3192,
-                "sigma": 0.8707
+                "mu": 0.3202,
+                "sigma": 0.8704
               },
               "1000": {
                 "mu": 0.8653,
@@ -4136,7 +4136,7 @@
             "recent_highlight": "国内甲组 七台河 1000m #2",
             "skills": {
               "500": {
-                "mu": 0.1736,
+                "mu": 0.1743,
                 "sigma": 1.5688
               },
               "1000": {
@@ -4195,7 +4195,7 @@
             "recent_highlight": "国内甲组 七台河 1000m #3",
             "skills": {
               "500": {
-                "mu": 0.2711,
+                "mu": 0.2717,
                 "sigma": 1.4365
               },
               "1000": {
@@ -4254,7 +4254,7 @@
             "recent_highlight": "国内甲组 七台河 500m #2",
             "skills": {
               "500": {
-                "mu": 0.8663,
+                "mu": 0.8667,
                 "sigma": 1.4365
               },
               "1000": {
@@ -4313,7 +4313,7 @@
             "recent_highlight": "国内甲组 七台河 1000m #1",
             "skills": {
               "500": {
-                "mu": 0.4634,
+                "mu": 0.464,
                 "sigma": 1.4365
               },
               "1000": {
@@ -4373,8 +4373,8 @@
             "recent_highlight": "2026/27 JWC1 Bormio 1000m #2",
             "skills": {
               "500": {
-                "mu": 0.5037,
-                "sigma": 1.0751
+                "mu": 0.5055,
+                "sigma": 1.0745
               },
               "1000": {
                 "mu": 0.0846,
@@ -4432,15 +4432,15 @@
             "recent_highlight": "2026/27 JWC2 Bormio 500m #4",
             "skills": {
               "500": {
-                "mu": 0.2721,
-                "sigma": 1.3868
+                "mu": 0.2751,
+                "sigma": 1.3856
               },
               "1000": {
                 "mu": 0.3403,
                 "sigma": 1.4898
               },
               "1500": {
-                "mu": 0.1185,
+                "mu": 0.1188,
                 "sigma": 1.3
               }
             },
@@ -4492,7 +4492,7 @@
             "recent_highlight": "国内甲组 七台河 500m #1",
             "skills": {
               "500": {
-                "mu": 0.6047,
+                "mu": 0.6049,
                 "sigma": 1.0574
               },
               "1000": {
@@ -4515,7 +4515,7 @@
               "500": 0.0328,
               "1000": 0.026,
               "1500": 0.0131,
-              "relay": 0.0809,
+              "relay": 0.0808,
               "form": -0.16
             },
             "roster_tier": "pool",
@@ -4552,7 +4552,7 @@
             "recent_highlight": "国内甲组 七台河 1500m #1",
             "skills": {
               "500": {
-                "mu": 0.3763,
+                "mu": 0.3766,
                 "sigma": 1.1202
               },
               "1000": {
@@ -4599,7 +4599,7 @@
               "skr-8157"
             ],
             "frequency": 0.735,
-            "avg_objective": 2.006,
+            "avg_objective": 2.0061,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -4638,7 +4638,7 @@
               "skr-8157"
             ],
             "frequency": 0.04,
-            "avg_objective": 2.2612,
+            "avg_objective": 2.2614,
             "modal_entries": {
               "500": [
                 "skr-20551",
@@ -4678,7 +4678,7 @@
               "skr-8157"
             ],
             "frequency": 0.034,
-            "avg_objective": 2.2854,
+            "avg_objective": 2.2855,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -4854,7 +4854,7 @@
             "role_tag": "sprint_relay",
             "main_roster_prob": 0.059,
             "primary_replacement_for": "skr-4167",
-            "marginal_loss": 0.0396,
+            "marginal_loss": 0.0395,
             "is_dual_eligible": true,
             "data_sources": [
               "Senior",
@@ -4878,8 +4878,8 @@
               "best_rank": null
             },
             "recent_highlight": "2026/27 JWC2 Bormio 500m #1",
-            "upside_score": 0.1858,
-            "versatility_score": 0.2448,
+            "upside_score": 0.186,
+            "versatility_score": 0.245,
             "roster_tier": "cut",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
@@ -6282,7 +6282,7 @@
           "k1500": 4,
           "relay": 4
         },
-        "mean_objective": 2.2088,
+        "mean_objective": 2.2089,
         "distinct_lineups": 41,
         "candidates": [
           {
@@ -6345,7 +6345,7 @@
             "recent_highlight": "国内甲组 衡水 1500m #1",
             "skills": {
               "500": {
-                "mu": 1.0363,
+                "mu": 1.0365,
                 "sigma": 1.011
               },
               "1000": {
@@ -6368,7 +6368,7 @@
               "500": 0.0507,
               "1000": 0.0618,
               "1500": 0.0391,
-              "relay": 0.4965,
+              "relay": 0.4964,
               "form": -0.123
             },
             "roster_tier": "core",
@@ -6441,7 +6441,7 @@
             "recent_highlight": "国内甲组 衡水 500m #1",
             "skills": {
               "500": {
-                "mu": 1.4667,
+                "mu": 1.4668,
                 "sigma": 0.8847
               },
               "1000": {
@@ -6538,7 +6538,7 @@
             "recent_highlight": "2026/27 WT Seoul 1500m #5",
             "skills": {
               "500": {
-                "mu": 1.4936,
+                "mu": 1.4938,
                 "sigma": 0.966
               },
               "1000": {
@@ -6623,7 +6623,7 @@
             "recent_highlight": "2026/27 WT Vancouver 1500m #7",
             "skills": {
               "500": {
-                "mu": 0.489,
+                "mu": 0.4895,
                 "sigma": 1.6016
               },
               "1000": {
@@ -6708,7 +6708,7 @@
             "recent_highlight": "国内甲组 衡水 500m #2",
             "skills": {
               "500": {
-                "mu": 1.2311,
+                "mu": 1.2313,
                 "sigma": 1.0087
               },
               "1000": {
@@ -6731,7 +6731,7 @@
               "500": 0.0612,
               "1000": 0.0362,
               "1500": 0.0087,
-              "relay": 0.3433,
+              "relay": 0.3432,
               "form": -0.0022
             },
             "roster_tier": "bubble",
@@ -6793,7 +6793,7 @@
             "recent_highlight": "国内甲组 衡水 1000m #5",
             "skills": {
               "500": {
-                "mu": 0.4445,
+                "mu": 0.4451,
                 "sigma": 1.6016
               },
               "1000": {
@@ -6859,8 +6859,8 @@
             "recent_highlight": "2026/27 JWC2 Bormio 500m #1",
             "skills": {
               "500": {
-                "mu": 1.0136,
-                "sigma": 1.0749
+                "mu": 1.0155,
+                "sigma": 1.0743
               },
               "1000": {
                 "mu": 0.8554,
@@ -6879,10 +6879,10 @@
               "relay": 0.033
             },
             "value_scores": {
-              "500": 0.0485,
+              "500": 0.0486,
               "1000": 0.0524,
               "1500": 0.0444,
-              "relay": 0.2115,
+              "relay": 0.2118,
               "form": 0.2379
             },
             "roster_tier": "cut",
@@ -6925,8 +6925,8 @@
             "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
             "skills": {
               "500": {
-                "mu": 0.3192,
-                "sigma": 0.8711
+                "mu": 0.3202,
+                "sigma": 0.8708
               },
               "1000": {
                 "mu": 0.8653,
@@ -6984,7 +6984,7 @@
             "recent_highlight": "国内甲组 七台河 1000m #2",
             "skills": {
               "500": {
-                "mu": 0.1736,
+                "mu": 0.1743,
                 "sigma": 1.5702
               },
               "1000": {
@@ -7043,7 +7043,7 @@
             "recent_highlight": "国内甲组 七台河 1000m #3",
             "skills": {
               "500": {
-                "mu": 0.2711,
+                "mu": 0.2717,
                 "sigma": 1.4385
               },
               "1000": {
@@ -7102,7 +7102,7 @@
             "recent_highlight": "国内甲组 总积分 #2",
             "skills": {
               "500": {
-                "mu": 0.8663,
+                "mu": 0.8667,
                 "sigma": 1.4385
               },
               "1000": {
@@ -7125,7 +7125,7 @@
               "500": 0.0372,
               "1000": 0.0342,
               "1500": 0.0273,
-              "relay": 0.0619,
+              "relay": 0.0618,
               "form": 0.162
             },
             "roster_tier": "pool",
@@ -7161,7 +7161,7 @@
             "recent_highlight": "国内甲组 1000m #1",
             "skills": {
               "500": {
-                "mu": 0.541,
+                "mu": 0.5415,
                 "sigma": 1.4385
               },
               "1000": {
@@ -7220,7 +7220,7 @@
             "recent_highlight": "国内甲组 七台河 1000m #1",
             "skills": {
               "500": {
-                "mu": 0.4634,
+                "mu": 0.464,
                 "sigma": 1.4385
               },
               "1000": {
@@ -7281,8 +7281,8 @@
             "recent_highlight": "国内甲组 总积分 #3",
             "skills": {
               "500": {
-                "mu": 0.4007,
-                "sigma": 0.8957
+                "mu": 0.4016,
+                "sigma": 0.8954
               },
               "1000": {
                 "mu": 0.1483,
@@ -7301,7 +7301,7 @@
               "relay": 0
             },
             "value_scores": {
-              "500": 0.0284,
+              "500": 0.0285,
               "1000": 0.026,
               "1500": 0.0226,
               "relay": 0.0367,
@@ -7340,15 +7340,15 @@
             "recent_highlight": "2026/27 JWC2 Bormio 500m #4",
             "skills": {
               "500": {
-                "mu": 0.2721,
-                "sigma": 1.3872
+                "mu": 0.2751,
+                "sigma": 1.386
               },
               "1000": {
                 "mu": 0.3403,
                 "sigma": 1.4901
               },
               "1500": {
-                "mu": 0.1185,
+                "mu": 0.1188,
                 "sigma": 1.3
               }
             },
@@ -7408,7 +7408,7 @@
             "recent_highlight": "国内甲组 总积分 #1",
             "skills": {
               "500": {
-                "mu": 0.4763,
+                "mu": 0.4765,
                 "sigma": 1.0697
               },
               "1000": {
@@ -7468,7 +7468,7 @@
             "recent_highlight": "国内甲组 七台河 1500m #1",
             "skills": {
               "500": {
-                "mu": 0.3758,
+                "mu": 0.3761,
                 "sigma": 1.1207
               },
               "1000": {
@@ -7528,8 +7528,8 @@
             "recent_highlight": "2026/27 JWC1 Bormio 1000m #2",
             "skills": {
               "500": {
-                "mu": 0.5036,
-                "sigma": 1.0756
+                "mu": 0.5054,
+                "sigma": 1.075
               },
               "1000": {
                 "mu": 0.0845,
@@ -7588,7 +7588,7 @@
             "recent_highlight": "国内甲组 500m #1",
             "skills": {
               "500": {
-                "mu": 0.604,
+                "mu": 0.6042,
                 "sigma": 1.0584
               },
               "1000": {
@@ -7648,7 +7648,7 @@
             "recent_highlight": "国内甲组 1500m #1",
             "skills": {
               "500": {
-                "mu": 0.6047,
+                "mu": 0.6052,
                 "sigma": 1.4385
               },
               "1000": {
@@ -7733,7 +7733,7 @@
               "skr-8157"
             ],
             "frequency": 0.04,
-            "avg_objective": 2.2993,
+            "avg_objective": 2.2995,
             "modal_entries": {
               "500": [
                 "skr-20551",
@@ -7774,7 +7774,7 @@
               "skr-8157"
             ],
             "frequency": 0.035,
-            "avg_objective": 2.3626,
+            "avg_objective": 2.3627,
             "modal_entries": {
               "500": [
                 "skr-20586",
@@ -7950,7 +7950,7 @@
             "role_tag": "sprint_relay",
             "main_roster_prob": 0.06,
             "primary_replacement_for": "skr-4167",
-            "marginal_loss": 0.0396,
+            "marginal_loss": 0.0395,
             "is_dual_eligible": true,
             "data_sources": [
               "Senior",
@@ -7974,8 +7974,8 @@
               "best_rank": null
             },
             "recent_highlight": "2026/27 JWC2 Bormio 500m #1",
-            "upside_score": 0.1859,
-            "versatility_score": 0.2459,
+            "upside_score": 0.1861,
+            "versatility_score": 0.2461,
             "roster_tier": "cut",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
@@ -9504,7 +9504,7 @@
             "recent_highlight": "国内甲组 衡水 500m #1",
             "skills": {
               "500": {
-                "mu": 1.4668,
+                "mu": 1.4669,
                 "sigma": 0.8838
               },
               "1000": {
@@ -9601,7 +9601,7 @@
             "recent_highlight": "2026/27 WT Seoul 1500m #5",
             "skills": {
               "500": {
-                "mu": 1.4936,
+                "mu": 1.4938,
                 "sigma": 0.9653
               },
               "1000": {
@@ -9624,7 +9624,7 @@
               "500": 0.0796,
               "1000": 0.0486,
               "1500": 0.1186,
-              "relay": 0.5391,
+              "relay": 0.539,
               "form": 0.0368
             },
             "roster_tier": "core",
@@ -9697,7 +9697,7 @@
             "recent_highlight": "国内甲组 衡水 1500m #1",
             "skills": {
               "500": {
-                "mu": 1.0363,
+                "mu": 1.0365,
                 "sigma": 1.0103
               },
               "1000": {
@@ -9782,7 +9782,7 @@
             "recent_highlight": "2026/27 WT Vancouver 1500m #7",
             "skills": {
               "500": {
-                "mu": 0.489,
+                "mu": 0.4895,
                 "sigma": 1.6004
               },
               "1000": {
@@ -9864,7 +9864,7 @@
             "recent_highlight": "国内甲组 衡水 500m #2",
             "skills": {
               "500": {
-                "mu": 1.2311,
+                "mu": 1.2312,
                 "sigma": 1.008
               },
               "1000": {
@@ -9948,7 +9948,7 @@
             "recent_highlight": "国内甲组 衡水 1000m #5",
             "skills": {
               "500": {
-                "mu": 0.4445,
+                "mu": 0.4451,
                 "sigma": 1.6004
               },
               "1000": {
@@ -10014,8 +10014,8 @@
             "recent_highlight": "2026/27 JWC2 Bormio 500m #1",
             "skills": {
               "500": {
-                "mu": 1.0134,
-                "sigma": 1.0744
+                "mu": 1.0153,
+                "sigma": 1.0738
               },
               "1000": {
                 "mu": 0.8553,
@@ -10034,10 +10034,10 @@
               "relay": 0.019
             },
             "value_scores": {
-              "500": 0.0485,
+              "500": 0.0486,
               "1000": 0.0524,
               "1500": 0.0444,
-              "relay": 0.2115,
+              "relay": 0.2118,
               "form": 0.2392
             },
             "roster_tier": "cut",
@@ -10073,7 +10073,7 @@
             "recent_highlight": "国内甲组 七台河 1000m #2",
             "skills": {
               "500": {
-                "mu": 0.1736,
+                "mu": 0.1743,
                 "sigma": 1.5688
               },
               "1000": {
@@ -10132,7 +10132,7 @@
             "recent_highlight": "国内甲组 七台河 1000m #3",
             "skills": {
               "500": {
-                "mu": 0.2711,
+                "mu": 0.2717,
                 "sigma": 1.4365
               },
               "1000": {
@@ -10198,8 +10198,8 @@
             "recent_highlight": "2026/27 JWC2 Bormio 1500m #1",
             "skills": {
               "500": {
-                "mu": 0.3192,
-                "sigma": 0.8707
+                "mu": 0.3202,
+                "sigma": 0.8704
               },
               "1000": {
                 "mu": 0.8653,
@@ -10257,7 +10257,7 @@
             "recent_highlight": "国内甲组 七台河 500m #2",
             "skills": {
               "500": {
-                "mu": 0.8663,
+                "mu": 0.8667,
                 "sigma": 1.4365
               },
               "1000": {
@@ -10316,7 +10316,7 @@
             "recent_highlight": "国内甲组 七台河 1000m #1",
             "skills": {
               "500": {
-                "mu": 0.4634,
+                "mu": 0.464,
                 "sigma": 1.4365
               },
               "1000": {
@@ -10376,8 +10376,8 @@
             "recent_highlight": "2026/27 JWC1 Bormio 1000m #2",
             "skills": {
               "500": {
-                "mu": 0.5037,
-                "sigma": 1.0751
+                "mu": 0.5055,
+                "sigma": 1.0745
               },
               "1000": {
                 "mu": 0.0846,
@@ -10435,15 +10435,15 @@
             "recent_highlight": "2026/27 JWC2 Bormio 500m #4",
             "skills": {
               "500": {
-                "mu": 0.2721,
-                "sigma": 1.3868
+                "mu": 0.2751,
+                "sigma": 1.3856
               },
               "1000": {
                 "mu": 0.3403,
                 "sigma": 1.4898
               },
               "1500": {
-                "mu": 0.1185,
+                "mu": 0.1188,
                 "sigma": 1.3
               }
             },
@@ -10495,7 +10495,7 @@
             "recent_highlight": "国内甲组 七台河 500m #1",
             "skills": {
               "500": {
-                "mu": 0.6047,
+                "mu": 0.6049,
                 "sigma": 1.0574
               },
               "1000": {
@@ -10518,7 +10518,7 @@
               "500": 0.0328,
               "1000": 0.026,
               "1500": 0.0131,
-              "relay": 0.0809,
+              "relay": 0.0808,
               "form": -0.16
             },
             "roster_tier": "pool",
@@ -10555,7 +10555,7 @@
             "recent_highlight": "国内甲组 七台河 1500m #1",
             "skills": {
               "500": {
-                "mu": 0.3763,
+                "mu": 0.3766,
                 "sigma": 1.1202
               },
               "1000": {
@@ -10634,7 +10634,7 @@
               "skr-8157"
             ],
             "frequency": 0.202,
-            "avg_objective": 1.3694,
+            "avg_objective": 1.3695,
             "modal_entries": {
               "500": [
                 "skr-18320",
@@ -10667,7 +10667,7 @@
               "skr-8078"
             ],
             "frequency": 0.055,
-            "avg_objective": 1.5409,
+            "avg_objective": 1.541,
             "modal_entries": {
               "500": [
                 "skr-18320",
@@ -10866,8 +10866,8 @@
               "best_rank": null
             },
             "recent_highlight": "国内甲组 衡水 1000m #5",
-            "upside_score": 0.179,
-            "versatility_score": 0.453,
+            "upside_score": 0.1791,
+            "versatility_score": 0.4531,
             "roster_tier": "cut",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
@@ -10885,7 +10885,7 @@
             "role_tag": "sprint_relay",
             "main_roster_prob": 0.031,
             "primary_replacement_for": "skr-4167",
-            "marginal_loss": 0.0191,
+            "marginal_loss": 0.019,
             "is_dual_eligible": true,
             "data_sources": [
               "Senior",
@@ -10909,8 +10909,8 @@
               "best_rank": null
             },
             "recent_highlight": "2026/27 JWC2 Bormio 500m #1",
-            "upside_score": 0.1858,
-            "versatility_score": 0.2168,
+            "upside_score": 0.186,
+            "versatility_score": 0.217,
             "roster_tier": "cut",
             "specialty_tag": "mid_long",
             "specialty_label": "中长距离",
