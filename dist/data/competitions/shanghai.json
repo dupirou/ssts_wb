@@ -2408,8 +2408,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-28T06:11:14+00:00",
-    "updated_at": "2026-11-28T06:11:14+00:00",
+    "checked_at": "2026-11-28T06:21:27+00:00",
+    "updated_at": "2026-11-28T06:21:27+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -16784,8 +16784,8 @@
         "heat_number": 1,
         "heat_label": "Heat 1",
         "source_start": "2026-11-28T14:05:00.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16435&round=23666",
         "participants": [
@@ -16797,8 +16797,8 @@
             "helmet_number": 7,
             "starting_position": 1,
             "rank": 1,
-            "result": "40.070",
-            "qualification": null,
+            "result": "40.071",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -16809,22 +16809,10 @@
             "helmet_number": 69,
             "starting_position": 5,
             "rank": 2,
-            "result": "40.380",
-            "qualification": null,
+            "result": "40.368",
+            "qualification": "Q",
             "penalty": null,
             "name_latin": "Zixia ZHANG"
-          },
-          {
-            "athlete_id": "ath-766b41e307ecb7b3445a",
-            "name": "Konstantin IVLIEV",
-            "country": "AIN2",
-            "official_skater_id": 2908,
-            "helmet_number": 124,
-            "starting_position": 4,
-            "rank": 3,
-            "result": "40.750",
-            "qualification": null,
-            "penalty": null
           },
           {
             "athlete_id": "ath-284e4e30ce2b8e981154",
@@ -16833,9 +16821,9 @@
             "official_skater_id": 491,
             "helmet_number": 122,
             "starting_position": 3,
-            "rank": 4,
-            "result": "40.940",
-            "qualification": null,
+            "rank": 3,
+            "result": "40.924",
+            "qualification": "ADV",
             "penalty": null
           },
           {
@@ -16845,10 +16833,25 @@
             "official_skater_id": 5474,
             "helmet_number": 66,
             "starting_position": 2,
-            "rank": 5,
-            "result": "42.350",
+            "rank": 4,
+            "result": "42.308",
             "qualification": null,
             "penalty": null
+          },
+          {
+            "athlete_id": "ath-766b41e307ecb7b3445a",
+            "name": "Konstantin IVLIEV",
+            "country": "AIN2",
+            "official_skater_id": 2908,
+            "helmet_number": 124,
+            "starting_position": 4,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -16864,24 +16867,12 @@
         "group": null,
         "heat_number": 2,
         "heat_label": "Heat 2",
-        "source_start": "2026-11-28T14:07:00.000Z",
-        "result_status": "Start List",
-        "evidence": "official_start_list",
+        "source_start": "2026-11-28T14:12:36.000Z",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16435&round=23666",
         "participants": [
-          {
-            "athlete_id": "ath-0b75c8b148a940d59dbb",
-            "name": "Thomas NADALINI",
-            "country": "ITA",
-            "official_skater_id": 4990,
-            "helmet_number": 6,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-98d77949cb6eb84d0b02",
             "name": "Teun BOER",
@@ -16889,33 +16880,9 @@
             "official_skater_id": 783,
             "helmet_number": 46,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-ff84a70c32aaa0324d85",
-            "name": "William DANDJINOU",
-            "country": "CAN",
-            "official_skater_id": 1422,
-            "helmet_number": 1,
-            "starting_position": 3,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
-          {
-            "athlete_id": "ath-64a844d676fa24746b6b",
-            "name": "Aibek NASSEN",
-            "country": "KAZ",
-            "official_skater_id": 5039,
-            "helmet_number": 91,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 1,
+            "result": "39.858",
+            "qualification": "Q",
             "penalty": null
           },
           {
@@ -16925,10 +16892,52 @@
             "official_skater_id": 3473,
             "helmet_number": 97,
             "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
+            "rank": 2,
+            "result": "41.122",
+            "qualification": "Q",
             "penalty": null
+          },
+          {
+            "athlete_id": "ath-ff84a70c32aaa0324d85",
+            "name": "William DANDJINOU",
+            "country": "CAN",
+            "official_skater_id": 1422,
+            "helmet_number": 1,
+            "starting_position": 3,
+            "rank": 3,
+            "result": "50.572",
+            "qualification": "p",
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-0b75c8b148a940d59dbb",
+            "name": "Thomas NADALINI",
+            "country": "ITA",
+            "official_skater_id": 4990,
+            "helmet_number": 6,
+            "starting_position": 1,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
+          },
+          {
+            "athlete_id": "ath-64a844d676fa24746b6b",
+            "name": "Aibek NASSEN",
+            "country": "KAZ",
+            "official_skater_id": 5039,
+            "helmet_number": 91,
+            "starting_position": 4,
+            "rank": null,
+            "result": "PEN",
+            "qualification": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            }
           }
         ]
       },
@@ -16945,23 +16954,11 @@
         "heat_number": 3,
         "heat_label": "Heat 3",
         "source_start": "2026-11-28T14:09:00.000Z",
-        "result_status": "Start List",
+        "result_status": "Live",
         "evidence": "official_start_list",
         "has_china": false,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16435&round=23666",
         "participants": [
-          {
-            "athlete_id": "ath-827e905d163c7f93c593",
-            "name": "Brandon KIM",
-            "country": "USA",
-            "official_skater_id": 3385,
-            "helmet_number": 14,
-            "starting_position": 1,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null
-          },
           {
             "athlete_id": "ath-2f5775133539f6a7e0f7",
             "name": "Felix ROUSSEL",
@@ -16969,8 +16966,8 @@
             "official_skater_id": 5998,
             "helmet_number": 11,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "40.030",
             "qualification": null,
             "penalty": null
           },
@@ -16981,8 +16978,8 @@
             "official_skater_id": 4847,
             "helmet_number": 9,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "40.340",
             "qualification": null,
             "penalty": null
           },
@@ -16993,6 +16990,18 @@
             "official_skater_id": 4030,
             "helmet_number": 32,
             "starting_position": 4,
+            "rank": 3,
+            "result": "41.750",
+            "qualification": null,
+            "penalty": null
+          },
+          {
+            "athlete_id": "ath-827e905d163c7f93c593",
+            "name": "Brandon KIM",
+            "country": "USA",
+            "official_skater_id": 3385,
+            "helmet_number": 14,
+            "starting_position": 1,
             "rank": null,
             "result": null,
             "qualification": null,
