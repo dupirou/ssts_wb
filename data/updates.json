@@ -379,6 +379,7 @@
     "shanghai/round/2026-11-28/main/women/1000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/women/1000/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/main/women/3000/semifinal/-/groups": "published",
+    "shanghai/round/2026-11-28/main/women/3000/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/1500/heats/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/1500/heats/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/1500/quarterfinal/-/groups": "published",
@@ -668,21 +669,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "58bedfa647daa5be",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-28",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 5000,
-      "format": "relay",
-      "previous": "2026-11-28 17:36",
-      "current": "2026-11-28 09:36"
-    },
     {
       "id": "5dc1ff2e352f842f",
       "station": "shanghai",
@@ -3384,6 +3370,29 @@
       "china": [
         "Tianyou WANG",
         "Yuheng LI"
+      ]
+    },
+    {
+      "id": "b5fce44cf0632a8f",
+      "station": "shanghai",
+      "at": "2026-11-28T08:51:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 2,
+          "status": "advanced"
+        }
       ]
     }
   ]
