@@ -371,6 +371,8 @@
     "shanghai/round/2026-11-28/repechage/men/500/quarterfinal/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/500/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/women/1000/quarterfinal/-/groups": "published",
+    "shanghai/round/2026-11-28/repechage/women/1000/quarterfinal/-/results": "official",
+    "shanghai/round/2026-11-28/repechage/women/1000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/men/1000/heats/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/women/1500/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/women/500/heats/-/groups": "published",
@@ -643,40 +645,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "8739afad17da71d6",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "People's Republic of China"
-      ]
-    },
-    {
-      "id": "99911aa01de4f66b",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "People's Republic of China"
-      ]
-    },
     {
       "id": "a8c677a0ae4d2001",
       "station": "shanghai",
@@ -3206,6 +3174,53 @@
           "rank": 2,
           "status": "out"
         }
+      ]
+    },
+    {
+      "id": "3ef1f6534e8296a7",
+      "station": "shanghai",
+      "at": "2026-11-28T03:31:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Jiayan NAN",
+        "Xinran WANG"
+      ],
+      "china_results": [
+        {
+          "name": "Jiayan NAN",
+          "rank": 2,
+          "status": "advanced"
+        },
+        {
+          "name": "Xinran WANG",
+          "rank": 1,
+          "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "cf8fbbbe35a1e754",
+      "station": "shanghai",
+      "at": "2026-11-28T03:31:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "Jiayan NAN",
+        "Xinran WANG"
       ]
     }
   ]

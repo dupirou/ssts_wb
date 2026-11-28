@@ -2,6 +2,55 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "cf8fbbbe35a1e754",
+      "station": "shanghai",
+      "at": "2026-11-28T03:31:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "南佳延",
+        "王欣然"
+      ]
+    },
+    {
+      "id": "3ef1f6534e8296a7",
+      "station": "shanghai",
+      "at": "2026-11-28T03:31:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": true,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "南佳延",
+        "王欣然"
+      ],
+      "china_results": [
+        {
+          "name": "南佳延",
+          "rank": 2,
+          "status": "advanced",
+          "name_latin": "Jiayan NAN"
+        },
+        {
+          "name": "王欣然",
+          "rank": 1,
+          "status": "advanced",
+          "name_latin": "Xinran WANG"
+        }
+      ]
+    },
+    {
       "id": "4d111cfb0c873fe2",
       "station": "shanghai",
       "at": "2026-11-28T03:01:15+00:00",
@@ -2565,40 +2614,6 @@
       "kind": "groups",
       "heats": 7,
       "china": []
-    },
-    {
-      "id": "99911aa01de4f66b",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "People's Republic of China"
-      ]
-    },
-    {
-      "id": "8739afad17da71d6",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 3000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "People's Republic of China"
-      ]
     }
   ]
 }
