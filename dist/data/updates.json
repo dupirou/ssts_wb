@@ -2,6 +2,49 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "bc70b2d8fa53f9ba",
+      "station": "shanghai",
+      "at": "2026-11-28T03:41:19+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "孙龙",
+        "张子夏"
+      ]
+    },
+    {
+      "id": "874a1fcf61c64a8f",
+      "station": "shanghai",
+      "at": "2026-11-28T03:41:19+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "李坤"
+      ],
+      "china_results": [
+        {
+          "name": "李坤",
+          "rank": null,
+          "penalty": "YC",
+          "status": "out",
+          "name_latin": "Kun LI"
+        }
+      ]
+    },
+    {
       "id": "cf8fbbbe35a1e754",
       "station": "shanghai",
       "at": "2026-11-28T03:31:13+00:00",
@@ -2582,38 +2625,6 @@
         "南佳延",
         "王欣然"
       ]
-    },
-    {
-      "id": "ad1c056044a2da27",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "People's Republic of China"
-      ]
-    },
-    {
-      "id": "a8c677a0ae4d2001",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": []
     }
   ]
 }

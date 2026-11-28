@@ -359,6 +359,7 @@
     "shanghai/round/2026-11-27/qualifying/women/500/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/results": "official",
+    "shanghai/round/2026-11-28/main/men/500/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/men/5000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/mixed/2000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/women/3000/semifinal/-/groups": "published",
@@ -370,6 +371,7 @@
     "shanghai/round/2026-11-28/repechage/men/500/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/500/quarterfinal/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/500/semifinal/-/groups": "published",
+    "shanghai/round/2026-11-28/repechage/men/500/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/repechage/women/1000/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/women/1000/quarterfinal/-/results": "official",
     "shanghai/round/2026-11-28/repechage/women/1000/semifinal/-/groups": "published",
@@ -645,38 +647,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "a8c677a0ae4d2001",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": null,
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": []
-    },
-    {
-      "id": "ad1c056044a2da27",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "kind": "groups",
-      "heats": 3,
-      "china": [
-        "People's Republic of China"
-      ]
-    },
     {
       "id": "b2838e5336a2a951",
       "station": "shanghai",
@@ -3221,6 +3191,48 @@
       "china": [
         "Jiayan NAN",
         "Xinran WANG"
+      ]
+    },
+    {
+      "id": "874a1fcf61c64a8f",
+      "station": "shanghai",
+      "at": "2026-11-28T03:41:19+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": true,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Kun LI"
+      ],
+      "china_results": [
+        {
+          "name": "Kun LI",
+          "rank": null,
+          "penalty": "YC",
+          "status": "out"
+        }
+      ]
+    },
+    {
+      "id": "bc70b2d8fa53f9ba",
+      "station": "shanghai",
+      "at": "2026-11-28T03:41:19+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 4,
+      "china": [
+        "Long SUN",
+        "Zixia ZHANG"
       ]
     }
   ]
