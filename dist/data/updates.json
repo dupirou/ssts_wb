@@ -2,6 +2,47 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "957d27c1c2d9b2d5",
+      "station": "shanghai",
+      "at": "2026-11-28T07:01:19+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "张子夏"
+      ],
+      "china_results": [
+        {
+          "name": "张子夏",
+          "rank": 3,
+          "status": "advanced",
+          "name_latin": "Zixia ZHANG"
+        }
+      ]
+    },
+    {
+      "id": "402ef5a5ba027ebd",
+      "station": "shanghai",
+      "at": "2026-11-28T07:01:19+00:00",
+      "local_date": "2026-11-28",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": [
+        "张子夏"
+      ]
+    },
+    {
       "id": "df48bf88189614e0",
       "station": "shanghai",
       "at": "2026-11-28T06:51:30+00:00",
@@ -2676,36 +2717,6 @@
       "format": "individual",
       "previous": "2026-11-28 11:09",
       "current": "2026-11-28 03:09"
-    },
-    {
-      "id": "23c84092f58f2754",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-29",
-      "round": "semifinal",
-      "group": null,
-      "repechage": true,
-      "gender": "women",
-      "distance_m": 1500,
-      "format": "individual",
-      "previous": "2026-11-29 12:42",
-      "current": "2026-11-29 04:42"
-    },
-    {
-      "id": "1e8ecd06fec669d8",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-29",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-29 15:13",
-      "current": "2026-11-29 07:13"
     }
   ]
 }
