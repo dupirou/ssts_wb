@@ -2,6 +2,21 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "598f124fbeef4fe7",
+      "station": "shanghai",
+      "at": "2026-11-28T05:21:12+00:00",
+      "local_date": "2026-11-29",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "mixed",
+      "distance_m": 2000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
       "id": "64adb40bd2511d02",
       "station": "shanghai",
       "at": "2026-11-28T05:11:16+00:00",
@@ -2663,14 +2678,6 @@
       "format": "individual",
       "previous": "2026-11-27 09:21",
       "current": "2026-11-27 01:21"
-    },
-    {
-      "id": "27b7bd552f4bd0d3",
-      "station": "shanghai",
-      "kind": "schedule",
-      "at": "2026-11-26T07:18:38+00:00",
-      "local_date": "2026-11-27",
-      "count": 52
     }
   ]
 }
