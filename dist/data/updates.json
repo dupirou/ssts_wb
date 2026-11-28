@@ -2,6 +2,48 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "44f3a0875d32d61f",
+      "station": "shanghai",
+      "at": "2026-11-28T09:51:16+00:00",
+      "local_date": "2026-11-28",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 3
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "加拿大队",
+          "country": "CAN",
+          "name_latin": "Canada"
+        },
+        {
+          "rank": 2,
+          "name": "韩国队",
+          "country": "KOR",
+          "name_latin": "Republic of Korea"
+        },
+        {
+          "rank": 3,
+          "name": "中国队",
+          "country": "CHN",
+          "name_latin": "People's Republic of China"
+        }
+      ]
+    },
+    {
       "id": "a490faf5b87c1acf",
       "station": "shanghai",
       "kind": "entries",
@@ -2782,21 +2824,6 @@
       "format": "individual",
       "previous": "2026-11-27 10:37",
       "current": "2026-11-27 02:37"
-    },
-    {
-      "id": "7d32276ae0601773",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-28",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-28 14:05",
-      "current": "2026-11-28 06:05"
     }
   ]
 }

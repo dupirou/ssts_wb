@@ -380,6 +380,7 @@
     "shanghai/round/2026-11-28/main/women/1000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/women/1000/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/main/women/3000/final/-/groups": "published",
+    "shanghai/round/2026-11-28/main/women/3000/final/-/results": "official",
     "shanghai/round/2026-11-28/main/women/3000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/women/3000/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/repechage/men/1500/heats/-/groups": "published",
@@ -671,21 +672,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "7d32276ae0601773",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-28",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-28 14:05",
-      "current": "2026-11-28 06:05"
-    },
     {
       "id": "80ea140c55fa2428",
       "station": "shanghai",
@@ -3413,6 +3399,45 @@
       "at": "2026-11-28T09:31:27+00:00",
       "count": 222,
       "changed": true
+    },
+    {
+      "id": "44f3a0875d32d61f",
+      "station": "shanghai",
+      "at": "2026-11-28T09:51:16+00:00",
+      "local_date": "2026-11-28",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 3000,
+      "format": "relay",
+      "kind": "results",
+      "china": [
+        "People's Republic of China"
+      ],
+      "china_results": [
+        {
+          "name": "People's Republic of China",
+          "rank": 3
+        }
+      ],
+      "podium": [
+        {
+          "rank": 1,
+          "name": "Canada",
+          "country": "CAN"
+        },
+        {
+          "rank": 2,
+          "name": "Republic of Korea",
+          "country": "KOR"
+        },
+        {
+          "rank": 3,
+          "name": "People's Republic of China",
+          "country": "CHN"
+        }
+      ]
     }
   ]
 }

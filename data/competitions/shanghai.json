@@ -1792,8 +1792,8 @@
   "rounds": {
     "status": "available",
     "update_status": "ok",
-    "checked_at": "2026-11-28T09:41:10+00:00",
-    "updated_at": "2026-11-28T09:41:10+00:00",
+    "checked_at": "2026-11-28T09:51:16+00:00",
+    "updated_at": "2026-11-28T09:51:16+00:00",
     "source_urls": [
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23620",
       "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16430&round=23621",
@@ -18213,8 +18213,8 @@
         "heat_number": null,
         "heat_label": "Final",
         "source_start": "2026-11-28T17:40:14.000Z",
-        "result_status": "Live",
-        "evidence": "official_start_list",
+        "result_status": "Official",
+        "evidence": "official_results",
         "has_china": true,
         "source_url": "https://www.isu-skating.com/en/short-track/events/eventdetail/isu-short-track-world-tour-4-shanghai/?tab=results_16265&type=16438&round=23706",
         "participants": [
@@ -18225,8 +18225,8 @@
             "official_skater_id": 13206,
             "helmet_number": null,
             "starting_position": 2,
-            "rank": null,
-            "result": null,
+            "rank": 1,
+            "result": "4:07.847",
             "qualification": null,
             "penalty": null,
             "members": []
@@ -18238,8 +18238,34 @@
             "official_skater_id": 13212,
             "helmet_number": null,
             "starting_position": 3,
-            "rank": null,
-            "result": null,
+            "rank": 2,
+            "result": "4:08.005",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-CHN-women",
+            "name": "People's Republic of China",
+            "country": "CHN",
+            "official_skater_id": 13207,
+            "helmet_number": null,
+            "starting_position": 4,
+            "rank": 3,
+            "result": "4:09.015",
+            "qualification": null,
+            "penalty": null,
+            "members": []
+          },
+          {
+            "athlete_id": "team-POL-women",
+            "name": "Poland",
+            "country": "POL",
+            "official_skater_id": 13214,
+            "helmet_number": null,
+            "starting_position": 5,
+            "rank": 4,
+            "result": "4:12.593",
             "qualification": null,
             "penalty": null,
             "members": []
@@ -18252,35 +18278,12 @@
             "helmet_number": null,
             "starting_position": 1,
             "rank": null,
-            "result": null,
+            "result": "PEN",
             "qualification": null,
-            "penalty": null,
-            "members": []
-          },
-          {
-            "athlete_id": "team-POL-women",
-            "name": "Poland",
-            "country": "POL",
-            "official_skater_id": 13214,
-            "helmet_number": null,
-            "starting_position": 5,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
-            "members": []
-          },
-          {
-            "athlete_id": "team-CHN-women",
-            "name": "People's Republic of China",
-            "country": "CHN",
-            "official_skater_id": 13207,
-            "helmet_number": null,
-            "starting_position": 4,
-            "rank": null,
-            "result": null,
-            "qualification": null,
-            "penalty": null,
+            "penalty": {
+              "code": "PEN",
+              "infringement_code": null
+            },
             "members": []
           }
         ]
