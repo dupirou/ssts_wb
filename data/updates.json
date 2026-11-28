@@ -367,6 +367,8 @@
     "shanghai/round/2026-11-28/main/mixed/2000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/mixed/2000/semifinal/-/results": "official",
     "shanghai/round/2026-11-28/main/women/1000/quarterfinal/-/groups": "published",
+    "shanghai/round/2026-11-28/main/women/1000/quarterfinal/-/results": "official",
+    "shanghai/round/2026-11-28/main/women/1000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/women/3000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/1500/heats/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/men/1500/heats/-/results": "official",
@@ -657,36 +659,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "0773e914d8286a6e",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-27",
-      "round": "heats",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 1000,
-      "format": "individual",
-      "previous": "2026-11-27 15:05",
-      "current": "2026-11-27 07:05"
-    },
-    {
-      "id": "1cc2b2db206481e7",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-27",
-      "round": "quarterfinal",
-      "group": null,
-      "repechage": false,
-      "gender": "mixed",
-      "distance_m": 2000,
-      "format": "relay",
-      "previous": "2026-11-27 17:27",
-      "current": "2026-11-27 09:27"
-    },
     {
       "id": "1e8ecd06fec669d8",
       "station": "shanghai",
@@ -3305,6 +3277,45 @@
           "name": "Zixia ZHANG",
           "rank": 2,
           "status": "advanced"
+        }
+      ]
+    },
+    {
+      "id": "60eddba9e8f5d071",
+      "station": "shanghai",
+      "at": "2026-11-28T06:51:30+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
+    },
+    {
+      "id": "df48bf88189614e0",
+      "station": "shanghai",
+      "at": "2026-11-28T06:51:30+00:00",
+      "local_date": "2026-11-28",
+      "round": "quarterfinal",
+      "group": null,
+      "repechage": false,
+      "gender": "women",
+      "distance_m": 1000,
+      "format": "individual",
+      "kind": "results",
+      "china": [
+        "Yan ZHANG"
+      ],
+      "china_results": [
+        {
+          "name": "Yan ZHANG",
+          "rank": null,
+          "penalty": "PEN",
+          "status": "out"
         }
       ]
     }
