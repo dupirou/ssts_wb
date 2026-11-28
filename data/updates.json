@@ -400,6 +400,7 @@
     "shanghai/round/2026-11-28/repechage/women/1000/quarterfinal/-/results": "official",
     "shanghai/round/2026-11-28/repechage/women/1000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/repechage/women/1000/semifinal/-/results": "official",
+    "shanghai/round/2026-11-29/main/men/5000/final/-/groups": "published",
     "shanghai/round/2026-11-29/main/mixed/2000/final/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/men/1000/heats/-/groups": "published",
     "shanghai/round/2026-11-29/repechage/women/1500/quarterfinal/-/groups": "published",
@@ -673,21 +674,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "844427e82cf69e66",
-      "station": "shanghai",
-      "kind": "time_change",
-      "at": "2026-11-26T11:01:10+00:00",
-      "local_date": "2026-11-28",
-      "round": "semifinal",
-      "group": null,
-      "repechage": false,
-      "gender": "men",
-      "distance_m": 500,
-      "format": "individual",
-      "previous": "2026-11-28 14:35",
-      "current": "2026-11-28 06:35"
-    },
     {
       "id": "940de2ef02b1bf62",
       "station": "shanghai",
@@ -3448,6 +3434,21 @@
           "status": "out"
         }
       ]
+    },
+    {
+      "id": "c177fe83b07f9a3c",
+      "station": "shanghai",
+      "at": "2026-11-28T10:31:13+00:00",
+      "local_date": "2026-11-29",
+      "round": "final",
+      "group": "A",
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 5000,
+      "format": "relay",
+      "kind": "groups",
+      "heats": 2,
+      "china": []
     }
   ]
 }
