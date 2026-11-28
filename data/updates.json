@@ -359,6 +359,7 @@
     "shanghai/round/2026-11-27/qualifying/women/500/heats/-/results": "official",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/groups": "published",
     "shanghai/round/2026-11-27/qualifying/women/500/preliminaries/-/results": "official",
+    "shanghai/round/2026-11-28/main/men/1500/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/men/500/quarterfinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/men/5000/semifinal/-/groups": "published",
     "shanghai/round/2026-11-28/main/mixed/2000/semifinal/-/groups": "published",
@@ -652,21 +653,6 @@
     "vancouver/time/2026-10-25/repechage/women/500/semifinal/-": "2026-10-26 04:11"
   },
   "events": [
-    {
-      "id": "fe9f8dc173f97a4a",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": []
-    },
     {
       "id": "ffdc4eb7cbe4c57b",
       "station": "shanghai",
@@ -3269,6 +3255,25 @@
           "rank": 2,
           "status": "out"
         }
+      ]
+    },
+    {
+      "id": "7f2401dd917f2438",
+      "station": "shanghai",
+      "at": "2026-11-28T04:51:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 3,
+      "china": [
+        "Bohao ZHANG",
+        "Tianyou WANG",
+        "Yuheng LI"
       ]
     }
   ]

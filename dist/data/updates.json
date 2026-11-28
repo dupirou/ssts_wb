@@ -2,6 +2,25 @@
   "schema_version": 1,
   "events": [
     {
+      "id": "7f2401dd917f2438",
+      "station": "shanghai",
+      "at": "2026-11-28T04:51:13+00:00",
+      "local_date": "2026-11-28",
+      "round": "semifinal",
+      "group": null,
+      "repechage": false,
+      "gender": "men",
+      "distance_m": 1500,
+      "format": "individual",
+      "kind": "groups",
+      "heats": 3,
+      "china": [
+        "张柏浩",
+        "王天佑",
+        "李禹衡"
+      ]
+    },
+    {
       "id": "628dae5d153ceb9f",
       "station": "shanghai",
       "at": "2026-11-28T04:41:16+00:00",
@@ -2647,21 +2666,6 @@
         "李禹衡",
         "张子夏"
       ]
-    },
-    {
-      "id": "fe9f8dc173f97a4a",
-      "station": "shanghai",
-      "at": "2026-11-26T07:01:22+00:00",
-      "local_date": "2026-11-27",
-      "round": "preliminaries",
-      "group": null,
-      "repechage": false,
-      "gender": "women",
-      "distance_m": 500,
-      "format": "individual",
-      "kind": "groups",
-      "heats": 7,
-      "china": []
     }
   ]
 }
